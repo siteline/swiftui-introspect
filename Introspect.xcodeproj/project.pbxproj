@@ -10,6 +10,8 @@
 		C068701C238DE85D00DAFD3D /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0687012238DE85D00DAFD3D /* Introspect.framework */; };
 		C0687021238DE85D00DAFD3D /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687020238DE85D00DAFD3D /* IntrospectTests.swift */; };
 		C0687023238DE85D00DAFD3D /* Introspect.h in Headers */ = {isa = PBXBuildFile; fileRef = C0687015238DE85D00DAFD3D /* Introspect.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C068702D238DE8FD00DAFD3D /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
+		C068702F238DF01200DAFD3D /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702E238DF01200DAFD3D /* TestUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		C068701B238DE85D00DAFD3D /* IntrospectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0687020238DE85D00DAFD3D /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		C0687022238DE85D00DAFD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C068702C238DE8FD00DAFD3D /* Introspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introspect.swift; sourceTree = "<group>"; };
+		C068702E238DF01200DAFD3D /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,7 @@
 			children = (
 				C0687015238DE85D00DAFD3D /* Introspect.h */,
 				C0687016238DE85D00DAFD3D /* Info.plist */,
+				C068702C238DE8FD00DAFD3D /* Introspect.swift */,
 			);
 			path = Introspect;
 			sourceTree = "<group>";
@@ -82,6 +87,7 @@
 			children = (
 				C0687020238DE85D00DAFD3D /* IntrospectTests.swift */,
 				C0687022238DE85D00DAFD3D /* Info.plist */,
+				C068702E238DF01200DAFD3D /* TestUtils.swift */,
 			);
 			path = IntrospectTests;
 			sourceTree = "<group>";
@@ -148,6 +154,7 @@
 				TargetAttributes = {
 					C0687011238DE85D00DAFD3D = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 					C068701A238DE85D00DAFD3D = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -195,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C068702D238DE8FD00DAFD3D /* Introspect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0687021238DE85D00DAFD3D /* IntrospectTests.swift in Sources */,
+				C068702F238DF01200DAFD3D /* TestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +349,7 @@
 		C0687027238DE85D00DAFD3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5CYVM7UEHW;
@@ -356,6 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.loisdiqual.Introspect;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +375,7 @@
 		C0687028238DE85D00DAFD3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5CYVM7UEHW;
@@ -388,6 +400,7 @@
 		C068702A238DE85D00DAFD3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CYVM7UEHW;
 				INFOPLIST_FILE = IntrospectTests/Info.plist;
@@ -406,6 +419,7 @@
 		C068702B238DE85D00DAFD3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5CYVM7UEHW;
 				INFOPLIST_FILE = IntrospectTests/Info.plist;

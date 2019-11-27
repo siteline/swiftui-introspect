@@ -18,7 +18,6 @@ Slider | UISlider | `.introspectSlider()`
 
 SwiftUI | UIKit
 --- | ---
-Button | UIButton
 ScrollView | UIScrollView
 TabbedView | UITabBarController
 Stepper | UIStepper
@@ -31,3 +30,4 @@ SwiftUI | Why
 Text | Not a UILabel
 Image | Not a UIImageView
 SegmentedControl | Not a UISegmentedControl
+Button | Not a UIButton

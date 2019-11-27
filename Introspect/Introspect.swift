@@ -44,10 +44,10 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
 
     public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<IntrospectionView>) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            guard let viewHost = uiView.superview?.superview else {
+            guard let hostingView = uiView.superview?.superview else {
                 return
             }
-            guard let targetView = self.selector(viewHost) else {
+            guard let targetView = self.selector(hostingView) else {
                 return
             }
             self.customize(targetView)

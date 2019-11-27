@@ -81,6 +81,17 @@ private struct ToggleTestView: View {
     }
 }
 
+private struct SliderTestView: View {
+    let spy: () -> Void
+    @State private var sliderValue = 0.0
+    var body: some View {
+        Slider(value: $sliderValue, in: 0...100)
+        .introspectSlider { slider in
+            self.spy()
+        }
+    }
+}
+
 class IntrospectTests: XCTestCase {
     func testNavigation() {
         
@@ -130,6 +141,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = ToggleTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testSlider() {
+        
+        let expectation = XCTestExpectation()
+        let view = SliderTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

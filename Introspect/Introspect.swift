@@ -44,10 +44,7 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
 
     public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<IntrospectionView>) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            guard let hostingView = uiView.superview?.superview else {
-                return
-            }
-            guard let targetView = self.selector(hostingView) else {
+            guard let targetView = self.selector(uiView) else {
                 print("Couldn't find a view of type \(ViewType.self). Please make sure you apply introspect*() on a subview of the element to introspect.")
                 return
             }
@@ -109,4 +106,5 @@ extension View {
             customize: customize
         ))
     }
+
 }

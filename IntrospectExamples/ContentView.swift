@@ -11,6 +11,9 @@ struct ContentView: View {
             NavigationExample()
                 .tabItem { Text("Navigation") }
                 .tag(1)
+            SimpleElementsExample()
+                .tabItem { Text("Simple elements") }
+                .tag(2)
         }
     }
 }
@@ -54,7 +57,18 @@ struct NavigationExample: View {
                 nvc.navigationBar.backgroundColor = .red
             }
         }
-        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct SimpleElementsExample: View {
+    @State private var selection = 0
+    var body: some View {
+        HStack {
+            Image(systemName: "folder")
+            .introspectImageView { imageView in
+                
+            }
+        }
     }
 }
 

@@ -3,18 +3,31 @@ Introspect for SwiftUI
 
 Introspect allows you to get the underlying UIKit element of a SwiftUI view.
 
+### Implemented
+
 SwiftUI | UIKit | Introspect
 --- | --- | ---
-Text | UILabel | `.introspectLabel()`
-Image | UIImageView | `.introspectImageView()`
-TextField | UITextField | `.introspectTextField()`
-Toggle | UISwitch | `.introspectSwitch()`
-Slider | UISlider | `.introspectSlider()`
-Button | UIButton | `.introspectButton()`
-List | UITableView | `.introspectTableView()`
-ScrollView | UIScrollView | `.introspectScrollView()`
-NavigationView | UINavigationController | `.introspectNavigationController()`
-TabbedView | UITabBarController | `.introspectTabBarController()`
-SegmentedControl | UISegmentedControl | `.introspectSegmentedControl()`
-Stepper | UIStepper | `.introspectStepper()`
-DatePicker | UIDatePicker | `.introspectDatePicker()`
+List | UITableView | `.introspectTableView()` on a list child
+NavigationView | UINavigationController | `.introspectNavigationController()` on a navigation child
+
+
+### Not implemented
+
+SwiftUI | UIKit
+--- | ---
+TextField | UITextField
+Toggle | UISwitch
+Slider | UISlider
+Button | UIButton
+ScrollView | UIScrollView
+TabbedView | UITabBarController
+Stepper | UIStepper
+DatePicker | UIDatePicker
+
+### Cannot implement
+
+SwiftUI | Why
+--- | ---
+Text | Not a UILabel
+Image | Not a UIImageView
+SegmentedControl | Not a UISegmentedControl

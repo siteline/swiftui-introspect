@@ -104,6 +104,19 @@ private struct StepperTestView: View {
     }
 }
 
+private struct DatePickerTestView: View {
+    let spy: () -> Void
+    @State private var datePickerValue = Date()
+    var body: some View {
+        DatePicker(selection: $datePickerValue) {
+            Text("DatePicker")
+        }
+        .introspectDatePicker { datePicker in
+            self.spy()
+        }
+    }
+}
+
 class IntrospectTests: XCTestCase {
     func testNavigation() {
         
@@ -173,6 +186,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = StepperTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testDatePicker() {
+        
+        let expectation = XCTestExpectation()
+        let view = DatePickerTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

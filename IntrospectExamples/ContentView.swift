@@ -61,12 +61,17 @@ struct NavigationExample: View {
 }
 
 struct SimpleElementsExample: View {
-    @State private var selection = 0
+    @State private var test = ""
     var body: some View {
         HStack {
-            Image(systemName: "folder")
-            .introspectImageView { imageView in
-                
+            TextField("Red", text: $test)
+            .introspectTextField { textField in
+                textField.layer.backgroundColor = UIColor.red.cgColor
+            }
+            
+            TextField("Green", text: $test)
+            .introspectTextField { textField in
+                textField.layer.backgroundColor = UIColor.green.cgColor
             }
         }
     }

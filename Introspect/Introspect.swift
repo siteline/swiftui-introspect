@@ -1,12 +1,16 @@
 import SwiftUI
 
 public enum Introspect {
-    public static func findChild<AnyViewType: UIView>(ofType type: AnyViewType.Type, in root: UIView) -> AnyViewType? {
+    
+    public static func findChild<AnyViewType: UIView>(
+        ofType type: AnyViewType.Type,
+        in root: UIView
+    ) -> AnyViewType? {
         for subview in root.subviews {
-            if let tableView = subview as? AnyViewType {
-                return tableView
-            } else if let tableView = findChild(ofType: type, in: subview) {
-                return tableView
+            if let typed = subview as? AnyViewType {
+                return typed
+            } else if let typed = findChild(ofType: type, in: subview) {
+                return typed
             }
         }
         return nil
@@ -22,10 +26,43 @@ public enum Introspect {
         }
         return nil
     }
+    
+    public static func findHostingView(from entry: UIView) -> UIView? {
+        var superview = entry.superview
+        while let s = superview {
+            if NSStringFromClass(type(of: s)).contains("UIHostingView") {
+                return s
+            }
+            superview = s.superview
+        }
+        return nil
+    }
+    
+    public static func findViewHost(from entry: UIView) -> UIView? {
+        var superview = entry.superview
+        while let s = superview {
+            if NSStringFromClass(type(of: s)).contains("ViewHost") {
+                return s
+            }
+            superview = s.superview
+        }
+        return nil
+    }
+}
+
+// Allows to safely access an array element by index
+// Usage: array[safe: 2]
+private extension Array {
+    public subscript(safe index: Int) -> Element? {
+        guard index >= 0, index < endIndex else {
+            return nil
+        }
+
+        return self[index]
+    }
 }
 
 public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
-    
     
     let selector: (UIView) -> ViewType?
     let customize: (ViewType) -> Void
@@ -39,7 +76,9 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
     }
     
     public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> UIView {
-        return UIView(frame: .zero)
+        let view = UIView(frame: .zero)
+        view.accessibilityLabel = "IntrospectionUIView<\(ViewType.self)>"
+        return view
     }
 
     public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<IntrospectionView>) {
@@ -93,8 +132,8 @@ public struct IntrospectionViewController<ViewControllerType: UIViewController>:
 extension View {
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
         return background(IntrospectionView(
-            selector: { viewHost in
-                Introspect.findAncestor(ofType: UITableView.self, from: viewHost)
+            selector: { introspectionView in
+                Introspect.findAncestor(ofType: UITableView.self, from: introspectionView)
             },
             customize: customize
         ))
@@ -106,5 +145,27 @@ extension View {
             customize: customize
         ))
     }
-
+    
+    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                
+                guard let container = viewHost.superview,
+                    let viewHostIndex = container.subviews.firstIndex(of: viewHost),
+                    let textFieldContainer = container.subviews[safe: viewHostIndex + 1]
+                else {
+                    return nil
+                }
+                                    
+                return Introspect.findChild(
+                    ofType: UITextField.self,
+                    in: textFieldContainer
+                )
+            },
+            customize: customize
+        ))
+    }
 }

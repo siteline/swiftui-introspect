@@ -31,7 +31,7 @@ Examples
 
 ### List
 
-```
+```swift
 List {
     Text("Item 1")
     Text("Item 2")
@@ -43,7 +43,7 @@ List {
 
 ### ScrollView
 
-```
+```swift
 ScrollView {
     Text("Item 2")
 }
@@ -54,7 +54,7 @@ ScrollView {
 
 ### NavigationView
 
-```
+```swift
 NavigationView {
     Text("Item 2")
     .introspectNavigationController { navigationController in
@@ -65,7 +65,7 @@ NavigationView {
 
 ### TextField
 
-```
+```swift
 TextField("Text Field", text: $textFieldValue)
 .introspectTextField { textField in
     textField.layer.backgroundColor = UIColor.red.cgColor

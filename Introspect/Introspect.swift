@@ -98,28 +98,41 @@ private extension Array {
     }
 }
 
+/// Introspection UIView that is inserted alongside the target view.
+public class IntrospectionUIView: UIView {
+    
+    required init() {
+        super.init(frame: .zero)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 /// Introspection View that is injected into the UIKit hierarchy alongside the target view.
 /// After `updateUIView` is called, it calls `selector` to find the target view, then `customize` when the target view is found.
-public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
+public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     
     /// Method that introspects the view hierarchy to find the target view.
     /// First argument is the introspection view itself, which is contained in a view host alongside the target view.
-    let selector: (UIView) -> ViewType?
+    let selector: (IntrospectionUIView) -> TargetViewType?
     
     /// User-provided customization method for the target view.
-    let customize: (ViewType) -> Void
+    let customize: (TargetViewType) -> Void
     
     public init(
-        selector: @escaping (UIView) -> ViewType?,
-        customize: @escaping (ViewType) -> Void
+        selector: @escaping (UIView) -> TargetViewType?,
+        customize: @escaping (TargetViewType) -> Void
     ) {
         self.selector = selector
         self.customize = customize
     }
     
-    public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> UIView {
-        let view = UIView(frame: .zero)
-        view.accessibilityLabel = "IntrospectionUIView<\(ViewType.self)>"
+    public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> IntrospectionUIView {
+        let view = IntrospectionUIView()
+        view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
         return view
     }
 
@@ -128,7 +141,10 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
     /// To workaround this, we want until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
     /// Finding the target view fails silently if the selector yield no result. This happens when `updateUIView`
     /// gets called when the introspection view gets removed from the hierarchy.
-    public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<IntrospectionView>) {
+    public func updateUIView(
+        _ uiView: IntrospectionUIView,
+        context: UIViewRepresentableContext<IntrospectionView>
+    ) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             guard let targetView = self.selector(uiView) else {
                 return
@@ -138,15 +154,27 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
     }
 }
 
-/// This is the same logic as IntrospectionView but for view controllers. Please see details above.
-public struct IntrospectionViewController<ViewControllerType: UIViewController>: UIViewControllerRepresentable {
+/// Introspection UIViewController that is inserted alongside the target view controller.
+public class IntrospectionUIViewController: UIViewController {
+    required init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    let selector: (UIViewController) -> ViewControllerType?
-    let customize: (ViewControllerType) -> Void
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+/// This is the same logic as IntrospectionView but for view controllers. Please see details above.
+public struct IntrospectionViewController<TargetViewControllerType: UIViewController>: UIViewControllerRepresentable {
+    
+    let selector: (IntrospectionUIViewController) -> TargetViewControllerType?
+    let customize: (TargetViewControllerType) -> Void
     
     public init(
-        selector: @escaping (UIViewController) -> ViewControllerType?,
-        customize: @escaping (ViewControllerType) -> Void
+        selector: @escaping (UIViewController) -> TargetViewControllerType?,
+        customize: @escaping (TargetViewControllerType) -> Void
     ) {
         self.selector = selector
         self.customize = customize
@@ -154,19 +182,18 @@ public struct IntrospectionViewController<ViewControllerType: UIViewController>:
     
     public func makeUIViewController(
         context: UIViewControllerRepresentableContext<IntrospectionViewController>
-    ) -> UIViewController {
-        return UIViewController(nibName: nil, bundle: nil)
+    ) -> IntrospectionUIViewController {
+        let viewController = IntrospectionUIViewController()
+        viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
+        return viewController
     }
     
     public func updateUIViewController(
-        _ uiViewController: UIViewController,
+        _ uiViewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<IntrospectionViewController>
     ) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            guard let hostingViewController = uiViewController.parent else {
-                return
-            }
-            guard let targetView = self.selector(hostingViewController) else {
+            guard let targetView = self.selector(uiViewController) else {
                 return
             }
             self.customize(targetView)

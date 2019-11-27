@@ -201,4 +201,16 @@ extension View {
             customize: customize
         ))
     }
+    
+    public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.firstSibling(containing: UIStepper.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
 }

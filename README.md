@@ -12,6 +12,7 @@ NavigationView | UINavigationController | `.introspectNavigationController()` on
 TextField | UITextField | `.introspectTextField()`
 Toggle | UISwitch | `.introspectSwitch()`
 Slider | UISlider | `.introspectSlider()`
+Stepper | UIStepper | `.introspectStepper()`
 
 
 ### Not implemented
@@ -20,7 +21,6 @@ SwiftUI | UIKit
 --- | ---
 ScrollView | UIScrollView
 TabbedView | UITabBarController
-Stepper | UIStepper
 DatePicker | UIDatePicker
 
 ### Cannot implement

@@ -103,6 +103,22 @@ struct SimpleElementsExample: View {
                     slider.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
+            
+            HStack {
+                Stepper(onIncrement: {}, onDecrement: {}) {
+                    Text("Stepper Red")
+                }
+                .introspectStepper { stepper in
+                    stepper.layer.backgroundColor = UIColor.red.cgColor
+                }
+                
+                Stepper(onIncrement: {}, onDecrement: {}) {
+                    Text("Stepper Green")
+                }
+                .introspectStepper { stepper in
+                    stepper.layer.backgroundColor = UIColor.green.cgColor
+                }
+            }
         }
         
     }

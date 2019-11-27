@@ -8,20 +8,20 @@ Introspect allows you to get the underlying UIKit element of a SwiftUI view.
 SwiftUI | UIKit | Introspect
 --- | --- | ---
 List | UITableView | `.introspectTableView()` on a list child
+ScrollView | UIScrollView | `.introspectScrollView()` on a scroll view child
 NavigationView | UINavigationController | `.introspectNavigationController()` on a navigation child
 TextField | UITextField | `.introspectTextField()`
 Toggle | UISwitch | `.introspectSwitch()`
 Slider | UISlider | `.introspectSlider()`
 Stepper | UIStepper | `.introspectStepper()`
+DatePicker | UIDatePicker | `.introspectDatePicker()`
 
 
 ### Not implemented
 
 SwiftUI | UIKit
 --- | ---
-ScrollView | UIScrollView
 TabbedView | UITabBarController
-DatePicker | UIDatePicker
 
 ### Cannot implement
 

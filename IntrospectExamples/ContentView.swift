@@ -8,12 +8,15 @@ struct ContentView: View {
             ListExample()
                 .tabItem { Text("List") }
                 .tag(0)
+            ScrollViewExample()
+                .tabItem { Text("ScrollView") }
+                .tag(1)
             NavigationExample()
                 .tabItem { Text("Navigation") }
-                .tag(1)
+                .tag(2)
             SimpleElementsExample()
                 .tabItem { Text("Simple elements") }
-                .tag(2)
+                .tag(3)
         }
     }
 }
@@ -60,11 +63,23 @@ struct NavigationExample: View {
     }
 }
 
+struct ScrollViewExample: View {
+    var body: some View {
+        ScrollView {
+            Text("Customized")
+            .introspectScrollView { scrollView in
+                scrollView.layer.backgroundColor = UIColor.red.cgColor
+            }
+        }
+    }
+}
+
 struct SimpleElementsExample: View {
     
     @State private var textFieldValue = ""
     @State private var toggleValue = false
     @State private var sliderValue = 0.0
+    @State private var datePickerValue = Date()
     
     var body: some View {
         VStack {
@@ -117,6 +132,15 @@ struct SimpleElementsExample: View {
                 }
                 .introspectStepper { stepper in
                     stepper.layer.backgroundColor = UIColor.green.cgColor
+                }
+            }
+            
+            HStack {
+                DatePicker(selection: $datePickerValue) {
+                    Text("DatePicker Red")
+                }
+                .introspectDatePicker { datePicker in
+                    datePicker.layer.backgroundColor = UIColor.red.cgColor
                 }
             }
         }

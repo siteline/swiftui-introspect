@@ -150,10 +150,20 @@ public struct IntrospectionViewController<ViewControllerType: UIViewController>:
 
 
 extension View {
+    
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
         return background(IntrospectionView(
             selector: { introspectionView in
                 Introspect.findAncestor(ofType: UITableView.self, from: introspectionView)
+            },
+            customize: customize
+        ))
+    }
+    
+    public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
+        return background(IntrospectionView(
+            selector: { introspectionView in
+                Introspect.findAncestor(ofType: UIScrollView.self, from: introspectionView)
             },
             customize: customize
         ))
@@ -209,6 +219,18 @@ extension View {
                     return nil
                 }
                 return Introspect.firstSibling(containing: UIStepper.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
+    
+    public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.firstSibling(containing: UIDatePicker.self, from: viewHost)
             },
             customize: customize
         ))

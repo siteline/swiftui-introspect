@@ -70,6 +70,17 @@ private struct TextFieldTestView: View {
     }
 }
 
+private struct ToggleTestView: View {
+    let spy: () -> Void
+    @State private var toggleValue = false
+    var body: some View {
+        Toggle("Toggle", isOn: $toggleValue)
+        .introspectSwitch { uiSwitch in
+            self.spy()
+        }
+    }
+}
+
 class IntrospectTests: XCTestCase {
     func testNavigation() {
         
@@ -109,6 +120,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TextFieldTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testToggle() {
+        
+        let expectation = XCTestExpectation()
+        let view = ToggleTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

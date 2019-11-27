@@ -50,7 +50,7 @@ Slider | UISlider | `.introspectSlider()` | Slider
 Stepper | UIStepper | `.introspectStepper()` | Stepper
 DatePicker | UIDatePicker | `.introspectDatePicker()` | DatePicker
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
+**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).
 
 ### Cannot implement
 
@@ -106,3 +106,34 @@ TextField("Text Field", text: $textFieldValue)
     textField.layer.backgroundColor = UIColor.red.cgColor
 }
 ```
+
+Implement your own selector
+---------------------------
+
+**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
+
+In case Introspect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to look for a `UITextField`:
+
+```swift
+extension View {
+    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.firstSibling(containing: UITextField.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
+}
+```
+
+You can use any of the following [methods](https://github.com/timbersoftware/SwiftUI-Introspect/blob/master/Introspect/Introspect.swift#L3-L71) to inspect the hierarchy:
+
+ - `Introspect.findChild(ofType:in:)`
+ - `Introspect.firstSibling(containing:from:)`
+ - `Introspect.findAncestor(ofType:from:)`
+ - `Introspect.findHostingView(from:)`
+ - `Introspect.findViewHost(from:)`

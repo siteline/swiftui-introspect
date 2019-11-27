@@ -189,4 +189,16 @@ extension View {
             customize: customize
         ))
     }
+    
+    public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.firstSibling(containing: UISlider.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
 }

@@ -11,13 +11,13 @@ List | UITableView | `.introspectTableView()` on a list child
 NavigationView | UINavigationController | `.introspectNavigationController()` on a navigation child
 TextField | UITextField | `.introspectTextField()`
 Toggle | UISwitch | `.introspectSwitch()`
+Slider | UISlider | `.introspectSlider()`
 
 
 ### Not implemented
 
 SwiftUI | UIKit
 --- | ---
-Slider | UISlider
 Button | UIButton
 ScrollView | UIScrollView
 TabbedView | UITabBarController

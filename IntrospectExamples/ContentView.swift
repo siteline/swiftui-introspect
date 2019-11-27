@@ -61,8 +61,11 @@ struct NavigationExample: View {
 }
 
 struct SimpleElementsExample: View {
+    
     @State private var textFieldValue = ""
     @State private var toggleValue = false
+    @State private var sliderValue = 0.0
+    
     var body: some View {
         VStack {
             HStack {
@@ -86,6 +89,18 @@ struct SimpleElementsExample: View {
                 Toggle("Toggle Green", isOn: $toggleValue)
                 .introspectSwitch { uiSwitch in
                     uiSwitch.layer.backgroundColor = UIColor.green.cgColor
+                }
+            }
+            
+            HStack {
+                Slider(value: $sliderValue, in: 0...100)
+                .introspectSlider { slider in
+                    slider.layer.backgroundColor = UIColor.red.cgColor
+                }
+                
+                Slider(value: $sliderValue, in: 0...100)
+                .introspectSlider { slider in
+                    slider.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
         }

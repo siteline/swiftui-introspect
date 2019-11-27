@@ -9,9 +9,9 @@ private struct TestView: View {
         List {
             Text("Item 1")
             Text("Item 2")
-        }
-        .introspectTableView { tableView in
-            self.spy()
+                .introspectTableView { tableView in
+                    self.spy()
+                }
         }
     }
 }

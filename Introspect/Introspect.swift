@@ -48,6 +48,7 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
                 return
             }
             guard let targetView = self.selector(hostingView) else {
+                print("Couldn't find a view of type \(ViewType.self). Please make sure you apply introspect*() on a subview of the element to introspect.")
                 return
             }
             self.customize(targetView)
@@ -56,7 +57,6 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
 }
 
 public struct IntrospectionViewController<ViewControllerType: UIViewController>: UIViewControllerRepresentable {
-    
     
     let selector: (UIViewController) -> ViewControllerType?
     let customize: (ViewControllerType) -> Void
@@ -84,6 +84,7 @@ public struct IntrospectionViewController<ViewControllerType: UIViewController>:
                 return
             }
             guard let targetView = self.selector(hostingViewController) else {
+                print("Couldn't find a view controller of type \(ViewControllerType.self). Please make sure you apply introspect*() on a subview of the element to introspect.")
                 return
             }
             self.customize(targetView)
@@ -96,7 +97,7 @@ extension View {
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
         return background(IntrospectionView(
             selector: { viewHost in
-                Introspect.findChild(ofType: UITableView.self, in: viewHost)
+                Introspect.findAncestor(ofType: UITableView.self, from: viewHost)
             },
             customize: customize
         ))

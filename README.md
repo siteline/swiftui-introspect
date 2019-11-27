@@ -10,6 +10,8 @@ How it works
 
 Introspect works by adding a custom `IntrospectionView` to the view hierarchy, then looking into the UIKit hierarchy to find the relevant view.
 
+![](./docs/diagram.png)
+
 For instance, when introspecting a `TextField`, it will:
 
  - Add `IntrospectionView` as the background of `TextField`

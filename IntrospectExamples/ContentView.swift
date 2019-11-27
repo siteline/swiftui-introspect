@@ -61,19 +61,35 @@ struct NavigationExample: View {
 }
 
 struct SimpleElementsExample: View {
-    @State private var test = ""
+    @State private var textFieldValue = ""
+    @State private var toggleValue = false
     var body: some View {
-        HStack {
-            TextField("Red", text: $test)
-            .introspectTextField { textField in
-                textField.layer.backgroundColor = UIColor.red.cgColor
+        VStack {
+            HStack {
+                TextField("Text Field Red", text: $textFieldValue)
+                .introspectTextField { textField in
+                    textField.layer.backgroundColor = UIColor.red.cgColor
+                }
+                
+                TextField("Text Field Green", text: $textFieldValue)
+                .introspectTextField { textField in
+                    textField.layer.backgroundColor = UIColor.green.cgColor
+                }
             }
             
-            TextField("Green", text: $test)
-            .introspectTextField { textField in
-                textField.layer.backgroundColor = UIColor.green.cgColor
+            HStack {
+                Toggle("Toggle Red", isOn: $toggleValue)
+                .introspectSwitch { uiSwitch in
+                    uiSwitch.layer.backgroundColor = UIColor.red.cgColor
+                }
+                
+                Toggle("Toggle Green", isOn: $toggleValue)
+                .introspectSwitch { uiSwitch in
+                    uiSwitch.layer.backgroundColor = UIColor.green.cgColor
+                }
             }
         }
+        
     }
 }
 

@@ -16,6 +16,26 @@ public enum Introspect {
         return nil
     }
     
+    public static func firstSibling<AnyViewType: UIView>(
+        containing type: AnyViewType.Type,
+        from entry: UIView
+    ) -> AnyViewType? {
+        
+        guard let superview = entry.superview,
+            let entryIndex = superview.subviews.firstIndex(of: entry)
+        else {
+            return nil
+        }
+        
+        for subview in superview.subviews[entryIndex...superview.subviews.count - 1] {
+            if let typed = findChild(ofType: type, in: subview) {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
     public static func findAncestor<AnyViewType: UIView>(ofType type: AnyViewType.Type, from entry: UIView) -> AnyViewType? {
         var superview = entry.superview
         while let s = superview {
@@ -53,7 +73,7 @@ public enum Introspect {
 // Allows to safely access an array element by index
 // Usage: array[safe: 2]
 private extension Array {
-    public subscript(safe index: Int) -> Element? {
+    subscript(safe index: Int) -> Element? {
         guard index >= 0, index < endIndex else {
             return nil
         }
@@ -152,18 +172,19 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                
-                guard let container = viewHost.superview,
-                    let viewHostIndex = container.subviews.firstIndex(of: viewHost),
-                    let textFieldContainer = container.subviews[safe: viewHostIndex + 1]
-                else {
+                return Introspect.firstSibling(containing: UITextField.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
+    
+    public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
+        return self.background(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                                    
-                return Introspect.findChild(
-                    ofType: UITextField.self,
-                    in: textFieldContainer
-                )
+                return Introspect.firstSibling(containing: UISwitch.self, from: viewHost)
             },
             customize: customize
         ))

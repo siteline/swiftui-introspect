@@ -27,7 +27,7 @@ public enum Introspect {
             return nil
         }
         
-        for subview in superview.subviews[entryIndex...superview.subviews.count - 1] {
+        for subview in superview.subviews[entryIndex..<superview.subviews.endIndex] {
             if let typed = findChild(ofType: type, in: subview) {
                 return typed
             }
@@ -172,6 +172,13 @@ extension View {
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
         return background(IntrospectionViewController(
             selector: { $0.navigationController },
+            customize: customize
+        ))
+    }
+    
+    public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
+        return background(IntrospectionViewController(
+            selector: { $0.tabBarController },
             customize: customize
         ))
     }

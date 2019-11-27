@@ -10,18 +10,12 @@ SwiftUI | UIKit | Introspect
 List | UITableView | `.introspectTableView()` on a list child
 ScrollView | UIScrollView | `.introspectScrollView()` on a scroll view child
 NavigationView | UINavigationController | `.introspectNavigationController()` on a navigation child
+TabbedView | UITabBarController | `.introspectTabBarController()` on a tab bar child
 TextField | UITextField | `.introspectTextField()`
 Toggle | UISwitch | `.introspectSwitch()`
 Slider | UISlider | `.introspectSlider()`
 Stepper | UIStepper | `.introspectStepper()`
 DatePicker | UIDatePicker | `.introspectDatePicker()`
-
-
-### Not implemented
-
-SwiftUI | UIKit
---- | ---
-TabbedView | UITabBarController
 
 ### Cannot implement
 

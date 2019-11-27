@@ -8,6 +8,9 @@ struct ContentView: View {
             ListExample()
                 .tabItem { Text("List") }
                 .tag(0)
+                .introspectTabBarController { tabBarController in
+                    tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
+                }
             ScrollViewExample()
                 .tabItem { Text("ScrollView") }
                 .tag(1)

@@ -29,7 +29,7 @@ struct ListExample: View {
         
         HStack {
             VStack {
-                Text("Before")
+                Text("Default")
                 List {
                     Text("Item 1")
                     Text("Item 2")
@@ -37,15 +37,25 @@ struct ListExample: View {
             }
                 
             VStack {
-                Text("After")
+                Text("List.introspectTableView()")
                 List {
                     Text("Item 1")
                     Text("Item 2")
-                    .introspectTableView { tableView in
-                        tableView.separatorStyle = .none
-                    }
                 }
-                
+                .introspectTableView { tableView in
+                    tableView.separatorStyle = .none
+                }
+            }
+            
+            VStack {
+                Text("child.introspectTableView()")
+                List {
+                    Text("Item 1")
+                    Text("Item 2")
+                        .introspectTableView { tableView in
+                            tableView.separatorStyle = .none
+                        }
+                }
             }
         }
         
@@ -68,10 +78,21 @@ struct NavigationExample: View {
 
 struct ScrollViewExample: View {
     var body: some View {
-        ScrollView {
-            Text("Customized")
+        HStack {
+            ScrollView {
+                Text("Default")
+            }
+            ScrollView {
+                Text("ScrollView.introspectScrollView()")
+            }
             .introspectScrollView { scrollView in
                 scrollView.layer.backgroundColor = UIColor.red.cgColor
+            }
+            ScrollView {
+                Text("child.introspectScrollView()")
+                .introspectScrollView { scrollView in
+                    scrollView.layer.backgroundColor = UIColor.green.cgColor
+                }
             }
         }
     }

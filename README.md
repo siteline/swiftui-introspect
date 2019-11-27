@@ -5,17 +5,17 @@ Introspect allows you to get the underlying UIKit element of a SwiftUI view.
 
 ### Implemented
 
-SwiftUI | UIKit | Introspect
---- | --- | ---
-List | UITableView | `.introspectTableView()` on a list child
-ScrollView | UIScrollView | `.introspectScrollView()` on a scroll view child
-NavigationView | UINavigationController | `.introspectNavigationController()` on a navigation child
-TabbedView | UITabBarController | `.introspectTabBarController()` on a tab bar child
-TextField | UITextField | `.introspectTextField()`
-Toggle | UISwitch | `.introspectSwitch()`
-Slider | UISlider | `.introspectSlider()`
-Stepper | UIStepper | `.introspectStepper()`
-DatePicker | UIDatePicker | `.introspectDatePicker()`
+SwiftUI | UIKit | Introspect | Target
+--- | --- | --- | ---
+List | UITableView | `.introspectTableView()` | List, or List child
+ScrollView | UIScrollView | `.introspectScrollView()` | ScrollView, or ScrollView child
+NavigationView | UINavigationController | `.introspectNavigationController()` | NavigationView child
+TabbedView | UITabBarController | `.introspectTabBarController()` | TabbedView
+TextField | UITextField | `.introspectTextField()` | TextField
+Toggle | UISwitch | `.introspectSwitch()` | Toggle
+Slider | UISlider | `.introspectSlider()` | Slider
+Stepper | UIStepper | `.introspectStepper()` | Stepper
+DatePicker | UIDatePicker | `.introspectDatePicker()` | DatePicker
 
 ### Cannot implement
 

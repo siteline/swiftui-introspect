@@ -104,7 +104,6 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
     public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<IntrospectionView>) {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             guard let targetView = self.selector(uiView) else {
-                print("Couldn't find a view of type \(ViewType.self). Please make sure you apply introspect*() on a subview of the element to introspect.")
                 return
             }
             self.customize(targetView)
@@ -140,7 +139,6 @@ public struct IntrospectionViewController<ViewControllerType: UIViewController>:
                 return
             }
             guard let targetView = self.selector(hostingViewController) else {
-                print("Couldn't find a view controller of type \(ViewControllerType.self). Please make sure you apply introspect*() on a subview of the element to introspect.")
                 return
             }
             self.customize(targetView)
@@ -154,7 +152,18 @@ extension View {
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
         return background(IntrospectionView(
             selector: { introspectionView in
-                Introspect.findAncestor(ofType: UITableView.self, from: introspectionView)
+                
+                // Search in ancestors
+                if let tableView = Introspect.findAncestor(ofType: UITableView.self, from: introspectionView) {
+                    return tableView
+                }
+                
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                
+                // Search in siblings
+                return Introspect.firstSibling(containing: UITableView.self, from: viewHost)
             },
             customize: customize
         ))
@@ -163,7 +172,18 @@ extension View {
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
         return background(IntrospectionView(
             selector: { introspectionView in
-                Introspect.findAncestor(ofType: UIScrollView.self, from: introspectionView)
+                
+                // Search in ancestors
+                if let tableView = Introspect.findAncestor(ofType: UIScrollView.self, from: introspectionView) {
+                    return tableView
+                }
+                
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                
+                // Search in siblings
+                return Introspect.firstSibling(containing: UIScrollView.self, from: viewHost)
             },
             customize: customize
         ))

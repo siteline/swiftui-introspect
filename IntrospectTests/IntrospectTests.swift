@@ -92,6 +92,18 @@ private struct SliderTestView: View {
     }
 }
 
+private struct StepperTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        Stepper(onIncrement: {}, onDecrement: {}) {
+            Text("Stepper")
+        }
+        .introspectStepper { stepper in
+            self.spy()
+        }
+    }
+}
+
 class IntrospectTests: XCTestCase {
     func testNavigation() {
         
@@ -151,6 +163,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = SliderTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testStepper() {
+        
+        let expectation = XCTestExpectation()
+        let view = StepperTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

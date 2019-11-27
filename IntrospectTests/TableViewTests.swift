@@ -3,7 +3,7 @@ import SwiftUI
 
 @testable import Introspect
 
-struct ListView: View {
+private struct TestView: View {
     let spy: () -> Void
     var body: some View {
         List {
@@ -16,10 +16,10 @@ struct ListView: View {
     }
 }
 
-class IntrospectTests: XCTestCase {
+class TableViewTests: XCTestCase {
     func testCallsCustomize() {
         let expectation = XCTestExpectation()
-        let view = ListView(spy: {
+        let view = TestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

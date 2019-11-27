@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		C068701C238DE85D00DAFD3D /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0687012238DE85D00DAFD3D /* Introspect.framework */; };
-		C0687021238DE85D00DAFD3D /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687020238DE85D00DAFD3D /* IntrospectTests.swift */; };
+		C0687021238DE85D00DAFD3D /* TableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687020238DE85D00DAFD3D /* TableViewTests.swift */; };
 		C0687023238DE85D00DAFD3D /* Introspect.h in Headers */ = {isa = PBXBuildFile; fileRef = C0687015238DE85D00DAFD3D /* Introspect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C068702D238DE8FD00DAFD3D /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
 		C068702F238DF01200DAFD3D /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702E238DF01200DAFD3D /* TestUtils.swift */; };
+		C0687031238DF3C900DAFD3D /* NavigationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687030238DF3C900DAFD3D /* NavigationViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,10 +30,11 @@
 		C0687015238DE85D00DAFD3D /* Introspect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Introspect.h; sourceTree = "<group>"; };
 		C0687016238DE85D00DAFD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C068701B238DE85D00DAFD3D /* IntrospectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0687020238DE85D00DAFD3D /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
+		C0687020238DE85D00DAFD3D /* TableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTests.swift; sourceTree = "<group>"; };
 		C0687022238DE85D00DAFD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C068702C238DE8FD00DAFD3D /* Introspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introspect.swift; sourceTree = "<group>"; };
 		C068702E238DF01200DAFD3D /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		C0687030238DF3C900DAFD3D /* NavigationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +87,9 @@
 		C068701F238DE85D00DAFD3D /* IntrospectTests */ = {
 			isa = PBXGroup;
 			children = (
-				C0687020238DE85D00DAFD3D /* IntrospectTests.swift */,
 				C0687022238DE85D00DAFD3D /* Info.plist */,
+				C0687030238DF3C900DAFD3D /* NavigationViewTests.swift */,
+				C0687020238DE85D00DAFD3D /* TableViewTests.swift */,
 				C068702E238DF01200DAFD3D /* TestUtils.swift */,
 			);
 			path = IntrospectTests;
@@ -210,7 +213,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0687021238DE85D00DAFD3D /* IntrospectTests.swift in Sources */,
+				C0687031238DF3C900DAFD3D /* NavigationViewTests.swift in Sources */,
+				C0687021238DE85D00DAFD3D /* TableViewTests.swift in Sources */,
 				C068702F238DF01200DAFD3D /* TestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -55,6 +55,42 @@ public struct IntrospectionView<ViewType: UIView>: UIViewRepresentable {
     }
 }
 
+public struct IntrospectionViewController<ViewControllerType: UIViewController>: UIViewControllerRepresentable {
+    
+    
+    let selector: (UIViewController) -> ViewControllerType?
+    let customize: (ViewControllerType) -> Void
+    
+    public init(
+        selector: @escaping (UIViewController) -> ViewControllerType?,
+        customize: @escaping (ViewControllerType) -> Void
+    ) {
+        self.selector = selector
+        self.customize = customize
+    }
+    
+    public func makeUIViewController(
+        context: UIViewControllerRepresentableContext<IntrospectionViewController>
+    ) -> UIViewController {
+        return UIViewController(nibName: nil, bundle: nil)
+    }
+    
+    public func updateUIViewController(
+        _ uiViewController: UIViewController,
+        context: UIViewControllerRepresentableContext<IntrospectionViewController>
+    ) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            guard let hostingViewController = uiViewController.parent else {
+                return
+            }
+            guard let targetView = self.selector(hostingViewController) else {
+                return
+            }
+            self.customize(targetView)
+        }
+    }
+}
+
 
 extension View {
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
@@ -62,6 +98,13 @@ extension View {
             selector: { viewHost in
                 Introspect.findChild(ofType: UITableView.self, in: viewHost)
             },
+            customize: customize
+        ))
+    }
+    
+    public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
+        return background(IntrospectionViewController(
+            selector: { $0.navigationController },
             customize: customize
         ))
     }

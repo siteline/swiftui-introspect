@@ -17,7 +17,8 @@ let package = Package(
     targets: [
         .target(
             name: "Introspect",
-            dependencies: []
+            dependencies: [],
+            path: "Introspect"
         )
     ]
 )

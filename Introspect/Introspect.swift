@@ -135,7 +135,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
-        return IntrospectionUIView()
+        return view
     }
 
     /// When `updateUiView` is called after creating the Introspection view, it is not yet in the UIKit hierarchy.

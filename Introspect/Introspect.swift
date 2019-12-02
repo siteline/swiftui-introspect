@@ -103,6 +103,8 @@ public class IntrospectionUIView: UIView {
     
     required init() {
         super.init(frame: .zero)
+        isHidden = true
+        isUserInteractionEnabled = false
     }
     
     @available(*, unavailable)
@@ -133,7 +135,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
-        return view
+        return IntrospectionUIView()
     }
 
     /// When `updateUiView` is called after creating the Introspection view, it is not yet in the UIKit hierarchy.
@@ -204,20 +206,24 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
 
 extension View {
     
+    public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
+        return overlay(view.frame(width: 0, height: 0))
+    }
+    
     /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
-        return background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
-                
+
                 // Search in ancestors
                 if let tableView = Introspect.findAncestor(ofType: UITableView.self, from: introspectionView) {
                     return tableView
                 }
-                
+
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                
+
                 // Search in siblings
                 return Introspect.firstSibling(containing: UITableView.self, from: viewHost)
             },
@@ -227,7 +233,7 @@ extension View {
     
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
-        return background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 
                 // Search in ancestors
@@ -248,7 +254,7 @@ extension View {
     
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
-        return background(IntrospectionViewController(
+        return inject(IntrospectionViewController(
             selector: { $0.navigationController },
             customize: customize
         ))
@@ -256,7 +262,7 @@ extension View {
 
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
-        return background(IntrospectionViewController(
+        return inject(IntrospectionViewController(
             selector: { $0.tabBarController },
             customize: customize
         ))
@@ -264,7 +270,7 @@ extension View {
     
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        return self.background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
@@ -277,7 +283,7 @@ extension View {
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
-        return self.background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
@@ -290,7 +296,7 @@ extension View {
     
     /// Finds a `UISlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
-        return self.background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
@@ -303,7 +309,7 @@ extension View {
     
     /// Finds a `UIStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
-        return self.background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
@@ -316,7 +322,7 @@ extension View {
     
     /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
-        return self.background(IntrospectionView(
+        return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil

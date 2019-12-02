@@ -45,6 +45,20 @@ private struct TabTestView: View {
     }
 }
 
+private struct TabRootTestView: View {
+    @State private var selection = 0
+    let spy: () -> Void
+    var body: some View {
+        TabView {
+            Text("Item 1")
+                .tag(0)
+        }
+        .introspectTabBarController { _ in
+            self.spy()
+        }
+    }
+}
+
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -170,6 +184,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TabTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testTabViewRoot() {
+        
+        let expectation = XCTestExpectation()
+        let view = TabRootTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

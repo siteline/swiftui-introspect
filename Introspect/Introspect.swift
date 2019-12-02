@@ -85,6 +85,30 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds a previous sibling that is a view controller of the specified type.
+    /// This method does not inspect siblings recursively.
+    /// Returns nil if no sibling is of the specified type.
+    public static func previousSibling<AnyViewControllerType: UIViewController>(
+        ofType type: AnyViewControllerType.Type,
+        from entry: UIViewController
+    ) -> AnyViewControllerType? {
+        
+        guard let parent = entry.parent,
+            let entryIndex = parent.children.firstIndex(of: entry),
+            entryIndex > 0
+        else {
+            return nil
+        }
+        
+        for child in parent.children[0..<entryIndex].reversed() {
+            if let typed = child as? AnyViewControllerType {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
     /// Finds a next sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
@@ -337,7 +361,16 @@ extension View {
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
         return inject(IntrospectionViewController(
-            selector: { $0.tabBarController },
+            selector: { introspectionViewController in
+                
+                // Search in ancestors
+                if let navigationController = introspectionViewController.tabBarController {
+                    return navigationController
+                }
+                
+                // Search in siblings
+                return Introspect.previousSibling(ofType: UITabBarController.self, from: introspectionViewController)
+            },
             customize: customize
         ))
     }

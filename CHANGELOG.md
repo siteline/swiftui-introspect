@@ -4,6 +4,7 @@ Changelog
 ## master
 
  - Allow `.introspectNavigationController()` on NavigationView directly.
+ - Allow `.introspectTabBarController()` on TabView directly.
 
 ## [0.0.4]
 

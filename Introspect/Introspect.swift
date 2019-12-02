@@ -20,7 +20,7 @@ public enum Introspect {
         return nil
     }
     
-    /// Finds the next sibling that contains a view of the specified type.
+    /// Finds a previous sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
     public static func previousSibling<AnyViewType: UIView>(
@@ -44,7 +44,7 @@ public enum Introspect {
         return nil
     }
     
-    /// Finds the next sibling that contains a view of the specified type.
+    /// Finds a next sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
     public static func nextSibling<AnyViewType: UIView>(

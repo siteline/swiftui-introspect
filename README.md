@@ -14,14 +14,13 @@ Introspect works by adding a custom `IntrospectionView` to the view hierarchy, t
 
 For instance, when introspecting a `TextField`, it will:
 
- - Add `IntrospectionView` as the background of `TextField`
+ - Add `IntrospectionView` as an overlay of `TextField`
  - Get the view host of the introspection view (which is alongside the view host of the `UITextField`)
- - Get the next sibling containing `UITextField`
+ - Get the previous sibling containing `UITextField`
 
 **Please note that this introspection method might break in future SwiftUI releases.** Future implementations might not use the same hierarchy, or might not use UIKit elements that are being looked for. Though the library is unlikely to crash, the `.introspect()` method will not be called in those cases.
 
 ### Usage in production
-
 
 `Introspect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit classes, and the `introspect()` methods are simply ignored if UIKit views cannot be found.
 
@@ -130,7 +129,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UITextField.self, from: viewHost)
+                return Introspect.previousSibling(containing: UITextField.self, from: viewHost)
             },
             customize: customize
         ))
@@ -141,7 +140,8 @@ extension View {
 You can use any of the following [methods](https://github.com/timbersoftware/SwiftUI-Introspect/blob/master/Introspect/Introspect.swift#L3-L71) to inspect the hierarchy:
 
  - `Introspect.findChild(ofType:in:)`
- - `Introspect.firstSibling(containing:from:)`
+ - `Introspect.previousSibling(containing:from:)`
+ - `Introspect.nextSibling(containing:from:)`
  - `Introspect.findAncestor(ofType:from:)`
  - `Introspect.findHostingView(from:)`
  - `Introspect.findViewHost(from:)`

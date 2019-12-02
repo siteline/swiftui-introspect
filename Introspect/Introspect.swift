@@ -20,10 +20,34 @@ public enum Introspect {
         return nil
     }
     
-    /// Finds a sibling that contains a view of the specified type.
+    /// Finds the next sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
-    public static func firstSibling<AnyViewType: UIView>(
+    public static func previousSibling<AnyViewType: UIView>(
+        containing type: AnyViewType.Type,
+        from entry: UIView
+    ) -> AnyViewType? {
+        
+        guard let superview = entry.superview,
+            let entryIndex = superview.subviews.firstIndex(of: entry),
+            entryIndex > 0
+        else {
+            return nil
+        }
+        
+        for subview in superview.subviews[0..<entryIndex].reversed() {
+            if let typed = findChild(ofType: type, in: subview) {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
+    /// Finds the next sibling that contains a view of the specified type.
+    /// This method inspects siblings recursively.
+    /// Returns nil if no sibling contains the specified type.
+    public static func nextSibling<AnyViewType: UIView>(
         containing type: AnyViewType.Type,
         from entry: UIView
     ) -> AnyViewType? {
@@ -225,7 +249,7 @@ extension View {
                 }
 
                 // Search in siblings
-                return Introspect.firstSibling(containing: UITableView.self, from: viewHost)
+                return Introspect.previousSibling(containing: UITableView.self, from: viewHost)
             },
             customize: customize
         ))
@@ -246,7 +270,7 @@ extension View {
                 }
                 
                 // Search in siblings
-                return Introspect.firstSibling(containing: UIScrollView.self, from: viewHost)
+                return Introspect.previousSibling(containing: UIScrollView.self, from: viewHost)
             },
             customize: customize
         ))
@@ -275,7 +299,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UITextField.self, from: viewHost)
+                return Introspect.previousSibling(containing: UITextField.self, from: viewHost)
             },
             customize: customize
         ))
@@ -288,7 +312,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UISwitch.self, from: viewHost)
+                return Introspect.previousSibling(containing: UISwitch.self, from: viewHost)
             },
             customize: customize
         ))
@@ -301,7 +325,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UISlider.self, from: viewHost)
+                return Introspect.previousSibling(containing: UISlider.self, from: viewHost)
             },
             customize: customize
         ))
@@ -314,7 +338,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UIStepper.self, from: viewHost)
+                return Introspect.previousSibling(containing: UIStepper.self, from: viewHost)
             },
             customize: customize
         ))
@@ -327,7 +351,7 @@ extension View {
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.firstSibling(containing: UIDatePicker.self, from: viewHost)
+                return Introspect.previousSibling(containing: UIDatePicker.self, from: viewHost)
             },
             customize: customize
         ))

@@ -1,0 +1,47 @@
+
+# Shared Xcode version between jobs
+xcode-version: &xcode-version "11.2.1"
+
+# This is the key that we use to store and restore our dependencies cache.
+# It needs to be different anytime we add Pods, Gems, or npm packages.
+# If something went wrong during a cache build, you can increase the cache version
+# like this: 1-dependencies-... => 2-dependencies-...
+cache-key: &cache-key 3-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "Podfile.lock" }}
+
+# Environment that is shared between jobs
+shared-env: &shared-env
+  BUNDLE_PATH: vendor/bundle
+  FL_OUTPUT_DIR: output
+  HOMEBREW_NO_AUTO_UPDATE: 1
+
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: *xcode-version
+    environment:
+      <<: *shared-env
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache-key
+      - run:
+          name: Install Ruby bundle dependencies
+          command: bundle check || bundle install
+      - run:
+          name: Install Cocoapods dependencies
+          command: diff ./Podfile.lock ./Pods/Manifest.lock > /dev/null || bundle exec pod install
+      - save_cache:
+          key: *cache-key
+          paths:
+            - vendor/bundle/
+            - Pods/
+      - run:
+          name: Create reports directory
+          command: mkdir output
+      - run:
+          name: Test
+          command: bundle exec fastlane test
+      - store_test_results:
+          path: output
+          

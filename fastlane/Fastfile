@@ -1,0 +1,9 @@
+default_platform(:ios)
+skip_docs
+
+lane :test do
+    scan(
+        devices: ["iPhone 8"],
+        scheme: "Introspect"
+    )
+end

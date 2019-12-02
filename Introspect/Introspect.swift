@@ -249,6 +249,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
 public class IntrospectionUIViewController: UIViewController {
     required init() {
         super.init(nibName: nil, bundle: nil)
+        view = IntrospectionUIView()
     }
     
     @available(*, unavailable)
@@ -276,6 +277,7 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
     ) -> IntrospectionUIViewController {
         let viewController = IntrospectionUIViewController()
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
+        viewController.view.accessibilityLabel = "IntrospectionUIView<\(TargetViewControllerType.self)>"
         return viewController
     }
     

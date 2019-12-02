@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## master
+
+ - Allow `.introspectNavigationController()` on NavigationView directly.
+
 ## [0.0.4]
 
  - Fix a bug in 0.0.4 that would not allow customization of root elements.

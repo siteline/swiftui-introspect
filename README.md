@@ -51,7 +51,7 @@ SwiftUI | UIKit | Introspect | Target
 --- | --- | --- | ---
 List | UITableView | `.introspectTableView()` | List, or List child
 ScrollView | UIScrollView | `.introspectScrollView()` | ScrollView, or ScrollView child
-NavigationView | UINavigationController | `.introspectNavigationController()` | **NavigationView child**
+NavigationView | UINavigationController | `.introspectNavigationController()` | NavigationView, or NavigationView child
 TabbedView | UITabBarController | `.introspectTabBarController()` | **TabbedView child**
 TextField | UITextField | `.introspectTextField()` | TextField
 Toggle | UISwitch | `.introspectSwitch()` | Toggle

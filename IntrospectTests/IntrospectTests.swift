@@ -17,6 +17,20 @@ private struct NavigationTestView: View {
     }
 }
 
+private struct NavigationRootTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        NavigationView {
+            VStack {
+                EmptyView()
+            }
+        }
+        .introspectNavigationController { navigationController in
+            self.spy()
+        }
+    }
+}
+
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -122,6 +136,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = NavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testRootNavigation() {
+        
+        let expectation = XCTestExpectation()
+        let view = NavigationRootTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

@@ -20,6 +20,23 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds a child view controller of the specified type.
+    /// This method will recursively look for this child.
+    /// Returns nil if it can't find a view of the specified type.
+    public static func findChild<AnyViewControllerType: UIViewController>(
+        ofType type: AnyViewControllerType.Type,
+        in root: UIViewController
+    ) -> AnyViewControllerType? {
+        for child in root.children {
+            if let typed = child as? AnyViewControllerType {
+                return typed
+            } else if let typed = findChild(ofType: type, in: child) {
+                return typed
+            }
+        }
+        return nil
+    }
+    
     /// Finds a previous sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
@@ -37,6 +54,30 @@ public enum Introspect {
         
         for subview in superview.subviews[0..<entryIndex].reversed() {
             if let typed = findChild(ofType: type, in: subview) {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
+    /// Finds a previous sibling that contains a view controller of the specified type.
+    /// This method inspects siblings recursively.
+    /// Returns nil if no sibling contains the specified type.
+    public static func previousSibling<AnyViewControllerType: UIViewController>(
+        containing type: AnyViewControllerType.Type,
+        from entry: UIViewController
+    ) -> AnyViewControllerType? {
+        
+        guard let parent = entry.parent,
+            let entryIndex = parent.children.firstIndex(of: entry),
+            entryIndex > 0
+        else {
+            return nil
+        }
+        
+        for child in parent.children[0..<entryIndex].reversed() {
+            if let typed = findChild(ofType: type, in: child) {
                 return typed
             }
         }
@@ -279,7 +320,16 @@ extension View {
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
         return inject(IntrospectionViewController(
-            selector: { $0.navigationController },
+            selector: { introspectionViewController in
+                
+                // Search in ancestors
+                if let navigationController = introspectionViewController.navigationController {
+                    return navigationController
+                }
+                
+                // Search in siblings
+                return Introspect.previousSibling(containing: UINavigationController.self, from: introspectionViewController)
+            },
             customize: customize
         ))
     }

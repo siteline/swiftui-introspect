@@ -442,7 +442,7 @@ extension View {
         ))
     }
     
-    /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
+    /// Finds a `UISegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
     public func introspectSegmentedControl(customize: @escaping (UISegmentedControl) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in

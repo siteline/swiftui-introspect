@@ -58,6 +58,7 @@ Toggle | UISwitch | `.introspectSwitch()` | Toggle
 Slider | UISlider | `.introspectSlider()` | Slider
 Stepper | UIStepper | `.introspectStepper()` | Stepper
 DatePicker | UIDatePicker | `.introspectDatePicker()` | DatePicker
+Picker (SegmentedPickerStyle) | UISegmentedControl | `.introspectSegmentedControl()` | Picker
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).
 
@@ -67,7 +68,6 @@ SwiftUI | Why
 --- | ---
 Text | Not a UILabel
 Image | Not a UIImageView
-SegmentedControl | Not a UISegmentedControl
 Button | Not a UIButton
 
 Examples

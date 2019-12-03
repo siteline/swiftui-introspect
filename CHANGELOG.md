@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+ - Added `.introspectSegmentedControl()`.
+
 ## [0.0.5]
 
  - Allow `.introspectNavigationController()` on NavigationView directly.

@@ -104,6 +104,7 @@ struct SimpleElementsExample: View {
     @State private var toggleValue = false
     @State private var sliderValue = 0.0
     @State private var datePickerValue = Date()
+    @State private var segmentedControlValue = 0
     
     var body: some View {
         VStack {
@@ -165,6 +166,18 @@ struct SimpleElementsExample: View {
                 }
                 .introspectDatePicker { datePicker in
                     datePicker.layer.backgroundColor = UIColor.red.cgColor
+                }
+            }
+            
+            HStack {
+                Picker(selection: $segmentedControlValue, label: Text("Segmented control")) {
+                    Text("Option 1").tag(0)
+                    Text("Option 2").tag(1)
+                    Text("Option 3").tag(2)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .introspectSegmentedControl { segmentedControl in
+                    segmentedControl.layer.backgroundColor = UIColor.red.cgColor
                 }
             }
         }

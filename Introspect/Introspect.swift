@@ -441,4 +441,17 @@ extension View {
             customize: customize
         ))
     }
+    
+    /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
+    public func introspectSegmentedControl(customize: @escaping (UISegmentedControl) -> ()) -> some View {
+        return inject(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.previousSibling(containing: UISegmentedControl.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
 }

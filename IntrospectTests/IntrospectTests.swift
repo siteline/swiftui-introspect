@@ -159,6 +159,22 @@ private struct DatePickerTestView: View {
     }
 }
 
+private struct SegmentedControlTestView: View {
+    @State private var pickerValue = 0
+    let spy: () -> Void
+    var body: some View {
+        Picker(selection: $pickerValue, label: Text("Segmented control")) {
+            Text("Option 1").tag(0)
+            Text("Option 2").tag(1)
+            Text("Option 3").tag(2)
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .introspectSegmentedControl { segmentedControl in
+            self.spy()
+        }
+    }
+}
+
 class IntrospectTests: XCTestCase {
     func testNavigation() {
         
@@ -268,6 +284,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = DatePickerTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testSegmentedControl() {
+        
+        let expectation = XCTestExpectation()
+        let view = SegmentedControlTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

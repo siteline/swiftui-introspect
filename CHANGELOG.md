@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.0.6]
+
  - Added `.introspectSegmentedControl()`.
  - Added `.introspectViewController()`.
 
@@ -28,6 +30,7 @@ Changelog
 
  - First release.
 
+[0.0.6]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.6
 [0.0.5]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.5
 [0.0.4]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.4
 [0.0.3]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.3

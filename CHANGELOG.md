@@ -4,6 +4,7 @@ Changelog
 ## master
 
  - Added `.introspectSegmentedControl()`.
+ - Added `.introspectViewController()`.
 
 ## [0.0.5]
 

@@ -17,9 +17,12 @@ struct ContentView: View {
             NavigationExample()
                 .tabItem { Text("Navigation") }
                 .tag(2)
+            ViewControllerExample()
+                .tabItem { Text("ViewController") }
+                .tag(3)
             SimpleElementsExample()
                 .tabItem { Text("Simple elements") }
-                .tag(3)
+                .tag(4)
         }
     }
 }
@@ -71,6 +74,19 @@ struct NavigationExample: View {
             .navigationBarTitle(Text("Customized"), displayMode: .inline)
             .introspectNavigationController { nvc in
                 nvc.navigationBar.backgroundColor = .red
+            }
+        }
+    }
+}
+
+struct ViewControllerExample: View {
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Customized")
+            }
+            .introspectViewController { viewController in
+                viewController.navigationItem.title = "Customized"
             }
         }
     }

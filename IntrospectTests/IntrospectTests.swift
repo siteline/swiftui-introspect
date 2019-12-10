@@ -17,6 +17,20 @@ private struct NavigationTestView: View {
     }
 }
 
+private struct ViewControllerTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        NavigationView {
+            VStack {
+                EmptyView()
+            }
+            .introspectViewController { viewController in
+                self.spy()
+            }
+        }
+    }
+}
+
 private struct NavigationRootTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -180,6 +194,16 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = NavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    func testViewController() {
+        
+        let expectation = XCTestExpectation()
+        let view = ViewControllerTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

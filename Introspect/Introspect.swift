@@ -359,6 +359,14 @@ extension View {
             customize: customize
         ))
     }
+    
+    /// Finds the containing `UIViewController` of a SwiftUI view.
+    public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {
+        return inject(IntrospectionViewController(
+            selector: { $0.parent },
+            customize: customize
+        ))
+    }
 
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {

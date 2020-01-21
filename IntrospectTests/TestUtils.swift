@@ -1,6 +1,8 @@
 import Foundation
-import UIKit
 import SwiftUI
+
+#if os(iOS)
+import UIKit
 
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {
@@ -24,3 +26,16 @@ enum TestUtils {
         hostingController.endAppearanceTransition()
     }
 }
+
+#elseif os(macOS)
+import AppKit
+
+enum TestUtils {
+    static func present<ViewType: View>(view: ViewType) {
+        let hostingController = NSHostingController(rootView: view)
+        let _ = NSWindow(contentViewController: hostingController)
+    }
+}
+
+#endif
+

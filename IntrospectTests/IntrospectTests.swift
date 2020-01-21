@@ -1,8 +1,18 @@
 import XCTest
 import SwiftUI
 
+#if os(iOS)
 @testable import Introspect
+#elseif os(macOS)
+@testable import Introspect_macOS
+#endif
 
+// TODO: The following inspections could work in macOS. Fix them and re-enable the tests:
+// - testViewController
+// - testList
+// - testToggle
+
+#if os(iOS)
 private struct NavigationTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -91,6 +101,7 @@ private struct ListTestView: View {
         }
     }
 }
+#endif
 
 private struct ScrollTestView: View {
     
@@ -126,6 +137,7 @@ private struct TextFieldTestView: View {
     }
 }
 
+#if os(iOS)
 private struct ToggleTestView: View {
     let spy: () -> Void
     @State private var toggleValue = false
@@ -136,6 +148,7 @@ private struct ToggleTestView: View {
         }
     }
 }
+#endif
 
 private struct SliderTestView: View {
     let spy: () -> Void
@@ -190,6 +203,7 @@ private struct SegmentedControlTestView: View {
 }
 
 class IntrospectTests: XCTestCase {
+    #if os(iOS)
     func testNavigation() {
         
         let expectation = XCTestExpectation()
@@ -251,7 +265,8 @@ class IntrospectTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation1, expectation2], timeout: 1)
     }
-    
+    #endif
+
     func testScrollView() {
         
         let expectation1 = XCTestExpectation()
@@ -274,6 +289,7 @@ class IntrospectTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
+    #if os(iOS)
     func testToggle() {
         
         let expectation = XCTestExpectation()
@@ -283,6 +299,7 @@ class IntrospectTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: 1)
     }
+    #endif
     
     func testSlider() {
         

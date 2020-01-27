@@ -398,6 +398,9 @@ extension View {
         ))
     }
     
+    @available(OSX, unavailable)
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -411,6 +414,9 @@ extension View {
         ))
     }
     
+    @available(OSX, unavailable)
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     /// Finds a `UISlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -424,6 +430,9 @@ extension View {
         ))
     }
     
+    @available(OSX, unavailable)
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     /// Finds a `UIStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -437,6 +446,9 @@ extension View {
         ))
     }
     
+    @available(OSX, unavailable)
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
         return inject(IntrospectionView(

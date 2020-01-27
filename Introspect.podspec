@@ -10,6 +10,8 @@ Pod::Spec.new do |spec|
     tag: spec.version
   }
   spec.source_files = 'Introspect/**/*.swift'
-  spec.platform = :ios, '13.0'
+  spec.ios.deployment_target = '13.0'
+  spec.osx.deployment_target = '10.15'
+  spec.tvos.deployment_target = '13.0'
   spec.swift_version = '5.1'
 end

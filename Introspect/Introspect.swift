@@ -212,9 +212,16 @@ public enum Introspect {
     public static func findHostingView(from entry: PlatformView) -> PlatformView? {
         var superview = entry.superview
         while let s = superview {
+            #if os(iOS) || os(tvOS)
             if NSStringFromClass(type(of: s)).contains("UIHostingView") {
                 return s
             }
+            #endif
+            #if os(macOS)
+            if NSStringFromClass(type(of: s)).contains("NSHostingView") {
+                return s
+            }
+            #endif
             superview = s.superview
         }
         return nil

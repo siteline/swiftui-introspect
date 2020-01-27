@@ -515,9 +515,7 @@ extension View {
         ))
     }
     
-    @available(OSX, unavailable)
     @available(tvOS, unavailable)
-    @available(watchOS, unavailable)
     /// Finds a `PlatformSwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (PlatformSwitch) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -531,9 +529,7 @@ extension View {
         ))
     }
     
-    @available(OSX, unavailable)
     @available(tvOS, unavailable)
-    @available(watchOS, unavailable)
     /// Finds a `PlatformSlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (PlatformSlider) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -547,9 +543,7 @@ extension View {
         ))
     }
     
-    @available(OSX, unavailable)
     @available(tvOS, unavailable)
-    @available(watchOS, unavailable)
     /// Finds a `PlatformStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (PlatformStepper) -> ()) -> some View {
         return inject(IntrospectionView(
@@ -563,9 +557,7 @@ extension View {
         ))
     }
     
-    @available(OSX, unavailable)
     @available(tvOS, unavailable)
-    @available(watchOS, unavailable)
     /// Finds a `PlatformDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (PlatformDatePicker) -> ()) -> some View {
         return inject(IntrospectionView(

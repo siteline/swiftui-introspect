@@ -463,6 +463,25 @@ extension View {
         ))
     }
     
+    #if os(iOS) || os(tvOS)
+    /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
+    public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
+        return inject(IntrospectionViewController(
+            selector: { introspectionViewController in
+                
+                // Search in ancestors
+                if let navigationController = introspectionViewController.navigationController {
+                    return navigationController
+                }
+                
+                // Search in siblings
+                return Introspect.previousSibling(containing: UINavigationController.self, from: introspectionViewController)
+            },
+            customize: customize
+        ))
+    }
+    #endif
+    
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (PlatformViewController) -> ()) -> some View {
         return inject(IntrospectionViewController(
@@ -484,25 +503,6 @@ extension View {
                 
                 // Search in siblings
                 return Introspect.previousSibling(ofType: UITabBarController.self, from: introspectionViewController)
-            },
-            customize: customize
-        ))
-    }
-    #endif
-    
-    #if os(iOS) || os(tvOS)
-    /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
-    public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
-        return inject(IntrospectionViewController(
-            selector: { introspectionViewController in
-                
-                // Search in ancestors
-                if let navigationController = introspectionViewController.navigationController {
-                    return navigationController
-                }
-                
-                // Search in siblings
-                return Introspect.previousSibling(containing: UINavigationController.self, from: introspectionViewController)
             },
             customize: customize
         ))

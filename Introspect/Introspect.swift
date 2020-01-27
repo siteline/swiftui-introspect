@@ -221,7 +221,7 @@ public enum Introspect {
     }
     
     /// Finds the view host of a specific view.
-    /// SwiftUI wraps each PlatformView within a ViewHost, then within a HostingView.
+    /// SwiftUI wraps each UIView within a ViewHost, then within a HostingView.
     /// Returns nil if it couldn't find a view host. This should never happen when called with an IntrospectionView.
     public static func findViewHost(from entry: PlatformView) -> PlatformView? {
         var superview = entry.superview
@@ -247,7 +247,7 @@ private extension Array {
     }
 }
 
-/// Introspection PlatformView that is inserted alongside the target view.
+/// Introspection UIView that is inserted alongside the target view.
 public class IntrospectionPlatformView: PlatformView {
     
     required init() {
@@ -336,7 +336,7 @@ public struct IntrospectionView<TargetViewType: PlatformView>: PlatformViewRepre
     }
 }
 
-/// Introspection PlatformViewController that is inserted alongside the target view controller.
+/// Introspection UIViewController that is inserted alongside the target view controller.
 public class IntrospectionPlatformViewController: PlatformViewController {
     required init() {
         super.init(nibName: nil, bundle: nil)
@@ -414,7 +414,7 @@ extension View {
         return overlay(view.frame(width: 0, height: 0))
     }
     
-    /// Finds a `PlatformTableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
+    /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (PlatformTableView) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -435,7 +435,7 @@ extension View {
         ))
     }
     
-    /// Finds a `PlatformScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
+    /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (PlatformScrollView) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -456,7 +456,7 @@ extension View {
         ))
     }
     
-    /// Finds the containing `PlatformViewController` of a SwiftUI view.
+    /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (PlatformViewController) -> ()) -> some View {
         return inject(IntrospectionViewController(
             selector: { $0.parent },
@@ -502,7 +502,7 @@ extension View {
     }
     #endif
     
-    /// Finds a `PlatformTextField` from a `SwiftUI.TextField`
+    /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (PlatformTextField) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -516,7 +516,7 @@ extension View {
     }
     
     @available(tvOS, unavailable)
-    /// Finds a `PlatformSwitch` from a `SwiftUI.Toggle`
+    /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (PlatformSwitch) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -530,7 +530,7 @@ extension View {
     }
     
     @available(tvOS, unavailable)
-    /// Finds a `PlatformSlider` from a `SwiftUI.Slider`
+    /// Finds a `UISlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (PlatformSlider) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -544,7 +544,7 @@ extension View {
     }
     
     @available(tvOS, unavailable)
-    /// Finds a `PlatformStepper` from a `SwiftUI.Stepper`
+    /// Finds a `UIStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (PlatformStepper) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -558,7 +558,7 @@ extension View {
     }
     
     @available(tvOS, unavailable)
-    /// Finds a `PlatformDatePicker` from a `SwiftUI.DatePicker`
+    /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (PlatformDatePicker) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
@@ -571,7 +571,7 @@ extension View {
         ))
     }
     
-    /// Finds a `PlatformSegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
+    /// Finds a `UISegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
     public func introspectSegmentedControl(customize: @escaping (PlatformSegmentedControl) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in

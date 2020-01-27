@@ -1,43 +1,34 @@
 import SwiftUI
 
 #if os(macOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformView = NSView
 #endif
 #if os(iOS) || os(tvOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformView = UIView
 #endif
 
 #if os(macOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewController = NSViewController
 #endif
 #if os(iOS) || os(tvOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewController = UIViewController
 #endif
 
 #if os(macOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewRepresentable = NSViewRepresentable
 #endif
 #if os(iOS) || os(tvOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewRepresentable = UIViewRepresentable
 #endif
 
 #if os(macOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
 #if os(iOS) || os(tvOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewControllerRepresentable = UIViewControllerRepresentable
 #endif
 
 #if os(macOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformTableView = NSTableView
 public typealias PlatformScrollView = NSScrollView
 public typealias PlatformTextField = NSTextField
@@ -48,13 +39,16 @@ public typealias PlatformDatePicker = NSDatePicker
 public typealias PlatformSegmentedControl = NSSegmentedControl
 #endif
 #if os(iOS) || os(tvOS)
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformTableView = UITableView
 public typealias PlatformScrollView = UIScrollView
 public typealias PlatformTextField = UITextField
+@available(tvOS, unavailable)
 public typealias PlatformSwitch = UISwitch
+@available(tvOS, unavailable)
 public typealias PlatformSlider = UISlider
+@available(tvOS, unavailable)
 public typealias PlatformStepper = UIStepper
+@available(tvOS, unavailable)
 public typealias PlatformDatePicker = UIDatePicker
 public typealias PlatformSegmentedControl = UISegmentedControl
 #endif

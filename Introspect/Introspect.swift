@@ -398,6 +398,19 @@ extension View {
         ))
     }
     
+    /// Finds a `TargetView` from a `SwiftUI.View`
+    public func introspect<TargetView: UIView>(customize: @escaping (TargetView) -> ()) -> some View {
+        return inject(IntrospectionView(
+            selector: { introspectionView in
+                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
+                    return nil
+                }
+                return Introspect.previousSibling(containing: TargetView.self, from: viewHost)
+            },
+            customize: customize
+        ))
+    }
+    
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
         return inject(IntrospectionView(

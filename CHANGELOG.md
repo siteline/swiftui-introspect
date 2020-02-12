@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.1.0]
+
  - Added `macOS` and `tvOS` support.
 
 ## [0.0.6]
@@ -32,6 +34,7 @@ Changelog
 
  - First release.
 
+[0.1.0]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.0
 [0.0.6]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.6
 [0.0.5]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.5
 [0.0.4]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.4

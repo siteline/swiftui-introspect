@@ -92,21 +92,25 @@ extension View {
     }
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
+    @available(tvOS, unavailable)
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UISlider` from a `SwiftUI.Slider`
+    @available(tvOS, unavailable)
     public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UIStepper` from a `SwiftUI.Stepper`
+    @available(tvOS, unavailable)
     public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
+    @available(tvOS, unavailable)
     public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }

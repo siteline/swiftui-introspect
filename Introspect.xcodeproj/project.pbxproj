@@ -16,6 +16,9 @@
 		C0796E2823F3CD1D002BF033 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341423F3A13C005FA859 /* IntrospectionView.swift */; };
 		C0796E2923F3CD1D002BF033 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */; };
 		C0796E2A23F3CD1D002BF033 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341223F3A113005FA859 /* ViewExtensions.swift */; };
+		C0796E3423F3CDA4002BF033 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0796E1F23F3CCD2002BF033 /* Introspect.framework */; };
+		C0796E3A23F3CDC0002BF033 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687030238DF3C900DAFD3D /* IntrospectTests.swift */; };
+		C0796E3B23F3CDC0002BF033 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702E238DF01200DAFD3D /* TestUtils.swift */; };
 		C0C6D68E238E006B00DA6285 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6D68D238E006B00DA6285 /* AppDelegate.swift */; };
 		C0C6D690238E006B00DA6285 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6D68F238E006B00DA6285 /* SceneDelegate.swift */; };
 		C0C6D692238E006B00DA6285 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C6D691238E006B00DA6285 /* ContentView.swift */; };
@@ -43,6 +46,13 @@
 			remoteGlobalIDString = C0687011238DE85D00DAFD3D;
 			remoteInfo = Introspect;
 		};
+		C0796E3523F3CDA4002BF033 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0687009238DE85D00DAFD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0796E1E23F3CCD2002BF033;
+			remoteInfo = "Introspect tvOS";
+		};
 		C0ED343B23F3AC43005FA859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0687009238DE85D00DAFD3D /* Project object */;
@@ -65,6 +75,7 @@
 		C068702E238DF01200DAFD3D /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		C0687030238DF3C900DAFD3D /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		C0796E1F23F3CCD2002BF033 /* Introspect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0796E2F23F3CDA4002BF033 /* Introspect tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C6D68B238E006B00DA6285 /* IntrospectExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntrospectExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C6D68D238E006B00DA6285 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0C6D68F238E006B00DA6285 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +115,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0796E2C23F3CDA4002BF033 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0796E3423F3CDA4002BF033 /* Introspect.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +183,7 @@
 				C0ED340923F39E93005FA859 /* Introspect.framework */,
 				C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */,
 				C0796E1F23F3CCD2002BF033 /* Introspect.framework */,
+				C0796E2F23F3CDA4002BF033 /* Introspect tvOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -339,6 +359,24 @@
 			productReference = C0796E1F23F3CCD2002BF033 /* Introspect.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C0796E2E23F3CDA4002BF033 /* Introspect tvOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0796E3723F3CDA4002BF033 /* Build configuration list for PBXNativeTarget "Introspect tvOS Tests" */;
+			buildPhases = (
+				C0796E2B23F3CDA4002BF033 /* Sources */,
+				C0796E2C23F3CDA4002BF033 /* Frameworks */,
+				C0796E2D23F3CDA4002BF033 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0796E3623F3CDA4002BF033 /* PBXTargetDependency */,
+			);
+			name = "Introspect tvOS Tests";
+			productName = "Introspect tvOS Tests";
+			productReference = C0796E2F23F3CDA4002BF033 /* Introspect tvOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C0C6D68A238E006B00DA6285 /* IntrospectExamples */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0C6D69E238E007100DA6285 /* Build configuration list for PBXNativeTarget "IntrospectExamples" */;
@@ -414,6 +452,9 @@
 					C0796E1E23F3CCD2002BF033 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
+					C0796E2E23F3CDA4002BF033 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					C0C6D68A238E006B00DA6285 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -443,6 +484,7 @@
 				C0ED340823F39E93005FA859 /* Introspect macOS */,
 				C0ED343423F3AC43005FA859 /* Introspect macOS Tests */,
 				C0796E1E23F3CCD2002BF033 /* Introspect tvOS */,
+				C0796E2E23F3CDA4002BF033 /* Introspect tvOS Tests */,
 				C0C6D68A238E006B00DA6285 /* IntrospectExamples */,
 			);
 		};
@@ -464,6 +506,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C0796E1D23F3CCD2002BF033 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0796E2D23F3CDA4002BF033 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -570,6 +619,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0796E2B23F3CDA4002BF033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0796E3A23F3CDC0002BF033 /* IntrospectTests.swift in Sources */,
+				C0796E3B23F3CDC0002BF033 /* TestUtils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C0C6D687238E006B00DA6285 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -606,6 +664,11 @@
 			isa = PBXTargetDependency;
 			target = C0687011238DE85D00DAFD3D /* Introspect iOS */;
 			targetProxy = C068701D238DE85D00DAFD3D /* PBXContainerItemProxy */;
+		};
+		C0796E3623F3CDA4002BF033 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0796E1E23F3CCD2002BF033 /* Introspect tvOS */;
+			targetProxy = C0796E3523F3CDA4002BF033 /* PBXContainerItemProxy */;
 		};
 		C0ED343C23F3AC43005FA859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -889,6 +952,44 @@
 			};
 			name = Release;
 		};
+		C0796E3823F3CDA4002BF033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Introspect tvOS Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-tvOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.2;
+			};
+			name = Debug;
+		};
+		C0796E3923F3CDA4002BF033 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Introspect tvOS Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-tvOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 13.2;
+			};
+			name = Release;
+		};
 		C0C6D69C238E007100DA6285 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9BBE78DB32CCDC560004DB54 /* Pods-IntrospectExamples.debug.xcconfig */;
@@ -1060,6 +1161,15 @@
 			buildConfigurations = (
 				C0796E2523F3CCD2002BF033 /* Debug */,
 				C0796E2623F3CCD2002BF033 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0796E3723F3CDA4002BF033 /* Build configuration list for PBXNativeTarget "Introspect tvOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0796E3823F3CDA4002BF033 /* Debug */,
+				C0796E3923F3CDA4002BF033 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

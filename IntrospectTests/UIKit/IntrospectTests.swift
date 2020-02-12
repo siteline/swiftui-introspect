@@ -126,6 +126,7 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(tvOS, unavailable)
 private struct ToggleTestView: View {
     let spy: () -> Void
     @State private var toggleValue = false
@@ -137,6 +138,7 @@ private struct ToggleTestView: View {
     }
 }
 
+@available(tvOS, unavailable)
 private struct SliderTestView: View {
     let spy: () -> Void
     @State private var sliderValue = 0.0
@@ -148,6 +150,7 @@ private struct SliderTestView: View {
     }
 }
 
+@available(tvOS, unavailable)
 private struct StepperTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -160,6 +163,7 @@ private struct StepperTestView: View {
     }
 }
 
+@available(tvOS, unavailable)
 private struct DatePickerTestView: View {
     let spy: () -> Void
     @State private var datePickerValue = Date()
@@ -204,16 +208,6 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = ViewControllerTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testRootNavigation() {
-        
-        let expectation = XCTestExpectation()
-        let view = NavigationRootTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
@@ -274,6 +268,27 @@ class IntrospectTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
+    func testSegmentedControl() {
+        
+        let expectation = XCTestExpectation()
+        let view = SegmentedControlTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    #if os(iOS)
+    func testRootNavigation() {
+        
+        let expectation = XCTestExpectation()
+        let view = NavigationRootTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
     func testToggle() {
         
         let expectation = XCTestExpectation()
@@ -313,14 +328,5 @@ class IntrospectTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: 1)
     }
-    
-    func testSegmentedControl() {
-        
-        let expectation = XCTestExpectation()
-        let view = SegmentedControlTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
+    #endif
 }

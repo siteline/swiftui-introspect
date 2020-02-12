@@ -39,7 +39,7 @@
 		C0687012238DE85D00DAFD3D /* Introspect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0687015238DE85D00DAFD3D /* Introspect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Introspect.h; sourceTree = "<group>"; };
 		C0687016238DE85D00DAFD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C068701B238DE85D00DAFD3D /* IntrospectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntrospectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C068701B238DE85D00DAFD3D /* Introspect iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0687022238DE85D00DAFD3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C068702C238DE8FD00DAFD3D /* Introspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introspect.swift; sourceTree = "<group>"; };
 		C068702E238DF01200DAFD3D /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				C0687012238DE85D00DAFD3D /* Introspect.framework */,
-				C068701B238DE85D00DAFD3D /* IntrospectTests.xctest */,
+				C068701B238DE85D00DAFD3D /* Introspect iOS Tests.xctest */,
 				C0C6D68B238E006B00DA6285 /* IntrospectExamples.app */,
 			);
 			name = Products;
@@ -177,9 +177,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C0687011238DE85D00DAFD3D /* Introspect */ = {
+		C0687011238DE85D00DAFD3D /* Introspect iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0687026238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect" */;
+			buildConfigurationList = C0687026238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect iOS" */;
 			buildPhases = (
 				C068700D238DE85D00DAFD3D /* Headers */,
 				C068700E238DE85D00DAFD3D /* Sources */,
@@ -190,14 +190,14 @@
 			);
 			dependencies = (
 			);
-			name = Introspect;
+			name = "Introspect iOS";
 			productName = Introspect;
 			productReference = C0687012238DE85D00DAFD3D /* Introspect.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C068701A238DE85D00DAFD3D /* IntrospectTests */ = {
+		C068701A238DE85D00DAFD3D /* Introspect iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0687029238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "IntrospectTests" */;
+			buildConfigurationList = C0687029238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect iOS Tests" */;
 			buildPhases = (
 				C0687017238DE85D00DAFD3D /* Sources */,
 				C0687018238DE85D00DAFD3D /* Frameworks */,
@@ -208,9 +208,9 @@
 			dependencies = (
 				C068701E238DE85D00DAFD3D /* PBXTargetDependency */,
 			);
-			name = IntrospectTests;
+			name = "Introspect iOS Tests";
 			productName = IntrospectTests;
-			productReference = C068701B238DE85D00DAFD3D /* IntrospectTests.xctest */;
+			productReference = C068701B238DE85D00DAFD3D /* Introspect iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C0C6D68A238E006B00DA6285 /* IntrospectExamples */ = {
@@ -267,8 +267,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0687011238DE85D00DAFD3D /* Introspect */,
-				C068701A238DE85D00DAFD3D /* IntrospectTests */,
+				C0687011238DE85D00DAFD3D /* Introspect iOS */,
+				C068701A238DE85D00DAFD3D /* Introspect iOS Tests */,
 				C0C6D68A238E006B00DA6285 /* IntrospectExamples */,
 			);
 		};
@@ -376,7 +376,7 @@
 /* Begin PBXTargetDependency section */
 		C068701E238DE85D00DAFD3D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C0687011238DE85D00DAFD3D /* Introspect */;
+			target = C0687011238DE85D00DAFD3D /* Introspect iOS */;
 			targetProxy = C068701D238DE85D00DAFD3D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -530,9 +530,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.loisdiqual.Introspect;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
+				PRODUCT_NAME = Introspect;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -556,9 +557,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.loisdiqual.Introspect;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
+				PRODUCT_NAME = Introspect;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -654,7 +656,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0687026238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect" */ = {
+		C0687026238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0687027238DE85D00DAFD3D /* Debug */,
@@ -663,7 +665,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0687029238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "IntrospectTests" */ = {
+		C0687029238DE85D00DAFD3D /* Build configuration list for PBXNativeTarget "Introspect iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C068702A238DE85D00DAFD3D /* Debug */,

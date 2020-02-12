@@ -162,7 +162,7 @@
 				C0687016238DE85D00DAFD3D /* Info.plist */,
 				C068702C238DE8FD00DAFD3D /* Introspect.swift */,
 				C0ED341823F3A21B005FA859 /* UIKit */,
-				C0ED341923F3A223005FA859 /* Cocoa */,
+				C0ED341923F3A223005FA859 /* AppKit */,
 			);
 			path = Introspect;
 			sourceTree = "<group>";
@@ -171,7 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				C0ED342023F3ABF8005FA859 /* UIKit */,
-				C0ED342123F3AC00005FA859 /* Cocoa */,
+				C0ED342123F3AC00005FA859 /* AppKit */,
 				C0687022238DE85D00DAFD3D /* Info.plist */,
 			);
 			path = IntrospectTests;
@@ -217,13 +217,13 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		C0ED341923F3A223005FA859 /* Cocoa */ = {
+		C0ED341923F3A223005FA859 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
 				C0ED341A23F3A258005FA859 /* IntrospectionView.swift */,
 				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
-			path = Cocoa;
+			path = AppKit;
 			sourceTree = "<group>";
 		};
 		C0ED342023F3ABF8005FA859 /* UIKit */ = {
@@ -235,13 +235,13 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		C0ED342123F3AC00005FA859 /* Cocoa */ = {
+		C0ED342123F3AC00005FA859 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
 				C0ED342223F3AC14005FA859 /* IntrospectTests.swift */,
 				C0ED344123F3AD47005FA859 /* TestUtils.swift */,
 			);
-			path = Cocoa;
+			path = AppKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

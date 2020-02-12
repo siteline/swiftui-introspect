@@ -1,5 +1,5 @@
 import SwiftUI
-import Cocoa
+import AppKit
 
 /// Introspection NSView that is inserted alongside the target view.
 public class IntrospectionNSView: NSView {

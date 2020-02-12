@@ -1,5 +1,5 @@
 import SwiftUI
-import Cocoa
+import AppKit
 
 enum TargetViewSelector {
     public static func sibling<TargetView: NSView>(introspectionView: IntrospectionNSView) -> TargetView? {

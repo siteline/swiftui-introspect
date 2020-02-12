@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-import Cocoa
+import AppKit
 
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {

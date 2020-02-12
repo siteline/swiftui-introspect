@@ -15,7 +15,6 @@
 		C0796E2723F3CD18002BF033 /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
 		C0796E2823F3CD1D002BF033 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341423F3A13C005FA859 /* IntrospectionView.swift */; };
 		C0796E2923F3CD1D002BF033 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */; };
-		C0796E2A23F3CD1D002BF033 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341223F3A113005FA859 /* ViewExtensions.swift */; };
 		C0796E3423F3CDA4002BF033 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0796E1F23F3CCD2002BF033 /* Introspect.framework */; };
 		C0796E3A23F3CDC0002BF033 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0687030238DF3C900DAFD3D /* IntrospectTests.swift */; };
 		C0796E3B23F3CDC0002BF033 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702E238DF01200DAFD3D /* TestUtils.swift */; };
@@ -27,14 +26,17 @@
 		C0C6D69A238E007100DA6285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C6D698238E007100DA6285 /* LaunchScreen.storyboard */; };
 		C0C6D6A0238E00D300DA6285 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0687012238DE85D00DAFD3D /* Introspect.framework */; };
 		C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
-		C0ED341323F3A113005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341223F3A113005FA859 /* ViewExtensions.swift */; };
 		C0ED341523F3A13C005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341423F3A13C005FA859 /* IntrospectionView.swift */; };
 		C0ED341723F3A149005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */; };
-		C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* IntrospectionView.swift */; };
+		C0ED341B23F3A258005FA859 /* AppKitIntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* AppKitIntrospectionView.swift */; };
 		C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
 		C0ED343A23F3AC43005FA859 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0ED340923F39E93005FA859 /* Introspect.framework */; };
 		C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED342223F3AC14005FA859 /* IntrospectTests.swift */; };
 		C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED344123F3AD47005FA859 /* TestUtils.swift */; };
+		C0ED345D23F48534005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
+		C0ED345E23F48535005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
+		C0ED345F23F48671005FA859 /* AppKitIntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* AppKitIntrospectionView.swift */; };
+		C0ED346023F48672005FA859 /* AppKitIntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* AppKitIntrospectionView.swift */; };
 		E0B11E0609FFA04A7B6A1418 /* Pods_IntrospectExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5785749C354BCF848BC4EAD9 /* Pods_IntrospectExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,10 +87,9 @@
 		C0C6D699238E007100DA6285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C6D69B238E007100DA6285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0ED340923F39E93005FA859 /* Introspect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0ED341223F3A113005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C0ED341423F3A13C005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
-		C0ED341A23F3A258005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
+		C0ED341A23F3A258005FA859 /* AppKitIntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitIntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C0ED342223F3AC14005FA859 /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,11 +192,13 @@
 		C0687014238DE85D00DAFD3D /* Introspect */ = {
 			isa = PBXGroup;
 			children = (
+				C0ED341A23F3A258005FA859 /* AppKitIntrospectionView.swift */,
 				C0ED341923F3A223005FA859 /* AppKit */,
 				C0ED341823F3A21B005FA859 /* UIKit */,
 				C0687015238DE85D00DAFD3D /* Introspect.h */,
 				C0687016238DE85D00DAFD3D /* Info.plist */,
 				C068702C238DE8FD00DAFD3D /* Introspect.swift */,
+				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
 			path = Introspect;
 			sourceTree = "<group>";
@@ -245,7 +248,6 @@
 			children = (
 				C0ED341423F3A13C005FA859 /* IntrospectionView.swift */,
 				C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */,
-				C0ED341223F3A113005FA859 /* ViewExtensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -253,8 +255,6 @@
 		C0ED341923F3A223005FA859 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				C0ED341A23F3A258005FA859 /* IntrospectionView.swift */,
-				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -593,8 +593,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0ED341723F3A149005FA859 /* IntrospectionViewController.swift in Sources */,
-				C0ED341323F3A113005FA859 /* ViewExtensions.swift in Sources */,
+				C0ED345F23F48671005FA859 /* AppKitIntrospectionView.swift in Sources */,
 				C0ED341523F3A13C005FA859 /* IntrospectionView.swift in Sources */,
+				C0ED345E23F48535005FA859 /* ViewExtensions.swift in Sources */,
 				C068702D238DE8FD00DAFD3D /* Introspect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,8 +614,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0796E2823F3CD1D002BF033 /* IntrospectionView.swift in Sources */,
+				C0ED346023F48672005FA859 /* AppKitIntrospectionView.swift in Sources */,
 				C0796E2923F3CD1D002BF033 /* IntrospectionViewController.swift in Sources */,
-				C0796E2A23F3CD1D002BF033 /* ViewExtensions.swift in Sources */,
+				C0ED345D23F48534005FA859 /* ViewExtensions.swift in Sources */,
 				C0796E2723F3CD18002BF033 /* Introspect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,7 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */,
+				C0ED341B23F3A258005FA859 /* AppKitIntrospectionView.swift in Sources */,
 				C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */,
 				C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */,
 			);

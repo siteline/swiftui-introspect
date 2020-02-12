@@ -1,9 +1,24 @@
 default_platform(:ios)
 skip_docs
 
-lane :test do
-    scan(
-        devices: ["iPhone 8"],
-        scheme: "Introspect"
-    )
+platform :ios do
+    lane :test do
+        scan(
+            devices: ["iPhone 8"],
+            scheme: "Introspect iOS"
+        )
+
+        scan(
+            devices: ["Apple TV"],
+            scheme: "Introspect tvOS"
+        )
+    end
+end
+
+platform :mac do
+    lane :test do
+        scan(
+            scheme: "Introspect macOS"
+        )
+    end
 end

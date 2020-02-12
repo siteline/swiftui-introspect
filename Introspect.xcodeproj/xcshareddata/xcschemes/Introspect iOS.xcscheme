@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0687011238DE85D00DAFD3D"
                BuildableName = "Introspect.framework"
-               BlueprintName = "Introspect"
+               BlueprintName = "Introspect iOS"
                ReferencedContainer = "container:Introspect.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C068701A238DE85D00DAFD3D"
-               BuildableName = "IntrospectTests.xctest"
-               BlueprintName = "IntrospectTests"
+               BuildableName = "Introspect iOS Tests.xctest"
+               BlueprintName = "Introspect iOS Tests"
                ReferencedContainer = "container:Introspect.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -62,7 +62,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0687011238DE85D00DAFD3D"
             BuildableName = "Introspect.framework"
-            BlueprintName = "Introspect"
+            BlueprintName = "Introspect iOS"
             ReferencedContainer = "container:Introspect.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

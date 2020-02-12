@@ -1,6 +1,6 @@
 
 # Shared Xcode version between jobs
-xcode-version: &xcode-version "11.2.1"
+xcode-version: &xcode-version "11.3.1"
 
 # This is the key that we use to store and restore our dependencies cache.
 # It needs to be different anytime we add Pods, Gems, or npm packages.
@@ -40,8 +40,20 @@ jobs:
           name: Create reports directory
           command: mkdir output
       - run:
-          name: Test
-          command: bundle exec fastlane test
+          name: Test iOS/tvOS framework
+          command: bundle exec fastlane ios test
+      - run:
+          name: Test macOS framework
+          command: bundle exec fastlane mac test
+      - run:
+          name: Lint podspec
+          command: bundle exec pod lib lint
+      - run:
+          name: Build swift package
+          command: swift build
+      - run:
+          name: Test swift package
+          command: swift test
       - store_test_results:
           path: output
           

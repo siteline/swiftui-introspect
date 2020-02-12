@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Introspect",
     platforms: [
-        .iOS(.v13)
+        .macOS(.v10_15), .iOS(.v13), .tvOS(.v13)
     ],
     products: [
         .library(
@@ -19,6 +19,11 @@ let package = Package(
             name: "Introspect",
             dependencies: [],
             path: "Introspect"
+        ),
+        .testTarget(
+            name: "IntrospectTests",
+            dependencies: ["Introspect"],
+            path: "IntrospectTests"
         )
     ]
 )

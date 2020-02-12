@@ -1,75 +1,20 @@
+#if canImport(AppKit)
+
 import XCTest
 import SwiftUI
-
 @testable import Introspect
 
-private struct NavigationTestView: View {
-    let spy: () -> Void
-    var body: some View {
-        NavigationView {
-            VStack {
-                EmptyView()
-            }
-            .introspectNavigationController { navigationController in
-                self.spy()
-            }
-        }
-    }
-}
-
-private struct ViewControllerTestView: View {
-    let spy: () -> Void
-    var body: some View {
-        NavigationView {
-            VStack {
-                EmptyView()
-            }
-            .introspectViewController { viewController in
-                self.spy()
-            }
-        }
-    }
-}
-
-private struct NavigationRootTestView: View {
-    let spy: () -> Void
-    var body: some View {
-        NavigationView {
-            VStack {
-                EmptyView()
-            }
-        }
-        .introspectNavigationController { navigationController in
-            self.spy()
-        }
-    }
-}
-
-private struct TabTestView: View {
-    @State private var selection = 0
-    let spy: () -> Void
-    var body: some View {
-        TabView {
-            Text("Item 1")
-                .tag(0)
-                .introspectTabBarController { _ in
-                    self.spy()
-                }
-        }
-    }
-}
-
-private struct TabRootTestView: View {
-    @State private var selection = 0
-    let spy: () -> Void
-    var body: some View {
-        TabView {
-            Text("Item 1")
-                .tag(0)
-        }
-        .introspectTabBarController { _ in
-            self.spy()
-        }
+enum TestUtils {
+    static func present<ViewType: View>(view: ViewType) {
+        
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+            backing: .buffered, defer: false)
+        window.center()
+        window.setFrameAutosaveName("Main Window")
+        window.contentView = NSHostingView(rootView: view)
+        window.makeKeyAndOrderFront(nil)
     }
 }
 
@@ -121,17 +66,6 @@ private struct TextFieldTestView: View {
     var body: some View {
         TextField("Text Field", text: $textFieldValue)
         .introspectTextField { textField in
-            self.spy()
-        }
-    }
-}
-
-private struct ToggleTestView: View {
-    let spy: () -> Void
-    @State private var toggleValue = false
-    var body: some View {
-        Toggle("Toggle", isOn: $toggleValue)
-        .introspectSwitch { uiSwitch in
             self.spy()
         }
     }
@@ -189,56 +123,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-class IntrospectTests: XCTestCase {
-    func testNavigation() {
-        
-        let expectation = XCTestExpectation()
-        let view = NavigationTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testViewController() {
-        
-        let expectation = XCTestExpectation()
-        let view = ViewControllerTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testRootNavigation() {
-        
-        let expectation = XCTestExpectation()
-        let view = NavigationRootTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testTabView() {
-        
-        let expectation = XCTestExpectation()
-        let view = TabTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testTabViewRoot() {
-        
-        let expectation = XCTestExpectation()
-        let view = TabRootTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
+class AppKitTests: XCTestCase {
     
     func testList() {
         
@@ -268,16 +153,6 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TextFieldTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testToggle() {
-        
-        let expectation = XCTestExpectation()
-        let view = ToggleTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
@@ -324,3 +199,4 @@ class IntrospectTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 }
+#endif

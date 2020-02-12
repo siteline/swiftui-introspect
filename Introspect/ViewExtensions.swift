@@ -28,7 +28,7 @@ extension View {
     
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
-        return inject(IntrospectionViewController(
+        return inject(UIKitIntrospectionViewController(
             selector: { introspectionViewController in
                 
                 // Search in ancestors
@@ -45,7 +45,7 @@ extension View {
     
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {
-        return inject(IntrospectionViewController(
+        return inject(UIKitIntrospectionViewController(
             selector: { $0.parent },
             customize: customize
         ))
@@ -53,7 +53,7 @@ extension View {
 
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
-        return inject(IntrospectionViewController(
+        return inject(UIKitIntrospectionViewController(
             selector: { introspectionViewController in
                 
                 // Search in ancestors

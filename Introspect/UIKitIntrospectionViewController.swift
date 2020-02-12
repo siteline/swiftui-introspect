@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -15,7 +16,7 @@ public class IntrospectionUIViewController: UIViewController {
 }
 
 /// This is the same logic as IntrospectionView but for view controllers. Please see details above.
-public struct IntrospectionViewController<TargetViewControllerType: UIViewController>: UIViewControllerRepresentable {
+public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewController>: UIViewControllerRepresentable {
     
     let selector: (IntrospectionUIViewController) -> TargetViewControllerType?
     let customize: (TargetViewControllerType) -> Void
@@ -29,7 +30,7 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
     }
     
     public func makeUIViewController(
-        context: UIViewControllerRepresentableContext<IntrospectionViewController>
+        context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) -> IntrospectionUIViewController {
         let viewController = IntrospectionUIViewController()
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
@@ -39,7 +40,7 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
     
     public func updateUIViewController(
         _ uiViewController: IntrospectionUIViewController,
-        context: UIViewControllerRepresentableContext<IntrospectionViewController>
+        context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) {
         DispatchQueue.main.async {
             guard let targetView = self.selector(uiViewController) else {
@@ -49,3 +50,4 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
         }
     }
 }
+#endif

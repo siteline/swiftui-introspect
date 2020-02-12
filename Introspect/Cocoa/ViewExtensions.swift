@@ -34,14 +34,6 @@ extension View {
         ))
     }
     
-    /// Finds the containing `NSViewController` of a SwiftUI view.
-    public func introspectViewController(customize: @escaping (NSViewController) -> ()) -> some View {
-        return inject(IntrospectionViewController(
-            selector: { $0.parent },
-            customize: customize
-        ))
-    }
-    
     /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (NSTableView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
@@ -54,11 +46,6 @@ extension View {
     
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (NSTextField) -> ()) -> some View {
-        return introspect(selector: TargetViewSelector.sibling, customize: customize)
-    }
-    
-    /// Finds a `UISwitch` from a `SwiftUI.Toggle`
-    public func introspectSwitch(customize: @escaping (NSSwitch) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     

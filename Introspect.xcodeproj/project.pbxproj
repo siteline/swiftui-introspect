@@ -25,7 +25,6 @@
 		C0ED341723F3A149005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */; };
 		C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* IntrospectionView.swift */; };
 		C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
-		C0ED341F23F3AA71005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */; };
 		C0ED343A23F3AC43005FA859 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0ED340923F39E93005FA859 /* Introspect.framework */; };
 		C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED342223F3AC14005FA859 /* IntrospectTests.swift */; };
 		C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED344123F3AD47005FA859 /* TestUtils.swift */; };
@@ -75,7 +74,6 @@
 		C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
 		C0ED341A23F3A258005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
 		C0ED342223F3AC14005FA859 /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0ED344123F3AD47005FA859 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				C0ED341A23F3A258005FA859 /* IntrospectionView.swift */,
-				C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */,
 				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
 			path = Cocoa;
@@ -527,7 +524,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0ED341F23F3AA71005FA859 /* IntrospectionViewController.swift in Sources */,
 				C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */,
 				C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */,
 				C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */,

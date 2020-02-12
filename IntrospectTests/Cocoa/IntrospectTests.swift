@@ -3,20 +3,6 @@ import SwiftUI
 
 @testable import Introspect
 
-private struct ViewControllerTestView: View {
-    let spy: () -> Void
-    var body: some View {
-        NavigationView {
-            VStack {
-                EmptyView()
-            }
-            .introspectViewController { viewController in
-                self.spy()
-            }
-        }
-    }
-}
-
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -65,17 +51,6 @@ private struct TextFieldTestView: View {
     var body: some View {
         TextField("Text Field", text: $textFieldValue)
         .introspectTextField { textField in
-            self.spy()
-        }
-    }
-}
-
-private struct ToggleTestView: View {
-    let spy: () -> Void
-    @State private var toggleValue = false
-    var body: some View {
-        Toggle("Toggle", isOn: $toggleValue)
-        .introspectSwitch { uiSwitch in
             self.spy()
         }
     }
@@ -135,16 +110,6 @@ private struct SegmentedControlTestView: View {
 
 class IntrospectTests: XCTestCase {
     
-    func testViewController() {
-        
-        let expectation = XCTestExpectation()
-        let view = ViewControllerTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
     func testList() {
         
         let expectation1 = XCTestExpectation()
@@ -173,16 +138,6 @@ class IntrospectTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TextFieldTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    func testToggle() {
-        
-        let expectation = XCTestExpectation()
-        let view = ToggleTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

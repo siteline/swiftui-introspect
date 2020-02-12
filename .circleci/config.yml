@@ -41,7 +41,9 @@ jobs:
           command: mkdir output
       - run:
           name: Test
-          command: bundle exec fastlane test
+          command: >
+            bundle exec fastlane ios test
+            bundle exec fastlane mac test
       - store_test_results:
           path: output
           

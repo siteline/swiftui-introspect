@@ -19,7 +19,6 @@
 		C0C6D697238E007100DA6285 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C6D696238E007100DA6285 /* Preview Assets.xcassets */; };
 		C0C6D69A238E007100DA6285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C6D698238E007100DA6285 /* LaunchScreen.storyboard */; };
 		C0C6D6A0238E00D300DA6285 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0687012238DE85D00DAFD3D /* Introspect.framework */; };
-		C0ED340D23F39E93005FA859 /* Introspect_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C0ED340B23F39E93005FA859 /* Introspect_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
 		C0ED341323F3A113005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341223F3A113005FA859 /* ViewExtensions.swift */; };
 		C0ED341523F3A13C005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341423F3A13C005FA859 /* IntrospectionView.swift */; };
@@ -27,7 +26,6 @@
 		C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* IntrospectionView.swift */; };
 		C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
 		C0ED341F23F3AA71005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */; };
-		C0ED343823F3AC43005FA859 /* Introspect_macOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */; };
 		C0ED343A23F3AC43005FA859 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0ED340923F39E93005FA859 /* Introspect.framework */; };
 		C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED342223F3AC14005FA859 /* IntrospectTests.swift */; };
 		C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED344123F3AD47005FA859 /* TestUtils.swift */; };
@@ -71,10 +69,7 @@
 		C0C6D696238E007100DA6285 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C0C6D699238E007100DA6285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C6D69B238E007100DA6285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Introspect iOS copy-Info.plist"; path = "/Users/ldiqual/Siteline/Introspect/Introspect iOS copy-Info.plist"; sourceTree = "<absolute>"; };
 		C0ED340923F39E93005FA859 /* Introspect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0ED340B23F39E93005FA859 /* Introspect_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Introspect_macOS.h; sourceTree = "<group>"; };
-		C0ED340C23F39E93005FA859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0ED341223F3A113005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C0ED341423F3A13C005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
@@ -82,10 +77,7 @@
 		C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
 		C0ED342223F3AC14005FA859 /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
-		C0ED343023F3AC1F005FA859 /* Introspect iOS Tests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Introspect iOS Tests copy-Info.plist"; path = "/Users/ldiqual/Siteline/Introspect/Introspect iOS Tests copy-Info.plist"; sourceTree = "<absolute>"; };
 		C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introspect_macOS_Tests.swift; sourceTree = "<group>"; };
-		C0ED343923F3AC43005FA859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0ED344123F3AD47005FA859 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,13 +139,9 @@
 				C0687014238DE85D00DAFD3D /* Introspect */,
 				C068701F238DE85D00DAFD3D /* IntrospectTests */,
 				C0C6D68C238E006B00DA6285 /* IntrospectExamples */,
-				C0ED340A23F39E93005FA859 /* Introspect macOS */,
-				C0ED343623F3AC43005FA859 /* Introspect macOS Tests */,
 				C0687013238DE85D00DAFD3D /* Products */,
 				C0C6D69F238E00D300DA6285 /* Frameworks */,
 				0534532308DF3E515053BF9F /* Pods */,
-				C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */,
-				C0ED343023F3AC1F005FA859 /* Introspect iOS Tests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,15 +209,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C0ED340A23F39E93005FA859 /* Introspect macOS */ = {
-			isa = PBXGroup;
-			children = (
-				C0ED340B23F39E93005FA859 /* Introspect_macOS.h */,
-				C0ED340C23F39E93005FA859 /* Info.plist */,
-			);
-			path = "Introspect macOS";
-			sourceTree = "<group>";
-		};
 		C0ED341823F3A21B005FA859 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,15 +247,6 @@
 			path = Cocoa;
 			sourceTree = "<group>";
 		};
-		C0ED343623F3AC43005FA859 /* Introspect macOS Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */,
-				C0ED343923F3AC43005FA859 /* Info.plist */,
-			);
-			path = "Introspect macOS Tests";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -292,7 +262,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0ED340D23F39E93005FA859 /* Introspect_macOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +540,6 @@
 			files = (
 				C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */,
 				C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */,
-				C0ED343823F3AC43005FA859 /* Introspect_macOS_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,7 +833,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Introspect macOS/Info.plist";
+				INFOPLIST_FILE = Introspect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -892,7 +860,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Introspect macOS/Info.plist";
+				INFOPLIST_FILE = Introspect/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -915,7 +883,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Introspect macOS Tests/Info.plist";
+				INFOPLIST_FILE = IntrospectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -936,7 +904,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "Introspect macOS Tests/Info.plist";
+				INFOPLIST_FILE = IntrospectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

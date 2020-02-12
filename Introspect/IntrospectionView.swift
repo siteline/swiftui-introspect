@@ -50,7 +50,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
         _ uiView: IntrospectionUIView,
         context: UIViewRepresentableContext<IntrospectionView>
     ) {
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
+        DispatchQueue.main.async {
             guard let targetView = self.selector(uiView) else {
                 return
             }

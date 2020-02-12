@@ -41,7 +41,7 @@ public struct IntrospectionViewController<TargetViewControllerType: UIViewContro
         _ uiViewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<IntrospectionViewController>
     ) {
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
+        DispatchQueue.main.async {
             guard let targetView = self.selector(uiViewController) else {
                 return
             }

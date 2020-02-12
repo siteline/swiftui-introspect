@@ -385,81 +385,46 @@ extension View {
         ))
     }
     
-    /// Finds a `UITextField` from a `SwiftUI.TextField`
-    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
+    /// Finds a `TargetView` from a `SwiftUI.View`
+    public func introspect<TargetView: UIView>(customize: @escaping (TargetView) -> ()) -> some View {
         return inject(IntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil
                 }
-                return Introspect.previousSibling(containing: UITextField.self, from: viewHost)
+                return Introspect.previousSibling(containing: TargetView.self, from: viewHost)
             },
             customize: customize
         ))
+    }
+    
+    /// Finds a `UITextField` from a `SwiftUI.TextField`
+    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
+        return introspect(customize: customize)
     }
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
-        return inject(IntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UISwitch.self, from: viewHost)
-            },
-            customize: customize
-        ))
+        return introspect(customize: customize)
     }
     
     /// Finds a `UISlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
-        return inject(IntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UISlider.self, from: viewHost)
-            },
-            customize: customize
-        ))
+        return introspect(customize: customize)
     }
     
     /// Finds a `UIStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
-        return inject(IntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UIStepper.self, from: viewHost)
-            },
-            customize: customize
-        ))
+        return introspect(customize: customize)
     }
     
     /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
-        return inject(IntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UIDatePicker.self, from: viewHost)
-            },
-            customize: customize
-        ))
+        return introspect(customize: customize)
     }
     
     /// Finds a `UISegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
     public func introspectSegmentedControl(customize: @escaping (UISegmentedControl) -> ()) -> some View {
-        return inject(IntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UISegmentedControl.self, from: viewHost)
-            },
-            customize: customize
-        ))
+        return introspect(customize: customize)
     }
 }

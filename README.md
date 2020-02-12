@@ -148,3 +148,28 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
  - `Introspect.findAncestor(ofType:from:)`
  - `Introspect.findHostingView(from:)`
  - `Introspect.findViewHost(from:)`
+
+Releasing
+---------
+
+ - Increment version number:
+
+```
+$ bundle exec fastlane run increment_version_number bump_type:minor # major|minor|patch
+```
+
+ - Update changelog with new version
+ - Bump version in `Introspect.podspec`
+ - Commit and push changes
+ - Tag new version:
+
+```
+$ git tag -a <VERSION> -m "<MESSAGE>"
+$ git push origin --tags
+```
+
+ - Push to cocoapods trunk:
+
+```
+$ bundle exec pod trunk push .
+```

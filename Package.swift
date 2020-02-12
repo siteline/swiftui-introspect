@@ -19,6 +19,11 @@ let package = Package(
             name: "Introspect",
             dependencies: [],
             path: "Introspect"
+        ),
+        .testTarget(
+            name: "IntrospectTests",
+            dependencies: ["Introspect"],
+            path: "IntrospectTests"
         )
     ]
 )

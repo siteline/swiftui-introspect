@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+ - Added `macOS` and `tvOS` support.
+
 ## [0.0.6]
 
  - Added `.introspectSegmentedControl()`.

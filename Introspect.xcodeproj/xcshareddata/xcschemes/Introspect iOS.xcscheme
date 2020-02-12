@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0687011238DE85D00DAFD3D"
-               BuildableName = "Introspect_iOS.framework"
+               BuildableName = "Introspect.framework"
                BlueprintName = "Introspect iOS"
                ReferencedContainer = "container:Introspect.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C0687011238DE85D00DAFD3D"
-            BuildableName = "Introspect_iOS.framework"
+            BuildableName = "Introspect.framework"
             BlueprintName = "Introspect iOS"
             ReferencedContainer = "container:Introspect.xcodeproj">
          </BuildableReference>

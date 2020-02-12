@@ -19,6 +19,8 @@
 		C0C6D697238E007100DA6285 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0C6D696238E007100DA6285 /* Preview Assets.xcassets */; };
 		C0C6D69A238E007100DA6285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C6D698238E007100DA6285 /* LaunchScreen.storyboard */; };
 		C0C6D6A0238E00D300DA6285 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0687012238DE85D00DAFD3D /* Introspect.framework */; };
+		C0ED340D23F39E93005FA859 /* Introspect_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C0ED340B23F39E93005FA859 /* Introspect_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068702C238DE8FD00DAFD3D /* Introspect.swift */; };
 		E0B11E0609FFA04A7B6A1418 /* Pods_IntrospectExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5785749C354BCF848BC4EAD9 /* Pods_IntrospectExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +54,10 @@
 		C0C6D696238E007100DA6285 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C0C6D699238E007100DA6285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C6D69B238E007100DA6285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Introspect iOS copy-Info.plist"; path = "/Users/ldiqual/Siteline/Introspect/Introspect iOS copy-Info.plist"; sourceTree = "<absolute>"; };
+		C0ED340923F39E93005FA859 /* Introspect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0ED340B23F39E93005FA859 /* Introspect_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Introspect_macOS.h; sourceTree = "<group>"; };
+		C0ED340C23F39E93005FA859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0ED340623F39E93005FA859 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,9 +110,11 @@
 				C0687014238DE85D00DAFD3D /* Introspect */,
 				C068701F238DE85D00DAFD3D /* IntrospectTests */,
 				C0C6D68C238E006B00DA6285 /* IntrospectExamples */,
+				C0ED340A23F39E93005FA859 /* Introspect macOS */,
 				C0687013238DE85D00DAFD3D /* Products */,
 				C0C6D69F238E00D300DA6285 /* Frameworks */,
 				0534532308DF3E515053BF9F /* Pods */,
+				C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +124,7 @@
 				C0687012238DE85D00DAFD3D /* Introspect.framework */,
 				C068701B238DE85D00DAFD3D /* Introspect iOS Tests.xctest */,
 				C0C6D68B238E006B00DA6285 /* IntrospectExamples.app */,
+				C0ED340923F39E93005FA859 /* Introspect_macOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +179,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C0ED340A23F39E93005FA859 /* Introspect macOS */ = {
+			isa = PBXGroup;
+			children = (
+				C0ED340B23F39E93005FA859 /* Introspect_macOS.h */,
+				C0ED340C23F39E93005FA859 /* Info.plist */,
+			);
+			path = "Introspect macOS";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -171,6 +196,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0687023238DE85D00DAFD3D /* Introspect.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0ED340423F39E93005FA859 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0ED340D23F39E93005FA859 /* Introspect_macOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +265,24 @@
 			productReference = C0C6D68B238E006B00DA6285 /* IntrospectExamples.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C0ED340823F39E93005FA859 /* Introspect macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0ED340E23F39E93005FA859 /* Build configuration list for PBXNativeTarget "Introspect macOS" */;
+			buildPhases = (
+				C0ED340423F39E93005FA859 /* Headers */,
+				C0ED340523F39E93005FA859 /* Sources */,
+				C0ED340623F39E93005FA859 /* Frameworks */,
+				C0ED340723F39E93005FA859 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Introspect macOS";
+			productName = "Introspect macOS";
+			productReference = C0ED340923F39E93005FA859 /* Introspect_macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,6 +303,9 @@
 					C0C6D68A238E006B00DA6285 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
+					C0ED340823F39E93005FA859 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 				};
 			};
 			buildConfigurationList = C068700C238DE85D00DAFD3D /* Build configuration list for PBXProject "Introspect" */;
@@ -269,6 +323,7 @@
 			targets = (
 				C0687011238DE85D00DAFD3D /* Introspect iOS */,
 				C068701A238DE85D00DAFD3D /* Introspect iOS Tests */,
+				C0ED340823F39E93005FA859 /* Introspect macOS */,
 				C0C6D68A238E006B00DA6285 /* IntrospectExamples */,
 			);
 		};
@@ -296,6 +351,13 @@
 				C0C6D69A238E007100DA6285 /* LaunchScreen.storyboard in Resources */,
 				C0C6D697238E007100DA6285 /* Preview Assets.xcassets in Resources */,
 				C0C6D694238E007100DA6285 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0ED340723F39E93005FA859 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +430,14 @@
 				C0C6D68E238E006B00DA6285 /* AppDelegate.swift in Sources */,
 				C0C6D690238E006B00DA6285 /* SceneDelegate.swift in Sources */,
 				C0C6D692238E006B00DA6285 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0ED340523F39E93005FA859 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,9 +587,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5CYVM7UEHW;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -532,6 +602,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -544,9 +615,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5CYVM7UEHW;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -559,6 +630,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -644,6 +716,60 @@
 			};
 			name = Release;
 		};
+		C0ED340F23F39E93005FA859 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Introspect macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C0ED341023F39E93005FA859 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Introspect macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -679,6 +805,15 @@
 			buildConfigurations = (
 				C0C6D69C238E007100DA6285 /* Debug */,
 				C0C6D69D238E007100DA6285 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0ED340E23F39E93005FA859 /* Build configuration list for PBXNativeTarget "Introspect macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0ED340F23F39E93005FA859 /* Debug */,
+				C0ED341023F39E93005FA859 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

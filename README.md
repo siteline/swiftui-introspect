@@ -48,7 +48,7 @@ Introspection
 ### Implemented
 
 SwiftUI | UIKit | AppKit | Introspect
---- | --- | --- | --- | ---
+--- | --- | --- | ---
 List | UITableView | NSTableView | `.introspectTableView()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 NavigationView | UINavigationController | _N/A_ | `.introspectNavigationController()`

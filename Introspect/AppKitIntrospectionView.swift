@@ -45,10 +45,10 @@ public struct AppKitIntrospectionView<TargetViewType: NSView>: NSViewRepresentab
         return view
     }
 
-    /// When `updateUiView` is called after creating the Introspection view, it is not yet in the UIKit hierarchy.
-    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
+    /// When `updateNSView` is called after creating the Introspection view, it is not yet in the AppKit hierarchy.
+    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target AppKit view.
     /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
-    /// Finding the target view fails silently if the selector yield no result. This happens when `updateUIView`
+    /// Finding the target view fails silently if the selector yield no result. This happens when `updateNSView`
     /// gets called when the introspection view gets removed from the hierarchy.
     public func updateNSView(
         _ nsView: IntrospectionNSView,

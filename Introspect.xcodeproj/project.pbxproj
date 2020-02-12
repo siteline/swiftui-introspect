@@ -171,11 +171,11 @@
 		C0687014238DE85D00DAFD3D /* Introspect */ = {
 			isa = PBXGroup;
 			children = (
+				C0ED341923F3A223005FA859 /* AppKit */,
+				C0ED341823F3A21B005FA859 /* UIKit */,
 				C0687015238DE85D00DAFD3D /* Introspect.h */,
 				C0687016238DE85D00DAFD3D /* Info.plist */,
 				C068702C238DE8FD00DAFD3D /* Introspect.swift */,
-				C0ED341823F3A21B005FA859 /* UIKit */,
-				C0ED341923F3A223005FA859 /* AppKit */,
 			);
 			path = Introspect;
 			sourceTree = "<group>";
@@ -183,8 +183,8 @@
 		C068701F238DE85D00DAFD3D /* IntrospectTests */ = {
 			isa = PBXGroup;
 			children = (
-				C0ED342023F3ABF8005FA859 /* UIKit */,
 				C0ED342123F3AC00005FA859 /* AppKit */,
+				C0ED342023F3ABF8005FA859 /* UIKit */,
 				C0687022238DE85D00DAFD3D /* Info.plist */,
 			);
 			path = IntrospectTests;

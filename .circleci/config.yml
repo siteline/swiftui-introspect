@@ -48,6 +48,9 @@ jobs:
       - run:
           name: Lint podspec
           command: bundle exec pod lib lint
+      - run:
+          name: Build swift package
+          command: swift build
       - store_test_results:
           path: output
           

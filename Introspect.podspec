@@ -9,18 +9,11 @@ Pod::Spec.new do |spec|
     git: 'https://github.com/siteline/SwiftUI-Introspect.git',
     tag: spec.version
   }
+
+  spec.source_files = 'Introspect/*.swift'
+
   spec.swift_version = '5.1'
-  spec.source_files = 'Introspect/Introspect.swift'
-
-  # iOS
   spec.ios.deployment_target = '13.0'
-  spec.ios.source_files = 'Introspect/UIKit/*.swift'
-
-  # tvOS
   spec.tvos.deployment_target = '13.0'
-  spec.tvos.source_files = 'Introspect/UIKit/*.swift'
-
-  # macOS
   spec.osx.deployment_target = '10.15'
-  spec.osx.source_files = 'Introspect/AppKit/*.swift'
 end

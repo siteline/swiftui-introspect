@@ -20,7 +20,7 @@ extension View {
         selector: @escaping (IntrospectionUIView) -> TargetView?,
         customize: @escaping (TargetView) -> ()
     ) -> some View {
-        return inject(IntrospectionView(
+        return inject(UIKitIntrospectionView(
             selector: selector,
             customize: customize
         ))

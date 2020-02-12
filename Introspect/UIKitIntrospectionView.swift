@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 import SwiftUI
 
@@ -18,7 +19,7 @@ public class IntrospectionUIView: UIView {
 
 /// Introspection View that is injected into the UIKit hierarchy alongside the target view.
 /// After `updateUIView` is called, it calls `selector` to find the target view, then `customize` when the target view is found.
-public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
+public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     
     /// Method that introspects the view hierarchy to find the target view.
     /// First argument is the introspection view itself, which is contained in a view host alongside the target view.
@@ -35,7 +36,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
         self.customize = customize
     }
     
-    public func makeUIView(context: UIViewRepresentableContext<IntrospectionView>) -> IntrospectionUIView {
+    public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
         return view
@@ -48,7 +49,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     /// gets called when the introspection view gets removed from the hierarchy.
     public func updateUIView(
         _ uiView: IntrospectionUIView,
-        context: UIViewRepresentableContext<IntrospectionView>
+        context: UIViewRepresentableContext<UIKitIntrospectionView>
     ) {
         DispatchQueue.main.async {
             guard let targetView = self.selector(uiView) else {
@@ -58,3 +59,4 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
         }
     }
 }
+#endif

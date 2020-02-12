@@ -27,6 +27,10 @@
 		C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* IntrospectionView.swift */; };
 		C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
 		C0ED341F23F3AA71005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */; };
+		C0ED343823F3AC43005FA859 /* Introspect_macOS_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */; };
+		C0ED343A23F3AC43005FA859 /* Introspect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0ED340923F39E93005FA859 /* Introspect.framework */; };
+		C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED342223F3AC14005FA859 /* IntrospectTests.swift */; };
+		C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED344123F3AD47005FA859 /* TestUtils.swift */; };
 		E0B11E0609FFA04A7B6A1418 /* Pods_IntrospectExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5785749C354BCF848BC4EAD9 /* Pods_IntrospectExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +41,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C0687011238DE85D00DAFD3D;
 			remoteInfo = Introspect;
+		};
+		C0ED343B23F3AC43005FA859 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0687009238DE85D00DAFD3D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0ED340823F39E93005FA859;
+			remoteInfo = "Introspect macOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -61,7 +72,7 @@
 		C0C6D699238E007100DA6285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0C6D69B238E007100DA6285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Introspect iOS copy-Info.plist"; path = "/Users/ldiqual/Siteline/Introspect/Introspect iOS copy-Info.plist"; sourceTree = "<absolute>"; };
-		C0ED340923F39E93005FA859 /* Introspect_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0ED340923F39E93005FA859 /* Introspect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Introspect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0ED340B23F39E93005FA859 /* Introspect_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Introspect_macOS.h; sourceTree = "<group>"; };
 		C0ED340C23F39E93005FA859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0ED341223F3A113005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
@@ -70,6 +81,12 @@
 		C0ED341A23F3A258005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C0ED341E23F3AA71005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
+		C0ED342223F3AC14005FA859 /* IntrospectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
+		C0ED343023F3AC1F005FA859 /* Introspect iOS Tests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Introspect iOS Tests copy-Info.plist"; path = "/Users/ldiqual/Siteline/Introspect/Introspect iOS Tests copy-Info.plist"; sourceTree = "<absolute>"; };
+		C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Introspect macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Introspect_macOS_Tests.swift; sourceTree = "<group>"; };
+		C0ED343923F3AC43005FA859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0ED344123F3AD47005FA859 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +121,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0ED343223F3AC43005FA859 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0ED343A23F3AC43005FA859 /* Introspect.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -123,10 +148,12 @@
 				C068701F238DE85D00DAFD3D /* IntrospectTests */,
 				C0C6D68C238E006B00DA6285 /* IntrospectExamples */,
 				C0ED340A23F39E93005FA859 /* Introspect macOS */,
+				C0ED343623F3AC43005FA859 /* Introspect macOS Tests */,
 				C0687013238DE85D00DAFD3D /* Products */,
 				C0C6D69F238E00D300DA6285 /* Frameworks */,
 				0534532308DF3E515053BF9F /* Pods */,
 				C0ED340323F39E70005FA859 /* Introspect iOS copy-Info.plist */,
+				C0ED343023F3AC1F005FA859 /* Introspect iOS Tests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,7 +163,8 @@
 				C0687012238DE85D00DAFD3D /* Introspect.framework */,
 				C068701B238DE85D00DAFD3D /* Introspect iOS Tests.xctest */,
 				C0C6D68B238E006B00DA6285 /* IntrospectExamples.app */,
-				C0ED340923F39E93005FA859 /* Introspect_macOS.framework */,
+				C0ED340923F39E93005FA859 /* Introspect.framework */,
+				C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,9 +184,9 @@
 		C068701F238DE85D00DAFD3D /* IntrospectTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0ED342023F3ABF8005FA859 /* UIKit */,
+				C0ED342123F3AC00005FA859 /* Cocoa */,
 				C0687022238DE85D00DAFD3D /* Info.plist */,
-				C0687030238DF3C900DAFD3D /* IntrospectTests.swift */,
-				C068702E238DF01200DAFD3D /* TestUtils.swift */,
 			);
 			path = IntrospectTests;
 			sourceTree = "<group>";
@@ -220,6 +248,33 @@
 				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
 			path = Cocoa;
+			sourceTree = "<group>";
+		};
+		C0ED342023F3ABF8005FA859 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				C0687030238DF3C900DAFD3D /* IntrospectTests.swift */,
+				C068702E238DF01200DAFD3D /* TestUtils.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		C0ED342123F3AC00005FA859 /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				C0ED342223F3AC14005FA859 /* IntrospectTests.swift */,
+				C0ED344123F3AD47005FA859 /* TestUtils.swift */,
+			);
+			path = Cocoa;
+			sourceTree = "<group>";
+		};
+		C0ED343623F3AC43005FA859 /* Introspect macOS Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C0ED343723F3AC43005FA859 /* Introspect_macOS_Tests.swift */,
+				C0ED343923F3AC43005FA859 /* Info.plist */,
+			);
+			path = "Introspect macOS Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,8 +369,26 @@
 			);
 			name = "Introspect macOS";
 			productName = "Introspect macOS";
-			productReference = C0ED340923F39E93005FA859 /* Introspect_macOS.framework */;
+			productReference = C0ED340923F39E93005FA859 /* Introspect.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		C0ED343423F3AC43005FA859 /* Introspect macOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0ED343D23F3AC43005FA859 /* Build configuration list for PBXNativeTarget "Introspect macOS Tests" */;
+			buildPhases = (
+				C0ED343123F3AC43005FA859 /* Sources */,
+				C0ED343223F3AC43005FA859 /* Frameworks */,
+				C0ED343323F3AC43005FA859 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0ED343C23F3AC43005FA859 /* PBXTargetDependency */,
+			);
+			name = "Introspect macOS Tests";
+			productName = "Introspect macOS Tests";
+			productReference = C0ED343523F3AC43005FA859 /* Introspect macOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -323,7 +396,7 @@
 		C0687009238DE85D00DAFD3D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Lois Di Qual";
 				TargetAttributes = {
@@ -338,6 +411,9 @@
 						CreatedOnToolsVersion = 11.2.1;
 					};
 					C0ED340823F39E93005FA859 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					C0ED343423F3AC43005FA859 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -358,6 +434,7 @@
 				C0687011238DE85D00DAFD3D /* Introspect iOS */,
 				C068701A238DE85D00DAFD3D /* Introspect iOS Tests */,
 				C0ED340823F39E93005FA859 /* Introspect macOS */,
+				C0ED343423F3AC43005FA859 /* Introspect macOS Tests */,
 				C0C6D68A238E006B00DA6285 /* IntrospectExamples */,
 			);
 		};
@@ -389,6 +466,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C0ED340723F39E93005FA859 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0ED343323F3AC43005FA859 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -481,6 +565,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0ED343123F3AC43005FA859 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0ED344023F3AC7F005FA859 /* IntrospectTests.swift in Sources */,
+				C0ED344223F3AD47005FA859 /* TestUtils.swift in Sources */,
+				C0ED343823F3AC43005FA859 /* Introspect_macOS_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -488,6 +582,11 @@
 			isa = PBXTargetDependency;
 			target = C0687011238DE85D00DAFD3D /* Introspect iOS */;
 			targetProxy = C068701D238DE85D00DAFD3D /* PBXContainerItemProxy */;
+		};
+		C0ED343C23F3AC43005FA859 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0ED340823F39E93005FA859 /* Introspect macOS */;
+			targetProxy = C0ED343B23F3AC43005FA859 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -774,8 +873,8 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
+				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -801,11 +900,53 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
+				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C0ED343E23F3AC43005FA859 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Introspect macOS Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C0ED343F23F3AC43005FA859 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "Introspect macOS Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.siteline.Introspect-macOS-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -854,6 +995,15 @@
 			buildConfigurations = (
 				C0ED340F23F39E93005FA859 /* Debug */,
 				C0ED341023F39E93005FA859 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0ED343D23F3AC43005FA859 /* Build configuration list for PBXNativeTarget "Introspect macOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0ED343E23F3AC43005FA859 /* Debug */,
+				C0ED343F23F3AC43005FA859 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

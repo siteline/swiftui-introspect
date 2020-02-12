@@ -31,7 +31,7 @@ public struct IntrospectionView<TargetViewType: NSView>: NSViewRepresentable {
     let customize: (TargetViewType) -> Void
     
     public init(
-        selector: @escaping (NSView) -> TargetViewType?,
+        selector: @escaping (IntrospectionNSView) -> TargetViewType?,
         customize: @escaping (TargetViewType) -> Void
     ) {
         self.selector = selector
@@ -40,7 +40,7 @@ public struct IntrospectionView<TargetViewType: NSView>: NSViewRepresentable {
     
     public func makeNSView(context: NSViewRepresentableContext<IntrospectionView>) -> IntrospectionNSView {
         let view = IntrospectionNSView()
-        view.setAccessibilityLabel("\(self)<\(TargetViewType.self)>")
+        view.setAccessibilityLabel("IntrospectionNSView<\(TargetViewType.self)>")
         return view
     }
 

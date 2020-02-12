@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-enum Selector {
+enum TargetViewSelector {
     public static func sibling<TargetView: UIView>(introspectionView: IntrospectionUIView) -> TargetView? {
         guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
             return nil
@@ -78,41 +78,41 @@ extension View {
     
     /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
-        return introspect(selector: Selector.ancestorOrSibling, customize: customize)
+        return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
     
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
-        return introspect(selector: Selector.ancestorOrSibling, customize: customize)
+        return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
     
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     public func introspectSwitch(customize: @escaping (UISwitch) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UISlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (UISlider) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UIStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (UIStepper) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (UIDatePicker) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
     /// Finds a `UISegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
     public func introspectSegmentedControl(customize: @escaping (UISegmentedControl) -> ()) -> some View {
-        return introspect(selector: Selector.sibling, customize: customize)
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
 }

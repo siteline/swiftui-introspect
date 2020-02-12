@@ -40,10 +40,11 @@ jobs:
           name: Create reports directory
           command: mkdir output
       - run:
-          name: Test
-          command: >
-            bundle exec fastlane ios test
-            bundle exec fastlane mac test
+          name: Test iOS/tvOS framework
+          command: bundle exec fastlane ios test
+      - run:
+          name: Test macOS framework
+          command: bundle exec fastlane mac test
       - run:
           name: Lint podspec
           command: bundle exec pod lib lint

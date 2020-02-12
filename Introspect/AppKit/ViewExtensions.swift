@@ -34,37 +34,37 @@ extension View {
         ))
     }
     
-    /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
+    /// Finds a `NSTableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (NSTableView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
     
-    /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
+    /// Finds a `NSScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (NSScrollView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
     
-    /// Finds a `UITextField` from a `SwiftUI.TextField`
+    /// Finds a `NSTextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (NSTextField) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
-    /// Finds a `UISlider` from a `SwiftUI.Slider`
+    /// Finds a `NSSlider` from a `SwiftUI.Slider`
     public func introspectSlider(customize: @escaping (NSSlider) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
-    /// Finds a `UIStepper` from a `SwiftUI.Stepper`
+    /// Finds a `NSStepper` from a `SwiftUI.Stepper`
     public func introspectStepper(customize: @escaping (NSStepper) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
-    /// Finds a `UIDatePicker` from a `SwiftUI.DatePicker`
+    /// Finds a `NSDatePicker` from a `SwiftUI.DatePicker`
     public func introspectDatePicker(customize: @escaping (NSDatePicker) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
     
-    /// Finds a `UISegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
+    /// Finds a `NSSegmentedControl` from a `SwiftUI.Picker` with style `SegmentedPickerStyle`
     public func introspectSegmentedControl(customize: @escaping (NSSegmentedControl) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }

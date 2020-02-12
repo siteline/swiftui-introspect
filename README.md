@@ -3,7 +3,7 @@ Introspect for SwiftUI
 
 [![CircleCI](https://circleci.com/gh/siteline/SwiftUI-Introspect.svg?style=svg&circle-token=6f995f204d4d417d31f79e7257f6e1ecf430ae07)](https://circleci.com/gh/siteline/SwiftUI-Introspect)
 
-Introspect allows you to get the underlying UIKit element of a SwiftUI view.
+Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
 For instance, with Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
 
@@ -47,19 +47,19 @@ Introspection
 
 ### Implemented
 
-SwiftUI | UIKit | Introspect | Target
---- | --- | --- | ---
-List | UITableView | `.introspectTableView()` | List, or List child
-ScrollView | UIScrollView | `.introspectScrollView()` | ScrollView, or ScrollView child
-NavigationView | UINavigationController | `.introspectNavigationController()` | NavigationView, or NavigationView child
-_Any embedded view_ | UIViewController | `.introspectViewController()` | View embedded in a view controller
-TabView | UITabBarController | `.introspectTabBarController()` | TabView, or TabView child
-TextField | UITextField | `.introspectTextField()` | TextField
-Toggle | UISwitch | `.introspectSwitch()` | Toggle
-Slider | UISlider | `.introspectSlider()` | Slider
-Stepper | UIStepper | `.introspectStepper()` | Stepper
-DatePicker | UIDatePicker | `.introspectDatePicker()` | DatePicker
-Picker (SegmentedPickerStyle) | UISegmentedControl | `.introspectSegmentedControl()` | Picker
+SwiftUI | UIKit | AppKit | Introspect
+--- | --- | --- | --- | ---
+List | UITableView | NSTableView | `.introspectTableView()`
+ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
+NavigationView | UINavigationController | _N/A_ | `.introspectNavigationController()`
+_Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
+TabView | UITabBarController | _N/A_ | `.introspectTabBarController()`
+TextField | UITextField | NSTextField | `.introspectTextField()`
+Toggle | UISwitch | N/A | `.introspectSwitch()`
+Slider | UISlider | NSSlider | `.introspectSlider()`
+Stepper | UIStepper | NSStepper | `.introspectStepper()`
+DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`
+Picker (SegmentedPickerStyle) | UISegmentedControl | NSSegmentedControl | `.introspectSegmentedControl()`
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).
 

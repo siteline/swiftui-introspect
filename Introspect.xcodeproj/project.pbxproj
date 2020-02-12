@@ -25,6 +25,7 @@
 		C0ED341523F3A13C005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341423F3A13C005FA859 /* IntrospectionView.swift */; };
 		C0ED341723F3A149005FA859 /* IntrospectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */; };
 		C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341A23F3A258005FA859 /* IntrospectionView.swift */; };
+		C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */; };
 		E0B11E0609FFA04A7B6A1418 /* Pods_IntrospectExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5785749C354BCF848BC4EAD9 /* Pods_IntrospectExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		C0ED341423F3A13C005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
 		C0ED341623F3A149005FA859 /* IntrospectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionViewController.swift; sourceTree = "<group>"; };
 		C0ED341A23F3A258005FA859 /* IntrospectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrospectionView.swift; sourceTree = "<group>"; };
+		C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				C0ED341A23F3A258005FA859 /* IntrospectionView.swift */,
+				C0ED341C23F3A58B005FA859 /* ViewExtensions.swift */,
 			);
 			path = Cocoa;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0ED341B23F3A258005FA859 /* IntrospectionView.swift in Sources */,
+				C0ED341D23F3A58B005FA859 /* ViewExtensions.swift in Sources */,
 				C0ED341123F39EA2005FA859 /* Introspect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

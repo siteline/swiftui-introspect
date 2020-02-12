@@ -28,7 +28,7 @@ public struct IntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     let customize: (TargetViewType) -> Void
     
     public init(
-        selector: @escaping (UIView) -> TargetViewType?,
+        selector: @escaping (IntrospectionUIView) -> TargetViewType?,
         customize: @escaping (TargetViewType) -> Void
     ) {
         self.selector = selector

@@ -1,22 +1,6 @@
 import SwiftUI
 import AppKit
 
-enum TargetViewSelector {
-    public static func sibling<TargetView: NSView>(introspectionView: IntrospectionNSView) -> TargetView? {
-        guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-            return nil
-        }
-        return Introspect.previousSibling(containing: TargetView.self, from: viewHost)
-    }
-    
-    public static func ancestorOrSibling<TargetView: NSView>(introspectionView: IntrospectionNSView) -> TargetView? {
-        if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: introspectionView) {
-            return tableView
-        }
-        return sibling(introspectionView: introspectionView)
-    }
-}
-
 extension View {
     
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {

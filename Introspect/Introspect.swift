@@ -190,6 +190,22 @@ public enum Introspect {
     }
 }
 
+enum TargetViewSelector {
+    public static func sibling<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        guard let viewHost = Introspect.findViewHost(from: entry) else {
+            return nil
+        }
+        return Introspect.previousSibling(containing: TargetView.self, from: viewHost)
+    }
+    
+    public static func ancestorOrSibling<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry) {
+            return tableView
+        }
+        return sibling(from: entry)
+    }
+}
+
 /// Allows to safely access an array element by index
 /// Usage: array[safe: 2]
 private extension Array {

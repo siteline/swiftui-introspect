@@ -1,7 +1,31 @@
+#if canImport(UIKit)
 import XCTest
 import SwiftUI
 
 @testable import Introspect
+
+enum TestUtils {
+    static func present<ViewType: View>(view: ViewType) {
+        
+        let hostingController = UIHostingController(rootView: view)
+        
+        let application = UIApplication.shared
+        application.windows.forEach { window in
+            if let presentedViewController = window.rootViewController?.presentedViewController {
+                presentedViewController.dismiss(animated: false, completion: nil)
+            }
+            window.isHidden = true
+        }
+
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.layer.speed = 10
+
+        hostingController.beginAppearanceTransition(true, animated: false)
+        window.rootViewController = hostingController
+        window.makeKeyAndVisible()
+        hostingController.endAppearanceTransition()
+    }
+}
 
 private struct NavigationTestView: View {
     let spy: () -> Void
@@ -193,7 +217,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-class IntrospectTests: XCTestCase {
+class UIKitTests: XCTestCase {
     func testNavigation() {
         
         let expectation = XCTestExpectation()
@@ -330,3 +354,4 @@ class IntrospectTests: XCTestCase {
     }
     #endif
 }
+#endif

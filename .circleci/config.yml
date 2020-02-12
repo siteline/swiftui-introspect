@@ -51,6 +51,9 @@ jobs:
       - run:
           name: Build swift package
           command: swift build
+      - run:
+          name: Test swift package
+          command: swift test
       - store_test_results:
           path: output
           

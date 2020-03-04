@@ -6,6 +6,7 @@ Changelog
 ## [0.1.0]
 
  - Added `macOS` and `tvOS` support.
+ - Added Catalyst support in the Introspect iOS framework.
 
 ## [0.0.6]
 

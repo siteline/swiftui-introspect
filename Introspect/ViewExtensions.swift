@@ -73,7 +73,7 @@ extension View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
     
-    /// Finds a `UITableViewCell` from a `SwiftUI.List`, or `SwiftUI.ForEach` child. You can attach this directly to the element inside the list.
+    /// Finds a `UITableViewCell` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
     public func introspectTableViewCell(customize: @escaping (UITableViewCell) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
@@ -138,7 +138,13 @@ extension View {
     public func introspectTableView(customize: @escaping (NSTableView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
     }
-    
+
+    /// Finds a `NSTableCellView` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
+    public func introspectTableViewCell(customize: @escaping (NSTableCellView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)
+    }
+
+
     /// Finds a `NSScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (NSScrollView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSibling, customize: customize)

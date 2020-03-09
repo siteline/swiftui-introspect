@@ -84,6 +84,11 @@ List {
 .introspectTableView { tableView in
     tableView.separatorStyle = .none
 }
+.introspectTableViewCell { cell in
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = .clear
+    cell.selectedBackgroundView = backgroundView
+}
 ```
 
 ### ScrollView

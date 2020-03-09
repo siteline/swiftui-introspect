@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added `introspectTableViewCell`
+
 ## [0.1.0]
 
  - Added `macOS` and `tvOS` support.

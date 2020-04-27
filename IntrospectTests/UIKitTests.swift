@@ -4,6 +4,7 @@ import SwiftUI
 
 @testable import Introspect
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {
         
@@ -27,6 +28,7 @@ enum TestUtils {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct NavigationTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -41,6 +43,7 @@ private struct NavigationTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct ViewControllerTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -55,6 +58,7 @@ private struct ViewControllerTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct NavigationRootTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -69,6 +73,7 @@ private struct NavigationRootTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct TabTestView: View {
     @State private var selection = 0
     let spy: () -> Void
@@ -83,6 +88,7 @@ private struct TabTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct TabRootTestView: View {
     @State private var selection = 0
     let spy: () -> Void
@@ -97,6 +103,7 @@ private struct TabRootTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -116,6 +123,7 @@ private struct ListTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct ScrollTestView: View {
     
     let spy1: () -> Void
@@ -139,6 +147,7 @@ private struct ScrollTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -150,6 +159,7 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 @available(tvOS, unavailable)
 private struct ToggleTestView: View {
     let spy: () -> Void
@@ -162,6 +172,7 @@ private struct ToggleTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 @available(tvOS, unavailable)
 private struct SliderTestView: View {
     let spy: () -> Void
@@ -174,6 +185,7 @@ private struct SliderTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 @available(tvOS, unavailable)
 private struct StepperTestView: View {
     let spy: () -> Void
@@ -187,6 +199,7 @@ private struct StepperTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 @available(tvOS, unavailable)
 private struct DatePickerTestView: View {
     let spy: () -> Void
@@ -201,6 +214,7 @@ private struct DatePickerTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 private struct SegmentedControlTestView: View {
     @State private var pickerValue = 0
     let spy: () -> Void
@@ -217,6 +231,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
 class UIKitTests: XCTestCase {
     func testNavigation() {
         

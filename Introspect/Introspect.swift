@@ -190,7 +190,7 @@ public enum Introspect {
     }
 }
 
-enum TargetViewSelector {
+public enum TargetViewSelector {
     public static func sibling<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         guard let viewHost = Introspect.findViewHost(from: entry) else {
             return nil

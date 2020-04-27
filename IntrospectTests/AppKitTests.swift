@@ -4,6 +4,7 @@ import XCTest
 import SwiftUI
 @testable import Introspect
 
+@available(macOS 15.0, *)
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {
         
@@ -18,6 +19,7 @@ enum TestUtils {
     }
 }
 
+@available(macOS 15.0, *)
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -37,6 +39,7 @@ private struct ListTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct ScrollTestView: View {
     
     let spy1: () -> Void
@@ -60,6 +63,7 @@ private struct ScrollTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -71,6 +75,7 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct SliderTestView: View {
     let spy: () -> Void
     @State private var sliderValue = 0.0
@@ -82,6 +87,7 @@ private struct SliderTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct StepperTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -94,6 +100,7 @@ private struct StepperTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct DatePickerTestView: View {
     let spy: () -> Void
     @State private var datePickerValue = Date()
@@ -107,6 +114,7 @@ private struct DatePickerTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 private struct SegmentedControlTestView: View {
     @State private var pickerValue = 0
     let spy: () -> Void
@@ -123,6 +131,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
+@available(macOS 15.0, *)
 class AppKitTests: XCTestCase {
     
     func testList() {

@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+ - Allow `Introspect` to be imported in apps that support older platform versions.
+
 ## [0.1.0]
 
  - Added `macOS` and `tvOS` support.

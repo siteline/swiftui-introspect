@@ -33,7 +33,7 @@ Install
 ### SwiftPM
 
 ```
-https://github.com/timbersoftware/SwiftUI-Introspect.git
+https://github.com/siteline/SwiftUI-Introspect.git
 ```
 
 ### Cocoapods

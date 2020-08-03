@@ -20,7 +20,7 @@ public class IntrospectionUIView: UIView {
 
 /// Introspection View that is injected into the UIKit hierarchy alongside the target view.
 /// After `updateUIView` is called, it calls `selector` to find the target view, then `customize` when the target view is found.
-@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     
     /// Method that introspects the view hierarchy to find the target view.

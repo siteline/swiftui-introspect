@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 /// Introspection UIViewController that is inserted alongside the target view controller.
-@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 public class IntrospectionUIViewController: UIViewController {
     required init() {
         super.init(nibName: nil, bundle: nil)
@@ -17,7 +17,7 @@ public class IntrospectionUIViewController: UIViewController {
 }
 
 /// This is the same logic as IntrospectionView but for view controllers. Please see details above.
-@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15, *)
 public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewController>: UIViewControllerRepresentable {
     
     let selector: (IntrospectionUIViewController) -> TargetViewControllerType?

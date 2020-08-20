@@ -84,6 +84,11 @@ extension View {
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.sibling, customize: customize)
     }
+
+    /// Finds a `UITextView` from a `SwiftUI.TextEditor`
+    public func introspectTextEditor(customize: @escaping (UITextView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.sibling, customize: customize)
+    }
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`
     @available(tvOS, unavailable)

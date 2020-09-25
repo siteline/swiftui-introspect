@@ -51,7 +51,7 @@ public enum Introspect {
         return nil
     }
     
-    /// Finds a previous sibling that contains a view of the specified type.
+    /// Finds a previous sibling that is or contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
     public static func previousSibling<AnyViewType: PlatformView>(
@@ -67,6 +67,10 @@ public enum Introspect {
         }
         
         for subview in superview.subviews[0..<entryIndex].reversed() {
+            if let typed = subview as? AnyViewType {
+                return typed
+            }
+
             if let typed = findChild(ofType: type, in: subview) {
                 return typed
             }
@@ -124,7 +128,7 @@ public enum Introspect {
         return nil
     }
     
-    /// Finds a next sibling that contains a view of the specified type.
+    /// Finds a next sibling that is or contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
     public static func nextSibling<AnyViewType: PlatformView>(
@@ -139,6 +143,10 @@ public enum Introspect {
         }
         
         for subview in superview.subviews[entryIndex..<superview.subviews.endIndex] {
+            if let typed = subview as? AnyViewType {
+                return typed
+            }
+
             if let typed = findChild(ofType: type, in: subview) {
                 return typed
             }

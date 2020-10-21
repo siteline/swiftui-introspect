@@ -7,6 +7,8 @@ Changelog
  - Added Catalyst support in the Introspect iOS framework.
  - Fixed `.introspectScrollView()` on iOS 14
    [#55](https://github.com/siteline/SwiftUI-Introspect/issues/55)
+ - Fixed availability annotations on macOS
+   [#46](https://github.com/siteline/SwiftUI-Introspect/issues/46)
 
 ## [0.1.0]
 

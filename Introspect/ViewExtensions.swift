@@ -6,7 +6,7 @@ import AppKit
 import UIKit
 #endif
 
-@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
         return overlay(view.frame(width: 0, height: 0))
@@ -14,7 +14,7 @@ extension View {
 }
 
 #if canImport(UIKit)
-@available(iOS 13.0, tvOS 13.0, macOS 15.0, *)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
@@ -121,7 +121,7 @@ extension View {
 #endif
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-@available(macOS 15.0, *)
+@available(macOS 10.15.0, *)
 extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`

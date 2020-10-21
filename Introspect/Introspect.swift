@@ -75,6 +75,30 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds a previous sibling that is of the specified type.
+    /// This method inspects siblings recursively.
+    /// Returns nil if no sibling contains the specified type.
+    public static func previousSibling<AnyViewType: PlatformView>(
+        ofType type: AnyViewType.Type,
+        from entry: PlatformView
+    ) -> AnyViewType? {
+        
+        guard let superview = entry.superview,
+            let entryIndex = superview.subviews.firstIndex(of: entry),
+            entryIndex > 0
+        else {
+            return nil
+        }
+        
+        for subview in superview.subviews[0..<entryIndex].reversed() {
+            if let typed = subview as? AnyViewType {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
     /// Finds a previous sibling that contains a view controller of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
@@ -147,6 +171,29 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds a next sibling that if of the specified type.
+    /// This method inspects siblings recursively.
+    /// Returns nil if no sibling contains the specified type.
+    public static func nextSibling<AnyViewType: PlatformView>(
+        ofType type: AnyViewType.Type,
+        from entry: PlatformView
+    ) -> AnyViewType? {
+        
+        guard let superview = entry.superview,
+            let entryIndex = superview.subviews.firstIndex(of: entry)
+        else {
+            return nil
+        }
+        
+        for subview in superview.subviews[entryIndex..<superview.subviews.endIndex] {
+            if let typed = subview as? AnyViewType {
+                return typed
+            }
+        }
+        
+        return nil
+    }
+    
     /// Finds an ancestor of the specified type.
     /// If it reaches the top of the view without finding the specified view type, it returns nil.
     public static func findAncestor<AnyViewType: PlatformView>(ofType type: AnyViewType.Type, from entry: PlatformView) -> AnyViewType? {
@@ -191,18 +238,32 @@ public enum Introspect {
 }
 
 public enum TargetViewSelector {
-    public static func sibling<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+    public static func siblingContaining<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         guard let viewHost = Introspect.findViewHost(from: entry) else {
             return nil
         }
         return Introspect.previousSibling(containing: TargetView.self, from: viewHost)
     }
     
-    public static func ancestorOrSibling<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+    public static func siblingOfType<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        guard let viewHost = Introspect.findViewHost(from: entry) else {
+            return nil
+        }
+        return Introspect.previousSibling(ofType: TargetView.self, from: viewHost)
+    }
+    
+    public static func ancestorOrSiblingContaining<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry) {
             return tableView
         }
-        return sibling(from: entry)
+        return siblingContaining(from: entry)
+    }
+    
+    public static func ancestorOrSiblingOfType<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry) {
+            return tableView
+        }
+        return siblingOfType(from: entry)
     }
 }
 

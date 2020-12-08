@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.1.2]
+
  - Allow iOS 11, tvOS 11, macOS 10.13 as deployment target with SPM.
    [#41](https://github.com/siteline/SwiftUI-Introspect/pull/41)
 
@@ -46,6 +48,7 @@ Changelog
 
  - First release.
 
+[0.1.2]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.2
 [0.1.1]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.1
 [0.1.0]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.0
 [0.0.6]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.6

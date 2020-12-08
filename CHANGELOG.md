@@ -3,6 +3,9 @@ Changelog
 
 ## master
 
+ - Allow iOS 11, tvOS 11, macOS 10.13 as deployment target with SPM.
+   [#41](https://github.com/siteline/SwiftUI-Introspect/pull/41)
+
 ## [0.1.1]
 
  - Allow `Introspect` to be imported in apps that support older platform versions.

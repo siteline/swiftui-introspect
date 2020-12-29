@@ -77,7 +77,9 @@ extension View {
     
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
-        if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
+        if #available(iOS 14.2, *) {
+            return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+        } else if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
             return introspect(selector: TargetViewSelector.ancestorOrSiblingOfType, customize: customize)
         } else {
             return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)

@@ -1,3 +1,4 @@
+#if arch(x86_64) || arch(arm64)
 #if canImport(UIKit)
 import UIKit
 import SwiftUI
@@ -61,4 +62,5 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         }
     }
 }
+#endif
 #endif

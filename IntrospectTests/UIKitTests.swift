@@ -338,11 +338,7 @@ class UIKitTests: XCTestCase {
     func testNestedScrollView() {
 
         let expectation1 = XCTestExpectation()
-        expectation1.assertForOverFulfill = true
-
         let expectation2 = XCTestExpectation()
-        expectation2.assertForOverFulfill = true
-
         let view = NestedScrollTestView(
             spy1: { showsVerticalScrollIndicator in
                 if showsVerticalScrollIndicator {

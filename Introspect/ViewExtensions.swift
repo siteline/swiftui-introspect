@@ -80,7 +80,7 @@ extension View {
         if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
             return introspect(selector: TargetViewSelector.siblingOrAncestorOfType, customize: customize)
         } else {
-            return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+            return introspect(selector: TargetViewSelector.siblingOrAncestorContaining, customize: customize)
         }
     }
     

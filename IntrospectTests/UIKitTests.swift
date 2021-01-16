@@ -148,6 +148,31 @@ private struct ScrollTestView: View {
 }
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
+private struct NestedScrollTestView: View {
+
+    let spy1: (Bool) -> Void
+    let spy2: (Bool) -> Void
+
+    var body: some View {
+        HStack {
+            ScrollView(showsIndicators: true) {
+                Text("Item 1")
+
+                ScrollView(showsIndicators: false) {
+                    Text("Item 1")
+                }
+                .introspectScrollView { scrollView in
+                    self.spy2(scrollView.showsVerticalScrollIndicator)
+                }
+            }
+            .introspectScrollView { scrollView in
+                self.spy1(scrollView.showsVerticalScrollIndicator)
+            }
+        }
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -309,7 +334,32 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation1, expectation2], timeout: 1)
     }
-    
+
+    func testNestedScrollView() {
+
+        let expectation1 = XCTestExpectation()
+        expectation1.assertForOverFulfill = true
+
+        let expectation2 = XCTestExpectation()
+        expectation2.assertForOverFulfill = true
+
+        let view = NestedScrollTestView(
+            spy1: { showsVerticalScrollIndicator in
+                if showsVerticalScrollIndicator {
+                    expectation1.fulfill()
+                }
+            },
+            spy2: { showsVerticalScrollIndicator in
+                // The second spy should pick up the inner ScrollView's hidden scroll indicators
+                if !showsVerticalScrollIndicator {
+                    expectation2.fulfill()
+                }
+            }
+        )
+        TestUtils.present(view: view)
+        wait(for: [expectation1, expectation2], timeout: 1)
+    }
+
     func testTextField() {
         
         let expectation = XCTestExpectation()

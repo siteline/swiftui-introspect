@@ -251,7 +251,14 @@ public enum TargetViewSelector {
         }
         return Introspect.previousSibling(ofType: TargetView.self, from: viewHost)
     }
-    
+
+    public static func siblingOrAncestorOfType<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        if let sibling: TargetView = siblingOfType(from: entry) {
+            return sibling
+        }
+        return ancestorOrSiblingOfType(from: entry)
+    }
+
     public static func ancestorOrSiblingContaining<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry) {
             return tableView

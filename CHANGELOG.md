@@ -3,8 +3,19 @@ Changelog
 
 ## master
 
+## [0.1.2]
+
+ - Allow iOS 11, tvOS 11, macOS 10.13 as deployment target with SPM.
+   [#41](https://github.com/siteline/SwiftUI-Introspect/pull/41)
+
+## [0.1.1]
+
  - Allow `Introspect` to be imported in apps that support older platform versions.
  - Added Catalyst support in the Introspect iOS framework.
+ - Fixed `.introspectScrollView()` on iOS 14
+   [#55](https://github.com/siteline/SwiftUI-Introspect/issues/55)
+ - Fixed availability annotations on macOS
+   [#46](https://github.com/siteline/SwiftUI-Introspect/issues/46)
 
 ## [0.1.0]
 
@@ -37,6 +48,8 @@ Changelog
 
  - First release.
 
+[0.1.2]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.2
+[0.1.1]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.1
 [0.1.0]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.0
 [0.0.6]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.6
 [0.0.5]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.0.5

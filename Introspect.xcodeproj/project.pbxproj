@@ -781,6 +781,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -809,6 +810,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -876,6 +878,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				SDKROOT = appletvos;
@@ -901,6 +904,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				SDKROOT = appletvos;
@@ -1007,6 +1011,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1034,6 +1039,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siteline.Introspect;
 				PRODUCT_NAME = Introspect;
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -167,7 +167,7 @@ private struct TextEditorTestView: View {
     @State private var textEditorValue = ""
     var body: some View {
         TextEditor(text: $textEditorValue)
-        .introspectTextEditor { textField in
+        .introspectTextView { textField in
             self.spy()
         }
     }

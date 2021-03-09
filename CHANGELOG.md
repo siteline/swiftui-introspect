@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added `.introspectTextView()`.
+
 ## [0.1.2]
 
  - Allow iOS 11, tvOS 11, macOS 10.13 as deployment target with SPM.

@@ -75,6 +75,18 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(macOS 11.0, *)
+private struct TextEditorTestView: View {
+    let spy: () -> Void
+    @State private var textEditorValue = ""
+    var body: some View {
+        TextEditor(text: $textEditorValue)
+        .introspectTextView { textView in
+            self.spy()
+        }
+    }
+}
+
 @available(macOS 10.15.0, *)
 private struct SliderTestView: View {
     let spy: () -> Void
@@ -166,6 +178,18 @@ class AppKitTests: XCTestCase {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: 1)
+    }
+    
+    func testTextEditor() {
+
+        if #available(macOS 11.0, *) {
+            let expectation = XCTestExpectation()
+            let view = TextEditorTestView(spy: {
+                expectation.fulfill()
+            })
+            TestUtils.present(view: view)
+            wait(for: [expectation], timeout: 1)
+        }
     }
     
     func testSlider() {

@@ -159,6 +159,19 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
+@available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
+private struct TextEditorTestView: View {
+    let spy: () -> Void
+    @State private var textEditorValue = ""
+    var body: some View {
+        TextEditor(text: $textEditorValue)
+        .introspectTextView { textView in
+            self.spy()
+        }
+    }
+}
+
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct ToggleTestView: View {
@@ -362,6 +375,18 @@ class UIKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = DatePickerTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+    
+    @available(iOS 14.0, macCatalyst 14.0, macOS 15.0, *)
+    @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
+    func testTextEditor() {
+
+        let expectation = XCTestExpectation()
+        let view = TextEditorTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

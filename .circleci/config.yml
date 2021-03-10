@@ -1,6 +1,6 @@
 
 # Shared Xcode version between jobs
-xcode-version: &xcode-version "12.0.1"
+xcode-version: &xcode-version "12.4.0"
 
 # This is the key that we use to store and restore our dependencies cache.
 # It needs to be different anytime we add Pods, Gems, or npm packages.

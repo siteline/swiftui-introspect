@@ -143,10 +143,8 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-class AppKitTests: XCTestCase {}
-
 @available(macOS 10.15.0, *)
-extension AppKitTests {
+class AppKitTests: XCTestCase {
     
     func testList() {
         
@@ -180,6 +178,18 @@ extension AppKitTests {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: 1)
+    }
+    
+    func testTextEditor() {
+
+        if #available(macOS 11.0, *) {
+            let expectation = XCTestExpectation()
+            let view = TextEditorTestView(spy: {
+                expectation.fulfill()
+            })
+            TestUtils.present(view: view)
+            wait(for: [expectation], timeout: 1)
+        }
     }
     
     func testSlider() {
@@ -220,22 +230,6 @@ extension AppKitTests {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: 1)
-    }
-}
-
-@available(macOS 11.0, *)
-extension AppKitTests {
-    
-    func testTextEditor() {
-
-        if #available(macOS 11.0) {
-            let expectation = XCTestExpectation()
-            let view = TextEditorTestView(spy: {
-                expectation.fulfill()
-            })
-            TestUtils.present(view: view)
-            wait(for: [expectation], timeout: 1)
-        }
     }
 }
 #endif

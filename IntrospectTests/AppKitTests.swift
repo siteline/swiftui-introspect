@@ -228,12 +228,14 @@ extension AppKitTests {
     
     func testTextEditor() {
 
-        let expectation = XCTestExpectation()
-        let view = TextEditorTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        if #available(macOS 11.0) {
+            let expectation = XCTestExpectation()
+            let view = TextEditorTestView(spy: {
+                expectation.fulfill()
+            })
+            TestUtils.present(view: view)
+            wait(for: [expectation], timeout: 1)
+        }
     }
 }
 #endif

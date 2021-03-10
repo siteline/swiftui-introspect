@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Update CircleCI config to use Xcode 12.4.0
+
 ## [0.1.2]
 
  - Allow iOS 11, tvOS 11, macOS 10.13 as deployment target with SPM.

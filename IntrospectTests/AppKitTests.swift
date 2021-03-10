@@ -143,8 +143,10 @@ private struct SegmentedControlTestView: View {
     }
 }
 
+class AppKitTests: XCTestCase {}
+
 @available(macOS 10.15.0, *)
-class AppKitTests: XCTestCase {
+extension AppKitTests {
     
     func testList() {
         
@@ -174,17 +176,6 @@ class AppKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TextFieldTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
-    }
-    
-    @available(macOS 11.0, *)
-    func testTextEditor() {
-
-        let expectation = XCTestExpectation()
-        let view = TextEditorTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
@@ -225,6 +216,20 @@ class AppKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = SegmentedControlTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: 1)
+    }
+}
+
+@available(macOS 11.0, *)
+extension AppKitTests {
+    
+    func testTextEditor() {
+
+        let expectation = XCTestExpectation()
+        let view = TextEditorTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

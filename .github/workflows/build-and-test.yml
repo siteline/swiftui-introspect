@@ -18,6 +18,9 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
+
+      - name: Select proper Xcode CLI Tools
+        run: xcode-select -s /Library/Developer/CommandLineTools/
       
       - name: Install gem dependencies
         uses: ruby/setup-ruby@v1

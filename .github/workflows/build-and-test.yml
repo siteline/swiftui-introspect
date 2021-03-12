@@ -21,6 +21,9 @@ jobs:
 
       - name: Select proper Xcode CLI Tools
         run: sudo xcode-select -s /Library/Developer/CommandLineTools/
+
+      - name: Export macOS SDK
+        run: echo $(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
       
       - name: Install gem dependencies
         uses: ruby/setup-ruby@v1

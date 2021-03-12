@@ -19,9 +19,6 @@ jobs:
         with:
           xcode-version: '12.4'
 
-      - name: Select proper Xcode CLI Tools
-        run: sudo xcode-select -s /Library/Developer/CommandLineTools/
-
       - name: Export macOS SDK
         run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
       

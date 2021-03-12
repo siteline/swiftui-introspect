@@ -1,0 +1,53 @@
+name: Build and Test Package
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-11.0
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Swift
+        uses: fwal/setup-swift@v1
+        env:
+          ACTIONS_ALLOW_INSECURE_COMMANDS: 'true'
+      
+      - name: Setup Xcode 12
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '12.4'
+      
+      - name: Install gem dependencies
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      
+      - name: Cache cocoapods dependencies
+        uses: actions/cache@v2
+        id: cache-pods
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-pods-
+      
+      - name: Install cocoapods dependencies  
+        if: steps.cache-pods.outputs.cache-hit != 'true'
+        run: bundle exec pod install
+
+      - name: Test Framework on iOS and tvOS
+        run: bundle exec fastlane ios test
+      
+      - name: Test Framework on macOS
+        run: bundle exec fastlane mac test
+      
+      - name: Lint podspec
+        run: bundle exec pod lib lint
+
+      - name: Build Swift Package
+        run: swift build -v
+      
+      - name: Test Swift Package
+        run: swift test -v

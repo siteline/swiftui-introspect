@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Add Github Action
 - Added `.introspectTextView()`.
 - Update CircleCI config to use Xcode 12.4.0
 

@@ -4,6 +4,8 @@ import SwiftUI
 
 @testable import Introspect
 
+let TIMEOUT: TimeInterval = 2 // just to be really safe on CI
+
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {
@@ -253,7 +255,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testViewController() {
@@ -263,7 +265,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testTabView() {
@@ -273,7 +275,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testTabViewRoot() {
@@ -283,7 +285,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testList() {
@@ -295,7 +297,7 @@ class UIKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TIMEOUT)
     }
     
     func testScrollView() {
@@ -307,7 +309,7 @@ class UIKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TIMEOUT)
     }
     
     func testTextField() {
@@ -317,7 +319,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testSegmentedControl() {
@@ -327,7 +329,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     #if os(iOS)
@@ -338,7 +340,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testToggle() {
@@ -348,7 +350,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testSlider() {
@@ -358,7 +360,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testStepper() {
@@ -368,7 +370,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testDatePicker() {
@@ -378,7 +380,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     @available(iOS 14.0, macCatalyst 14.0, macOS 15.0, *)
@@ -390,7 +392,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     #endif
 }

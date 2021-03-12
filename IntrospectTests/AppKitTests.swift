@@ -4,6 +4,8 @@ import XCTest
 import SwiftUI
 @testable import Introspect
 
+let TIMEOUT: TimeInterval = 2 // just to be really safe on CI
+
 @available(macOS 10.15.0, *)
 enum TestUtils {
     static func present<ViewType: View>(view: ViewType) {
@@ -155,7 +157,7 @@ class AppKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TIMEOUT)
     }
     
     func testScrollView() {
@@ -167,7 +169,7 @@ class AppKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TIMEOUT)
     }
     
     func testTextField() {
@@ -177,7 +179,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testTextEditor() {
@@ -188,7 +190,7 @@ class AppKitTests: XCTestCase {
                 expectation.fulfill()
             })
             TestUtils.present(view: view)
-            wait(for: [expectation], timeout: 1)
+            wait(for: [expectation], timeout: TIMEOUT)
         }
     }
     
@@ -199,7 +201,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testStepper() {
@@ -209,7 +211,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testDatePicker() {
@@ -219,7 +221,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
     
     func testSegmentedControl() {
@@ -229,7 +231,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TIMEOUT)
     }
 }
 #endif

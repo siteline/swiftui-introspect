@@ -75,6 +75,11 @@ extension View {
         return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
     }
     
+    /// Finds a `UITableViewCell` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
+    public func introspectTableViewCell(customize: @escaping (UITableViewCell) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
         if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
@@ -144,7 +149,12 @@ extension View {
     public func introspectTableView(customize: @escaping (NSTableView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
     }
-    
+
+    /// Finds a `NSTableCellView` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
+    public func introspectTableViewCell(customize: @escaping (NSTableCellView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
     /// Finds a `NSScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (NSScrollView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)

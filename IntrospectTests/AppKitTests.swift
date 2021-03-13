@@ -28,7 +28,9 @@ private struct ListTestView: View {
     
     let spy1: () -> Void
     let spy2: () -> Void
-    
+    let spyCell1: () -> Void
+    let spyCell2: () -> Void
+
     var body: some View {
         List {
             Text("Item 1")
@@ -36,9 +38,16 @@ private struct ListTestView: View {
                 .introspectTableView { tableView in
                     self.spy2()
                 }
+                .introspectTableViewCell { cell in
+                    self.spyCell2()
+                }
+            
         }
         .introspectTableView { tableView in
             self.spy1()
+        }
+        .introspectTableViewCell { cell in
+            self.spyCell1()
         }
     }
 }
@@ -151,17 +160,21 @@ private struct SegmentedControlTestView: View {
 class AppKitTests: XCTestCase {
     
     func testList() {
-        
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
+        let cellExpectation1 = XCTestExpectation()
+        let cellExpectation2 = XCTestExpectation()
+        
         let view = ListTestView(
             spy1: { expectation1.fulfill() },
-            spy2: { expectation2.fulfill() }
+            spy2: { expectation2.fulfill() },
+            spyCell1: { cellExpectation1.fulfill() },
+            spyCell2: { cellExpectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
+        wait(for: [expectation1, expectation2, cellExpectation1, cellExpectation2], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testScrollView() {
         
         let expectation1 = XCTestExpectation()

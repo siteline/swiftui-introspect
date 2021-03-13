@@ -4,7 +4,12 @@ import SwiftUI
 
 @testable import Introspect
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 enum TestUtils {
+    enum Constants {
+        static let timeout: TimeInterval = 3
+    }
+    
     static func present<ViewType: View>(view: ViewType) {
         
         let hostingController = UIHostingController(rootView: view)
@@ -27,6 +32,7 @@ enum TestUtils {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct NavigationTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -41,6 +47,7 @@ private struct NavigationTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ViewControllerTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -55,6 +62,7 @@ private struct ViewControllerTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct NavigationRootTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -69,6 +77,7 @@ private struct NavigationRootTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TabTestView: View {
     @State private var selection = 0
     let spy: () -> Void
@@ -83,6 +92,7 @@ private struct TabTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TabRootTestView: View {
     @State private var selection = 0
     let spy: () -> Void
@@ -97,6 +107,7 @@ private struct TabRootTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -125,6 +136,7 @@ private struct ListTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ScrollTestView: View {
     
     let spy1: () -> Void
@@ -148,6 +160,7 @@ private struct ScrollTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -159,6 +172,20 @@ private struct TextFieldTestView: View {
     }
 }
 
+@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
+@available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
+private struct TextEditorTestView: View {
+    let spy: () -> Void
+    @State private var textEditorValue = ""
+    var body: some View {
+        TextEditor(text: $textEditorValue)
+        .introspectTextView { textView in
+            self.spy()
+        }
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct ToggleTestView: View {
     let spy: () -> Void
@@ -171,6 +198,7 @@ private struct ToggleTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct SliderTestView: View {
     let spy: () -> Void
@@ -183,6 +211,7 @@ private struct SliderTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct StepperTestView: View {
     let spy: () -> Void
@@ -196,6 +225,7 @@ private struct StepperTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct DatePickerTestView: View {
     let spy: () -> Void
@@ -210,6 +240,7 @@ private struct DatePickerTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct SegmentedControlTestView: View {
     @State private var pickerValue = 0
     let spy: () -> Void
@@ -226,6 +257,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 class UIKitTests: XCTestCase {
     func testNavigation() {
         
@@ -234,7 +266,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testViewController() {
@@ -244,7 +276,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testTabView() {
@@ -254,7 +286,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testTabViewRoot() {
@@ -264,7 +296,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testList() {
@@ -281,7 +313,7 @@ class UIKitTests: XCTestCase {
             spyCell2: { cellExpectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2, cellExpectation1, cellExpectation2], timeout: 1)
+        wait(for: [expectation1, expectation2, cellExpectation1, cellExpectation2], timeout: TestUtils.Constants.timeout)
     }
     
     func testScrollView() {
@@ -293,7 +325,7 @@ class UIKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
     }
     
     func testTextField() {
@@ -303,7 +335,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testSegmentedControl() {
@@ -313,7 +345,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     #if os(iOS)
@@ -324,7 +356,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testToggle() {
@@ -334,7 +366,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testSlider() {
@@ -344,7 +376,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testStepper() {
@@ -354,7 +386,7 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testDatePicker() {
@@ -364,7 +396,19 @@ class UIKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    @available(iOS 14.0, macCatalyst 14.0, macOS 15.0, *)
+    @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
+    func testTextEditor() {
+
+        let expectation = XCTestExpectation()
+        let view = TextEditorTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     #endif
 }

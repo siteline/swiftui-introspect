@@ -33,7 +33,7 @@ Install
 ### SwiftPM
 
 ```
-https://github.com/timbersoftware/SwiftUI-Introspect.git
+https://github.com/siteline/SwiftUI-Introspect.git
 ```
 
 ### Cocoapods
@@ -132,7 +132,7 @@ In case Introspect doesn't support the SwiftUI element that you're looking for, 
 ```swift
 extension View {
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        return inject(IntrospectionView(
+        return inject(UIKitIntrospectionView(
             selector: { introspectionView in
                 guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
                     return nil

@@ -1,8 +1,9 @@
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import AppKit
 
 /// Introspection NSView that is inserted alongside the target view.
+@available(macOS 10.15.0, *)
 public class IntrospectionNSView: NSView {
     
     required init() {
@@ -22,6 +23,7 @@ public class IntrospectionNSView: NSView {
 
 /// Introspection View that is injected into the UIKit hierarchy alongside the target view.
 /// After `updateNSView` is called, it calls `selector` to find the target view, then `customize` when the target view is found.
+@available(macOS 10.15.0, *)
 public struct AppKitIntrospectionView<TargetViewType: NSView>: NSViewRepresentable {
     
     /// Method that introspects the view hierarchy to find the target view.

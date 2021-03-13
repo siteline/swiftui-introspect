@@ -6,6 +6,10 @@ import SwiftUI
 
 @available(macOS 10.15.0, *)
 enum TestUtils {
+    enum Constants {
+        static let timeout: TimeInterval = 2
+    }
+    
     static func present<ViewType: View>(view: ViewType) {
         
         let window = NSWindow(
@@ -181,7 +185,7 @@ class AppKitTests: XCTestCase {
             spy2: { expectation2.fulfill() }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
     }
     
     func testScrollView() throws {
@@ -202,7 +206,7 @@ class AppKitTests: XCTestCase {
             }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
 
         let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
         let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
@@ -229,7 +233,7 @@ class AppKitTests: XCTestCase {
             }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
 
         let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
         let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
@@ -244,7 +248,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testTextEditor() {
@@ -255,7 +259,7 @@ class AppKitTests: XCTestCase {
                 expectation.fulfill()
             })
             TestUtils.present(view: view)
-            wait(for: [expectation], timeout: 1)
+            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
         }
     }
     
@@ -266,7 +270,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testStepper() {
@@ -276,7 +280,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testDatePicker() {
@@ -286,7 +290,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testSegmentedControl() {
@@ -296,7 +300,7 @@ class AppKitTests: XCTestCase {
             expectation.fulfill()
         })
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 }
 #endif

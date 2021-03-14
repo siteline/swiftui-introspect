@@ -3,6 +3,7 @@ skip_docs
 
 platform :ios do
     lane :test do |options|
+        puts 'Running on GitHub CI.' options[:ci] == 'github'
         scan(
             devices: ["iPhone 8"],
             scheme: "Introspect iOS",
@@ -19,6 +20,7 @@ end
 
 platform :mac do
     lane :test do |options|
+        puts 'Running on GitHub CI.' options[:ci] == 'github'
         scan(
             scheme: "Introspect macOS",
             skip_build: options[:ci] == 'github'

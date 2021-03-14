@@ -5,7 +5,7 @@ platform :ios do
     lane :test do |options|
         scan(
             devices: ["iPhone 8"],
-            scheme: "Introspect iOS"
+            scheme: "Introspect iOS",
             skip_build: options[:ci] == 'github'
         )
 

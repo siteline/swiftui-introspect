@@ -42,7 +42,7 @@ jobs:
         run: bundle exec pod install
       
       - name: Build Swift Package
-        run: swift build -j 2 --disable-index-store -v
+        run: swift build -j 2 --build-tests --disable-index-store -v
 
       - name: Test Framework on iOS and tvOS
         run: bundle exec fastlane ios test ci:github

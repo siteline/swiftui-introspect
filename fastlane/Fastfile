@@ -2,23 +2,45 @@ default_platform(:ios)
 skip_docs
 
 platform :ios do
-    lane :test do
-        scan(
-            devices: ["iPhone 8"],
-            scheme: "Introspect iOS"
-        )
-
-        scan(
-            devices: ["Apple TV"],
-            scheme: "Introspect tvOS"
-        )
+    lane :test do |options|
+        if options[:prebuilt]
+            scan(
+                devices: ["iPhone 8"],
+                scheme: "Introspect iOS",
+                derived_data_path: ".build",
+                test_without_building: true
+            )
+            scan(
+                devices: ["Apple TV"],
+                scheme: "Introspect tvOS",
+                derived_data_path: ".build",
+                test_without_building: true
+            )
+        else
+            scan(
+                devices: ["iPhone 8"],
+                scheme: "Introspect iOS"
+            )
+            scan(
+                devices: ["Apple TV"],
+                scheme: "Introspect tvOS"
+            )
+        end
     end
 end
 
 platform :mac do
-    lane :test do
-        scan(
-            scheme: "Introspect macOS"
-        )
+    lane :test do |options|
+        if options[:prebuilt]
+            scan(
+                scheme: "Introspect macOS",
+                derived_data_path: ".build",
+                test_without_building: true
+            )
+        else
+            scan(
+                scheme: "Introspect macOS"
+            )
+        end
     end
 end

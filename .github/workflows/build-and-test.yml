@@ -40,18 +40,15 @@ jobs:
       - name: Install cocoapods dependencies  
         if: steps.cache-pods.outputs.cache-hit != 'true'
         run: bundle exec pod install
+      
+      - name: Build Swift Package
+        run: swift build -j 2 --build-tests --disable-index-store -v
 
       - name: Test Framework on iOS and tvOS
-        run: bundle exec fastlane ios test
+        run: bundle exec fastlane ios test prebuilt:true
       
       - name: Test Framework on macOS
-        run: bundle exec fastlane mac test
+        run: bundle exec fastlane mac test prebuilt:true
       
       - name: Lint podspec
         run: bundle exec pod lib lint
-
-      - name: Build Swift Package
-        run: swift build -v
-      
-      - name: Test Swift Package
-        run: swift test -v

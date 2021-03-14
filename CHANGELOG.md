@@ -7,6 +7,7 @@ Changelog
 - Add Github Action
 - Added `.introspectTextView()`.
 - Update CircleCI config to use Xcode 12.4.0
+- Fixed nested `ScrollView` detection on iOS 14 and macOS 11
 
 ## [0.1.2]
 

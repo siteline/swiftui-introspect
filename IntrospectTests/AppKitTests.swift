@@ -55,8 +55,8 @@ private struct ListTestView: View {
 @available(macOS 10.15.0, *)
 private struct ScrollTestView: View {
     
-    let spy1: () -> Void
-    let spy2: () -> Void
+    let spy1: (NSScrollView) -> Void
+    let spy2: (NSScrollView) -> Void
     
     var body: some View {
         HStack {
@@ -64,13 +64,39 @@ private struct ScrollTestView: View {
                 Text("Item 1")
             }
             .introspectScrollView { scrollView in
-                self.spy1()
+                self.spy1(scrollView)
             }
+
             ScrollView {
                 Text("Item 1")
-                .introspectScrollView { scrollView in
-                    self.spy2()
+                    .introspectScrollView { scrollView in
+                        self.spy2(scrollView)
+                    }
+            }
+        }
+    }
+}
+
+@available(macOS 10.15.0, *)
+private struct NestedScrollTestView: View {
+
+    let spy1: (NSScrollView) -> Void
+    let spy2: (NSScrollView) -> Void
+
+    var body: some View {
+        HStack {
+            ScrollView {
+                Text("Item 1")
+
+                ScrollView {
+                    Text("Item 1")
                 }
+                .introspectScrollView { scrollView in
+                    self.spy2(scrollView)
+                }
+            }
+            .introspectScrollView { scrollView in
+                self.spy1(scrollView)
             }
         }
     }
@@ -175,18 +201,59 @@ class AppKitTests: XCTestCase {
         wait(for: [expectation1, expectation2, cellExpectation1, cellExpectation2], timeout: TestUtils.Constants.timeout)
     }
 
-    func testScrollView() {
+    func testScrollView() throws {
         
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
+
+        var scrollView1: NSScrollView?
+        var scrollView2: NSScrollView?
+
         let view = ScrollTestView(
-            spy1: { expectation1.fulfill() },
-            spy2: { expectation2.fulfill() }
+            spy1: { scrollView in
+                scrollView1 = scrollView
+                expectation1.fulfill() },
+            spy2: { scrollView in
+                scrollView2 = scrollView
+                expectation2.fulfill()
+            }
         )
         TestUtils.present(view: view)
         wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
+
+        let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
+        let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
+
+        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
     }
-    
+
+    func testNestedScrollView() throws {
+
+        let expectation1 = XCTestExpectation()
+        let expectation2 = XCTestExpectation()
+
+        var scrollView1: NSScrollView?
+        var scrollView2: NSScrollView?
+
+        let view = NestedScrollTestView(
+            spy1: { scrollView in
+                scrollView1 = scrollView
+                expectation1.fulfill()
+            },
+            spy2: { scrollView in
+                scrollView2 = scrollView
+                expectation2.fulfill()
+            }
+        )
+        TestUtils.present(view: view)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
+
+        let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
+        let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
+
+        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+    }
+
     func testTextField() {
         
         let expectation = XCTestExpectation()

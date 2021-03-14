@@ -9,7 +9,7 @@ platform :ios do
             scheme: "Introspect iOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: true,
+            try_parallel: false,
             retry_parallel: false,
         )
 
@@ -18,7 +18,7 @@ platform :ios do
             scheme: "Introspect tvOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: true,
+            try_parallel: false,
             retry_parallel: false,
         )
     end
@@ -31,7 +31,7 @@ platform :mac do
             scheme: "Introspect macOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: true,
+            try_parallel: false,
             retry_parallel: false,
         )
     end

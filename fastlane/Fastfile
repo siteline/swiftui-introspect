@@ -2,22 +2,26 @@ default_platform(:ios)
 skip_docs
 
 platform :ios do
-    lane :test do
+    lane :test do |options|
         scan(
             devices: ["iPhone 8"],
             scheme: "Introspect iOS"
+            skip_build: options[:ci] == 'github'
         )
+
         scan(
             devices: ["Apple TV"],
-            scheme: "Introspect tvOS"
+            scheme: "Introspect tvOS",
+            skip_build: options[:ci] == 'github'
         )
     end
 end
 
 platform :mac do
-    lane :test do
+    lane :test do |options|
         scan(
-            scheme: "Introspect macOS"
+            scheme: "Introspect macOS",
+            skip_build: options[:ci] == 'github'
         )
     end
 end

@@ -150,7 +150,7 @@ extension View {
         if #available(macOS 11.0, *) {
             return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestor, customize: customize)
         } else {
-            return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+            return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }
     }
     

@@ -20,6 +20,7 @@ enum TestUtils {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
+        window.layoutIfNeeded()
     }
 }
 

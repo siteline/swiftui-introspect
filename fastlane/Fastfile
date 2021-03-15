@@ -25,11 +25,9 @@ end
 platform :mac do
     lane :test do |options|
         puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        multi_scan(
+        scan(
             scheme: "Introspect macOS",
-            skip_build: options[:ci] == 'github',
-            try_count: 3,
-            quit_simulators: false
+            skip_build: options[:ci] == 'github'
         )
     end
 end

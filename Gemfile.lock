@@ -70,6 +70,7 @@ GEM
     cocoapods-try (1.2.0)
     colored (1.2)
     colored2 (3.1.2)
+    colorize (0.8.1)
     commander-fastlane (4.4.6)
       highline (~> 1.7.2)
     concurrent-ruby (1.1.8)
@@ -130,7 +131,13 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-try_scan (1.0.1)
+    fastlane-plugin-test_center (3.15.3)
+      colorize
+      json
+      plist
+      trainer
+      xcodeproj
+      xctest_list (>= 1.2.1)
     ffi (1.15.0)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -210,6 +217,9 @@ GEM
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thread_safe (0.3.6)
+    trainer (0.9.1)
+      fastlane (>= 2.25.0)
+      plist (>= 3.1.0, < 4.0.0)
     tty-cursor (0.7.1)
     tty-screen (0.8.1)
     tty-spinner (0.9.3)
@@ -234,6 +244,7 @@ GEM
       rouge (~> 2.0.7)
     xcpretty-travis-formatter (1.0.0)
       xcpretty (~> 0.2, >= 0.0.7)
+    xctest_list (1.2.1)
 
 PLATFORMS
   ruby
@@ -241,7 +252,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (= 1.10.1)
   fastlane (~> 2.137)
-  fastlane-plugin-try_scan
+  fastlane-plugin-test_center
 
 BUNDLED WITH
    1.17.3

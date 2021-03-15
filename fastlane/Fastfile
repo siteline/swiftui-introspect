@@ -4,22 +4,20 @@ skip_docs
 platform :ios do
     lane :test do |options|
         puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        try_scan(
+        multi_scan(
             devices: ["iPhone 8"],
             scheme: "Introspect iOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: false,
-            retry_parallel: false,
+            quit_simulators: false
         )
 
-        try_scan(
+        multi_scan(
             devices: ["Apple TV"],
             scheme: "Introspect tvOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: false,
-            retry_parallel: false,
+            quit_simulators: false
         )
     end
 end
@@ -27,12 +25,11 @@ end
 platform :mac do
     lane :test do |options|
         puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        try_scan(
+        multi_scan(
             scheme: "Introspect macOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,
-            try_parallel: false,
-            retry_parallel: false,
+            quit_simulators: false
         )
     end
 end

@@ -2,4 +2,4 @@
 #
 # Ensure this file is checked in to source control!
 
-gem 'fastlane-plugin-try_scan'
+gem 'fastlane-plugin-test_center'

@@ -184,6 +184,26 @@ private struct SegmentedControlTestView: View {
 }
 
 @available(macOS 10.15.0, *)
+private struct TabViewTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        TabView {
+            Text("Contents")
+                .tabItem {
+                    Text("Tab 1")
+                }
+            Text("Contents")
+                .tabItem {
+                    Text("Tab 2")
+                }
+        }
+        .introspectTabView { tabView in
+            self.spy()
+        }
+    }
+}
+
+@available(macOS 10.15.0, *)
 class AppKitTests: XCTestCase {
     
     func testList() {
@@ -311,6 +331,16 @@ class AppKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = SegmentedControlTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    func testTabView() {
+        
+        let expectation = XCTestExpectation()
+        let view = TabViewTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

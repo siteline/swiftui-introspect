@@ -1,9 +1,9 @@
 Introspect for SwiftUI
 ======================
 
-[![CircleCI](https://circleci.com/gh/siteline/SwiftUI-Introspect.svg?style=svg&circle-token=6f995f204d4d417d31f79e7257f6e1ecf430ae07)](https://circleci.com/gh/siteline/SwiftUI-Introspect)
+[![CircleCI_Status]][CircleCI_URL]&nbsp;&nbsp;[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
 
-Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
+> Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
 For instance, with Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
 
@@ -178,3 +178,17 @@ $ git push origin --tags
 ```
 $ bundle exec pod trunk push .
 ```
+
+
+<!-- References -->
+[CircleCI_Status]: https://circleci.com/gh/siteline/SwiftUI-Introspect.svg?style=svg&circle-token=6f995f204d4d417d31f79e7257f6e1ecf430ae07
+
+[CircleCI_URL]: https://circleci.com/gh/siteline/SwiftUI-Introspect
+
+[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/build-and-test.yml/badge.svg?branch=master
+
+[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/build-and-test.yml
+
+[Siteline_Badge]: https://badgen.net/badge/Built%20by/Siteline/blue?icon=https://uploads-ssl.webflow.com/5f4513afbbfc64c4777fcccf/5f525b122370d681879e170e_siteline-icon.svg
+
+[Quintschaf_Badge]: https://badgen.net/badge/Maintained%20by/Quintschaf/cyan?icon=https://quintschaf.com/assets/logo.svg

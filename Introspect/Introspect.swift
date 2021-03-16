@@ -207,6 +207,19 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds an ancestor of the specified type.
+    /// If it reaches the top of the view without finding the specified view type, it returns nil.
+    public static func findAncestorOrAncestorChild<AnyViewType: PlatformView>(ofType type: AnyViewType.Type, from entry: PlatformView) -> AnyViewType? {
+        var superview = entry.superview
+        while let s = superview {
+            if let typed = s as? AnyViewType ?? findChild(ofType: type, in: s) {
+                return typed
+            }
+            superview = s.superview
+        }
+        return nil
+    }
+    
     /// Finds the hosting view of a specific subview.
     /// Hosting views generally contain subviews for one specific SwiftUI element.
     /// For instance, if there are multiple text fields in a VStack, the hosting view will contain those text fields (and their host views, see below).
@@ -250,6 +263,13 @@ public enum TargetViewSelector {
             return sibling
         }
         return Introspect.findAncestor(ofType: TargetView.self, from: entry)
+    }
+    
+    public static func siblingContainingOrAncestorOrAncestorChild<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
+        if let sibling: TargetView = siblingContaining(from: entry) {
+            return sibling
+        }
+        return Introspect.findAncestorOrAncestorChild(ofType: TargetView.self, from: entry)
     }
     
     public static func siblingOfType<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {

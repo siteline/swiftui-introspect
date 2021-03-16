@@ -91,7 +91,7 @@ extension View {
     
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+        return introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
     }
 
     /// Finds a `UITextView` from a `SwiftUI.TextEditor`

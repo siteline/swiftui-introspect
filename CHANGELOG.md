@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.1.3]
+
 - Added `introspectTableViewCell`
 - Add Github Action
 - Added `.introspectTextView()`.
@@ -54,6 +56,7 @@ Changelog
 
  - First release.
 
+[0.1.3]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.3
 [0.1.2]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.2
 [0.1.1]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.1
 [0.1.0]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.0

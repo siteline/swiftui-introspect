@@ -7,7 +7,7 @@ import SwiftUI
 @available(macOS 10.15.0, *)
 enum TestUtils {
     enum Constants {
-        static let timeout: TimeInterval = 2
+        static let timeout: TimeInterval = 5
     }
     
     static func present<ViewType: View>(view: ViewType) {
@@ -20,6 +20,7 @@ enum TestUtils {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
+        window.layoutIfNeeded()
     }
 }
 

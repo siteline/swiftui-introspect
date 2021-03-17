@@ -242,7 +242,6 @@ public enum Introspect {
     
     /// Finds an ancestor of the specified type.
     /// If it reaches the top of the view without finding the specified view type, it returns nil.
-    @available(iOS 13.0, *)
     public static func findAncestorOrAncestorChild<AnyViewType: PlatformView>(ofType type: AnyViewType.Type, from entry: PlatformView) -> AnyViewType? {
         var superview = entry.superview
         while let s = superview {
@@ -299,7 +298,6 @@ public enum TargetViewSelector {
         return Introspect.findAncestor(ofType: TargetView.self, from: entry)
     }
     
-    @available(iOS 13.0, *)
     public static func siblingContainingOrAncestorOrAncestorChild<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         if let sibling: TargetView = siblingContaining(from: entry) {
             return sibling

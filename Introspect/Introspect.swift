@@ -54,7 +54,6 @@ public enum Introspect {
     /// Finds a subview of the specified type.
     /// This method will recursively look for this view.
     /// Returns nil if it can't find a view of the specified type.
-    @available(iOS 13.0, *)
     public static func findChildUsingFrame<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type,
         in root: PlatformView,

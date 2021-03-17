@@ -197,5 +197,10 @@ extension View {
     public func introspectSegmentedControl(customize: @escaping (NSSegmentedControl) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
+    
+    /// Finds a `NSTabView` from a `SwiftUI.TabView`
+    public func introspectTabView(customize: @escaping (NSTabView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
 }
 #endif

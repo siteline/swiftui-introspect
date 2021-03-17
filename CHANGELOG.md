@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added `.introspectTabView()` on macOS
+
 ## [0.1.3]
 
 - Added `introspectTableViewCell`

@@ -51,6 +51,37 @@ public enum Introspect {
         return nil
     }
     
+    /// Finds a subview of the specified type.
+    /// This method will recursively look for this view.
+    /// Returns nil if it can't find a view of the specified type.
+    @available(iOS 13.0, *)
+    public static func findChildUsingFrame<AnyViewType: PlatformView>(
+        ofType type: AnyViewType.Type,
+        in root: PlatformView,
+        from originalEntry: PlatformView
+    ) -> AnyViewType? {
+        var children: [AnyViewType] = []
+        for subview in root.subviews {
+            if let typed = subview as? AnyViewType {
+                children.append(typed)
+            } else if let typed = findChild(ofType: type, in: subview) {
+                children.append(typed)
+            }
+        }
+        
+        if children.count > 1 {
+            for child in children {
+                let converted = child.convert(originalEntry.center, from: originalEntry)
+                if CGRect(origin: .zero, size: child.frame.size).contains(converted) {
+                    return child
+                }
+            }
+            return nil
+        }
+        
+        return children.first
+    }
+    
     /// Finds a previous sibling that contains a view of the specified type.
     /// This method inspects siblings recursively.
     /// Returns nil if no sibling contains the specified type.
@@ -209,10 +240,11 @@ public enum Introspect {
     
     /// Finds an ancestor of the specified type.
     /// If it reaches the top of the view without finding the specified view type, it returns nil.
+    @available(iOS 13.0, *)
     public static func findAncestorOrAncestorChild<AnyViewType: PlatformView>(ofType type: AnyViewType.Type, from entry: PlatformView) -> AnyViewType? {
         var superview = entry.superview
         while let s = superview {
-            if let typed = s as? AnyViewType ?? findChild(ofType: type, in: s) {
+            if let typed = s as? AnyViewType ?? findChildUsingFrame(ofType: type, in: s, from: entry) {
                 return typed
             }
             superview = s.superview
@@ -265,6 +297,7 @@ public enum TargetViewSelector {
         return Introspect.findAncestor(ofType: TargetView.self, from: entry)
     }
     
+    @available(iOS 13.0, *)
     public static func siblingContainingOrAncestorOrAncestorChild<TargetView: PlatformView>(from entry: PlatformView) -> TargetView? {
         if let sibling: TargetView = siblingContaining(from: entry) {
             return sibling

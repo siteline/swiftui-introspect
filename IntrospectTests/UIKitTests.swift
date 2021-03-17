@@ -190,10 +190,12 @@ private struct NestedScrollTestView: View {
 private struct TextFieldTestView: View {
     let spy1: (UITextField) -> Void
     let spy2: (UITextField) -> Void
+    let spy3: (UITextField) -> Void
     @State private var textFieldValue = ""
     
     let textField1Placeholder = "Text Field 1"
     let textField2Placeholder = "Text Field 2"
+    let textField3Placeholder = "Text Field 3"
     
     var body: some View {
         VStack {
@@ -205,6 +207,11 @@ private struct TextFieldTestView: View {
             TextField(textField2Placeholder, text: $textFieldValue)
             .introspectTextField { textField in
                 self.spy2(textField)
+            }
+            .cornerRadius(8)
+            TextField(textField3Placeholder, text: $textFieldValue)
+            .introspectTextField { textField in
+                self.spy3(textField)
             }
         }
     }
@@ -412,9 +419,11 @@ class UIKitTests: XCTestCase {
         
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
+        let expectation3 = XCTestExpectation()
         
         var textField1: UITextField?
         var textField2: UITextField?
+        var textField3: UITextField?
         
         let view = TextFieldTestView(
             spy1: {
@@ -424,16 +433,22 @@ class UIKitTests: XCTestCase {
             spy2: {
                 textField2 = $0
                 expectation2.fulfill()
+            },
+            spy3: {
+                textField3 = $0
+                expectation3.fulfill()
             }
         )
         TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
+        wait(for: [expectation1, expectation2, expectation3], timeout: TestUtils.Constants.timeout)
         
         let unwrappedTextField1 = try XCTUnwrap(textField1)
         let unwrappedTextField2 = try XCTUnwrap(textField2)
+        let unwrappedTextField3 = try XCTUnwrap(textField3)
         
         XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
         XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
+        XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
     }
     
     func testSegmentedControl() {

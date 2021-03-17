@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Fix UITextField with cornerRadius
 - Added `.introspectTabView()` on macOS
 
 ## [0.1.3]

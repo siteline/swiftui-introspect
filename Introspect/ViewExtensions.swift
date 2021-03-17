@@ -170,7 +170,7 @@ extension View {
     
     /// Finds a `NSTextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (NSTextField) -> ()) -> some View {
-        return introspect2(selector: TargetViewSelector.siblingContaining, customize: customize)
+        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
     
     /// Finds a `NSTextView` from a `SwiftUI.TextView`

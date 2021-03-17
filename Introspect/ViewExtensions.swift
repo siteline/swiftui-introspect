@@ -11,10 +11,6 @@ extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
         return overlay(view.frame(width: 0, height: 0))
     }
-    
-    public func inject2<SomeView>(_ view: SomeView) -> some View where SomeView: View {
-        return background(view.frame(width: 0, height: 0))
-    }
 }
 
 #if canImport(UIKit)

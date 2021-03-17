@@ -72,7 +72,7 @@ public enum Introspect {
         if children.count > 1 {
             for child in children {
                 let converted = child.convert(
-                    CGPoint(x: child.frame.size.width / 2, y: child.frame.size.height / 2),
+                    CGPoint(x: originalEntry.frame.size.width / 2, y: originalEntry.frame.size.height / 2),
                     from: originalEntry
                 )
                 if CGRect(origin: .zero, size: child.frame.size).contains(converted) {

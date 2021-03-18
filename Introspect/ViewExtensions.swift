@@ -198,5 +198,10 @@ extension View {
     public func introspectTabView(customize: @escaping (NSTabView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
+    
+    /// Finds a `NSButton` from a `SwiftUI.Button`
+    public func introspectButton(customize: @escaping (NSButton) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
 }
 #endif

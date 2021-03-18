@@ -204,6 +204,17 @@ private struct TabViewTestView: View {
 }
 
 @available(macOS 10.15.0, *)
+private struct ButtonTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        Button("Test", action: {})
+        .introspectButton { button in
+            self.spy()
+        }
+    }
+}
+
+@available(macOS 10.15.0, *)
 class AppKitTests: XCTestCase {
     
     func testList() {
@@ -341,6 +352,16 @@ class AppKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = TabViewTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    func testButton() {
+        
+        let expectation = XCTestExpectation()
+        let view = ButtonTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

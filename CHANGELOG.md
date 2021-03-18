@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added `.introspectButton()` on macOS
 - Fix UITextField with cornerRadius
 - Added `.introspectTabView()` on macOS
 

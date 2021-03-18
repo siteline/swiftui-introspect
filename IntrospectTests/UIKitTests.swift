@@ -28,7 +28,7 @@ enum TestUtils {
         hostingController.beginAppearanceTransition(true, animated: false)
         window.rootViewController = hostingController
         window.makeKeyAndVisible()
-        window.layoutIfNeeded()
+        //window.layoutIfNeeded()
         hostingController.endAppearanceTransition()
     }
 }
@@ -304,6 +304,8 @@ private struct SegmentedControlTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 class UIKitTests: XCTestCase {
+    
+    
     func testNavigation() {
         
         let expectation = XCTestExpectation()

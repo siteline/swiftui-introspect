@@ -28,7 +28,7 @@ enum TestUtils {
         hostingController.beginAppearanceTransition(true, animated: false)
         window.rootViewController = hostingController
         window.makeKeyAndVisible()
-        //window.layoutIfNeeded()
+        window.layoutIfNeeded()
         hostingController.endAppearanceTransition()
     }
 }

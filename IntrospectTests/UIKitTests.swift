@@ -188,12 +188,31 @@ private struct NestedScrollTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TextFieldTestView: View {
-    let spy: () -> Void
+    let spy1: (UITextField) -> Void
+    let spy2: (UITextField) -> Void
+    let spy3: (UITextField) -> Void
     @State private var textFieldValue = ""
+    
+    let textField1Placeholder = "Text Field 1"
+    let textField2Placeholder = "Text Field 2"
+    let textField3Placeholder = "Text Field 3"
+    
     var body: some View {
-        TextField("Text Field", text: $textFieldValue)
-        .introspectTextField { textField in
-            self.spy()
+        VStack {
+            TextField(textField1Placeholder, text: $textFieldValue)
+            .introspectTextField { textField in
+                self.spy1(textField)
+            }
+            .cornerRadius(8)
+            TextField(textField2Placeholder, text: $textFieldValue)
+            .introspectTextField { textField in
+                self.spy2(textField)
+            }
+            .cornerRadius(8)
+            TextField(textField3Placeholder, text: $textFieldValue)
+            .introspectTextField { textField in
+                self.spy3(textField)
+            }
         }
     }
 }
@@ -396,14 +415,40 @@ class UIKitTests: XCTestCase {
         XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
     }
 
-    func testTextField() {
+    func testTextField() throws {
         
-        let expectation = XCTestExpectation()
-        let view = TextFieldTestView(spy: {
-            expectation.fulfill()
-        })
+        let expectation1 = XCTestExpectation()
+        let expectation2 = XCTestExpectation()
+        let expectation3 = XCTestExpectation()
+        
+        var textField1: UITextField?
+        var textField2: UITextField?
+        var textField3: UITextField?
+        
+        let view = TextFieldTestView(
+            spy1: {
+                textField1 = $0
+                expectation1.fulfill()
+            },
+            spy2: {
+                textField2 = $0
+                expectation2.fulfill()
+            },
+            spy3: {
+                textField3 = $0
+                expectation3.fulfill()
+            }
+        )
         TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        wait(for: [expectation1, expectation2, expectation3], timeout: TestUtils.Constants.timeout)
+        
+        let unwrappedTextField1 = try XCTUnwrap(textField1)
+        let unwrappedTextField2 = try XCTUnwrap(textField2)
+        let unwrappedTextField3 = try XCTUnwrap(textField3)
+        
+        XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
+        XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
+        XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
     }
     
     func testSegmentedControl() {

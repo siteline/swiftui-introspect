@@ -3,7 +3,7 @@ Changelog
 
 ## master
 
-- Add NSButton Introspection
+- Added `.introspectButton()` on macOS
 - Fix UITextField with cornerRadius
 - Added `.introspectTabView()` on macOS
 

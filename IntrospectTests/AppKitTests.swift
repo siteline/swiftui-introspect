@@ -381,15 +381,16 @@ class AppKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    @available(macOS 11.0, *)
     func testColorPicker() {
 
-        let expectation = XCTestExpectation()
-        let view = ColorWellTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        if #available(macOS 11.0, *) {
+            let expectation = XCTestExpectation()
+            let view = ColorWellTestView(spy: {
+                expectation.fulfill()
+            })
+            TestUtils.present(view: view)
+            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        }
     }
 }
 #endif

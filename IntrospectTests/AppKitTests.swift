@@ -214,6 +214,19 @@ private struct ButtonTestView: View {
     }
 }
 
+@available(macOS 11.0, *)
+private struct ColorWellTestView: View {
+    @State private var color = Color.black
+    let spy: () -> Void
+    
+    var body: some View {
+        ColorPicker("Picker", selection: $color)
+        .introspectColorWell { colorWell in
+            self.spy()
+        }
+    }
+}
+
 @available(macOS 10.15.0, *)
 class AppKitTests: XCTestCase {
     
@@ -366,6 +379,18 @@ class AppKitTests: XCTestCase {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    func testColorPicker() {
+
+        if #available(macOS 11.0, *) {
+            let expectation = XCTestExpectation()
+            let view = ColorWellTestView(spy: {
+                expectation.fulfill()
+            })
+            TestUtils.present(view: view)
+            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        }
     }
 }
 #endif

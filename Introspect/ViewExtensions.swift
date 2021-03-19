@@ -127,6 +127,13 @@ extension View {
     public func introspectSegmentedControl(customize: @escaping (UISegmentedControl) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
+    
+    /// Finds a `UIColorWell` from a `SwiftUI.ColorPicker`
+    @available(iOS 14.0, *)
+    @available(tvOS, unavailable)
+    public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
 }
 #endif
 
@@ -201,6 +208,12 @@ extension View {
     
     /// Finds a `NSButton` from a `SwiftUI.Button`
     public func introspectButton(customize: @escaping (NSButton) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
+    
+    /// Finds a `NSColorWell` from a `SwiftUI.ColorPicker`
+    @available(macOS 11.0, *)
+    public func introspectColorWell(customize: @escaping (NSColorWell) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
 }

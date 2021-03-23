@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Fixed iPad tests
+- Added iPad to CI
 - Added `.introspectColorWell()` on iOS and macOS
 - Added `.introspectButton()` on macOS
 - Fix UITextField with cornerRadius

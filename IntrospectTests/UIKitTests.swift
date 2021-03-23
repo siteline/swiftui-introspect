@@ -45,6 +45,7 @@ private struct NavigationTestView: View {
                 self.spy()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
@@ -56,9 +57,10 @@ private struct ViewControllerTestView: View {
             VStack {
                 EmptyView()
             }
-            .introspectViewController { viewController in
-                self.spy()
-            }
+        }
+        .introspectViewController { viewController in
+            print("oil:", viewController)
+            self.spy()
         }
     }
 }

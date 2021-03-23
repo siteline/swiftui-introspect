@@ -75,7 +75,6 @@ private struct ViewControllerTestView: View {
             }
         }
         .introspectViewController { viewController in
-            print("oil:", viewController)
             self.spy()
         }
     }

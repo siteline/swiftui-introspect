@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added `.introspectSplitViewController()` on iOS
 - Fixed iPad tests
 - Added iPad to CI
 - Added `.introspectColorWell()` on iOS and macOS

@@ -5,7 +5,7 @@ platform :ios do
     lane :test do |options|
         puts 'Running on GitHub CI.' if options[:ci] == 'github'
         multi_scan(
-            devices: ["iPhone 8"],
+            devices: ["iPhone 8", "iPad (8th generation)"],
             scheme: "Introspect iOS",
             skip_build: options[:ci] == 'github',
             try_count: 3,

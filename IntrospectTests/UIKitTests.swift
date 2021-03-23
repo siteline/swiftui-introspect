@@ -345,16 +345,6 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    func testSplitNavigation() {
-        
-        let expectation = XCTestExpectation()
-        let view = SplitNavigationTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-    }
-    
     func testViewController() {
         
         let expectation = XCTestExpectation()
@@ -503,6 +493,16 @@ class UIKitTests: XCTestCase {
     }
     
     #if os(iOS)
+    func testSplitNavigation() {
+        
+        let expectation = XCTestExpectation()
+        let view = SplitNavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
     func testRootNavigation() {
         
         let expectation = XCTestExpectation()

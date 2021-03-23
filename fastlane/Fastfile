@@ -11,6 +11,14 @@ platform :ios do
             try_count: 3,
             quit_simulators: false
         )
+        
+        multi_scan(
+            devices: ["iPad (8th generation)"],
+            scheme: "Introspect iOS",
+            skip_build: options[:ci] == 'github',
+            try_count: 3,
+            quit_simulators: false
+        )
 
         multi_scan(
             devices: ["Apple TV"],

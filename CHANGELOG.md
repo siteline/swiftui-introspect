@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added `.introspectSplitViewController()` on iOS
 - Added `.introspectColorWell()` on iOS and macOS
 - Added `.introspectButton()` on macOS
 - Fix UITextField with cornerRadius

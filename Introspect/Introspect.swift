@@ -48,7 +48,7 @@ public enum Introspect {
                 return typed
             }
         }
-        return nil
+        return root as? AnyViewControllerType
     }
     
     /// Finds a subview of the specified type.

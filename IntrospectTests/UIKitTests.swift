@@ -50,6 +50,22 @@ private struct NavigationTestView: View {
 }
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
+private struct SplitNavigationTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        NavigationView {
+            VStack {
+                EmptyView()
+            }
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+        .introspectSplitViewController { navigationController in
+            self.spy()
+        }
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ViewControllerTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -324,6 +340,16 @@ class UIKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = NavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    func testSplitNavigation() {
+        
+        let expectation = XCTestExpectation()
+        let view = SplitNavigationTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

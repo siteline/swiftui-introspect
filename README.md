@@ -49,27 +49,33 @@ Introspection
 
 SwiftUI | UIKit | AppKit | Introspect
 --- | --- | --- | ---
-List | UITableView | NSTableView | `.introspectTableView()`
-ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
-NavigationView | UINavigationController | _N/A_ | `.introspectNavigationController()`
+NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
+NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | N/A | `.introspectSplitViewController()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
-TabView | UITabBarController | _N/A_ | `.introspectTabBarController()`
+ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
+List | UITableView | NSTableView | `.introspectTableView()`
+View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
+TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) / `.introspectTabView` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
 Toggle | UISwitch | N/A | `.introspectSwitch()`
 Slider | UISlider | NSSlider | `.introspectSlider()`
 Stepper | UIStepper | NSStepper | `.introspectStepper()`
 DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`
 Picker (SegmentedPickerStyle) | UISegmentedControl | NSSegmentedControl | `.introspectSegmentedControl()`
+Button | _N/A_ | NSButton | `.introspectButton()`
+ColorPicker | UIColorWell | NSColorWell | `.introspectColorWell()`
+TabView | UITextView | NSTextView | `.introspectTextView()`
+
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).
 
 ### Cannot implement
 
-SwiftUI | Why
---- | ---
-Text | Not a UILabel
-Image | Not a UIImageView
-Button | Not a UIButton
+SwiftUI | Affected Frameworks | Why
+--- | --- | ---
+Text | UIKit, AppKit | Not a UILabel / NSLabel
+Image | UIKit, AppKit | Not a UIImageView / NSImageView
+Button | UIKit | Not a UIButton
 
 Examples
 --------

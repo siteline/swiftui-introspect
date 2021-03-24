@@ -57,7 +57,7 @@ List | UITableView | NSTableView | `.introspectTableView()`
 View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
 TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView()` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
-Toggle | UISwitch | _N/A_ | `.introspectSwitch()`
+Toggle | UISwitch | NSButton | `.introspectSwitch()` (iOS) <br/> `.introspectButton()` (macOS)
 Slider | UISlider | NSSlider | `.introspectSlider()`
 Stepper | UIStepper | NSStepper | `.introspectStepper()`
 DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`

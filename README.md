@@ -55,7 +55,7 @@ _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 List | UITableView | NSTableView | `.introspectTableView()`
 View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
-TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView` (macOS)
+TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView()` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
 Toggle | UISwitch | _N/A_ | `.introspectSwitch()`
 Slider | UISlider | NSSlider | `.introspectSlider()`

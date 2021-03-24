@@ -50,14 +50,14 @@ Introspection
 SwiftUI | UIKit | AppKit | Introspect
 --- | --- | --- | ---
 NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
-NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | N/A | `.introspectSplitViewController()`
+NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_ | `.introspectSplitViewController()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 List | UITableView | NSTableView | `.introspectTableView()`
 View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
 TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) / `.introspectTabView` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
-Toggle | UISwitch | N/A | `.introspectSwitch()`
+Toggle | UISwitch | _N/A_ | `.introspectSwitch()`
 Slider | UISlider | NSSlider | `.introspectSlider()`
 Stepper | UIStepper | NSStepper | `.introspectStepper()`
 DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`

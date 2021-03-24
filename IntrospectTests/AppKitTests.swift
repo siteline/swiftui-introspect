@@ -214,6 +214,18 @@ private struct ButtonTestView: View {
     }
 }
 
+@available(macOS 10.15.0, *)
+private struct ToggleTestView: View {
+    let spy: () -> Void
+    @State private var toggleValue = false
+    var body: some View {
+        Toggle("Toggle", isOn: $toggleValue)
+        .introspectButton { button in
+            self.spy()
+        }
+    }
+}
+
 @available(macOS 11.0, *)
 private struct ColorWellTestView: View {
     @State private var color = Color.black
@@ -375,6 +387,16 @@ class AppKitTests: XCTestCase {
         
         let expectation = XCTestExpectation()
         let view = ButtonTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    
+    func testToggle() {
+        
+        let expectation = XCTestExpectation()
+        let view = ToggleTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

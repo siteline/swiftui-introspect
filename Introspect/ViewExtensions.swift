@@ -47,20 +47,20 @@ extension View {
     
     /// Finds a `UISplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
     public func introspectSplitViewController(customize: @escaping (UISplitViewController) -> ()) -> some View {
-            return inject(UIKitIntrospectionViewController(
-                selector: { introspectionViewController in
-                    
-                    // Search in ancestors
-                    if let splitViewController = introspectionViewController.splitViewController {
-                        return splitViewController
-                    }
-                    
-                    // Search in siblings
-                    return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
-                },
-                customize: customize
-            ))
-        }
+        return inject(UIKitIntrospectionViewController(
+            selector: { introspectionViewController in
+
+                // Search in ancestors
+                if let splitViewController = introspectionViewController.splitViewController {
+                    return splitViewController
+                }
+
+                // Search in siblings
+                return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
+            },
+            customize: customize
+        ))
+    }
     
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {

@@ -168,6 +168,11 @@ extension View {
             customize: customize
         ))
     }
+
+    /// Finds a `NSSplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
+    public func introspectSplitViewController(customize: @escaping (NSSplitView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
     
     /// Finds a `NSTableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (NSTableView) -> ()) -> some View {

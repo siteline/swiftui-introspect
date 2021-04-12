@@ -322,13 +322,13 @@ private struct SegmentedControlTestView: View {
 @available(iOS 14.0, tvOS 13.0, macOS 11.0, *)
 @available(tvOS, unavailable)
 private struct ColorWellTestView: View {
-    @State private var color = Color.black
-    let spy: () -> Void
+    @State var color = Color.black
+    let spy: (UIColorWell) -> Void
     
     var body: some View {
         ColorPicker("Picker", selection: $color)
         .introspectColorWell { colorWell in
-            self.spy()
+            self.spy(colorWell)
         }
     }
 }
@@ -570,11 +570,14 @@ class UIKitTests: XCTestCase {
     func testColorPicker() {
 
         let expectation = XCTestExpectation()
+        var colorWell: UIColorWell?
         let view = ColorWellTestView(spy: {
             expectation.fulfill()
+            colorWell = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        XCTAssertEqual(UIColor(view.color), colorWell?.selectedColor) 
     }
     #endif
 }

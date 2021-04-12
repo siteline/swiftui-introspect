@@ -237,12 +237,12 @@ private struct TextFieldTestView: View {
 @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 13.0, *)
 @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
 private struct TextEditorTestView: View {
-    let spy: () -> Void
-    @State private var textEditorValue = ""
+    let spy: (UITextView) -> Void
+    @State var textEditorValue = ""
     var body: some View {
         TextEditor(text: $textEditorValue)
         .introspectTextView { textView in
-            self.spy()
+            self.spy(textView)
         }
     }
 }
@@ -290,14 +290,14 @@ private struct StepperTestView: View {
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct DatePickerTestView: View {
-    let spy: () -> Void
-    @State private var datePickerValue = Date()
+    let spy: (UIDatePicker) -> Void
+    @State var datePickerValue = Date()
     var body: some View {
         DatePicker(selection: $datePickerValue) {
             Text("DatePicker")
         }
         .introspectDatePicker { datePicker in
-            self.spy()
+            self.spy(datePicker)
         }
     }
 }
@@ -543,31 +543,39 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    func testDatePicker() {
+    func testDatePicker() throws {
         
         let expectation = XCTestExpectation()
+        var datePicker: UIDatePicker?
         let view = DatePickerTestView(spy: {
             expectation.fulfill()
+            datePicker = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedDatePicker = try XCTUnwrap(datePicker)
+        XCTAssertEqual(unwrappedDatePicker.date, view.datePickerValue)
     }
     
     @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
     @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
-    func testTextEditor() {
+    func testTextEditor() throws {
 
         let expectation = XCTestExpectation()
+        var textView: UITextView?
         let view = TextEditorTestView(spy: {
             expectation.fulfill()
+            textView = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedTextView = try XCTUnwrap(textView)
+        XCTAssertEqual(view.textEditorValue, unwrappedTextView.text)
     }
     
     @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
     @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
-    func testColorPicker() {
+    func testColorPicker() throws {
 
         let expectation = XCTestExpectation()
         var colorWell: UIColorWell?
@@ -577,7 +585,8 @@ class UIKitTests: XCTestCase {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-        XCTAssertEqual(UIColor(view.color), colorWell?.selectedColor) 
+        let unwrappedColorWell = try XCTUnwrap(colorWell)
+        XCTAssertEqual(UIColor(view.color), unwrappedColorWell.selectedColor)
     }
     #endif
 }

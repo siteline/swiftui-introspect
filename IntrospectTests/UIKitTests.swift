@@ -82,15 +82,17 @@ private struct ViewControllerTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct NavigationRootTestView: View {
-    let spy: () -> Void
+    let spy: (UINavigationController) -> Void
+    var accessiblityLabel = "IntrospectNavigationRootTestView"
     var body: some View {
         NavigationView {
             VStack {
                 EmptyView()
             }
         }
+        .accessibility(identifier: accessiblityLabel)
         .introspectNavigationController { navigationController in
-            self.spy()
+            self.spy(navigationController)
         }
     }
 }
@@ -309,8 +311,8 @@ private struct DatePickerTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct SegmentedControlTestView: View {
-    @State private var pickerValue = 0
-    let spy: () -> Void
+    @State var pickerValue = 1
+    let spy: (UISegmentedControl) -> Void
     var body: some View {
         Picker(selection: $pickerValue, label: Text("Segmented control")) {
             Text("Option 1").tag(0)
@@ -319,7 +321,7 @@ private struct SegmentedControlTestView: View {
         }
         .pickerStyle(SegmentedPickerStyle())
         .introspectSegmentedControl { segmentedControl in
-            self.spy()
+            self.spy(segmentedControl)
         }
     }
 }
@@ -487,14 +489,19 @@ class UIKitTests: XCTestCase {
         XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
     }
     
-    func testSegmentedControl() {
+    func testSegmentedControl() throws {
         
         let expectation = XCTestExpectation()
+        var segmentedControl: UISegmentedControl?
         let view = SegmentedControlTestView(spy: {
             expectation.fulfill()
+            segmentedControl = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedSegmentedControl = try XCTUnwrap(segmentedControl)
+        XCTAssertEqual(unwrappedSegmentedControl.numberOfSegments, 3)
+        XCTAssertEqual(unwrappedSegmentedControl.selectedSegmentIndex, view.pickerValue)
     }
     
     #if os(iOS)
@@ -515,14 +522,17 @@ class UIKitTests: XCTestCase {
         }
     }
     
-    func testRootNavigation() {
+    func testRootNavigation() throws {
         
         let expectation = XCTestExpectation()
+        var navigationController: UINavigationController?
         let view = NavigationRootTestView(spy: {
             expectation.fulfill()
+            navigationController = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        _ = try XCTUnwrap(navigationController)
     }
     
     func testToggle() throws {

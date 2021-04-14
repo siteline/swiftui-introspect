@@ -51,7 +51,7 @@ private struct NavigationTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct SplitNavigationTestView: View {
-    let spy: () -> Void
+    let spy: (UISplitViewController) -> Void
     var body: some View {
         NavigationView {
             VStack {
@@ -60,7 +60,7 @@ private struct SplitNavigationTestView: View {
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .introspectSplitViewController { navigationController in
-            self.spy()
+            self.spy(navigationController)
         }
     }
 }
@@ -250,12 +250,14 @@ private struct TextEditorTestView: View {
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct ToggleTestView: View {
-    let spy: () -> Void
-    @State private var toggleValue = false
+    let spy: (UISwitch) -> Void
+    @State var toggleValue = true
+    var title = "Toggle"
     var body: some View {
-        Toggle("Toggle", isOn: $toggleValue)
+        Toggle(title, isOn: $toggleValue)
+            .toggleStyle(SwitchToggleStyle())
         .introspectSwitch { uiSwitch in
-            self.spy()
+            self.spy(uiSwitch)
         }
     }
 }
@@ -263,12 +265,13 @@ private struct ToggleTestView: View {
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct SliderTestView: View {
-    let spy: () -> Void
-    @State private var sliderValue = 0.0
+    let spy: (UISlider) -> Void
+    @State var sliderValue = 0.0
+    var range = 0.0...100.0
     var body: some View {
-        Slider(value: $sliderValue, in: 0...100)
+        Slider(value: $sliderValue, in: range)
         .introspectSlider { slider in
-            self.spy()
+            self.spy(slider)
         }
     }
 }
@@ -276,13 +279,15 @@ private struct SliderTestView: View {
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 @available(tvOS, unavailable)
 private struct StepperTestView: View {
-    let spy: () -> Void
+    let spy: (UIStepper) -> Void
+    @State var value = 5.0
+    let titleKey = "Stepper"
+    let step = 2.0
+    let range = 0.0...10.0
     var body: some View {
-        Stepper(onIncrement: {}, onDecrement: {}) {
-            Text("Stepper")
-        }
+        Stepper(titleKey, value: $value, in: range, step: step)
         .introspectStepper { stepper in
-            self.spy()
+            self.spy(stepper)
         }
     }
 }
@@ -493,14 +498,21 @@ class UIKitTests: XCTestCase {
     }
     
     #if os(iOS)
-    func testSplitNavigation() {
+    func testSplitNavigation() throws {
         
         let expectation = XCTestExpectation()
+        var splitController: UISplitViewController?
         let view = SplitNavigationTestView(spy: {
             expectation.fulfill()
+            splitController = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedSplitController = try XCTUnwrap(splitController)
+        if #available(iOS 14.0, *) {
+            XCTAssertEqual(unwrappedSplitController.style, .doubleColumn)
+            XCTAssertNotEqual(unwrappedSplitController.style, UISplitViewController().style)
+        }
     }
     
     func testRootNavigation() {
@@ -513,34 +525,49 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    func testToggle() {
+    func testToggle() throws {
         
         let expectation = XCTestExpectation()
+        var toggle: UISwitch?
         let view = ToggleTestView(spy: {
             expectation.fulfill()
+            toggle = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedToggle = try XCTUnwrap(toggle)
+        XCTAssertEqual(unwrappedToggle.isOn, view.toggleValue)
+        XCTAssertNotEqual(UISwitch().isOn, view.toggleValue)
+        
     }
     
-    func testSlider() {
+    func testSlider() throws {
         
         let expectation = XCTestExpectation()
+        var slider: UISlider?
         let view = SliderTestView(spy: {
             expectation.fulfill()
+            slider = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedSlider = try XCTUnwrap(slider)
+        XCTAssertEqual(Double(unwrappedSlider.value), view.sliderValue)
+        //FIXME: Minimum and maximum values of UISlider are incorrect. Needs further investigation.
     }
     
-    func testStepper() {
+    func testStepper() throws {
         
         let expectation = XCTestExpectation()
+        var stepper: UIStepper?
         let view = StepperTestView(spy: {
             expectation.fulfill()
+            stepper = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        _ = try XCTUnwrap(stepper)
+        //FIXME: Step, minimum, and maximum values of UIStepper are all incorrect. Needs further investigation
     }
     
     func testDatePicker() throws {

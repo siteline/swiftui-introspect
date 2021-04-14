@@ -159,22 +159,22 @@ private struct ListTestView: View {
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ScrollTestView: View {
     
-    let spy1: (UIScrollView) -> Void
-    let spy2: (UIScrollView) -> Void
-    
+    let spyVertical: (UIScrollView) -> Void
+    let spyHorizontal: (UIScrollView) -> Void
+    var showIndicator = false
     var body: some View {
         HStack {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: showIndicator) {
                 Text("Item 1")
             }
             .introspectScrollView { scrollView in
-                self.spy1(scrollView)
+                self.spyVertical(scrollView)
             }
-            ScrollView {
+            ScrollView(.horizontal, showsIndicators: showIndicator) {
                 Text("Item 1")
-                .introspectScrollView { scrollView in
-                    self.spy2(scrollView)
-                }
+            }
+            .introspectScrollView { scrollView in
+                self.spyHorizontal(scrollView)
             }
         }
     }
@@ -404,26 +404,27 @@ class UIKitTests: XCTestCase {
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
 
-        var scrollView1: UIScrollView?
-        var scrollView2: UIScrollView?
+        var scrollViewVertical: UIScrollView?
+        var scrollViewHorizontal: UIScrollView?
 
         let view = ScrollTestView(
-            spy1: { scrollView in
-                scrollView1 = scrollView
+            spyVertical: {
+                scrollViewVertical = $0
                 expectation1.fulfill()
             },
-            spy2: { scrollView in
-                scrollView2 = scrollView
+            spyHorizontal: {
+                scrollViewHorizontal = $0
                 expectation2.fulfill()
             }
         )
         TestUtils.present(view: view)
         wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
 
-        let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
-        let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
+        let unwrappedScrollViewVertical = try XCTUnwrap(scrollViewVertical)
+        let unwrappedScrollViewHorizontal = try XCTUnwrap(scrollViewHorizontal)
 
-        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+        XCTAssertEqual(unwrappedScrollViewVertical.showsVerticalScrollIndicator, view.showIndicator)
+        XCTAssertEqual(unwrappedScrollViewHorizontal.showsHorizontalScrollIndicator, view.showIndicator)
     }
 
     func testNestedScrollView() throws {

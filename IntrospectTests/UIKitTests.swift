@@ -98,31 +98,28 @@ private struct NavigationRootTestView: View {
 }
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
-private struct TabTestView: View {
-    @State private var selection = 0
-    let spy: () -> Void
-    var body: some View {
-        TabView {
-            Text("Item 1")
-                .tag(0)
-                .introspectTabBarController { _ in
-                    self.spy()
-                }
-        }
-    }
-}
-
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct TabRootTestView: View {
-    @State private var selection = 0
-    let spy: () -> Void
+    @State var selection = 1
+    let view1Title = "Playing"
+    let view2Title = "Settings"
+    let spy: (UITabBarController) -> Void
     var body: some View {
-        TabView {
-            Text("Item 1")
+        TabView(selection: $selection) {
+            Text("View 1")
+                .tabItem{
+                    Image(systemName: "play.circle.fill")
+                    Text("Playing")
+                }
                 .tag(0)
+            Text("View 2")
+                .tabItem{
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
+                .tag(1)
         }
-        .introspectTabBarController { _ in
-            self.spy()
+        .introspectTabBarController { tabBarController in
+            self.spy(tabBarController)
         }
     }
 }
@@ -362,24 +359,23 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    func testTabView() {
+    func testTabViewRoot() throws {
         
         let expectation = XCTestExpectation()
-        let view = TabTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-    }
-    
-    func testTabViewRoot() {
-        
-        let expectation = XCTestExpectation()
+        var tabBarController: UITabBarController?
         let view = TabRootTestView(spy: {
             expectation.fulfill()
+            tabBarController = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedTabBarController = try XCTUnwrap(tabBarController)
+        XCTAssertEqual(unwrappedTabBarController.selectedIndex, view.selection)
+        let view1UnwrappedTitle = try XCTUnwrap(unwrappedTabBarController.tabBar.items?[0].title)
+        let view2UnwrappedTitle = try XCTUnwrap(unwrappedTabBarController.tabBar.items?[1].title)
+        XCTAssertEqual(view1UnwrappedTitle, view.view1Title)
+        XCTAssertEqual(view2UnwrappedTitle, view.view2Title)
+        
     }
     
     func testList() {

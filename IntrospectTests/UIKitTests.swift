@@ -35,17 +35,20 @@ enum TestUtils {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct NavigationTestView: View {
-    let spy: () -> Void
+    let spy: (UINavigationController) -> Void
+    let navigationBarHidden = false
+    let navigationBarTitle = "Introspect"
     var body: some View {
         NavigationView {
             VStack {
                 EmptyView()
             }
+            .navigationBarHidden(navigationBarHidden)
             .introspectNavigationController { navigationController in
-                self.spy()
+                self.spy(navigationController)
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarTitle(Text(navigationBarTitle), displayMode: .large)
     }
 }
 
@@ -67,7 +70,7 @@ private struct SplitNavigationTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ViewControllerTestView: View {
-    let spy: () -> Void
+    let spy: (UIViewController) -> Void
     var body: some View {
         NavigationView {
             VStack {
@@ -75,7 +78,7 @@ private struct ViewControllerTestView: View {
             }
         }
         .introspectViewController { viewController in
-            self.spy()
+            self.spy(viewController)
         }
     }
 }
@@ -339,24 +342,33 @@ private struct ColorWellTestView: View {
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 class UIKitTests: XCTestCase {
-    func testNavigation() {
+    func testNavigation() throws {
         
         let expectation = XCTestExpectation()
+        var navigationController: UINavigationController?
         let view = NavigationTestView(spy: {
+            navigationController = $0
             expectation.fulfill()
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedNavigationController = try XCTUnwrap(navigationController)
+        XCTAssertEqual(unwrappedNavigationController.isNavigationBarHidden, view.navigationBarHidden)
+        XCTAssertEqual(unwrappedNavigationController.navigationBar.prefersLargeTitles, true)
     }
     
-    func testViewController() {
+    func testViewController() throws {
         
         let expectation = XCTestExpectation()
+        var viewController: UIViewController?
         let view = ViewControllerTestView(spy: {
             expectation.fulfill()
+            viewController = $0
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+        let unwrappedViewController = try XCTUnwrap(viewController)
+        XCTAssertTrue(unwrappedViewController.view.description.contains(String(describing: ViewControllerTestView.self)))
     }
     
     func testTabViewRoot() throws {

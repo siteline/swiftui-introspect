@@ -64,7 +64,7 @@ DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`
 Picker (SegmentedPickerStyle) | UISegmentedControl | NSSegmentedControl | `.introspectSegmentedControl()`
 Button | _N/A_ | NSButton | `.introspectButton()`
 ColorPicker | UIColorWell | NSColorWell | `.introspectColorWell()`
-Text | UITextView | NSTextView | `.introspectTextView()`
+TextEditor | UITextView | NSTextView | `.introspectTextView()`
 
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).

@@ -39,7 +39,7 @@ https://github.com/siteline/SwiftUI-Introspect.git
 ### Cocoapods
 
 ```
-pod "Introspect"
+pod 'Introspect'
 ```
 
 Introspection

@@ -28,23 +28,6 @@ extension View {
         ))
     }
     
-    /// Finds a `UISearchController` from any view embedded in a `SwiftUI.NavigationView`.
-    public func introspectSearchController(customize: @escaping (UISearchController) -> ()) -> some View {
-        introspectNavigationController { navigationController in
-            let navigationBar = navigationController.navigationBar
-            let searchController = navigationBar.topItem?.searchController ?? navigationBar.backItem?.searchController
-            // TODO: Consider traversing the navigation stack in case the search bar
-            // is even further back
-            
-            // TODO: Write unit tests
-            // TODO: Adapt for AppKit (which does not have navigation controllers)
-            
-            if let searchController = searchController {
-                customize(searchController)
-            }
-        }
-    }
-    
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
@@ -167,6 +150,26 @@ extension View {
     @available(tvOS, unavailable)
     public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
+    
+    /// Finds a `UISearchController` from a `SwiftUI.View` with a `.searchable` modifier
+    @available(iOS 15.0, *)
+    @available(tvOS, unavailable)
+    public func introspectSearchController(customize: @escaping (UISearchController) -> ()) -> some View {
+        introspectNavigationController { navigationController in
+            let navigationBar = navigationController.navigationBar
+            let searchController = navigationBar.topItem?.searchController ?? navigationBar.backItem?.searchController
+            // TODO: Consider traversing the navigation stack in case the search bar is even further back
+            // TODO: Consider removing .backItem?.searchController if unused
+            
+            // TODO: Write unit tests
+            // TODO: Adapt for AppKit (which does not have navigation controllers?)
+            // TODO: Adapt for tvOS
+            
+            if let searchController = searchController {
+                customize(searchController)
+            }
+        }
     }
 }
 #endif

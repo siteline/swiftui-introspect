@@ -36,22 +36,12 @@ extension View {
             // TODO: Consider traversing the navigation stack in case the search bar
             // is even further back
             
+            // TODO: Write unit tests
+            // TODO: Adapt for AppKit (which does not have navigation controllers)
+            
             if let searchController = searchController {
                 customize(searchController)
             }
-            // TODO: Print error if nil
-            // TODO: Make this work for views that *don’t* have a NavigationController
-            
-            /*let searchBar = navigationController
-                .navigationBar
-                .subviews
-                .lazy
-                .compactMap { $0 as? UISearchBar }
-                .first
-            
-            if let searchBar = searchBar {
-                customize(searchBar)
-            }*/
         }
     }
     

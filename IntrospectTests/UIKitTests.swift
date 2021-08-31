@@ -333,6 +333,22 @@ private struct ColorWellTestView: View {
     }
 }
 
+@available(iOS 15.0, tvOS 15.0, macOS 12.0, *)
+private struct SearchTestView: View {
+    @State var searchText = ""
+    let spy: () -> Void
+    
+    var body: some View {
+        NavigationView {
+            EmptyView()
+                .searchable(text: $searchText)
+                .introspectSearchController { searchController in
+                    self.spy()
+                }
+        }
+    }
+}
+
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 class UIKitTests: XCTestCase {
     func testNavigation() {
@@ -577,5 +593,17 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     #endif
+    
+    @available(iOS 15.0, tvOS 15.0, macOS 12.0, *)
+    func testSearch() {
+        // TODO: Consider renaming to testSearchController or testSearchableModifier
+        
+        let expectation = XCTestExpectation()
+        let view = SearchTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
 }
 #endif

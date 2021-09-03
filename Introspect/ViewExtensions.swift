@@ -5,6 +5,7 @@ import AppKit
 #elseif canImport(UIKit)
 import UIKit
 #endif
+import MapKit
 
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 extension View {
@@ -151,6 +152,18 @@ extension View {
     public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
+}
+#endif
+
+#if canImport(UIKit) || canImport(AppKit)
+@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
+extension View {
+	//Finds an `MKMapView` from ab `MapKit.Map`
+	@available(iOS 14.0, *)
+	@available(macOS 11.0, *)
+	public func introspectMapView(customize: @escaping (MKMapView) -> ()) -> some View {
+		introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+	}
 }
 #endif
 

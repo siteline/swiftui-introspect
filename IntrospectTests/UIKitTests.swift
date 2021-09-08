@@ -334,7 +334,7 @@ private struct ColorWellTestView: View {
 }
 
 @available(iOS 15.0, tvOS 15.0, macOS 12.0, *)
-private struct SearchTestView: View {
+private struct SearchControllerTestView: View {
     @State var searchText = ""
     let spy: () -> Void
     
@@ -595,11 +595,10 @@ class UIKitTests: XCTestCase {
     #endif
     
     @available(iOS 15.0, tvOS 15.0, macOS 12.0, *)
-    func testSearch() {
-        // TODO: Consider renaming to testSearchController or testSearchableModifier
+    func testSearchController() {
         
         let expectation = XCTestExpectation()
-        let view = SearchTestView(spy: {
+        let view = SearchControllerTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

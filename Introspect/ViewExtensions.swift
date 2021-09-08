@@ -158,15 +158,7 @@ extension View {
     public func introspectSearchController(customize: @escaping (UISearchController) -> ()) -> some View {
         introspectNavigationController { navigationController in
             let navigationBar = navigationController.navigationBar
-            let searchController = navigationBar.topItem?.searchController ?? navigationBar.backItem?.searchController
-            // TODO: Consider traversing the navigation stack in case the search bar is even further back
-            // TODO: Consider removing .backItem?.searchController if unused
-            
-            // TODO: Write unit tests
-            // TODO: Adapt for AppKit (which does not have navigation controllers?)
-            // TODO: Adapt for tvOS
-            
-            if let searchController = searchController {
+            if let searchController = navigationBar.topItem?.searchController {
                 customize(searchController)
             }
         }

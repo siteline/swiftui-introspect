@@ -113,7 +113,7 @@ extension View {
 
     /// Finds a `UITextView` from a `SwiftUI.TextEditor`
     public func introspectTextView(customize: @escaping (UITextView) -> ()) -> some View {
-        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
     }
     
     /// Finds a `UISwitch` from a `SwiftUI.Toggle`

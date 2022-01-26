@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.1.4]
+
 - Added `.introspectSplitViewController()` on iOS
 - Fixed iPad tests
 - Added iPad to CI
@@ -64,6 +66,7 @@ Changelog
 
  - First release.
 
+[0.1.4]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.4
 [0.1.3]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.3
 [0.1.2]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.2
 [0.1.1]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.1

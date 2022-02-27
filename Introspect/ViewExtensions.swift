@@ -195,7 +195,7 @@ extension View {
     
     /// Finds a `NSTextView` from a `SwiftUI.TextView`
     public func introspectTextView(customize: @escaping (NSTextView) -> ()) -> some View {
-        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
     }
     
     /// Finds a `NSSlider` from a `SwiftUI.Slider`

@@ -13,7 +13,7 @@ jobs:
     steps:
 
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Setup Xcode 12
         uses: maxim-lobanov/setup-xcode@v1

@@ -22,11 +22,14 @@ jobs:
 
       - name: Export macOS SDK
         run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
+
+      - name: Install Xcode build tools
+        run: xcode-select --install
       
       - name: Install gem dependencies
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.2-dev
+          ruby-version: .ruby-version
           bundler-cache: true
       
       - name: Cache cocoapods dependencies

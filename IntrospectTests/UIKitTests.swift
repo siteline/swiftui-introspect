@@ -382,9 +382,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-
     func testTabViewRoot() {
-
         let expectation = XCTestExpectation()
         let view = TabRootTestView(spy: {
             expectation.fulfill()
@@ -392,7 +390,6 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-
     func testList() {
         
         let expectation1 = XCTestExpectation()

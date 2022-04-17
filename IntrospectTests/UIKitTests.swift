@@ -125,6 +125,24 @@ private struct TabRootTestView: View {
     }
 }
 
+@available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+@available(macOS, unavailable)
+private struct PageTabViewStyleTestView: View {
+
+    let spy: (UICollectionView, UIScrollView) -> Void
+
+    var body: some View {
+        TabView {
+            Text("Item 1")
+                .tag(0)
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .introspectPagedTabView { collectionView, scrollView in
+            spy(collectionView, scrollView)
+        }
+    }
+}
+
 @available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 private struct ListTestView: View {
     
@@ -575,6 +593,27 @@ class UIKitTests: XCTestCase {
         })
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+    func testPagedTabView() throws {
+
+        var collectionView1: UICollectionView?
+        var scrollView1: UIScrollView?
+
+        let expectation = XCTestExpectation()
+        let view = PageTabViewStyleTestView(spy: { collectionView, scrollView in
+            collectionView1 = collectionView
+            scrollView1 = scrollView
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+
+        let unwrappedCollectionView = try XCTUnwrap(collectionView1)
+        let unwrappedScrollView = try XCTUnwrap(scrollView1)
+
+        XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
     }
     #endif
 }

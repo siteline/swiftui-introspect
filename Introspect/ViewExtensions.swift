@@ -105,7 +105,23 @@ extension View {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }
     }
-    
+
+    /// Finds the horizontal `UIScrollView` from a `SwiftUI.TabBarView` with tab style `SwiftUI.PageTabViewStyle`.
+    ///
+    /// Customize is called with a `UICollectionView` wrapper, and the horizontal `UIScrollView`.
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+    @available(macOS, unavailable)
+    public func introspectPagedTabView(customize: @escaping (UICollectionView, UIScrollView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
+            for subview in collectionView.subviews {
+                if NSStringFromClass(type(of: subview)).contains("EmbeddedScrollView"), let scrollView = subview as? UIScrollView {
+                    customize(collectionView, scrollView)
+                    break
+                }
+            }
+        })
+    }
+
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)

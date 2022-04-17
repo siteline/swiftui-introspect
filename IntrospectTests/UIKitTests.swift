@@ -384,7 +384,7 @@ class UIKitTests: XCTestCase {
     }
     
     func testTabViewRoot() {
-            
+        
         let expectation = XCTestExpectation()
         let view = TabRootTestView(spy: {
             expectation.fulfill()

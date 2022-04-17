@@ -289,7 +289,7 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (= 1.10.1)
-  fastlane (~> 2.137)
+  fastlane (~> 2.205.1)
   fastlane-plugin-test_center
 
 BUNDLED WITH

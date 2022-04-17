@@ -3,6 +3,11 @@ Changelog
 
 ## master
 
+- Added `.introspectPagedTabView` on iOS
+- Updated dependencies
+
+## [0.1.4]
+
 - Added `.introspectSplitViewController()` on iOS
 - Fixed iPad tests
 - Added iPad to CI

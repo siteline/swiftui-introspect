@@ -6,6 +6,8 @@ import SwiftUI
 @available(iOS 13.0, *)
 public class IntrospectionUIView: UIView {
     
+    var moveToWindowHandler: (() -> Void)?
+    
     required init() {
         super.init(frame: .zero)
         isHidden = true
@@ -15,6 +17,11 @@ public class IntrospectionUIView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override public func didMoveToWindow() {
+        super.didMoveToWindow()
+        moveToWindowHandler?()
     }
 }
 
@@ -53,11 +60,13 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         _ uiView: IntrospectionUIView,
         context: UIViewRepresentableContext<UIKitIntrospectionView>
     ) {
-        DispatchQueue.main.async {
-            guard let targetView = self.selector(uiView) else {
-                return
+        uiView.moveToWindowHandler = {
+            DispatchQueue.main.async {
+                guard let targetView = self.selector(uiView) else {
+                    return
+                }
+                self.customize(targetView)
             }
-            self.customize(targetView)
         }
     }
 }

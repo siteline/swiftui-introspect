@@ -48,6 +48,14 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
+        view.moveToWindowHandler = {
+            DispatchQueue.main.async {
+                guard let targetView = selector(view) else {
+                    return
+                }
+                customize(targetView)
+            }
+        }
         return view
     }
 
@@ -59,15 +67,11 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     public func updateUIView(
         _ uiView: IntrospectionUIView,
         context: UIViewRepresentableContext<UIKitIntrospectionView>
-    ) {
-        uiView.moveToWindowHandler = {
-            DispatchQueue.main.async {
-                guard let targetView = self.selector(uiView) else {
-                    return
-                }
-                self.customize(targetView)
-            }
-        }
+    ) { }
+    
+    /// Fix memory leak issue
+    public static func dismantleUIView(_ uiView: IntrospectionUIView, coordinator: ()) {
+        uiView.moveToWindowHandler = nil
     }
 }
 #endif

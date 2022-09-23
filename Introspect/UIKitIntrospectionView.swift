@@ -45,29 +45,29 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         self.customize = customize
     }
     
+    /// When `makeUIView` and `updateUIView` are called, the Introspection view is not yet in the UIKit hierarchy.
+    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
+    /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
+    /// Finding the target view fails silently if the selector yields no result. This happens when the introspection view gets
+    /// removed from the hierarchy.
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
-        return view
-    }
-
-    /// When `updateUiView` is called after creating the Introspection view, it is not yet in the UIKit hierarchy.
-    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
-    /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
-    /// Finding the target view fails silently if the selector yield no result. This happens when `updateUIView`
-    /// gets called when the introspection view gets removed from the hierarchy.
-    public func updateUIView(
-        _ uiView: IntrospectionUIView,
-        context: UIViewRepresentableContext<UIKitIntrospectionView>
-    ) {
-        uiView.moveToWindowHandler = {
+        view.moveToWindowHandler = { [weak view] in
+            guard let view = view else { return }
             DispatchQueue.main.async {
-                guard let targetView = self.selector(uiView) else {
+                guard let targetView = self.selector(view) else {
                     return
                 }
                 self.customize(targetView)
             }
         }
+        return view
     }
+    
+    public func updateUIView(
+        _ uiView: IntrospectionUIView,
+        context: UIViewRepresentableContext<UIKitIntrospectionView>
+    ) {}
 }
 #endif

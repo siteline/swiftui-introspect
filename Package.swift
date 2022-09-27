@@ -12,6 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "Introspect",
+            type: .static,
             targets: ["Introspect"]
         )
     ],

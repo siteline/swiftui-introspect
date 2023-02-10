@@ -98,6 +98,16 @@ extension View {
         introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
     }
 
+    /// Finds a `UICollectionView` from a `SwiftUI.List`, or `SwiftUI.List` child.
+    public func introspectCollectionView(customize: @escaping (UICollectionView) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
+    /// Finds a `UICollectionView` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
+    public func introspectCollectionViewCell(customize: @escaping (UICollectionViewCell) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
         if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
@@ -106,7 +116,23 @@ extension View {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }
     }
-    
+
+    /// Finds the horizontal `UIScrollView` from a `SwiftUI.TabBarView` with tab style `SwiftUI.PageTabViewStyle`.
+    ///
+    /// Customize is called with a `UICollectionView` wrapper, and the horizontal `UIScrollView`.
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+    @available(macOS, unavailable)
+    public func introspectPagedTabView(customize: @escaping (UICollectionView, UIScrollView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
+            for subview in collectionView.subviews {
+                if NSStringFromClass(type(of: subview)).contains("EmbeddedScrollView"), let scrollView = subview as? UIScrollView {
+                    customize(collectionView, scrollView)
+                    break
+                }
+            }
+        })
+    }
+
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)

@@ -31,25 +31,32 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         self.customize = customize
     }
     
+    /// When `makeUIViewController` and `updateUIViewController` are called, the Introspection view is not yet in
+    /// the UIKit hierarchy. At this point, `introspectionViewController.parent` is nil and we can't access the target
+    /// UIKit view controller. To workaround this, we wait until the runloop is done inserting the introspection view controller's
+    /// view in the hierarchy, then run the selector. Finding the target view controller fails silently if the selector yields no result.
+    /// This happens when the introspection view controller's view gets removed from the hierarchy.
     public func makeUIViewController(
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) -> IntrospectionUIViewController {
         let viewController = IntrospectionUIViewController()
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
         viewController.view.accessibilityLabel = "IntrospectionUIView<\(TargetViewControllerType.self)>"
+        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler = { [weak viewController] in
+            guard let viewController = viewController else { return }
+            DispatchQueue.main.async {
+                guard let targetView = self.selector(viewController) else {
+                    return
+                }
+                self.customize(targetView)
+            }
+        }
         return viewController
     }
     
     public func updateUIViewController(
         _ uiViewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
-    ) {
-        DispatchQueue.main.async {
-            guard let targetView = self.selector(uiViewController) else {
-                return
-            }
-            self.customize(targetView)
-        }
-    }
+    ) {}
 }
 #endif

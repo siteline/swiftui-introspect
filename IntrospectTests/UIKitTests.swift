@@ -152,22 +152,42 @@ private struct ListTestView: View {
     let spyCell2: () -> Void
 
     var body: some View {
-        List {
-            Text("Item 1")
-            Text("Item 2")
-                .introspectTableView { tableView in
-                    self.spy2()
-                }
-                .introspectTableViewCell { cell in
-                    self.spyCell2()
-                }
-            
-        }
-        .introspectTableView { tableView in
-            self.spy1()
-        }
-        .introspectTableViewCell { cell in
-            self.spyCell1()
+        if #available(iOS 16, tvOS 16, macOS 13, *) {
+            List {
+                Text("Item 1")
+                Text("Item 2")
+                    .introspectCollectionView { tableView in
+                        self.spy2()
+                    }
+                    .introspectCollectionViewCell { cell in
+                        self.spyCell2()
+                    }
+
+            }
+            .introspectCollectionView { tableView in
+                self.spy1()
+            }
+            .introspectCollectionViewCell { cell in
+                self.spyCell1()
+            }
+        } else {
+            List {
+                Text("Item 1")
+                Text("Item 2")
+                    .introspectTableView { tableView in
+                        self.spy2()
+                    }
+                    .introspectTableViewCell { cell in
+                        self.spyCell2()
+                    }
+
+            }
+            .introspectTableView { tableView in
+                self.spy1()
+            }
+            .introspectTableViewCell { cell in
+                self.spyCell1()
+            }
         }
     }
 }

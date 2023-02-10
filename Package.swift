@@ -13,6 +13,7 @@ let package = Package(
         .library(name: "Introspect", targets: ["Introspect"]),
         .library(name: "Introspect-Static", type: .static, targets: ["Introspect"]),
         .library(name: "Introspect-Dynamic", type: .dynamic, targets: ["Introspect"]),
+        
     ],
     dependencies: [],
     targets: [

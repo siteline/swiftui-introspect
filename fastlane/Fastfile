@@ -35,6 +35,7 @@ platform :ios do
             scheme: "Introspect",
             devices: devices,
             ensure_devices_found: true,
+            force_quit_simulator: true,
             disable_concurrent_testing: true,
         )
     end

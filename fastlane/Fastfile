@@ -43,7 +43,6 @@ platform :ios do
         end
 
         run_tests(
-            xcworkspace: "Introspect.xcworkspace",
             scheme: "Introspect",
             devices: devices,
             ensure_devices_found: true,

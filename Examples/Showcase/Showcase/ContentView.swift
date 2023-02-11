@@ -46,7 +46,9 @@ struct ListShowcase: View {
                     Text("Item 2")
                 }
                 .introspectTableView { tableView in
+                    #if !os(tvOS)
                     tableView.separatorStyle = .none
+                    #endif
                 }
             }
 
@@ -56,7 +58,9 @@ struct ListShowcase: View {
                     Text("Item 1")
                     Text("Item 2")
                         .introspectTableView { tableView in
+                            #if !os(tvOS)
                             tableView.separatorStyle = .none
+                            #endif
                         }
                 }
             }
@@ -71,7 +75,9 @@ struct NavigationShowcase: View {
             VStack {
                 Text("Customized")
             }
+            #if !os(tvOS)
             .navigationBarTitle(Text("Customized"), displayMode: .inline)
+            #endif
             .introspectNavigationController { nvc in
                 nvc.navigationBar.backgroundColor = .red
             }
@@ -138,16 +144,21 @@ struct SimpleElementsShowcase: View {
 
             HStack {
                 Toggle("Toggle Red", isOn: $toggleValue)
+                    #if !os(tvOS)
                     .introspectSwitch { uiSwitch in
                         uiSwitch.layer.backgroundColor = UIColor.red.cgColor
                     }
+                    #endif
 
                 Toggle("Toggle Green", isOn: $toggleValue)
+                    #if !os(tvOS)
                     .introspectSwitch { uiSwitch in
                         uiSwitch.layer.backgroundColor = UIColor.green.cgColor
                     }
+                    #endif
             }
 
+            #if !os(tvOS)
             HStack {
                 Slider(value: $sliderValue, in: 0...100)
                     .introspectSlider { slider in
@@ -184,6 +195,7 @@ struct SimpleElementsShowcase: View {
                     datePicker.layer.backgroundColor = UIColor.red.cgColor
                 }
             }
+            #endif
 
             HStack {
                 Picker(selection: $segmentedControlValue, label: Text("Segmented control")) {

@@ -3,9 +3,6 @@ skip_docs
 
 platform :ios do
     lane :test do |options|
-        ci = ENV['CI']
-        puts 'Running on CI.' if ci
-
         version = options[:version].to_i || 16
 
         devices = case version
@@ -43,10 +40,8 @@ end
 
 platform :mac do
     lane :test do |options|
-        puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        scan(
-            scheme: "Introspect macOS",
-            skip_build: options[:ci] == 'github'
+        run_tests(
+            scheme: "Introspect",
         )
     end
 end

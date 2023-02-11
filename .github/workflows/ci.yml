@@ -30,17 +30,17 @@ jobs:
           # - mac
         include:
           - platform: [ios, 13]
+            os: macos-11
             xcode: 11.7
-            os: macos-11
           - platform: [ios, 14]
-            xcode: 12.5.1
             os: macos-11
+            xcode: 12.5.1
           - platform: [ios, 15]
+            os: macos-12
             xcode: 13.4.1
-            os: macos-12
           - platform: [ios, 16]
-            xcode: 14.2
             os: macos-12
+            xcode: 14.2
 
     steps:
 

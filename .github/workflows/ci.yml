@@ -58,14 +58,14 @@ jobs:
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
-      - name: Bundler
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
+      # - name: Bundler
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: .ruby-version
+      #     bundler-cache: true
 
       - name: Lint Podspec
         run: pod lib lint
 
       - name: Run Tests
-        run: bundle exec fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}
+        run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

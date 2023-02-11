@@ -36,11 +36,19 @@ platform :ios do
             raise "Unsupported iOS version: #{version}"
         end
 
+        # if version == 13
+        #     # we only build, not test, on iOS 13
+        #     gym(
+        #         devices: devices,
+        #         scheme: "Introspect",
+        #         skip_build: ci,
+        #     )
+
         run_tests(
             devices: devices,
             ensure_devices_found: true,
             scheme: "Introspect",
-            # skip_build: ci,
+            build_for_testing: version == 13, # only build on iOS 13, not test
         )
     end
 end

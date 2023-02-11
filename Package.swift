@@ -17,13 +17,12 @@ let package = Package(
     targets: [
         .target(
             name: "Introspect",
-            dependencies: [],
-            path: "Introspect"
+            path: "Sources"
         ),
         .testTarget(
             name: "IntrospectTests",
             dependencies: ["Introspect"],
-            path: "IntrospectTests"
-        )
+            path: "Tests"
+        ),
     ]
 )

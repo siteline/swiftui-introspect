@@ -340,19 +340,19 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-//@available(iOS 14.0, macCatalyst 14.0, *)
-//@available(tvOS, unavailable)
-//private struct ColorWellTestView: View {
-//    @State private var color = Color.black
-//    let spy: () -> Void
-//
-//    var body: some View {
-//        ColorPicker("Picker", selection: $color)
-//        .introspectColorWell { colorWell in
-//            self.spy()
-//        }
-//    }
-//}
+@available(iOS 14.0, macCatalyst 14.0, *)
+@available(tvOS, unavailable)
+private struct ColorWellTestView: View {
+    @State private var color = Color.black
+    let spy: () -> Void
+
+    var body: some View {
+        ColorPicker("Picker", selection: $color)
+        .introspectColorWell { colorWell in
+            self.spy()
+        }
+    }
+}
 
 class UIKitTests: XCTestCase {
     func testNavigation() {
@@ -585,17 +585,17 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-//    @available(iOS 14.0, macCatalyst 14.0, *)
-//    @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
-//    func testColorPicker() {
-//
-//        let expectation = XCTestExpectation()
-//        let view = ColorWellTestView(spy: {
-//            expectation.fulfill()
-//        })
-//        TestUtils.present(view: view)
-//        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-//    }
+    @available(iOS 14.0, macCatalyst 14.0, *)
+    @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
+    func testColorPicker() {
+
+        let expectation = XCTestExpectation()
+        let view = ColorWellTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
 
     @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
     func testPagedTabView() throws {

@@ -4,7 +4,6 @@ import XCTest
 import SwiftUI
 @testable import Introspect
 
-@available(macOS 10.15.0, *)
 enum TestUtils {
     enum Constants {
         static let timeout: TimeInterval = 5
@@ -24,7 +23,6 @@ enum TestUtils {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -53,7 +51,6 @@ private struct ListTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct ScrollTestView: View {
     
     let spy1: (NSScrollView) -> Void
@@ -78,7 +75,6 @@ private struct ScrollTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct NestedScrollTestView: View {
 
     let spy1: (NSScrollView) -> Void
@@ -103,7 +99,6 @@ private struct NestedScrollTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -127,7 +122,6 @@ private struct TextEditorTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct SliderTestView: View {
     let spy: () -> Void
     @State private var sliderValue = 0.0
@@ -139,7 +133,6 @@ private struct SliderTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct StepperTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -152,7 +145,6 @@ private struct StepperTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct DatePickerTestView: View {
     let spy: () -> Void
     @State private var datePickerValue = Date()
@@ -166,7 +158,6 @@ private struct DatePickerTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct SegmentedControlTestView: View {
     @State private var pickerValue = 0
     let spy: () -> Void
@@ -183,7 +174,6 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct TabViewTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -203,7 +193,6 @@ private struct TabViewTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct ButtonTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -214,7 +203,6 @@ private struct ButtonTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 private struct ToggleTestView: View {
     let spy: () -> Void
     @State private var toggleValue = false
@@ -226,7 +214,7 @@ private struct ToggleTestView: View {
     }
 }
 
-@available(macOS 11.0, *)
+@available(macOS 11, *)
 private struct ColorWellTestView: View {
     @State private var color = Color.black
     let spy: () -> Void
@@ -239,10 +227,13 @@ private struct ColorWellTestView: View {
     }
 }
 
-@available(macOS 10.15.0, *)
 class AppKitTests: XCTestCase {
     
     func testList() {
+        if #available(macOS 11, *) {
+            return // TODO: verify whether List still uses NSTableView under the hood in macOS >=11
+        }
+
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
         let cellExpectation1 = XCTestExpectation()
@@ -320,17 +311,14 @@ class AppKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
-    func testTextEditor() {
 
-        if #available(macOS 11.0, *) {
-            let expectation = XCTestExpectation()
-            let view = TextEditorTestView(spy: {
-                expectation.fulfill()
-            })
-            TestUtils.present(view: view)
-            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-        }
+    func testTextEditor() {
+        let expectation = XCTestExpectation()
+        let view = TextEditorTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testSlider() {
@@ -382,9 +370,12 @@ class AppKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testButton() {
-        
+
+        if #available(macOS 12, *) {
+            return // TODO: verify whether Button still uses NSButton under the hood in macOS >=12
+        }
         let expectation = XCTestExpectation()
         let view = ButtonTestView(spy: {
             expectation.fulfill()
@@ -405,14 +396,12 @@ class AppKitTests: XCTestCase {
     
     func testColorPicker() {
 
-        if #available(macOS 11.0, *) {
-            let expectation = XCTestExpectation()
-            let view = ColorWellTestView(spy: {
-                expectation.fulfill()
-            })
-            TestUtils.present(view: view)
-            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-        }
+        let expectation = XCTestExpectation()
+        let view = ColorWellTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 }
 #endif

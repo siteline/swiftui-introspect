@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "**"
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - [ios, 14]
+          - [ios, 15]
+          - [ios, 16]
+          - [macos, 11]
+          - [macos, 12]
+        include:
+          - platform: [ios, 14]
+            os: macos-11
+            xcode: 12.5.1
+          - platform: [ios, 15]
+            os: macos-12
+            xcode: 13.4.1
+          - platform: [ios, 16]
+            os: macos-12
+            xcode: 14.2
+          - platform: [macos, 11]
+            os: macos-11
+            xcode: 13.0
+          - platform: [macos, 12]
+            os: macos-12
+            xcode: 14.0.1
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - name: Select Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.xcode }}
+
+      # - name: Export macOS SDK
+      #   run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
+
+      - name: Install Homebrew dependencies
+        run: brew install xcbeautify
+
+      - name: Lint Podspec
+        run: pod lib lint
+
+      - name: Run Tests
+        run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

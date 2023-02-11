@@ -17,12 +17,12 @@ let package = Package(
     targets: [
         .target(
             name: "Introspect",
-            path: "Sources"
+            path: "Introspect" // TODO: rename to Sources for v1.0
         ),
         .testTarget(
             name: "IntrospectTests",
             dependencies: ["Introspect"],
-            path: "Tests"
+            path: "IntrospectTests" // TODO: rename to Tests for v1.0
         ),
     ]
 )

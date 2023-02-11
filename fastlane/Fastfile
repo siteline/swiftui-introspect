@@ -7,13 +7,18 @@ platform :ios do
         puts 'Running on CI.' if ci
 
         version = options[:version].to_i || 16
+
+        if version == 13
+            # we only build, not test, on iOS 13
+            gym(
+                sdk: "iphonesimulator13.7",
+                workspace: "Introspect.xcworkspace",
+                scheme: "Introspect",
+            )
+            return
+        end
+
         devices = case version
-        when 13
-            [
-                "iPhone 11 Pro (13.7)",
-                "iPad Pro (11-inch) (2nd generation) (13.7)",
-                # "Apple TV (13.4)",
-            ]
         when 14
             [
                 "iPhone 11 Pro (14.5)",
@@ -35,14 +40,6 @@ platform :ios do
         else
             raise "Unsupported iOS version: #{version}"
         end
-
-        # if version == 13
-        #     # we only build, not test, on iOS 13
-        #     gym(
-        #         devices: devices,
-        #         scheme: "Introspect",
-        #         skip_build: ci,
-        #     )
 
         run_tests(
             devices: devices,

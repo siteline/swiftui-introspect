@@ -124,17 +124,25 @@ private struct PageTabViewStyleTestView: View {
     let spy: (UICollectionView, UIScrollView) -> Void
 
     var body: some View {
-        TabView {
-            Text("Item 1")
-                .tag(0)
+        if #available(iOS 16, tvOS 16, *) {
+            TabView {
+                Text("Item 1")
+                    .tag(0)
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .introspectCollectionView { collectionView in
+                spy(collectionView, collectionView)
+            }
+        } else {
+            TabView {
+                Text("Item 1")
+                    .tag(0)
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .introspectPagedTabView { collectionView, scrollView in
+                spy(collectionView, scrollView)
+            }
         }
-        .tabViewStyle(PageTabViewStyle())
-        .introspectViewController(customize: { viewController in
-            print(viewController)
-        })
-//        .introspectPagedTabView { collectionView, scrollView in
-//            spy(collectionView, scrollView)
-//        }
     }
 }
 
@@ -618,7 +626,11 @@ class UIKitTests: XCTestCase {
         let unwrappedCollectionView = try XCTUnwrap(collectionView1)
         let unwrappedScrollView = try XCTUnwrap(scrollView1)
 
-        XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
+        if #available(iOS 16, tvOS 16, *) {
+            XCTAssertTrue(unwrappedCollectionView == unwrappedScrollView)
+        } else {
+            XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
+        }
     }
     #endif
 }

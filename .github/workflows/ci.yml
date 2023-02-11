@@ -41,7 +41,7 @@ jobs:
 
     steps:
 
-      - name: Checkout Repository
+      - name: Git Checkout
         uses: actions/checkout@v3
 
       - name: Select Xcode version
@@ -52,32 +52,17 @@ jobs:
       # - name: Export macOS SDK
       #   run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
 
+      - name: Install Homebrew dependencies
+        run: brew install xcbeautify
+
       - name: Bundler
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Cache CocoaPods dependencies
-        uses: actions/cache@v3
-        id: cache-pods
-        with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: ${{ runner.os }}-pods-
-
-      - name: Install CocoaPods dependencies
-        if: steps.cache-pods.outputs.cache-hit != 'true'
-        run: bundle exec pod install
-
-      - name: Install Homebrew dependencies
-        run: brew install xcbeautify
-
-      - name: Build Swift Package
-        run: swift build -j 2 --disable-index-store -v
+      - name: Lint Podspec
+        run: bundle exec pod lib lint
 
       - name: Run Tests
         run: bundle exec fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}
-
-      - name: Lint podspec
-        run: bundle exec pod lib lint

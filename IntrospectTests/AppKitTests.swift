@@ -193,7 +193,6 @@ private struct TabViewTestView: View {
     }
 }
 
-@available(macOS, introduced: 10.15, obsoleted: 13)
 private struct ButtonTestView: View {
     let spy: () -> Void
     var body: some View {
@@ -231,6 +230,10 @@ private struct ColorWellTestView: View {
 class AppKitTests: XCTestCase {
     
     func testList() {
+        if #available(macOS 13, *) {
+            return // TODO: verify whether List still uses NSTableView under the hood in macOS 13
+        }
+
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
         let cellExpectation1 = XCTestExpectation()
@@ -308,17 +311,14 @@ class AppKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
-    func testTextEditor() {
 
-        if #available(macOS 11.0, *) {
-            let expectation = XCTestExpectation()
-            let view = TextEditorTestView(spy: {
-                expectation.fulfill()
-            })
-            TestUtils.present(view: view)
-            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-        }
+    func testTextEditor() {
+        let expectation = XCTestExpectation()
+        let view = TextEditorTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
     func testSlider() {
@@ -370,9 +370,12 @@ class AppKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testButton() {
-        
+
+        if #available(macOS 13, *) {
+            return // TODO: verify whether Button still uses NSButton under the hood in macOS 13
+        }
         let expectation = XCTestExpectation()
         let view = ButtonTestView(spy: {
             expectation.fulfill()
@@ -393,14 +396,12 @@ class AppKitTests: XCTestCase {
     
     func testColorPicker() {
 
-        if #available(macOS 11.0, *) {
-            let expectation = XCTestExpectation()
-            let view = ColorWellTestView(spy: {
-                expectation.fulfill()
-            })
-            TestUtils.present(view: view)
-            wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-        }
+        let expectation = XCTestExpectation()
+        let view = ColorWellTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 }
 #endif

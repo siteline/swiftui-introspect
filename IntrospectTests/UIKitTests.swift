@@ -119,7 +119,6 @@ private struct TabRootTestView: View {
 }
 
 @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
-@available(macOS, unavailable)
 private struct PageTabViewStyleTestView: View {
 
     let spy: (UICollectionView, UIScrollView) -> Void
@@ -261,7 +260,7 @@ private struct TextFieldTestView: View {
     }
 }
 
-@available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 13.0, *)
+@available(iOS 14.0, macCatalyst 14.0, *)
 @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
 private struct TextEditorTestView: View {
     let spy: () -> Void
@@ -341,7 +340,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
-@available(iOS 14.0, tvOS 14.0, *)
+@available(iOS 14.0, macCatalyst 14.0, *)
 @available(tvOS, unavailable)
 private struct ColorWellTestView: View {
     @State private var color = Color.black
@@ -574,7 +573,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
+    @available(iOS 14.0, macCatalyst 14.0, *)
     @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
     func testTextEditor() {
 
@@ -586,7 +585,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
     
-    @available(iOS 14.0, macCatalyst 14.0, macOS 11.0, *)
+    @available(iOS 14.0, macCatalyst 14.0, *)
     @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
     func testColorPicker() {
 

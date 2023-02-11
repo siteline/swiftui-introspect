@@ -61,8 +61,8 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      # - name: Lint Podspec
-      #   run: pod lib lint
+      - name: Lint Podspec
+        run: pod lib lint
 
       - name: Run Tests
         run: bundle exec fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

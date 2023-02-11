@@ -19,9 +19,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - macos-11
-          - macos-12
         platform:
           - [ios, 13]
           - [ios, 14]

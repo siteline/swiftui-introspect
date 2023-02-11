@@ -179,7 +179,6 @@ extension View {
 #endif
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-@available(macOS 10.15.0, *)
 extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`

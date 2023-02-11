@@ -3,10 +3,10 @@ name: ci
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - "**"
+      - "**"
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -43,7 +43,6 @@ jobs:
             xcode: 14.0.1
 
     steps:
-
       - name: Git Checkout
         uses: actions/checkout@v3
 
@@ -57,12 +56,6 @@ jobs:
 
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
-
-      # - name: Bundler
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: .ruby-version
-      #     bundler-cache: true
 
       - name: Lint Podspec
         run: pod lib lint

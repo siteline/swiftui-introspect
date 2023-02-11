@@ -373,8 +373,8 @@ class AppKitTests: XCTestCase {
 
     func testButton() {
 
-        if #available(macOS 13, *) {
-            return // TODO: verify whether Button still uses NSButton under the hood in macOS 13
+        if #available(macOS 12, *) {
+            return // TODO: verify whether Button still uses NSButton under the hood in macOS >=12
         }
         let expectation = XCTestExpectation()
         let view = ButtonTestView(spy: {

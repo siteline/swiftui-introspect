@@ -23,25 +23,24 @@ jobs:
           - macos-11
           - macos-12
         platform:
-          - ios
+          - [ios, 13]
+          - [ios, 14]
+          - [ios, 15]
+          - [ios, 16]
           # - mac
         include:
-          - platform_version: 13
+          - platform: [ios, 13]
             xcode: 11.7
             os: macos-11
-            platform: ios
-          - platform_version: 14
+          - platform: [ios, 14]
             xcode: 12.5.1
-            platform: ios
             os: macos-11
-          - platform_version: 15
+          - platform: [ios, 15]
             xcode: 13.4.1
             os: macos-12
-            platform: ios
-          - platform_version: 16
+          - platform: [ios, 16]
             xcode: 14.2
             os: macos-12
-            platform: ios
 
     steps:
 

@@ -11,12 +11,12 @@ platform :ios do
         if version == 13
             # we only build, not test, on iOS 13
             gym(
-                sdk: "iphoneos13.7",
+                skip_archive: true,
                 workspace: "Introspect.xcworkspace",
                 scheme: "Introspect",
-                skip_archive: true,
+                sdk: "iphoneos13.7",
             )
-            return
+            next
         end
 
         devices = case version
@@ -43,10 +43,10 @@ platform :ios do
         end
 
         run_tests(
+            xcworkspace: "Introspect.xcworkspace",
+            scheme: "Introspect",
             devices: devices,
             ensure_devices_found: true,
-            scheme: "Introspect",
-            build_for_testing: version == 13, # only build on iOS 13, not test
         )
     end
 end

@@ -11,9 +11,10 @@ platform :ios do
         if version == 13
             # we only build, not test, on iOS 13
             gym(
-                sdk: "iphonesimulator13.7",
+                sdk: "iphoneos13.7",
                 workspace: "Introspect.xcworkspace",
                 scheme: "Introspect",
+                skip_archive: true,
             )
             return
         end

@@ -3,7 +3,7 @@ skip_docs
 
 platform :ios do
     lane :test do |options|
-        version = options[:version].to_i || 16
+        version = options[:version].to_i
 
         devices = case version
         when 14
@@ -38,10 +38,22 @@ platform :ios do
     end
 end
 
-platform :mac do
+platform :macos do
     lane :test do |options|
+        version = options[:version].to_i
+
+        destination = case version
+        when 11
+            "platform=macOS,arch=x86_64"
+        when 12
+            "platform=macOS,arch=x86_64"
+        else
+            raise "Unsupported macOS version: #{version}"
+        end
+
         run_tests(
             scheme: "Introspect",
+            destination: destination,
         )
     end
 end

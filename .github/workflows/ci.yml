@@ -20,15 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - [ios, 13]
           - [ios, 14]
           - [ios, 15]
           - [ios, 16]
           # - mac
         include:
-          - platform: [ios, 13]
-            os: macos-11
-            xcode: 11.7
           - platform: [ios, 14]
             os: macos-11
             xcode: 12.5.1

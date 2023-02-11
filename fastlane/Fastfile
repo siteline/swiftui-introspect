@@ -10,41 +10,38 @@ platform :ios do
         when 13
             [
                 "iPhone 11 Pro (13.7)",
-                "iPad Pro (11-inch) (2nd generation) (13.7)"
+                "iPad Pro (11-inch) (2nd generation) (13.7)",
+                "Apple TV (13.7)",
             ]
         when 14
             [
                 "iPhone 11 Pro (14.5)",
-                "iPad Pro (11-inch) (3rd generation) (14.5)"
+                "iPad Pro (11-inch) (3rd generation) (14.5)",
+                "Apple TV (14.5)",
             ]
         when 15
             [
                 "iPhone 11 Pro (15.5)",
-                "iPad Pro (11-inch) (3rd generation) (15.5)"
+                "iPad Pro (11-inch) (3rd generation) (15.5)",
+                "Apple TV (15.5)",
             ]
         when 16
             [
                 "iPhone 14 Pro (16.2)",
                 "iPad Pro (11-inch) (4th generation) (16.2)"
+                "Apple TV (16.2)",
             ]
         else
             puts "Unsupported iOS version: #{ios}"
             exit 1
         end
+
         run_tests(
             devices: devices,
             ensure_devices_found: true,
-            scheme: "Introspect iOS",
+            scheme: "Introspect",
             # skip_build: ci,
         )
-
-        # run_tests(
-        #     devices: ["Apple TV"],
-        #     scheme: "Introspect tvOS",
-        #     skip_build: options[:ci] == 'github',
-        #     try_count: 3,
-        #     quit_simulators: false
-        # )
     end
 end
 

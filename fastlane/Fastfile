@@ -6,7 +6,7 @@ platform :ios do
         ci = ENV['CI']
         puts 'Running on CI.' if ci
 
-        devices = case options[:ios] || 13
+        devices = case (options[:version] || 13).to_i
         when 13
             [
                 "iPhone 11 Pro (13.7)",

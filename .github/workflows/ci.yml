@@ -52,7 +52,7 @@ jobs:
       # - name: Export macOS SDK
       #   run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
 
-      - name: Install gem dependencies
+      - name: Bundler
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
@@ -74,7 +74,7 @@ jobs:
         run: swift build -j 2 --disable-index-store -v
 
       - name: Run Tests
-        run: bundle exec fastlane ${{ matrix.platform[0] }} test ${{ matrix.platform[0] }}:${{ matrix.platform[1] }}
+        run: bundle exec fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}
 
       - name: Lint podspec
         run: bundle exec pod lib lint

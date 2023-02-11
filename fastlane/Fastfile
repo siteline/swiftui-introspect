@@ -11,7 +11,7 @@ platform :ios do
             [
                 "iPhone 11 Pro (13.7)",
                 "iPad Pro (11-inch) (2nd generation) (13.7)",
-                "Apple TV (13.7)",
+                "Apple TV (13.4)",
             ]
         when 14
             [
@@ -23,13 +23,13 @@ platform :ios do
             [
                 "iPhone 11 Pro (15.5)",
                 "iPad Pro (11-inch) (3rd generation) (15.5)",
-                "Apple TV (15.5)",
+                "Apple TV (15.4)",
             ]
         when 16
             [
                 "iPhone 14 Pro (16.2)",
                 "iPad Pro (11-inch) (4th generation) (16.2)",
-                "Apple TV (16.2)",
+                "Apple TV (16.1)",
             ]
         else
             puts "Unsupported iOS version: #{ios}"

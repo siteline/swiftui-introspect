@@ -28,7 +28,7 @@ platform :ios do
         when 16
             [
                 "iPhone 14 Pro (16.2)",
-                "iPad Pro (11-inch) (4th generation) (16.2)"
+                "iPad Pro (11-inch) (4th generation) (16.2)",
                 "Apple TV (16.2)",
             ]
         else

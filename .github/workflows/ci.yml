@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   ci:
-    name: ${{ matrix.platform }} ${{ matrix.platform_version }}
+    name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false

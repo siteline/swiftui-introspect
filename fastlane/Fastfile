@@ -40,20 +40,8 @@ end
 
 platform :macos do
     lane :test do |options|
-        version = options[:version].to_i
-
-        destination = case version
-        when 11
-            "platform=macOS,arch=x86_64"
-        when 12
-            "platform=macOS,arch=x86_64"
-        else
-            raise "Unsupported macOS version: #{version}"
-        end
-
-        run_tests(
-            scheme: "Introspect",
-            destination: destination,
+        spm(
+            command: "test",
         )
     end
 end

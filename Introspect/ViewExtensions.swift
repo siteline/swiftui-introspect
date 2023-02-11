@@ -117,7 +117,7 @@ extension View {
     /// Finds the horizontal `UIScrollView` from a `SwiftUI.TabBarView` with tab style `SwiftUI.PageTabViewStyle`.
     ///
     /// Customize is called with a `UICollectionView` wrapper, and the horizontal `UIScrollView`.
-    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+    @available(iOS 14.0, tvOS 14.0, *)
     @available(macOS, unavailable)
     public func introspectPagedTabView(customize: @escaping (UICollectionView, UIScrollView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in

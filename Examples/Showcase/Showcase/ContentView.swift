@@ -29,7 +29,7 @@ struct ContentView: View {
 
 struct ListExample: View {
     var body: some View {
-        
+
         HStack {
             VStack {
                 Text("Default")
@@ -38,7 +38,7 @@ struct ListExample: View {
                     Text("Item 2")
                 }
             }
-                
+
             VStack {
                 Text("List.introspectTableView()")
                 List {
@@ -49,7 +49,7 @@ struct ListExample: View {
                     tableView.separatorStyle = .none
                 }
             }
-            
+
             VStack {
                 Text("child.introspectTableView()")
                 List {
@@ -61,7 +61,7 @@ struct ListExample: View {
                 }
             }
         }
-        
+
     }
 }
 
@@ -115,13 +115,13 @@ struct ScrollViewExample: View {
 }
 
 struct SimpleElementsExample: View {
-    
+
     @State private var textFieldValue = ""
     @State private var toggleValue = false
     @State private var sliderValue = 0.0
     @State private var datePickerValue = Date()
     @State private var segmentedControlValue = 0
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -129,37 +129,37 @@ struct SimpleElementsExample: View {
                 .introspectTextField { textField in
                     textField.layer.backgroundColor = UIColor.red.cgColor
                 }
-                
+
                 TextField("Text Field Green", text: $textFieldValue)
                 .introspectTextField { textField in
                     textField.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
-            
+
             HStack {
                 Toggle("Toggle Red", isOn: $toggleValue)
                 .introspectSwitch { uiSwitch in
                     uiSwitch.layer.backgroundColor = UIColor.red.cgColor
                 }
-                
+
                 Toggle("Toggle Green", isOn: $toggleValue)
                 .introspectSwitch { uiSwitch in
                     uiSwitch.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
-            
+
             HStack {
                 Slider(value: $sliderValue, in: 0...100)
                 .introspectSlider { slider in
                     slider.layer.backgroundColor = UIColor.red.cgColor
                 }
-                
+
                 Slider(value: $sliderValue, in: 0...100)
                 .introspectSlider { slider in
                     slider.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
-            
+
             HStack {
                 Stepper(onIncrement: {}, onDecrement: {}) {
                     Text("Stepper Red")
@@ -167,7 +167,7 @@ struct SimpleElementsExample: View {
                 .introspectStepper { stepper in
                     stepper.layer.backgroundColor = UIColor.red.cgColor
                 }
-                
+
                 Stepper(onIncrement: {}, onDecrement: {}) {
                     Text("Stepper Green")
                 }
@@ -175,7 +175,7 @@ struct SimpleElementsExample: View {
                     stepper.layer.backgroundColor = UIColor.green.cgColor
                 }
             }
-            
+
             HStack {
                 DatePicker(selection: $datePickerValue) {
                     Text("DatePicker Red")
@@ -184,7 +184,7 @@ struct SimpleElementsExample: View {
                     datePicker.layer.backgroundColor = UIColor.red.cgColor
                 }
             }
-            
+
             HStack {
                 Picker(selection: $segmentedControlValue, label: Text("Segmented control")) {
                     Text("Option 1").tag(0)
@@ -197,7 +197,7 @@ struct SimpleElementsExample: View {
                 }
             }
         }
-        
+
     }
 }
 

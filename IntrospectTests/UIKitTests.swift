@@ -118,7 +118,7 @@ private struct TabRootTestView: View {
     }
 }
 
-@available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+@available(iOS 14.0, tvOS 14.0, *)
 private struct PageTabViewStyleTestView: View {
 
     let spy: (UICollectionView, UIScrollView) -> Void
@@ -129,9 +129,12 @@ private struct PageTabViewStyleTestView: View {
                 .tag(0)
         }
         .tabViewStyle(PageTabViewStyle())
-        .introspectPagedTabView { collectionView, scrollView in
-            spy(collectionView, scrollView)
-        }
+        .introspectViewController(customize: { viewController in
+            print(viewController)
+        })
+//        .introspectPagedTabView { collectionView, scrollView in
+//            spy(collectionView, scrollView)
+//        }
     }
 }
 
@@ -597,7 +600,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+    @available(iOS 14.0, tvOS 14.0, *)
     func testPagedTabView() throws {
 
         var collectionView1: UICollectionView?

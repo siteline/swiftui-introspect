@@ -230,8 +230,8 @@ private struct ColorWellTestView: View {
 class AppKitTests: XCTestCase {
     
     func testList() {
-        if #available(macOS 13, *) {
-            return // TODO: verify whether List still uses NSTableView under the hood in macOS 13
+        if #available(macOS 11, *) {
+            return // TODO: verify whether List still uses NSTableView under the hood in macOS >=11
         }
 
         let expectation1 = XCTestExpectation()

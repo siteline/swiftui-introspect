@@ -6,7 +6,8 @@ platform :ios do
         ci = ENV['CI']
         puts 'Running on CI.' if ci
 
-        devices = case (options[:version] || 16).to_i
+        version = options[:version].to_i || 16
+        devices = case version
         when 13
             [
                 "iPhone 11 Pro (13.7)",
@@ -32,8 +33,7 @@ platform :ios do
                 # "Apple TV (16.1)",
             ]
         else
-            puts "Unsupported iOS version: #{ios}"
-            exit 1
+            raise "Unsupported iOS version: #{version}"
         end
 
         run_tests(

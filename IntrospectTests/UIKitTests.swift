@@ -381,6 +381,7 @@ private struct MapTestView: View {
 
 #if !os(tvOS)
 @available(iOS 15, *)
+@available(tvOS, unavailable)
 private struct SearchControllerTestView: View {
     @State var searchText = ""
     let spy: () -> Void
@@ -667,6 +668,7 @@ class UIKitTests: XCTestCase {
     }
 
     @available(iOS 15, *)
+    @available(tvOS, unavailable)
     func testSearchController() {
         let expectation = XCTestExpectation()
         let view = SearchControllerTestView(spy: {

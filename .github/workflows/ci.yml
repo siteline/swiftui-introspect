@@ -51,9 +51,6 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode }}
 
-      # - name: Export macOS SDK
-      #   run: echo SDKROOT=$(xcrun --sdk macosx --show-sdk-path) >> $GITHUB_ENV
-
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 

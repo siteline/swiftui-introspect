@@ -379,15 +379,16 @@ private struct MapTestView: View {
     }
 }
 
-#if os(iOS)
+#if swift(>=5.5) && !os(tvOS) // needed for some reason for iOS 14 testing not to fail on CI
 @available(iOS 15, *)
+@available(tvOS, unavailable)
 private struct SearchControllerTestView: View {
     @State var searchText = ""
     let spy: () -> Void
     
     var body: some View {
         NavigationView {
-            Color.red
+            EmptyView()
                 .searchable(text: $searchText)
                 .introspectSearchController { searchController in
                     self.spy()
@@ -568,7 +569,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    #if os(iOS)
+    #if !os(tvOS)
     func testSplitNavigation() {
 
         let expectation = XCTestExpectation()

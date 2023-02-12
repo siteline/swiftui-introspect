@@ -649,6 +649,7 @@ class UIKitTests: XCTestCase {
         }
     }
 
+    @available(iOS 14, tvOS 14, *)
     func testMapView() {
         let expectation = XCTestExpectation()
         let view = MapTestView(spy: {

@@ -379,7 +379,8 @@ private struct MapTestView: View {
     }
 }
 
-@available(iOS 15.0, tvOS 15.0, macOS 12.0, *)
+#if !os(tvOS)
+@available(iOS 15, *)
 private struct SearchControllerTestView: View {
     @State var searchText = ""
     let spy: () -> Void
@@ -394,6 +395,7 @@ private struct SearchControllerTestView: View {
         }
     }
 }
+#endif
 
 class UIKitTests: XCTestCase {
     func testNavigation() {
@@ -663,22 +665,22 @@ class UIKitTests: XCTestCase {
             XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
         }
     }
+
+    @available(iOS 15.0, *)
+    func testSearchController() {
+        let expectation = XCTestExpectation()
+        let view = SearchControllerTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
     #endif
     
     @available(iOS 14, tvOS 14, *)
     func testMapView() {
         let expectation = XCTestExpectation()
         let view = MapTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-    }
-    
-    @available(iOS 15.0, tvOS 15.0, *)
-    func testSearchController() {
-        let expectation = XCTestExpectation()
-        let view = SearchControllerTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

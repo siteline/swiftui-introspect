@@ -379,8 +379,8 @@ private struct MapTestView: View {
     }
 }
 
-@available(iOS 15, tvOS 15, *)
-@available(tvOS, unavailable)
+#if os(iOS)
+@available(iOS 15, *)
 private struct SearchControllerTestView: View {
     @State var searchText = ""
     let spy: () -> Void
@@ -395,6 +395,7 @@ private struct SearchControllerTestView: View {
         }
     }
 }
+#endif
 
 class UIKitTests: XCTestCase {
     func testNavigation() {
@@ -567,7 +568,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    #if !os(tvOS)
+    #if os(iOS)
     func testSplitNavigation() {
 
         let expectation = XCTestExpectation()
@@ -665,8 +666,7 @@ class UIKitTests: XCTestCase {
         }
     }
 
-    @available(iOS 15, tvOS 15, *)
-    @available(tvOS, unavailable)
+    @available(iOS 15, *)
     func testSearchController() {
         let expectation = XCTestExpectation()
         let view = SearchControllerTestView(spy: {

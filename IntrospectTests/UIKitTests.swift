@@ -379,7 +379,7 @@ private struct MapTestView: View {
     }
 }
 
-#if swift(>=5.5) && !os(tvOS) // needed for some reason for iOS 14 testing not to fail on CI
+#if swift(>=5.5) && !os(tvOS) // swift check needed for some reason for tvOS 14 testing not to fail on CI
 @available(iOS 15, *)
 @available(tvOS, unavailable)
 private struct SearchControllerTestView: View {

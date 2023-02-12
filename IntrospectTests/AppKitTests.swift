@@ -110,7 +110,7 @@ private struct TextFieldTestView: View {
     }
 }
 
-@available(macOS 11.0, *)
+@available(macOS 11, *)
 private struct TextEditorTestView: View {
     let spy: () -> Void
     @State private var textEditorValue = ""

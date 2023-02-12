@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
 
   spec.source_files = 'Introspect/*.swift'
 
-  spec.swift_version = '5.2'
+  spec.swift_version = '5.4'
   spec.ios.deployment_target = '13.0'
   spec.tvos.deployment_target = '13.0'
   spec.osx.deployment_target = '10.15'

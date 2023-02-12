@@ -365,6 +365,20 @@ private struct ColorWellTestView: View {
     }
 }
 
+import MapKit
+@available(iOS 14, tvOS 14, *)
+private struct MapTestView: View {
+    @State private var coordinateRegion = MKCoordinateRegion(.world)
+    let spy: () -> Void
+
+    var body: some View {
+        Map(coordinateRegion: $coordinateRegion)
+            .introspectMapView { mapView in
+                self.spy()
+            }
+    }
+}
+
 class UIKitTests: XCTestCase {
     func testNavigation() {
         
@@ -525,8 +539,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
-    #if os(iOS)
+
     func testSplitNavigation() {
         
         let expectation = XCTestExpectation()
@@ -635,6 +648,14 @@ class UIKitTests: XCTestCase {
             XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
         }
     }
-    #endif
+
+    func testMapView() {
+        let expectation = XCTestExpectation()
+        let view = MapTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
 }
 #endif

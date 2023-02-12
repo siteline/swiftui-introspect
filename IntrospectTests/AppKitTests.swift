@@ -227,6 +227,20 @@ private struct ColorWellTestView: View {
     }
 }
 
+import MapKit
+@available(macOS 11, *)
+private struct MapTestView: View {
+    @State private var coordinateRegion = MKCoordinateRegion(.world)
+    let spy: () -> Void
+
+    var body: some View {
+        Map(coordinateRegion: $coordinateRegion)
+            .introspectMapView { mapView in
+                self.spy()
+            }
+    }
+}
+
 class AppKitTests: XCTestCase {
     
     func testList() {
@@ -398,6 +412,15 @@ class AppKitTests: XCTestCase {
 
         let expectation = XCTestExpectation()
         let view = ColorWellTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+
+    func testMapView() {
+        let expectation = XCTestExpectation()
+        let view = MapTestView(spy: {
             expectation.fulfill()
         })
         TestUtils.present(view: view)

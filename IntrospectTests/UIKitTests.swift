@@ -365,6 +365,20 @@ private struct ColorWellTestView: View {
     }
 }
 
+import MapKit
+@available(iOS 14, tvOS 14, *)
+private struct MapTestView: View {
+    @State private var coordinateRegion = MKCoordinateRegion(.world)
+    let spy: () -> Void
+
+    var body: some View {
+        Map(coordinateRegion: $coordinateRegion)
+            .introspectMapView { mapView in
+                self.spy()
+            }
+    }
+}
+
 class UIKitTests: XCTestCase {
     func testNavigation() {
         
@@ -525,18 +539,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
-    #if os(iOS)
-    func testSplitNavigation() {
-        
-        let expectation = XCTestExpectation()
-        let view = SplitNavigationTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-    }
-    
+
     func testRootNavigation() {
         
         let expectation = XCTestExpectation()
@@ -546,7 +549,18 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    #if !os(tvOS)
+    func testSplitNavigation() {
+
+        let expectation = XCTestExpectation()
+        let view = SplitNavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+
     func testToggle() {
         
         let expectation = XCTestExpectation()
@@ -556,7 +570,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testSlider() {
         
         let expectation = XCTestExpectation()
@@ -566,7 +580,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testStepper() {
         
         let expectation = XCTestExpectation()
@@ -576,7 +590,7 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
     func testDatePicker() {
         
         let expectation = XCTestExpectation()
@@ -588,7 +602,6 @@ class UIKitTests: XCTestCase {
     }
     
     @available(iOS 14, *)
-    @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
     func testTextEditor() {
 
         let expectation = XCTestExpectation()
@@ -600,7 +613,6 @@ class UIKitTests: XCTestCase {
     }
     
     @available(iOS 14, *)
-    @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
     func testColorPicker() {
 
         let expectation = XCTestExpectation()
@@ -636,5 +648,15 @@ class UIKitTests: XCTestCase {
         }
     }
     #endif
+
+    @available(iOS 14, tvOS 14, *)
+    func testMapView() {
+        let expectation = XCTestExpectation()
+        let view = MapTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
 }
 #endif

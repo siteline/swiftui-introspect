@@ -257,3 +257,15 @@ extension View {
     }
 }
 #endif
+
+#if canImport(MapKit)
+import MapKit
+
+extension View {
+    /// Finds an `MKMapView` from a `SwiftUI.Map`
+    @available(iOS 14, tvOS 14, macOS 11, *)
+    public func introspectMapView(customize: @escaping (MKMapView) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
+}
+#endif

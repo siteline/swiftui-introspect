@@ -666,7 +666,7 @@ class UIKitTests: XCTestCase {
         }
     }
 
-    @available(iOS 15.0, *)
+    @available(iOS 15, *)
     func testSearchController() {
         let expectation = XCTestExpectation()
         let view = SearchControllerTestView(spy: {

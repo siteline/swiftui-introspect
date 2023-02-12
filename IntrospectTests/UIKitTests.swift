@@ -379,8 +379,7 @@ private struct MapTestView: View {
     }
 }
 
-#if !os(tvOS)
-@available(iOS 15, *)
+@available(iOS 15, tvOS 15, *)
 @available(tvOS, unavailable)
 private struct SearchControllerTestView: View {
     @State var searchText = ""
@@ -388,7 +387,7 @@ private struct SearchControllerTestView: View {
     
     var body: some View {
         NavigationView {
-            EmptyView()
+            Color.red
                 .searchable(text: $searchText)
                 .introspectSearchController { searchController in
                     self.spy()
@@ -396,7 +395,6 @@ private struct SearchControllerTestView: View {
         }
     }
 }
-#endif
 
 class UIKitTests: XCTestCase {
     func testNavigation() {
@@ -667,7 +665,7 @@ class UIKitTests: XCTestCase {
         }
     }
 
-    @available(iOS 15, *)
+    @available(iOS 15, tvOS 15, *)
     @available(tvOS, unavailable)
     func testSearchController() {
         let expectation = XCTestExpectation()

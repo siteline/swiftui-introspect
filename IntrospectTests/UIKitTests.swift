@@ -540,6 +540,7 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
+
     func testSplitNavigation() {
         
         let expectation = XCTestExpectation()
@@ -549,7 +550,8 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    #if !os(tvOS)
     func testRootNavigation() {
         
         let expectation = XCTestExpectation()
@@ -560,7 +562,6 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    @available(tvOS, unavailable)
     func testToggle() {
         
         let expectation = XCTestExpectation()
@@ -571,7 +572,6 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    @available(tvOS, unavailable)
     func testSlider() {
         
         let expectation = XCTestExpectation()
@@ -582,7 +582,6 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    @available(tvOS, unavailable)
     func testStepper() {
         
         let expectation = XCTestExpectation()
@@ -593,7 +592,6 @@ class UIKitTests: XCTestCase {
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
 
-    @available(tvOS, unavailable)
     func testDatePicker() {
         
         let expectation = XCTestExpectation()
@@ -605,7 +603,6 @@ class UIKitTests: XCTestCase {
     }
     
     @available(iOS 14, *)
-    @available(tvOS, unavailable, message: "TextEditor is not available in tvOS.")
     func testTextEditor() {
 
         let expectation = XCTestExpectation()
@@ -617,7 +614,6 @@ class UIKitTests: XCTestCase {
     }
     
     @available(iOS 14, *)
-    @available(tvOS, unavailable, message: "ColorPicker is not available in tvOS.")
     func testColorPicker() {
 
         let expectation = XCTestExpectation()
@@ -652,6 +648,7 @@ class UIKitTests: XCTestCase {
             XCTAssertTrue(unwrappedCollectionView.subviews.contains(where: { $0 === unwrappedScrollView }))
         }
     }
+    #endif
 
     @available(iOS 14, tvOS 14, *)
     func testMapView() {

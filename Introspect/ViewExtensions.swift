@@ -5,7 +5,6 @@ import AppKit
 #elseif canImport(UIKit)
 import UIKit
 #endif
-import MapKit
 
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
@@ -178,18 +177,6 @@ extension View {
 }
 #endif
 
-#if canImport(UIKit) || canImport(AppKit)
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
-extension View {
-	//Finds an `MKMapView` from ab `MapKit.Map`
-	@available(iOS 14.0, *)
-	@available(macOS 11.0, *)
-	public func introspectMapView(customize: @escaping (MKMapView) -> ()) -> some View {
-		introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
-	}
-}
-#endif
-
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension View {
     
@@ -266,6 +253,18 @@ extension View {
     /// Finds a `NSColorWell` from a `SwiftUI.ColorPicker`
     @available(macOS 11, *)
     public func introspectColorWell(customize: @escaping (NSColorWell) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
+}
+#endif
+
+#if canImport(MapKit)
+import MapKit
+
+extension View {
+    /// Finds an `MKMapView` from a `SwiftUI.Map`
+    @available(iOS 14, tvOS 14, macOS 11, *)
+    public func introspectMapView(customize: @escaping (MKMapView) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
 }

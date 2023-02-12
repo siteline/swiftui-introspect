@@ -84,6 +84,18 @@ extension View {
             customize: customize
         ))
     }
+
+    /// Finds a `UISearchController` from a `SwiftUI.View` with a `.searchable` modifier
+    @available(iOS 15, *)
+    @available(tvOS, unavailable)
+    public func introspectSearchController(customize: @escaping (UISearchController) -> ()) -> some View {
+        introspectNavigationController { navigationController in
+            let navigationBar = navigationController.navigationBar
+            if let searchController = navigationBar.topItem?.searchController {
+                customize(searchController)
+            }
+        }
+    }
     
     /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {

@@ -12,6 +12,7 @@
 		D53071FB29983CF000F1936C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53071FA29983CF000F1936C /* Assets.xcassets */; };
 		D53071FE29983CF000F1936C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53071FD29983CF000F1936C /* Preview Assets.xcassets */; };
 		D530720729983DCA00F1936C /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = D530720629983DCA00F1936C /* Introspect */; };
+		D5B829752999738200920EBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B829742999738200920EBD /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		D53071FA29983CF000F1936C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D53071FD29983CF000F1936C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D530720429983D9300F1936C /* Showcase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Showcase.entitlements; sourceTree = "<group>"; };
+		D5B829742999738200920EBD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				D530720429983D9300F1936C /* Showcase.entitlements */,
 				D53071F629983CEF00F1936C /* App.swift */,
 				D53071F829983CEF00F1936C /* ContentView.swift */,
+				D5B829742999738200920EBD /* Helpers.swift */,
 				D53071FA29983CF000F1936C /* Assets.xcassets */,
 				D53071FC29983CF000F1936C /* Preview Content */,
 			);
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D53071F929983CEF00F1936C /* ContentView.swift in Sources */,
+				D5B829752999738200920EBD /* Helpers.swift in Sources */,
 				D53071F729983CEF00F1936C /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

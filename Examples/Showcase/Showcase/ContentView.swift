@@ -72,15 +72,34 @@ struct ListShowcase: View {
 struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Customized")
-            }
-            #if !os(tvOS)
-            .navigationBarTitle(Text("Customized"), displayMode: .inline)
-            #endif
-            .introspectNavigationController { nvc in
-                nvc.navigationBar.backgroundColor = .red
-            }
+            Text("Customized")
+                .do {
+                    if #available(iOS 15, tvOS 15, *) {
+                        $0.searchable(text: .constant(""))
+                    } else {
+                        $0
+                    }
+                }
+                .do {
+                    #if os(iOS)
+                    if #available(iOS 15, *) {
+                        $0.introspectSearchController { searchController in
+                            searchController.searchBar.backgroundColor = .purple
+                        }
+                    }
+                    #else
+                    $0
+                    #endif
+                }
+                #if !os(tvOS)
+                .navigationBarTitle(Text("Customized"), displayMode: .inline)
+                #endif
+                .introspectNavigationController { navigationController in
+                    navigationController.navigationBar.backgroundColor = .red
+                }
+        }
+        .introspectSplitViewController { splitViewController in
+            splitViewController.preferredDisplayMode = .oneOverSecondary
         }
     }
 }

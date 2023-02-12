@@ -559,7 +559,8 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    @available(tvOS, unavailable)
     func testToggle() {
         
         let expectation = XCTestExpectation()
@@ -569,7 +570,8 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    @available(tvOS, unavailable)
     func testSlider() {
         
         let expectation = XCTestExpectation()
@@ -579,7 +581,8 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    @available(tvOS, unavailable)
     func testStepper() {
         
         let expectation = XCTestExpectation()
@@ -589,7 +592,8 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    
+
+    @available(tvOS, unavailable)
     func testDatePicker() {
         
         let expectation = XCTestExpectation()

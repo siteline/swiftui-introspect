@@ -394,6 +394,9 @@ private struct SearchControllerTestView: View {
                     self.spy()
                 }
         }
+        .introspectSplitViewController { splitViewController in
+            splitViewController.preferredDisplayMode = .oneOverSecondary
+        }
     }
 }
 #endif

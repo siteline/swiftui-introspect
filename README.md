@@ -165,17 +165,18 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
 Releasing
 ---------
 
- - Update changelog with new version
- - Bump version in `Introspect.podspec`
- - Commit and push changes
- - Tag new version:
+1. Update changelog with new version
+2. Bump version in `Introspect.podspec`
+3. PR and merge changes
+4. Tag new version:
 
     ```
     $ git tag -a <VERSION> -m "<MESSAGE>"
     $ git push origin --tags
     ```
 
- - Push to CocoaPods trunk:
+5. Push to CocoaPods trunk:
+
     ```
     $ bundle exec pod trunk push .
     ```

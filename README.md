@@ -1,7 +1,7 @@
 Introspect for SwiftUI
 ======================
 
-[![CircleCI_Status]][CircleCI_URL]&nbsp;&nbsp;[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
+[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
 
 > Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
@@ -39,7 +39,7 @@ https://github.com/siteline/SwiftUI-Introspect.git
 ### Cocoapods
 
 ```
-pod "Introspect"
+pod 'Introspect'
 ```
 
 Introspection
@@ -64,7 +64,7 @@ DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`
 Picker (SegmentedPickerStyle) | UISegmentedControl | NSSegmentedControl | `.introspectSegmentedControl()`
 Button | _N/A_ | NSButton | `.introspectButton()`
 ColorPicker | UIColorWell | NSColorWell | `.introspectColorWell()`
-TabView | UITextView | NSTextView | `.introspectTextView()`
+TextEditor | UITextView | NSTextView | `.introspectTextView()`
 
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).

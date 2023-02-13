@@ -45,7 +45,7 @@ extension View {
     
     /// Finds a `UISplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
     public func introspectSplitViewController(customize: @escaping (UISplitViewController) -> ()) -> some View {
-        return inject(UIKitIntrospectionViewController(
+        inject(UIKitIntrospectionViewController(
             selector: { introspectionViewController in
 
                 // Search in ancestors

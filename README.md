@@ -50,7 +50,8 @@ Introspection
 SwiftUI | UIKit | AppKit | Introspect
 --- | --- | --- | ---
 NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
-NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | NSSplitView | `.introspectSplitViewController()`
+NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_ | `.introspectSplitViewController()`
+NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 List | UITableView | NSTableView | `.introspectTableView()`

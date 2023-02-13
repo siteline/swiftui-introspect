@@ -31,7 +31,7 @@ private struct SplitNavigationTestView: View {
                 EmptyView()
             }
         }
-        .introspectSplitViewController { splitViewController in
+        .introspectSplitView { splitView in
             self.spy()
         }
     }

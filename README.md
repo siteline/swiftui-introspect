@@ -169,10 +169,12 @@ Releasing
  - Bump version in `Introspect.podspec`
  - Commit and push changes
  - Tag new version:
+
     ```
     $ git tag -a <VERSION> -m "<MESSAGE>"
     $ git push origin --tags
     ```
+
  - Push to CocoaPods trunk:
     ```
     $ bundle exec pod trunk push .

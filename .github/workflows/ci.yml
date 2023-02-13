@@ -58,4 +58,4 @@ jobs:
         run: bundle exec pod lib lint
 
       - name: Run Tests
-        run: bundle exec fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}
+        run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

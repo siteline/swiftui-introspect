@@ -165,27 +165,18 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
 Releasing
 ---------
 
- - Increment version number:
-
-```
-$ bundle exec fastlane run increment_version_number bump_type:minor # major|minor|patch
-```
-
  - Update changelog with new version
  - Bump version in `Introspect.podspec`
  - Commit and push changes
  - Tag new version:
-
-```
-$ git tag -a <VERSION> -m "<MESSAGE>"
-$ git push origin --tags
-```
-
+    ```
+    $ git tag -a <VERSION> -m "<MESSAGE>"
+    $ git push origin --tags
+    ```
  - Push to CocoaPods trunk:
-
-```
-$ bundle exec pod trunk push .
-```
+    ```
+    $ bundle exec pod trunk push .
+    ```
 
 
 <!-- References -->

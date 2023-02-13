@@ -23,6 +23,20 @@ enum TestUtils {
     }
 }
 
+private struct SplitNavigationTestView: View {
+    let spy: () -> Void
+    var body: some View {
+        NavigationView {
+            VStack {
+                EmptyView()
+            }
+        }
+        .introspectSplitView { splitView in
+            self.spy()
+        }
+    }
+}
+
 private struct ListTestView: View {
     
     let spy1: () -> Void
@@ -242,7 +256,17 @@ private struct MapTestView: View {
 }
 
 class AppKitTests: XCTestCase {
-    
+
+    func testSplitNavigation() {
+
+        let expectation = XCTestExpectation()
+        let view = SplitNavigationTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+
     func testList() {
         if #available(macOS 11, *) {
             return // TODO: verify whether List still uses NSTableView under the hood in macOS >=11

@@ -51,6 +51,7 @@ SwiftUI | UIKit | AppKit | Introspect
 --- | --- | --- | ---
 NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
 NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_ | `.introspectSplitViewController()`
+NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 List | UITableView | NSTableView | `.introspectTableView()`
@@ -188,13 +189,10 @@ $ bundle exec pod trunk push .
 
 
 <!-- References -->
-[CircleCI_Status]: https://circleci.com/gh/siteline/SwiftUI-Introspect.svg?style=svg&circle-token=6f995f204d4d417d31f79e7257f6e1ecf430ae07
 
-[CircleCI_URL]: https://circleci.com/gh/siteline/SwiftUI-Introspect
+[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg?branch=master
 
-[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/build-and-test.yml/badge.svg?branch=master
-
-[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/build-and-test.yml
+[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml
 
 [Siteline_Badge]: https://badgen.net/badge/Built%20by/Siteline/blue?icon=https://uploads-ssl.webflow.com/5f4513afbbfc64c4777fcccf/5f525b122370d681879e170e_siteline-icon.svg
 

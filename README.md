@@ -114,9 +114,9 @@ ScrollView {
 ```swift
 NavigationView {
     Text("Item 2")
-    .introspectNavigationController { navigationController in
-        navigationController.navigationBar.backgroundColor = .red
-    }
+        .introspectNavigationController { navigationController in
+            navigationController.navigationBar.backgroundColor = .red
+        }
 }
 ```
 
@@ -124,9 +124,9 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: $textFieldValue)
-.introspectTextField { textField in
-    textField.layer.backgroundColor = UIColor.red.cgColor
-}
+    .introspectTextField { textField in
+        textField.layer.backgroundColor = UIColor.red.cgColor
+    }
 ```
 
 Implement your own selector
@@ -170,14 +170,14 @@ Releasing
 3. PR and merge changes
 4. Tag new version:
 
-    ```
+    ```sh
     $ git tag -a <VERSION> -m "<MESSAGE>"
     $ git push origin --tags
     ```
 
 5. Push to CocoaPods trunk:
 
-    ```
+    ```sh
     $ bundle exec pod trunk push .
     ```
 

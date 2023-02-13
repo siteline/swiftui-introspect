@@ -165,10 +165,15 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
 Releasing
 ---------
 
+```sh
+$ brew install fastlane
+$ brew install cocoapods
+```
+
  - Increment version number:
 
 ```
-$ bundle exec fastlane run increment_version_number bump_type:minor # major|minor|patch
+$ fastlane run increment_version_number bump_type:minor # major|minor|patch
 ```
 
  - Update changelog with new version
@@ -181,10 +186,10 @@ $ git tag -a <VERSION> -m "<MESSAGE>"
 $ git push origin --tags
 ```
 
- - Push to cocoapods trunk:
+ - Push to CocoaPods trunk:
 
 ```
-$ bundle exec pod trunk push .
+$ pod trunk push .
 ```
 
 

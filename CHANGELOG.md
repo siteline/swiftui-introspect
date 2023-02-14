@@ -7,7 +7,7 @@ Changelog
 - New: `introspectSearchController` (#129)
 - New: `introspectPagedTabView` (#117)
 - New: `introspectMapView` (#125)
-- New: `introspectSplitView` on macOS (#129)
+- New: `introspectSplitView` on macOS (#100)
 - New: explicitly static/dynamic SPM library products (#168)
 - Fix: view controller introspection (#165)
 - Fix: issue where introspecting within a LazyVStack would silently fail #153

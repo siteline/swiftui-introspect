@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.2.0]
+
 - Added: `introspectCollectionView/introspectCollectionViewCell` (#169)
 - Added: `introspectSearchController` (#129)
 - Added: `introspectPagedTabView` (#117)

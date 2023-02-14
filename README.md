@@ -114,9 +114,9 @@ ScrollView {
 ```swift
 NavigationView {
     Text("Item 2")
-    .introspectNavigationController { navigationController in
-        navigationController.navigationBar.backgroundColor = .red
-    }
+        .introspectNavigationController { navigationController in
+            navigationController.navigationBar.backgroundColor = .red
+        }
 }
 ```
 
@@ -124,9 +124,9 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: $textFieldValue)
-.introspectTextField { textField in
-    textField.layer.backgroundColor = UIColor.red.cgColor
-}
+    .introspectTextField { textField in
+        textField.layer.backgroundColor = UIColor.red.cgColor
+    }
 ```
 
 Implement your own selector
@@ -165,27 +165,21 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
 Releasing
 ---------
 
- - Increment version number:
+1. Update changelog with new version
+2. Bump version in `Introspect.podspec`
+3. PR and merge changes
+4. Tag new version:
 
-```
-$ bundle exec fastlane run increment_version_number bump_type:minor # major|minor|patch
-```
+    ```sh
+    $ git tag -a <VERSION> -m "<MESSAGE>"
+    $ git push origin --tags
+    ```
 
- - Update changelog with new version
- - Bump version in `Introspect.podspec`
- - Commit and push changes
- - Tag new version:
+5. Push to CocoaPods trunk:
 
-```
-$ git tag -a <VERSION> -m "<MESSAGE>"
-$ git push origin --tags
-```
-
- - Push to cocoapods trunk:
-
-```
-$ bundle exec pod trunk push .
-```
+    ```sh
+    $ bundle exec pod trunk push .
+    ```
 
 
 <!-- References -->

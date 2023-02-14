@@ -3,7 +3,6 @@ import SwiftUI
 import UIKit
 
 /// Introspection UIViewController that is inserted alongside the target view controller.
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 public class IntrospectionUIViewController: UIViewController {
     required init() {
         super.init(nibName: nil, bundle: nil)
@@ -17,7 +16,6 @@ public class IntrospectionUIViewController: UIViewController {
 }
 
 /// This is the same logic as IntrospectionView but for view controllers. Please see details above.
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewController>: UIViewControllerRepresentable {
     
     let selector: (IntrospectionUIViewController) -> TargetViewControllerType?
@@ -31,25 +29,39 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         self.customize = customize
     }
     
+    /// When `makeUIViewController` and `updateUIViewController` are called, the Introspection view is not yet in
+    /// the UIKit hierarchy. At this point, `introspectionViewController.parent` is nil and we can't access the target
+    /// UIKit view controller. To workaround this, we wait until the runloop is done inserting the introspection view controller's
+    /// view in the hierarchy, then run the selector. Finding the target view controller fails silently if the selector yields no result.
+    /// This happens when the introspection view controller's view gets removed from the hierarchy.
     public func makeUIViewController(
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) -> IntrospectionUIViewController {
         let viewController = IntrospectionUIViewController()
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
         viewController.view.accessibilityLabel = "IntrospectionUIView<\(TargetViewControllerType.self)>"
+        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler = { [weak viewController] in
+            guard let viewController = viewController else { return }
+            DispatchQueue.main.async {
+                guard let targetView = self.selector(viewController) else {
+                    return
+                }
+                self.customize(targetView)
+            }
+        }
         return viewController
     }
     
+    /// If you find that the `moveToWindowHandler` is not called in certain situations (which has not been discovered yet),
+    /// you can add code to call the `moveToWindowHandler` in the function body.
     public func updateUIViewController(
         _ uiViewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
-    ) {
-        DispatchQueue.main.async {
-            guard let targetView = self.selector(uiViewController) else {
-                return
-            }
-            self.customize(targetView)
-        }
+    ) {}
+    
+    /// Avoid memory leaks.
+    public static func dismantleUIViewController(_ uiViewController: IntrospectionUIViewController, coordinator: ()) {
+        (uiViewController.view as? IntrospectionUIView)?.moveToWindowHandler = nil
     }
 }
 #endif

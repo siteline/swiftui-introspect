@@ -3,7 +3,6 @@ import UIKit
 import SwiftUI
 
 /// Introspection UIView that is inserted alongside the target view.
-@available(iOS 13.0, *)
 public class IntrospectionUIView: UIView {
     
     var moveToWindowHandler: (() -> Void)?
@@ -27,7 +26,6 @@ public class IntrospectionUIView: UIView {
 
 /// Introspection View that is injected into the UIKit hierarchy alongside the target view.
 /// After `updateUIView` is called, it calls `selector` to find the target view, then `customize` when the target view is found.
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentable {
     
     /// Method that introspects the view hierarchy to find the target view.
@@ -45,29 +43,38 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         self.customize = customize
     }
     
+    /// When `makeUIView` and `updateUIView` are called, the Introspection view is not yet in the UIKit hierarchy.
+    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
+    /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
+    /// Finding the target view fails silently if the selector yields no result. This happens when the introspection view gets
+    /// removed from the hierarchy.
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
-        return view
-    }
-
-    /// When `updateUiView` is called after creating the Introspection view, it is not yet in the UIKit hierarchy.
-    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
-    /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
-    /// Finding the target view fails silently if the selector yield no result. This happens when `updateUIView`
-    /// gets called when the introspection view gets removed from the hierarchy.
-    public func updateUIView(
-        _ uiView: IntrospectionUIView,
-        context: UIViewRepresentableContext<UIKitIntrospectionView>
-    ) {
-        uiView.moveToWindowHandler = {
+        view.moveToWindowHandler = { [weak view] in
+            guard let view = view else { return }
             DispatchQueue.main.async {
-                guard let targetView = self.selector(uiView) else {
+                guard let targetView = self.selector(view) else {
                     return
                 }
                 self.customize(targetView)
             }
         }
+        return view
+    }
+    
+    /// In some cases, UIView does not call `moveToWindowHandler`,
+    /// so the `moveToWindowHandler` call in updateUIView must be preserved.
+    public func updateUIView(
+        _ uiView: IntrospectionUIView,
+        context: UIViewRepresentableContext<UIKitIntrospectionView>
+    ) {
+        uiView.moveToWindowHandler?()
+    }
+    
+    /// Avoid memory leaks.
+    public static func dismantleUIView(_ uiView: IntrospectionUIView, coordinator: ()) {
+        uiView.moveToWindowHandler = nil
     }
 }
 #endif

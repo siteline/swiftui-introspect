@@ -3,16 +3,16 @@ Changelog
 
 ## master
 
-- New: `introspectCollectionView/introspectCollectionViewCell` (#169)
-- New: `introspectSearchController` (#129)
-- New: `introspectPagedTabView` (#117)
-- New: `introspectMapView` (#125)
-- New: `introspectSplitView` on macOS (#100)
-- New: explicitly static/dynamic SPM library products (#168)
-- Fix: view controller introspection (#165)
-- Fix: issue where introspecting within a LazyVStack would silently fail #153
-- Infra: test coverage now spans iOS/tvOS 14/15/16 and macOS 11/12 (#185)
-- Infra: removed CircleCI in favor of GitHub Actions (#182, #183)
+- Added: `introspectCollectionView/introspectCollectionViewCell` (#169)
+- Added: `introspectSearchController` (#129)
+- Added: `introspectPagedTabView` (#117)
+- Added: `introspectMapView` (#125)
+- Added: `introspectSplitView` on macOS (#100)
+- Added: explicitly static/dynamic SPM library products (#168)
+- Fixed: view controller introspection (#165)
+- Fixed: issue where introspecting within a LazyVStack would silently fail #153
+- Infrastructure: test coverage now spans iOS/tvOS 14/15/16 and macOS 11/12 (#185)
+- Infrastructure: removed CircleCI in favor of GitHub Actions (#182, #183)
 
 ## [0.1.4]
 

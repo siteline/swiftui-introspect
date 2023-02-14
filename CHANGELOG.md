@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.2.0]
+
 - Added: `introspectCollectionView/introspectCollectionViewCell` (#169)
 - Added: `introspectSearchController` (#129)
 - Added: `introspectPagedTabView` (#117)
@@ -77,6 +79,7 @@ Changelog
 
  - First release.
 
+[0.2.0]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.2.0
 [0.1.3]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.3
 [0.1.2]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.2
 [0.1.1]: https://github.com/timbersoftware/SwiftUI-Introspect/releases/tag/0.1.1

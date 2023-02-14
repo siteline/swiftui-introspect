@@ -3,31 +3,45 @@ skip_docs
 
 platform :ios do
     lane :test do |options|
-        puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        multi_scan(
-            devices: ["iPhone 8", "iPad (8th generation)"],
-            scheme: "Introspect iOS",
-            skip_build: options[:ci] == 'github',
-            try_count: 3,
-            quit_simulators: false
-        )
+        version = options[:version].to_i
 
-        multi_scan(
-            devices: ["Apple TV"],
-            scheme: "Introspect tvOS",
-            skip_build: options[:ci] == 'github',
-            try_count: 3,
-            quit_simulators: false
+        devices = case version
+        when 14
+            [
+                "iPhone 11 Pro (14.5)",
+                "iPad Pro (11-inch) (3rd generation) (14.5)",
+                "Apple TV (14.5)",
+            ]
+        when 15
+            [
+                "iPhone 11 Pro (15.5)",
+                "iPad Pro (11-inch) (3rd generation) (15.5)",
+                "Apple TV (15.4)",
+            ]
+        when 16
+            [
+                "iPhone 14 Pro (16.2)",
+                "iPad Pro (11-inch) (4th generation) (16.2)",
+                "Apple TV (16.1)",
+            ]
+        else
+            raise "Unsupported iOS version: #{version}"
+        end
+
+        run_tests(
+            scheme: "Introspect",
+            devices: devices,
+            ensure_devices_found: true,
+            force_quit_simulator: true,
+            disable_concurrent_testing: true,
         )
     end
 end
 
-platform :mac do
+platform :macos do
     lane :test do |options|
-        puts 'Running on GitHub CI.' if options[:ci] == 'github'
-        scan(
-            scheme: "Introspect macOS",
-            skip_build: options[:ci] == 'github'
+        spm(
+            command: "test",
         )
     end
 end

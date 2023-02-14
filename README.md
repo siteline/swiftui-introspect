@@ -1,7 +1,7 @@
 Introspect for SwiftUI
 ======================
 
-[![CircleCI_Status]][CircleCI_URL]&nbsp;&nbsp;[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
+[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
 
 > Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
@@ -51,6 +51,7 @@ SwiftUI | UIKit | AppKit | Introspect
 --- | --- | --- | ---
 NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
 NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_ | `.introspectSplitViewController()`
+NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
 List | UITableView | NSTableView | `.introspectTableView()`
@@ -113,9 +114,9 @@ ScrollView {
 ```swift
 NavigationView {
     Text("Item 2")
-    .introspectNavigationController { navigationController in
-        navigationController.navigationBar.backgroundColor = .red
-    }
+        .introspectNavigationController { navigationController in
+            navigationController.navigationBar.backgroundColor = .red
+        }
 }
 ```
 
@@ -123,9 +124,9 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: $textFieldValue)
-.introspectTextField { textField in
-    textField.layer.backgroundColor = UIColor.red.cgColor
-}
+    .introspectTextField { textField in
+        textField.layer.backgroundColor = UIColor.red.cgColor
+    }
 ```
 
 Implement your own selector
@@ -164,37 +165,28 @@ You can use any of the following [methods](https://github.com/timbersoftware/Swi
 Releasing
 ---------
 
- - Increment version number:
+1. Update changelog with new version
+2. Bump version in `Introspect.podspec`
+3. PR and merge changes
+4. Tag new version:
 
-```
-$ bundle exec fastlane run increment_version_number bump_type:minor # major|minor|patch
-```
+    ```sh
+    $ git tag -a <VERSION> -m "<MESSAGE>"
+    $ git push origin --tags
+    ```
 
- - Update changelog with new version
- - Bump version in `Introspect.podspec`
- - Commit and push changes
- - Tag new version:
+5. Push to CocoaPods trunk:
 
-```
-$ git tag -a <VERSION> -m "<MESSAGE>"
-$ git push origin --tags
-```
-
- - Push to cocoapods trunk:
-
-```
-$ bundle exec pod trunk push .
-```
+    ```sh
+    $ bundle exec pod trunk push .
+    ```
 
 
 <!-- References -->
-[CircleCI_Status]: https://circleci.com/gh/siteline/SwiftUI-Introspect.svg?style=svg&circle-token=6f995f204d4d417d31f79e7257f6e1ecf430ae07
 
-[CircleCI_URL]: https://circleci.com/gh/siteline/SwiftUI-Introspect
+[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg?branch=master
 
-[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/build-and-test.yml/badge.svg?branch=master
-
-[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/build-and-test.yml
+[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml
 
 [Siteline_Badge]: https://badgen.net/badge/Built%20by/Siteline/blue?icon=https://uploads-ssl.webflow.com/5f4513afbbfc64c4777fcccf/5f525b122370d681879e170e_siteline-icon.svg
 

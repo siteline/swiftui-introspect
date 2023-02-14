@@ -6,7 +6,6 @@ import AppKit
 import UIKit
 #endif
 
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
         overlay(view.frame(width: 0, height: 0))
@@ -14,7 +13,6 @@ extension View {
 }
 
 #if canImport(UIKit)
-@available(iOS 13.0, tvOS 13.0, macOS 10.15.0, *)
 extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
@@ -47,20 +45,20 @@ extension View {
     
     /// Finds a `UISplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
     public func introspectSplitViewController(customize: @escaping (UISplitViewController) -> ()) -> some View {
-            inject(UIKitIntrospectionViewController(
-                selector: { introspectionViewController in
-                    
-                    // Search in ancestors
-                    if let splitViewController = introspectionViewController.splitViewController {
-                        return splitViewController
-                    }
-                    
-                    // Search in siblings
-                    return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
-                },
-                customize: customize
-            ))
-        }
+        inject(UIKitIntrospectionViewController(
+            selector: { introspectionViewController in
+
+                // Search in ancestors
+                if let splitViewController = introspectionViewController.splitViewController {
+                    return splitViewController
+                }
+
+                // Search in siblings
+                return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
+            },
+            customize: customize
+        ))
+    }
     
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {
@@ -86,6 +84,18 @@ extension View {
             customize: customize
         ))
     }
+
+    /// Finds a `UISearchController` from a `SwiftUI.View` with a `.searchable` modifier
+    @available(iOS 15, *)
+    @available(tvOS, unavailable)
+    public func introspectSearchController(customize: @escaping (UISearchController) -> ()) -> some View {
+        introspectNavigationController { navigationController in
+            let navigationBar = navigationController.navigationBar
+            if let searchController = navigationBar.topItem?.searchController {
+                customize(searchController)
+            }
+        }
+    }
     
     /// Finds a `UITableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
     public func introspectTableView(customize: @escaping (UITableView) -> ()) -> some View {
@@ -97,9 +107,19 @@ extension View {
         introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
     }
 
+    /// Finds a `UICollectionView` from a `SwiftUI.List`, or `SwiftUI.List` child.
+    public func introspectCollectionView(customize: @escaping (UICollectionView) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
+    /// Finds a `UICollectionView` from a `SwiftUI.List`, or `SwiftUI.List` child. You can attach this directly to the element inside the list.
+    public func introspectCollectionViewCell(customize: @escaping (UICollectionViewCell) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
+    }
+
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
-        if #available(iOS 14.0, tvOS 14.0, macOS 11.0, *) {
+        if #available(iOS 14, tvOS 14, *) {
             return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestor, customize: customize)
         } else {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
@@ -109,8 +129,7 @@ extension View {
     /// Finds the horizontal `UIScrollView` from a `SwiftUI.TabBarView` with tab style `SwiftUI.PageTabViewStyle`.
     ///
     /// Customize is called with a `UICollectionView` wrapper, and the horizontal `UIScrollView`.
-    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
-    @available(macOS, unavailable)
+    @available(iOS 14, tvOS 14, *)
     public func introspectPagedTabView(customize: @escaping (UICollectionView, UIScrollView) -> ()) -> some View {
         return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
             for subview in collectionView.subviews {
@@ -162,7 +181,7 @@ extension View {
     }
     
     /// Finds a `UIColorWell` from a `SwiftUI.ColorPicker`
-    @available(iOS 14.0, *)
+    @available(iOS 14, *)
     @available(tvOS, unavailable)
     public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
@@ -171,7 +190,6 @@ extension View {
 #endif
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-@available(macOS 10.15.0, *)
 extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
@@ -183,6 +201,11 @@ extension View {
             selector: selector,
             customize: customize
         ))
+    }
+
+    /// Finds a `NSSplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
+    public func introspectSplitView(customize: @escaping (NSSplitView) -> ()) -> some View {
+        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: customize)
     }
     
     /// Finds a `NSTableView` from a `SwiftUI.List`, or `SwiftUI.List` child.
@@ -197,7 +220,7 @@ extension View {
 
     /// Finds a `NSScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (NSScrollView) -> ()) -> some View {
-        if #available(macOS 11.0, *) {
+        if #available(macOS 11, *) {
             return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestor, customize: customize)
         } else {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
@@ -245,8 +268,20 @@ extension View {
     }
     
     /// Finds a `NSColorWell` from a `SwiftUI.ColorPicker`
-    @available(macOS 11.0, *)
+    @available(macOS 11, *)
     public func introspectColorWell(customize: @escaping (NSColorWell) -> ()) -> some View {
+        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
+    }
+}
+#endif
+
+#if canImport(MapKit)
+import MapKit
+
+extension View {
+    /// Finds an `MKMapView` from a `SwiftUI.Map`
+    @available(iOS 14, tvOS 14, macOS 11, *)
+    public func introspectMapView(customize: @escaping (MKMapView) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
 }

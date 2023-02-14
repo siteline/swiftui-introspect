@@ -55,7 +55,7 @@ jobs:
         run: brew install xcbeautify
 
       - name: Lint Podspec
-        run: bundle exec pod lib lint
+        run: pod lib lint
 
       - name: Run Tests
         run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

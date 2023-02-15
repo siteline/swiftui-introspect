@@ -52,9 +52,18 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         return viewController
     }
     
+    /// If you find that the `moveToWindowHandler` is not called in certain situations (which has not been discovered yet),
+    /// you can add code to call the `moveToWindowHandler` in the function body.
     public func updateUIViewController(
-        _ uiViewController: IntrospectionUIViewController,
+        _ viewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
-    ) {}
+    ) {
+        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler?()
+    }
+
+    /// Avoid memory leaks.
+    public static func dismantleUIViewController(_ viewController: IntrospectionUIViewController, coordinator: ()) {
+        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler = nil
+    }
 }
 #endif

@@ -63,9 +63,18 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         return view
     }
     
+    /// In some cases, UIView does not call `moveToWindowHandler`,
+    /// so the `moveToWindowHandler` call in updateUIView must be preserved.
     public func updateUIView(
         _ uiView: IntrospectionUIView,
         context: UIViewRepresentableContext<UIKitIntrospectionView>
-    ) {}
+    ) {
+        uiView.moveToWindowHandler?()
+    }
+    
+    /// Avoid memory leaks.
+    public static func dismantleUIView(_ uiView: IntrospectionUIView, coordinator: ()) {
+        uiView.moveToWindowHandler = nil
+    }
 }
 #endif

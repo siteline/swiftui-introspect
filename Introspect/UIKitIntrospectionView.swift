@@ -76,10 +76,5 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     public static func dismantleUIView(_ uiView: IntrospectionUIView, coordinator: ()) {
         uiView.moveToWindowHandler = nil
     }
-    
-    public func updateUIView(
-        _ uiView: IntrospectionUIView,
-        context: UIViewRepresentableContext<UIKitIntrospectionView>
-    ) {}
 }
 #endif

@@ -67,15 +67,18 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     /// `makeUIView`, so we need to call the handler again to allow re-customization
     /// based on the newest state.
     public func updateUIView(
-        _ uiView: IntrospectionUIView,
+        _ view: IntrospectionUIView,
         context: UIViewRepresentableContext<UIKitIntrospectionView>
     ) {
-        uiView.moveToWindowHandler?()
+        guard let targetView = self.selector(view) else {
+            return
+        }
+        self.customize(targetView)
     }
     
     /// Avoid memory leaks.
-    public static func dismantleUIView(_ uiView: IntrospectionUIView, coordinator: ()) {
-        uiView.moveToWindowHandler = nil
+    public static func dismantleUIView(_ view: IntrospectionUIView, coordinator: ()) {
+        view.moveToWindowHandler = nil
     }
 }
 #endif

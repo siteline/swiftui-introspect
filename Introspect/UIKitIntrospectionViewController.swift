@@ -59,7 +59,10 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         _ viewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) {
-        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler?()
+        guard let targetView = self.selector(viewController) else {
+            return
+        }
+        self.customize(targetView)
     }
 
     /// Avoid memory leaks.

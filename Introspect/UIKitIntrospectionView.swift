@@ -63,8 +63,9 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         return view
     }
     
-    /// In some cases, UIView does not call `moveToWindowHandler`,
-    /// so the `moveToWindowHandler` call in updateUIView must be preserved.
+    /// SwiftUI state changes after `makeUIView` will trigger this function, not
+    /// `makeUIView`, so we need to call the handler again to allow re-customization
+    /// based on the newest state.
     public func updateUIView(
         _ uiView: IntrospectionUIView,
         context: UIViewRepresentableContext<UIKitIntrospectionView>

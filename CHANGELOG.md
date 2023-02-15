@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [0.2.1]
+
+- Fixed: memory leak in #161 and regression in #194 (#192)
+
 ## [0.2.0]
 
 - Added: `introspectCollectionView/introspectCollectionViewCell` (#169)

@@ -40,8 +40,8 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         let viewController = IntrospectionUIViewController()
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(TargetViewControllerType.self)>"
         viewController.view.accessibilityLabel = "IntrospectionUIView<\(TargetViewControllerType.self)>"
-        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler = { [unowned viewController] in
-//            guard let viewController = viewController else { return }
+        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler = { [weak viewController] in
+            guard let viewController = viewController else { return }
             DispatchQueue.main.async {
                 guard let targetView = self.selector(viewController) else {
                     return
@@ -59,7 +59,10 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
         _ viewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) {
-        (viewController.view as? IntrospectionUIView)?.moveToWindowHandler?()
+        guard let targetView = self.selector(viewController) else {
+            return
+        }
+        self.customize(targetView)
     }
 
     /// Avoid memory leaks.

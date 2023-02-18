@@ -29,7 +29,6 @@ jobs:
           pod lib lint --allow-warnings
 
   ci:
-    needs: lint-podspec
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}
     strategy:

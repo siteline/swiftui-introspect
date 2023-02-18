@@ -124,25 +124,14 @@ private struct PageTabViewStyleTestView: View {
     let spy: (UICollectionView, UIScrollView) -> Void
 
     var body: some View {
-        if #available(iOS 16, tvOS 16, *) {
-            TabView {
-                Text("Item 1")
-                    .tag(0)
-            }
-            .tabViewStyle(PageTabViewStyle())
-            .introspectCollectionView { collectionView in
-                spy(collectionView, collectionView)
-            }
-        } else {
-            TabView {
-                Text("Item 1")
-                    .tag(0)
-            }
-            .tabViewStyle(PageTabViewStyle())
-            .introspectPagedTabView { collectionView, scrollView in
-                spy(collectionView, scrollView)
-            }
-        }
+      TabView {
+          Text("Item 1")
+              .tag(0)
+      }
+      .tabViewStyle(PageTabViewStyle())
+      .introspectPagedTabView { collectionView, scrollView in
+          spy(collectionView, scrollView)
+      }
     }
 }
 

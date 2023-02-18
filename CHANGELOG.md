@@ -3,6 +3,11 @@ Changelog
 
 ## master
 
+## [0.2.3]
+
+- Fixed: `introspectPagedTabView` on iOS 16 (#200)
+- Infrastructure: auto-deploy to CocoaPods (#201)
+
 ## [0.2.2]
 
 - Hotfix: #192 (#196)

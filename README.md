@@ -171,16 +171,9 @@ Releasing
 4. Tag new version:
 
     ```sh
-    $ git tag -a <VERSION> -m "<MESSAGE>"
+    $ git tag <X.Y.Z>
     $ git push origin --tags
     ```
-
-5. Push to CocoaPods trunk:
-
-    ```sh
-    $ bundle exec pod trunk push .
-    ```
-
 
 <!-- References -->
 

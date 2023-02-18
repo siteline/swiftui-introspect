@@ -45,6 +45,8 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # required to be able to find Git tags
 
       - name: Select Xcode version
         uses: maxim-lobanov/setup-xcode@v1
@@ -56,9 +58,8 @@ jobs:
 
       - name: Lint Podspec
         run: |
-          echo $(git describe --tags `git rev-list --tags --max-count=1`)
-          LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) \
-            pod lib lint --allow-warnings
+          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint --allow-warnings
 
       - name: Run Tests
         run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

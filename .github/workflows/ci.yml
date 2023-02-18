@@ -54,10 +54,11 @@ jobs:
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
+      - name: Set env
+        run: echo "LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+
       - name: Lint Podspec
-        run: |
-          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint --allow-warnings
+        run: pod lib lint --allow-warnings
 
       - name: Run Tests
         run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

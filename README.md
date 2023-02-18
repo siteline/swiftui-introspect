@@ -166,21 +166,13 @@ Releasing
 ---------
 
 1. Update changelog with new version
-2. Bump version in `Introspect.podspec`
-3. PR and merge changes
-4. Tag new version:
+2. PR as 'Bump to X.Y.Z' and merge it
+3. Tag new version:
 
     ```sh
-    $ git tag -a <VERSION> -m "<MESSAGE>"
+    $ git tag X.Y.Z
     $ git push origin --tags
     ```
-
-5. Push to CocoaPods trunk:
-
-    ```sh
-    $ bundle exec pod trunk push .
-    ```
-
 
 <!-- References -->
 

@@ -13,6 +13,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint-podspec:
+    name: lint podspec
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # required to be able to find Git tags
+
+      - name: Lint Podspec
+        run: |
+          set -eo pipefail
+          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint --allow-warnings
+
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}
@@ -41,7 +56,6 @@ jobs:
           - platform: [macos, 12]
             os: macos-12
             xcode: 14.0.1
-
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -53,9 +67,6 @@ jobs:
 
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
-
-      - name: Lint Podspec
-        run: pod lib lint
 
       - name: Run Tests
         run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

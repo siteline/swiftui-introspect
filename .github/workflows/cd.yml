@@ -1,0 +1,24 @@
+name: cd
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # required to be able to find Git tags
+
+      - name: Deploy to CocoaPods Trunk
+        run: |
+          set -eo pipefail
+          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint --allow-warnings
+          pod trunk push --allow-warnings
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

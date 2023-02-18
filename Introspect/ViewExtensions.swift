@@ -131,14 +131,20 @@ extension View {
     /// Customize is called with a `UICollectionView` wrapper, and the horizontal `UIScrollView`.
     @available(iOS 14, tvOS 14, *)
     public func introspectPagedTabView(customize: @escaping (UICollectionView, UIScrollView) -> ()) -> some View {
-        return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
-            for subview in collectionView.subviews {
-                if NSStringFromClass(type(of: subview)).contains("EmbeddedScrollView"), let scrollView = subview as? UIScrollView {
-                    customize(collectionView, scrollView)
-                    break
+        if #available(iOS 16, *) {
+            return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
+                customize(collectionView, collectionView)
+            })
+        } else {
+            return introspect(selector: TargetViewSelector.ancestorOrSiblingContaining, customize: { (collectionView: UICollectionView) in
+                for subview in collectionView.subviews {
+                    if NSStringFromClass(type(of: subview)).contains("EmbeddedScrollView"), let scrollView = subview as? UIScrollView {
+                        customize(collectionView, scrollView)
+                        break
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     /// Finds a `UITextField` from a `SwiftUI.TextField`

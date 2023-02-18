@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint_podspec:
-    name: lint-podspec
+  lint-podspec:
+    name: lint podspec
     runs-on: macos-latest
     steps:
       - name: Git Checkout
@@ -24,11 +24,12 @@ jobs:
 
       - name: Lint Podspec
         run: |
+          set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
           pod lib lint --allow-warnings
 
   ci:
-    needs: lint_podspec
+    needs: lint-podspec
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}
     strategy:

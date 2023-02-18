@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'Introspect'
-  spec.version = ENV['LIB_VERSION']
+  spec.version = "#{ ENV['LIB_VERSION'] }"
   spec.license = { type: 'MIT' }
   spec.homepage = 'https://github.com/siteline/SwiftUI-Introspect.git'
   spec.authors = { 'Lois Di Qual' => 'lois@siteline.com' }

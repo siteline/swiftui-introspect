@@ -124,14 +124,14 @@ private struct PageTabViewStyleTestView: View {
     let spy: (UICollectionView, UIScrollView) -> Void
 
     var body: some View {
-      TabView {
-          Text("Item 1")
-              .tag(0)
-      }
-      .tabViewStyle(PageTabViewStyle())
-      .introspectPagedTabView { collectionView, scrollView in
-          spy(collectionView, scrollView)
-      }
+        TabView {
+            Text("Item 1")
+                .tag(0)
+        }
+        .tabViewStyle(PageTabViewStyle())
+        .introspectPagedTabView { collectionView, scrollView in
+            spy(collectionView, scrollView)
+        }
     }
 }
 

@@ -16,6 +16,7 @@ jobs:
     - name: Deploy to CocoaPods Trunk
       run: |
         set -eo pipefail
+        export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
         pod lib lint --allow-warnings
         pod trunk push --allow-warnings
       env:

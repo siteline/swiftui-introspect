@@ -166,12 +166,11 @@ Releasing
 ---------
 
 1. Update changelog with new version
-2. Bump version in `Introspect.podspec`
-3. PR and merge changes
-4. Tag new version:
+2. PR as 'Bump to X.Y.Z' and merge it
+3. Tag new version:
 
     ```sh
-    $ git tag <X.Y.Z>
+    $ git tag X.Y.Z
     $ git push origin --tags
     ```
 

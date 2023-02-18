@@ -1,0 +1,22 @@
+name: cd
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v3
+
+    - name: Deploy to CocoaPods Trunk
+      run: |
+        set -eo pipefail
+        pod lib lint --allow-warnings
+        pod trunk push --allow-warnings
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

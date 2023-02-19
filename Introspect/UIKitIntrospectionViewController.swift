@@ -46,6 +46,7 @@ public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresen
         self.customize = customize
     }
 
+    @_disfavoredOverload
     public init(
         selector: @escaping (UIView) -> Target?,
         customize: @escaping (Target) -> Void

@@ -10,6 +10,7 @@ public class IntrospectionUIView: UIView {
     required init() {
         super.init(frame: .zero)
         isHidden = true
+        isAccessibilityElement = false
         isUserInteractionEnabled = false
     }
     
@@ -42,12 +43,7 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         self.selector = selector
         self.customize = customize
     }
-    
-    /// When `makeUIView` and `updateUIView` are called, the Introspection view is not yet in the UIKit hierarchy.
-    /// At this point, `introspectionView.superview.superview` is nil and we can't access the target UIKit view.
-    /// To workaround this, we wait until the runloop is done inserting the introspection view in the hierarchy, then run the selector.
-    /// Finding the target view fails silently if the selector yields no result. This happens when the introspection view gets
-    /// removed from the hierarchy.
+
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
@@ -61,8 +57,8 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
         return view
     }
     
-    /// SwiftUI state changes after `makeUIView` will trigger this function, not
-    /// `makeUIView`, so we need to call the handler again to allow re-customization
+    /// SwiftUI state changes after `makeUIView` will trigger this function,
+    /// so we need to call the handler again to allow re-customization
     /// based on the newest state.
     public func updateUIView(
         _ view: IntrospectionUIView,

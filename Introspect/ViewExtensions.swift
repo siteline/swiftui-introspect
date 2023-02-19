@@ -8,7 +8,7 @@ import UIKit
 
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
-        overlay(view.frame(width: 0, height: 0))
+        overlay(view.frame(width: 1, height: 1))
     }
 }
 

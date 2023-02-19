@@ -53,7 +53,8 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
                 return
             }
             self.customize(targetView)
-            view.layoutSubviewsHandler = nil
+            // TODO: try to get this working to reduce calls to customize (Apple TV fails for some reason)
+//            view.layoutSubviewsHandler = nil
         }
         return view
     }

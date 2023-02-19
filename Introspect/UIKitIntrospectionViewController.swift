@@ -41,7 +41,8 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
                 return
             }
             self.customize(targetView)
-            (viewController.view as? IntrospectionUIView)?.layoutSubviewsHandler = nil
+            // TODO: try to get this working to reduce calls to customize (Apple TV fails for some reason)
+//            (viewController.view as? IntrospectionUIView)?.layoutSubviewsHandler = nil
         }
         return viewController
     }

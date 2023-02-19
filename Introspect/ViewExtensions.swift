@@ -8,6 +8,7 @@ import UIKit
 
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
+        // TODO: try making it background instead?
         overlay(view.frame(width: 1, height: 1))
     }
 }

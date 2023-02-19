@@ -22,6 +22,7 @@ public class IntrospectionUIView: UIView {
     public override func layoutSubviews() {
         layoutSubviewsHandler?()
         super.layoutSubviews()
+        layoutSubviewsHandler = nil
     }
 }
 

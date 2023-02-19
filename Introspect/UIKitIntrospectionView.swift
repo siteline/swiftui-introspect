@@ -22,7 +22,6 @@ public class IntrospectionUIView: UIView {
     public override func layoutSubviews() {
         layoutSubviewsHandler?()
         super.layoutSubviews()
-        layoutSubviewsHandler = nil
     }
 }
 
@@ -54,6 +53,7 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
                 return
             }
             self.customize(targetView)
+            view.layoutSubviewsHandler = nil
         }
         return view
     }

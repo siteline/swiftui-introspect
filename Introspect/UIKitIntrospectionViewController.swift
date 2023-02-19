@@ -41,6 +41,7 @@ public struct UIKitIntrospectionViewController<TargetViewControllerType: UIViewC
                 return
             }
             self.customize(targetView)
+            (viewController.view as? IntrospectionUIView)?.layoutSubviewsHandler = nil
         }
         return viewController
     }

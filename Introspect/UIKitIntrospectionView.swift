@@ -13,7 +13,7 @@ public func UIKitIntrospectionView<Target>(
     customize: @escaping (Target) -> Void
 ) -> UIKitIntrospectionViewController<Target> {
     .init(
-        selector: { selector($0.view) },
+        selector: selector,
         customize: customize
     )
 }

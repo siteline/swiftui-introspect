@@ -5,7 +5,7 @@ import SwiftUI
 /// Introspection UIView that is inserted alongside the target view.
 public class IntrospectionUIView: UIView {
     
-    var moveToWindowHandler: (() -> Void)?
+    var layoutSubviewsHandler: (() -> Void)?
     
     required init() {
         super.init(frame: .zero)
@@ -17,10 +17,10 @@ public class IntrospectionUIView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override public func didMoveToWindow() {
-        super.didMoveToWindow()
-        moveToWindowHandler?()
+
+    public override func layoutSubviews() {
+        layoutSubviewsHandler?()
+        super.layoutSubviews()
     }
 }
 
@@ -51,14 +51,12 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(TargetViewType.self)>"
-        view.moveToWindowHandler = { [weak view] in
+        view.layoutSubviewsHandler = { [weak view] in
             guard let view = view else { return }
-            DispatchQueue.main.async {
-                guard let targetView = self.selector(view) else {
-                    return
-                }
-                self.customize(targetView)
+            guard let targetView = self.selector(view) else {
+                return
             }
+            self.customize(targetView)
         }
         return view
     }
@@ -78,7 +76,7 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
     
     /// Avoid memory leaks.
     public static func dismantleUIView(_ view: IntrospectionUIView, coordinator: ()) {
-        view.moveToWindowHandler = nil
+        view.layoutSubviewsHandler = nil
     }
 }
 #endif

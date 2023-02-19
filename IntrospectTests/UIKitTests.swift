@@ -507,8 +507,11 @@ class UIKitTests: XCTestCase {
     func testTextField() throws {
         
         let expectation1 = XCTestExpectation()
+        expectation1.assertForOverFulfill = true
         let expectation2 = XCTestExpectation()
+        expectation2.assertForOverFulfill = true
         let expectation3 = XCTestExpectation()
+        expectation3.assertForOverFulfill = true
         
         var textField1: UITextField?
         var textField2: UITextField?

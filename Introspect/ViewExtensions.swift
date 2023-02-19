@@ -8,8 +8,7 @@ import UIKit
 
 extension View {
     public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
-        // TODO: try making it background instead?
-        overlay(view.frame(width: 1, height: 1))
+        overlay(view) // TODO: try making it `background` instead
     }
 }
 
@@ -18,11 +17,11 @@ extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
     public func introspect<TargetView: UIView>(
-        selector: @escaping (IntrospectionUIView) -> TargetView?,
+        selector: @escaping (UIView) -> TargetView?,
         customize: @escaping (TargetView) -> ()
     ) -> some View {
-        inject(UIKitIntrospectionView(
-            selector: selector,
+        inject(UIKitIntrospectionViewController(
+            selector: { selector($0.view) },
             customize: customize
         ))
     }

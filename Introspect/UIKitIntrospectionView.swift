@@ -53,7 +53,7 @@ public struct UIKitIntrospectionView<TargetViewType: UIView>: UIViewRepresentabl
                 return
             }
             self.customize(targetView)
-            // TODO: try to get this working to reduce calls to customize (Apple TV fails for some reason)
+            // TODO: try to get this working to reduce calls to customize (`testTextField` fails on Apple TV for some reason)
 //            view.layoutSubviewsHandler = nil
         }
         return view

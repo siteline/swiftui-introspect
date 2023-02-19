@@ -21,7 +21,7 @@ extension View {
         customize: @escaping (TargetView) -> ()
     ) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { selector($0.view) },
+            selector: selector,
             customize: customize
         ))
     }

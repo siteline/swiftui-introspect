@@ -46,6 +46,14 @@ public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresen
         self.customize = customize
     }
 
+    public init(
+        selector: @escaping (UIView) -> Target?,
+        customize: @escaping (Target) -> Void
+    ) {
+        self.selector = { selector($0.view) }
+        self.customize = customize
+    }
+
     public func makeUIViewController(
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) -> IntrospectionUIViewController {

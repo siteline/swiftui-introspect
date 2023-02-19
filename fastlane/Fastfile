@@ -6,6 +6,12 @@ platform :ios do
         version = options[:version].to_i
 
         devices = case version
+        when 13
+            [
+                "iPhone 11 Pro (13.7)",
+                "iPad Pro (11-inch) (3rd generation) (13.7)",
+                "Apple TV (13.4)",
+            ]
         when 14
             [
                 "iPhone 11 Pro (14.5)",
@@ -29,6 +35,7 @@ platform :ios do
         end
 
         run_tests(
+            clean: true,
             scheme: "Introspect",
             devices: devices,
             ensure_devices_found: true,

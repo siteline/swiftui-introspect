@@ -66,6 +66,7 @@ public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresen
                 return
             }
             self.customize(targetView)
+            viewController.viewDidLayoutSubviewsHandler = nil
         }
         return viewController
     }

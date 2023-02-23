@@ -6,6 +6,7 @@ import AppKit
 import UIKit
 #endif
 
+// https://stackoverflow.com/a/71135581/1922543
 struct Wrapper<Content: View>: View {
     @State private var size: CGSize?
     @State private var outsideSize: CGSize?
@@ -157,6 +158,7 @@ extension View {
 //            .overlay(view.frame(width: 1, height: 1))
 
         modifier(InjectionView(view: view))
+//        self.overlay(view.frame(width: 1, height: 1))
     }
 }
 

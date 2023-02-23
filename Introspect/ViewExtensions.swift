@@ -6,9 +6,169 @@ import AppKit
 import UIKit
 #endif
 
+struct Wrapper<Content: View>: View {
+    @State private var size: CGSize?
+    @State private var outsideSize: CGSize?
+    private let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+
+    var body: some View {
+        GeometryReader { outside in
+            Color.clear.preference(
+                key: SizePreferenceKey.self,
+                value: outside.size
+            )
+        }
+        .onPreferenceChange(SizePreferenceKey.self) { newSize in
+            outsideSize = newSize
+        }
+        .frame(width: size?.width, height: size?.height)
+        .overlay(
+            outsideSize != nil ?
+                Representable {
+                    content()
+                        .background(
+                            GeometryReader { inside in
+                                Color.clear.preference(
+                                    key: SizePreferenceKey.self,
+                                    value: inside.size
+                                )
+                            }
+                            .onPreferenceChange(SizePreferenceKey.self) { newSize in
+                                size = newSize
+                            }
+                        )
+                        .frame(width: outsideSize!.width, height: outsideSize!.height)
+                        .fixedSize()
+                        .frame(width: size?.width ?? 0, height: size?.height ?? 0)
+                }
+                .frame(width: size?.width ?? 0, height: size?.height ?? 0)
+            : nil
+        )
+    }
+}
+
+struct SizePreferenceKey: PreferenceKey {
+    static let defaultValue: CGSize = .zero
+
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
+    }
+}
+
+struct Representable<Content: View>: UIViewRepresentable {
+    private let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+
+    func makeUIView(context: Context) -> UIView {
+        let host = UIHostingController(rootView: content())
+        let hostView = host.view!
+        return hostView
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {
+        uiView.backgroundColor = .systemRed
+    }
+}
+
+//final class UIHostingController_FB9641883<Content: View>: UIHostingController<Content> {
+//    private var heightConstraint: NSLayoutConstraint?
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        if #available(iOS 15.0, *) {
+//            heightConstraint = view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height)
+//            NSLayoutConstraint.activate([
+//                heightConstraint!,
+//            ])
+//        }
+//    }
+//
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        preferredContentSize = view.intrinsicContentSize
+//    }
+//
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        heightConstraint?.constant = view.intrinsicContentSize.height
+//    }
+//}
+
+public typealias IntrospectionContainerID = UUID
+
+//struct IntrospectionUIContainerViewController<Content: View>: UIViewControllerRepresentable {
+//    let id: IntrospectionContainerID
+//    @ViewBuilder
+//    let content: Content
+//
+//    func makeUIViewController(context: Context) -> UIViewController {
+//        let controller = UIHostingController(rootView: content)
+////        controller.view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+////        controller.view.setContentHuggingPriority(.required, for: .vertical)
+//        controller.view.backgroundColor = .blue
+//        controller.view.accessibilityIdentifier = id.uuidString
+////        controller.view.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+////        controller.view.setContentHuggingPriority(.required, for: .vertical)
+////        controller.view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+////        controller.view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+//        return controller
+//    }
+//
+//    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+//}
+
+struct IntrospectionUIContainerView<Content: View>: UIViewRepresentable {
+    let id: IntrospectionContainerID
+    @ViewBuilder
+    let content: Content
+
+    func makeUIView(context: Context) -> some UIView {
+        let host = UIHostingController(rootView: content)
+//        if #available(iOS 16, *) {
+//            host.sizingOptions = .intrinsicContentSize
+//        }
+        let hostView = host.view!
+        hostView.accessibilityIdentifier = id.uuidString
+        hostView.backgroundColor = .blue
+        return hostView
+    }
+
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+
+    }
+}
+
+
 extension View {
-    public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
-        self.overlay(view.frame(width: 1, height: 1))
+    @ViewBuilder
+    public func inject<InjectedView>(_ view: InjectedView) -> some View where
+        InjectedView: View & Identifiable,
+        InjectedView.ID == IntrospectionContainerID
+    {
+//        self.tag(123)
+//            .accessibility(identifier: view.id.uuidString)
+//            .overlay(view.frame(width: 1, height: 1))
+
+        modifier(InjectionView(view: view))
+    }
+}
+
+struct InjectionView<InjectedView: View & Identifiable>: ViewModifier where InjectedView.ID == IntrospectionContainerID {
+    let view: InjectedView
+
+    func body(content: Content) -> some View {
+        content.overlay(view.frame(width: 1, height: 1))
+//        Wrapper {
+//            content.overlay(view.frame(width: 1, height: 1))
+//        }
+//        .background(Color.red)
     }
 }
 
@@ -17,7 +177,7 @@ extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
     public func introspect<TargetView: UIView>(
-        selector: @escaping (UIView) -> TargetView?,
+        selector: @escaping (UIView, IntrospectionContainerID) -> TargetView?,
         customize: @escaping (TargetView) -> ()
     ) -> some View {
         inject(UIKitIntrospectionViewController(
@@ -29,7 +189,7 @@ extension View {
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
                 
                 // Search in ancestors
                 if let navigationController = introspectionViewController.navigationController {
@@ -37,7 +197,11 @@ extension View {
                 }
                 
                 // Search in siblings
-                return Introspect.previousSibling(containing: UINavigationController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    containing: UINavigationController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))
@@ -46,7 +210,7 @@ extension View {
     /// Finds a `UISplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
     public func introspectSplitViewController(customize: @escaping (UISplitViewController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
 
                 // Search in ancestors
                 if let splitViewController = introspectionViewController.splitViewController {
@@ -54,7 +218,11 @@ extension View {
                 }
 
                 // Search in siblings
-                return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    containing: UISplitViewController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))
@@ -63,7 +231,7 @@ extension View {
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { $0.parent },
+            selector: { viewController, containerID in viewController.parent },
             customize: customize
         ))
     }
@@ -71,7 +239,7 @@ extension View {
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
                 
                 // Search in ancestors
                 if let navigationController = introspectionViewController.tabBarController {
@@ -79,7 +247,11 @@ extension View {
                 }
                 
                 // Search in siblings
-                return Introspect.previousSibling(ofType: UITabBarController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    ofType: UITabBarController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))

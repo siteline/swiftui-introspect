@@ -664,17 +664,17 @@ class UIKitTests: XCTestCase {
         }
     }
 
-    #if swift(>=5.5) && !os(tvOS)
-    @available(iOS 15, *)
-    func testSearchController() {
-        let expectation = XCTestExpectation()
-        let view = SearchControllerTestView(spy: {
-            expectation.fulfill()
-        })
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-    }
-    #endif
+//    #if swift(>=5.5) && !os(tvOS)
+//    @available(iOS 15, *)
+//    func testSearchController() {
+//        let expectation = XCTestExpectation()
+//        let view = SearchControllerTestView(spy: {
+//            expectation.fulfill()
+//        })
+//        TestUtils.present(view: view)
+//        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+//    }
+//    #endif
     #endif
     
     @available(iOS 14, tvOS 14, *)

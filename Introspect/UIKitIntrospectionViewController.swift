@@ -7,8 +7,8 @@ public class IntrospectionUIViewController: UIViewController {
 
     fileprivate var viewDidLayoutSubviewsHandler: (() -> Void)?
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    init() {
+        super.init(nibName: nil, bundle: nil)
         view.isHidden = true
         view.isAccessibilityElement = false
         view.isUserInteractionEnabled = false
@@ -19,40 +19,79 @@ public class IntrospectionUIViewController: UIViewController {
         ])
     }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        view.setNeedsUpdateConstraints()
+//        view.setNeedsLayout()
+//        view.layoutIfNeeded()
+    }
+
+//    public override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//        print("didMove")
+//    }
+
     public override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        viewDidLayoutSubviewsHandler?()
+        self.viewDidLayoutSubviewsHandler?()
+        print("viewDidLayoutSubviewsHandler")
+//        print(view)
+    }
+
+    public override func didMove(toParent parent: UIViewController?) {
+        print("didMove", parent)
+    }
+
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
     }
 
     public override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
+        print("willMove", parent)
         if parent == nil {
             viewDidLayoutSubviewsHandler = nil
         }
     }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+//        self.viewDidLayoutSubviewsHandler?()
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+    }
 }
 
 /// This is the same logic as IntrospectionView but for view controllers. Please see details above.
-public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresentable {
-    
-    private let selector: (UIViewController) -> Target?
+public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresentable, Identifiable {
+
+    public let id: IntrospectionContainerID
+
+    private let selector: (UIViewController, IntrospectionContainerID) -> Target?
     private let customize: (Target) -> Void
     
     public init(
-        selector: @escaping (UIViewController) -> Target?,
+        selector: @escaping (UIViewController, IntrospectionContainerID) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
+        self.id = UUID()
         self.selector = selector
         self.customize = customize
     }
 
     @_disfavoredOverload
     public init(
-        selector: @escaping (UIView) -> Target?,
+        selector: @escaping (UIView, IntrospectionContainerID) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
-        self.selector = { selector($0.view) }
-        self.customize = customize
+        self.init(
+            selector: { selector($0.view, $1) },
+            customize: customize
+        )
     }
 
     public func makeUIViewController(
@@ -62,7 +101,7 @@ public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresen
         viewController.accessibilityLabel = "IntrospectionUIViewController<\(Target.self)>"
         viewController.viewDidLayoutSubviewsHandler = { [weak viewController] in
             guard let viewController = viewController else { return }
-            guard let targetView = self.selector(viewController) else {
+            guard let targetView = self.selector(viewController, id) else {
                 return
             }
             self.customize(targetView)
@@ -78,7 +117,7 @@ public struct UIKitIntrospectionViewController<Target>: UIViewControllerRepresen
         _ viewController: IntrospectionUIViewController,
         context: UIViewControllerRepresentableContext<UIKitIntrospectionViewController>
     ) {
-        guard let targetView = self.selector(viewController) else {
+        guard let targetView = self.selector(viewController, id) else {
             return
         }
         self.customize(targetView)

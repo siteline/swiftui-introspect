@@ -9,7 +9,7 @@ public typealias IntrospectionUIView = UIView
     message: "UIKitIntrospectionView is deprecated and will be removed in 1.0. Please use UIKitIntrospectionViewController instead."
 )
 public func UIKitIntrospectionView<Target>(
-    selector: @escaping (UIView) -> Target?,
+    selector: @escaping (UIView, IntrospectionContainerID) -> Target?,
     customize: @escaping (Target) -> Void
 ) -> UIKitIntrospectionViewController<Target> {
     .init(

@@ -14,29 +14,25 @@ struct App: SwiftUI.App {
 
 struct Something: View {
     @State var color = Color.green
+    @State var text = "s"
 
     var body: some View {
-        NavigationView {
-            List {
+//        NavigationView {
+            VStack {
                 Picker("Color", selection: $color, content: {
                     Text("Red").tag(Color.red)
                     Text("Green").tag(Color.green)
                     Text("Blue").tag(Color.blue)
                 })
-                TextField("dq", text: .constant("dqede"))
-                    .modifier(Modifier(color: color))
+                TextField("dq", text: $text)
+                    .introspectTextField { textField in
+                        textField.backgroundColor = UIColor(color)
+                    }
+                TextField("dq", text: $text)
+                    .introspectTextField { textField in
+                        textField.backgroundColor = UIColor(color)
+                    }
             }
-        }
-    }
-}
-
-struct Modifier: ViewModifier {
-    let color: Color
-
-    func body(content: Content) -> some View {
-        content
-            .introspectTextField { textField in
-                textField.backgroundColor = UIColor(color)
-            }
+//        }
     }
 }

@@ -5,7 +5,8 @@ import SwiftUI
 /// Introspection UIView that is inserted alongside the target view.
 public class IntrospectionUIView: UIView {
 
-    var layoutSubviewsHandler: (() -> Void)?
+    var didMoveToWindowHandler: (() -> Void)?
+//    var willMoveToSuperview: ((UIView) -> Void)?
 
     required init() {
         super.init(frame: .zero)
@@ -25,13 +26,32 @@ public class IntrospectionUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+//    public override func willMove(toSuperview newSuperview: UIView?) {
+//        super.willMove(toSuperview: newSuperview)
+//        print("super.willMove(toSuperview: newSuperview)")
+//        guard let newSuperview = newSuperview else { return }
+//        willMoveToSuperview?(newSuperview)
+//        print(newSuperview)
+//        print(newSuperview.superview)
+//    }
+
 //    public override func willMove(toWindow newWindow: UIWindow?) {
 //        super.willMove(toWindow: newWindow)
+//        print("super.willMove(toWindow: newWindow)")
+////        willMoveToSuperview?(superview)
 //    }
+
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        print("super.didMoveToWindow")
+        guard window != nil else { return }
+        didMoveToWindowHandler?()
+    }
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-        layoutSubviewsHandler?()
+//        layoutSubviewsHandler?()
+        print("layoutSubviews")
     }
 }
 
@@ -47,14 +67,14 @@ public struct UIKitIntrospectionView<Target: UIView>: UIViewRepresentable, Intro
 
     /// Method that introspects the view hierarchy to find the target view.
     /// First argument is the introspection view itself, which is contained in a view host alongside the target view.
-    let selector: (IntrospectionUIView, IntrospectionContainerID) -> Target?
+    let selector: (UIView, IntrospectionContainerID) -> Target?
 
     /// User-provided customization method for the target view.
     let customize: (Target) -> Void
 
     public init(
         containerID: UUID,
-        selector: @escaping (IntrospectionUIView, IntrospectionContainerID) -> Target?,
+        selector: @escaping (UIView, IntrospectionContainerID) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self.containerID = containerID
@@ -70,13 +90,13 @@ public struct UIKitIntrospectionView<Target: UIView>: UIViewRepresentable, Intro
     public func makeUIView(context: UIViewRepresentableContext<UIKitIntrospectionView>) -> IntrospectionUIView {
         let view = IntrospectionUIView()
         view.accessibilityLabel = "IntrospectionUIView<\(Target.self)>"
-        view.layoutSubviewsHandler = { [weak view] in
+        view.didMoveToWindowHandler = { [weak view] in
             guard let view = view else { return }
             guard let targetView = self.selector(view, containerID) else {
                 return
             }
             self.customize(targetView)
-            view.layoutSubviewsHandler = nil
+            view.didMoveToWindowHandler = nil
         }
         return view
     }
@@ -96,7 +116,7 @@ public struct UIKitIntrospectionView<Target: UIView>: UIViewRepresentable, Intro
 
     /// Avoid memory leaks.
     public static func dismantleUIView(_ view: IntrospectionUIView, coordinator: ()) {
-        view.layoutSubviewsHandler = nil
+        view.didMoveToWindowHandler = nil
     }
 }
 #endif

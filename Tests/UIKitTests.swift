@@ -44,32 +44,32 @@ final class UIKitTests: XCTestCase {
             var body: some View {
                 VStack {
                     TextField(textField1Placeholder, text: $textFieldValue)
-//                    .introspectTextField { textField in
-//                        self.spy1(textField)
-//                    }
+                    .introspectTextField { textField in
+                        self.spy1(textField)
+                    }
                     .cornerRadius(8)
                     TextField(textField2Placeholder, text: $textFieldValue)
-//                    .introspectTextField { textField in
-//                        self.spy2(textField)
-//                    }
+                    .introspectTextField { textField in
+                        self.spy2(textField)
+                    }
                     .cornerRadius(8)
                     TextField(textField3Placeholder, text: $textFieldValue)
-//                    .introspectTextField { textField in
-//                        self.spy3(textField)
-//                    }
+                    .introspectTextField { textField in
+                        self.spy3(textField)
+                    }
                 }
             }
         }
 
         let expectation1 = XCTestExpectation()
 //        expectation1.expectedFulfillmentCount = 2
-//        expectation1.assertForOverFulfill = true
+        expectation1.assertForOverFulfill = true
         let expectation2 = XCTestExpectation()
 //        expectation2.expectedFulfillmentCount = 2
-//        expectation2.assertForOverFulfill = true
+        expectation2.assertForOverFulfill = true
         let expectation3 = XCTestExpectation()
 //        expectation3.expectedFulfillmentCount = 2
-//        expectation3.assertForOverFulfill = true
+        expectation3.assertForOverFulfill = true
 
         var textField1: UITextField?
         var textField2: UITextField?

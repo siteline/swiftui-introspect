@@ -1,41 +1,14 @@
-//import SwiftUI
-//
-//#if canImport(AppKit)
-//import AppKit
-//#elseif canImport(UIKit)
-//import UIKit
-//#endif
-//
-//extension View {
-//    @ViewBuilder
-//    public func inject<InjectedView>(_ view: InjectedView) -> some View where
-//        InjectedView: View & Identifiable,
-//        InjectedView.ID == IntrospectionContainerID
-//    {
-////        self.tag(123)
-////            .accessibility(identifier: view.id.uuidString)
-////            .overlay(view.frame(width: 1, height: 1))
-//
-//        modifier(InjectionView(view: view))
-////        self.overlay(view.frame(width: 1, height: 1))
-//    }
-//}
-//
-//struct InjectionView<InjectedView: View & Identifiable>: ViewModifier where InjectedView.ID == IntrospectionContainerID {
-//    let view: InjectedView
-//
-//    func body(content: Content) -> some View {
-////        content.overlay(view.frame(width: 1, height: 1))
-//        Wrapper {
-//            content.overlay(view.frame(width: 1, height: 1))
-//        }
-//        .background(Color.red)
-//    }
-//}
-//
-//#if canImport(UIKit)
-//extension View {
-//
+import SwiftUI
+
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(UIKit)
+extension View {
+
 //    /// Finds a `TargetView` from a `SwiftUI.View`
 //    public func introspect<TargetView: UIView>(
 //        selector: @escaping (UIView, IntrospectionContainerID) -> TargetView?,
@@ -179,12 +152,28 @@
 //            })
 //        }
 //    }
-//
-//    /// Finds a `UITextField` from a `SwiftUI.TextField`
-//    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
+
+    /// Finds a `UITextField` from a `SwiftUI.TextField`
+    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
 //        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
-//    }
-//
+        injectIntrospectionView(
+            UIKitIntrospectionView(
+                containerID: UUID(),
+                selector: { introspectionView, containerID in
+                    guard
+                        let containerView = introspectionView.recursivelyFindSuperview(where: {
+                            $0.accessibilityIdentifier == containerID.uuidString
+                        })
+                    else {
+                        return nil
+                    }
+                    return Introspect.findChild(ofType: UITextField.self, in: containerView)
+                },
+                customize: customize
+            )
+        )
+    }
+
 //    /// Finds a `UITextView` from a `SwiftUI.TextEditor`
 //    public func introspectTextView(customize: @escaping (UITextView) -> ()) -> some View {
 //        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
@@ -225,9 +214,9 @@
 //    public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
 //        introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
 //    }
-//}
-//#endif
-//
+}
+#endif
+
 //#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 //extension View {
 //

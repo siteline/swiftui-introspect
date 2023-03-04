@@ -303,91 +303,6 @@ public enum Introspect {
     }
 }
 
-public enum TargetViewSelector {
-    public static func siblingContaining<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        guard let viewHost = Introspect.findViewHost(from: entry, containerID: containerID) else {
-            return nil
-        }
-        return Introspect.previousSibling(containing: TargetView.self, from: viewHost, containerID: containerID)
-    }
-
-    public static func siblingContainingOrAncestor<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let sibling: TargetView = siblingContaining(from: entry, containerID: containerID) {
-            return sibling
-        }
-        return Introspect.findAncestor(ofType: TargetView.self, from: entry, containerID: containerID)
-    }
-    
-    public static func siblingContainingOrAncestorOrAncestorChild<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let container = entry.recursivelyFind(\.superview, where: { $0.accessibilityIdentifier == containerID.uuidString }) {
-            print("container found!", container)
-        }
-        print("entry", entry)
-        if let sibling: TargetView = siblingContaining(from: entry, containerID: containerID) {
-            return sibling
-        }
-        return Introspect.findAncestorOrAncestorChild(ofType: TargetView.self, from: entry, containerID: containerID)
-    }
-    
-    public static func siblingOfType<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let container = entry.recursivelyFind(\.superview, where: { $0.accessibilityIdentifier == containerID.uuidString }) {
-            print("container found!", container)
-        }
-        guard let viewHost = Introspect.findViewHost(from: entry, containerID: containerID) else {
-            return nil
-        }
-        return Introspect.previousSibling(ofType: TargetView.self, from: viewHost, containerID: containerID)
-    }
-
-    public static func siblingOfTypeOrAncestor<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let container = entry.recursivelyFind(\.superview, where: { $0.accessibilityIdentifier == containerID.uuidString }) {
-            print("container found!", container)
-        }
-        if let sibling: TargetView = siblingOfType(from: entry, containerID: containerID) {
-            return sibling
-        }
-        return Introspect.findAncestor(ofType: TargetView.self, from: entry, containerID: containerID)
-    }
-
-    public static func ancestorOrSiblingContaining<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let container = entry.recursivelyFind(\.superview, where: { $0.accessibilityIdentifier == containerID.uuidString }) {
-            print("container found!", container)
-        }
-        if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry, containerID: containerID) {
-            return tableView
-        }
-        return siblingContaining(from: entry, containerID: containerID)
-    }
-    
-    public static func ancestorOrSiblingOfType<TargetView: PlatformView>(
-        from entry: PlatformView,
-        containerID: IntrospectionContainerID
-    ) -> TargetView? {
-        if let tableView = Introspect.findAncestor(ofType: TargetView.self, from: entry, containerID: containerID) {
-            return tableView
-        }
-        return siblingOfType(from: entry, containerID: containerID)
-    }
-}
-
 /// Allows to safely access an array element by index
 /// Usage: array[safe: 2]
 private extension Array {
@@ -401,15 +316,23 @@ private extension Array {
 }
 
 extension UIView {
-    func recursivelyFind(_ keyPath: (UIView) -> UIView?, where condition: (UIView) -> Bool) -> UIView? {
-        if let view = keyPath(self) {
+    func recursivelyFindSuperview(where condition: (UIView) -> Bool) -> UIView? {
+        if let view = self.superview {
             if condition(view) {
                 return view
             } else {
-                return view.recursivelyFind(keyPath, where: condition)
+                return view.recursivelyFindSuperview(where: condition)
             }
         } else {
             return nil
         }
+    }
+
+    func recursivelyFindSubviews<T: UIView>(ofType type: T.Type) -> [T] {
+        var result = self.subviews.compactMap { $0 as? T }
+        for sub in self.subviews {
+            result.append(contentsOf: sub.recursivelyFindSubviews(ofType: type))
+        }
+        return result
     }
 }

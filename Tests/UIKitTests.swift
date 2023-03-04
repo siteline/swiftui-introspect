@@ -62,13 +62,10 @@ final class UIKitTests: XCTestCase {
         }
 
         let expectation1 = XCTestExpectation()
-//        expectation1.expectedFulfillmentCount = 2
         expectation1.assertForOverFulfill = true
         let expectation2 = XCTestExpectation()
-//        expectation2.expectedFulfillmentCount = 2
         expectation2.assertForOverFulfill = true
         let expectation3 = XCTestExpectation()
-//        expectation3.expectedFulfillmentCount = 2
         expectation3.assertForOverFulfill = true
 
         var textField1: UITextField?

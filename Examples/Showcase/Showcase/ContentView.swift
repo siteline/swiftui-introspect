@@ -73,30 +73,32 @@ struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
             Text("Customized")
-                .do {
+                .modify {
                     if #available(iOS 15, tvOS 15, *) {
                         $0.searchable(text: .constant(""))
                     } else {
                         $0
                     }
                 }
-                .do {
-                    #if os(iOS)
+                .modify {
+//                    #if os(iOS)
                     if #available(iOS 15, *) {
                         $0.introspectSearchController { searchController in
                             searchController.searchBar.backgroundColor = .purple
                         }
+                    } else {
+                        $0
                     }
-                    #else
-                    $0
-                    #endif
+//                    #else
+//                    $0
+//                    #endif
                 }
-                #if !os(tvOS)
-                .navigationBarTitle(Text("Customized"), displayMode: .inline)
-                #endif
-                .introspectNavigationController { navigationController in
-                    navigationController.navigationBar.backgroundColor = .red
-                }
+//                #if !os(tvOS)
+//                .navigationBarTitle(Text("Customized"), displayMode: .inline)
+//                #endif
+//                .introspectNavigationController { navigationController in
+//                    navigationController.navigationBar.backgroundColor = .red
+//                }
         }
         .introspectSplitViewController { splitViewController in
             splitViewController.preferredDisplayMode = .oneOverSecondary
@@ -156,6 +158,7 @@ struct SimpleElementsShowcase: View {
                     }
 
                 TextField("Text Field Green", text: $textFieldValue)
+                    .cornerRadius(8)
                     .introspectTextField { textField in
                         textField.layer.backgroundColor = UIColor.green.cgColor
                     }

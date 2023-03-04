@@ -7,8 +7,29 @@ import UIKit
 #endif
 
 extension View {
-    public func inject<SomeView>(_ view: SomeView) -> some View where SomeView: View {
-        overlay(view.frame(width: 0, height: 0))
+    @ViewBuilder
+    public func inject<InjectedView>(_ view: InjectedView) -> some View where
+        InjectedView: View & Identifiable,
+        InjectedView.ID == IntrospectionContainerID
+    {
+//        self.tag(123)
+//            .accessibility(identifier: view.id.uuidString)
+//            .overlay(view.frame(width: 1, height: 1))
+
+        modifier(InjectionView(view: view))
+//        self.overlay(view.frame(width: 1, height: 1))
+    }
+}
+
+struct InjectionView<InjectedView: View & Identifiable>: ViewModifier where InjectedView.ID == IntrospectionContainerID {
+    let view: InjectedView
+
+    func body(content: Content) -> some View {
+//        content.overlay(view.frame(width: 1, height: 1))
+        Wrapper {
+            content.overlay(view.frame(width: 1, height: 1))
+        }
+        .background(Color.red)
     }
 }
 
@@ -17,10 +38,10 @@ extension View {
     
     /// Finds a `TargetView` from a `SwiftUI.View`
     public func introspect<TargetView: UIView>(
-        selector: @escaping (IntrospectionUIView) -> TargetView?,
+        selector: @escaping (UIView, IntrospectionContainerID) -> TargetView?,
         customize: @escaping (TargetView) -> ()
     ) -> some View {
-        inject(UIKitIntrospectionView(
+        inject(UIKitIntrospectionViewController(
             selector: selector,
             customize: customize
         ))
@@ -29,7 +50,7 @@ extension View {
     /// Finds a `UINavigationController` from any view embedded in a `SwiftUI.NavigationView`.
     public func introspectNavigationController(customize: @escaping (UINavigationController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
                 
                 // Search in ancestors
                 if let navigationController = introspectionViewController.navigationController {
@@ -37,7 +58,11 @@ extension View {
                 }
                 
                 // Search in siblings
-                return Introspect.previousSibling(containing: UINavigationController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    containing: UINavigationController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))
@@ -46,7 +71,7 @@ extension View {
     /// Finds a `UISplitViewController` from  a `SwiftUI.NavigationView` with style `DoubleColumnNavigationViewStyle`.
     public func introspectSplitViewController(customize: @escaping (UISplitViewController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
 
                 // Search in ancestors
                 if let splitViewController = introspectionViewController.splitViewController {
@@ -54,7 +79,11 @@ extension View {
                 }
 
                 // Search in siblings
-                return Introspect.previousSibling(containing: UISplitViewController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    containing: UISplitViewController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))
@@ -63,7 +92,7 @@ extension View {
     /// Finds the containing `UIViewController` of a SwiftUI view.
     public func introspectViewController(customize: @escaping (UIViewController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { $0.parent },
+            selector: { viewController, containerID in viewController.parent },
             customize: customize
         ))
     }
@@ -71,7 +100,7 @@ extension View {
     /// Finds a `UITabBarController` from any SwiftUI view embedded in a `SwiftUI.TabView`
     public func introspectTabBarController(customize: @escaping (UITabBarController) -> ()) -> some View {
         inject(UIKitIntrospectionViewController(
-            selector: { introspectionViewController in
+            selector: { introspectionViewController, containerID in
                 
                 // Search in ancestors
                 if let navigationController = introspectionViewController.tabBarController {
@@ -79,7 +108,11 @@ extension View {
                 }
                 
                 // Search in siblings
-                return Introspect.previousSibling(ofType: UITabBarController.self, from: introspectionViewController)
+                return Introspect.previousSibling(
+                    ofType: UITabBarController.self,
+                    from: introspectionViewController,
+                    containerID: containerID
+                )
             },
             customize: customize
         ))

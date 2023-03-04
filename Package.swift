@@ -13,16 +13,30 @@ let package = Package(
         .library(name: "Introspect", targets: ["Introspect"]),
         .library(name: "Introspect-Static", type: .static, targets: ["Introspect"]),
         .library(name: "Introspect-Dynamic", type: .dynamic, targets: ["Introspect"]),
+
+        .library(name: "SwiftUIIntrospection", targets: ["SwiftUIIntrospection"]),
+        .library(name: "SwiftUIIntrospection-Static", type: .static, targets: ["SwiftUIIntrospection"]),
+        .library(name: "SwiftUIIntrospection-Dynamic", type: .dynamic, targets: ["SwiftUIIntrospection"]),
     ],
     targets: [
         .target(
             name: "Introspect",
-            path: "Introspect" // TODO: rename to Sources for v1.0
+            path: "Introspect"
         ),
         .testTarget(
             name: "IntrospectTests",
             dependencies: ["Introspect"],
-            path: "IntrospectTests" // TODO: rename to Tests for v1.0
+            path: "IntrospectTests"
+        ),
+
+        .target(
+            name: "SwiftUIIntrospection",
+            path: "Sources"
+        ),
+        .target(
+            name: "SwiftUIIntrospectionTests",
+            dependencies: ["SwiftUIIntrospection"],
+            path: "Tests"
         ),
     ]
 )

@@ -4,7 +4,9 @@ import AppKit
 
 /// Introspection NSView that is inserted alongside the target view.
 public class IntrospectionNSView: NSView {
-    
+
+    var layoutHandler: (() -> Void)?
+
     required init() {
         super.init(frame: .zero)
         isHidden = true
@@ -17,6 +19,11 @@ public class IntrospectionNSView: NSView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func layout() {
+        super.layout()
+        layoutHandler?()
     }
 }
 
@@ -42,6 +49,14 @@ public struct AppKitIntrospectionView<TargetViewType: NSView>: NSViewRepresentab
     public func makeNSView(context: NSViewRepresentableContext<AppKitIntrospectionView>) -> IntrospectionNSView {
         let view = IntrospectionNSView()
         view.setAccessibilityLabel("IntrospectionNSView<\(TargetViewType.self)>")
+        view.layoutHandler = { [weak view] in
+            guard let view = view else { return }
+            guard let targetView = self.selector(view) else {
+                return
+            }
+            self.customize(targetView)
+            view.layoutHandler = nil
+        }
         return view
     }
 
@@ -54,12 +69,10 @@ public struct AppKitIntrospectionView<TargetViewType: NSView>: NSViewRepresentab
         _ nsView: IntrospectionNSView,
         context: NSViewRepresentableContext<AppKitIntrospectionView>
     ) {
-        DispatchQueue.main.async {
-            guard let targetView = self.selector(nsView) else {
-                return
-            }
-            self.customize(targetView)
+        guard let targetView = self.selector(nsView) else {
+            return
         }
+        self.customize(targetView)
     }
 }
 #endif

@@ -27,6 +27,7 @@ enum TestUtils {
         hostingController.beginAppearanceTransition(true, animated: false)
         window.rootViewController = hostingController
         window.makeKeyAndVisible()
+        window.layoutIfNeeded()
         hostingController.endAppearanceTransition()
     }
 }
@@ -507,14 +508,8 @@ class UIKitTests: XCTestCase {
     func testTextField() throws {
         
         let expectation1 = XCTestExpectation()
-//        expectation1.expectedFulfillmentCount = 2
-//        expectation1.assertForOverFulfill = true
         let expectation2 = XCTestExpectation()
-//        expectation2.expectedFulfillmentCount = 2
-//        expectation2.assertForOverFulfill = true
         let expectation3 = XCTestExpectation()
-//        expectation3.expectedFulfillmentCount = 2
-//        expectation3.assertForOverFulfill = true
         
         var textField1: UITextField?
         var textField2: UITextField?
@@ -664,17 +659,17 @@ class UIKitTests: XCTestCase {
         }
     }
 
-//    #if swift(>=5.5) && !os(tvOS)
-//    @available(iOS 15, *)
-//    func testSearchController() {
-//        let expectation = XCTestExpectation()
-//        let view = SearchControllerTestView(spy: {
-//            expectation.fulfill()
-//        })
-//        TestUtils.present(view: view)
-//        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-//    }
-//    #endif
+    #if swift(>=5.5) && !os(tvOS)
+    @available(iOS 15, *)
+    func testSearchController() {
+        let expectation = XCTestExpectation()
+        let view = SearchControllerTestView(spy: {
+            expectation.fulfill()
+        })
+        TestUtils.present(view: view)
+        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
+    }
+    #endif
     #endif
     
     @available(iOS 14, tvOS 14, *)

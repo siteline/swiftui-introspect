@@ -76,13 +76,12 @@ struct Representable<Content: View>: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         let host = UIHostingController(rootView: content())
         let hostView = host.view!
+        hostView.backgroundColor = .clear
         hostView.accessibilityIdentifier = id.uuidString
         return hostView
     }
 
-    func updateUIView(_ uiView: UIView, context: Context) {
-        uiView.backgroundColor = .systemRed
-    }
+    func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
 //final class UIHostingController_FB9641883<Content: View>: UIHostingController<Content> {

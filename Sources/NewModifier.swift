@@ -35,6 +35,5 @@ struct SandwichModifier<V: IntrospectionView>: ViewModifier {
         Wrapper(id: view.containerID) {
             content.overlay(view.frame(width: 1, height: 1))
         }
-//        .background(Color.red)
     }
 }

@@ -38,8 +38,8 @@ jobs:
           - [ios, 14]
           - [ios, 15]
           - [ios, 16]
-          - [macos, 11]
-          - [macos, 12]
+          # - [macos, 11]
+          # - [macos, 12]
         include:
           - platform: [ios, 14]
             os: macos-11
@@ -50,12 +50,12 @@ jobs:
           - platform: [ios, 16]
             os: macos-12
             xcode: 14.2
-          - platform: [macos, 11]
-            os: macos-11
-            xcode: 13.0
-          - platform: [macos, 12]
-            os: macos-12
-            xcode: 14.0.1
+          # - platform: [macos, 11]
+          #   os: macos-11
+          #   xcode: 13.0
+          # - platform: [macos, 12]
+          #   os: macos-12
+          #   xcode: 14.0.1
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

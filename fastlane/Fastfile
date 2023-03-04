@@ -29,7 +29,7 @@ platform :ios do
         end
 
         run_tests(
-            scheme: "Introspect",
+            scheme: "SwiftUIIntrospect",
             devices: devices,
             ensure_devices_found: true,
             force_quit_simulator: true,

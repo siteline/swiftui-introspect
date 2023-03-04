@@ -3,23 +3,40 @@ import SwiftUIIntrospection
 
 @main
 struct App: SwiftUI.App {
-    @State var some = 3
+
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                List {
-//                    Picker("sqwsq", selection: $some, content: {
-//                        Text("1").tag(1)
-//                        Text("2").tag(2)
-//                        Text("3").tag(3)
-//                    })
-                    TextField("", text: .constant("dqede"))
-                        .introspectTextField { textField in
-                            textField.backgroundColor = .red
-                        }
-                }
+            Something()
+        }
+    }
+}
+
+struct Something: View {
+    @State var color = Color.green
+
+    var body: some View {
+        NavigationView {
+            List {
+                Picker("Color", selection: $color, content: {
+                    Text("Red").tag(Color.red)
+                    Text("Green").tag(Color.green)
+                    Text("Blue").tag(Color.blue)
+                })
+                TextField("dq", text: .constant("dqede"))
+                    .modifier(Modifier(color: color))
             }
         }
+    }
+}
+
+struct Modifier: ViewModifier {
+    let color: Color
+
+    func body(content: Content) -> some View {
+        content
+            .introspectTextField { textField in
+                textField.backgroundColor = UIColor(color)
+            }
     }
 }

@@ -3,7 +3,7 @@ import SwiftUI
 public typealias IntrospectionContainerID = UUID
 
 // https://stackoverflow.com/a/71135581/1922543
-struct Wrapper<Content: View>: View {
+struct IntrospectionContainer<Content: View>: View {
     let id: IntrospectionContainerID
     @State private var size: CGSize?
     @State private var outsideSize: CGSize?
@@ -83,48 +83,3 @@ struct Representable<Content: View>: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIView, context: Context) {}
 }
-
-//final class UIHostingController_FB9641883<Content: View>: UIHostingController<Content> {
-//    private var heightConstraint: NSLayoutConstraint?
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        if #available(iOS 15.0, *) {
-//            heightConstraint = view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height)
-//            NSLayoutConstraint.activate([
-//                heightConstraint!,
-//            ])
-//        }
-//    }
-//
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        preferredContentSize = view.intrinsicContentSize
-//    }
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        heightConstraint?.constant = view.intrinsicContentSize.height
-//    }
-//}
-
-//struct IntrospectionUIContainerView<Content: View>: UIViewRepresentable {
-//    let id: IntrospectionContainerID
-//    @ViewBuilder
-//    let content: Content
-//
-//    func makeUIView(context: Context) -> some UIView {
-//        let host = UIHostingController(rootView: content)
-////        if #available(iOS 16, *) {
-////            host.sizingOptions = .intrinsicContentSize
-////        }
-//        let hostView = host.view!
-//        hostView.accessibilityIdentifier = id.uuidString
-//        hostView.backgroundColor = .blue
-//        return hostView
-//    }
-//
-//    func updateUIView(_ uiView: UIViewType, context: Context) {
-//
-//    }
-//}

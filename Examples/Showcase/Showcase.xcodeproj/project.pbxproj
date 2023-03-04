@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D5302CA429B3B0ED0061EEC6 /* SwiftUIIntrospection in Frameworks */ = {isa = PBXBuildFile; productRef = D5302CA329B3B0ED0061EEC6 /* SwiftUIIntrospection */; };
+		D5302CA829B3CF9B0061EEC6 /* SwiftUIIntrospection in Frameworks */ = {isa = PBXBuildFile; productRef = D5302CA729B3CF9B0061EEC6 /* SwiftUIIntrospection */; };
 		D53071F729983CEF00F1936C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F629983CEF00F1936C /* App.swift */; };
 		D53071F929983CEF00F1936C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F829983CEF00F1936C /* ContentView.swift */; };
 		D53071FB29983CF000F1936C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53071FA29983CF000F1936C /* Assets.xcassets */; };
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5302CA429B3B0ED0061EEC6 /* SwiftUIIntrospection in Frameworks */,
+				D5302CA829B3CF9B0061EEC6 /* SwiftUIIntrospection in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			);
 			name = Showcase;
 			packageProductDependencies = (
-				D5302CA329B3B0ED0061EEC6 /* SwiftUIIntrospection */,
+				D5302CA729B3CF9B0061EEC6 /* SwiftUIIntrospection */,
 			);
 			productName = Showcase;
 			productReference = D53071F329983CEF00F1936C /* Showcase.app */;
@@ -370,7 +370,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D5302CA329B3B0ED0061EEC6 /* SwiftUIIntrospection */ = {
+		D5302CA729B3CF9B0061EEC6 /* SwiftUIIntrospection */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftUIIntrospection;
 		};

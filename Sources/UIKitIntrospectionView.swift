@@ -11,6 +11,13 @@ public class IntrospectionUIView: UIView {
         super.init(frame: .zero)
         isHidden = true
         isUserInteractionEnabled = false
+        backgroundColor = .clear
+
+//        translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            widthAnchor.constraint(equalToConstant: 1),
+//            heightAnchor.constraint(equalToConstant: 1),
+//        ])
     }
 
     @available(*, unavailable)

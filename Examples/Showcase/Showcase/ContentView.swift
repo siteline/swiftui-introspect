@@ -1,10 +1,10 @@
-//import SwiftUI
-//import SwiftUIIntrospection
-//
-//struct ContentView: View {
-//    @State private var selection = 0
-//    var body: some View {
-//        TabView(selection: $selection) {
+import SwiftUI
+import SwiftUIIntrospection
+
+struct ContentView: View {
+    @State private var selection = 0
+    var body: some View {
+        TabView(selection: $selection) {
 //            ListShowcase()
 //                .tabItem { Text("List") }
 //                .tag(0)
@@ -20,13 +20,13 @@
 //            ViewControllerShowcase()
 //                .tabItem { Text("ViewController") }
 //                .tag(3)
-//            SimpleElementsShowcase()
-//                .tabItem { Text("Simple elements") }
-//                .tag(4)
-//        }
-//    }
-//}
-//
+            SimpleElementsShowcase()
+                .tabItem { Text("Simple elements") }
+                .tag(4)
+        }
+    }
+}
+
 //struct ListShowcase: View {
 //    var body: some View {
 //
@@ -140,30 +140,30 @@
 //        }
 //    }
 //}
-//
-//struct SimpleElementsShowcase: View {
-//
-//    @State private var textFieldValue = ""
-//    @State private var toggleValue = false
-//    @State private var sliderValue = 0.0
-//    @State private var datePickerValue = Date()
-//    @State private var segmentedControlValue = 0
-//
-//    var body: some View {
-//        VStack {
-//            HStack {
-//                TextField("Text Field Red", text: $textFieldValue)
-//                    .introspectTextField { textField in
-//                        textField.layer.backgroundColor = UIColor.red.cgColor
-//                    }
-//
-//                TextField("Text Field Green", text: $textFieldValue)
-//                    .cornerRadius(8)
-//                    .introspectTextField { textField in
-//                        textField.layer.backgroundColor = UIColor.green.cgColor
-//                    }
-//            }
-//
+
+struct SimpleElementsShowcase: View {
+
+    @State private var textFieldValue = ""
+    @State private var toggleValue = false
+    @State private var sliderValue = 0.0
+    @State private var datePickerValue = Date()
+    @State private var segmentedControlValue = 0
+
+    var body: some View {
+        VStack {
+            HStack {
+                TextField("Text Field Red", text: $textFieldValue)
+                    .introspectTextField { textField in
+                        textField.layer.backgroundColor = UIColor.red.cgColor
+                    }
+
+                TextField("Text Field Green", text: $textFieldValue)
+                    .cornerRadius(8)
+                    .introspectTextField { textField in
+                        textField.layer.backgroundColor = UIColor.green.cgColor
+                    }
+            }
+
 //            HStack {
 //                Toggle("Toggle Red", isOn: $toggleValue)
 //                    #if !os(tvOS)
@@ -218,7 +218,7 @@
 //                }
 //            }
 //            #endif
-//
+
 //            HStack {
 //                Picker(selection: $segmentedControlValue, label: Text("Segmented control")) {
 //                    Text("Option 1").tag(0)
@@ -230,11 +230,11 @@
 //                    segmentedControl.layer.backgroundColor = UIColor.red.cgColor
 //                }
 //            }
-//        }
-//
-//    }
-//}
-//
+        }
+
+    }
+}
+
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        Group {

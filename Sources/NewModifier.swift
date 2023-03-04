@@ -22,17 +22,16 @@ extension View {
 //            .accessibility(identifier: view.id.uuidString)
 //            .overlay(view.frame(width: 1, height: 1))
 
-        modifier(SandwichModifier(view: view))
+        modifier(IntrospectionContainerModifier(view: view))
 //        self.overlay(view.frame(width: 1, height: 1))
     }
 }
 
-struct SandwichModifier<V: IntrospectionView>: ViewModifier {
+struct IntrospectionContainerModifier<V: IntrospectionView>: ViewModifier {
     let view: V
 
     func body(content: Content) -> some View {
-//        content.overlay(view.frame(width: 1, height: 1))
-        Wrapper(id: view.containerID) {
+        IntrospectionContainer(id: view.containerID) {
             content.overlay(view.frame(width: 1, height: 1))
         }
     }

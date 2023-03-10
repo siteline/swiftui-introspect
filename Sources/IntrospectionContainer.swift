@@ -75,11 +75,10 @@ struct IntrospectionContainer<Content: View>: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UIView {
         let host = UIHostingController(rootView: content())
-        let hostView = host.view!
-        hostView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        hostView.backgroundColor = .clear
-        hostView.accessibilityIdentifier = id.uuidString
-        return hostView
+        host.view.backgroundColor = .clear
+        host.view.accessibilityIdentifier = id.uuidString
+        host.view.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        return host.view
     }
 
     func updateUIView(_ uiView: UIView, context: Context) {}

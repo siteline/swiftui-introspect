@@ -26,9 +26,9 @@ struct Something: View {
             Spacer()
             TextField("dq", text: $text)
                 .background(Color.green)
-//                .introspectTextField { textField in
-//                    textField.backgroundColor = UIColor(color)
-//                }
+                .introspectTextField { textField in
+                    textField.backgroundColor = UIColor(color)
+                }
                 .fixedSize()
         }
                 TextField("dq", text: $text)

@@ -153,16 +153,16 @@ struct SimpleElementsShowcase: View {
         VStack {
             HStack {
                 TextField("Text Field Red", text: $textFieldValue)
-                    .introspectTextField { textField in
-                        textField.layer.backgroundColor = UIColor.red.cgColor
-                    }
+//                    .introspectTextField { textField in
+//                        textField.layer.backgroundColor = UIColor.red.cgColor
+//                    }
 //                    .background(Color.red)
 
                 TextField("Text Field Green", text: $textFieldValue)
                     .cornerRadius(8)
-                    .introspectTextField { textField in
-                        textField.layer.backgroundColor = UIColor.green.cgColor
-                    }
+//                    .introspectTextField(observe: ) { textField in
+//                        textField.layer.backgroundColor = UIColor.green.cgColor
+//                    }
 //                    .background(Color.green)
             }
 

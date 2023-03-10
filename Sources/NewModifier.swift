@@ -15,24 +15,27 @@ import SwiftUI
 //    }
 //}
 
-extension View {
-    @ViewBuilder
-    public func injectIntrospectionView<V: IntrospectionView>(_ view: V) -> some View {
-//        self.tag(123)
-//            .accessibility(identifier: view.id.uuidString)
-//            .overlay(view.frame(width: 1, height: 1))
+//extension View {
+//    public func injectIntrospectionView<Observed, V: IntrospectionView>(
+//        observing observed: @escaping @autoclosure () -> Observed,
+//        _ view: V
+//    ) -> some View {
+//        self.modifier(IntrospectionContainerModifier(observed: observed, view: view))
+//    }
+//}
 
-        modifier(IntrospectionContainerModifier(view: view))
-//        self.overlay(view.frame(width: 1, height: 1))
-    }
-}
-
-struct IntrospectionContainerModifier<V: IntrospectionView>: ViewModifier {
-    let view: V
-
-    func body(content: Content) -> some View {
-        IntrospectionContainer(id: view.containerID) {
-            content.overlay(view.frame(width: 1, height: 1))
-        }
-    }
-}
+//struct IntrospectionContainerModifier<Observed, V: IntrospectionView>: ViewModifier {
+//    let observed: () -> Observed
+//    let view: V
+//
+//    init(observed: @escaping () -> Observed, view: V) {
+//        self.observed = observed
+//        self.view = view
+//    }
+//
+//    func body(content: Content) -> some View {
+//        IntrospectionContainer(id: view.containerID, observed: observed) {
+//            content//.overlay(view.frame(width: 1, height: 1))
+//        }
+//    }
+//}

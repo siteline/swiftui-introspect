@@ -2,84 +2,65 @@ import SwiftUI
 
 public typealias IntrospectionContainerID = UUID
 
-//// https://stackoverflow.com/a/71135581/1922543
-//struct IntrospectionContainer<Content: View>: View {
-//    let id: IntrospectionContainerID
-//    @State private var size: CGSize?
-//    @State private var outsideSize: CGSize?
-//    private let content: () -> Content
-//
-//    init(
-//        id: IntrospectionContainerID,
-//        @ViewBuilder content: @escaping () -> Content
-//    ) {
-//        self.id = id
-//        self.content = content
-//    }
-//
-//    var body: some View {
-//        GeometryReader { outside in
-//            Color.clear.preference(
-//                key: SizePreferenceKey.self,
-//                value: outside.size
-//            )
-//        }
-//        .onPreferenceChange(SizePreferenceKey.self) { newSize in
-//            outsideSize = newSize
-//        }
-//        .frame(width: size?.width, height: size?.height)
-//        .overlay( // or background?
-//            outsideSize != nil ?
-//                Representable(id: id) {
-//                    content()
-//                        .background(
-//                            GeometryReader { inside in
-//                                Color.clear.preference(
-//                                    key: SizePreferenceKey.self,
-//                                    value: inside.size
-//                                )
-//                            }
-//                            .onPreferenceChange(SizePreferenceKey.self) { newSize in
-//                                size = newSize
-//                            }
-//                        )
-//                        .frame(width: outsideSize!.width, height: outsideSize!.height)
-//                        .fixedSize()
-//                        .frame(width: size?.width ?? 0, height: size?.height ?? 0)
-//                }
-//                .frame(width: size?.width ?? 0, height: size?.height ?? 0)
-//            : nil
-//        )
-//    }
-//}
-//
-//struct SizePreferenceKey: PreferenceKey {
-//    static let defaultValue: CGSize = .zero
-//
-//    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
-//        value = nextValue()
-//    }
-//}
+final class IntrospectionContainerHostingController<Content: View>: UIHostingController<Content> {
+    var viewDidLayoutSubviewsHandler: (() -> Void)?
 
-struct IntrospectionContainer<Content: View>: UIViewRepresentable {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        viewDidLayoutSubviewsHandler?()
+    }
+}
+
+struct IntrospectionContainer<Target: UIView, Content: View>: UIViewRepresentable {
     let id: IntrospectionContainerID
-    private let content: () -> Content
+//    @Binding
+//    var observed: Observed
+    let selector: (UIView, IntrospectionContainerID) -> Target?
+    let customize: (Target) -> Void
+    @ViewBuilder
+    let content: () -> Content
 
     init(
         id: IntrospectionContainerID,
+//        observed: @escaping () -> Observed,
+        selector: @escaping (UIView, IntrospectionContainerID) -> Target?,
+        customize: @escaping (Target) -> Void,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.id = id
+//        self._observed = .init(get: observed, set: { _ in })
+        self.selector = selector
+        self.customize = customize
         self.content = content
     }
 
     func makeUIView(context: Context) -> UIView {
-        let host = UIHostingController(rootView: content())
+        let host = IntrospectionContainerHostingController(rootView: content())
         host.view.backgroundColor = .clear
         host.view.accessibilityIdentifier = id.uuidString
+//        host.view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         host.view.setContentHuggingPriority(.defaultHigh, for: .vertical)
+//        host.view.translatesAutoresizingMaskIntoConstraints = false
+        host.viewDidLayoutSubviewsHandler = { [weak host] in
+            guard let host = host else { return }
+            guard let targetView = self.selector(host.view, id) else {
+                return
+            }
+            self.customize(targetView)
+            host.viewDidLayoutSubviewsHandler = nil
+        }
         return host.view
     }
 
-    func updateUIView(_ uiView: UIView, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        guard let targetView = self.selector(uiView, id) else {
+            return
+        }
+        self.customize(targetView)
+    }
 }
+
+//enum IntrospectionTarget {
+//    case receiver
+//    case receiverOrAncestor
+//}

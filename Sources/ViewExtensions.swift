@@ -155,23 +155,39 @@ extension View {
 
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-//        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
-        injectIntrospectionView(
-            UIKitIntrospectionView(
-                containerID: UUID(),
-                selector: { introspectionView, containerID in
-                    guard
-                        let containerView = introspectionView.recursivelyFindSuperview(where: {
-                            $0.accessibilityIdentifier == containerID.uuidString
-                        })
-                    else {
-                        return nil
-                    }
-                    return Introspect.findChild(ofType: UITextField.self, in: containerView)
-                },
-                customize: customize
-            )
+        IntrospectionContainer(
+            id: UUID(),
+            selector: { introspectionView, containerID in
+//                guard
+//                    let containerView = introspectionView.recursivelyFindSuperview(where: {
+//                        $0.accessibilityIdentifier == containerID.uuidString
+//                    })
+//                else {
+//                    return nil
+//                }
+                return Introspect.findChild(ofType: UITextField.self, in: introspectionView)
+            },
+            customize: customize,
+            content: { self }
         )
+//        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
+//        injectIntrospectionView(
+//            observing: observed,
+//            UIKitIntrospectionView(
+//                containerID: UUID(),
+//                selector: { introspectionView, containerID in
+//                    guard
+//                        let containerView = introspectionView.recursivelyFindSuperview(where: {
+//                            $0.accessibilityIdentifier == containerID.uuidString
+//                        })
+//                    else {
+//                        return nil
+//                    }
+//                    return Introspect.findChild(ofType: UITextField.self, in: containerView)
+//                },
+//                customize: customize
+//            )
+//        )
     }
 
 //    /// Finds a `UITextView` from a `SwiftUI.TextEditor`

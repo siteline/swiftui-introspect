@@ -26,51 +26,50 @@ struct App: SwiftUI.App {
 //                    }
 //            }
 //            .clipped()
-//            ExampleView()
+            ExampleView()
 
-            Something()
+//            Something()
         }
     }
 }
 
-//struct SecureToggle: ViewModifier {
-//
-//        @Binding public var isSecure: Bool
-//
-//        public func body(content: Content) -> some View {
-//
-//            HStack {
-//                content
-//                    .introspectTextField { (textfield) in
-//                        textfield.isSecureTextEntry = isSecure
-//                    }
-//
-//                Spacer()
-//
-//                Button(action: {
-//                    self.isSecure.toggle()
-//                }) {
-//                    Image(systemName: isSecure ? "eye.slash":"eye")
-//
-//                }
-//                .padding()
-//            }
-//        }
-//
-//    }
-//
-//struct ExampleView: View {
-//    @State private var textContent: String = ""
-//    @State private var isSecure: Bool = false
-//
-//    var body: some View {
-//        VStack {
-//            TextField("", text: $textContent)
-//                .modifier(SecureToggle(isSecure: $isSecure))
-//                .border(Color.black, width: 1)
-//        }.padding(20)
-//    }
-//}
+struct SecureToggle: ViewModifier {
+
+        @Binding public var isSecure: Bool
+
+        public func body(content: Content) -> some View {
+
+            HStack {
+                content
+                    .introspectTextField { (textfield) in
+                        textfield.isSecureTextEntry = isSecure
+                    }
+
+                Spacer()
+
+                Button(action: {
+                    self.isSecure.toggle()
+                }) {
+                    Image(systemName: isSecure ? "eye.slash":"eye").frame(width: 20, height: 20)
+                }
+                .padding()
+            }
+        }
+
+    }
+
+struct ExampleView: View {
+    @State private var textContent: String = ""
+    @State private var isSecure: Bool = false
+
+    var body: some View {
+        VStack {
+            TextField("", text: $textContent)
+                .modifier(SecureToggle(isSecure: $isSecure))
+                .border(Color.black, width: 1)
+        }.padding(20)
+    }
+}
 
 struct Something: View {
     @State var color = Color.green

@@ -155,9 +155,8 @@ extension View {
 
     /// Finds a `UITextField` from a `SwiftUI.TextField`
     public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        IntrospectionContainer(
-            id: UUID(),
-            selector: { introspectionView, containerID in
+        self.modifier(IntrospectionContainerModifier(
+            selector: { introspectionView in
 //                guard
 //                    let containerView = introspectionView.recursivelyFindSuperview(where: {
 //                        $0.accessibilityIdentifier == containerID.uuidString
@@ -167,9 +166,12 @@ extension View {
 //                }
                 return Introspect.findChild(ofType: UITextField.self, in: introspectionView)
             },
-            customize: customize,
-            content: { self }
-        )
+            customize: customize
+        ))
+//        IntrospectionContainer(
+//
+//            content: { self }
+//        )
 //        introspect(selector: TargetViewSelector.siblingContainingOrAncestorOrAncestorChild, customize: customize)
 //        injectIntrospectionView(
 //            observing: observed,

@@ -24,18 +24,26 @@ import SwiftUI
 //    }
 //}
 
-//struct IntrospectionContainerModifier<Observed, V: IntrospectionView>: ViewModifier {
+struct IntrospectionContainerModifier<Target: UIView>: ViewModifier {
 //    let observed: () -> Observed
 //    let view: V
-//
+
+//    let id: IntrospectionContainerID
+//    @Binding
+//    var observed: Observed
+    let selector: (UIView) -> Target?
+    let customize: (Target) -> Void
+//    @ViewBuilder
+//    let content: () -> Content
+
 //    init(observed: @escaping () -> Observed, view: V) {
 //        self.observed = observed
 //        self.view = view
 //    }
-//
-//    func body(content: Content) -> some View {
-//        IntrospectionContainer(id: view.containerID, observed: observed) {
-//            content//.overlay(view.frame(width: 1, height: 1))
-//        }
-//    }
-//}
+
+    func body(content: Content) -> some View {
+        IntrospectionContainer(selector: selector, customize: customize) {
+            content
+        }
+    }
+}

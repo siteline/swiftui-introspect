@@ -2,6 +2,9 @@ import Foundation
 
 public protocol ViewType {
     typealias Member = StaticMember<Self>
+
+    // Maybe?
+//    var scope: IntrospectionScope { get }
 }
 
 // TODO: we can drop this when we drop Swift 5.4, and use protocol extensions instead.

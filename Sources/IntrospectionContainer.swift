@@ -1,7 +1,5 @@
 import SwiftUI
 
-public typealias IntrospectionContainerID = UUID
-
 final class IntrospectionContainerHostingController<Content: View>: UIHostingController<Content> {
     var viewDidLayoutSubviewsHandler: (() -> Void)?
 
@@ -11,56 +9,51 @@ final class IntrospectionContainerHostingController<Content: View>: UIHostingCon
     }
 }
 
-struct IntrospectionContainer<Target: UIView, Content: View>: UIViewRepresentable {
-//    let id: IntrospectionContainerID
-//    @Binding
-//    var observed: Observed
+struct IntrospectionContainer<Observed, Target: UIView, Content: View>: UIViewRepresentable {
+    @Binding
+    var observed: Observed
     let selector: (UIView) -> Target?
-    let customize: (Target) -> Void
+    let customize: (Target, Observed) -> Void
     @ViewBuilder
     let content: () -> Content
 
-//    init(
-//        id: IntrospectionContainerID,
-////        observed: @escaping () -> Observed,
-//        selector: @escaping (UIView, IntrospectionContainerID) -> Target?,
-//        customize: @escaping (Target) -> Void,
-//        @ViewBuilder content: @escaping () -> Content
-//    ) {
-//        self.id = id
-////        self._observed = .init(get: observed, set: { _ in })
-//        self.selector = selector
-//        self.customize = customize
-//        self.content = content
-//    }
+    func makeCoordinator() -> IntrospectionContainerHostingController<Content> {
+        IntrospectionContainerHostingController(rootView: content())
+    }
 
     func makeUIView(context: Context) -> UIView {
-        let host = IntrospectionContainerHostingController(rootView: content())
+        let host = context.coordinator
         host.view.backgroundColor = .clear
-//        host.view.accessibilityIdentifier = id.uuidString
+        host.view.accessibilityLabel = "IntrospectionContainer<\(Target.self)>"
 //        host.view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         host.view.setContentHuggingPriority(.defaultHigh, for: .vertical)
 //        host.view.translatesAutoresizingMaskIntoConstraints = false
         host.viewDidLayoutSubviewsHandler = { [weak host] in
             guard let host = host else { return }
-            guard let targetView = self.selector(host.view) else {
+            guard let target = selector(host.view) else {
                 return
             }
-            self.customize(targetView)
+            self.customize(target, observed)
             host.viewDidLayoutSubviewsHandler = nil
         }
         return host.view
     }
 
     func updateUIView(_ uiView: UIView, context: Context) {
-        guard let targetView = self.selector(uiView) else {
+        guard let target = selector(uiView) else {
             return
         }
-        self.customize(targetView)
+        self.customize(target, observed)
+    }
+
+    static func dismantleUIView(_ uiView: UIView, coordinator: IntrospectionContainerHostingController<Content>) {
+        coordinator.viewDidLayoutSubviewsHandler = nil
     }
 }
 
-//enum IntrospectionTarget {
-//    case receiver
-//    case receiverOrAncestor
-//}
+@_spi(Internals)
+public enum IntrospectionScope {
+    case receiver
+    case ancestor
+    case receiverOrAncestor
+}

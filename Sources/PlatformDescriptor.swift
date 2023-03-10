@@ -3,43 +3,35 @@ import SwiftUI
 public struct PlatformDescriptor<SwiftUIView: ViewType, PlatformView> {
     typealias IntrospectingView = (@escaping (PlatformView) -> Void) -> AnyView
 
-    let introspectingView: IntrospectingView?
+    let scope: IntrospectionScope?
 }
 
 extension PlatformDescriptor {
     public static func iOS(_ versions: (PlatformVersionDescriptor<iOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(introspectingView: versions.lazy.compactMap(\.introspectingView).first)
+        Self(scope: versions.lazy.compactMap(\.scope).first)
     }
 
     public static func macOS(_ versions: (PlatformVersionDescriptor<macOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(introspectingView: versions.lazy.compactMap(\.introspectingView).first)
+        Self(scope: versions.lazy.compactMap(\.scope).first)
     }
 
     public static func tvOS(_ versions: (PlatformVersionDescriptor<tvOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(introspectingView: versions.lazy.compactMap(\.introspectingView).first)
+        Self(scope: versions.lazy.compactMap(\.scope).first)
     }
 }
 
 public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: ViewType, PlatformView> {
-    typealias IntrospectingView = (@escaping (PlatformView) -> Void) -> AnyView
+    let version: Version
+    let scope: IntrospectionScope?
 
-    private let version: Version
-    private let _introspectingView: IntrospectingView
-
-    init<IntrospectingView: View>(
-        for version: Version,
-        introspectingView: @escaping (@escaping (PlatformView) -> Void) -> IntrospectingView
-    ) {
+    init(for version: Version, scope: IntrospectionScope?) {
         self.version = version
-        self._introspectingView = { customize in AnyView(introspectingView(customize)) }
+        self.scope = scope
     }
 
-    init(
-        for version: Version,
-        sameAs other: Self
-    ) {
-        self.init(for: version, introspectingView: other._introspectingView)
-    }
+//    init(for version: Version, sameAs other: Self) {
+//        self.init(for: version, scope: other.scope)
+//    }
 
     static func unavailable(
         for version: Version,
@@ -59,14 +51,6 @@ public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: V
             https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
             """
         )
-        return Self(for: version) { _ in EmptyView() }
-    }
-
-    var introspectingView: IntrospectingView? {
-        if version.isCurrent {
-            return _introspectingView
-        } else {
-            return nil
-        }
+        return Self(for: version, scope: nil)
     }
 }

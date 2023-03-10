@@ -44,17 +44,17 @@ final class UIKitTests: XCTestCase {
             var body: some View {
                 VStack {
                     TextField(textField1Placeholder, text: $textFieldValue)
-                    .introspectTextField { textField in
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                         self.spy1(textField)
                     }
                     .cornerRadius(8)
                     TextField(textField2Placeholder, text: $textFieldValue)
-                    .introspectTextField { textField in
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                         self.spy2(textField)
                     }
                     .cornerRadius(8)
                     TextField(textField3Placeholder, text: $textFieldValue)
-                    .introspectTextField { textField in
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                         self.spy3(textField)
                     }
                 }

@@ -1,37 +1,29 @@
 import SwiftUI
 
 public struct PlatformDescriptor<SwiftUIView: ViewType, PlatformView> {
-    typealias IntrospectingView = (@escaping (PlatformView) -> Void) -> AnyView
-
     let scope: IntrospectionScope?
 }
 
 extension PlatformDescriptor {
     public static func iOS(_ versions: (PlatformVersionDescriptor<iOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.lazy.compactMap(\.scope).first)
+        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
     }
 
     public static func macOS(_ versions: (PlatformVersionDescriptor<macOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.lazy.compactMap(\.scope).first)
+        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
     }
 
     public static func tvOS(_ versions: (PlatformVersionDescriptor<tvOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.lazy.compactMap(\.scope).first)
+        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
     }
 }
 
 public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: ViewType, PlatformView> {
     let version: Version
-    let scope: IntrospectionScope?
 
-    init(for version: Version, scope: IntrospectionScope?) {
+    init(for version: Version) {
         self.version = version
-        self.scope = scope
     }
-
-//    init(for version: Version, sameAs other: Self) {
-//        self.init(for: version, scope: other.scope)
-//    }
 
     static func unavailable(
         for version: Version,
@@ -51,6 +43,6 @@ public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: V
             https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
             """
         )
-        return Self(for: version, scope: nil)
+        return Self(for: version)
     }
 }

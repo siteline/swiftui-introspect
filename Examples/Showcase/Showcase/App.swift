@@ -88,15 +88,16 @@ struct Something: View {
             TextField("dq", text: $text)
 //                .background(Color.green)
 //                .fixedSize()
+//                .frame(width: 50)
                 .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = UIColor(color)
                 }
         }
                 TextField("dq", text: $text)
-//                    .background(Color.green)
-                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
-                    textField.backgroundColor = UIColor(color)
-                }
+                    .background(Color.green)
+//                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+//                    textField.backgroundColor = UIColor(color)
+//                }
 //                .introspect(.textField, on: .iOS14, .iOS15, .iOS16, observing: color) {
 //                    textField.backgroundColor = UIColor(color)
 //                }

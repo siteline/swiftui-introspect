@@ -11,9 +11,10 @@ extension View {
 //    }
 
     @ViewBuilder
-    public func introspect<SwiftUIView: ViewType, PlatformView: UIView, Observed>(
+    public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospection.PlatformView, Observed>(
         _ view: SwiftUIView.Member,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
+        scope: IntrospectionScope? = nil,
         observing: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformView, Observed) -> Void
     ) -> some View {
@@ -25,14 +26,7 @@ extension View {
                     case .receiver:
                         return Introspect.findChild(ofType: PlatformView.self, in: container)
                     case .ancestor:
-        //                guard
-        //                    let containerView = introspectionView.recursivelyFindSuperview(where: {
-        //                        $0.accessibilityIdentifier == containerID.uuidString
-        //                    })
-        //                else {
-        //                    return nil
-        //                }
-                        fatalError()
+                        return Introspect.findAncestor(ofType: PlatformView.self, from: container)
                     case .receiverOrAncestor:
                         if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
                             return receiver

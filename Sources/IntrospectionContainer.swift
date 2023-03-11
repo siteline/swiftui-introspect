@@ -23,11 +23,12 @@ struct IntrospectionContainer<Observed, Target: UIView, Content: View>: UIViewRe
 
     func makeUIView(context: Context) -> UIView {
         let host = context.coordinator
-        host.view.backgroundColor = .clear
+        host.view.backgroundColor = .blue
         host.view.accessibilityLabel = "IntrospectionContainer<\(Target.self)>"
-//        host.view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+//        host.view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+//        host.view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         host.view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-//        host.view.translatesAutoresizingMaskIntoConstraints = false
+        host.view.translatesAutoresizingMaskIntoConstraints = false
         host.viewDidLayoutSubviewsHandler = { [weak host] in
             guard let host = host else { return }
             guard let target = selector(host.view) else {
@@ -49,11 +50,4 @@ struct IntrospectionContainer<Observed, Target: UIView, Content: View>: UIViewRe
     static func dismantleUIView(_ uiView: UIView, coordinator: IntrospectionContainerHostingController<Content>) {
         coordinator.viewDidLayoutSubviewsHandler = nil
     }
-}
-
-@_spi(Internals)
-public enum IntrospectionScope {
-    case receiver
-    case ancestor
-    case receiverOrAncestor
 }

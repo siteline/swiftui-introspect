@@ -255,25 +255,3 @@ private extension Array {
         return self[index]
     }
 }
-
-extension UIView {
-    func recursivelyFindSuperview(where condition: (UIView) -> Bool) -> UIView? {
-        if let view = self.superview {
-            if condition(view) {
-                return view
-            } else {
-                return view.recursivelyFindSuperview(where: condition)
-            }
-        } else {
-            return nil
-        }
-    }
-
-    func recursivelyFindSubviews<T: UIView>(ofType type: T.Type) -> [T] {
-        var result = self.subviews.compactMap { $0 as? T }
-        for sub in self.subviews {
-            result.append(contentsOf: sub.recursivelyFindSubviews(ofType: type))
-        }
-        return result
-    }
-}

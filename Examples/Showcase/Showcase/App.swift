@@ -3,6 +3,14 @@ import SwiftUIIntrospection
 
 @main
 struct App: SwiftUI.App {
+    init() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            print(UIApplication.shared.keyWindow?.rootViewController?.view.recursivelyFindSubviews(where: { $0.accessibilityIdentifier != nil }))
+//            print(UIApplication.shared.windows.first?.rootViewController?.view.recursivelyFindSubviews(where: { $0.accessibilityIdentifier != nil }))
+//            UIApplication.shared.keyWindow?.rootViewController?.view.find
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
 //            TextField("Text", text: .constant("Hello"))
@@ -10,14 +18,26 @@ struct App: SwiftUI.App {
 //                                    textField.backgroundColor = .red
 //                                }
 //                                .brightness(0.1) // <- this causes introspection to fail
-//            Form {
-//                TextField("Email", text: .constant("hello"))
-//                    .introspectTextField {
-//                        $0.becomeFirstResponder()
-//                    }
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .keyboardType(.emailAddress)
-//            }
+            NavigationView {
+                Form {
+    //                TextField("Email", text: .constant("hello"))
+    //                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { tf, _ in
+    //                        tf.becomeFirstResponder()
+    //                    }
+    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    //                    .keyboardType(.emailAddress)
+                    Something()
+                }
+                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
+                    view.backgroundColor = .purple
+                }
+                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
+                    view.backgroundColor = .purple
+    //                print(view)
+                }
+                .navigationBarTitleDisplayMode(.inline)
+            }
+            .navigationViewStyle(.stack)
 
 //            VStack {
 //                TextField("Name", text: .constant(""))
@@ -28,7 +48,7 @@ struct App: SwiftUI.App {
 //            .clipped()
 //            ExampleView()
 
-            Something()
+
         }
     }
 }
@@ -85,13 +105,18 @@ struct Something: View {
                 Text("Blue").tag(Color.blue)
             }
             Spacer()
-            TextField("dq", text: $text)
-//                .background(Color.green)
-//                .fixedSize()
-//                .frame(width: 50)
-                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
-                    textField.backgroundColor = UIColor(color)
-                }
+            VStack {
+//                Color.red
+                TextField("dq", text: $text)
+                    .background(Color.green)
+    //                .fixedSize()
+                    .frame(width: 50)
+            }
+            .accessibilityElement(children: .contain)
+            .accessibility(identifier: "picker-with-binding-view")
+//                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+//                    textField.backgroundColor = UIColor(color)
+//                }
         }
                 TextField("dq", text: $text)
                     .background(Color.green)
@@ -104,5 +129,27 @@ struct Something: View {
 
 //            }
 //        }
+    }
+}
+
+extension UIView {
+    func recursivelyFindSuperview(where condition: (UIView) -> Bool) -> UIView? {
+        if let view = self.superview {
+            if condition(view) {
+                return view
+            } else {
+                return view.recursivelyFindSuperview(where: condition)
+            }
+        } else {
+            return nil
+        }
+    }
+
+    func recursivelyFindSubviews(where condition: (UIView) -> Bool) -> [UIView] {
+        var result = self.subviews.filter(condition)
+        for sub in self.subviews {
+            result.append(contentsOf: sub.recursivelyFindSubviews(where: condition))
+        }
+        return result
     }
 }

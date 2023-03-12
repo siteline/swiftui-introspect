@@ -14,9 +14,10 @@ struct App: SwiftUI.App {
                 Form {
                     Something()
                 }
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
-                    view.backgroundColor = .purple
-                }
+                .background(Color.purple)
+//                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
+//                    view.backgroundColor = .purple
+//                }
 //                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
 //                    view.backgroundColor = .purple
 //                }

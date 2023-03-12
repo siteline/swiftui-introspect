@@ -68,33 +68,6 @@ extension View {
     }
 }
 
-//struct SizeProperly<Content: View>: View {
-//    struct IdealSize: Hashable {
-//        /// Ideal width. When nil, the width of view's intrinsic content size will be used.
-//        public let width: CGFloat?
-//
-//        /// Ideal height. When nil, the height of view's intrinsic content size will be used.
-//        public let height: CGFloat?
-//
-//        public init(width: CGFloat?, height: CGFloat?) {
-//            self.width = width
-//            self.height = height
-//        }
-//    }
-//
-//
-//
-//    @ViewBuilder
-//    var content: Content
-//    @State
-//    var idealSize: IdealSize?
-//
-//    var body: some View {
-//        content
-//
-//    }
-//}
-
 struct IntrospectionContainerModifier<Observed, Target: PlatformView>: ViewModifier {
     struct SizeKey: PreferenceKey {
             static var defaultValue: CGSize { .zero }
@@ -115,17 +88,17 @@ struct IntrospectionContainerModifier<Observed, Target: PlatformView>: ViewModif
     func body(content: Content) -> some View {
         IntrospectionContainer(observed: $observed, selector: selector, customize: customize) {
             content
-                .background(
-                    GeometryReader { proxy in
-                        Color.clear
-                            .preference(key: SizeKey.self, value: proxy.size)
-                            .onPreferenceChange(SizeKey.self) { idealSize = $0 }
-                    }
-                )
+//                .background(
+//                    GeometryReader { proxy in
+//                        Color.clear
+//                            .preference(key: SizeKey.self, value: proxy.size)
+//                            .onPreferenceChange(SizeKey.self) { idealSize = $0 }
+//                    }
+//                )
         }
-        .frame(
-            width: idealSize?.width,
-            height: idealSize?.height
-        )
+//        .frame(
+//            width: idealSize?.width,
+//            height: idealSize?.height
+//        )
     }
 }

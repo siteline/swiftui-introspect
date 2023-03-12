@@ -21,15 +21,6 @@ struct IntrospectionContainer<Observed, Target: PlatformView, Content: View>: UI
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let host = IntrospectionContainerHostingController(rootView: content())
-        host.view.backgroundColor = .blue
-//        host.view.accessibilityLabel = "IntrospectionContainer<\(Target.self)>"
-
-//        host.view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-//        host.view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-//        host.view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-//        host.view.setContentHuggingPriority(.defaultHigh, for: .vertical)
-//        host.view.translatesAutoresizingMaskIntoConstraints = false
-//        host.view.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleHeight]
         host.viewDidLayoutSubviewsHandler = { [weak host] in
             guard let host = host else { return }
             guard let target = selector(host.view) else {

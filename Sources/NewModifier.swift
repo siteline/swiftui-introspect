@@ -18,49 +18,27 @@ extension View {
         observing: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformView, Observed) -> Void
     ) -> some View {
-        if let scope = platforms.lazy.compactMap(\.scope).first {
-//            IntrospectionContainer(
-//                observed: Binding(get: observing, set: { _ in /* will never execute */ }),
-//                selector: { container in
-//                    switch scope {
-//                    case .receiver:
-//                        return Introspect.findChild(ofType: PlatformView.self, in: container)
-//                    case .ancestor:
-//                        return Introspect.findAncestor(ofType: PlatformView.self, from: container)
-//                    case .receiverOrAncestor:
-//                        if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
-//                            return receiver
-//                        } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
-//                            return ancestor
-//                        } else {
-//                            return nil
-//                        }
-//                    }
-//                },
-//                customize: customize,
-//                content: { self }
-//            )
-            self.modifier(
-                IntrospectionContainerModifier(
-                    observed: Binding(get: observing, set: { _ in /* will never execute */ }),
-                    selector: { container in
-                        switch scope {
-                        case .receiver:
-                            return Introspect.findChild(ofType: PlatformView.self, in: container)
-                        case .ancestor:
-                            return Introspect.findAncestor(ofType: PlatformView.self, from: container)
-                        case .receiverOrAncestor:
-                            if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
-                                return receiver
-                            } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
-                                return ancestor
-                            } else {
-                                return nil
-                            }
+        if let scope = scope ?? platforms.lazy.compactMap(\.scope).first {
+            SelfSizingIntrospectionContainer(
+                observed: Binding(get: observing, set: { _ in /* will never execute */ }),
+                selector: { container in
+                    switch scope {
+                    case .receiver:
+                        return Introspect.findChild(ofType: PlatformView.self, in: container)
+                    case .ancestor:
+                        return Introspect.findAncestor(ofType: PlatformView.self, from: container)
+                    case .receiverOrAncestor:
+                        if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
+                            return receiver
+                        } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
+                            return ancestor
+                        } else {
+                            return nil
                         }
-                    },
-                    customize: customize
-                )
+                    }
+                },
+                customize: customize,
+                content: { self }
             )
         } else {
             self
@@ -68,7 +46,7 @@ extension View {
     }
 }
 
-struct IntrospectionContainerModifier<Observed, Target: PlatformView>: ViewModifier {
+struct SelfSizingIntrospectionContainer<Observed, Target: PlatformView, Content: View>: View {
     struct SizeKey: PreferenceKey {
             static var defaultValue: CGSize { .zero }
 
@@ -81,24 +59,26 @@ struct IntrospectionContainerModifier<Observed, Target: PlatformView>: ViewModif
     var observed: Observed
     let selector: (UIView) -> Target?
     let customize: (Target, Observed) -> Void
+    @ViewBuilder
+    let content: () -> Content
 
     @State
     var idealSize: CGSize?
 
-    func body(content: Content) -> some View {
+    var body: some View {
         IntrospectionContainer(observed: $observed, selector: selector, customize: customize) {
-            content
-//                .background(
-//                    GeometryReader { proxy in
-//                        Color.clear
-//                            .preference(key: SizeKey.self, value: proxy.size)
-//                            .onPreferenceChange(SizeKey.self) { idealSize = $0 }
-//                    }
-//                )
+            content()
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear
+                            .preference(key: SizeKey.self, value: proxy.size)
+                            .onPreferenceChange(SizeKey.self) { idealSize = $0 }
+                    }
+                )
         }
-//        .frame(
-//            width: idealSize?.width,
-//            height: idealSize?.height
-//        )
+        .frame(
+            width: idealSize?.width,
+            height: idealSize?.height
+        )
     }
 }

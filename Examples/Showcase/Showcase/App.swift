@@ -14,13 +14,12 @@ struct App: SwiftUI.App {
                 Form {
                     Something()
                 }
-                .background(Color.purple)
-//                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
-//                    view.backgroundColor = .purple
-//                }
-//                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
-//                    view.backgroundColor = .purple
-//                }
+                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
+                    view.backgroundColor = .purple
+                }
+                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
+                    view.backgroundColor = .purple
+                }
                 .navigationBarTitleDisplayMode(.inline)
             }
             .navigationViewStyle(.stack)
@@ -92,7 +91,6 @@ struct Something: View {
             }
             Spacer()
                 TextField("dq", text: $text)
-                    .background(Color.green)
                     .frame(width: 50)
                     .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
                         textField.backgroundColor = UIColor(color)

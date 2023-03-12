@@ -19,63 +19,113 @@ extension View {
         customize: @escaping (PlatformView, Observed) -> Void
     ) -> some View {
         if let scope = platforms.lazy.compactMap(\.scope).first {
-            IntrospectionContainer(
-                observed: Binding(get: observing, set: { _ in /* will never execute */ }),
-                selector: { container in
-                    switch scope {
-                    case .receiver:
-                        return Introspect.findChild(ofType: PlatformView.self, in: container)
-                    case .ancestor:
-                        return Introspect.findAncestor(ofType: PlatformView.self, from: container)
-                    case .receiverOrAncestor:
-                        if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
-                            return receiver
-                        } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
-                            return ancestor
-                        } else {
-                            return nil
+//            IntrospectionContainer(
+//                observed: Binding(get: observing, set: { _ in /* will never execute */ }),
+//                selector: { container in
+//                    switch scope {
+//                    case .receiver:
+//                        return Introspect.findChild(ofType: PlatformView.self, in: container)
+//                    case .ancestor:
+//                        return Introspect.findAncestor(ofType: PlatformView.self, from: container)
+//                    case .receiverOrAncestor:
+//                        if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
+//                            return receiver
+//                        } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
+//                            return ancestor
+//                        } else {
+//                            return nil
+//                        }
+//                    }
+//                },
+//                customize: customize,
+//                content: { self }
+//            )
+            self.modifier(
+                IntrospectionContainerModifier(
+                    observed: Binding(get: observing, set: { _ in /* will never execute */ }),
+                    selector: { container in
+                        switch scope {
+                        case .receiver:
+                            return Introspect.findChild(ofType: PlatformView.self, in: container)
+                        case .ancestor:
+                            return Introspect.findAncestor(ofType: PlatformView.self, from: container)
+                        case .receiverOrAncestor:
+                            if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
+                                return receiver
+                            } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
+                                return ancestor
+                            } else {
+                                return nil
+                            }
                         }
-                    }
-                },
-                customize: customize,
-                content: { self }
+                    },
+                    customize: customize
+                )
             )
-//            .layoutPriority(-1)
         } else {
             self
         }
     }
 }
 
-//extension View {
-//    public func injectIntrospectionView<Observed, V: IntrospectionView>(
-//        observing observed: @escaping @autoclosure () -> Observed,
-//        _ view: V
-//    ) -> some View {
-//        self.modifier(IntrospectionContainerModifier(observed: observed, view: view))
+//struct SizeProperly<Content: View>: View {
+//    struct IdealSize: Hashable {
+//        /// Ideal width. When nil, the width of view's intrinsic content size will be used.
+//        public let width: CGFloat?
+//
+//        /// Ideal height. When nil, the height of view's intrinsic content size will be used.
+//        public let height: CGFloat?
+//
+//        public init(width: CGFloat?, height: CGFloat?) {
+//            self.width = width
+//            self.height = height
+//        }
+//    }
+//
+//
+//
+//    @ViewBuilder
+//    var content: Content
+//    @State
+//    var idealSize: IdealSize?
+//
+//    var body: some View {
+//        content
+//
 //    }
 //}
 
-//struct IntrospectionContainerModifier<Target: UIView>: ViewModifier {
-////    let observed: () -> Observed
-////    let view: V
-//
-////    let id: IntrospectionContainerID
-////    @Binding
-////    var observed: Observed
-//    let selector: (UIView) -> Target?
-//    let customize: (Target) -> Void
-////    @ViewBuilder
-////    let content: () -> Content
-//
-////    init(observed: @escaping () -> Observed, view: V) {
-////        self.observed = observed
-////        self.view = view
-////    }
-//
-//    func body(content: Content) -> some View {
-//        IntrospectionContainer(selector: selector, customize: customize) {
-//            content
-//        }
-//    }
-//}
+struct IntrospectionContainerModifier<Observed, Target: PlatformView>: ViewModifier {
+    struct SizeKey: PreferenceKey {
+            static var defaultValue: CGSize { .zero }
+
+            static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+                value = nextValue()
+            }
+        }
+
+    @Binding
+    var observed: Observed
+    let selector: (UIView) -> Target?
+    let customize: (Target, Observed) -> Void
+
+    @State
+    var idealSize: CGSize?
+
+    func body(content: Content) -> some View {
+        IntrospectionContainer(observed: $observed, selector: selector, customize: customize) {
+            content
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear
+                            .preference(key: SizeKey.self, value: proxy.size)
+                            .onPreferenceChange(SizeKey.self) { idealSize = $0 }
+                    }
+                )
+        }
+        .frame(
+            width: idealSize?.width,
+            height: idealSize?.height
+        )
+    }
+}

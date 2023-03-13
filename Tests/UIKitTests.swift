@@ -52,10 +52,10 @@ enum TestUtils {
 #endif
 
 #if os(macOS)
-public typealias PlatformTextField = NSView
+public typealias PlatformTextField = NSTextField
 #endif
 #if os(iOS) || os(tvOS)
-public typealias PlatformTextField = UIView
+public typealias PlatformTextField = UITextField
 #endif
 
 final class IntrospectTests: XCTestCase {
@@ -153,8 +153,14 @@ final class IntrospectTests: XCTestCase {
         let unwrappedTextField2 = try XCTUnwrap(textField2)
         let unwrappedTextField3 = try XCTUnwrap(textField3)
 
-//        XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
-//        XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
-//        XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
+        #if os(iOS)
+        XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
+        XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
+        XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
+        #elseif os(macOS)
+        XCTAssertEqual(unwrappedTextField1.placeholderString, view.textField1Placeholder)
+        XCTAssertEqual(unwrappedTextField2.placeholderString, view.textField2Placeholder)
+        XCTAssertEqual(unwrappedTextField3.placeholderString, view.textField3Placeholder)
+        #endif
     }
 }

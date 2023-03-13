@@ -26,9 +26,9 @@ extension View {
                         #if canImport(UIKit)
                         if
                             let introspectionView = introspectionViewController.viewIfLoaded,
-                            let window = introspectionView.window
+                            let rootSuperview = introspectionView.rootSuperview
                         {
-                            return window.findChild(
+                            return rootSuperview.findChild(
                                 ofType: PlatformView.self,
                                 usingFrameFrom: introspectionView
                             )
@@ -36,18 +36,20 @@ extension View {
                             return nil
                         }
                         #elseif canImport(AppKit)
-                        // FIXME: NSWindow is not a responder
-//                        let introspectionView = introspectionViewController.view
-//                        if
-//                            let window = introspectionView.window
-//                        {
-//                            return window.findChild(
-//                                ofType: PlatformView.self,
-//                                usingFrameFrom: introspectionView
-//                            )
-//                        } else {
-//                            return nil
-//                        }
+                        guard introspectionViewController.isViewLoaded else {
+                            return nil
+                        }
+                        let introspectionView = introspectionViewController.view
+                        if
+                            let rootSuperview = introspectionView.rootSuperview
+                        {
+                            return rootSuperview.findChild(
+                                ofType: PlatformView.self,
+                                usingFrameFrom: introspectionView
+                            )
+                        } else {
+                            return nil
+                        }
                         #endif
 //                        return targetView
 //                        switch scope {
@@ -72,5 +74,11 @@ extension View {
         } else {
             self
         }
+    }
+}
+
+extension PlatformView {
+    var rootSuperview: PlatformView? {
+        superview?.rootSuperview ?? superview
     }
 }

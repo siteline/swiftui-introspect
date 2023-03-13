@@ -92,6 +92,10 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     #elseif canImport(AppKit)
     // TODO: didMove(toParent:) is not an AppKit API. What to do?
 
+    override func loadView() {
+        view = NSView()
+    }
+
     override func viewDidLayout() {
         super.viewDidLayout()
         handler?()

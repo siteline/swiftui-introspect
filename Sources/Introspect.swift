@@ -14,6 +14,39 @@ public typealias PlatformViewController = NSViewController
 public typealias PlatformViewController = UIViewController
 #endif
 
+extension UIView {
+    public func findChild<AnyViewType: PlatformView>(
+        ofType type: AnyViewType.Type,
+        usingFrameFrom originalEntry: PlatformView
+    ) -> AnyViewType? {
+        let root = self
+        let children = root.recursivelyFindSubviews(ofType: AnyViewType.self)
+
+        print(children)
+
+        for child in children {
+            let converted = child.convert(
+                CGPoint(x: originalEntry.frame.size.width / 2, y: originalEntry.frame.size.height / 2),
+                from: originalEntry
+            )
+            if CGRect(origin: .zero, size: child.frame.size).contains(converted) {
+                return child
+            }
+        }
+
+        return nil
+    }
+
+    func recursivelyFindSubviews<T: UIView>(ofType type: T.Type) -> [T] {
+        var result = self.subviews.compactMap { $0 as? T }
+        for sub in self.subviews {
+            result.append( contentsOf: sub.recursivelyFindSubviews (ofType: type))
+        }
+        return result
+    }
+}
+
+
 /// Utility methods to inspect the UIKit view hierarchy.
 public enum Introspect {
     

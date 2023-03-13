@@ -5,13 +5,13 @@ import SwiftUIIntrospection
 struct App: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-//            TextField("Text", text: .constant("Hello"))
-//                                .introspectTextField { textField in
-//                                    textField.backgroundColor = .red
-//                                }
-//                                .brightness(0.1) // <- this causes introspection to fail
             NavigationView {
                 Form {
+                    TextField("Text", text: .constant("Hello"))
+                        .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                            textField.backgroundColor = .red
+                        }
+                        .brightness(0.1) // <- this causes introspection to fail
                     Something()
                 }
                 .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
@@ -24,57 +24,58 @@ struct App: SwiftUI.App {
             }
             .navigationViewStyle(.stack)
 
-//            VStack {
-//                TextField("Name", text: .constant(""))
-//                    .introspectTextField { textField in
-//                        textField.clearButtonMode = .whileEditing
-//                    }
-//            }
-//            .clipped()
-//            ExampleView()
+            VStack {
+                TextField("Name", text: .constant(""))
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                        textField.clearButtonMode = .whileEditing
+                    }
+            }
+            .clipped()
+
+            ExampleView()
 
 
         }
     }
 }
 
-//struct SecureToggle: ViewModifier {
-//
-//        @Binding public var isSecure: Bool
-//
-//        public func body(content: Content) -> some View {
-//
-//            HStack {
-//                content
-//                    .introspectTextField(observe: isSecure) { (textfield, isSecure) in
-//                        textfield.isSecureTextEntry = isSecure
-//                    }
-//
-//                Spacer()
-//
-//                Button(action: {
-//                    self.isSecure.toggle()
-//                }) {
-//                    Image(systemName: isSecure ? "eye.slash":"eye").frame(width: 20, height: 20)
-//                }
-//                .padding()
-//            }
-//        }
-//
-//    }
-//
-//struct ExampleView: View {
-//    @State private var textContent: String = ""
-//    @State private var isSecure: Bool = false
-//
-//    var body: some View {
-//        VStack {
-//            TextField("", text: $textContent)
-//                .modifier(SecureToggle(isSecure: $isSecure))
-//                .border(Color.black, width: 1)
-//        }.padding(20)
-//    }
-//}
+struct SecureToggle: ViewModifier {
+
+        @Binding public var isSecure: Bool
+
+        public func body(content: Content) -> some View {
+
+            HStack {
+                content
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: isSecure) { textField, isSecure in
+                        textField.isSecureTextEntry = isSecure
+                    }
+
+                Spacer()
+
+                Button(action: {
+                    self.isSecure.toggle()
+                }) {
+                    Image(systemName: isSecure ? "eye.slash":"eye").frame(width: 20, height: 20)
+                }
+                .padding()
+            }
+        }
+
+    }
+
+struct ExampleView: View {
+    @State private var textContent: String = ""
+    @State private var isSecure: Bool = false
+
+    var body: some View {
+        VStack {
+            TextField("", text: $textContent)
+                .modifier(SecureToggle(isSecure: $isSecure))
+                .border(Color.black, width: 1)
+        }.padding(20)
+    }
+}
 
 struct Something: View {
     @State var color = Color.green
@@ -90,11 +91,21 @@ struct Something: View {
                 Text("Blue").tag(Color.blue)
             }
             Spacer()
-                TextField("dq", text: $text)
-                    .frame(width: 50)
-                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
-                        textField.backgroundColor = UIColor(color)
-                    }
+            TextField("dynamic", text: .constant(""))
+                .frame(width: 50)
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+                    textField.backgroundColor = UIColor(color)
+                }
+            TextField("red", text: .constant(""))
+                .frame(width: 50)
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+                    textField.backgroundColor = .red
+                }
+            TextField("yellow", text: .constant(""))
+                .frame(width: 50)
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+                    textField.backgroundColor = .yellow
+                }
             }
 //                TextField("dq", text: $text)
 //                    .background(Color.green)

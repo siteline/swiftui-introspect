@@ -20,7 +20,9 @@ struct App: SwiftUI.App {
                 .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
                     view.backgroundColor = .purple
                 }
+                #if !os(tvOS)
                 .navigationBarTitleDisplayMode(.inline)
+                #endif
             }
             .navigationViewStyle(.stack)
 

@@ -27,7 +27,7 @@ public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: V
 
     static func unavailable(
         for version: Version,
-        file: StaticString = #file,
+        file: StaticString = #filePath,
         line: UInt = #line
     ) -> Self {
         let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }

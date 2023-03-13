@@ -72,40 +72,45 @@ final class IntrospectTests: XCTestCase {
 
             var body: some View {
                 VStack {
+                    #if os(iOS)
                     TextField(textField1Placeholder, text: $textFieldValue)
-                        #if os(iOS)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy1(textField)
                         }
-                        #elseif os(macOS)
-                        .introspect(.textField, on: .macOS(.v13), observing: ()) { textField, _ in
+                        .cornerRadius(8)
+                    #elseif os(macOS)
+                    TextField(textField1Placeholder, text: $textFieldValue)
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
                             self.spy1(textField)
                         }
-                        #endif
                         .cornerRadius(8)
+                    #endif
 
+                    #if os(iOS)
                     TextField(textField2Placeholder, text: $textFieldValue)
-                        #if os(iOS)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy2(textField)
                         }
-                        #elseif os(macOS)
-                        .introspect(.textField, on: .macOS(.v13), observing: ()) { textField, _ in
-                            self.spy2(textField)
-                        }
-                        #endif
                         .cornerRadius(8)
-
+                    #elseif os(macOS)
                     TextField(textField3Placeholder, text: $textFieldValue)
-                        #if os(iOS)
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
+                            self.spy2(textField)
+                        }
+                        .cornerRadius(8)
+                    #endif
+
+                    #if os(iOS)
+                    TextField(textField3Placeholder, text: $textFieldValue)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy3(textField)
                         }
-                        #elseif os(macOS)
-                        .introspect(.textField, on: .macOS(.v13), observing: ()) { textField, _ in
+                    #elseif os(macOS)
+                    TextField(textField3Placeholder, text: $textFieldValue)
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
                             self.spy3(textField)
                         }
-                        #endif
+                    #endif
                 }
             }
         }

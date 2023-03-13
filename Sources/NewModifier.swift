@@ -22,8 +22,12 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     observed: Binding(get: observing, set: { _ in /* will never execute */ }),
-                    selector: { introspectionView in
-                        if let window = introspectionView.window {
+                    selector: { introspectionViewController in
+                        #if canImport(UIKit)
+                        if
+                            let introspectionView = introspectionViewController.viewIfLoaded,
+                            let window = introspectionView.window
+                        {
                             return window.findChild(
                                 ofType: PlatformView.self,
                                 usingFrameFrom: introspectionView
@@ -31,6 +35,20 @@ extension View {
                         } else {
                             return nil
                         }
+                        #elseif canImport(AppKit)
+                        // FIXME: NSWindow is not a responder
+//                        let introspectionView = introspectionViewController.view
+//                        if
+//                            let window = introspectionView.window
+//                        {
+//                            return window.findChild(
+//                                ofType: PlatformView.self,
+//                                usingFrameFrom: introspectionView
+//                            )
+//                        } else {
+//                            return nil
+//                        }
+                        #endif
 //                        return targetView
 //                        switch scope {
 //                        case .receiver:

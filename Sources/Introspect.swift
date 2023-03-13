@@ -14,7 +14,14 @@ public typealias PlatformViewController = NSViewController
 public typealias PlatformViewController = UIViewController
 #endif
 
-extension UIView {
+#if os(macOS)
+public typealias PlatformViewControllerRepresentable = NSViewControllerRepresentable
+#endif
+#if os(iOS) || os(tvOS)
+public typealias PlatformViewControllerRepresentable = UIViewControllerRepresentable
+#endif
+
+extension PlatformView {
     public func findChild<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type,
         usingFrameFrom originalEntry: PlatformView
@@ -37,7 +44,7 @@ extension UIView {
         return nil
     }
 
-    func recursivelyFindSubviews<T: UIView>(ofType type: T.Type) -> [T] {
+    func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {
         var result = self.subviews.compactMap { $0 as? T }
         for sub in self.subviews {
             result.append( contentsOf: sub.recursivelyFindSubviews (ofType: type))

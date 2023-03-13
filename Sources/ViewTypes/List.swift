@@ -26,18 +26,18 @@ extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIView == 
 }
 #endif
 
-//// MARK: SwiftUI.TextField - tvOS
-//
-//#if canImport(UIKit)
-//import UIKit
-//
-//extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView == TextFieldType, PlatformView == UITextField {
-//    public static let v13 = Self(for: .v13)
-//    public static let v14 = Self(for: .v14)
-//    public static let v15 = Self(for: .v15)
-//    public static let v16 = Self(for: .v16)
-//}
-//#endif
+// MARK: SwiftUI.TextField - tvOS
+
+#if canImport(UIKit)
+import UIKit
+
+extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView == ListType, PlatformView == UITableView {
+    public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
+    public static let v16 = Self(for: .v16)
+}
+#endif
 
 //// MARK: SwiftUI.List - macOS
 //

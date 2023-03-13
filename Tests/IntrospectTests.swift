@@ -72,7 +72,7 @@ final class IntrospectTests: XCTestCase {
 
             var body: some View {
                 VStack {
-                    #if os(iOS)
+                    #if os(iOS) || os(tvOS)
                     TextField(textField1Placeholder, text: $textFieldValue)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy1(textField)
@@ -86,7 +86,7 @@ final class IntrospectTests: XCTestCase {
                         .cornerRadius(8)
                     #endif
 
-                    #if os(iOS)
+                    #if os(iOS) || os(tvOS)
                     TextField(textField2Placeholder, text: $textFieldValue)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy2(textField)
@@ -100,7 +100,7 @@ final class IntrospectTests: XCTestCase {
                         .cornerRadius(8)
                     #endif
 
-                    #if os(iOS)
+                    #if os(iOS) || os(tvOS)
                     TextField(textField3Placeholder, text: $textFieldValue)
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy3(textField)

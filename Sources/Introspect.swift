@@ -22,6 +22,8 @@ public typealias PlatformViewControllerRepresentable = UIViewControllerRepresent
 #endif
 
 extension PlatformView {
+//    public func findReceiver(ofType:from:)
+
     public func findChild<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type,
         usingFrameFrom originalEntry: PlatformView
@@ -29,14 +31,19 @@ extension PlatformView {
         let root = self
         let children = root.recursivelyFindSubviews(ofType: AnyViewType.self)
 
-        print(children)
+        guard
+            let entryFrame = originalEntry.superview?.convert(originalEntry.frame, to: root)
+        else {
+            return nil
+        }
+//        print(entryFrame)
 
         for child in children {
-            let converted = child.convert(
-                CGPoint(x: originalEntry.frame.size.width / 2, y: originalEntry.frame.size.height / 2),
-                from: originalEntry
-            )
-            if CGRect(origin: .zero, size: child.frame.size).contains(converted) {
+            guard let childFrame = child.superview?.convert(child.frame, to: root) else {
+                continue
+            }
+            print(childFrame)
+            if childFrame.contains(entryFrame) {
                 return child
             }
         }

@@ -111,20 +111,20 @@ struct Something: View {
             }
             Spacer()
             TextField("dynamic", text: .constant(""))
-                .frame(width: 50)
+//                .frame(width: 50)
                 .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = UIColor(color)
                 }
             TextField("red", text: .constant(""))
-                .frame(width: 50)
+//                .frame(width: 50)
                 .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = .red
                 }
-            TextField("yellow", text: .constant(""))
-                .frame(width: 50)
-                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
-                    textField.backgroundColor = .yellow
-                }
+//            TextField("yellow", text: .constant(""))
+//                .frame(width: 50)
+//                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+//                    textField.backgroundColor = .yellow
+//                }
             }
 //                TextField("dq", text: $text)
 //                    .background(Color.green)

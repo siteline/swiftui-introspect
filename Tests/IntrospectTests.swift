@@ -93,7 +93,7 @@ final class IntrospectTests: XCTestCase {
                         }
                         .cornerRadius(8)
                     #elseif os(macOS)
-                    TextField(textField3Placeholder, text: $textFieldValue)
+                    TextField(textField2Placeholder, text: $textFieldValue)
                         .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
                             self.spy2(textField)
                         }

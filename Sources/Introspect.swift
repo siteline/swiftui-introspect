@@ -8,6 +8,13 @@ public typealias PlatformView = UIView
 #endif
 
 #if os(macOS)
+public typealias PlatformViewRepresentable = NSViewRepresentable
+#endif
+#if os(iOS) || os(tvOS)
+public typealias PlatformViewRepresentable = UIViewRepresentable
+#endif
+
+#if os(macOS)
 public typealias PlatformViewController = NSViewController
 #endif
 #if os(iOS) || os(tvOS)

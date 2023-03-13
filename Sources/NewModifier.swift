@@ -35,6 +35,16 @@ extension View {
                         } else {
                             return nil
                         }
+//                        if
+//                            let rootSuperview = introspectionView.rootSuperview
+//                        {
+//                            return rootSuperview.findChild(
+//                                ofType: PlatformView.self,
+//                                usingFrameFrom: introspectionView
+//                            )
+//                        } else {
+//                            return nil
+//                        }
                         #elseif canImport(AppKit)
                         guard introspectionViewController.isViewLoaded else {
                             return nil
@@ -69,7 +79,7 @@ extension View {
                     },
                     customize: customize
                 )
-                .frame(width: 0, height: 0)
+                .frame(width: 1, height: 1)
             )
         } else {
             self

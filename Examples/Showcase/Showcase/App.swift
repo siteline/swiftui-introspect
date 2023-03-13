@@ -11,15 +11,15 @@ struct App: SwiftUI.App {
                         .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                             textField.backgroundColor = .red
                         }
-                        .brightness(0.1) // <- this causes introspection to fail
+//                        .brightness(0.1) // <- this causes introspection to fail
                     Something()
                 }
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
-                    view.backgroundColor = .purple
-                }
-                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
-                    view.backgroundColor = .purple
-                }
+//                .introspect(.list, on: .iOS(.v13, .v14, .v15), observing: ()) { view, _ in
+//                    view.backgroundColor = .purple
+//                }
+//                .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
+//                    view.backgroundColor = .purple
+//                }
                 #if !os(tvOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif

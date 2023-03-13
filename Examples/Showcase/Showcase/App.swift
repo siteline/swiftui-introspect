@@ -28,7 +28,7 @@ struct App: SwiftUI.App {
 
             VStack {
                 TextField("Name", text: .constant(""))
-                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
                         textField.clearButtonMode = .whileEditing
                     }
             }
@@ -112,19 +112,19 @@ struct Something: View {
             Spacer()
             TextField("dynamic", text: .constant(""))
 //                .frame(width: 50)
-                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = UIColor(color)
                 }
             TextField("red", text: .constant(""))
 //                .frame(width: 50)
-                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = .red
                 }
-//            TextField("yellow", text: .constant(""))
-//                .frame(width: 50)
-//                .introspect(.textField, on: .iOS(.v14, .v15, .v16), observing: color) { textField, color in
-//                    textField.backgroundColor = .yellow
-//                }
+            TextField("yellow", text: .constant(""))
+                .frame(width: 50)
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: color) { textField, color in
+                    textField.backgroundColor = .yellow
+                }
             }
 //                TextField("dq", text: $text)
 //                    .background(Color.green)

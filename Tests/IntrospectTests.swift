@@ -74,7 +74,7 @@ final class IntrospectTests: XCTestCase {
                 VStack {
                     #if os(iOS) || os(tvOS)
                     TextField(textField1Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy1(textField)
                         }
                         .cornerRadius(8)
@@ -88,7 +88,7 @@ final class IntrospectTests: XCTestCase {
 
                     #if os(iOS) || os(tvOS)
                     TextField(textField2Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy2(textField)
                         }
                         .cornerRadius(8)
@@ -102,7 +102,7 @@ final class IntrospectTests: XCTestCase {
 
                     #if os(iOS) || os(tvOS)
                     TextField(textField3Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
                             self.spy3(textField)
                         }
                     #elseif os(macOS)
@@ -126,21 +126,21 @@ final class IntrospectTests: XCTestCase {
         let view = TextFieldTestView(
             spy1: {
                 if let textField1 = textField1 {
-                    XCTAssertIdentical(textField1, $0)
+                    XCTAssert(textField1 === $0)
                 }
                 textField1 = $0
                 expectation1.fulfill()
             },
             spy2: {
                 if let textField2 = textField2 {
-                    XCTAssertIdentical(textField2, $0)
+                    XCTAssert(textField2 === $0)
                 }
                 textField2 = $0
                 expectation2.fulfill()
             },
             spy3: {
                 if let textField3 = textField3 {
-                    XCTAssertIdentical(textField3, $0)
+                    XCTAssert(textField3 === $0)
                 }
                 textField3 = $0
                 expectation3.fulfill()

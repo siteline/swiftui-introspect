@@ -25,6 +25,7 @@ enum TestUtils {
         hostingController.beginAppearanceTransition(true, animated: false)
         window.rootViewController = hostingController
         window.makeKeyAndVisible()
+        window.layoutIfNeeded()
         hostingController.endAppearanceTransition()
     }
 }
@@ -62,11 +63,8 @@ final class UIKitTests: XCTestCase {
         }
 
         let expectation1 = XCTestExpectation()
-        expectation1.assertForOverFulfill = true
         let expectation2 = XCTestExpectation()
-        expectation2.assertForOverFulfill = true
         let expectation3 = XCTestExpectation()
-        expectation3.assertForOverFulfill = true
 
         var textField1: UITextField?
         var textField2: UITextField?
@@ -74,14 +72,23 @@ final class UIKitTests: XCTestCase {
 
         let view = TextFieldTestView(
             spy1: {
+                if let textField1 = textField1 {
+                    XCTAssertIdentical(textField1, $0)
+                }
                 textField1 = $0
                 expectation1.fulfill()
             },
             spy2: {
+                if let textField2 = textField2 {
+                    XCTAssertIdentical(textField2, $0)
+                }
                 textField2 = $0
                 expectation2.fulfill()
             },
             spy3: {
+                if let textField3 = textField3 {
+                    XCTAssertIdentical(textField3, $0)
+                }
                 textField3 = $0
                 expectation3.fulfill()
             }

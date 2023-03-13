@@ -34,6 +34,23 @@ struct App: SwiftUI.App {
 
             ExampleView()
 
+            VStack {
+                TextField("textField1Placeholder", text: .constant(""))
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                    textField.backgroundColor = .orange
+                }
+                .cornerRadius(8)
+                TextField("textField2Placeholder", text: .constant(""))
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                    textField.backgroundColor = .brown
+                }
+                .cornerRadius(8)
+                TextField("textField3Placeholder", text: .constant(""))
+                .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                    textField.backgroundColor = .gray
+                }
+                .cornerRadius(8)
+            }
 
         }
     }

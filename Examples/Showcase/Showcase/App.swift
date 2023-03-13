@@ -109,7 +109,8 @@ struct Something: View {
                 Text("Green").tag(Color.green)
                 Text("Blue").tag(Color.blue)
             }
-            Spacer()
+            .fixedSize()
+
             TextField("dynamic", text: .constant(""))
 //                .frame(width: 50)
                 .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: color) { textField, color in
@@ -121,7 +122,7 @@ struct Something: View {
                     textField.backgroundColor = .red
                 }
             TextField("yellow", text: .constant(""))
-                .frame(width: 50)
+//                .frame(width: 50)
                 .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = .yellow
                 }

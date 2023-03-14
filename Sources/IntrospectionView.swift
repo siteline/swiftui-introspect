@@ -44,6 +44,17 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
             customize(target, observed)
             controller.handler = nil
         }
+
+        // - Workaround -
+        // iOS 13 sometimes needs a nudge on the next run loop.
+        // Comment this out and run Showcase on iOS 13 to see why.
+        if #available(iOS 14, *) {} else {
+            DispatchQueue.main.async { [weak controller] in
+                guard let controller = controller else { return }
+                controller.handler?()
+            }
+        }
+
         return controller
     }
 

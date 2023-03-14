@@ -19,13 +19,13 @@ struct AppView: View {
         NavigationView {
             Form {
                 TextField("Text", text: .constant("Hello"))
-                    .introspect(.textField, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), observing: ()) { textField, _ in
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
                         textField.backgroundColor = .red
                     }
                     .brightness(0.1) // <- this causes introspection to fail
                 Something()
             }
-            .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v14, .v15, .v16), observing: ()) { view, _ in
+            .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { view, _ in
                 view.backgroundColor = .purple
             }
             .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in

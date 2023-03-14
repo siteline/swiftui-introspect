@@ -29,16 +29,6 @@ public typealias PlatformViewControllerRepresentable = UIViewControllerRepresent
 #endif
 
 extension PlatformView {
-    var superviews: AnySequence<PlatformView> {
-        return AnySequence<PlatformView>(
-            sequence(first: self, next: { $0.superview }).dropFirst()
-        )
-    }
-}
-
-extension PlatformView {
-//    public func findReceiver(ofType:from:)
-
     public func findReceiver<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type
     ) -> AnyViewType? {
@@ -60,6 +50,10 @@ extension PlatformView {
             }
         }
         return nil
+    }
+
+    var superviews: AnySequence<PlatformView> {
+        AnySequence(sequence(first: self, next: \.superview).dropFirst())
     }
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {

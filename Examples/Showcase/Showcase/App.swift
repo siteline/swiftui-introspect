@@ -49,20 +49,20 @@ struct AppView: View {
 
         VStack {
             TextField("textField1Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
-                textField.backgroundColor = .orange
-            }
-            .cornerRadius(8)
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
+                    textField.backgroundColor = .orange
+                }
+                .cornerRadius(8)
             TextField("textField2Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
-                textField.backgroundColor = .brown
-            }
-            .cornerRadius(8)
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
+                    textField.backgroundColor = .brown
+                }
+                .cornerRadius(8)
             TextField("textField3Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
-                textField.backgroundColor = .gray
-            }
-            .cornerRadius(8)
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
+                    textField.backgroundColor = .gray
+                }
+                .cornerRadius(8)
         }
     }
 }

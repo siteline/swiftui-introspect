@@ -112,7 +112,7 @@ jobs:
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
-      - if: ${{ matrix.platform }} != [ios, 13] && ${{ matrix.platform }} != [tvos, 13]
+      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' }}
         name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 

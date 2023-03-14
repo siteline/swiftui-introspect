@@ -6,8 +6,8 @@ public struct TextFieldType: ViewType {
     public static let scope: IntrospectionScope = .receiver
 }
 
-extension StaticMember where Base == TextFieldType {
-    public static var textField: Self { .init(base: .init()) }
+extension ViewType where Self == TextFieldType {
+    public static var textField: Self { .init() }
 }
 
 // MARK: SwiftUI.TextField - iOS

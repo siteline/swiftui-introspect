@@ -12,7 +12,7 @@ extension View {
 
     @ViewBuilder
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
-        _ view: SwiftUIView.Member,
+        _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
         scope: IntrospectionScope? = nil,
         observing: @escaping @autoclosure () -> Observed,

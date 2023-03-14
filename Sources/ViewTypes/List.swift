@@ -6,8 +6,8 @@ public struct ListType: ViewType {
     public static let scope: IntrospectionScope = .receiverOrAncestor
 }
 
-extension StaticMember where Base == ListType {
-    public static var list: Self { .init(base: .init()) }
+extension ViewType where Self == ListType {
+    public static var list: Self { .init() }
 }
 
 // MARK: SwiftUI.List - iOS

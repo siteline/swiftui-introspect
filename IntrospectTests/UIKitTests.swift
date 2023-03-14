@@ -368,28 +368,6 @@ private struct MapTestView: View {
     }
 }
 
-#if swift(>=5.5) && !os(tvOS) // swift check needed for some reason for tvOS 14 testing not to fail on CI
-@available(iOS 15, *)
-@available(tvOS, unavailable)
-private struct SearchControllerTestView: View {
-    @State var searchText = ""
-    let spy: () -> Void
-    
-    var body: some View {
-        NavigationView {
-            EmptyView()
-                .searchable(text: $searchText)
-                .introspectSearchController { searchController in
-                    self.spy()
-                }
-        }
-        .introspectSplitViewController { splitViewController in
-            splitViewController.preferredDisplayMode = .oneOverSecondary
-        }
-    }
-}
-#endif
-
 class UIKitTests: XCTestCase {
     func testNavigation() {
         
@@ -659,9 +637,29 @@ class UIKitTests: XCTestCase {
         }
     }
 
-    #if swift(>=5.5) && !os(tvOS)
-    @available(iOS 15, *)
+    @available(tvOS, unavailable)
     func testSearchController() {
+        guard #available(iOS 15, *) else {
+            return
+        }
+        struct SearchControllerTestView: View {
+            @State var searchText = ""
+            let spy: () -> Void
+
+            var body: some View {
+                NavigationView {
+                    EmptyView()
+                        .searchable(text: $searchText)
+                        .introspectSearchController { searchController in
+                            self.spy()
+                        }
+                }
+                .introspectSplitViewController { splitViewController in
+                    splitViewController.preferredDisplayMode = .oneOverSecondary
+                }
+            }
+        }
+
         let expectation = XCTestExpectation()
         let view = SearchControllerTestView(spy: {
             expectation.fulfill()
@@ -669,7 +667,6 @@ class UIKitTests: XCTestCase {
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
     }
-    #endif
     #endif
     
     @available(iOS 14, tvOS 14, *)

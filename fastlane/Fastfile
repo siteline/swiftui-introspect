@@ -9,7 +9,7 @@ platform :ios do
         when 13
             [
                 "iPhone 11 Pro (13.7)",
-                # "iPad Pro (11-inch) (3rd generation) (13.7)",
+                "iPad Pro (11-inch) (2nd generation) (13.7)",
                 "Apple TV (13.4)",
             ]
         when 14

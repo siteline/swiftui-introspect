@@ -3,6 +3,7 @@ skip_docs
 lane :test do |options|
     platform = options[:platform].to_s
     version = options[:version].to_i
+    scheme = options[:scheme].to_s
 
     case platform
     when "macos"
@@ -61,7 +62,7 @@ lane :test do |options|
     end
 
     run_tests(
-        scheme: "SwiftUIIntrospection",
+        scheme: scheme,
         devices: devices,
         ensure_devices_found: true,
         force_quit_simulator: true,

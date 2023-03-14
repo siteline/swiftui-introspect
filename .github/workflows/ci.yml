@@ -106,11 +106,15 @@ jobs:
           echo "Creating symlink of the ${{ matrix.sdk[2] }} ${{ matrix.sdk[3] }} runtime..."
           sudo ln -s /Applications/Xcode_${{ matrix.sdk[0] }}.app/Contents/Developer/Platforms/${{ matrix.sdk[1] }}.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}\ ${{ matrix.sdk[3] }}.simruntime
 
+      - name: List Available Simulators
+        run: xcrun simctl list devices available
+
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
-      - name: Run Tests
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }}
-        env:
-          SKIP_SLOW_FASTLANE_WARNINGS: 1
-          FASTLANE_SKIP_UPDATE_CHECK: 1
+      # - if: ${{ matrix.platform != [ios, 13] }}
+      - name: Run Tests (Introspect)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
+
+      - name: Run Tests (SwiftUIIntrospection)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospection

@@ -54,13 +54,13 @@ extension IntrospectTests {
                 VStack {
                     #if os(iOS) || os(tvOS)
                     TextField(textField1Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                             self.spy1(textField)
                         }
                         .cornerRadius(8)
                     #elseif os(macOS)
                     TextField(textField1Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13)) { textField in
                             self.spy1(textField)
                         }
                         .cornerRadius(8)
@@ -68,13 +68,13 @@ extension IntrospectTests {
 
                     #if os(iOS) || os(tvOS)
                     TextField(textField2Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                             self.spy2(textField)
                         }
                         .cornerRadius(8)
                     #elseif os(macOS)
                     TextField(textField2Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13)) { textField in
                             self.spy2(textField)
                         }
                         .cornerRadius(8)
@@ -82,12 +82,12 @@ extension IntrospectTests {
 
                     #if os(iOS) || os(tvOS)
                     TextField(textField3Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                             self.spy3(textField)
                         }
                     #elseif os(macOS)
                     TextField(textField3Placeholder, text: $textFieldValue)
-                        .introspect(.textField, on: .macOS(.v11, .v12, .v13), observing: ()) { textField, _ in
+                        .introspect(.textField, on: .macOS(.v11, .v12, .v13)) { textField in
                             self.spy3(textField)
                         }
                     #endif

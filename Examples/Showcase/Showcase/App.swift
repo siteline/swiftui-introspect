@@ -19,16 +19,16 @@ struct AppView: View {
         NavigationView {
             Form {
                 TextField("Text", text: .constant("Hello"))
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                         textField.backgroundColor = .red
                     }
                     .brightness(0.1) // <- this causes introspection to fail
                 Something()
             }
-            .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { view, _ in
+            .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { view in
                 view.backgroundColor = .purple
             }
-            .introspect(.list, on: .iOS(.v16), observing: ()) { view, _ in
+            .introspect(.list, on: .iOS(.v16)) { view in
                 view.backgroundColor = .purple
             }
             #if !os(tvOS)
@@ -39,7 +39,7 @@ struct AppView: View {
 
         VStack {
             TextField("Name", text: .constant(""))
-                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                     textField.clearButtonMode = .whileEditing
                 }
         }
@@ -49,17 +49,17 @@ struct AppView: View {
 
         VStack {
             TextField("textField1Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                 textField.backgroundColor = .orange
             }
             .cornerRadius(8)
             TextField("textField2Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                 textField.backgroundColor = .brown
             }
             .cornerRadius(8)
             TextField("textField3Placeholder", text: .constant(""))
-            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: ()) { textField, _ in
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                 textField.backgroundColor = .gray
             }
             .cornerRadius(8)

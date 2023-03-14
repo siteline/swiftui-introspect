@@ -1,19 +1,31 @@
 import SwiftUI
 
 extension View {
-//    @ViewBuilder
-//    public func introspect<SwiftUIView: ViewType, PlatformView: UIView, Observed>(
-//        _ view: SwiftUIView.Member,
-//        on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
-//        customize: @escaping (PlatformView) -> Void
-//    ) -> some View {
-//        introspect(view, on: platforms, observing: (), customize: { customize($0.0) })
-//    }
+    @ViewBuilder
+    public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView>(
+        _ view: SwiftUIView,
+        on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
+        scope: IntrospectionScope? = nil,
+        customize: @escaping (PlatformView) -> Void
+    ) -> some View {
+        introspect(view, on: platforms, scope: scope, observing: (), customize: { view, _ in customize(view) })
+    }
 
     @ViewBuilder
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
+        scope: IntrospectionScope? = nil,
+        observing: @escaping @autoclosure () -> Observed,
+        customize: @escaping (PlatformView, Observed) -> Void
+    ) -> some View {
+        introspect(view, on: platforms, scope: scope, observing: observing(), customize: customize)
+    }
+
+    @ViewBuilder
+    private func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
+        _ view: SwiftUIView,
+        on platforms: [PlatformDescriptor<SwiftUIView, PlatformView>],
         scope: IntrospectionScope? = nil,
         observing: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformView, Observed) -> Void
@@ -61,9 +73,3 @@ extension View {
         }
     }
 }
-//
-//extension PlatformView {
-//    var rootSuperview: PlatformView? {
-//        superview?.rootSuperview ?? superview
-//    }
-//}

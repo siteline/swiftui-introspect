@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D53071F729983CEF00F1936C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F629983CEF00F1936C /* App.swift */; };
 		D53071F929983CEF00F1936C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F829983CEF00F1936C /* ContentView.swift */; };
-		D53071FB29983CF000F1936C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D53071FA29983CF000F1936C /* Assets.xcassets */; };
 		D5B829752999738200920EBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B829742999738200920EBD /* Helpers.swift */; };
 		D5D0A49329BB9A99006FF19D /* SwiftUIIntrospection in Frameworks */ = {isa = PBXBuildFile; productRef = D5D0A49229BB9A99006FF19D /* SwiftUIIntrospection */; };
 		D5E3180129C12C03005847DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5E3180029C12C03005847DC /* LaunchScreen.storyboard */; };
@@ -19,7 +18,6 @@
 		D53071F329983CEF00F1936C /* Showcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Showcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53071F629983CEF00F1936C /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D53071F829983CEF00F1936C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		D53071FA29983CF000F1936C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D530720429983D9300F1936C /* Showcase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Showcase.entitlements; sourceTree = "<group>"; };
 		D5B829742999738200920EBD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D5E3180029C12C03005847DC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,11 +56,10 @@
 			isa = PBXGroup;
 			children = (
 				D530720429983D9300F1936C /* Showcase.entitlements */,
+				D5E3180029C12C03005847DC /* LaunchScreen.storyboard */,
 				D53071F629983CEF00F1936C /* App.swift */,
 				D53071F829983CEF00F1936C /* ContentView.swift */,
-				D5E3180029C12C03005847DC /* LaunchScreen.storyboard */,
 				D5B829742999738200920EBD /* Helpers.swift */,
-				D53071FA29983CF000F1936C /* Assets.xcassets */,
 			);
 			path = Showcase;
 			sourceTree = "<group>";
@@ -135,7 +132,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D53071FB29983CF000F1936C /* Assets.xcassets in Resources */,
 				D5E3180129C12C03005847DC /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,7 +271,6 @@
 		D530720229983CF000F1936C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Showcase/Showcase.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -307,7 +302,6 @@
 		D530720329983CF000F1936C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Showcase/Showcase.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";

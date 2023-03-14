@@ -41,24 +41,25 @@ jobs:
           # - [tvos, 14]
           # - [tvos, 15]
           # - [tvos, 16]
-          # - [macos, 11]
-          # - [macos, 12]
+          - [macos, 11]
+          - [macos, 12]
         include:
           - platform: [ios, 14]
             os: macos-11
             xcode_version: 13.2.1
+            sdk: [12.5.1, iPhoneOS, iOS, 14.5]
           # - platform: [ios, 15]
           #   os: macos-12
           #   xcode_version: 14.2
           # - platform: [ios, 16]
           #   os: macos-12
           #   xcode_version: 14.2
-          # - platform: [macos, 11]
-          #   os: macos-11
-          #   xcode_version: 13.2.1
-          # - platform: [macos, 12]
-          #   os: macos-12
-          #   xcode_version: 14.2
+          - platform: [macos, 11]
+            os: macos-11
+            xcode_version: 13.2.1
+          - platform: [macos, 12]
+            os: macos-12
+            xcode_version: 14.2
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -68,13 +69,14 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode_version }}
 
-      - name: Symlink SDK
+      - if: matrix.platform[0] != 'macos'
+        name: Symlink SDK
         run: |
           echo "Creating Runtimes folder if needed..."
           sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
 
-          echo "Creating symlink of the iOS 14.5 runtime..."
-          sudo ln -s /Applications/Xcode_12.5.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 14.5.simruntime
+          echo "Creating symlink of the ${{ matrix.sdk[2] }} ${{ matrix.sdk[3] }} runtime..."
+          sudo ln -s /Applications/Xcode_${{ matrix.sdk[0] }}.app/Contents/Developer/Platforms/${{ matrix.sdk[1] }}.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}\ ${{ matrix.sdk[3] }}.simruntime
 
           # echo "Creating symlink of the tvOS 13.4 runtime"
           # sudo ln -s /Applications/Xcode_11.7.app/Contents/Developer/Platforms/AppleTVOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/tvOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/tvOS\ 13.4.simruntime

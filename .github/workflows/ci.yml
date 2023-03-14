@@ -36,12 +36,11 @@ jobs:
       matrix:
         platform:
           - [ios, 14]
-          - [tvos, 14]
-
           - [ios, 15]
-          - [tvos, 15]
-
           - [ios, 16]
+
+          - [tvos, 14]
+          - [tvos, 15]
           - [tvos, 16]
 
           - [macos, 11]

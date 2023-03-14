@@ -37,7 +37,7 @@ jobs:
         platform:
           - [ios, 14]
           - [ios, 15]
-          # - [ios, 16]
+          - [ios, 16]
           # - [tvos, 14]
           # - [tvos, 15]
           # - [tvos, 16]
@@ -52,9 +52,9 @@ jobs:
             os: macos-12
             xcode_version: 14.2
             sdk: [13.4.1, iPhoneOS, iOS, 15.5]
-          # - platform: [ios, 16]
-          #   os: macos-12
-          #   xcode_version: 14.2
+          - platform: [ios, 16]
+            os: macos-12
+            xcode_version: 14.2
           - platform: [macos, 11]
             os: macos-11
             xcode_version: 13.2.1
@@ -70,7 +70,7 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode_version }}
 
-      - if: matrix.platform[0] != 'macos'
+      - if: ${{ matrix.sdk }}
         name: Symlink SDK
         run: |
           echo "Creating Runtimes folder if needed..."

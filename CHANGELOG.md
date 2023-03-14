@@ -3,6 +3,9 @@ Changelog
 
 ## master
 
+- Changed: minimum language version required is now Swift 5.5 (#209)
+- Infrastructure: symlink older SDKs to use in newer Xcode versions (#208)
+
 ## [0.2.3]
 
 - Fixed: `introspectPagedTabView` on iOS 16 (#200)

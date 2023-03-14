@@ -72,5 +72,8 @@ jobs:
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
+      - name: List Available Simulators
+        run: xcrun simctl list devices available
+
       - name: Run Tests
         run: fastlane ${{ matrix.platform[0] }} test version:${{ matrix.platform[1] }}

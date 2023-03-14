@@ -83,4 +83,4 @@ jobs:
         run: brew install xcbeautify
 
       - name: Run Tests
-        run: fastlane ${{ matrix.platform[0] }} test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }}
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }}

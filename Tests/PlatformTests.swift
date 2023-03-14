@@ -1,4 +1,4 @@
-@testable import SwiftUIIntrospect
+import SwiftUIIntrospect
 import XCTest
 
 final class PlatformTests: XCTestCase {

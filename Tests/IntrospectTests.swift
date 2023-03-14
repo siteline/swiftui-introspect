@@ -2,63 +2,43 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
-#if canImport(UIKit)
-enum TestUtils {
-    enum Constants {
-        static let timeout: TimeInterval = 3
-    }
+final class IntrospectTests: XCTestCase {}
 
-    static func present<ViewType: View>(view: ViewType) {
+extension IntrospectTests {
+    func testFindReceiver() {
+        final class TargetView: PlatformView {}
 
-        let hostingController = UIHostingController(rootView: view)
+        let grandparent = PlatformView(frame: .init(x: 0, y: 0, width: 300, height: 300))
 
-        let application = UIApplication.shared
-        application.windows.forEach { window in
-            if let presentedViewController = window.rootViewController?.presentedViewController {
-                presentedViewController.dismiss(animated: false, completion: nil)
-            }
-            window.isHidden = true
-        }
+        let parent = PlatformView(frame: .init(x: 100, y: 100, width: 100, height: 100)); grandparent.addSubview(parent)
 
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.layer.speed = 10
+        let a = TargetView(frame: .init(x: 0, y: 0, width: 50, height: 50)); parent.addSubview(a)
+        let b = TargetView(frame: .init(x: 50, y: 0, width: 50, height: 50)); parent.addSubview(b)
+        let c = TargetView(frame: .init(x: 0, y: 50, width: 50, height: 50)); parent.addSubview(c)
+        let d = TargetView(frame: .init(x: 50, y: 50, width: 50, height: 50)); parent.addSubview(d)
 
-        hostingController.beginAppearanceTransition(true, animated: false)
-        window.rootViewController = hostingController
-        window.makeKeyAndVisible()
-        window.layoutIfNeeded()
-        hostingController.endAppearanceTransition()
+        let ai = PlatformView(frame: .init(x: 25, y: 25, width: 0, height: 0)); parent.addSubview(ai)
+        let bi = PlatformView(frame: .init(x: 75, y: 25, width: 0, height: 0)); parent.addSubview(bi)
+        let ci = PlatformView(frame: .init(x: 25, y: 75, width: 0, height: 0)); parent.addSubview(ci)
+        let di = PlatformView(frame: .init(x: 75, y: 75, width: 0, height: 0)); parent.addSubview(di)
+
+        XCTAssert(a === ai.findReceiver(ofType: TargetView.self))
+        XCTAssert(b === bi.findReceiver(ofType: TargetView.self))
+        XCTAssert(c === ci.findReceiver(ofType: TargetView.self))
+        XCTAssert(d === di.findReceiver(ofType: TargetView.self))
     }
 }
-#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
-enum TestUtils {
-    enum Constants {
-        static let timeout: TimeInterval = 5
-    }
 
-    static func present<ViewType: View>(view: ViewType) {
+// MARK: SwiftUI.TextField
 
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: true)
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: view)
-        window.makeKeyAndOrderFront(nil)
-        window.layoutIfNeeded()
-    }
-}
-#endif
+extension IntrospectTests {
+    #if os(macOS)
+    public typealias PlatformTextField = NSTextField
+    #endif
+    #if os(iOS) || os(tvOS)
+    public typealias PlatformTextField = UITextField
+    #endif
 
-#if os(macOS)
-public typealias PlatformTextField = NSTextField
-#endif
-#if os(iOS) || os(tvOS)
-public typealias PlatformTextField = UITextField
-#endif
-
-final class IntrospectTests: XCTestCase {
     func testTextField() throws {
         struct TextFieldTestView: View {
             let spy1: (PlatformTextField) -> Void

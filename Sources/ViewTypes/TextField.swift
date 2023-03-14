@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: SwiftUI.List
+// MARK: SwiftUI.TextField
 
 public struct TextFieldType: ViewType {
     public static let scope: IntrospectionScope = .receiver

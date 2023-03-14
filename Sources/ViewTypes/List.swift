@@ -10,7 +10,7 @@ extension StaticMember where Base == ListType {
     public static var list: Self { .init(base: .init()) }
 }
 
-// MARK: SwiftUI.TextField - iOS
+// MARK: SwiftUI.List - iOS
 
 #if canImport(UIKit)
 import UIKit
@@ -26,7 +26,7 @@ extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIView == 
 }
 #endif
 
-// MARK: SwiftUI.TextField - tvOS
+// MARK: SwiftUI.List - tvOS
 
 #if canImport(UIKit)
 import UIKit

@@ -38,10 +38,10 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         let controller = IntrospectionPlatformViewController()
         controller.handler = { [weak controller] in
             guard let controller = controller else { return }
-            guard let target = self.selector(controller) else {
+            guard let target = selector(controller) else {
                 return
             }
-            self.customize(target, self.observed)
+            customize(target, observed)
             controller.handler = nil
         }
         return controller
@@ -57,7 +57,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         guard let target = selector(controller) else {
             return
         }
-        self.customize(target, observed)
+        customize(target, observed)
     }
 
     // TODO: in Swift 5.8

@@ -12,6 +12,11 @@ lane :test do |options|
         next
     when "ios"
         devices = case version
+        when 13
+            [
+                "iPhone 11 Pro (13.7)",
+                "iPad Pro (11-inch) (2nd generation) (13.7)",
+            ]
         when 14
             [
                 "iPhone 11 Pro (14.5)",
@@ -32,6 +37,10 @@ lane :test do |options|
         end
     when "tvos"
         devices = case version
+        when 13
+            [
+                "Apple TV (13.4)",
+            ]
         when 14
             [
                 "Apple TV (14.5)",
@@ -52,7 +61,7 @@ lane :test do |options|
     end
 
     run_tests(
-        scheme: "Introspect",
+        scheme: "SwiftUIIntrospection",
         devices: devices,
         ensure_devices_found: true,
         force_quit_simulator: true,

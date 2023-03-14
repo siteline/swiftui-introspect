@@ -10,8 +10,8 @@
 		D53071F729983CEF00F1936C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F629983CEF00F1936C /* App.swift */; };
 		D53071F929983CEF00F1936C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F829983CEF00F1936C /* ContentView.swift */; };
 		D5B829752999738200920EBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B829742999738200920EBD /* Helpers.swift */; };
-		D5D0A49329BB9A99006FF19D /* SwiftUIIntrospection in Frameworks */ = {isa = PBXBuildFile; productRef = D5D0A49229BB9A99006FF19D /* SwiftUIIntrospection */; };
 		D5E3180129C12C03005847DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5E3180029C12C03005847DC /* LaunchScreen.storyboard */; };
+		D5E3180329C132B6005847DC /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E3180229C132B6005847DC /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5D0A49329BB9A99006FF19D /* SwiftUIIntrospection in Frameworks */,
+				D5E3180329C132B6005847DC /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 			);
 			name = Showcase;
 			packageProductDependencies = (
-				D5D0A49229BB9A99006FF19D /* SwiftUIIntrospection */,
+				D5E3180229C132B6005847DC /* SwiftUIIntrospect */,
 			);
 			productName = Showcase;
 			productReference = D53071F329983CEF00F1936C /* Showcase.app */;
@@ -354,9 +354,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D5D0A49229BB9A99006FF19D /* SwiftUIIntrospection */ = {
+		D5E3180229C132B6005847DC /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SwiftUIIntrospection;
+			productName = SwiftUIIntrospect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

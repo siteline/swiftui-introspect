@@ -16,9 +16,9 @@ let package = Package(
         .library(name: "Introspect-Dynamic", type: .dynamic, targets: ["Introspect"]),
 
         // new experimental library
-        .library(name: "SwiftUIIntrospection", targets: ["SwiftUIIntrospection"]),
-        .library(name: "SwiftUIIntrospection-Static", type: .static, targets: ["SwiftUIIntrospection"]),
-        .library(name: "SwiftUIIntrospection-Dynamic", type: .dynamic, targets: ["SwiftUIIntrospection"]),
+        .library(name: "SwiftUIIntrospect", targets: ["SwiftUIIntrospect"]),
+        .library(name: "SwiftUIIntrospect-Static", type: .static, targets: ["SwiftUIIntrospect"]),
+        .library(name: "SwiftUIIntrospect-Dynamic", type: .dynamic, targets: ["SwiftUIIntrospect"]),
     ],
     targets: [
         .target(
@@ -32,12 +32,12 @@ let package = Package(
         ),
 
         .target(
-            name: "SwiftUIIntrospection",
+            name: "SwiftUIIntrospect",
             path: "Sources"
         ),
         .testTarget(
-            name: "SwiftUIIntrospectionTests",
-            dependencies: ["SwiftUIIntrospection"],
+            name: "SwiftUIIntrospectTests",
+            dependencies: ["SwiftUIIntrospect"],
             path: "Tests"
         ),
     ]

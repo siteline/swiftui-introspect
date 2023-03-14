@@ -1,4 +1,4 @@
-@testable import SwiftUIIntrospection
+@testable import SwiftUIIntrospect
 import SwiftUI
 import XCTest
 

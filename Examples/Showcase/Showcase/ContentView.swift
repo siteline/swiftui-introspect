@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftUIIntrospection
+import SwiftUIIntrospect
 
 struct ContentView: View {
     @State private var selection = 0

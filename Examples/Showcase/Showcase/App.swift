@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftUIIntrospection
+import SwiftUIIntrospect
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftUIIntrospection
+import SwiftUIIntrospect
 import XCTest
 
 #if canImport(UIKit)

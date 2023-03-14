@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftUIIntrospection-Dynamic"
-               BuildableName = "SwiftUIIntrospection-Dynamic"
-               BlueprintName = "SwiftUIIntrospection-Dynamic"
+               BlueprintIdentifier = "SwiftUIIntrospect-Static"
+               BuildableName = "SwiftUIIntrospect-Static"
+               BlueprintName = "SwiftUIIntrospect-Static"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "SwiftUIIntrospection-Dynamic"
-            BuildableName = "SwiftUIIntrospection-Dynamic"
-            BlueprintName = "SwiftUIIntrospection-Dynamic"
+            BlueprintIdentifier = "SwiftUIIntrospect-Static"
+            BuildableName = "SwiftUIIntrospect-Static"
+            BlueprintName = "SwiftUIIntrospect-Static"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

@@ -1,47 +1,61 @@
-default_platform(:ios)
 skip_docs
 
-platform :ios do
-    lane :test do |options|
-        version = options[:version].to_i
+lane :test do |options|
+    platform = options[:platform].to_s
+    version = options[:version].to_i
 
+    case platform
+    when "macos"
+        spm(
+            command: "test",
+        )
+        next
+    when "ios"
         devices = case version
         when 14
             [
                 "iPhone 11 Pro (14.5)",
                 "iPad Pro (11-inch) (3rd generation) (14.5)",
-                "Apple TV (14.5)",
             ]
         when 15
             [
                 "iPhone 11 Pro (15.5)",
                 "iPad Pro (11-inch) (3rd generation) (15.5)",
-                "Apple TV (15.4)",
             ]
         when 16
             [
                 "iPhone 14 Pro (16.2)",
                 "iPad Pro (11-inch) (4th generation) (16.2)",
-                "Apple TV (16.1)",
             ]
         else
             raise "Unsupported iOS version: #{version}"
         end
-
-        run_tests(
-            scheme: "Introspect",
-            devices: devices,
-            ensure_devices_found: true,
-            force_quit_simulator: true,
-            disable_concurrent_testing: true,
-        )
+    when "tvos"
+        devices = case version
+        when 14
+            [
+                "Apple TV (14.5)",
+            ]
+        when 15
+            [
+                "Apple TV (15.4)",
+            ]
+        when 16
+            [
+                "Apple TV (16.1)",
+            ]
+        else
+            raise "Unsupported tvOS version: #{version}"
+        end
+    else
+        raise "Unsupported platform: #{platform}"
     end
-end
 
-platform :macos do
-    lane :test do |options|
-        spm(
-            command: "test",
-        )
-    end
+    run_tests(
+        scheme: "Introspect",
+        devices: devices,
+        ensure_devices_found: true,
+        force_quit_simulator: true,
+        disable_concurrent_testing: true,
+    )
 end

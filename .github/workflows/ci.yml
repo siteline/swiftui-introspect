@@ -112,9 +112,8 @@ jobs:
       - name: Install Homebrew dependencies
         run: brew install xcbeautify
 
-      # - if: ${{ matrix.platform != [ios, 13] }}
-      - name: Run Tests (Introspect)
-        continue-on-error: true
+      - if: ${{ matrix.platform }} != [ios, 13] && ${{ matrix.platform }} != [tvos, 13]
+        name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 
       - name: Run Tests (SwiftUIIntrospection)

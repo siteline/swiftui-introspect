@@ -24,42 +24,17 @@ extension View {
                     observed: Binding(get: observing, set: { _ in /* will never execute */ }),
                     selector: { introspectionViewController in
                         #if canImport(UIKit)
-                        if
-                            let introspectionView = introspectionViewController.viewIfLoaded,
-                            let rootSuperview = introspectionView.rootSuperview
-                        {
-                            return rootSuperview.findChild(
-                                ofType: PlatformView.self,
-                                usingFrameFrom: introspectionView
-                            )
+                        if let introspectionView = introspectionViewController.viewIfLoaded {
+                            return introspectionView.findReceiver(ofType: PlatformView.self)
                         } else {
                             return nil
                         }
-//                        if
-//                            let rootSuperview = introspectionView.rootSuperview
-//                        {
-//                            return rootSuperview.findChild(
-//                                ofType: PlatformView.self,
-//                                usingFrameFrom: introspectionView
-//                            )
-//                        } else {
-//                            return nil
-//                        }
                         #elseif canImport(AppKit)
                         guard introspectionViewController.isViewLoaded else {
                             return nil
                         }
                         let introspectionView = introspectionViewController.view
-                        if
-                            let rootSuperview = introspectionView.rootSuperview
-                        {
-                            return rootSuperview.findChild(
-                                ofType: PlatformView.self,
-                                usingFrameFrom: introspectionView
-                            )
-                        } else {
-                            return nil
-                        }
+                        return introspectionView.findReceiver(ofType: PlatformView.self)
                         #endif
 //                        return targetView
 //                        switch scope {
@@ -86,9 +61,9 @@ extension View {
         }
     }
 }
-
-extension PlatformView {
-    var rootSuperview: PlatformView? {
-        superview?.rootSuperview ?? superview
-    }
-}
+//
+//extension PlatformView {
+//    var rootSuperview: PlatformView? {
+//        superview?.rootSuperview ?? superview
+//    }
+//}

@@ -29,32 +29,36 @@ public typealias PlatformViewControllerRepresentable = UIViewControllerRepresent
 #endif
 
 extension PlatformView {
+    var superviews: AnySequence<PlatformView> {
+        return AnySequence<PlatformView>(
+            sequence(first: self, next: { $0.superview }).dropFirst()
+        )
+    }
+}
+
+extension PlatformView {
 //    public func findReceiver(ofType:from:)
 
-    public func findChild<AnyViewType: PlatformView>(
-        ofType type: AnyViewType.Type,
-        usingFrameFrom originalEntry: PlatformView
+    public func findReceiver<AnyViewType: PlatformView>(
+        ofType type: AnyViewType.Type
     ) -> AnyViewType? {
-        let root = self
-        let children = root.recursivelyFindSubviews(ofType: AnyViewType.self)
+        for superview in self.superviews {
+            let children = superview.recursivelyFindSubviews(ofType: AnyViewType.self)
 
-        guard
-            let entryFrame = originalEntry.superview?.convert(originalEntry.frame, to: root)
-        else {
-            return nil
-        }
-//        print(entryFrame)
-
-        for child in children {
-            guard let childFrame = child.superview?.convert(child.frame, to: root) else {
-                continue
-            }
-            print(childFrame)
-            if childFrame.contains(entryFrame) {
-                return child
+            for child in children {
+                guard
+                    let childFrame = child.superview?.convert(child.frame, to: superview),
+                    let entryFrame = self.superview?.convert(self.frame, to: superview)
+                else {
+                    continue
+                }
+                
+                if childFrame.contains(entryFrame) {
+                    print(superview)
+                    return child
+                }
             }
         }
-
         return nil
     }
 

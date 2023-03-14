@@ -20,9 +20,9 @@ final class FindChildUsingFrameTests: XCTestCase {
         let ci = PlatformView(frame: .init(x: 25, y: 75, width: 0, height: 0)); parent.addSubview(ci)
         let di = PlatformView(frame: .init(x: 75, y: 75, width: 0, height: 0)); parent.addSubview(di)
 
-        XCTAssert(a === grandparent.findChild(ofType: TargetView.self, usingFrameFrom: ai))
-        XCTAssert(b === grandparent.findChild(ofType: TargetView.self, usingFrameFrom: bi))
-        XCTAssert(c === grandparent.findChild(ofType: TargetView.self, usingFrameFrom: ci))
-        XCTAssert(d === grandparent.findChild(ofType: TargetView.self, usingFrameFrom: di))
+        XCTAssert(a === ai.findReceiver(ofType: TargetView.self))
+        XCTAssert(b === bi.findReceiver(ofType: TargetView.self))
+        XCTAssert(c === ci.findReceiver(ofType: TargetView.self))
+        XCTAssert(d === di.findReceiver(ofType: TargetView.self))
     }
 }

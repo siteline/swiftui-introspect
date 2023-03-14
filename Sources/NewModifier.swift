@@ -79,7 +79,7 @@ extension View {
                     },
                     customize: customize
                 )
-                .frame(width: 1, height: 1)
+                .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
             )
         } else {
             self

@@ -1,7 +1,6 @@
 import SwiftUI
 
 extension View {
-    @ViewBuilder
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
@@ -11,7 +10,6 @@ extension View {
         introspect(view, on: platforms, scope: scope, observing: (), customize: { view, _ in customize(view) })
     }
 
-    @ViewBuilder
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftUIIntrospect-Static"
-               BuildableName = "SwiftUIIntrospect-Static"
-               BlueprintName = "SwiftUIIntrospect-Static"
-               ReferencedContainer = "container:">
+               BlueprintIdentifier = "D5F0BE4829C0DBE800AD95AB"
+               BuildableName = "TestsHostApp.app"
+               BlueprintName = "TestsHostApp"
+               ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D5F0BE5C29C0DC0000AD95AB"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -40,6 +50,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D5F0BE4829C0DBE800AD95AB"
+            BuildableName = "TestsHostApp.app"
+            BlueprintName = "TestsHostApp"
+            ReferencedContainer = "container:Tests.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,15 +67,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "SwiftUIIntrospect-Static"
-            BuildableName = "SwiftUIIntrospect-Static"
-            BlueprintName = "SwiftUIIntrospect-Static"
-            ReferencedContainer = "container:">
+            BlueprintIdentifier = "D5F0BE4829C0DBE800AD95AB"
+            BuildableName = "TestsHostApp.app"
+            BlueprintName = "TestsHostApp"
+            ReferencedContainer = "container:Tests.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

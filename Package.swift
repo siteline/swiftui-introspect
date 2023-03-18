@@ -35,10 +35,5 @@ let package = Package(
             name: "SwiftUIIntrospect",
             path: "Sources"
         ),
-        .testTarget(
-            name: "SwiftUIIntrospectTests",
-            dependencies: ["SwiftUIIntrospect"],
-            path: "Tests"
-        ),
     ]
 )

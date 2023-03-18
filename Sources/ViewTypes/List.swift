@@ -13,8 +13,6 @@ extension ViewType where Self == ListType {
 // MARK: SwiftUI.List - iOS
 
 #if canImport(UIKit)
-import UIKit
-
 extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIView == ListType, PlatformView == UITableView {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
@@ -29,8 +27,6 @@ extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIView == 
 // MARK: SwiftUI.List - tvOS
 
 #if canImport(UIKit)
-import UIKit
-
 extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView == ListType, PlatformView == UITableView {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
@@ -42,8 +38,6 @@ extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView ==
 //// MARK: SwiftUI.List - macOS
 //
 //#if canImport(AppKit) && !targetEnvironment(macCatalyst)
-//import AppKit
-//
 //extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIView == ListType, PlatformView == NSTableView {
 //    public static let v10_15 = Self(for: .v10_15) { customize in
 //        AppKitIntrospectionView(

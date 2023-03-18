@@ -16,7 +16,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
-    #elseif canImport(AppKit)
+    #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
     func makeNSViewController(context: Context) -> IntrospectionPlatformViewController {
         makePlatformViewController(context: context)
     }
@@ -31,7 +31,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     // TODO: in Swift 5.8
     // #if canImport(UIKit)
     // @_implements(Self, makeUIViewController)
-    // #elseif canImport(AppKit)
+    // #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
     // @_implements(Self, makeNSViewController)
     // #endif
     private func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
@@ -61,7 +61,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     // TODO: in Swift 5.8
     // #if canImport(UIKit)
     // @_implements(Self, updateUIViewController)
-    // #elseif canImport(AppKit)
+    // #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
     // @_implements(Self, updateNSViewController)
     // #endif
     private func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
@@ -74,7 +74,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     // TODO: in Swift 5.8
     // #if canImport(UIKit)
     // @_implements(Self, dismantleUIViewController)
-    // #elseif canImport(AppKit)
+    // #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
     // @_implements(Self, dismantleNSViewController)
     // #endif
     private static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
@@ -100,7 +100,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         super.viewDidAppear(animated)
         handler?() // backup for some views on iOS 14 which start as 0-sized (e.g. List)
     }
-    #elseif canImport(AppKit)
+    #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
     // TODO: didMove(toParent:) is not an AppKit API. What to do?
 
     override func loadView() {

@@ -32,11 +32,10 @@ extension IntrospectTests {
 // MARK: SwiftUI.TextField
 
 extension IntrospectTests {
-    #if os(macOS)
-    public typealias PlatformTextField = NSTextField
-    #endif
-    #if os(iOS) || os(tvOS)
+    #if canImport(UIKit)
     public typealias PlatformTextField = UITextField
+    #elseif canImport(AppKit)
+    public typealias PlatformTextField = NSTextField
     #endif
 
     func testTextField() throws {
@@ -128,11 +127,11 @@ extension IntrospectTests {
         let unwrappedTextField2 = try XCTUnwrap(textField2)
         let unwrappedTextField3 = try XCTUnwrap(textField3)
 
-        #if os(iOS)
+        #if canImport(UIKit)
         XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
         XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
         XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
-        #elseif os(macOS)
+        #elseif canImport(AppKit)
         XCTAssertEqual(unwrappedTextField1.placeholderString, view.textField1Placeholder)
         XCTAssertEqual(unwrappedTextField2.placeholderString, view.textField2Placeholder)
         XCTAssertEqual(unwrappedTextField3.placeholderString, view.textField3Placeholder)

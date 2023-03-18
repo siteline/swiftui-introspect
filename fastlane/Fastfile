@@ -12,7 +12,6 @@ lane :test do |options|
             spm(command: "test")
         when "SwiftUIIntrospectTests"
             run_tests(
-                clean: true,
                 scheme: scheme,
                 destination: ["platform=macOS", "platform=macOS,variant=Mac Catalyst"],
                 catalyst_platform: "macos",
@@ -77,7 +76,6 @@ lane :test do |options|
     end
 
     run_tests(
-        clean: true,
         scheme: scheme,
         devices: devices,
         prelaunch_simulator: true,

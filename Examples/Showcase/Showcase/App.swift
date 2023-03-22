@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftUIIntrospect
 
+#if os(iOS) || os(tvOS)
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -13,35 +14,62 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+#elseif os(macOS)
+@main
+struct App: SwiftUI.App {
+    var body: some Scene {
+        WindowGroup {
+            AppView()
+        }
+    }
+}
+#endif
 
 struct AppView: View {
     var body: some View {
         NavigationView {
             Form {
                 TextField("Text", text: .constant("Hello"))
+                    #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                         textField.backgroundColor = .red
                     }
+                    #elseif os(macOS)
+                    .introspect(.textField, on: .macOS(.v13)) { textField in
+                        textField.backgroundColor = .red
+                    }
+                    #endif
                     .brightness(0.1) // <- this causes introspection to fail
                 Something()
             }
+            #if os(iOS) || os(tvOS)
             .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { view in
                 view.backgroundColor = .purple
             }
             .introspect(.list, on: .iOS(.v16)) { view in
                 view.backgroundColor = .purple
             }
-            #if !os(tvOS)
+            #elseif os(macOS)
+            #endif
+            #if os(iOS)
             .navigationBarTitle(Text(""), displayMode: .inline)
             #endif
         }
+        #if os(iOS)
         .navigationViewStyle(.stack)
+        #endif
 
         VStack {
             TextField("Name", text: .constant(""))
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                     textField.clearButtonMode = .whileEditing
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+//                    textField.clearButtonMode = .whileEditing
+                }
+                #endif
         }
         .clipped()
 
@@ -49,19 +77,37 @@ struct AppView: View {
 
         VStack {
             TextField("textField1Placeholder", text: .constant(""))
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                     textField.backgroundColor = .orange
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = .orange
+                }
+                #endif
                 .cornerRadius(8)
             TextField("textField2Placeholder", text: .constant(""))
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                     textField.backgroundColor = .brown
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = .brown
+                }
+                #endif
                 .cornerRadius(8)
             TextField("textField3Placeholder", text: .constant(""))
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
                     textField.backgroundColor = .gray
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = .gray
+                }
+                #endif
                 .cornerRadius(8)
         }
     }
@@ -75,9 +121,15 @@ struct SecureToggle: ViewModifier {
 
             HStack {
                 content
+                    #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), observing: isSecure) { textField, isSecure in
                         textField.isSecureTextEntry = isSecure
                     }
+                    #elseif os(macOS)
+                    .introspect(.textField, on: .macOS(.v13)) { textField in
+    //                    textField.clearButtonMode = .whileEditing
+                    }
+                    #endif
 
                 Spacer()
 
@@ -105,8 +157,14 @@ struct ExampleView: View {
     }
 }
 
+#if canImport(UIKit)
+typealias PlatformColor = UIColor
+#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+typealias PlatformColor = NSColor
+#endif
+
 struct Something: View {
-    @State var color = UIColor.green
+    @State var color = PlatformColor.green
     @State var text = "s"
 
     var body: some View {
@@ -114,27 +172,45 @@ struct Something: View {
 //            List {
         HStack {
             Picker("Color", selection: $color) {
-                Text("Red").tag(UIColor.red)
-                Text("Green").tag(UIColor.green)
-                Text("Blue").tag(UIColor.blue)
+                Text("Red").tag(PlatformColor.red)
+                Text("Green").tag(PlatformColor.green)
+                Text("Blue").tag(PlatformColor.blue)
             }
             .fixedSize()
 
             TextField("dynamic", text: .constant(""))
 //                .frame(width: 50)
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = color
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = color
+                }
+                #endif
             TextField("red", text: .constant(""))
 //                .frame(width: 50)
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = .red
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = .red
+                }
+                #endif
             TextField("yellow", text: .constant(""))
 //                .frame(width: 50)
+                #if os(iOS) || os(tvOS)
                 .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
                     textField.backgroundColor = .yellow
                 }
+                #elseif os(macOS)
+                .introspect(.textField, on: .macOS(.v13)) { textField in
+                    textField.backgroundColor = .yellow
+                }
+                #endif
             }
 //                TextField("dq", text: $text)
 //                    .background(Color.green)
@@ -147,27 +223,5 @@ struct Something: View {
 
 //            }
 //        }
-    }
-}
-
-extension UIView {
-    func recursivelyFindSuperview(where condition: (UIView) -> Bool) -> UIView? {
-        if let view = self.superview {
-            if condition(view) {
-                return view
-            } else {
-                return view.recursivelyFindSuperview(where: condition)
-            }
-        } else {
-            return nil
-        }
-    }
-
-    func recursivelyFindSubviews(where condition: (UIView) -> Bool) -> [UIView] {
-        var result = self.subviews.filter(condition)
-        for sub in self.subviews {
-            result.append(contentsOf: sub.recursivelyFindSubviews(where: condition))
-        }
-        return result
     }
 }

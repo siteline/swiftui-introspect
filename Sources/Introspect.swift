@@ -102,8 +102,8 @@ extension PlatformView {
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {
         var result = self.subviews.compactMap { $0 as? T }
-        for sub in self.subviews {
-            result.append( contentsOf: sub.recursivelyFindSubviews (ofType: type))
+        for subview in self.subviews {
+            result.append(contentsOf: subview.recursivelyFindSubviews(ofType: type))
         }
         return result
     }

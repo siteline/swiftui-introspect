@@ -39,7 +39,7 @@ extension View {
                         } else {
                             return nil
                         }
-                        #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+                        #elseif canImport(AppKit)
                         guard introspectionViewController.isViewLoaded else {
                             return nil
                         }

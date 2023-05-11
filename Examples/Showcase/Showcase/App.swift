@@ -159,7 +159,7 @@ struct ExampleView: View {
 
 #if canImport(UIKit)
 typealias PlatformColor = UIColor
-#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+#elseif canImport(AppKit)
 typealias PlatformColor = NSColor
 #endif
 

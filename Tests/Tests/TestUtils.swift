@@ -28,7 +28,7 @@ enum TestUtils {
         hostingController.endAppearanceTransition()
     }
 }
-#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+#elseif canImport(AppKit)
 enum TestUtils {
     enum Constants {
         static let timeout: TimeInterval = 5

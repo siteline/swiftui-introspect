@@ -7,11 +7,9 @@ enum TestUtils {
     }
 
     static func present<ViewType: View>(view: ViewType) {
-
         let hostingController = UIHostingController(rootView: view)
 
-        let application = UIApplication.shared
-        application.windows.forEach { window in
+        for window in UIApplication.shared.windows {
             if let presentedViewController = window.rootViewController?.presentedViewController {
                 presentedViewController.dismiss(animated: false, completion: nil)
             }
@@ -35,11 +33,13 @@ enum TestUtils {
     }
 
     static func present<ViewType: View>(view: ViewType) {
-
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered, defer: true)
+            backing: .buffered,
+            defer: true
+        )
+
         window.center()
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: view)

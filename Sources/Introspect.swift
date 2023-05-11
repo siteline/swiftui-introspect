@@ -73,7 +73,7 @@ extension View {
 }
 
 extension PlatformView {
-    public func findReceiver<AnyViewType: PlatformView>(
+    func findReceiver<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type
     ) -> AnyViewType? {
         for superview in self.superviews {

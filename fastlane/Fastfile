@@ -44,8 +44,8 @@ lane :test do |options|
             ]
         when 16
             [
-                "iPhone 14 Pro (16.2)",
-                "iPad Pro (11-inch) (4th generation) (16.2)",
+                "iPhone 14 Pro (16.4)",
+                "iPad Pro (11-inch) (4th generation) (16.4)",
             ]
         else
             raise "Unsupported iOS version: #{version}"
@@ -66,7 +66,7 @@ lane :test do |options|
             ]
         when 16
             [
-                "Apple TV (16.1)",
+                "Apple TV (16.4)",
             ]
         else
             raise "Unsupported tvOS version: #{version}"

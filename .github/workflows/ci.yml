@@ -47,6 +47,7 @@ jobs:
 
           - [macos, 11]
           - [macos, 12]
+          - [macos, 13]
         include:
           - platform: [ios, 13]
             os: macos-11
@@ -76,11 +77,11 @@ jobs:
             sdk: [13.4.1, AppleTVOS, tvOS, 15.5]
 
           - platform: [ios, 16]
-            os: macos-12
-            xcode: 14.2
+            os: macos-13
+            xcode: 14.3
           - platform: [tvos, 16]
-            os: macos-12
-            xcode: 14.2
+            os: macos-13
+            xcode: 14.3
 
           - platform: [macos, 11]
             os: macos-11
@@ -88,6 +89,9 @@ jobs:
           - platform: [macos, 12]
             os: macos-12
             xcode: 14.2
+          - platform: [macos, 13]
+            os: macos-13
+            xcode: 14.3
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

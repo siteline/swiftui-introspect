@@ -27,13 +27,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #endif
-
-    // TODO: in Swift 5.8
-    // #if canImport(UIKit)
-    // @_implements(Self, makeUIViewController)
-    // #elseif canImport(AppKit)
-    // @_implements(Self, makeNSViewController)
-    // #endif
+    
     private func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController()
         controller.handler = { [weak controller] in
@@ -58,12 +52,6 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         return controller
     }
 
-    // TODO: in Swift 5.8
-    // #if canImport(UIKit)
-    // @_implements(Self, updateUIViewController)
-    // #elseif canImport(AppKit)
-    // @_implements(Self, updateNSViewController)
-    // #endif
     private func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
         guard let target = selector(controller) else {
             return
@@ -71,12 +59,6 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         customize(target, observed)
     }
 
-    // TODO: in Swift 5.8
-    // #if canImport(UIKit)
-    // @_implements(Self, dismantleUIViewController)
-    // #elseif canImport(AppKit)
-    // @_implements(Self, dismantleNSViewController)
-    // #endif
     private static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
         controller.handler = nil
     }

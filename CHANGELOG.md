@@ -3,8 +3,12 @@ Changelog
 
 ## master
 
+## [0.3.0]
+
 - Changed: minimum language version required is now Swift 5.5 (#209)
-- Infrastructure: symlink older SDKs to use in newer Xcode versions (#208)
+- Fixed: finding UIScrollViews that are clipped(), masked or combined with clipShape() or cornerRadius() (#213)
+- Documentation: UICollectionView introspection support in README (#218)
+- Infrastructure: symlink older SDKs to use in newer Xcode versions on CI (#208)
 
 ## [0.2.3]
 

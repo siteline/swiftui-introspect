@@ -28,7 +28,7 @@ extension View {
         observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformView) -> Void
     ) -> some View {
-        if let scope = scope ?? platforms.lazy.compactMap(\.scope).first {
+        if let scope = scope ?? platforms.lazy.compactMap(\.scope).first { // FIXME: not right... separately, figure out whether scope overriding is actually needed here it at all
             self.overlay(
                 IntrospectionView(
                     observed: Binding(get: observe, set: { _ in /* will never execute */ }),

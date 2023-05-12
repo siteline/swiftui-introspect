@@ -246,6 +246,7 @@ private struct MaskedScrollTestView: View {
             }
             .clipped()
             .clipShape(RoundedRectangle(cornerRadius: 20.0))
+            .cornerRadius(2.0)
             ScrollView {
                 Text("Item 1")
                 .introspectScrollView { scrollView in

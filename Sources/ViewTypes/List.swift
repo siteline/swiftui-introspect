@@ -35,18 +35,13 @@ extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView ==
 }
 #endif
 
-//// MARK: SwiftUI.List - macOS
-//
-//#if canImport(AppKit) && !targetEnvironment(macCatalyst)
-//extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIView == ListType, PlatformView == NSTableView {
-//    public static let v10_15 = Self(for: .v10_15) { customize in
-//        AppKitIntrospectionView(
-//            selector: TargetViewSelector.ancestorOrSiblingContaining,
-//            customize: customize
-//        )
-//    }
-//    public static let v11 = Self(for: .v11, sameAs: .v10_15)
-//    public static let v12 = Self(for: .v12, sameAs: .v10_15)
-//    public static let v13 = Self(for: .v13, sameAs: .v10_15)
-//}
-//#endif
+// MARK: SwiftUI.List - macOS
+
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
+extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIView == ListType, PlatformView == NSTableView {
+    public static let v10_15 = Self(for: .v10_15)
+    public static let v11 = Self(for: .v11)
+    public static let v12 = Self(for: .v12)
+    public static let v13 = Self(for: .v13)
+}
+#endif

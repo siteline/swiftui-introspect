@@ -122,7 +122,7 @@ struct SecureToggle: ViewModifier {
             HStack {
                 content
                     #if os(iOS) || os(tvOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), observing: isSecure) { textField, isSecure in
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), observing: isSecure) { textField in
                         textField.isSecureTextEntry = isSecure
                     }
                     #elseif os(macOS)
@@ -181,7 +181,7 @@ struct Something: View {
             TextField("dynamic", text: .constant(""))
 //                .frame(width: 50)
                 #if os(iOS) || os(tvOS)
-                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField in
                     textField.backgroundColor = color
                 }
                 #elseif os(macOS)
@@ -192,7 +192,7 @@ struct Something: View {
             TextField("red", text: .constant(""))
 //                .frame(width: 50)
                 #if os(iOS) || os(tvOS)
-                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField in
                     textField.backgroundColor = .red
                 }
                 #elseif os(macOS)
@@ -203,7 +203,7 @@ struct Something: View {
             TextField("yellow", text: .constant(""))
 //                .frame(width: 50)
                 #if os(iOS) || os(tvOS)
-                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField, color in
+                .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), observing: color) { textField in
                     textField.backgroundColor = .yellow
                 }
                 #elseif os(macOS)

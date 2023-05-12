@@ -7,15 +7,15 @@ extension View {
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observing: (), customize: { view, _ in customize(view) })
+        introspect(view, on: platforms, scope: scope, observing: (), customize: { view in customize(view) })
     }
 
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
         scope: IntrospectionScope? = nil,
-        observing: @escaping @autoclosure () -> Observed,
-        customize: @escaping (PlatformView, Observed) -> Void
+        observing: @escaping @autoclosure () -> Observed, // TODO: `= { () }` in Swift 5.7
+        customize: @escaping (PlatformView) -> Void
     ) -> some View {
         introspect(view, on: platforms, scope: scope, observing: observing(), customize: customize)
     }
@@ -26,7 +26,7 @@ extension View {
         on platforms: [PlatformDescriptor<SwiftUIView, PlatformView>],
         scope: IntrospectionScope? = nil,
         observing: @escaping @autoclosure () -> Observed,
-        customize: @escaping (PlatformView, Observed) -> Void
+        customize: @escaping (PlatformView) -> Void
     ) -> some View {
         if let scope = scope ?? platforms.lazy.compactMap(\.scope).first {
             self.overlay(

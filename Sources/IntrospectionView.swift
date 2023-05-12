@@ -4,7 +4,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     @Binding
     var observed: Observed
     let selector: (PlatformViewController) -> Target?
-    let customize: (Target, Observed) -> Void
+    let customize: (Target) -> Void
 
     #if canImport(UIKit)
     func makeUIViewController(context: Context) -> IntrospectionPlatformViewController {
@@ -27,7 +27,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #endif
-    
+
     private func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController()
         controller.handler = { [weak controller] in
@@ -35,7 +35,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
             guard let target = selector(controller) else {
                 return
             }
-            customize(target, observed)
+            customize(target)
             controller.handler = nil
         }
 
@@ -56,7 +56,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         guard let target = selector(controller) else {
             return
         }
-        customize(target, observed)
+        customize(target)
     }
 
     private static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {

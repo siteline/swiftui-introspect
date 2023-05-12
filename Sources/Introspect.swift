@@ -7,17 +7,17 @@ extension View {
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observing: (), customize: { view in customize(view) })
+        introspect(view, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
     }
 
     public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
         scope: IntrospectionScope? = nil,
-        observing: @escaping @autoclosure () -> Observed, // TODO: `= { () }` in Swift 5.7
+        observe: @escaping @autoclosure () -> Observed, // TODO: `= { () }` in Swift 5.7
         customize: @escaping (PlatformView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observing: observing(), customize: customize)
+        introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
     }
 
     @ViewBuilder
@@ -25,13 +25,13 @@ extension View {
         _ view: SwiftUIView,
         on platforms: [PlatformDescriptor<SwiftUIView, PlatformView>],
         scope: IntrospectionScope? = nil,
-        observing: @escaping @autoclosure () -> Observed,
+        observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformView) -> Void
     ) -> some View {
         if let scope = scope ?? platforms.lazy.compactMap(\.scope).first {
             self.overlay(
                 IntrospectionView(
-                    observed: Binding(get: observing, set: { _ in /* will never execute */ }),
+                    observed: Binding(get: observe, set: { _ in /* will never execute */ }),
                     selector: { introspectionViewController in
                         #if canImport(UIKit)
                         if let introspectionView = introspectionViewController.viewIfLoaded {

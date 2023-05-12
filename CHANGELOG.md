@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [0.3.1]
+
+- Fixed: wrong Swift version in podspec (#220)
+
 ## [0.3.0]
 
 - Changed: minimum language version required is now Swift 5.5 (#209)

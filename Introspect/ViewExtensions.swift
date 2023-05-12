@@ -120,7 +120,7 @@ extension View {
     /// Finds a `UIScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (UIScrollView) -> ()) -> some View {
         if #available(iOS 14, tvOS 14, *) {
-            return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestor, customize: customize)
+            return introspect(selector: TargetViewSelector.siblingOrAncestorOrSiblingContainingOrAncestorChild, customize: customize)
         } else {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }
@@ -227,7 +227,7 @@ extension View {
     /// Finds a `NSScrollView` from a `SwiftUI.ScrollView`, or `SwiftUI.ScrollView` child.
     public func introspectScrollView(customize: @escaping (NSScrollView) -> ()) -> some View {
         if #available(macOS 11, *) {
-            return introspect(selector: TargetViewSelector.siblingOfTypeOrAncestor, customize: customize)
+            return introspect(selector: TargetViewSelector.siblingOrAncestorOrSiblingContainingOrAncestorChild, customize: customize)
         } else {
             return introspect(selector: TargetViewSelector.siblingContainingOrAncestor, customize: customize)
         }

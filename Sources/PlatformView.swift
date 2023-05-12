@@ -27,7 +27,7 @@ typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController
     func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context)
-    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ())
+    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator)
 }
 
 extension PlatformViewControllerRepresentable {
@@ -38,7 +38,7 @@ extension PlatformViewControllerRepresentable {
     func updateUIViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
+    static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #elseif canImport(AppKit)

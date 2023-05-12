@@ -4,9 +4,9 @@ import XCTest
 
 final class TextFieldTests: XCTestCase {
     #if canImport(UIKit)
-    public typealias PlatformTextField = UITextField
+    typealias PlatformTextField = UITextField
     #elseif canImport(AppKit)
-    public typealias PlatformTextField = NSTextField
+    typealias PlatformTextField = NSTextField
     #endif
 
     func testTextField() throws {

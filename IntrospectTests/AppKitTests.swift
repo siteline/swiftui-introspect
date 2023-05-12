@@ -113,6 +113,32 @@ private struct NestedScrollTestView: View {
     }
 }
 
+private struct MaskedScrollTestView: View {
+    
+    let spy1: (NSScrollView) -> Void
+    let spy2: (NSScrollView) -> Void
+    
+    var body: some View {
+        HStack {
+            ScrollView {
+                Text("Item 1")
+            }
+            .introspectScrollView { scrollView in
+                self.spy1(scrollView)
+            }
+            .clipped()
+            .clipShape(RoundedRectangle(cornerRadius: 20.0))
+            .cornerRadius(2.0)
+            ScrollView {
+                Text("Item 1")
+                .introspectScrollView { scrollView in
+                    self.spy2(scrollView)
+                }
+            }
+        }
+    }
+}
+
 private struct TextFieldTestView: View {
     let spy: () -> Void
     @State private var textFieldValue = ""
@@ -314,7 +340,6 @@ class AppKitTests: XCTestCase {
     }
 
     func testNestedScrollView() throws {
-
         let expectation1 = XCTestExpectation()
         let expectation2 = XCTestExpectation()
 
@@ -331,6 +356,33 @@ class AppKitTests: XCTestCase {
                 expectation2.fulfill()
             }
         )
+        TestUtils.present(view: view)
+        wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
+
+        let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
+        let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
+
+        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+    }
+    
+    func testMaskedScrollView() throws {
+        let expectation1 = XCTestExpectation()
+        let expectation2 = XCTestExpectation()
+
+        var scrollView1: NSScrollView?
+        var scrollView2: NSScrollView?
+
+        let view = MaskedScrollTestView(
+            spy1: { scrollView in
+                scrollView1 = scrollView
+                expectation1.fulfill()
+            },
+            spy2: { scrollView in
+                scrollView2 = scrollView
+                expectation2.fulfill()
+            }
+        )
+        
         TestUtils.present(view: view)
         wait(for: [expectation1, expectation2], timeout: TestUtils.Constants.timeout)
 

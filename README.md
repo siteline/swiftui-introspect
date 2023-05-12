@@ -54,8 +54,10 @@ NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_
 NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
-List | UITableView | NSTableView | `.introspectTableView()`
-View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
+List (iOS15 and below) | UITableView | NSTableView | `.introspectTableView()`
+View in List (iOS15 and below) | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
+List (iOS 16) | UICollectionView | _N/A_ | `.introspectCollectionView()`
+View in List (iOS 16) | UICollectionViewCell | _N/A_ | `.introspectCollectionViewCell()`
 TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView()` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
 Toggle | UISwitch | NSButton | `.introspectSwitch()` (iOS) <br/> `.introspectButton()` (macOS)

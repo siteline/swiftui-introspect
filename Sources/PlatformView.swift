@@ -7,15 +7,15 @@ public typealias PlatformView = NSView
 #endif
 
 #if canImport(UIKit)
-public typealias PlatformViewRepresentable = UIViewRepresentable
+typealias PlatformViewRepresentable = UIViewRepresentable
 #elseif canImport(AppKit)
-public typealias PlatformViewRepresentable = NSViewRepresentable
+typealias PlatformViewRepresentable = NSViewRepresentable
 #endif
 
 #if canImport(UIKit)
-public typealias PlatformViewController = UIViewController
+typealias PlatformViewController = UIViewController
 #elseif canImport(AppKit)
-public typealias PlatformViewController = NSViewController
+typealias PlatformViewController = NSViewController
 #endif
 
 #if canImport(UIKit)

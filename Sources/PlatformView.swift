@@ -19,7 +19,37 @@ typealias PlatformViewController = NSViewController
 #endif
 
 #if canImport(UIKit)
-public typealias PlatformViewControllerRepresentable = UIViewControllerRepresentable
+typealias _PlatformViewControllerRepresentable = UIViewControllerRepresentable
 #elseif canImport(AppKit)
-public typealias PlatformViewControllerRepresentable = NSViewControllerRepresentable
+typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
+
+protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
+    func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController
+    func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context)
+    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ())
+}
+
+extension PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    func makeUIViewController(context: Context) -> IntrospectionPlatformViewController {
+        makePlatformViewController(context: context)
+    }
+    func updateUIViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
+        updatePlatformViewController(controller, context: context)
+    }
+    static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
+        dismantlePlatformViewController(controller, coordinator: coordinator)
+    }
+    #elseif canImport(AppKit)
+    func makeNSViewController(context: Context) -> IntrospectionPlatformViewController {
+        makePlatformViewController(context: context)
+    }
+    func updateNSViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
+        updatePlatformViewController(controller, context: context)
+    }
+    static func dismantleNSViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
+        dismantlePlatformViewController(controller, coordinator: coordinator)
+    }
+    #endif
+}

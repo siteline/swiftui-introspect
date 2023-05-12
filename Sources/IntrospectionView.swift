@@ -6,29 +6,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     let selector: (PlatformViewController) -> Target?
     let customize: (Target) -> Void
 
-    #if canImport(UIKit)
-    func makeUIViewController(context: Context) -> IntrospectionPlatformViewController {
-        makePlatformViewController(context: context)
-    }
-    func updateUIViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
-        updatePlatformViewController(controller, context: context)
-    }
-    static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
-        dismantlePlatformViewController(controller, coordinator: coordinator)
-    }
-    #elseif canImport(AppKit)
-    func makeNSViewController(context: Context) -> IntrospectionPlatformViewController {
-        makePlatformViewController(context: context)
-    }
-    func updateNSViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
-        updatePlatformViewController(controller, context: context)
-    }
-    static func dismantleNSViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
-        dismantlePlatformViewController(controller, coordinator: coordinator)
-    }
-    #endif
-
-    private func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
+    func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController()
         controller.handler = { [weak controller] in
             guard let controller = controller else { return }
@@ -52,14 +30,14 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         return controller
     }
 
-    private func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
+    func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
         guard let target = selector(controller) else {
             return
         }
         customize(target)
     }
 
-    private static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
+    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
         controller.handler = nil
     }
 }

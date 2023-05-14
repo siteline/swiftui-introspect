@@ -45,7 +45,6 @@ jobs:
           - [tvos, 15]
           - [tvos, 16]
 
-          - [macos, 11]
           - [macos, 12]
           - [macos, 13]
         include:
@@ -75,10 +74,6 @@ jobs:
             runtime: tvOS 16.4
             install: false
 
-          - platform: [macos, 11]
-            os: macos-11
-            xcode: 13.2.1
-            install: false
           - platform: [macos, 12]
             os: macos-12
             xcode: 14.2

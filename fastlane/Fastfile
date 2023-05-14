@@ -29,22 +29,22 @@ lane :test do |options|
         devices = case version
         when 13
             [
-                "iPhone 11 Pro (13.7)",
-                "iPad Pro (11-inch) (2nd generation) (13.7)",
+                "iPhone 11 (13.7)",
+                "iPad Pro (9.7-inch) (13.7)",
             ]
         when 14
             [
-                "iPhone 11 Pro (14.5)",
-                "iPad Pro (11-inch) (3rd generation) (14.5)",
+                "iPhone 12 (14.5)",
+                "iPad Pro (9.7-inch) (14.5)",
             ]
         when 15
             [
-                "iPhone 11 Pro (15.5)",
-                "iPad Pro (11-inch) (3rd generation) (15.5)",
+                "iPhone SE (3rd generation) (15.5)",
+                "iPad Air (5th generation) (15.5)",
             ]
         when 16
             [
-                "iPhone 14 Pro (16.4)",
+                "iPhone 14 (16.4)",
                 "iPad Pro (11-inch) (4th generation) (16.4)",
             ]
         else

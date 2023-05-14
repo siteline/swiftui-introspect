@@ -1,4 +1,3 @@
-#if swift(>=5.8)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -14,6 +13,10 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
     #endif
 
     func testTextFieldWithVerticalAxis() throws {
+        guard #available(iOS 16, tvOS 16, macOS 13, *) else {
+            throw XCTSkip()
+        }
+
         struct TextFieldWithVerticalAxisTestView: View {
             let spy1: (PlatformTextField) -> Void
             let spy2: (PlatformTextField) -> Void
@@ -120,4 +123,3 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
         #endif
     }
 }
-#endif

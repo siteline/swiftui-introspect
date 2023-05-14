@@ -30,7 +30,7 @@ jobs:
 
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
-    runs-on: macos-13
+    runs-on: ${{ matrix.os || 'macos-13' }}
     strategy:
       fail-fast: false
       matrix:
@@ -40,14 +40,14 @@ jobs:
           - [ios, 15]
           - [ios, 16]
 
-          # - [tvos, 13]
-          # - [tvos, 14]
-          # - [tvos, 15]
-          # - [tvos, 16]
+          - [tvos, 13]
+          - [tvos, 14]
+          - [tvos, 15]
+          - [tvos, 16]
 
-          # - [macos, 11]
-          # - [macos, 12]
-          # - [macos, 13]
+          - [macos, 11]
+          - [macos, 12]
+          - [macos, 13]
         include:
           - platform: [ios, 13]
             runtime: iOS 13.7
@@ -60,6 +60,29 @@ jobs:
             install: true
           - platform: [ios, 16]
             runtime: iOS 16.4
+            install: false
+
+          - platform: [tvos, 13]
+            runtime: tvOS 13.4
+            install: true
+          - platform: [tvos, 14]
+            runtime: tvOS 14.5
+            install: true
+          - platform: [tvos, 15]
+            runtime: tvOS 15.4
+            install: true
+          - platform: [tvos, 16]
+            runtime: tvOS 16.4
+            install: false
+
+          - platform: [macos, 11]
+            os: macos-11
+            install: false
+          - platform: [macos, 12]
+            os: macos-12
+            install: false
+          - platform: [macos, 13]
+            os: macos-13
             install: false
     steps:
       - name: Git Checkout

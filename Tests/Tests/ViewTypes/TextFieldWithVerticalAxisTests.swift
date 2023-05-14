@@ -18,15 +18,10 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
             let spy1: (PlatformTextField) -> Void
             let spy2: (PlatformTextField) -> Void
             let spy3: (PlatformTextField) -> Void
-            @State private var textFieldValue = ""
-
-            let textField1Placeholder = "Text Field 1"
-            let textField2Placeholder = "Text Field 2"
-            let textField3Placeholder = "Text Field 3"
 
             var body: some View {
                 VStack {
-                    TextField(textField1Placeholder, text: $textFieldValue, axis: .vertical)
+                    TextField("", text: .constant("Text Field 1"), axis: .vertical)
                         #if os(iOS)
                         .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
                             self.spy1(textField)
@@ -42,7 +37,7 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
                         #endif
                         .cornerRadius(8)
 
-                    TextField(textField2Placeholder, text: $textFieldValue, axis: .vertical)
+                    TextField("", text: .constant("Text Field 2"), axis: .vertical)
                         #if os(iOS)
                         .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
                             self.spy2(textField)
@@ -58,7 +53,7 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
                         #endif
                         .cornerRadius(8)
 
-                    TextField(textField3Placeholder, text: $textFieldValue, axis: .vertical)
+                    TextField("", text: .constant("Text Field 3"), axis: .vertical)
                         #if os(iOS)
                         .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
                             self.spy3(textField)
@@ -114,15 +109,15 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
         let unwrappedTextField2 = try XCTUnwrap(textField2)
         let unwrappedTextField3 = try XCTUnwrap(textField3)
 
-//        #if canImport(UIKit)
-//        XCTAssertEqual(unwrappedTextField1.placeholder, view.textField1Placeholder)
-//        XCTAssertEqual(unwrappedTextField2.placeholder, view.textField2Placeholder)
-//        XCTAssertEqual(unwrappedTextField3.placeholder, view.textField3Placeholder)
-//        #elseif canImport(AppKit)
-//        XCTAssertEqual(unwrappedTextField1.placeholderString, view.textField1Placeholder)
-//        XCTAssertEqual(unwrappedTextField2.placeholderString, view.textField2Placeholder)
-//        XCTAssertEqual(unwrappedTextField3.placeholderString, view.textField3Placeholder)
-//        #endif
+        #if canImport(UIKit)
+        XCTAssertEqual(unwrappedTextField1.text, "Text Field 1")
+        XCTAssertEqual(unwrappedTextField2.text, "Text Field 2")
+        XCTAssertEqual(unwrappedTextField3.text, "Text Field 3")
+        #elseif canImport(AppKit)
+        XCTAssertEqual(unwrappedTextField1.stringValue, "Text Field 1")
+        XCTAssertEqual(unwrappedTextField2.stringValue, "Text Field 2")
+        XCTAssertEqual(unwrappedTextField3.stringValue, "Text Field 3")
+        #endif
     }
 }
 #endif

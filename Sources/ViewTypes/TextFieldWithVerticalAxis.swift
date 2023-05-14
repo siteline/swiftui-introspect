@@ -21,7 +21,7 @@ extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIView == 
 // MARK: SwiftUI.TextField(..., axis: .vertical) - tvOS
 
 #if canImport(UIKit)
-extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView == TextFieldWithVerticalAxisType, PlatformView == UITextView {
+extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView == TextFieldWithVerticalAxisType, PlatformView == UITextField {
     public static let v16 = Self(for: .v16)
 }
 #endif
@@ -29,7 +29,7 @@ extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIView ==
 // MARK: SwiftUI.TextField(..., axis: .vertical) - macOS
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIView == TextFieldWithVerticalAxisType, PlatformView == NSTextView {
+extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIView == TextFieldWithVerticalAxisType, PlatformView == NSTextField {
     public static let v13 = Self(for: .v13)
 }
 #endif

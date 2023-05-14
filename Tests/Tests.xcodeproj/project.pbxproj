@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D58CE15629C621B30081BFB0 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D58CE15529C621B30081BFB0 /* SwiftUIIntrospect */; };
 		D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58CE15729C621DD0081BFB0 /* TestUtils.swift */; };
+		D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */; };
 		D5B67B842A0D318F007D5D9B /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6929C0DC4900AD95AB /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6629C0DC4900AD95AB /* IntrospectTests.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		D58CE15729C621DD0081BFB0 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithVerticalAxisTests.swift; sourceTree = "<group>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
 		D5F0BE4929C0DBE800AD95AB /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHostApp.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
+				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 			);
 			path = ViewTypes;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */,
 				D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */,
 				D5F0BE6929C0DC4900AD95AB /* IntrospectTests.swift in Sources */,

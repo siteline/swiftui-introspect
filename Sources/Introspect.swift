@@ -73,26 +73,41 @@ extension View {
 }
 
 extension PlatformView {
+    var hostingView: PlatformView? {
+        var superview = self.superview
+        while let s = superview {
+            if NSStringFromClass(type(of: s)).contains("HostingView") {
+                return s
+            }
+            superview = s.superview
+        }
+        return nil
+    }
+
     func findReceiver<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type
     ) -> AnyViewType? {
-        for superview in self.superviews {
-            let children = superview.recursivelyFindSubviews(ofType: AnyViewType.self)
+        guard let hostingView = self.hostingView else {
+            return nil
+        }
+
+//        for superview in self.superviews {
+            let children = hostingView.recursivelyFindSubviews(ofType: AnyViewType.self)
 
             for child in children {
                 guard
-                    let childFrame = child.superview?.convert(child.frame, to: superview),
-                    let entryFrame = self.superview?.convert(self.frame, to: superview)
+                    let childFrame = child.superview?.convert(child.frame, to: hostingView),
+                    let entryFrame = self.superview?.convert(self.frame, to: hostingView)
                 else {
                     continue
                 }
                 
                 if childFrame.contains(entryFrame) {
-                    print(superview)
+                    print(hostingView)
                     return child
                 }
             }
-        }
+//        }
         return nil
     }
 

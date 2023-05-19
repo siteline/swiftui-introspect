@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */; };
 		D58CE15629C621B30081BFB0 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D58CE15529C621B30081BFB0 /* SwiftUIIntrospect */; };
 		D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58CE15729C621DD0081BFB0 /* TestUtils.swift */; };
 		D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		D58CE15729C621DD0081BFB0 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithVerticalAxisTests.swift; sourceTree = "<group>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
+				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 			);
 			path = ViewTypes;
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */,
 				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */,
 				D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */,

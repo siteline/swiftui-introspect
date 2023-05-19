@@ -125,7 +125,7 @@ extension PlatformView {
     }
 
     var hostingView: PlatformView? {
-        superviews.first(where: { NSStringFromClass(type(of: $0)).contains("HostingView") })
+        self.superviews.first(where: { NSStringFromClass(type(of: $0)).contains("HostingView") })
     }
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {

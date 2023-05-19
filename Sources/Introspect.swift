@@ -94,7 +94,7 @@ extension PlatformView {
             return nil
         }
 
-//        for superview in self.superviews {
+//        for container in superviews {
             let children = hostingView.recursivelyFindSubviews(ofType: PlatformSpecificView.self)
 
             for child in children {
@@ -104,13 +104,14 @@ extension PlatformView {
                 else {
                     continue
                 }
-                
+
                 if childFrame.contains(entryFrame) {
                     print(hostingView)
                     return child
                 }
             }
 //        }
+
         return nil
     }
 
@@ -125,7 +126,7 @@ extension PlatformView {
     }
 
     var hostingView: PlatformView? {
-        self.superviews.first(where: { NSStringFromClass(type(of: $0)).contains("HostingView") })
+        self.superviews.first(where: { NSStringFromClass(type(of: $0)).contains("Hosting") })
     }
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {

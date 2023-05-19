@@ -73,17 +73,6 @@ extension View {
 }
 
 extension PlatformView {
-    var hostingView: PlatformView? {
-        var superview = self.superview
-        while let s = superview {
-            if NSStringFromClass(type(of: s)).contains("HostingView") {
-                return s
-            }
-            superview = s.superview
-        }
-        return nil
-    }
-
     func findReceiver<AnyViewType: PlatformView>(
         ofType type: AnyViewType.Type
     ) -> AnyViewType? {
@@ -113,6 +102,10 @@ extension PlatformView {
 
     var superviews: AnySequence<PlatformView> {
         AnySequence(sequence(first: self, next: \.superview).dropFirst())
+    }
+
+    var hostingView: PlatformView? {
+        superviews.first(where: { NSStringFromClass(type(of: $0)).contains("HostingView") })
     }
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {

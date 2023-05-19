@@ -1,66 +1,80 @@
 import SwiftUI
 
 extension View {
-    public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView>(
+    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView>(
         _ view: SwiftUIView,
-        on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
+        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
-        customize: @escaping (PlatformView) -> Void
+        customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         introspect(view, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
     }
 
-    public func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
+    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
         _ view: SwiftUIView,
-        on platforms: (PlatformDescriptor<SwiftUIView, PlatformView>)...,
+        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed, // TODO: `= { () }` in Swift 5.7
-        customize: @escaping (PlatformView) -> Void
+        customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
     }
 
     @ViewBuilder
-    private func introspect<SwiftUIView: ViewType, PlatformView: SwiftUIIntrospect.PlatformView, Observed>(
+    private func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
         _ view: SwiftUIView,
-        on platforms: [PlatformDescriptor<SwiftUIView, PlatformView>],
+        on platforms: [PlatformDescriptor<SwiftUIView, PlatformSpecificView>],
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed,
-        customize: @escaping (PlatformView) -> Void
+        customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
-        if let scope = scope ?? platforms.lazy.compactMap(\.scope).first { // FIXME: not right... separately, figure out whether scope overriding is actually needed here it at all
+        if let defaultScope = platforms.lazy.compactMap(\.scope).first {
             self.overlay(
                 IntrospectionView(
                     observed: Binding(get: observe, set: { _ in /* will never execute */ }),
                     selector: { introspectionViewController in
-                        #if canImport(UIKit)
-                        if let introspectionView = introspectionViewController.viewIfLoaded {
-                            return introspectionView.findReceiver(ofType: PlatformView.self)
-                        } else {
-                            return nil
+                        let scope = scope ?? defaultScope
+
+                        func receiver() -> PlatformSpecificView? {
+                            #if canImport(UIKit)
+                            if let introspectionView = introspectionViewController.viewIfLoaded {
+                                return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
+                            } else {
+                                return nil
+                            }
+                            #elseif canImport(AppKit)
+                            guard introspectionViewController.isViewLoaded else {
+                                return nil
+                            }
+                            let introspectionView = introspectionViewController.view
+                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
+                            #endif
                         }
-                        #elseif canImport(AppKit)
-                        guard introspectionViewController.isViewLoaded else {
-                            return nil
+
+                        func ancestor() -> PlatformSpecificView? {
+                            #if canImport(UIKit)
+                            if let introspectionView = introspectionViewController.viewIfLoaded {
+                                return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
+                            } else {
+                                return nil
+                            }
+                            #elseif canImport(AppKit)
+                            guard introspectionViewController.isViewLoaded else {
+                                return nil
+                            }
+                            let introspectionView = introspectionViewController.view
+                            return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
+                            #endif
                         }
-                        let introspectionView = introspectionViewController.view
-                        return introspectionView.findReceiver(ofType: PlatformView.self)
-                        #endif
-//                        return targetView
-//                        switch scope {
-//                        case .receiver:
-//                            return Introspect.findChild(ofType: PlatformView.self, in: container)
-//                        case .ancestor:
-//                            return Introspect.findAncestor(ofType: PlatformView.self, from: container)
-//                        case .receiverOrAncestor:
-//                            if let receiver = Introspect.findChild(ofType: PlatformView.self, in: container) {
-//                                return receiver
-//                            } else if let ancestor = Introspect.findAncestor(ofType: PlatformView.self, from: container) {
-//                                return ancestor
-//                            } else {
-//                                return nil
-//                            }
-//                        }
+
+                        switch scope {
+                        case .receiver:
+                            return receiver()
+                        case .ancestor:
+                            return ancestor()
+                        case .receiverOrAncestor:
+                            return receiver() ?? ancestor()
+                        }
                     },
                     customize: customize
                 )
@@ -73,15 +87,15 @@ extension View {
 }
 
 extension PlatformView {
-    func findReceiver<AnyViewType: PlatformView>(
-        ofType type: AnyViewType.Type
-    ) -> AnyViewType? {
+    func findReceiver<PlatformSpecificView: PlatformView>(
+        ofType type: PlatformSpecificView.Type
+    ) -> PlatformSpecificView? {
         guard let hostingView = self.hostingView else {
             return nil
         }
 
 //        for superview in self.superviews {
-            let children = hostingView.recursivelyFindSubviews(ofType: AnyViewType.self)
+            let children = hostingView.recursivelyFindSubviews(ofType: PlatformSpecificView.self)
 
             for child in children {
                 guard
@@ -98,6 +112,12 @@ extension PlatformView {
             }
 //        }
         return nil
+    }
+
+    func findAncestor<PlatformSpecificView: PlatformView>(
+        ofType type: PlatformSpecificView.Type
+    ) -> PlatformSpecificView? {
+        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
     }
 
     var superviews: AnySequence<PlatformView> {

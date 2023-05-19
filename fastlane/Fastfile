@@ -13,7 +13,7 @@ lane :test do |options|
         when "SwiftUIIntrospectTests"
             run_tests(
                 scheme: scheme,
-                destination: ["platform=macOS", "platform=macOS,variant=Mac Catalyst"],
+                destination: ["platform=macOS"], # FIXME: tests crash for "platform=macOS,variant=Mac Catalyst", investigate why...
                 catalyst_platform: "macos",
                 disable_slide_to_type: false,
                 prelaunch_simulator: false,

@@ -16,7 +16,7 @@ final class ScrollViewTests: XCTestCase {
 
             var body: some View {
                 HStack {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         Text("Item 1")
                     }
                     #if os(iOS) || os(tvOS)
@@ -28,7 +28,7 @@ final class ScrollViewTests: XCTestCase {
                         self.spy1(scrollView)
                     }
                     #endif
-                    ScrollView {
+                    ScrollView(showsIndicators: true) {
                         Text("Item 1")
                         #if os(iOS) || os(tvOS)
                         .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
@@ -72,7 +72,10 @@ final class ScrollViewTests: XCTestCase {
         let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
         let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
 
-        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+        XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, false)
+        XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, true)
+
+        XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)
     }
 
     func testNestedScrollView() throws {
@@ -139,7 +142,10 @@ final class ScrollViewTests: XCTestCase {
         let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
         let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
 
-        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+        XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, true)
+        XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, false)
+
+        XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)
     }
 
     func testMaskedScrollView() throws {
@@ -149,7 +155,7 @@ final class ScrollViewTests: XCTestCase {
 
             var body: some View {
                 HStack {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         Text("Item 1")
                     }
                     #if os(iOS) || os(tvOS)
@@ -164,7 +170,7 @@ final class ScrollViewTests: XCTestCase {
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 20.0))
                     .cornerRadius(2.0)
-                    ScrollView {
+                    ScrollView(showsIndicators: true) {
                         Text("Item 1")
                             #if os(iOS) || os(tvOS)
                             .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
@@ -209,6 +215,9 @@ final class ScrollViewTests: XCTestCase {
         let unwrappedScrollView1 = try XCTUnwrap(scrollView1)
         let unwrappedScrollView2 = try XCTUnwrap(scrollView2)
 
-        XCTAssertNotEqual(unwrappedScrollView1, unwrappedScrollView2)
+        XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, false)
+        XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, true)
+
+        XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)
     }
 }

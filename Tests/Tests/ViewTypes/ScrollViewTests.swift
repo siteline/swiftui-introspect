@@ -51,12 +51,18 @@ final class ScrollViewTests: XCTestCase {
         var scrollView2: PlatformScrollView?
 
         let view = ScrollTestView(
-            spy1: { scrollView in
-                scrollView1 = scrollView
+            spy1: {
+                if let scrollView1 = scrollView1 {
+                    XCTAssert(scrollView1 === $0)
+                }
+                scrollView1 = $0
                 expectation1.fulfill()
             },
-            spy2: { scrollView in
-                scrollView2 = scrollView
+            spy2: {
+                if let scrollView2 = scrollView2 {
+                    XCTAssert(scrollView2 === $0)
+                }
+                scrollView2 = $0
                 expectation2.fulfill()
             }
         )
@@ -113,12 +119,18 @@ final class ScrollViewTests: XCTestCase {
 //        var scrollView2: PlatformScrollView?
 //
 //        let view = NestedScrollTestView(
-//            spy1: { scrollView in
-//                scrollView1 = scrollView
+//            spy1: {
+//                if let scrollView1 = scrollView1 {
+//                    XCTAssert(scrollView1 === $0)
+//                }
+//                scrollView1 = $0
 //                expectation1.fulfill()
 //            },
-//            spy2: { scrollView in
-//                scrollView2 = scrollView
+//            spy2: {
+//                if let scrollView2 = scrollView2 {
+//                    XCTAssert(scrollView2 === $0)
+//                }
+//                scrollView2 = $0
 //                expectation2.fulfill()
 //            }
 //        )
@@ -176,12 +188,18 @@ final class ScrollViewTests: XCTestCase {
         var scrollView2: PlatformScrollView?
 
         let view = MaskedScrollTestView(
-            spy1: { scrollView in
-                scrollView1 = scrollView
+            spy1: {
+                if let scrollView1 = scrollView1 {
+                    XCTAssert(scrollView1 === $0)
+                }
+                scrollView1 = $0
                 expectation1.fulfill()
             },
-            spy2: { scrollView in
-                scrollView2 = scrollView
+            spy2: {
+                if let scrollView2 = scrollView2 {
+                    XCTAssert(scrollView2 === $0)
+                }
+                scrollView2 = $0
                 expectation2.fulfill()
             }
         )

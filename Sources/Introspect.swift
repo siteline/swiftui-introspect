@@ -90,27 +90,30 @@ extension PlatformView {
     func findReceiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-        guard let hostingView = self.hostingView else {
-            return nil
-        }
+//        guard let hostingView = self.hostingView else {
+//            return nil
+//        }
 
-//        for container in superviews {
-            let children = hostingView.recursivelyFindSubviews(ofType: PlatformSpecificView.self)
+        for container in superviews {
+            let children = container.recursivelyFindSubviews(ofType: PlatformSpecificView.self)
 
-            for child in children {
+            for child in children where child.frame != .zero {
                 guard
-                    let childFrame = child.superview?.convert(child.frame, to: hostingView),
-                    let entryFrame = self.superview?.convert(self.frame, to: hostingView)
+                    let childFrame = child.superview?.convert(child.frame, to: container),
+                    let entryFrame = self.superview?.convert(self.frame, to: container)
                 else {
                     continue
                 }
 
+//                print(childFrame)
+//                print(entryFrame)
+
                 if childFrame.contains(entryFrame) {
-                    print(hostingView)
+//                    print(container)
                     return child
                 }
             }
-//        }
+        }
 
         return nil
     }
@@ -118,7 +121,7 @@ extension PlatformView {
     func findAncestor<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
+        self.superviews.lazy.compactMap { print($0.frame); return $0 as? PlatformSpecificView }.first
     }
 
     var superviews: AnySequence<PlatformView> {

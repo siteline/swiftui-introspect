@@ -53,7 +53,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if #available(iOS 14, tvOS 14, *) {
+        if #available(iOS 14, *) {
             handler?() // optimistic, will be called most times for view targets (except for iOS 13 where it's too premature)
         }
     }

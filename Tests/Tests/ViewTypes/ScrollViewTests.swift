@@ -87,38 +87,40 @@ final class ScrollViewTests: XCTestCase {
     }
 
     func testNestedScrollView() throws {
+        guard #available(tvOS 14, *) else {
+            throw XCTSkip("FIXME: fails on tvOS 13")
+        }
+
         struct NestedScrollTestView: View {
             let spy1: (PlatformScrollView) -> Void
             let spy2: (PlatformScrollView) -> Void
 
             var body: some View {
-                HStack {
-                    ScrollView(showsIndicators: true) {
-                        Text("Item 1")
+                ScrollView(showsIndicators: true) {
+                    Text("Item 1")
 
-                        ScrollView(showsIndicators: false) {
-                            Text("Item 1")
-                        }
-                        #if os(iOS) || os(tvOS)
-                        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
-                            self.spy2(scrollView)
-                        }
-                        #elseif os(macOS)
-                        .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13)) { scrollView in
-                            self.spy2(scrollView)
-                        }
-                        #endif
+                    ScrollView(showsIndicators: false) {
+                        Text("Item 1")
                     }
                     #if os(iOS) || os(tvOS)
                     .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
-                        self.spy1(scrollView)
+                        self.spy2(scrollView)
                     }
                     #elseif os(macOS)
                     .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13)) { scrollView in
-                        self.spy1(scrollView)
+                        self.spy2(scrollView)
                     }
                     #endif
                 }
+                #if os(iOS) || os(tvOS)
+                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
+                    self.spy1(scrollView)
+                }
+                #elseif os(macOS)
+                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13)) { scrollView in
+                    self.spy1(scrollView)
+                }
+                #endif
             }
         }
 

@@ -87,10 +87,6 @@ final class ScrollViewTests: XCTestCase {
     }
 
     func testNestedScrollView() throws {
-        guard #available(tvOS 14, *) else {
-            throw XCTSkip("FIXME: fails on tvOS 13")
-        }
-
         struct NestedScrollTestView: View {
             let spy1: (PlatformScrollView) -> Void
             let spy2: (PlatformScrollView) -> Void

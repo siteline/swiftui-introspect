@@ -63,10 +63,13 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         handler?() // backup for some views on iOS 14 which start as 0-sized (e.g. List), and iOS 13
     }
     #elseif canImport(AppKit)
-    // TODO: didMove(toParent:) is not an AppKit API. What to do?
-
     override func loadView() {
         view = NSView()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        handler?()
     }
 
     override func viewDidLayout() {

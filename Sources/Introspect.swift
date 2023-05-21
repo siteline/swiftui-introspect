@@ -32,6 +32,7 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     observed: Binding(get: observe, set: { _ in /* will never execute */ }),
+                    targetType: .view,
                     selector: { introspectionViewController in
                         let scope = scope ?? defaultScope
 

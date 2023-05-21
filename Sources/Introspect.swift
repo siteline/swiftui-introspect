@@ -38,7 +38,6 @@ extension View {
                         func receiver() -> PlatformSpecificView? {
                             #if canImport(UIKit)
                             if let introspectionView = introspectionViewController.viewIfLoaded {
-                                print(introspectionView.frame)
                                 return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
                             } else {
                                 return nil

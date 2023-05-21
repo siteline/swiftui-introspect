@@ -76,8 +76,8 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, false)
         XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, true)
         #elseif canImport(AppKit)
-        XCTAssertEqual(unwrappedScrollView1.hasVerticalScroller, false)
-        XCTAssertEqual(unwrappedScrollView2.hasVerticalScroller, true)
+        XCTAssert(unwrappedScrollView1.verticalScroller == nil)
+        XCTAssert(unwrappedScrollView2.verticalScroller != nil)
         #endif
 
         XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)
@@ -151,8 +151,8 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, true)
         XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, false)
         #elseif canImport(AppKit)
-        XCTAssertEqual(unwrappedScrollView1.hasVerticalScroller, true)
-        XCTAssertEqual(unwrappedScrollView2.hasVerticalScroller, false)
+        XCTAssert(unwrappedScrollView1.verticalScroller != nil)
+        XCTAssert(unwrappedScrollView2.verticalScroller == nil)
         #endif
 
         XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)
@@ -229,8 +229,8 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertEqual(unwrappedScrollView1.showsVerticalScrollIndicator, false)
         XCTAssertEqual(unwrappedScrollView2.showsVerticalScrollIndicator, true)
         #elseif canImport(AppKit)
-        XCTAssertEqual(unwrappedScrollView1.hasVerticalScroller, false)
-        XCTAssertEqual(unwrappedScrollView2.hasVerticalScroller, true)
+        XCTAssert(unwrappedScrollView1.verticalScroller == nil)
+        XCTAssert(unwrappedScrollView2.verticalScroller != nil)
         #endif
 
         XCTAssert(unwrappedScrollView1 !== unwrappedScrollView2)

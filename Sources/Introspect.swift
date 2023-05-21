@@ -43,11 +43,12 @@ extension View {
                                 return nil
                             }
                             #elseif canImport(AppKit)
-                            guard introspectionViewController.isViewLoaded else {
+                            if introspectionViewController.isViewLoaded {
+                                let introspectionView = introspectionViewController.view
+                                return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
+                            } else {
                                 return nil
                             }
-                            let introspectionView = introspectionViewController.view
-                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
                             #endif
                         }
 
@@ -59,11 +60,12 @@ extension View {
                                 return nil
                             }
                             #elseif canImport(AppKit)
-                            guard introspectionViewController.isViewLoaded else {
+                            if introspectionViewController.isViewLoaded {
+                                let introspectionView = introspectionViewController.view
+                                return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
+                            } else {
                                 return nil
                             }
-                            let introspectionView = introspectionViewController.view
-                            return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
                             #endif
                         }
 
@@ -126,7 +128,13 @@ extension PlatformView {
     }
 
     var hostingView: PlatformView? {
-        self.superviews.first(where: { NSStringFromClass(type(of: $0)).contains("Hosting") })
+        self.superviews.first(where: {
+            let type = String(reflecting: type(of: $0))
+            guard type.hasPrefix("SwiftUI."), type.contains("Hosting") else {
+                return false
+            }
+            return true
+        })
     }
 
     func recursivelyFindSubviews<T: PlatformView>(ofType type: T.Type) -> [T] {

@@ -37,7 +37,7 @@ extension View {
 
                         func receiver() -> PlatformSpecificView? {
                             #if canImport(UIKit)
-                            if let introspectionView = introspectionViewController.viewIfLoaded, introspectionView.frame.size == .init(width: 1, height: 1) {
+                            if let introspectionView = introspectionViewController.viewIfLoaded {
                                 print(introspectionView.frame)
                                 return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
                             } else {
@@ -54,7 +54,7 @@ extension View {
 
                         func ancestor() -> PlatformSpecificView? {
                             #if canImport(UIKit)
-                            if let introspectionView = introspectionViewController.viewIfLoaded, introspectionView.frame.size == .init(width: 1, height: 1) {
+                            if let introspectionView = introspectionViewController.viewIfLoaded {
                                 return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
                             } else {
                                 return nil

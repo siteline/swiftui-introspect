@@ -53,12 +53,14 @@ final class IntrospectionPlatformViewController: PlatformViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        handler?() // optimistic, will be called most times for view targets
+        if #available(iOS 14, *) {
+            handler?() // optimistic, will be called most times for view targets (except for iOS 13 where it's too premature)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        handler?() // backup for some views on iOS 14 which start as 0-sized (e.g. List)
+        handler?() // backup for some views on iOS 14 which start as 0-sized (e.g. List), and iOS 13
     }
     #elseif canImport(AppKit)
     // TODO: didMove(toParent:) is not an AppKit API. What to do?

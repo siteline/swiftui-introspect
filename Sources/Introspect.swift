@@ -54,6 +54,17 @@ extension View {
 }
 
 extension PlatformView {
+    var hostingView: PlatformView? {
+        self.superviews.first(where: {
+            let type = String(reflecting: type(of: $0))
+            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
+        })
+    }
+
+    var superviews: AnySequence<PlatformView> {
+        AnySequence(sequence(first: self, next: \.superview).dropFirst())
+    }
+
     func findReceiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
@@ -82,23 +93,6 @@ extension PlatformView {
         return nil
     }
 
-    func findAncestor<PlatformSpecificView: PlatformView>(
-        ofType type: PlatformSpecificView.Type
-    ) -> PlatformSpecificView? {
-        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
-    }
-
-    var superviews: AnySequence<PlatformView> {
-        AnySequence(sequence(first: self, next: \.superview).dropFirst())
-    }
-
-    var hostingView: PlatformView? {
-        self.superviews.first(where: {
-            let type = String(reflecting: type(of: $0))
-            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
-        })
-    }
-
     func recursivelyFindSubviews<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> [PlatformSpecificView] {
@@ -107,5 +101,11 @@ extension PlatformView {
             result.append(contentsOf: subview.recursivelyFindSubviews(ofType: type))
         }
         return result
+    }
+
+    func findAncestor<PlatformSpecificView: PlatformView>(
+        ofType type: PlatformSpecificView.Type
+    ) -> PlatformSpecificView? {
+        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
     }
 }

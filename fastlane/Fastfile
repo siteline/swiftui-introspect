@@ -1,6 +1,7 @@
 skip_docs
 
 lane :test do |options|
+    configuration = (options[:configuration] || "Debug").to_s
     platform = options[:platform].to_s
     version = options[:version].to_i
     scheme = options[:scheme].to_s
@@ -9,10 +10,14 @@ lane :test do |options|
     when "macos"
         case scheme
         when "Introspect"
-            spm(command: "test")
+            spm(
+                command: "test",
+                configuration: configuration.downcase,
+            )
         when "SwiftUIIntrospectTests"
             for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
                 run_tests(
+                    configuration: configuration,
                     build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
                     scheme: scheme,
                     destination: [destination],
@@ -80,6 +85,7 @@ lane :test do |options|
     end
 
     run_tests(
+        configuration: configuration,
         scheme: scheme,
         devices: devices,
         prelaunch_simulator: true,

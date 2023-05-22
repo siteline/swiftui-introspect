@@ -91,14 +91,14 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode || '14.3' }}
 
-      - name: Install Homebrew dependencies
-        run: |
-          brew install xcbeautify
-          brew install xcodesorg/made/xcodes
+      - name: Install xcbeautify
+        run: brew install xcbeautify
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime
-        run: sudo xcodes runtimes install '${{ matrix.runtime }}'
+        run: |
+          brew install xcodesorg/made/xcodes
+          sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Simulators
         run: xcrun simctl list devices available

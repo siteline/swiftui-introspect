@@ -35,12 +35,12 @@ extension View {
                     selector: { (view: PlatformView) in
                         switch scope ?? defaultScope {
                         case .receiver:
-                            return view.findReceiver(ofType: PlatformSpecificView.self)
+                            return view.receiver(ofType: PlatformSpecificView.self)
                         case .ancestor:
-                            return view.findAncestor(ofType: PlatformSpecificView.self)
+                            return view.ancestor(ofType: PlatformSpecificView.self)
                         case .receiverOrAncestor:
-                            return view.findReceiver(ofType: PlatformSpecificView.self)
-                                ?? view.findAncestor(ofType: PlatformSpecificView.self)
+                            return view.receiver(ofType: PlatformSpecificView.self)
+                                ?? view.ancestor(ofType: PlatformSpecificView.self)
                         }
                     },
                     customize: customize
@@ -65,7 +65,7 @@ extension PlatformView {
         AnySequence(sequence(first: self, next: \.superview).dropFirst())
     }
 
-    func findReceiver<PlatformSpecificView: PlatformView>(
+    func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
         guard let hostingView = self.hostingView else {
@@ -73,7 +73,7 @@ extension PlatformView {
         }
 
 //        for container in superviews {
-            let children = hostingView.recursivelyFindSubviews(ofType: PlatformSpecificView.self)
+            let children = hostingView.allSubviews(ofType: PlatformSpecificView.self)
 
             for child in children {
                 guard
@@ -93,17 +93,17 @@ extension PlatformView {
         return nil
     }
 
-    func recursivelyFindSubviews<PlatformSpecificView: PlatformView>(
+    func allSubviews<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> [PlatformSpecificView] {
         var result = self.subviews.compactMap { $0 as? PlatformSpecificView }
         for subview in self.subviews {
-            result.append(contentsOf: subview.recursivelyFindSubviews(ofType: type))
+            result.append(contentsOf: subview.allSubviews(ofType: type))
         }
         return result
     }
 
-    func findAncestor<PlatformSpecificView: PlatformView>(
+    func ancestor<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
         self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first

@@ -23,16 +23,13 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
             #if canImport(UIKit)
             if let introspectionView = introspectionViewController.viewIfLoaded {
                 return selector(introspectionView)
-            } else {
-                return nil
             }
             #elseif canImport(AppKit)
             if introspectionViewController.isViewLoaded {
                 return selector(introspectionViewController.view)
-            } else {
-                return nil
             }
             #endif
+            return nil
         }
         self.customize = customize
     }

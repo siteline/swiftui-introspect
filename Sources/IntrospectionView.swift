@@ -9,8 +9,33 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     @Binding
     var observed: Observed
     let targetType: IntrospectionTargetType
-    let selector: (PlatformViewController) -> Target?
+    let selector: (IntrospectionPlatformViewController) -> Target?
     let customize: (Target) -> Void
+
+    init(
+        observe: @escaping @autoclosure () -> Observed,
+        selector: @escaping (PlatformView) -> Target?,
+        customize: @escaping (Target) -> Void
+    ) {
+        self._observed = Binding(get: observe, set: { _ in /* will never execute */ })
+        self.targetType = .view
+        self.selector = { introspectionViewController in
+            #if canImport(UIKit)
+            if let introspectionView = introspectionViewController.viewIfLoaded {
+                return selector(introspectionView)
+            } else {
+                return nil
+            }
+            #elseif canImport(AppKit)
+            if introspectionViewController.isViewLoaded {
+                return selector(introspectionViewController.view)
+            } else {
+                return nil
+            }
+            #endif
+        }
+        self.customize = customize
+    }
 
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController(targetType: targetType) { controller in
@@ -47,7 +72,7 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
 
 final class IntrospectionPlatformViewController: PlatformViewController {
     let targetType: IntrospectionTargetType
-    var handler: (() -> Void)?
+    var handler: (() -> Void)? = nil
 
     init(targetType: IntrospectionTargetType, handler: ((IntrospectionPlatformViewController) -> Void)?) {
         self.targetType = targetType

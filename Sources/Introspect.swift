@@ -31,52 +31,16 @@ extension View {
         if let defaultScope = platforms.lazy.compactMap(\.scope).first {
             self.overlay(
                 IntrospectionView(
-                    observed: Binding(get: observe, set: { _ in /* will never execute */ }),
-                    targetType: .view,
-                    selector: { introspectionViewController in
-                        let scope = scope ?? defaultScope
-
-                        func receiver() -> PlatformSpecificView? {
-                            #if canImport(UIKit)
-                            if let introspectionView = introspectionViewController.viewIfLoaded {
-                                return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
-                            } else {
-                                return nil
-                            }
-                            #elseif canImport(AppKit)
-                            if introspectionViewController.isViewLoaded {
-                                let introspectionView = introspectionViewController.view
-                                return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
-                            } else {
-                                return nil
-                            }
-                            #endif
-                        }
-
-                        func ancestor() -> PlatformSpecificView? {
-                            #if canImport(UIKit)
-                            if let introspectionView = introspectionViewController.viewIfLoaded {
-                                return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
-                            } else {
-                                return nil
-                            }
-                            #elseif canImport(AppKit)
-                            if introspectionViewController.isViewLoaded {
-                                let introspectionView = introspectionViewController.view
-                                return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
-                            } else {
-                                return nil
-                            }
-                            #endif
-                        }
-
-                        switch scope {
+                    observe: observe(),
+                    selector: { (introspectionView: PlatformView) in
+                        switch scope ?? defaultScope {
                         case .receiver:
-                            return receiver()
+                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
                         case .ancestor:
-                            return ancestor()
+                            return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
                         case .receiverOrAncestor:
-                            return receiver() ?? ancestor()
+                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
+                                ?? introspectionView.findAncestor(ofType: PlatformSpecificView.self)
                         }
                     },
                     customize: customize

@@ -2,50 +2,50 @@ import SwiftUI
 
 extension View {
     #if swift(>=5.7)
-    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
-        _ view: SwiftUIView,
-        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
+    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
+        _ viewType: SwiftUIViewType,
+        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed = { () },
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
+        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
     }
     #else
-    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView>(
-        _ view: SwiftUIView,
-        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
+    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView>(
+        _ viewType: SwiftUIViewType,
+        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
+        introspect(viewType, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
     }
 
-    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
-        _ view: SwiftUIView,
-        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
+    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
+        _ viewType: SwiftUIViewType,
+        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
-        introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
+        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
     }
     #endif
 
     @ViewBuilder
-    private func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
-        _ view: SwiftUIView,
-        on platforms: [PlatformDescriptor<SwiftUIView, PlatformSpecificView>],
+    private func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
+        _ viewType: SwiftUIViewType,
+        on platforms: [PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>],
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
-        if let defaultScope = platforms.lazy.compactMap(\.scope).first {
+        if platforms.contains(where: \.isCurrent) {
             self.overlay(
                 IntrospectionView(
                     observe: observe(),
                     selector: { (view: PlatformView) in
-                        switch scope ?? defaultScope {
+                        switch scope ?? viewType.scope {
                         case .receiver:
                             return view.receiver(ofType: PlatformSpecificView.self)
                         case .ancestor:

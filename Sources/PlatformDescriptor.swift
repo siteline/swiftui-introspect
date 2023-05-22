@@ -1,24 +1,22 @@
 import SwiftUI
 
-public struct PlatformDescriptor<SwiftUIView: ViewType, PlatformView> {
-    let scope: IntrospectionScope?
-}
+public struct PlatformVersionsDescriptor<SwiftUIViewType: ViewType, PlatformView> {
+    let isCurrent: Bool
 
-extension PlatformDescriptor {
-    public static func iOS(_ versions: (PlatformVersionDescriptor<iOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
+    public static func iOS(_ versions: (PlatformVersionDescriptor<iOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+        Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 
-    public static func macOS(_ versions: (PlatformVersionDescriptor<macOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
+    public static func macOS(_ versions: (PlatformVersionDescriptor<macOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+        Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 
-    public static func tvOS(_ versions: (PlatformVersionDescriptor<tvOSVersion, SwiftUIView, PlatformView>)...) -> Self {
-        Self(scope: versions.contains(where: \.version.isCurrent) ? SwiftUIView.scope : nil)
+    public static func tvOS(_ versions: (PlatformVersionDescriptor<tvOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+        Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 }
 
-public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: ViewType, PlatformView> {
+public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIViewType: ViewType, PlatformView> {
     let version: Version
 
     init(for version: Version) {

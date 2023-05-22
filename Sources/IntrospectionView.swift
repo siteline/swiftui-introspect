@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum IntrospectionTargetType {
+fileprivate enum IntrospectionTargetType {
     case view
     case viewController
 }
@@ -79,10 +79,10 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
 }
 
 final class IntrospectionPlatformViewController: PlatformViewController {
-    let targetType: IntrospectionTargetType
+    fileprivate let targetType: IntrospectionTargetType
     var handler: (() -> Void)? = nil
 
-    init(targetType: IntrospectionTargetType, handler: ((IntrospectionPlatformViewController) -> Void)?) {
+    fileprivate init(targetType: IntrospectionTargetType, handler: ((IntrospectionPlatformViewController) -> Void)?) {
         self.targetType = targetType
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in

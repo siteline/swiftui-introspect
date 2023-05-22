@@ -54,18 +54,7 @@ extension View {
 }
 
 extension PlatformView {
-    var hostingView: PlatformView? {
-        self.superviews.first(where: {
-            let type = String(reflecting: type(of: $0))
-            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
-        })
-    }
-
-    var superviews: AnySequence<PlatformView> {
-        AnySequence(sequence(first: self, next: \.superview).dropFirst())
-    }
-
-    func receiver<PlatformSpecificView: PlatformView>(
+    fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
         guard let hostingView = self.hostingView else {
@@ -93,7 +82,26 @@ extension PlatformView {
         return nil
     }
 
-    func allSubviews<PlatformSpecificView: PlatformView>(
+    fileprivate func ancestor<PlatformSpecificView: PlatformView>(
+        ofType type: PlatformSpecificView.Type
+    ) -> PlatformSpecificView? {
+        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
+    }
+}
+
+extension PlatformView {
+    private var superviews: AnySequence<PlatformView> { // TODO: `some Sequence<PlatformView>` in Swift 5.7
+        AnySequence(sequence(first: self, next: \.superview).dropFirst())
+    }
+
+    private var hostingView: PlatformView? {
+        self.superviews.first(where: {
+            let type = String(reflecting: type(of: $0))
+            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
+        })
+    }
+
+    private func allSubviews<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> [PlatformSpecificView] {
         var result = self.subviews.compactMap { $0 as? PlatformSpecificView }
@@ -101,11 +109,5 @@ extension PlatformView {
             result.append(contentsOf: subview.allSubviews(ofType: type))
         }
         return result
-    }
-
-    func ancestor<PlatformSpecificView: PlatformView>(
-        ofType type: PlatformSpecificView.Type
-    ) -> PlatformSpecificView? {
-        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
     }
 }

@@ -95,10 +95,7 @@ extension PlatformView {
     var hostingView: PlatformView? {
         self.superviews.first(where: {
             let type = String(reflecting: type(of: $0))
-            guard type.hasPrefix("SwiftUI."), type.contains("Hosting") else {
-                return false
-            }
-            return true
+            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
         })
     }
 

@@ -37,6 +37,17 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
         self.customize = customize
     }
 
+    init(
+        observe: @escaping @autoclosure () -> Observed,
+        selector: @escaping (PlatformViewController) -> Target?,
+        customize: @escaping (Target) -> Void
+    ) {
+        self._observed = Binding(get: observe, set: { _ in /* will never execute */ })
+        self.targetType = .viewController
+        self.selector = { selector($0) }
+        self.customize = customize
+    }
+
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController(targetType: targetType) { controller in
             guard let target = selector(controller) else {

@@ -1,3 +1,4 @@
+#if !LEGACY_MACOS_SDK
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -123,3 +124,4 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
         #endif
     }
 }
+#endif

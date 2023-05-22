@@ -32,15 +32,15 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     observe: observe(),
-                    selector: { (introspectionView: PlatformView) in
+                    selector: { (view: PlatformView) in
                         switch scope ?? defaultScope {
                         case .receiver:
-                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
+                            return view.findReceiver(ofType: PlatformSpecificView.self)
                         case .ancestor:
-                            return introspectionView.findAncestor(ofType: PlatformSpecificView.self)
+                            return view.findAncestor(ofType: PlatformSpecificView.self)
                         case .receiverOrAncestor:
-                            return introspectionView.findReceiver(ofType: PlatformSpecificView.self)
-                                ?? introspectionView.findAncestor(ofType: PlatformSpecificView.self)
+                            return view.findReceiver(ofType: PlatformSpecificView.self)
+                                ?? view.findAncestor(ofType: PlatformSpecificView.self)
                         }
                     },
                     customize: customize

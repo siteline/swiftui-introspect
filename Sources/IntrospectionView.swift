@@ -7,10 +7,10 @@ enum IntrospectionTargetType {
 
 struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable {
     @Binding
-    var observed: Observed
-    let targetType: IntrospectionTargetType
-    let selector: (IntrospectionPlatformViewController) -> Target?
-    let customize: (Target) -> Void
+    private var observed: Observed
+    private let targetType: IntrospectionTargetType
+    private let selector: (IntrospectionPlatformViewController) -> Target?
+    private let customize: (Target) -> Void
 
     init(
         observe: @escaping @autoclosure () -> Observed,

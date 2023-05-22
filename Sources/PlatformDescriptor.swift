@@ -25,6 +25,7 @@ public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIView: V
         self.version = version
     }
 
+    // TODO: do we need this? It's an interesting idea to be exhaustive about API availability per platform version, but maybe not having them in the first place is enough? Plus we get rid of RuntimeWarnings.swift...
     static func unavailable(
         for version: Version,
         file: StaticString = #file,

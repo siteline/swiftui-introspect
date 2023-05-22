@@ -1,6 +1,17 @@
 import SwiftUI
 
 extension View {
+    #if swift(>=5.7)
+    public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
+        _ view: SwiftUIView,
+        on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
+        scope: IntrospectionScope? = nil,
+        observe: @escaping @autoclosure () -> Observed = { () },
+        customize: @escaping (PlatformSpecificView) -> Void
+    ) -> some View {
+        introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
+    }
+    #else
     public func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView>(
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
@@ -14,11 +25,12 @@ extension View {
         _ view: SwiftUIView,
         on platforms: (PlatformDescriptor<SwiftUIView, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed, // TODO: `= { () }` in Swift 5.7
+        observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         introspect(view, on: platforms, scope: scope, observe: observe(), customize: customize)
     }
+    #endif
 
     @ViewBuilder
     private func introspect<SwiftUIView: ViewType, PlatformSpecificView: PlatformView, Observed>(
@@ -90,9 +102,15 @@ extension PlatformView {
 }
 
 extension PlatformView {
-    private var superviews: AnySequence<PlatformView> { // TODO: `some Sequence<PlatformView>` in Swift 5.7
+    #if swift(>=5.7)
+    private var superviews: some Sequence<PlatformView> {
+        sequence(first: self, next: \.superview).dropFirst()
+    }
+    #else
+    private var superviews: AnySequence<PlatformView> {
         AnySequence(sequence(first: self, next: \.superview).dropFirst())
     }
+    #endif
 
     private var hostingView: PlatformView? {
         self.superviews.first(where: {

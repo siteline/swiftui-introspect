@@ -19,7 +19,7 @@ public struct PlatformVersionsDescriptor<SwiftUIViewType: ViewType, PlatformView
 public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIViewType: ViewType, PlatformView> {
     let version: Version
 
-    public init(for version: Version) {
+    @_spi(Internals) public init(for version: Version) {
         self.version = version
     }
 

@@ -21,7 +21,7 @@ extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIViewType
 // MARK: SwiftUI.NavigationSplitView - tvOS
 
 #if canImport(UIKit)
-extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIViewType == NavigationSplitViewType, PlatformView == UISplitViewController {
+extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIViewType == NavigationSplitViewType, PlatformView == UINavigationController {
     public static let v16 = Self(for: .v16)
 }
 #endif

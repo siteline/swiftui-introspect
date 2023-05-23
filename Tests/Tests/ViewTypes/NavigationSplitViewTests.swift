@@ -5,8 +5,10 @@ import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
 final class NavigationSplitViewTests: XCTestCase {
-    #if canImport(UIKit)
+    #if canImport(UIKit) && os(iOS)
     typealias PlatformNavigationSplitView = UISplitViewController
+    #elseif canImport(UIKit) && os(tvOS)
+    typealias PlatformNavigationSplitView = UINavigationController
     #elseif canImport(AppKit)
     typealias PlatformNavigationSplitView = NSSplitView
     #endif
@@ -31,13 +33,17 @@ final class NavigationSplitViewTests: XCTestCase {
                         Text("Detail")
                     }
                 }
-                #if os(iOS) || os(tvOS)
-                .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { navigationSplitView in
-                    self.spy(navigationSplitView)
+                #if os(iOS)
+                .introspect(.navigationSplitView, on: .iOS(.v16)) { splitViewController in
+                    self.spy(splitViewController)
+                }
+                #elseif os(tvOS)
+                .introspect(.navigationSplitView, on: .tvOS(.v16)) { navigationController in
+                    self.spy(navigationController)
                 }
                 #elseif os(macOS)
-                .introspect(.navigationSplitView, on: .macOS(.v13)) { navigationSplitView in
-                    self.spy(navigationSplitView)
+                .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
+                    self.spy(splitView)
                 }
                 #endif
             }
@@ -75,13 +81,17 @@ final class NavigationSplitViewTests: XCTestCase {
                     ZStack {
                         Color.red
                         Text("Sidebar")
-                            #if os(iOS) || os(tvOS)
-                            .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { navigationSplitView in
-                                self.spy(navigationSplitView)
+                            #if os(iOS)
+                            .introspect(.navigationSplitView, on: .iOS(.v16)) { splitViewController in
+                                self.spy(splitViewController)
+                            }
+                            #elseif os(tvOS)
+                            .introspect(.navigationSplitView, on: .tvOS(.v16)) { navigationController in
+                                self.spy(navigationController)
                             }
                             #elseif os(macOS)
-                            .introspect(.navigationSplitView, on: .macOS(.v13)) { navigationSplitView in
-                                self.spy(navigationSplitView)
+                            .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
+                                self.spy(splitView)
                             }
                             #endif
                     }

@@ -18,110 +18,52 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
             throw XCTSkip()
         }
 
-        struct TextFieldWithVerticalAxisTestView: View {
-            let spy1: (PlatformTextField) -> Void
-            let spy2: (PlatformTextField) -> Void
-            let spy3: (PlatformTextField) -> Void
+        XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
+            let spy0 = spies[0]
+            let spy1 = spies[1]
+            let spy2 = spies[2]
 
-            var body: some View {
-                VStack {
-                    TextField("", text: .constant("Text Field 1"), axis: .vertical)
-                        #if os(iOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
-                            self.spy1(textField)
-                        }
-                        #elseif os(tvOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16)) { textField in
-                            self.spy1(textField)
-                        }
-                        #elseif os(macOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13)) { textField in
-                            self.spy1(textField)
-                        }
-                        #endif
-                        .cornerRadius(8)
+            VStack {
+                TextField("", text: .constant("Text Field 1"), axis: .vertical)
+                    #if os(iOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16), customize: spy0)
+                    #elseif os(tvOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16), customize: spy0)
+                    #elseif os(macOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13), customize: spy0)
+                    #endif
+                    .cornerRadius(8)
 
-                    TextField("", text: .constant("Text Field 2"), axis: .vertical)
-                        #if os(iOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
-                            self.spy2(textField)
-                        }
-                        #elseif os(tvOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16)) { textField in
-                            self.spy2(textField)
-                        }
-                        #elseif os(macOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13)) { textField in
-                            self.spy2(textField)
-                        }
-                        #endif
-                        .cornerRadius(8)
+                TextField("", text: .constant("Text Field 2"), axis: .vertical)
+                    #if os(iOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16), customize: spy1)
+                    #elseif os(tvOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16), customize: spy1)
+                    #elseif os(macOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13), customize: spy1)
+                    #endif
+                    .cornerRadius(8)
 
-                    TextField("", text: .constant("Text Field 3"), axis: .vertical)
-                        #if os(iOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16)) { textField in
-                            self.spy3(textField)
-                        }
-                        #elseif os(tvOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16)) { textField in
-                            self.spy3(textField)
-                        }
-                        #elseif os(macOS)
-                        .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13)) { textField in
-                            self.spy3(textField)
-                        }
-                        #endif
-                }
+                TextField("", text: .constant("Text Field 3"), axis: .vertical)
+                    #if os(iOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .iOS(.v16), customize: spy2)
+                    #elseif os(tvOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .tvOS(.v16), customize: spy2)
+                    #elseif os(macOS)
+                    .introspect(.textFieldWithVerticalAxis, on: .macOS(.v13), customize: spy2)
+                    #endif
             }
+        } extraAssertions: {
+            #if canImport(UIKit)
+            XCTAssertEqual($0[safe: 0]?.text, "Text Field 1")
+            XCTAssertEqual($0[safe: 1]?.text, "Text Field 2")
+            XCTAssertEqual($0[safe: 2]?.text, "Text Field 3")
+            #elseif canImport(AppKit)
+            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 1")
+            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 2")
+            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 3")
+            #endif
         }
-
-        let expectation1 = XCTestExpectation()
-        let expectation2 = XCTestExpectation()
-        let expectation3 = XCTestExpectation()
-
-        var textField1: PlatformTextField?
-        var textField2: PlatformTextField?
-        var textField3: PlatformTextField?
-
-        let view = TextFieldWithVerticalAxisTestView(
-            spy1: {
-                if let textField1 = textField1 {
-                    XCTAssert(textField1 === $0)
-                }
-                textField1 = $0
-                expectation1.fulfill()
-            },
-            spy2: {
-                if let textField2 = textField2 {
-                    XCTAssert(textField2 === $0)
-                }
-                textField2 = $0
-                expectation2.fulfill()
-            },
-            spy3: {
-                if let textField3 = textField3 {
-                    XCTAssert(textField3 === $0)
-                }
-                textField3 = $0
-                expectation3.fulfill()
-            }
-        )
-        TestUtils.present(view: view)
-        wait(for: [expectation1, expectation2, expectation3], timeout: TestUtils.Constants.timeout)
-
-        let unwrappedTextField1 = try XCTUnwrap(textField1)
-        let unwrappedTextField2 = try XCTUnwrap(textField2)
-        let unwrappedTextField3 = try XCTUnwrap(textField3)
-
-        #if canImport(UIKit)
-        XCTAssertEqual(unwrappedTextField1.text, "Text Field 1")
-        XCTAssertEqual(unwrappedTextField2.text, "Text Field 2")
-        XCTAssertEqual(unwrappedTextField3.text, "Text Field 3")
-        #elseif canImport(AppKit)
-        XCTAssertEqual(unwrappedTextField1.stringValue, "Text Field 1")
-        XCTAssertEqual(unwrappedTextField2.stringValue, "Text Field 2")
-        XCTAssertEqual(unwrappedTextField3.stringValue, "Text Field 3")
-        #endif
     }
 }
 #endif

@@ -32,12 +32,12 @@ final class NavigationSplitViewTests: XCTestCase {
                     }
                 }
                 #if os(iOS) || os(tvOS)
-                .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { splitView in
-                    self.spy(splitView)
+                .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { navigationSplitView in
+                    self.spy(navigationSplitView)
                 }
                 #elseif os(macOS)
-                .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
-                    self.spy(splitView)
+                .introspect(.navigationSplitView, on: .macOS(.v13)) { navigationSplitView in
+                    self.spy(navigationSplitView)
                 }
                 #endif
             }
@@ -45,21 +45,21 @@ final class NavigationSplitViewTests: XCTestCase {
 
         let expectation = XCTestExpectation()
 
-        var splitView: PlatformNavigationSplitView?
+        var navigationSplitView: PlatformNavigationSplitView?
 
         let view = NavigationSplitViewTestView(
             spy: {
-                if let splitView = splitView {
-                    XCTAssert(splitView === $0)
+                if let navigationSplitView = navigationSplitView {
+                    XCTAssert(navigationSplitView === $0)
                 }
-                splitView = $0
+                navigationSplitView = $0
                 expectation.fulfill()
             }
         )
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
 
-        XCTAssertNotNil(splitView)
+        XCTAssertNotNil(navigationSplitView)
     }
 
     func testNavigationSplitViewAsAncestor() throws {
@@ -76,12 +76,12 @@ final class NavigationSplitViewTests: XCTestCase {
                         Color.red
                         Text("Sidebar")
                             #if os(iOS) || os(tvOS)
-                            .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { splitView in
-                                self.spy(splitView)
+                            .introspect(.navigationSplitView, on: .iOS(.v16), .tvOS(.v16)) { navigationSplitView in
+                                self.spy(navigationSplitView)
                             }
                             #elseif os(macOS)
-                            .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
-                                self.spy(splitView)
+                            .introspect(.navigationSplitView, on: .macOS(.v13)) { navigationSplitView in
+                                self.spy(navigationSplitView)
                             }
                             #endif
                     }
@@ -93,21 +93,21 @@ final class NavigationSplitViewTests: XCTestCase {
 
         let expectation = XCTestExpectation()
 
-        var splitView: PlatformNavigationSplitView?
+        var navigationSplitView: PlatformNavigationSplitView?
 
         let view = NavigationSplitViewTestView(
             spy: {
-                if let splitView = splitView {
-                    XCTAssert(splitView === $0)
+                if let navigationSplitView = navigationSplitView {
+                    XCTAssert(navigationSplitView === $0)
                 }
-                splitView = $0
+                navigationSplitView = $0
                 expectation.fulfill()
             }
         )
         TestUtils.present(view: view)
         wait(for: [expectation], timeout: TestUtils.Constants.timeout)
 
-        _ = try XCTUnwrap(splitView)
+        _ = try XCTUnwrap(navigationSplitView)
     }
 }
 #endif

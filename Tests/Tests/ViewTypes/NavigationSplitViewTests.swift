@@ -71,7 +71,7 @@ final class NavigationSplitViewTests: XCTestCase {
             let spy: (PlatformNavigationSplitView) -> Void
 
             var body: some View {
-                NavigationSplitView {
+                NavigationSplitView(columnVisibility: .constant(.all)) {
                     ZStack {
                         Color.red
                         Text("Sidebar")

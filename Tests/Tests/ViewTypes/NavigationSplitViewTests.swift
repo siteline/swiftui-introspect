@@ -18,54 +18,28 @@ final class NavigationSplitViewTests: XCTestCase {
             throw XCTSkip()
         }
 
-        struct NavigationSplitViewTestView: View {
-            let spy: (PlatformNavigationSplitView) -> Void
+        XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
+            let spy = spies[0]
 
-            var body: some View {
-                NavigationSplitView {
-                    ZStack {
-                        Color.red
-                        Text("Something")
-                    }
-                } detail: {
-                    ZStack {
-                        Color.red
-                        Text("Detail")
-                    }
+            NavigationSplitView {
+                ZStack {
+                    Color.red
+                    Text("Something")
                 }
-                #if os(iOS)
-                .introspect(.navigationSplitView, on: .iOS(.v16)) { splitViewController in
-                    self.spy(splitViewController)
+            } detail: {
+                ZStack {
+                    Color.red
+                    Text("Detail")
                 }
-                #elseif os(tvOS)
-                .introspect(.navigationSplitView, on: .tvOS(.v16)) { navigationController in
-                    self.spy(navigationController)
-                }
-                #elseif os(macOS)
-                .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
-                    self.spy(splitView)
-                }
-                #endif
             }
+            #if os(iOS)
+            .introspect(.navigationSplitView, on: .iOS(.v16), customize: spy)
+            #elseif os(tvOS)
+            .introspect(.navigationSplitView, on: .tvOS(.v16), customize: spy)
+            #elseif os(macOS)
+            .introspect(.navigationSplitView, on: .macOS(.v13), customize: spy)
+            #endif
         }
-
-        let expectation = XCTestExpectation()
-
-        var navigationSplitView: PlatformNavigationSplitView?
-
-        let view = NavigationSplitViewTestView(
-            spy: {
-                if let navigationSplitView = navigationSplitView {
-                    XCTAssert(navigationSplitView === $0)
-                }
-                navigationSplitView = $0
-                expectation.fulfill()
-            }
-        )
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-
-        XCTAssertNotNil(navigationSplitView)
     }
 
     func testNavigationSplitViewAsAncestor() throws {
@@ -73,51 +47,25 @@ final class NavigationSplitViewTests: XCTestCase {
             throw XCTSkip()
         }
 
-        struct NavigationSplitViewTestView: View {
-            let spy: (PlatformNavigationSplitView) -> Void
+        XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
+            let spy = spies[0]
 
-            var body: some View {
-                NavigationSplitView(columnVisibility: .constant(.all)) {
-                    ZStack {
-                        Color.red
-                        Text("Sidebar")
-                            #if os(iOS)
-                            .introspect(.navigationSplitView, on: .iOS(.v16)) { splitViewController in
-                                self.spy(splitViewController)
-                            }
-                            #elseif os(tvOS)
-                            .introspect(.navigationSplitView, on: .tvOS(.v16)) { navigationController in
-                                self.spy(navigationController)
-                            }
-                            #elseif os(macOS)
-                            .introspect(.navigationSplitView, on: .macOS(.v13)) { splitView in
-                                self.spy(splitView)
-                            }
-                            #endif
-                    }
-                } detail: {
-                    Text("Detail")
+            NavigationSplitView(columnVisibility: .constant(.all)) {
+                ZStack {
+                    Color.red
+                    Text("Sidebar")
+                        #if os(iOS)
+                        .introspect(.navigationSplitView, on: .iOS(.v16), customize: spy)
+                        #elseif os(tvOS)
+                        .introspect(.navigationSplitView, on: .tvOS(.v16), customize: spy)
+                        #elseif os(macOS)
+                        .introspect(.navigationSplitView, on: .macOS(.v13), customize: spy)
+                        #endif
                 }
+            } detail: {
+                Text("Detail")
             }
         }
-
-        let expectation = XCTestExpectation()
-
-        var navigationSplitView: PlatformNavigationSplitView?
-
-        let view = NavigationSplitViewTestView(
-            spy: {
-                if let navigationSplitView = navigationSplitView {
-                    XCTAssert(navigationSplitView === $0)
-                }
-                navigationSplitView = $0
-                expectation.fulfill()
-            }
-        )
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-
-        _ = try XCTUnwrap(navigationSplitView)
     }
 }
 #endif

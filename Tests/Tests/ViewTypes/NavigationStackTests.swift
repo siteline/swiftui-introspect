@@ -14,41 +14,19 @@ final class NavigationStackTests: XCTestCase {
             throw XCTSkip()
         }
 
-        struct NavigationStackTestView: View {
-            let spy: (PlatformNavigationStack) -> Void
+        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
+            let spy = spies[0]
 
-            var body: some View {
-                NavigationStack {
-                    ZStack {
-                        Color.red
-                        Text("Something")
-                    }
+            NavigationStack {
+                ZStack {
+                    Color.red
+                    Text("Something")
                 }
-                #if os(iOS) || os(tvOS)
-                .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16)) { navigationController in
-                    self.spy(navigationController)
-                }
-                #endif
             }
+            #if os(iOS) || os(tvOS)
+            .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), customize: spy)
+            #endif
         }
-
-        let expectation = XCTestExpectation()
-
-        var navigationController: PlatformNavigationStack?
-
-        let view = NavigationStackTestView(
-            spy: {
-                if let navigationController = navigationController {
-                    XCTAssert(navigationController === $0)
-                }
-                navigationController = $0
-                expectation.fulfill()
-            }
-        )
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-
-        XCTAssertNotNil(navigationController)
     }
 
     func testNavigationStackAsAncestor() throws {
@@ -56,41 +34,19 @@ final class NavigationStackTests: XCTestCase {
             throw XCTSkip()
         }
 
-        struct NavigationStackTestView: View {
-            let spy: (PlatformNavigationStack) -> Void
+        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
+            let spy = spies[0]
 
-            var body: some View {
-                NavigationStack {
-                    ZStack {
-                        Color.red
-                        Text("Something")
-                            #if os(iOS) || os(tvOS)
-                            .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16)) { navigationController in
-                                self.spy(navigationController)
-                            }
-                            #endif
-                    }
+            NavigationStack {
+                ZStack {
+                    Color.red
+                    Text("Something")
+                        #if os(iOS) || os(tvOS)
+                        .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), customize: spy)
+                        #endif
                 }
             }
         }
-
-        let expectation = XCTestExpectation()
-
-        var navigationController: PlatformNavigationStack?
-
-        let view = NavigationStackTestView(
-            spy: {
-                if let navigationController = navigationController {
-                    XCTAssert(navigationController === $0)
-                }
-                navigationController = $0
-                expectation.fulfill()
-            }
-        )
-        TestUtils.present(view: view)
-        wait(for: [expectation], timeout: TestUtils.Constants.timeout)
-
-        XCTAssertNotNil(navigationController)
     }
 }
 #endif

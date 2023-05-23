@@ -65,11 +65,11 @@
 		D5B67B852A0D3193007D5D9B /* ViewTypes */ = {
 			isa = PBXGroup;
 			children = (
-				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
-				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
-				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
-				D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */,
 				D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */,
+				D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */,
+				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
+				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
+				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 			);
 			path = ViewTypes;
 			sourceTree = "<group>";

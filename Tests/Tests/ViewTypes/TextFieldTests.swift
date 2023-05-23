@@ -9,7 +9,7 @@ final class TextFieldTests: XCTestCase {
     typealias PlatformTextField = NSTextField
     #endif
 
-    func testTextField() throws {
+    func testTextField() {
         XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
@@ -41,13 +41,13 @@ final class TextFieldTests: XCTestCase {
             }
         } extraAssertions: {
             #if canImport(UIKit)
-            XCTAssertEqual($0[0].text, "Text Field 0")
-            XCTAssertEqual($0[1].text, "Text Field 1")
-            XCTAssertEqual($0[2].text, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.text, "Text Field 0")
+            XCTAssertEqual($0[safe: 1]?.text, "Text Field 1")
+            XCTAssertEqual($0[safe: 2]?.text, "Text Field 2")
             #elseif canImport(AppKit)
-            XCTAssertEqual($0[0].stringValue, "Text Field 0")
-            XCTAssertEqual($0[1].stringValue, "Text Field 1")
-            XCTAssertEqual($0[2].stringValue, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 0")
+            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 1")
+            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 2")
             #endif
         }
     }

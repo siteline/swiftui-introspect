@@ -78,7 +78,7 @@ extension XCTestCase {
             expectations[ObjectIdentifier(expectation)] = (expectation, file, line)
             return { [self] in
                 if let object = objects[number] {
-                    XCTAssert(object === $0, file: file, line: line)
+                    XCTAssert(object === $0, "Found view was overriden by another view", file: file, line: line)
                 }
                 objects[number] = $0
                 expectation.fulfill()
@@ -115,6 +115,18 @@ extension XCTestCase {
             didFulfillInvertedExpectation expectation: XCTestExpectation
         ) {
             XCTFail("didFulfillInvertedExpectation")
+        }
+    }
+}
+
+extension Collection {
+    subscript(safe index: Index, file: StaticString = #file, line: UInt = #line) -> Element? {
+        get {
+            guard indices.contains(index) else {
+                XCTFail("Index \(index) is out of bounds")
+                return nil
+            }
+            return self[index]
         }
     }
 }

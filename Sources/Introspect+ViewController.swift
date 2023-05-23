@@ -69,62 +69,40 @@ extension PlatformViewController {
     fileprivate func receiver<PlatformSpecificViewController: PlatformViewController>(
         ofType type: PlatformSpecificViewController.Type
     ) -> PlatformSpecificViewController? {
-        guard let hostingView = self.hostingView else {
-            return nil
-        }
-
-//        for container in superviews {
-            let children = hostingView.allSubviews(ofType: PlatformSpecificViewController.self)
-
-            for child in children {
-//                guard
-//                    let childFrame = child.superview?.convert(child.frame, to: hostingView),
-//                    let entryFrame = self.superview?.convert(self.frame, to: hostingView)
-//                else {
-//                    continue
-//                }
-//
-//                if childFrame.contains(entryFrame) {
-//                    print(hostingView)
-                    return child
-//                }
-            }
-//        }
-
-        return nil
+        self.hostingView?.allChildren(ofType: PlatformSpecificViewController.self).first
     }
 
     fileprivate func ancestor<PlatformSpecificViewController: PlatformViewController>(
         ofType type: PlatformSpecificViewController.Type
     ) -> PlatformSpecificViewController? {
-        self.superviews.lazy.compactMap { $0 as? PlatformSpecificViewController }.first
+        self.parents.lazy.compactMap { $0 as? PlatformSpecificViewController }.first
     }
 }
 
 extension PlatformViewController {
     #if swift(>=5.7)
-    private var superviews: some Sequence<PlatformViewController> {
+    private var parents: some Sequence<PlatformViewController> {
         sequence(first: self, next: \.parent).dropFirst()
     }
     #else
-    private var superviews: AnySequence<PlatformViewController> {
+    private var parents: AnySequence<PlatformViewController> {
         AnySequence(sequence(first: self, next: \.parent).dropFirst())
     }
     #endif
 
     private var hostingView: PlatformViewController? {
-        self.superviews.first(where: {
+        self.parents.first(where: {
             let type = String(reflecting: type(of: $0))
             return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
         })
     }
 
-    private func allSubviews<PlatformSpecificViewController: PlatformViewController>(
+    private func allChildren<PlatformSpecificViewController: PlatformViewController>(
         ofType type: PlatformSpecificViewController.Type
     ) -> [PlatformSpecificViewController] {
         var result = self.children.compactMap { $0 as? PlatformSpecificViewController }
         for subview in self.children {
-            result.append(contentsOf: subview.allSubviews(ofType: type))
+            result.append(contentsOf: subview.allChildren(ofType: type))
         }
         return result
     }

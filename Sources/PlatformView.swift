@@ -13,9 +13,9 @@ typealias PlatformViewRepresentable = NSViewRepresentable
 #endif
 
 #if canImport(UIKit)
-typealias PlatformViewController = UIViewController
+public typealias PlatformViewController = UIViewController
 #elseif canImport(AppKit)
-typealias PlatformViewController = NSViewController
+public typealias PlatformViewController = NSViewController
 #endif
 
 #if canImport(UIKit)

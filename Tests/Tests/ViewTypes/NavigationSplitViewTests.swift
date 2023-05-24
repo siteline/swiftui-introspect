@@ -50,7 +50,7 @@ final class NavigationSplitViewTests: XCTestCase {
         XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
             let spy = spies[0]
 
-            NavigationSplitView(columnVisibility: .constant(.all)) {
+            NavigationSplitView {
                 ZStack {
                     Color.red
                     Text("Sidebar")

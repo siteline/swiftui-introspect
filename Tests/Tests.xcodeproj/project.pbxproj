@@ -18,6 +18,7 @@
 		D5F0BE6929C0DC4900AD95AB /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6629C0DC4900AD95AB /* IntrospectTests.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */; };
 		D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */; };
+		D5F8D5EF2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D5EE2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		D5F0BE6629C0DC4900AD95AB /* IntrospectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformTests.swift; sourceTree = "<group>"; };
 		D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewWithStackStyleTests.swift; sourceTree = "<group>"; };
+		D5F8D5EE2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewWithColumnsStyleTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */,
 				D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */,
 				D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */,
+				D5F8D5EE2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift */,
 				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
@@ -237,6 +240,7 @@
 				D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */,
 				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D58547FA2A1D12270068ADF4 /* NavigationSplitViewTests.swift in Sources */,
+				D5F8D5EF2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */,
 				D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */,
 				D5F0BE6929C0DC4900AD95AB /* IntrospectTests.swift in Sources */,

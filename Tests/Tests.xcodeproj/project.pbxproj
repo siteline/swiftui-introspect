@@ -17,6 +17,7 @@
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6929C0DC4900AD95AB /* IntrospectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6629C0DC4900AD95AB /* IntrospectTests.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */; };
+		D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		D5F0BE5D29C0DC0000AD95AB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE6629C0DC4900AD95AB /* IntrospectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntrospectTests.swift; sourceTree = "<group>"; };
 		D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformTests.swift; sourceTree = "<group>"; };
+		D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewWithStackStyleTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			children = (
 				D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */,
 				D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */,
+				D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */,
 				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
@@ -231,6 +234,7 @@
 			files = (
 				D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */,
 				D58547F82A1CDD740068ADF4 /* NavigationStackTests.swift in Sources */,
+				D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */,
 				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D58547FA2A1D12270068ADF4 /* NavigationSplitViewTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */,

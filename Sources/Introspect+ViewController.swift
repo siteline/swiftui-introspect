@@ -19,7 +19,7 @@ extension View {
                             return viewController.ancestor(ofType: PlatformSpecificViewController.self)
                         case .receiverOrAncestor:
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
-                            ?? viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                                ?? viewController.ancestor(ofType: PlatformSpecificViewController.self)
                         }
                     },
                     customize: customize

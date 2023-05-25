@@ -1,43 +1,12 @@
 import SwiftUI
 
 extension View {
-    #if swift(>=5.7)
+    @ViewBuilder
     public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
         _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
+        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificView>)...,
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed = { () },
-        customize: @escaping (PlatformSpecificView) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
-    }
-    #else
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView>(
-        _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
-        scope: IntrospectionScope? = nil,
-        customize: @escaping (PlatformSpecificView) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
-    }
-
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
-        _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>)...,
-        scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed,
-        customize: @escaping (PlatformSpecificView) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
-    }
-    #endif
-
-    @ViewBuilder
-    private func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView, Observed>(
-        _ viewType: SwiftUIViewType,
-        on platforms: [PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificView>],
-        scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
@@ -69,7 +38,7 @@ extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-        guard let hostingView = self.hostingView else {
+        guard let hostingView else {
             return nil
         }
 
@@ -102,15 +71,9 @@ extension PlatformView {
 }
 
 extension PlatformView {
-    #if swift(>=5.7)
     private var superviews: some Sequence<PlatformView> {
         sequence(first: self, next: \.superview).dropFirst()
     }
-    #else
-    private var superviews: AnySequence<PlatformView> {
-        AnySequence(sequence(first: self, next: \.superview).dropFirst())
-    }
-    #endif
 
     private var hostingView: PlatformView? {
         self.superviews.first(where: {

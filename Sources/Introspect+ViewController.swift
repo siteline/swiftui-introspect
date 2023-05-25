@@ -1,43 +1,12 @@
 import SwiftUI
 
 extension View {
-    #if swift(>=5.7)
+    @ViewBuilder
     public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController, Observed>(
         _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificViewController>)...,
+        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
         scope: IntrospectionScope? = nil,
         observe: @escaping @autoclosure () -> Observed = { () },
-        customize: @escaping (PlatformSpecificViewController) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
-    }
-    #else
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController>(
-        _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificViewController>)...,
-        scope: IntrospectionScope? = nil,
-        customize: @escaping (PlatformSpecificViewController) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: (), customize: { view in customize(view) })
-    }
-
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController, Observed>(
-        _ viewType: SwiftUIViewType,
-        on platforms: (PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificViewController>)...,
-        scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed,
-        customize: @escaping (PlatformSpecificViewController) -> Void
-    ) -> some View {
-        introspect(viewType, on: platforms, scope: scope, observe: observe(), customize: customize)
-    }
-    #endif
-
-    @ViewBuilder
-    private func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController, Observed>(
-        _ viewType: SwiftUIViewType,
-        on platforms: [PlatformVersionsDescriptor<SwiftUIViewType, PlatformSpecificViewController>],
-        scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed,
         customize: @escaping (PlatformSpecificViewController) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
@@ -52,7 +21,7 @@ extension View {
                             return viewController.ancestor(ofType: PlatformSpecificViewController.self)
                         case .receiverOrAncestor:
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
-                                ?? viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                            ?? viewController.ancestor(ofType: PlatformSpecificViewController.self)
                         }
                     },
                     customize: customize
@@ -80,15 +49,9 @@ extension PlatformViewController {
 }
 
 extension PlatformViewController {
-    #if swift(>=5.7)
     private var parents: some Sequence<PlatformViewController> {
         sequence(first: self, next: \.parent).dropFirst()
     }
-    #else
-    private var parents: AnySequence<PlatformViewController> {
-        AnySequence(sequence(first: self, next: \.parent).dropFirst())
-    }
-    #endif
 
     private var hostingView: PlatformViewController? {
         self.parents.first(where: {

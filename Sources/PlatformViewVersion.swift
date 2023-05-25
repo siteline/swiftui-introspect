@@ -1,25 +1,31 @@
 import SwiftUI
 
-public struct PlatformVersionsDescriptor<SwiftUIViewType: ViewType, PlatformView> {
+public struct PlatformViewVersions<SwiftUIViewType: ViewType, PlatformView> {
     let isCurrent: Bool
 
-    public static func iOS(_ versions: (PlatformVersionDescriptor<iOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 
-    public static func macOS(_ versions: (PlatformVersionDescriptor<macOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 
-    public static func tvOS(_ versions: (PlatformVersionDescriptor<tvOSVersion, SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.version.isCurrent))
     }
 }
 
-public struct PlatformVersionDescriptor<Version: PlatformVersion, SwiftUIViewType: ViewType, PlatformView> {
+public typealias iOSViewVersion<SwiftUIViewType: ViewType, PlatformView> = PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformView>
+
+public typealias tvOSViewVersion<SwiftUIViewType: ViewType, PlatformView> = PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformView>
+
+public typealias macOSViewVersion<SwiftUIViewType: ViewType, PlatformView> = PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformView>
+
+public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: ViewType, PlatformView> {
     let version: Version
 
-    public init(for version: Version) {
+    @_spi(Internals) public init(for version: Version) {
         self.version = version
     }
 

@@ -13,23 +13,15 @@ extension ViewType where Self == TextFieldWithVerticalAxisType {
 // MARK: SwiftUI.TextField(..., axis: .vertical) - iOS
 
 #if canImport(UIKit)
-extension PlatformVersionDescriptor where Version == iOSVersion, SwiftUIViewType == TextFieldWithVerticalAxisType, PlatformView == UITextView {
+extension iOSViewVersion<TextFieldWithVerticalAxisType, UITextView> {
     public static let v16 = Self(for: .v16)
 }
-#endif
 
-// MARK: SwiftUI.TextField(..., axis: .vertical) - tvOS
-
-#if canImport(UIKit)
-extension PlatformVersionDescriptor where Version == tvOSVersion, SwiftUIViewType == TextFieldWithVerticalAxisType, PlatformView == UITextField {
+extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
     public static let v16 = Self(for: .v16)
 }
-#endif
-
-// MARK: SwiftUI.TextField(..., axis: .vertical) - macOS
-
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
-extension PlatformVersionDescriptor where Version == macOSVersion, SwiftUIViewType == TextFieldWithVerticalAxisType, PlatformView == NSTextField {
+#elseif canImport(AppKit)
+extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
     public static let v13 = Self(for: .v13)
 }
 #endif

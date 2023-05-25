@@ -5,19 +5,18 @@ fileprivate enum IntrospectionTargetType {
     case viewController
 }
 
-struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable {
+struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
     @Binding
-    private var observed: Observed
+    private var observed: Void // workaround for state changes not triggering view updates
     private let targetType: IntrospectionTargetType
     private let selector: (IntrospectionPlatformViewController) -> Target?
     private let customize: (Target) -> Void
 
     init(
-        observe: @escaping @autoclosure () -> Observed,
         selector: @escaping (PlatformView) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
-        self._observed = Binding(get: observe, set: { _ in /* will never execute */ })
+        self._observed = .constant(())
         self.targetType = .view
         self.selector = { introspectionViewController in
             #if canImport(UIKit)
@@ -35,11 +34,10 @@ struct IntrospectionView<Observed, Target>: PlatformViewControllerRepresentable 
     }
 
     init(
-        observe: @escaping @autoclosure () -> Observed,
         selector: @escaping (PlatformViewController) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
-        self._observed = Binding(get: observe, set: { _ in /* will never execute */ })
+        self._observed = .constant(())
         self.targetType = .viewController
         self.selector = { selector($0) }
         self.customize = customize

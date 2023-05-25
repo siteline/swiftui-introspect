@@ -2,17 +2,15 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController, Observed>(
+    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
         scope: IntrospectionScope? = nil,
-        observe: @escaping @autoclosure () -> Observed = { () },
         customize: @escaping (PlatformSpecificViewController) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
             self.overlay(
                 IntrospectionView(
-                    observe: observe(),
                     selector: { (viewController: PlatformViewController) in
                         switch scope ?? viewType.scope {
                         case .receiver:

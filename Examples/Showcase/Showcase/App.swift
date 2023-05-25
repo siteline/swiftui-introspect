@@ -145,15 +145,26 @@ struct SecureToggle: ViewModifier {
     }
 
 struct ExampleView: View {
-    @State private var textContent: String = ""
-    @State private var isSecure: Bool = false
+    @State private var text: String = ""
 
     var body: some View {
-        VStack {
-            TextField("", text: $textContent)
-                .modifier(SecureToggle(isSecure: $isSecure))
-                .border(Color.black, width: 1)
-        }.padding(20)
+        TextField("title", text: $text)
+            .foregroundColor(text.isEmpty ? .red : .blue)
+            .accentColor(text.isEmpty ? .red : .blue)
+            .padding(.all, 5)
+            .background(text.isEmpty ? Color.red.opacity(0.1) : Color.blue.opacity(0.1))
+            .cornerRadius(5)
+            .fixedSize(horizontal: true, vertical: false)
+            #if os(iOS)
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16)) { textField in
+                if #available(iOS 14, *) {
+                    textField.attributedPlaceholder = NSAttributedString(
+                        string: "placeholder",
+                        attributes: [NSAttributedString.Key.foregroundColor: UIColor(Color.red)]
+                    )
+                }
+            }
+            #endif
     }
 }
 

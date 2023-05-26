@@ -13,7 +13,7 @@ final class NavigationSplitViewTests: XCTestCase {
     typealias PlatformNavigationSplitView = NSSplitView
     #endif
 
-    func testNavigationSplitViewAsReceiver() throws {
+    func testNavigationSplitView() throws {
         guard #available(iOS 16, tvOS 16, macOS 13, *) else {
             throw XCTSkip()
         }
@@ -55,11 +55,11 @@ final class NavigationSplitViewTests: XCTestCase {
                     Color.red
                     Text("Sidebar")
                         #if os(iOS)
-                        .introspect(.navigationSplitView, on: .iOS(.v16), customize: spy)
+                        .introspect(.navigationSplitView, on: .iOS(.v16), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
-                        .introspect(.navigationSplitView, on: .tvOS(.v16), customize: spy)
+                        .introspect(.navigationSplitView, on: .tvOS(.v16), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
-                        .introspect(.navigationSplitView, on: .macOS(.v13), customize: spy)
+                        .introspect(.navigationSplitView, on: .macOS(.v13), scope: .ancestor, customize: spy)
                         #endif
                 }
             } detail: {

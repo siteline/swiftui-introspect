@@ -1,8 +1,6 @@
 import Foundation
 
-public protocol ViewType {
-    var scope: IntrospectionScope { get }
-}
+public protocol ViewType {}
 
 public enum IntrospectionScope {
     case receiver

@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.ScrollView
 
-public struct ScrollViewType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct ScrollViewType: ViewType {}
 
 extension ViewType where Self == ScrollViewType {
-    public static var scrollView: Self { .init(scope: .receiverOrAncestor) }
+    public static var scrollView: Self { .init() }
 }
 
 #if canImport(UIKit)

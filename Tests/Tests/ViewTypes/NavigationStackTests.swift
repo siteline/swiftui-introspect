@@ -9,7 +9,7 @@ final class NavigationStackTests: XCTestCase {
     typealias PlatformNavigationStack = UINavigationController
     #endif
 
-    func testNavigationStackAsReceiver() throws {
+    func testNavigationStack() throws {
         guard #available(iOS 16, tvOS 16, *) else {
             throw XCTSkip()
         }
@@ -42,7 +42,7 @@ final class NavigationStackTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), customize: spy)
+                        .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

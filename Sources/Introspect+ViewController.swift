@@ -5,14 +5,14 @@ extension View {
     public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
-        scope: IntrospectionScope? = nil,
+        scope: IntrospectionScope = .receiver,
         customize: @escaping (PlatformSpecificViewController) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
             self.overlay(
                 IntrospectionView(
                     selector: { (viewController: PlatformViewController) in
-                        switch scope ?? viewType.scope {
+                        switch scope {
                         case .receiver:
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
                         case .ancestor:

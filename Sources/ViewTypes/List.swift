@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.List
 
-public struct ListType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct ListType: ViewType {}
 
 extension ViewType where Self == ListType {
-    public static var list: Self { .init(scope: .receiverOrAncestor) }
+    public static var list: Self { .init() }
 }
 
 #if canImport(UIKit)

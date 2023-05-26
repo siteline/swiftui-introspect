@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.columns)
 
-public struct NavigationViewWithColumnsStyleType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct NavigationViewWithColumnsStyleType: ViewType {}
 
 extension ViewType where Self == NavigationViewWithColumnsStyleType {
-    public static var navigationViewWithColumnsStyle: Self { .init(scope: .receiverOrAncestor) }
+    public static var navigationViewWithColumnsStyle: Self { .init() }
 }
 
 #if canImport(UIKit)

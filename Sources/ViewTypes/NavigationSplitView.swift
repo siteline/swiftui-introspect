@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationSplitView
 
-public struct NavigationSplitViewType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct NavigationSplitViewType: ViewType {}
 
 extension ViewType where Self == NavigationSplitViewType {
-    public static var navigationSplitView: Self { .init(scope: .receiverOrAncestor) }
+    public static var navigationSplitView: Self { .init() }
 }
 
 #if canImport(UIKit)

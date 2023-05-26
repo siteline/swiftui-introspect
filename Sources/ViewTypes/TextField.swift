@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.TextField
 
-public struct TextFieldType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct TextFieldType: ViewType {}
 
 extension ViewType where Self == TextFieldType {
-    public static var textField: Self { .init(scope: .receiver) }
+    public static var textField: Self { .init() }
 }
 
 #if canImport(UIKit)

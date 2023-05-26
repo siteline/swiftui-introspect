@@ -11,7 +11,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
     typealias PlatformNavigationViewWithColumnsStyle = NSSplitView
     #endif
 
-    func testNavigationViewWithColumnsStyleAsReceiver() {
+    func testNavigationViewWithColumnsStyle() {
         XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
             let spy = spies[0]
 
@@ -41,11 +41,11 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS)
-                        .introspect(.navigationViewWithColumnsStyle, on: .iOS(.v13, .v14, .v15, .v16), customize: spy)
+                        .introspect(.navigationViewWithColumnsStyle, on: .iOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
-                        .introspect(.navigationViewWithColumnsStyle, on: .tvOS(.v13, .v14, .v15, .v16), customize: spy)
+                        .introspect(.navigationViewWithColumnsStyle, on: .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
-                        .introspect(.navigationViewWithColumnsStyle, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy)
+                        .introspect(.navigationViewWithColumnsStyle, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

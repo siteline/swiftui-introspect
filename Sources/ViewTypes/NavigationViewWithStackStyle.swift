@@ -2,12 +2,10 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.stack)
 
-public struct NavigationViewWithStackStyleType: ViewType {
-    public let scope: IntrospectionScope
-}
+public struct NavigationViewWithStackStyleType: ViewType {}
 
 extension ViewType where Self == NavigationViewWithStackStyleType {
-    public static var navigationViewWithStackStyle: Self { .init(scope: .receiverOrAncestor) }
+    public static var navigationViewWithStackStyle: Self { .init() }
 }
 
 #if canImport(UIKit)

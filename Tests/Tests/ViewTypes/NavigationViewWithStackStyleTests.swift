@@ -8,7 +8,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
     typealias PlatformNavigationViewWithStackStyle = UINavigationController
     #endif
 
-    func testNavigationViewWithStackStyleAsReceiver() {
+    func testNavigationViewWithStackStyle() {
         XCTAssertViewIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
             let spy = spies[0]
 
@@ -34,7 +34,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.navigationViewWithStackStyle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy)
+                        .introspect(.navigationViewWithStackStyle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

@@ -23,6 +23,7 @@ final class ScrollViewTests: XCTestCase {
                 #elseif os(macOS)
                 .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
                 #endif
+
                 ScrollView(showsIndicators: true) {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS)
@@ -103,6 +104,7 @@ final class ScrollViewTests: XCTestCase {
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
                 .cornerRadius(2.0)
+
                 ScrollView(showsIndicators: true) {
                     Text("Item 1")
                         #if os(iOS) || os(tvOS)

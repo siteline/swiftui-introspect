@@ -22,11 +22,11 @@ public struct iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformVi
 }
 
 extension iOSViewVersion {
-    public init(for version: iOSVersion) {
+    @_spi(Internals) public init(for version: iOSVersion) {
         self.init(version: version)
     }
 
-    public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
+    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         warnUnavailablePlatform(file: file, line: line)
         return Self(version: nil)
     }
@@ -38,11 +38,11 @@ public struct tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformV
 }
 
 extension tvOSViewVersion {
-    public init(for version: tvOSVersion) {
+    @_spi(Internals) public init(for version: tvOSVersion) {
         self.init(version: version)
     }
 
-    public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
+    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         warnUnavailablePlatform(file: file, line: line)
         return Self(version: nil)
     }
@@ -54,11 +54,11 @@ public struct macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platform
 }
 
 extension macOSViewVersion {
-    public init(for version: macOSVersion) {
+    @_spi(Internals) public init(for version: macOSVersion) {
         self.init(version: version)
     }
 
-    public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
+    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         warnUnavailablePlatform(file: file, line: line)
         return Self(version: nil)
     }

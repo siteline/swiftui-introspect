@@ -1,27 +1,6 @@
 import Foundation
 
-public enum Platform {
-    case iOS(iOSVersion)
-    case tvOS(tvOSVersion)
-    case macOS(macOSVersion)
-
-    public var isCurrent: Bool {
-        switch self {
-        case .iOS(let version):
-            return version.isCurrent
-        case .tvOS(let version):
-            return version.isCurrent
-        case .macOS(let version):
-            return version.isCurrent
-        }
-    }
-}
-
-public protocol PlatformVersion {
-    var isCurrent: Bool { get }
-}
-
-public struct iOSVersion: PlatformVersion {
+public struct iOSVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {
@@ -71,7 +50,7 @@ extension iOSVersion {
     }
 }
 
-public struct tvOSVersion: PlatformVersion {
+public struct tvOSVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {
@@ -121,7 +100,7 @@ extension tvOSVersion {
     }
 }
 
-public struct macOSVersion: PlatformVersion {
+public struct macOSVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {

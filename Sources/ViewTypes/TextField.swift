@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.TextField
 
-public struct TextFieldType: ViewType {}
+public struct TextFieldType: IntrospectableViewType {}
 
-extension ViewType where Self == TextFieldType {
+extension IntrospectableViewType where Self == TextFieldType {
     public static var textField: Self { .init() }
 }
 

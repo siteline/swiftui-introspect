@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct PlatformViewVersions<SwiftUIViewType: ViewType, PlatformView> {
+public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformView> {
     let isCurrent: Bool
 
     public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
@@ -16,7 +16,7 @@ public struct PlatformViewVersions<SwiftUIViewType: ViewType, PlatformView> {
     }
 }
 
-public struct iOSViewVersion<SwiftUIViewType: ViewType, PlatformView> {
+public struct iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
     let version: iOSVersion?
     var isCurrent: Bool { version?.isCurrent ?? false }
 }
@@ -32,7 +32,7 @@ extension iOSViewVersion {
     }
 }
 
-public struct tvOSViewVersion<SwiftUIViewType: ViewType, PlatformView> {
+public struct tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
     let version: tvOSVersion?
     var isCurrent: Bool { version?.isCurrent ?? false }
 }
@@ -48,7 +48,7 @@ extension tvOSViewVersion {
     }
 }
 
-public struct macOSViewVersion<SwiftUIViewType: ViewType, PlatformView> {
+public struct macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
     let version: macOSVersion?
     var isCurrent: Bool { version?.isCurrent ?? false }
 }

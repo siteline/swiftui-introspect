@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.ScrollView
 
-public struct ScrollViewType: ViewType {}
+public struct ScrollViewType: IntrospectableViewType {}
 
-extension ViewType where Self == ScrollViewType {
+extension IntrospectableViewType where Self == ScrollViewType {
     public static var scrollView: Self { .init() }
 }
 

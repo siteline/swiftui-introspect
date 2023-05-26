@@ -7,7 +7,7 @@ enum TestUtils {
         static let timeout: TimeInterval = 3
     }
 
-    static func present<ViewType: View>(view: ViewType) {
+    static func present(view: some View) {
         let hostingController = UIHostingController(rootView: view)
 
         for window in UIApplication.shared.windows {
@@ -33,7 +33,7 @@ enum TestUtils {
         static let timeout: TimeInterval = 5
     }
 
-    static func present<ViewType: View>(view: ViewType) {
+    static func present(view: some View) {
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],

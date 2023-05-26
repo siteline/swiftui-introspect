@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.List
 
-public struct ListType: ViewType {}
+public struct ListType: IntrospectableViewType {}
 
-extension ViewType where Self == ListType {
+extension IntrospectableViewType where Self == ListType {
     public static var list: Self { .init() }
 }
 

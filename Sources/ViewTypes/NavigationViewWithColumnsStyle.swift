@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.columns)
 
-public struct NavigationViewWithColumnsStyleType: ViewType {}
+public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {}
 
-extension ViewType where Self == NavigationViewWithColumnsStyleType {
+extension IntrospectableViewType where Self == NavigationViewWithColumnsStyleType {
     public static var navigationViewWithColumnsStyle: Self { .init() }
 }
 

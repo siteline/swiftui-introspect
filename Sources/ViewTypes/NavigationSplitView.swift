@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationSplitView
 
-public struct NavigationSplitViewType: ViewType {}
+public struct NavigationSplitViewType: IntrospectableViewType {}
 
-extension ViewType where Self == NavigationSplitViewType {
+extension IntrospectableViewType where Self == NavigationSplitViewType {
     public static var navigationSplitView: Self { .init() }
 }
 

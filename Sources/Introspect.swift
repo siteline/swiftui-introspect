@@ -8,7 +8,7 @@ public enum IntrospectionScope {
 
 extension View {
     @ViewBuilder
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificView: PlatformView>(
+    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificView: PlatformView>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificView>)...,
         scope: IntrospectionScope = .receiver,
@@ -38,7 +38,7 @@ extension View {
     }
 
     @ViewBuilder
-    public func introspect<SwiftUIViewType: ViewType, PlatformSpecificViewController: PlatformViewController>(
+    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificViewController: PlatformViewController>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
         scope: IntrospectionScope = .receiver,

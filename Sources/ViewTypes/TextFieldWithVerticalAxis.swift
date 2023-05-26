@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.TextField(..., axis: .vertical)
 
-public struct TextFieldWithVerticalAxisType: ViewType {}
+public struct TextFieldWithVerticalAxisType: IntrospectableViewType {}
 
-extension ViewType where Self == TextFieldWithVerticalAxisType {
+extension IntrospectableViewType where Self == TextFieldWithVerticalAxisType {
     public static var textFieldWithVerticalAxis: Self { .init() }
 }
 

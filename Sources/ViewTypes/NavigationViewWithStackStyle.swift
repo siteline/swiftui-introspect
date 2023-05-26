@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.stack)
 
-public struct NavigationViewWithStackStyleType: ViewType {}
+public struct NavigationViewWithStackStyleType: IntrospectableViewType {}
 
-extension ViewType where Self == NavigationViewWithStackStyleType {
+extension IntrospectableViewType where Self == NavigationViewWithStackStyleType {
     public static var navigationViewWithStackStyle: Self { .init() }
 }
 

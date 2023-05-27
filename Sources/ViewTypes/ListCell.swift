@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: SwiftUI.List { Cell() }
 
 public struct ListCellType: IntrospectableViewType {
-    public var scope: IntrospectionScope { .receiverOrAncestor }
+    public var scope: IntrospectionScope { .ancestor }
 }
 
 extension IntrospectableViewType where Self == ListCellType {

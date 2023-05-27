@@ -1,7 +1,7 @@
 public protocol IntrospectableViewType {
-    var scope: IntrospectionScope? { get }
+    var scope: IntrospectionScope { get }
 }
 
 extension IntrospectableViewType {
-    public var scope: IntrospectionScope? { nil }
+    public var scope: IntrospectionScope { .receiver }
 }

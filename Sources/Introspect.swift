@@ -11,14 +11,14 @@ extension View {
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificView: PlatformView>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificView>)...,
-        scope: IntrospectionScope = .receiver,
+        scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
             self.overlay(
                 IntrospectionView(
                     selector: { (view: PlatformView) in
-                        switch viewType.scope ?? scope {
+                        switch scope ?? viewType.scope {
                         case .receiver:
                             return view.receiver(ofType: PlatformSpecificView.self)
                         case .ancestor:
@@ -41,14 +41,14 @@ extension View {
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificViewController: PlatformViewController>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
-        scope: IntrospectionScope = .receiver,
+        scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificViewController) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
             self.overlay(
                 IntrospectionView(
                     selector: { (viewController: PlatformViewController) in
-                        switch viewType.scope ?? scope {
+                        switch scope ?? viewType.scope {
                         case .receiver:
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
                         case .ancestor:

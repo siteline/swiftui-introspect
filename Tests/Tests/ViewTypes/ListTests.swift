@@ -24,6 +24,7 @@ final class ListTests: XCTestCase {
                 #elseif os(macOS)
                 .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { spy0($0) }
                 #endif
+
                 List {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS)

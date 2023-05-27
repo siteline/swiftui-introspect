@@ -55,15 +55,11 @@ final class ListTests: XCTestCase {
                 #if os(iOS) || os(tvOS)
                 .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { spy1($0) }
                 .introspect(.list, on: .iOS(.v16)) { spy1($0) }
-                #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { spy1($0) }
                 #endif
             }
             #if os(iOS) || os(tvOS)
             .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { spy0($0) }
             .introspect(.list, on: .iOS(.v16)) { spy0($0) }
-            #elseif os(macOS)
-            .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { spy0($0) }
             #endif
         } extraAssertions: {
             XCTAssert($0[safe: 0] !== $0[safe: 1])

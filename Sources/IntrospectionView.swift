@@ -77,6 +77,8 @@ struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
 }
 
 final class IntrospectionPlatformViewController: PlatformViewController {
+    static let viewTag = "IntrospectionPlatformViewController.View".hashValue
+
     fileprivate let targetType: IntrospectionTargetType
     var handler: (() -> Void)? = nil
 
@@ -110,6 +112,11 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.tag = Self.viewTag
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         switch targetType {
@@ -133,8 +140,12 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         }
     }
     #elseif canImport(AppKit)
+    final class View: NSView {
+        override var tag: Int { viewTag }
+    }
+
     override func loadView() {
-        view = NSView()
+        view = View()
     }
 
     override func viewDidLoad() {

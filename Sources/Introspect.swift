@@ -80,7 +80,9 @@ extension PlatformView {
 //        print("type", type)
 
 //        for container in superviews {
-            let children = container.allSubviews(ofType: PlatformSpecificView.self)
+            let children = container
+                .allSubviews(ofType: PlatformSpecificView.self)
+                .filter { $0.tag != IntrospectionPlatformViewController.viewTag }
 
             if children.count > 1 {
                 for child in children {

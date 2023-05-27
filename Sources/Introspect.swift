@@ -72,14 +72,14 @@ extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-//        guard let container = hostingView else {
-//            return nil
-//        }
+        guard let container = hostingView else {
+            return nil
+        }
 
 //        let type = NSStringFromClass(Swift.type(of: hostingView.superview!))
 //        print("type", type)
 
-        for container in superviews {
+//        for container in superviews {
             let children = container.allSubviews(ofType: PlatformSpecificView.self)
 
             if children.count > 1 {
@@ -99,7 +99,7 @@ extension PlatformView {
             } else if children.count == 1 {
                 return children.first
             }
-        }
+//        }
 
         return nil
     }

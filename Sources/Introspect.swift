@@ -72,27 +72,34 @@ extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-        guard let hostingView else {
-            return nil
-        }
-
-//        for container in superviews {
-            let children = hostingView.allSubviews(ofType: PlatformSpecificView.self)
-
-            for child in children {
-                guard
-                    let childFrame = child.superview?.convert(child.frame, to: hostingView),
-                    let entryFrame = self.superview?.convert(self.frame, to: hostingView)
-                else {
-                    continue
-                }
-
-                if childFrame.contains(entryFrame) {
-//                    print(hostingView)
-                    return child
-                }
-            }
+//        guard let container = hostingView else {
+//            return nil
 //        }
+
+//        let type = NSStringFromClass(Swift.type(of: hostingView.superview!))
+//        print("type", type)
+
+        for container in superviews {
+            let children = container.allSubviews(ofType: PlatformSpecificView.self)
+
+            if children.count > 1 {
+                for child in children {
+                    guard
+                        let childFrame = child.superview?.convert(child.frame, to: container),
+                        let entryFrame = self.superview?.convert(self.frame, to: container)
+                    else {
+                        continue
+                    }
+
+                    if childFrame.contains(entryFrame) {
+                        print(container)
+                        return child
+                    }
+                }
+            } else if children.count == 1 {
+                return children.first
+            }
+        }
 
         return nil
     }

@@ -18,7 +18,7 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     selector: { (view: PlatformView) in
-                        switch scope {
+                        switch viewType.scope ?? scope {
                         case .receiver:
                             return view.receiver(ofType: PlatformSpecificView.self)
                         case .ancestor:
@@ -48,7 +48,7 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     selector: { (viewController: PlatformViewController) in
-                        switch scope {
+                        switch viewType.scope ?? scope {
                         case .receiver:
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
                         case .ancestor:

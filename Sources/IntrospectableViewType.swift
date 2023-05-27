@@ -1,1 +1,7 @@
-public protocol IntrospectableViewType {}
+public protocol IntrospectableViewType {
+    var scope: IntrospectionScope? { get }
+}
+
+extension IntrospectableViewType {
+    public var scope: IntrospectionScope? { nil }
+}

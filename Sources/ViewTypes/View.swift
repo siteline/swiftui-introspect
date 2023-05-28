@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: SwiftUI.View
 
 public struct ViewType: IntrospectableViewType {
-    public var scope: IntrospectionScope { .receiverOrAncestor }
+    public var scope: IntrospectionScope { [.receiver, .ancestor] }
 }
 
 extension IntrospectableViewType where Self == ViewType {

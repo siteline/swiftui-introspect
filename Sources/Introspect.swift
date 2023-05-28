@@ -1,9 +1,14 @@
 import SwiftUI
 
-public enum IntrospectionScope {
-    case receiver
-    case ancestor
-    case receiverOrAncestor
+public struct IntrospectionScope: OptionSet {
+    public static let receiver = Self(rawValue: 1 << 0)
+    public static let ancestor = Self(rawValue: 1 << 1)
+
+    public let rawValue: UInt
+
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
 }
 
 extension View {
@@ -25,15 +30,14 @@ extension View {
                 .overlay(
                     IntrospectionView(
                         selector: { (view: PlatformView) in
-                            switch scope ?? viewType.scope {
-                            case .receiver:
+                            let scope = scope ?? viewType.scope
+                            if scope.contains(.receiver) {
                                 return view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
-                            case .ancestor:
-                                return view.ancestor(ofType: PlatformSpecificView.self)
-                            case .receiverOrAncestor:
-                                return view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
-                                    ?? view.ancestor(ofType: PlatformSpecificView.self)
                             }
+                            if scope.contains(.ancestor) {
+                                return view.ancestor(ofType: PlatformSpecificView.self)
+                            }
+                            return nil
                         },
                         customize: customize
                     )
@@ -55,15 +59,14 @@ extension View {
             self.overlay(
                 IntrospectionView(
                     selector: { (viewController: PlatformViewController) in
-                        switch scope ?? viewType.scope {
-                        case .receiver:
+                        let scope = scope ?? viewType.scope
+                        if scope.contains(.receiver) {
                             return viewController.receiver(ofType: PlatformSpecificViewController.self)
-                        case .ancestor:
-                            return viewController.ancestor(ofType: PlatformSpecificViewController.self)
-                        case .receiverOrAncestor:
-                            return viewController.receiver(ofType: PlatformSpecificViewController.self)
-                                ?? viewController.ancestor(ofType: PlatformSpecificViewController.self)
                         }
+                        if scope.contains(.ancestor) {
+                            return viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                        }
+                        return nil
                     },
                     customize: customize
                 )

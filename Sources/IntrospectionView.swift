@@ -1,10 +1,5 @@
 import SwiftUI
 
-fileprivate enum IntrospectionTargetType {
-    case view
-    case viewController
-}
-
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewRepresentable {
     typealias ID = UUID
@@ -15,7 +10,7 @@ struct IntrospectionAnchorView: PlatformViewRepresentable {
     let id: ID
 
     init(id: ID) {
-        self._observed = .constant(()) // workaround for state changes not triggering view updates
+        self._observed = .constant(())
         self.id = id
     }
 
@@ -50,7 +45,6 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
 
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
-    private let targetType: IntrospectionTargetType
     private let selector: (IntrospectionPlatformViewController) -> Target?
     private let customize: (Target) -> Void
 
@@ -59,7 +53,6 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
-        self.targetType = .view
         self.selector = { introspectionViewController in
             #if canImport(UIKit)
             if let introspectionView = introspectionViewController.viewIfLoaded {
@@ -80,7 +73,6 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
-        self.targetType = .viewController
         self.selector = { selector($0) }
         self.customize = customize
     }
@@ -90,7 +82,7 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
     }
 
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
-        let controller = IntrospectionPlatformViewController(targetType: targetType) { controller in
+        let controller = IntrospectionPlatformViewController { controller in
             guard let target = selector(controller) else {
                 return
             }
@@ -123,14 +115,9 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
 }
 
 final class IntrospectionPlatformViewController: PlatformViewController {
-    fileprivate let targetType: IntrospectionTargetType
     var handler: (() -> Void)? = nil
 
-    fileprivate init(
-        targetType: IntrospectionTargetType,
-        handler: ((IntrospectionPlatformViewController) -> Void)?
-    ) {
-        self.targetType = targetType
+    fileprivate init(handler: ((IntrospectionPlatformViewController) -> Void)?) {
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in
             guard let self = self else {

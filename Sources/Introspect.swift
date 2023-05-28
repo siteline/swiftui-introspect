@@ -31,11 +31,17 @@ extension View {
                     IntrospectionView(
                         selector: { (view: PlatformView) in
                             let scope = scope ?? viewType.scope
-                            if scope.contains(.receiver) {
-                                return view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
+                            if
+                                scope.contains(.receiver),
+                                let target = view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
+                            {
+                                return target
                             }
-                            if scope.contains(.ancestor) {
-                                return view.ancestor(ofType: PlatformSpecificView.self)
+                            if
+                                scope.contains(.ancestor),
+                                let target = view.ancestor(ofType: PlatformSpecificView.self)
+                            {
+                                return target
                             }
                             return nil
                         },
@@ -60,11 +66,17 @@ extension View {
                 IntrospectionView(
                     selector: { (viewController: PlatformViewController) in
                         let scope = scope ?? viewType.scope
-                        if scope.contains(.receiver) {
-                            return viewController.receiver(ofType: PlatformSpecificViewController.self)
+                        if
+                            scope.contains(.receiver),
+                            let target = viewController.receiver(ofType: PlatformSpecificViewController.self)
+                        {
+                            return target
                         }
-                        if scope.contains(.ancestor) {
-                            return viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                        if
+                            scope.contains(.ancestor),
+                            let target = viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                        {
+                            return target
                         }
                         return nil
                     },

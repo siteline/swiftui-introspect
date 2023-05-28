@@ -15,23 +15,31 @@ extension View {
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
-            self.overlay(
-                IntrospectionView(
-                    selector: { (view: PlatformView) in
-                        switch scope ?? viewType.scope {
-                        case .receiver:
-                            return view.receiver(ofType: PlatformSpecificView.self)
-                        case .ancestor:
-                            return view.ancestor(ofType: PlatformSpecificView.self)
-                        case .receiverOrAncestor:
-                            return view.receiver(ofType: PlatformSpecificView.self)
-                                ?? view.ancestor(ofType: PlatformSpecificView.self)
-                        }
-                    },
-                    customize: customize
+            let id = UUID()
+            self.background(
+                    InertIntrospectionView(
+                        id: .back(id)
+                    )
+                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
                 )
-                .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
-            )
+                .overlay(
+                    IntrospectionView(
+                        id: .front(id),
+                        selector: { (view: PlatformView) in
+                            switch scope ?? viewType.scope {
+                            case .receiver:
+                                return view.receiver(ofType: PlatformSpecificView.self, baseID: id)
+                            case .ancestor:
+                                return view.ancestor(ofType: PlatformSpecificView.self)
+                            case .receiverOrAncestor:
+                                return view.receiver(ofType: PlatformSpecificView.self, baseID: id)
+                                    ?? view.ancestor(ofType: PlatformSpecificView.self)
+                            }
+                        },
+                        customize: customize
+                    )
+                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                )
         } else {
             self
         }
@@ -69,41 +77,140 @@ extension View {
 }
 
 extension PlatformView {
+    func viewsBetween(_ bottomView: PlatformView, and topView: PlatformView) -> [PlatformView] {
+        var entered = false
+        var result: [PlatformView] = []
+
+        for subview in self.allSubviews {
+            if subview === bottomView {
+                entered = true
+                continue
+            }
+            if subview === topView {
+                return result
+            }
+            if entered {
+                result.append(subview)
+            }
+        }
+
+        return result
+    }
+}
+
+extension PlatformView {
+
+    func nearestCommonSuperviewWith(_ other: PlatformView) -> PlatformView? {
+        //Starting from self view
+        var nearestAncestor: PlatformView? = self
+
+        //Get the superview until the other view is descendant of the view we ended up
+        while let testView = nearestAncestor, !other.isDescendant(of: testView) {
+            nearestAncestor = testView.superview
+        }
+
+        return nearestAncestor
+    }
+
+    var allSubviews: [PlatformView] {
+      return self.subviews.reduce(into: [self]) { array, subview in
+        array += subview.allSubviews
+      }
+    }
+}
+
+extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
-        ofType type: PlatformSpecificView.Type
+        ofType type: PlatformSpecificView.Type,
+        baseID: UUID
     ) -> PlatformSpecificView? {
-        guard let container = hostingView else {
+        let backTag = IntrospectionViewID.back(baseID).hashValue
+        let frontTag = IntrospectionViewID.front(baseID).hashValue
+        let frontView = self
+
+        guard
+            let backView = self.superviews.reversed().first?.viewWithTag(backTag),
+            let superview = backView.nearestCommonSuperviewWith(frontView)
+        else {
             return nil
         }
+
+        return superview
+            .viewsBetween(backView, and: frontView)
+            .compactMap { $0 as? PlatformSpecificView }
+            .first
+
+//        print("backTag", backTag.hashValue)
+//        print("frontTag", frontTag.hashValue)
+
+//        guard let backView = self.superview
+
+//        for container in superviews {
+//
+//        }
+
+//        print(self.superview?.subviews.map(\.tag))
+
+        print("superview", superview)
+        print("backView", backView)
+        print("frontView", self)
+
+        return nil
+
+//        guard let container = hostingView else {
+//            return nil
+//        }
 
 //        let type = NSStringFromClass(Swift.type(of: hostingView.superview!))
 //        print("type", type)
 
 //        for container in superviews {
-            let children = container
-                .allSubviews(ofType: PlatformSpecificView.self)
-                .filter { $0.tag != IntrospectionPlatformViewController.viewTag }
+//            let children = container
+//                .allSubviews(ofType: PlatformSpecificView.self)
+//                .filter { $0.tag != IntrospectionPlatformViewController.viewTag }
+//
+//            if children.count > 1 {
+//                for child in children {
+//                    guard
+//                        let childFrame = child.superview?.convert(child.frame, to: container),
+//                        let entryFrame = self.superview?.convert(self.frame, to: container)
+//                    else {
+//                        continue
+//                    }
+//
+//                    if childFrame.contains(entryFrame) {
+//                        print(container)
+//                        print(child.alpha)
+//                        return child
+//                    }
+//                }
+//
+//                for child in children {
+//                    guard
+//                        let childFrame = child.superview?.convert(child.frame, to: container),
+//                        let entryFrame = self.superview?.convert(self.frame, to: container)
+//                    else {
+//                        continue
+//                    }
 
-            if children.count > 1 {
-                for child in children {
-                    guard
-                        let childFrame = child.superview?.convert(child.frame, to: container),
-                        let entryFrame = self.superview?.convert(self.frame, to: container)
-                    else {
-                        continue
-                    }
+//                    print("childFrame", "\(childFrame.minX)-\(childFrame.maxX)", "\(childFrame.minY)-\(childFrame.maxY)")
+//                    print("entryFrame", "\(entryFrame.minX)-\(entryFrame.maxX)", "\(entryFrame.minY)-\(entryFrame.maxY)")
 
-                    if childFrame.contains(entryFrame) {
-                        print(container)
-                        return child
-                    }
-                }
-            } else if children.count == 1 {
-                return children.first
-            }
+//                    let childXRange = childFrame.minX..<childFrame.maxX
+//                    let childYRange = childFrame.minY..<childFrame.maxY
+//
+//                    if childXRange.contains(entryFrame.minX) || childYRange.contains(entryFrame.minY) {
+//                        print(container)
+//                        print(child.alpha)
+//                        return child
+//                    }
+//                }
+//            } else if children.count == 1 {
+//                return children.first
+//            }
 //        }
 
-        return nil
+//        return nil
     }
 
     fileprivate func ancestor<PlatformSpecificView: PlatformView>(

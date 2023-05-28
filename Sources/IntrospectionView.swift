@@ -5,18 +5,59 @@ fileprivate enum IntrospectionTargetType {
     case viewController
 }
 
+struct IntrospectionViewID: Hashable {
+    enum Position: Hashable {
+        case back
+        case front
+    }
+
+    let id: UUID
+    let position: Position
+
+    static func back(_ id: UUID) -> Self {
+        Self(id: id, position: .back)
+    }
+
+    static func front(_ id: UUID) -> Self {
+        Self(id: id, position: .front)
+    }
+}
+
+struct InertIntrospectionView: PlatformViewRepresentable {
+    let id: IntrospectionViewID
+
+    #if canImport(UIKit)
+    func makeUIView(context: Context) -> TaggableView {
+        let view = TaggableView()
+        view.tag = id.hashValue
+        return view
+    }
+    func updateUIView(_ controller: TaggableView, context: Context) {}
+    static func dismantleUIView(_ controller: TaggableView, coordinator: Coordinator) {}
+    #elseif canImport(AppKit)
+    func makeNSView(context: Context) -> TaggableView {
+        TaggableView(tag: id.hashValue)
+    }
+    func updateNSView(_ controller: TaggableView, context: Context) {}
+    static func dismantleNSView(_ controller: TaggableView, coordinator: Coordinator) {}
+    #endif
+}
+
 struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
+    private let id: IntrospectionViewID?
     private let targetType: IntrospectionTargetType
     private let selector: (IntrospectionPlatformViewController) -> Target?
     private let customize: (Target) -> Void
 
     init(
+        id: IntrospectionViewID,
         selector: @escaping (PlatformView) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
+        self.id = id
         self.targetType = .view
         self.selector = { introspectionViewController in
             #if canImport(UIKit)
@@ -38,13 +79,14 @@ struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
+        self.id = nil
         self.targetType = .viewController
         self.selector = { selector($0) }
         self.customize = customize
     }
 
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
-        let controller = IntrospectionPlatformViewController(targetType: targetType) { controller in
+        let controller = IntrospectionPlatformViewController(id: id, targetType: targetType) { controller in
             guard let target = selector(controller) else {
                 return
             }
@@ -77,12 +119,16 @@ struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
 }
 
 final class IntrospectionPlatformViewController: PlatformViewController {
-    static let viewTag = "IntrospectionPlatformViewController.View".hashValue
-
+    private let id: IntrospectionViewID?
     fileprivate let targetType: IntrospectionTargetType
     var handler: (() -> Void)? = nil
 
-    fileprivate init(targetType: IntrospectionTargetType, handler: ((IntrospectionPlatformViewController) -> Void)?) {
+    fileprivate init(
+        id: IntrospectionViewID?,
+        targetType: IntrospectionTargetType,
+        handler: ((IntrospectionPlatformViewController) -> Void)?
+    ) {
+        self.id = id
         self.targetType = targetType
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in
@@ -106,7 +152,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
             guard #available(iOS 14, tvOS 14, *) else {
                 return // too premature for iOS/tvOS 13, so we skip
             }
-            handler?()
+//            handler?() // TODO: check if this is even called at all...
         case .viewController:
             handler?() // should always be hit for controllers
         }
@@ -114,7 +160,9 @@ final class IntrospectionPlatformViewController: PlatformViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.tag = Self.viewTag
+        if let id {
+            view.tag = id.hashValue
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -140,12 +188,8 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         }
     }
     #elseif canImport(AppKit)
-    final class View: NSView {
-        override var tag: Int { viewTag }
-    }
-
     override func loadView() {
-        view = View()
+        view = TaggableView(tag: id?.hashValue)
     }
 
     override func viewDidLoad() {
@@ -164,3 +208,23 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     }
     #endif
 }
+
+#if canImport(UIKit)
+typealias TaggableView = UIView
+#elseif canImport(AppKit)
+final class TaggableView: NSView {
+    let _tag: Int?
+
+    init(tag: Int?) {
+        self._tag = tag
+        super.init(frame: .zero)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override var tag: Int { _tag ?? super.tag }
+}
+#endif

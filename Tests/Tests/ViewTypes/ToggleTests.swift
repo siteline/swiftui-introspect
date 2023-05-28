@@ -17,7 +17,6 @@ final class ToggleTests: XCTestCase {
 
             VStack {
                 Toggle("", isOn: .constant(true))
-                    .labelsHidden() // TODO: get it to work without this modifier
                     #if os(iOS) || os(tvOS)
                     .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
@@ -25,7 +24,6 @@ final class ToggleTests: XCTestCase {
                     #endif
 
                 Toggle("", isOn: .constant(false))
-                    .labelsHidden() // TODO: get it to work without this modifier
                     #if os(iOS) || os(tvOS)
                     .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
@@ -33,7 +31,6 @@ final class ToggleTests: XCTestCase {
                     #endif
 
                 Toggle("", isOn: .constant(true))
-                    .labelsHidden() // TODO: get it to work without this modifier
                     #if os(iOS) || os(tvOS)
                     .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)

@@ -4,9 +4,9 @@ public struct IntrospectionScope: OptionSet {
     public static let receiver = Self(rawValue: 1 << 0)
     public static let ancestor = Self(rawValue: 1 << 1)
 
-    public let rawValue: UInt
+    @_spi(Private) public let rawValue: UInt
 
-    public init(rawValue: UInt) {
+    @_spi(Private) public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
 }

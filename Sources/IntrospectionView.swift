@@ -7,26 +7,6 @@ fileprivate enum IntrospectionTargetType {
 
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewRepresentable {
-    #if canImport(UIKit)
-    typealias TaggableView = UIView
-    #elseif canImport(AppKit)
-    final class TaggableView: NSView {
-        let _tag: Int?
-
-        init(tag: Int?) {
-            self._tag = tag
-            super.init(frame: .zero)
-        }
-
-        @available(*, unavailable)
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        override var tag: Int { _tag ?? super.tag }
-    }
-    #endif
-
     typealias ID = UUID
 
     @Binding
@@ -40,17 +20,26 @@ struct IntrospectionAnchorView: PlatformViewRepresentable {
     }
 
     #if canImport(UIKit)
-    func makeUIView(context: Context) -> TaggableView {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        view.tag = id.hashValue
+        return view
+    }
+    func updateUIView(_ controller: UIView, context: Context) {}
+    #elseif canImport(AppKit)
+    func makeNSView(context: Context) -> NSView {
+        final class TaggableView: NSView {
+            private var _tag: Int?
+            override var tag: Int {
+                get { _tag ?? super.tag }
+                set { _tag = newValue }
+            }
+        }
         let view = TaggableView()
         view.tag = id.hashValue
         return view
     }
-    func updateUIView(_ controller: TaggableView, context: Context) {}
-    #elseif canImport(AppKit)
-    func makeNSView(context: Context) -> TaggableView {
-        TaggableView(tag: id.hashValue)
-    }
-    func updateNSView(_ controller: TaggableView, context: Context) {}
+    func updateNSView(_ controller: NSView, context: Context) {}
     #endif
 }
 

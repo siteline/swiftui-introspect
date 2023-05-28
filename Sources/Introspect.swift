@@ -17,22 +17,21 @@ extension View {
         if platforms.contains(where: \.isCurrent) {
             let id = UUID() // FIXME: this is probably preventing state updates... either extract into a ViewModifier or try caching the view once it's found
             self.background(
-                    InertIntrospectionView(
-                        id: .back(id)
+                    IntrospectionAnchorView(
+                        id: id
                     )
                     .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
                 )
                 .overlay(
                     IntrospectionView(
-                        id: .front(id),
                         selector: { (view: PlatformView) in
                             switch scope ?? viewType.scope {
                             case .receiver:
-                                return view.receiver(ofType: PlatformSpecificView.self, baseID: id)
+                                return view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
                             case .ancestor:
                                 return view.ancestor(ofType: PlatformSpecificView.self)
                             case .receiverOrAncestor:
-                                return view.receiver(ofType: PlatformSpecificView.self, baseID: id)
+                                return view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
                                     ?? view.ancestor(ofType: PlatformSpecificView.self)
                             }
                         },
@@ -122,14 +121,11 @@ extension PlatformView {
 extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type,
-        baseID: UUID
+        anchorID: IntrospectionAnchorView.ID
     ) -> PlatformSpecificView? {
-        let backTag = IntrospectionViewID.back(baseID).hashValue
-        let frontTag = IntrospectionViewID.front(baseID).hashValue
         let frontView = self
-
         guard
-            let backView = self.superviews.reversed().first?.viewWithTag(backTag),
+            let backView = self.superviews.reversed().first?.viewWithTag(anchorID.hashValue),
             let superview = backView.nearestCommonSuperviewWith(frontView)
         else {
             return nil

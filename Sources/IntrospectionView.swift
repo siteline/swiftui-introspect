@@ -1,5 +1,43 @@
 import SwiftUI
 
+//struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable {
+//    final class TargetCache {
+//        weak var target: Target?
+//    }
+//
+//    @Binding
+//    private var observed: Void // workaround for state changes not triggering view updates
+//    private let selector: (IntrospectionPlatformViewController) -> Target?
+//    private let customize: (Target) -> Void
+//
+//}
+
+//extension View {
+//    @ViewBuilder
+//    func withAnchorID<Content: View, MainContent: View>(
+//        @ViewBuilder content: @escaping (Content, IntrospectionAnchorView.ID) -> MainContent
+//    ) -> some View {
+//        self.modifier(IntrospectionAnchorIDViewModifier(mainContent: content))
+//    }
+//}
+
+struct IntrospectionAnchorIDViewModifier: ViewModifier {
+    let id: IntrospectionAnchorView.ID
+    let mainContent: (Content, IntrospectionAnchorView.ID) -> AnyView
+
+    init(
+        id: IntrospectionAnchorView.ID = UUID(),
+        @ViewBuilder mainContent: @escaping (Content, IntrospectionAnchorView.ID) -> some View
+    ) {
+        self.id = id
+        self.mainContent = { AnyView(mainContent($0, $1)) }
+    }
+
+    func body(content: Content) -> some View {
+        mainContent(content, id)
+    }
+}
+
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewRepresentable {
     typealias ID = UUID

@@ -1,8 +1,9 @@
+#if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
-@available(iOS 14, tvOS 14, macOS 11, *)
+@available(iOS 14, macOS 11, *)
 final class TextEditorTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformTextEditor = UITextView
@@ -22,24 +23,24 @@ final class TextEditorTests: XCTestCase {
 
             VStack {
                 TextEditor(text: .constant("Text Field 0"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy0)
+                    #if os(iOS)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.textEditor, on: .macOS(.v11, .v12, .v13), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 TextEditor(text: .constant("Text Field 1"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy1)
+                    #if os(iOS)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.textEditor, on: .macOS(.v11, .v12, .v13), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 TextEditor(text: .constant("Text Field 2"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy2)
+                    #if os(iOS)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.textEditor, on: .macOS(.v11, .v12, .v13), customize: spy2)
                     #endif
@@ -57,3 +58,4 @@ final class TextEditorTests: XCTestCase {
         }
     }
 }
+#endif

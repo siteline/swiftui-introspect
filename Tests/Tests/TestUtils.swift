@@ -121,7 +121,7 @@ extension Collection {
     subscript(safe index: Index, file: StaticString = #file, line: UInt = #line) -> Element? {
         get {
             guard indices.contains(index) else {
-                XCTFail("Index \(index) is out of bounds")
+                XCTFail("Index \(index) is out of bounds", file: file, line: line)
                 return nil
             }
             return self[index]

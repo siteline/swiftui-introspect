@@ -19,6 +19,7 @@
 		D58119D22A23A77C0081F853 /* StepperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119D12A23A77C0081F853 /* StepperTests.swift */; };
 		D58119D42A23AC100081F853 /* DatePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119D32A23AC100081F853 /* DatePickerTests.swift */; };
 		D58119D82A23B3B00081F853 /* ButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119D72A23B3B00081F853 /* ButtonTests.swift */; };
+		D58119DA2A23B7700081F853 /* ColorPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119D92A23B7700081F853 /* ColorPickerTests.swift */; };
 		D58547F82A1CDD740068ADF4 /* NavigationStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */; };
 		D58547FA2A1D12270068ADF4 /* NavigationSplitViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */; };
 		D58CE15629C621B30081BFB0 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D58CE15529C621B30081BFB0 /* SwiftUIIntrospect */; };
@@ -55,6 +56,7 @@
 		D58119D12A23A77C0081F853 /* StepperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperTests.swift; sourceTree = "<group>"; };
 		D58119D32A23AC100081F853 /* DatePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerTests.swift; sourceTree = "<group>"; };
 		D58119D72A23B3B00081F853 /* ButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTests.swift; sourceTree = "<group>"; };
+		D58119D92A23B7700081F853 /* ColorPickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerTests.swift; sourceTree = "<group>"; };
 		D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackTests.swift; sourceTree = "<group>"; };
 		D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplitViewTests.swift; sourceTree = "<group>"; };
 		D58CE15729C621DD0081BFB0 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				D58119D72A23B3B00081F853 /* ButtonTests.swift */,
+				D58119D92A23B7700081F853 /* ColorPickerTests.swift */,
 				D58119D32A23AC100081F853 /* DatePickerTests.swift */,
 				D55F448C2A1FF209003381E4 /* ListTests.swift */,
 				D58119C32A211B8A0081F853 /* ListCellTests.swift */,
@@ -281,6 +284,7 @@
 				D5F8D5EF2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift in Sources */,
 				D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */,
 				D58119D22A23A77C0081F853 /* StepperTests.swift in Sources */,
+				D58119DA2A23B7700081F853 /* ColorPickerTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */,
 				D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */,
 				D58119CE2A23A4A70081F853 /* TabViewWithPageStyleTests.swift in Sources */,

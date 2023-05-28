@@ -39,13 +39,11 @@ final class TabViewWithPageStyleTests: XCTestCase {
             let spy = spies[0]
 
             TabView {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                        #if os(iOS) || os(tvOS)
-                        .introspect(.tabViewWithPageStyle, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), scope: .ancestor, customize: spy)
-                        #endif
-                }
+                ZStack { Color.red; Text("1") }
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.tabViewWithPageStyle, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), scope: .ancestor, customize: spy)
+                    #endif
+                ZStack { Color.green; Text("2") }
             }
             .tabViewStyle(.page)
         }

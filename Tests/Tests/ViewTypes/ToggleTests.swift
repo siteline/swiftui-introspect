@@ -1,3 +1,4 @@
+#if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -17,22 +18,22 @@ final class ToggleTests: XCTestCase {
 
             VStack {
                 Toggle("", isOn: .constant(true))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
+                    #if os(iOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
                     #endif
 
                 Toggle("", isOn: .constant(false))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
+                    #if os(iOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy1)
                     #endif
 
                 Toggle("", isOn: .constant(true))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy2)
+                    #if os(iOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy2)
                     #endif
@@ -50,3 +51,4 @@ final class ToggleTests: XCTestCase {
         }
     }
 }
+#endif

@@ -112,7 +112,6 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
 
         // - Workaround -
         // iOS/tvOS 13 sometimes need a nudge on the next run loop.
-        // Comment this out and run Showcase on iOS/tvOS 13 to see why.
         if #available(iOS 14, tvOS 14, *) {} else {
             DispatchQueue.main.async { [weak controller] in
                 controller?.handler?()

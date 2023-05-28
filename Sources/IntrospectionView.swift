@@ -24,7 +24,15 @@ struct IntrospectionViewID: Hashable {
 }
 
 struct InertIntrospectionView: PlatformViewRepresentable {
+    @Binding
+    private var observed: Void // workaround for state changes not triggering view updates
+
     let id: IntrospectionViewID
+
+    init(id: IntrospectionViewID) {
+        self._observed = .constant(()) // workaround for state changes not triggering view updates
+        self.id = id
+    }
 
     #if canImport(UIKit)
     func makeUIView(context: Context) -> TaggableView {
@@ -43,7 +51,11 @@ struct InertIntrospectionView: PlatformViewRepresentable {
     #endif
 }
 
-struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
+struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable {
+    final class TargetCache {
+        weak var target: Target?
+    }
+
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
     private let id: IntrospectionViewID?
@@ -85,11 +97,16 @@ struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
         self.customize = customize
     }
 
+    func makeCoordinator() -> TargetCache {
+        TargetCache()
+    }
+
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
         let controller = IntrospectionPlatformViewController(id: id, targetType: targetType) { controller in
             guard let target = selector(controller) else {
                 return
             }
+            context.coordinator.target = target
             customize(target)
             controller.handler = nil
         }
@@ -107,13 +124,13 @@ struct IntrospectionView<Target>: PlatformViewControllerRepresentable {
     }
 
     func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
-        guard let target = selector(controller) else {
+        guard let target = context.coordinator.target ?? selector(controller) else {
             return
         }
         customize(target)
     }
 
-    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: ()) {
+    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
         controller.handler = nil
     }
 }

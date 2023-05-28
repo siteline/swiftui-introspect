@@ -162,38 +162,22 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     #if canImport(UIKit)
     override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-        switch targetType {
-        case .view:
-            guard #available(iOS 14, tvOS 14, *) else {
-                return // too premature for iOS/tvOS 13, so we skip
-            }
-//            handler?() // TODO: check if this is even called at all...
-        case .viewController:
-            handler?() // should always be hit for controllers
-        }
+        handler?()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        handler?()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        switch targetType {
-        case .view:
-            guard #available(iOS 14, tvOS 14, *) else {
-                return // too premature for iOS/tvOS 13, so we skip
-            }
-            handler?() // optimistic, will be called most times for view targets
-        case .viewController:
-            break // should never be hit for controllers
-        }
+        handler?()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        switch targetType {
-        case .view:
-            handler?() // first entry point for iOS 13, and fallback for some views on iOS 14 which start as 0-sized (e.g. List)
-        case .viewController:
-            break // should never be hit for controllers
-        }
+        handler?()
     }
     #elseif canImport(AppKit)
     override func loadView() {

@@ -46,13 +46,11 @@ struct IntrospectionAnchorView: PlatformViewRepresentable {
         return view
     }
     func updateUIView(_ controller: TaggableView, context: Context) {}
-    static func dismantleUIView(_ controller: TaggableView, coordinator: Coordinator) {}
     #elseif canImport(AppKit)
     func makeNSView(context: Context) -> TaggableView {
         TaggableView(tag: id.hashValue)
     }
     func updateNSView(_ controller: TaggableView, context: Context) {}
-    static func dismantleNSView(_ controller: TaggableView, coordinator: Coordinator) {}
     #endif
 }
 

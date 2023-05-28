@@ -15,7 +15,7 @@ extension View {
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
-            let id = UUID()
+            let id = UUID() // FIXME: this is probably preventing state updates... either extract into a ViewModifier or try caching the view once it's found
             self.background(
                     InertIntrospectionView(
                         id: .back(id)

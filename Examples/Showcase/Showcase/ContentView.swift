@@ -73,14 +73,14 @@ struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
             Text("Customized")
-//                .modify {
-//                    if #available(iOS 15, tvOS 15, *) {
-//                        $0.searchable(text: .constant(""))
-//                    } else {
-//                        $0
-//                    }
-//                }
-//                .modify {
+                .modifier {
+                    if #available(iOS 15, tvOS 15, *) {
+                        $0.searchable(text: .constant(""))
+                    } else {
+                        $0
+                    }
+                }
+//                .modifier {
 ////                    #if os(iOS)
 //                    if #available(iOS 15, *) {
 //                        $0.introspectSearchController { searchController in

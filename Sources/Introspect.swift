@@ -20,36 +20,35 @@ extension View {
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
-            self.modifier(IntrospectionAnchorIDViewModifier { view, id in
-                view.background(
-                        IntrospectionAnchorView(
-                            id: id
-                        )
-                        .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+            let id = UUID()
+            self.background(
+                    IntrospectionAnchorView(
+                        id: id
                     )
-                    .overlay(
-                        IntrospectionView(
-                            selector: { (view: PlatformView) in
-                                let scope = scope ?? viewType.scope
-                                if
-                                    scope.contains(.receiver),
-                                    let target = view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
-                                {
-                                    return target
-                                }
-                                if
-                                    scope.contains(.ancestor),
-                                    let target = view.ancestor(ofType: PlatformSpecificView.self)
-                                {
-                                    return target
-                                }
-                                return nil
-                            },
-                            customize: customize
-                        )
-                        .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                )
+                .overlay(
+                    IntrospectionView(
+                        selector: { (view: PlatformView) in
+                            let scope = scope ?? viewType.scope
+                            if
+                                scope.contains(.receiver),
+                                let target = view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
+                            {
+                                return target
+                            }
+                            if
+                                scope.contains(.ancestor),
+                                let target = view.ancestor(ofType: PlatformSpecificView.self)
+                            {
+                                return target
+                            }
+                            return nil
+                        },
+                        customize: customize
                     )
-            })
+                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                )
         } else {
             self
         }

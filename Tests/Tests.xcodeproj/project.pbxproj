@@ -15,6 +15,7 @@
 		D575067E2A27C43400A628E4 /* ListWithGroupedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575067D2A27C43400A628E4 /* ListWithGroupedStyleTests.swift */; };
 		D57506802A27C55600A628E4 /* ListWithInsetStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575067F2A27C55600A628E4 /* ListWithInsetStyleTests.swift */; };
 		D57506822A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506812A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift */; };
+		D57506842A27C8D400A628E4 /* ListWithSidebarStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506832A27C8D400A628E4 /* ListWithSidebarStyleTests.swift */; };
 		D58119C42A211B8A0081F853 /* ListCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C32A211B8A0081F853 /* ListCellTests.swift */; };
 		D58119C62A227E930081F853 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C52A227E930081F853 /* ViewTests.swift */; };
 		D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C72A22AC130081F853 /* ToggleTests.swift */; };
@@ -59,6 +60,7 @@
 		D575067D2A27C43400A628E4 /* ListWithGroupedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithGroupedStyleTests.swift; sourceTree = "<group>"; };
 		D575067F2A27C55600A628E4 /* ListWithInsetStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithInsetStyleTests.swift; sourceTree = "<group>"; };
 		D57506812A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithInsetGroupedStyleTests.swift; sourceTree = "<group>"; };
+		D57506832A27C8D400A628E4 /* ListWithSidebarStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithSidebarStyleTests.swift; sourceTree = "<group>"; };
 		D58119C32A211B8A0081F853 /* ListCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellTests.swift; sourceTree = "<group>"; };
 		D58119C52A227E930081F853 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D58119C72A22AC130081F853 /* ToggleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTests.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				D575067D2A27C43400A628E4 /* ListWithGroupedStyleTests.swift */,
 				D57506812A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift */,
 				D575067F2A27C55600A628E4 /* ListWithInsetStyleTests.swift */,
+				D57506832A27C8D400A628E4 /* ListWithSidebarStyleTests.swift */,
 				D575067B2A27C24600A628E4 /* ListWithPlainStyleTests.swift */,
 				D58119C32A211B8A0081F853 /* ListCellTests.swift */,
 				D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */,
@@ -300,6 +303,7 @@
 				D57506822A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift in Sources */,
 				D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */,
 				D58119CA2A239BAC0081F853 /* TextEditorTests.swift in Sources */,
+				D57506842A27C8D400A628E4 /* ListWithSidebarStyleTests.swift in Sources */,
 				D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */,
 				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D58119D02A23A62C0081F853 /* SliderTests.swift in Sources */,

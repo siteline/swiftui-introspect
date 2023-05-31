@@ -25,7 +25,7 @@ extension iOSViewVersion<ListWithInsetStyleType, UICollectionView> {
     public static let v16 = Self(for: .v16)
 }
 #elseif canImport(AppKit)
-extension macOSViewVersion<PickerWithSegmentedStyleType, NSSegmentedControl> {
+extension macOSViewVersion<ListWithInsetStyleType, NSTableView> {
     @available(*, unavailable, message: ".listStyle(.inset) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()
     public static let v11 = Self(for: .v11)

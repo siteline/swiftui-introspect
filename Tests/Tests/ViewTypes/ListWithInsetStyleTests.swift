@@ -29,7 +29,7 @@ final class ListWithInsetStyleTests: XCTestCase {
                 .introspect(.list(style: .inset), on: .iOS(.v14, .v15)) { spy0($0) }
                 .introspect(.list(style: .inset), on: .iOS(.v16)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.list(style: .inset), on: .macOS(.v10_15, .v11, .v12, .v13)) { spy0($0) }
+                .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13)) { spy0($0) }
                 #endif
 
                 List {
@@ -38,7 +38,7 @@ final class ListWithInsetStyleTests: XCTestCase {
                     .introspect(.list(style: .inset), on: .iOS(.v14, .v15), scope: .ancestor) { spy1($0) }
                     .introspect(.list(style: .inset), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
-                    .introspect(.list(style: .inset), on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.inset)

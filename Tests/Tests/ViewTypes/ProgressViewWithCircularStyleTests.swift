@@ -20,7 +20,7 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
             let spy2 = spies[2]
 
             VStack {
-                ProgressView()
+                ProgressView(value: 0.25)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy0)
@@ -28,7 +28,7 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
                     .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13), customize: spy0)
                     #endif
 
-                ProgressView()
+                ProgressView(value: 0.5)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy1)
@@ -36,7 +36,7 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
                     .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13), customize: spy1)
                     #endif
 
-                ProgressView()
+                ProgressView(value: 0.75)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy2)
@@ -44,6 +44,12 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
                     .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13), customize: spy2)
                     #endif
             }
+        } extraAssertions: {
+            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+            XCTAssertEqual($0[safe: 0]?.doubleValue, 0.25)
+            XCTAssertEqual($0[safe: 1]?.doubleValue, 0.5)
+            XCTAssertEqual($0[safe: 2]?.doubleValue, 0.75)
+            #endif
         }
     }
 }

@@ -20,26 +20,23 @@ final class DatePickerWithWheelStyleTests: XCTestCase {
 
             VStack {
                 DatePicker("", selection: .constant(date0))
+                    .datePickerStyle(.wheel)
                     #if os(iOS)
-                    .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date1))
+                    .datePickerStyle(.wheel)
                     #if os(iOS)
-                    .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy1)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date2))
+                    .datePickerStyle(.wheel)
                     #if os(iOS)
-                    .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
-                    #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy2)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #endif
             }
         } extraAssertions: {
@@ -47,10 +44,6 @@ final class DatePickerWithWheelStyleTests: XCTestCase {
             XCTAssertEqual($0[safe: 0]?.date, date0)
             XCTAssertEqual($0[safe: 1]?.date, date1)
             XCTAssertEqual($0[safe: 2]?.date, date2)
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.dateValue, date0)
-            XCTAssertEqual($0[safe: 1]?.dateValue, date1)
-            XCTAssertEqual($0[safe: 2]?.dateValue, date2)
             #endif
         }
     }

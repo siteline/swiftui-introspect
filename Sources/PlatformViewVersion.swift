@@ -16,66 +16,33 @@ public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, Plat
     }
 }
 
-public struct iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
-    let version: iOSVersion?
-    var isCurrent: Bool { version?.isCurrent ?? false }
+public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformView>
+public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformView>
+public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformView>
+
+public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformView> {
+    let isCurrent: Bool
 }
 
-extension iOSViewVersion {
-    @_spi(Internals) public init(for version: iOSVersion) {
-        self.init(version: version)
+extension PlatformViewVersion {
+    @_spi(Internals) public init(for version: Version) {
+        self.init(isCurrent: version.isCurrent)
     }
 
     @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
-        warnUnavailablePlatform(file: file, line: line)
-        return Self(version: nil)
+        let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }
+        let fileName = URL(fileURLWithPath: filePath).lastPathComponent
+        runtimeWarn(
+            """
+            If you're seeing this, someone forgot to mark \(fileName):\(line) as unavailable.
+
+            This won't have any effect, but it should be disallowed altogether.
+
+            Please report it upstream so we can properly fix it by using the following link:
+
+            https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
+            """
+        )
+        return Self(isCurrent: false)
     }
-}
-
-public struct tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
-    let version: tvOSVersion?
-    var isCurrent: Bool { version?.isCurrent ?? false }
-}
-
-extension tvOSViewVersion {
-    @_spi(Internals) public init(for version: tvOSVersion) {
-        self.init(version: version)
-    }
-
-    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
-        warnUnavailablePlatform(file: file, line: line)
-        return Self(version: nil)
-    }
-}
-
-public struct macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> {
-    let version: macOSVersion?
-    var isCurrent: Bool { version?.isCurrent ?? false }
-}
-
-extension macOSViewVersion {
-    @_spi(Internals) public init(for version: macOSVersion) {
-        self.init(version: version)
-    }
-
-    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
-        warnUnavailablePlatform(file: file, line: line)
-        return Self(version: nil)
-    }
-}
-
-fileprivate func warnUnavailablePlatform(file: StaticString = #file, line: UInt = #line) {
-    let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }
-    let fileName = URL(fileURLWithPath: filePath).lastPathComponent
-    runtimeWarn(
-        """
-        If you're seeing this, someone forgot to mark \(fileName):\(line) as unavailable.
-
-        This won't have any effect, but it should be disallowed altogether.
-
-        Please report it upstream so we can properly fix it by using the following link:
-
-        https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
-        """
-    )
 }

@@ -1,6 +1,10 @@
 import Foundation
 
-public struct iOSVersion {
+public protocol PlatformVersion {
+    var isCurrent: Bool { get }
+}
+
+public struct iOSVersion: PlatformVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {
@@ -50,7 +54,7 @@ extension iOSVersion {
     }
 }
 
-public struct tvOSVersion {
+public struct tvOSVersion: PlatformVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {
@@ -100,7 +104,7 @@ extension tvOSVersion {
     }
 }
 
-public struct macOSVersion {
+public struct macOSVersion: PlatformVersion {
     public let isCurrent: Bool
 
     public init(isCurrent: () -> Bool) {

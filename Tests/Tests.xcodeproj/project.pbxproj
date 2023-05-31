@@ -22,6 +22,7 @@
 		D575068C2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */; };
 		D575068E2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */; };
 		D57506902A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */; };
+		D57506922A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */; };
 		D58119C42A211B8A0081F853 /* ListCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C32A211B8A0081F853 /* ListCellTests.swift */; };
 		D58119C62A227E930081F853 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C52A227E930081F853 /* ViewTests.swift */; };
 		D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C72A22AC130081F853 /* ToggleTests.swift */; };
@@ -73,6 +74,7 @@
 		D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithSwitchStyleTests.swift; sourceTree = "<group>"; };
 		D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithButtonStyleTests.swift; sourceTree = "<group>"; };
 		D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithCheckboxStyleTests.swift; sourceTree = "<group>"; };
+		D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithWheelStyleTests.swift; sourceTree = "<group>"; };
 		D58119C32A211B8A0081F853 /* ListCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellTests.swift; sourceTree = "<group>"; };
 		D58119C52A227E930081F853 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D58119C72A22AC130081F853 /* ToggleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTests.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				D58119D72A23B3B00081F853 /* ButtonTests.swift */,
 				D58119D92A23B7700081F853 /* ColorPickerTests.swift */,
 				D58119D32A23AC100081F853 /* DatePickerTests.swift */,
+				D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */,
 				D57506872A27CB9800A628E4 /* FormTests.swift */,
 				D57506892A27CE7900A628E4 /* FormWithGroupedStyleTests.swift */,
 				D55F448C2A1FF209003381E4 /* ListTests.swift */,
@@ -319,6 +322,7 @@
 				D58119CC2A239F100081F853 /* TabViewTests.swift in Sources */,
 				D57506802A27C55600A628E4 /* ListWithInsetStyleTests.swift in Sources */,
 				D575067A2A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift in Sources */,
+				D57506922A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift in Sources */,
 				D57506822A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift in Sources */,
 				D575068A2A27CE7900A628E4 /* FormWithGroupedStyleTests.swift in Sources */,
 				D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */,

@@ -1,7 +1,7 @@
 #if !os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.TabView {}.tabViewStyle(.page)
+// MARK: SwiftUI.TabView { ... }.tabViewStyle(.page)
 
 public struct TabViewWithPageStyleType: IntrospectableViewType {
     public enum Style {

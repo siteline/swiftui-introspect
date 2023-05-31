@@ -22,7 +22,7 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
                 List {
                     Text("Item 1")
                 }
-                .listStyle(.inset)
+                .listStyle(.insetGrouped)
                 #if os(iOS)
                 .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15)) { spy0($0) }
                 .introspect(.list(style: .insetGrouped), on: .iOS(.v16)) { spy0($0) }
@@ -35,7 +35,7 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
                     .introspect(.list(style: .insetGrouped), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
                     #endif
                 }
-                .listStyle(.inset)
+                .listStyle(.insetGrouped)
             }
         } extraAssertions: {
             XCTAssert($0[safe: 0] !== $0[safe: 1])

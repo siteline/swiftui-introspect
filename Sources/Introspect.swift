@@ -25,7 +25,7 @@ extension View {
                     IntrospectionAnchorView(
                         id: id
                     )
-                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                    .frame(width: 0, height: 0)
                 )
                 .overlay(
                     IntrospectionView(
@@ -47,7 +47,7 @@ extension View {
                         },
                         customize: customize
                     )
-                    .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                    .frame(width: 0, height: 0)
                 )
         } else {
             self
@@ -82,7 +82,7 @@ extension View {
                     },
                     customize: customize
                 )
-                .frame(width: 1, height: 1) // TODO: maybe 0-sized? check when impl is stable
+                .frame(width: 0, height: 0)
             )
         } else {
             self

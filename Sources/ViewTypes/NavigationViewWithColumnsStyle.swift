@@ -2,10 +2,14 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.columns)
 
-public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {}
+public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {
+    public enum Style {
+        case columns
+    }
+}
 
 extension IntrospectableViewType where Self == NavigationViewWithColumnsStyleType {
-    public static var navigationViewWithColumnsStyle: Self { .init() }
+    public static func navigationView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -2,10 +2,14 @@ import SwiftUI
 
 // MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.stack)
 
-public struct NavigationViewWithStackStyleType: IntrospectableViewType {}
+public struct NavigationViewWithStackStyleType: IntrospectableViewType {
+    public enum Style {
+        case stack
+    }
+}
 
 extension IntrospectableViewType where Self == NavigationViewWithStackStyleType {
-    public static var navigationViewWithStackStyle: Self { .init() }
+    public static func navigationView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

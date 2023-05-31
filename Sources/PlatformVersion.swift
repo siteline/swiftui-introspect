@@ -123,6 +123,16 @@ extension macOSVersion {
         return false
     }
 
+    public static let v10_15_4 = macOSVersion {
+        if #available(macOS 11, *) {
+            return false
+        }
+        if #available(macOS 10.15.4, *) {
+            return true
+        }
+        return false
+    }
+
     public static let v11 = macOSVersion {
         if #available(macOS 12, *) {
             return false

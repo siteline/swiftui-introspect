@@ -24,6 +24,7 @@
 		D57506902A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */; };
 		D57506922A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */; };
 		D57506942A27EED200A628E4 /* DatePickerWithStepperFieldStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506932A27EED200A628E4 /* DatePickerWithStepperFieldStyleTests.swift */; };
+		D57506962A27F0E200A628E4 /* DatePickerWithCompactFieldStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506952A27F0E200A628E4 /* DatePickerWithCompactFieldStyleTests.swift */; };
 		D58119C42A211B8A0081F853 /* ListCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C32A211B8A0081F853 /* ListCellTests.swift */; };
 		D58119C62A227E930081F853 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C52A227E930081F853 /* ViewTests.swift */; };
 		D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C72A22AC130081F853 /* ToggleTests.swift */; };
@@ -77,6 +78,7 @@
 		D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithCheckboxStyleTests.swift; sourceTree = "<group>"; };
 		D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithWheelStyleTests.swift; sourceTree = "<group>"; };
 		D57506932A27EED200A628E4 /* DatePickerWithStepperFieldStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithStepperFieldStyleTests.swift; sourceTree = "<group>"; };
+		D57506952A27F0E200A628E4 /* DatePickerWithCompactFieldStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithCompactFieldStyleTests.swift; sourceTree = "<group>"; };
 		D58119C32A211B8A0081F853 /* ListCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellTests.swift; sourceTree = "<group>"; };
 		D58119C52A227E930081F853 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D58119C72A22AC130081F853 /* ToggleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTests.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				D58119D72A23B3B00081F853 /* ButtonTests.swift */,
 				D58119D92A23B7700081F853 /* ColorPickerTests.swift */,
 				D58119D32A23AC100081F853 /* DatePickerTests.swift */,
+				D57506952A27F0E200A628E4 /* DatePickerWithCompactFieldStyleTests.swift */,
 				D57506932A27EED200A628E4 /* DatePickerWithStepperFieldStyleTests.swift */,
 				D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */,
 				D57506872A27CB9800A628E4 /* FormTests.swift */,
@@ -321,6 +324,7 @@
 			files = (
 				D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */,
 				D58547F82A1CDD740068ADF4 /* NavigationStackTests.swift in Sources */,
+				D57506962A27F0E200A628E4 /* DatePickerWithCompactFieldStyleTests.swift in Sources */,
 				D57506902A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift in Sources */,
 				D58119CC2A239F100081F853 /* TabViewTests.swift in Sources */,
 				D57506802A27C55600A628E4 /* ListWithInsetStyleTests.swift in Sources */,

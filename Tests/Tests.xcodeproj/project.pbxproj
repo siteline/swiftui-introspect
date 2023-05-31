@@ -21,6 +21,7 @@
 		D575068A2A27CE7900A628E4 /* FormWithGroupedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506892A27CE7900A628E4 /* FormWithGroupedStyleTests.swift */; };
 		D575068C2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */; };
 		D575068E2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */; };
+		D57506902A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */; };
 		D58119C42A211B8A0081F853 /* ListCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C32A211B8A0081F853 /* ListCellTests.swift */; };
 		D58119C62A227E930081F853 /* ViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C52A227E930081F853 /* ViewTests.swift */; };
 		D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58119C72A22AC130081F853 /* ToggleTests.swift */; };
@@ -71,6 +72,7 @@
 		D57506892A27CE7900A628E4 /* FormWithGroupedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWithGroupedStyleTests.swift; sourceTree = "<group>"; };
 		D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithSwitchStyleTests.swift; sourceTree = "<group>"; };
 		D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithButtonStyleTests.swift; sourceTree = "<group>"; };
+		D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleWithCheckboxStyleTests.swift; sourceTree = "<group>"; };
 		D58119C32A211B8A0081F853 /* ListCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellTests.swift; sourceTree = "<group>"; };
 		D58119C52A227E930081F853 /* ViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTests.swift; sourceTree = "<group>"; };
 		D58119C72A22AC130081F853 /* ToggleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTests.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 				D58119C72A22AC130081F853 /* ToggleTests.swift */,
 				D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */,
+				D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */,
 				D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */,
 				D58119C52A227E930081F853 /* ViewTests.swift */,
 			);
@@ -312,6 +315,7 @@
 			files = (
 				D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */,
 				D58547F82A1CDD740068ADF4 /* NavigationStackTests.swift in Sources */,
+				D57506902A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift in Sources */,
 				D58119CC2A239F100081F853 /* TabViewTests.swift in Sources */,
 				D57506802A27C55600A628E4 /* ListWithInsetStyleTests.swift in Sources */,
 				D575067A2A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift in Sources */,

@@ -108,6 +108,10 @@ jobs:
       - name: List Available Simulators
         run: xcrun simctl list devices available
 
+      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
+        name: Build Showcase
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
+
       - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' }}
         name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect

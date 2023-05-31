@@ -6,8 +6,6 @@ import XCTest
 final class ListWithGroupedStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
-    #elseif canImport(AppKit)
-    typealias PlatformListWithGroupedStyle = NSTableView
     #endif
 
     func testListWithGroupedStyle() {
@@ -32,7 +30,7 @@ final class ListWithGroupedStyleTests: XCTestCase {
                     .introspect(.list(style: .grouped), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
                     #endif
                 }
-                .listStyle(.plain)
+                .listStyle(.grouped)
             }
         } extraAssertions: {
             XCTAssert($0[safe: 0] !== $0[safe: 1])

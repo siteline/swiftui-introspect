@@ -3,10 +3,14 @@ import SwiftUI
 
 // MARK: SwiftUI.TabView {}.tabViewStyle(.page)
 
-public struct TabViewWithPageStyleType: IntrospectableViewType {}
+public struct TabViewWithPageStyleType: IntrospectableViewType {
+    public enum Style {
+        case page
+    }
+}
 
 extension IntrospectableViewType where Self == TabViewWithPageStyleType {
-    public static var tabViewWithPageStyle: Self { .init() }
+    public static func tabView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

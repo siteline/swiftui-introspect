@@ -2,10 +2,14 @@ import SwiftUI
 
 // MARK: SwiftUI.TextField(..., axis: .vertical)
 
-public struct TextFieldWithVerticalAxisType: IntrospectableViewType {}
+public struct TextFieldWithVerticalAxisType: IntrospectableViewType {
+    public enum Axis {
+        case vertical
+    }
+}
 
 extension IntrospectableViewType where Self == TextFieldWithVerticalAxisType {
-    public static var textFieldWithVerticalAxis: Self { .init() }
+    public static func textField(axis: Self.Axis) -> Self { .init() }
 }
 
 // MARK: SwiftUI.TextField(..., axis: .vertical) - iOS

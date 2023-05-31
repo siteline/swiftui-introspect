@@ -25,7 +25,7 @@ final class TabViewWithPageStyleTests: XCTestCase {
             }
             .tabViewStyle(.page)
             #if os(iOS) || os(tvOS)
-            .introspect(.tabViewWithPageStyle, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy)
+            .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy)
             #endif
         }
     }
@@ -41,7 +41,7 @@ final class TabViewWithPageStyleTests: XCTestCase {
             TabView {
                 ZStack { Color.red; Text("1") }
                     #if os(iOS) || os(tvOS)
-                    .introspect(.tabViewWithPageStyle, on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), scope: .ancestor, customize: spy)
+                    .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), scope: .ancestor, customize: spy)
                     #endif
                 ZStack { Color.green; Text("2") }
             }

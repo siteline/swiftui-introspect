@@ -15,6 +15,7 @@ extension IntrospectableViewType where Self == ListWithInsetGroupedStyleType {
 
 #if canImport(UIKit)
 extension iOSViewVersion<ListWithInsetGroupedStyleType, UITableView> {
+    @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on iOS 13")
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)

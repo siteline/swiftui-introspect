@@ -1,7 +1,7 @@
 #if os(iOS) || os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.List { ... }.listStyle(.inset)
+// MARK: SwiftUI.List { ... }.listStyle(.sidebar)
 
 public struct ListWithSidebarStyleType: IntrospectableViewType {
     public enum Style {

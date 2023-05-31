@@ -7,8 +7,6 @@ import XCTest
 final class ListWithInsetGroupedStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithInsetGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
-    #elseif canImport(AppKit)
-    typealias PlatformListWithInsetGroupedStyle = NSTableView
     #endif
 
     func testListWithInsetGroupedStyle() throws {

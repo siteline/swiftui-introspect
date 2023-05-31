@@ -28,7 +28,6 @@ final class ListWithPlainStyleTests: XCTestCase {
 
                 List {
                     Text("Item 1")
-                    Text("Item 2")
                     #if os(iOS) || os(tvOS)
                     .introspect(.list(style: .plain), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { spy1($0) }
                     .introspect(.list(style: .plain), on: .iOS(.v16), scope: .ancestor) { spy1($0) }

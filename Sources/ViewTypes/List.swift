@@ -2,10 +2,15 @@ import SwiftUI
 
 // MARK: SwiftUI.List
 
-public struct ListType: IntrospectableViewType {}
+public struct ListType: IntrospectableViewType {
+    public enum Style {
+        case plain
+    }
+}
 
 extension IntrospectableViewType where Self == ListType {
     public static var list: Self { .init() }
+    public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

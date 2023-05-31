@@ -12,7 +12,7 @@ final class TextEditorTests: XCTestCase {
     #endif
 
     func testTextEditor() throws {
-        guard #available(iOS 14, tvOS 14, macOS 11, *) else {
+        guard #available(iOS 14, macOS 11, *) else {
             throw XCTSkip()
         }
 

@@ -8,9 +8,15 @@ struct ContentView: View {
             ListShowcase()
                 .tabItem { Text("List") }
                 .tag(0)
-//                .introspectTabBarController { tabBarController in
-//                    tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
-//                }
+                #if os(iOS) || os(tvOS)
+                .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { tabBarController in
+                    tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
+                }
+                #elseif os(macOS)
+                .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { splitView in
+                    splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
+                }
+                #endif
             ScrollViewShowcase()
                 .tabItem { Text("ScrollView") }
                 .tag(1)
@@ -29,10 +35,12 @@ struct ContentView: View {
 
 struct ListShowcase: View {
     var body: some View {
-
-        HStack {
+        VStack(spacing: 40) {
             VStack {
                 Text("Default")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
                 List {
                     Text("Item 1")
                     Text("Item 2")
@@ -40,28 +48,54 @@ struct ListShowcase: View {
             }
 
             VStack {
-                Text("List.introspectTableView()")
+                Text(".introspect(.list, ...)")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+                    .font(.system(.subheadline, design: .monospaced))
                 List {
                     Text("Item 1")
                     Text("Item 2")
                 }
-//                .introspectTableView { tableView in
-//                    #if !os(tvOS)
-//                    tableView.separatorStyle = .none
-//                    #endif
-//                }
+                #if os(iOS) || os(tvOS)
+                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { tableView in
+                    tableView.backgroundView = UIView()
+                    tableView.backgroundColor = .blue
+                }
+                .introspect(.list, on: .iOS(.v16)) { collectionView in
+                    collectionView.backgroundView = UIView()
+                    collectionView.subviews.dropFirst(1).first?.backgroundColor = .blue
+                }
+                #elseif os(macOS)
+                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { tableView in
+                    tableView.backgroundColor = .blue
+                }
+                #endif
             }
 
             VStack {
-                Text("child.introspectTableView()")
+                Text(".introspect(.list, ..., scope: .ancestor)")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+                    .font(.system(.subheadline, design: .monospaced))
                 List {
                     Text("Item 1")
                     Text("Item 2")
-//                        .introspectTableView { tableView in
-//                            #if !os(tvOS)
-//                            tableView.separatorStyle = .none
-//                            #endif
-//                        }
+                        #if os(iOS) || os(tvOS)
+                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { tableView in
+                            tableView.backgroundView = UIView()
+                            tableView.backgroundColor = .blue
+                        }
+                        .introspect(.list, on: .iOS(.v16), scope: .ancestor) { collectionView in
+                            collectionView.backgroundView = UIView()
+                            collectionView.subviews.dropFirst(1).first?.backgroundColor = .blue
+                        }
+                        #elseif os(macOS)
+                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { tableView in
+                            tableView.backgroundColor = .blue
+                        }
+                        #endif
                 }
             }
         }
@@ -73,13 +107,13 @@ struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
             Text("Customized")
-                .modifier {
-                    if #available(iOS 15, tvOS 15, *) {
-                        $0.searchable(text: .constant(""))
-                    } else {
-                        $0
-                    }
-                }
+//                .modifier {
+//                    if #available(iOS 15, tvOS 15, *) {
+//                        $0.searchable(text: .constant(""))
+//                    } else {
+//                        $0
+//                    }
+//                }
 //                .modifier {
 ////                    #if os(iOS)
 //                    if #available(iOS 15, *) {

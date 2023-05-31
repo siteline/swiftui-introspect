@@ -1,4 +1,4 @@
-#if !os(tvOS)
+#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.DatePicker

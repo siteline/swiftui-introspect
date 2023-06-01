@@ -12,12 +12,14 @@ struct ContentView: View {
             ScrollViewShowcase()
                 .tabItem { Text("ScrollView") }
                 .tag(1)
+            #if !os(macOS)
             NavigationShowcase()
                 .tabItem { Text("Navigation") }
                 .tag(2)
             ViewControllerShowcase()
                 .tabItem { Text("ViewController") }
                 .tag(3)
+            #endif
             SimpleElementsShowcase()
                 .tabItem { Text("Simple elements") }
                 .tag(4)
@@ -160,37 +162,37 @@ struct ScrollViewShowcase: View {
 struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
-            Text("Customized")
-//                .modifier {
-//                    if #available(iOS 15, tvOS 15, *) {
-//                        $0.searchable(text: .constant(""))
-//                    } else {
-//                        $0
-//                    }
-//                }
-//                .modifier {
-////                    #if os(iOS)
-//                    if #available(iOS 15, *) {
-//                        $0.introspectSearchController { searchController in
-//                            searchController.searchBar.backgroundColor = .purple
-//                        }
-//                    } else {
-//                        $0
-//                    }
-//                    #else
-//                    $0
-//                    #endif
-//                }
-//                #if !os(tvOS)
-//                .navigationBarTitle(Text("Customized"), displayMode: .inline)
-//                #endif
-//                .introspectNavigationController { navigationController in
-//                    navigationController.navigationBar.backgroundColor = .red
-//                }
+            Text("Content")
+                .modifier {
+                    if #available(iOS 15, tvOS 15, macOS 12, *) {
+                        $0.searchable(text: .constant(""))
+                    } else {
+                        $0
+                    }
+                }
+                #if os(iOS)
+                .navigationBarTitle(Text("Customized"), displayMode: .inline)
+                #elseif os(macOS)
+                .navigationTitle(Text("Navigation"))
+                #endif
         }
-//        .introspectSplitViewController { splitViewController in
-//            splitViewController.preferredDisplayMode = .oneOverSecondary
-//        }
+        #if os(iOS) || os(tvOS)
+        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { navigationController in
+            navigationController.navigationBar.backgroundColor = .cyan
+        }
+        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16)) { splitViewController in
+            splitViewController.preferredDisplayMode = .oneOverSecondary
+        }
+        .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16)) { navigationController in
+            navigationController.navigationBar.backgroundColor = .cyan
+        }
+        .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16)) { searchField in
+            searchField.backgroundColor = .red
+            #if os(iOS)
+            searchField.searchTextField.backgroundColor = .purple
+            #endif
+        }
+        #endif
     }
 }
 
@@ -200,9 +202,11 @@ struct ViewControllerShowcase: View {
             VStack {
                 Text("Customized")
             }
-//            .introspectViewController { viewController in
-//                viewController.navigationItem.title = "Customized"
-//            }
+            #if os(iOS) || os(tvOS)
+            .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { viewController in
+                viewController.view.backgroundColor = .cyan
+            }
+            #endif
         }
     }
 }

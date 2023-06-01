@@ -1,7 +1,8 @@
 import SwiftUI
 
 extension View {
-    func `do`<TransformedView: View>(
+    @ViewBuilder
+    func modifier<TransformedView: View>(
         @ViewBuilder transform: (Self) -> TransformedView
     ) -> TransformedView {
         transform(self)

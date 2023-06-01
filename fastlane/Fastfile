@@ -1,61 +1,96 @@
 skip_docs
 
-lane :test do |options|
+devices = {
+    "ios" => {
+        13 => ["iPhone 11 (13.7)", "iPad Pro (9.7-inch) (13.7)"],
+        14 => ["iPhone 12 (14.5)", "iPad Pro (9.7-inch) (14.5)"],
+        15 => ["iPhone SE (3rd generation) (15.5)", "iPad Air (5th generation) (15.5)",],
+        16 => ["iPhone 14 (16.4)", "iPad Pro (11-inch) (4th generation) (16.4)"],
+    },
+    "tvos" => {
+        13 => ["Apple TV (13.4)"],
+        14 => ["Apple TV (14.5)"],
+        15 => ["Apple TV (15.4)"],
+        16 => ["Apple TV (16.4)"],
+    },
+}
+
+lane :build do |options|
     platform = options[:platform].to_s
     version = options[:version].to_i
+    scheme = options[:scheme].to_s
 
-    case platform
-    when "macos"
-        spm(
-            command: "test",
-        )
+    unless scheme == "Showcase"
+        raise "Unsupported scheme: #{scheme}"
         next
-    when "ios"
-        devices = case version
-        when 14
-            [
-                "iPhone 11 Pro (14.5)",
-                "iPad Pro (11-inch) (3rd generation) (14.5)",
-            ]
-        when 15
-            [
-                "iPhone 11 Pro (15.5)",
-                "iPad Pro (11-inch) (3rd generation) (15.5)",
-            ]
-        when 16
-            [
-                "iPhone 14 Pro (16.2)",
-                "iPad Pro (11-inch) (4th generation) (16.2)",
-            ]
-        else
-            raise "Unsupported iOS version: #{version}"
-        end
-    when "tvos"
-        devices = case version
-        when 14
-            [
-                "Apple TV (14.5)",
-            ]
-        when 15
-            [
-                "Apple TV (15.4)",
-            ]
-        when 16
-            [
-                "Apple TV (16.1)",
-            ]
-        else
-            raise "Unsupported tvOS version: #{version}"
-        end
-    else
-        raise "Unsupported platform: #{platform}"
     end
 
-    run_tests(
-        scheme: "Introspect",
-        devices: devices,
-        ensure_devices_found: true,
-        force_quit_simulator: true,
-        disable_concurrent_testing: true,
-    )
+    if platform == "macos"
+        for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
+            build_app(
+                scheme: scheme,
+                destination: destination,
+                skip_archive: true,
+                skip_codesigning: true,
+                skip_package_ipa: true,
+                skip_profile_detection: true,
+            )
+        end
+    else
+        run_tests(
+            configuration: "Debug",
+            build_for_testing: true,
+            scheme: scheme,
+            devices: devices[platform][version],
+            prelaunch_simulator: false,
+            ensure_devices_found: true,
+            force_quit_simulator: true,
+            disable_concurrent_testing: true,
+        )
+    end
+end
+
+lane :test do |options|
+    configuration = (options[:configuration] || "Debug").to_s
+    platform = options[:platform].to_s
+    version = options[:version].to_i
+    scheme = options[:scheme].to_s
+
+    if platform == "macos"
+        case scheme
+        when "Introspect"
+            spm(
+                command: "test",
+                configuration: configuration.downcase,
+            )
+        when "SwiftUIIntrospectTests"
+            for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
+                run_tests(
+                    configuration: configuration,
+                    build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
+                    scheme: scheme,
+                    destination: [destination],
+                    catalyst_platform: "macos",
+                    disable_slide_to_type: false,
+                    prelaunch_simulator: false,
+                    ensure_devices_found: true,
+                    force_quit_simulator: false,
+                    disable_concurrent_testing: true,
+                    xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
+                )
+            end
+        else
+            raise "Unsupported scheme: #{scheme}"
+        end
+    else
+        run_tests(
+            configuration: configuration,
+            scheme: scheme,
+            devices: devices[platform][version],
+            prelaunch_simulator: true,
+            ensure_devices_found: true,
+            force_quit_simulator: true,
+            disable_concurrent_testing: true,
+        )
+    end
 end

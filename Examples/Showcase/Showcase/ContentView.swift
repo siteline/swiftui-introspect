@@ -2,21 +2,13 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct ContentView: View {
-    @State private var selection = 0
+    @State var selection = 0
+
     var body: some View {
         TabView(selection: $selection) {
             ListShowcase()
                 .tabItem { Text("List") }
                 .tag(0)
-                #if os(iOS) || os(tvOS)
-                .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { tabBarController in
-                    tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
-                }
-                #elseif os(macOS)
-                .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { splitView in
-                    splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
-                }
-                #endif
             ScrollViewShowcase()
                 .tabItem { Text("ScrollView") }
                 .tag(1)
@@ -30,6 +22,16 @@ struct ContentView: View {
                 .tabItem { Text("Simple elements") }
                 .tag(4)
         }
+        #if os(iOS) || os(tvOS)
+        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { tabBarController in
+            tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
+        }
+        #elseif os(macOS)
+        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13)) { splitView in
+            splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
+        }
+        #endif
+        .preferredColorScheme(.light)
     }
 }
 
@@ -60,15 +62,15 @@ struct ListShowcase: View {
                 #if os(iOS) || os(tvOS)
                 .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { tableView in
                     tableView.backgroundView = UIView()
-                    tableView.backgroundColor = .blue
+                    tableView.backgroundColor = .cyan
                 }
                 .introspect(.list, on: .iOS(.v16)) { collectionView in
                     collectionView.backgroundView = UIView()
-                    collectionView.subviews.dropFirst(1).first?.backgroundColor = .blue
+                    collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                 }
                 #elseif os(macOS)
                 .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { tableView in
-                    tableView.backgroundColor = .blue
+                    tableView.backgroundColor = .cyan
                 }
                 #endif
             }
@@ -85,21 +87,73 @@ struct ListShowcase: View {
                         #if os(iOS) || os(tvOS)
                         .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { tableView in
                             tableView.backgroundView = UIView()
-                            tableView.backgroundColor = .blue
+                            tableView.backgroundColor = .cyan
                         }
                         .introspect(.list, on: .iOS(.v16), scope: .ancestor) { collectionView in
                             collectionView.backgroundView = UIView()
-                            collectionView.subviews.dropFirst(1).first?.backgroundColor = .blue
+                            collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                         }
                         #elseif os(macOS)
                         .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { tableView in
-                            tableView.backgroundColor = .blue
+                            tableView.backgroundColor = .cyan
                         }
                         #endif
                 }
             }
         }
 
+    }
+}
+
+struct ScrollViewShowcase: View {
+    var body: some View {
+        VStack(spacing: 40) {
+            ScrollView {
+                Text("Default")
+                    .frame(maxWidth: .infinity)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+            }
+
+            ScrollView {
+                Text(".introspect(.scrollView, ...)")
+                    .frame(maxWidth: .infinity)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+                    .font(.system(.subheadline, design: .monospaced))
+            }
+            #if os(iOS) || os(tvOS)
+            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { scrollView in
+                scrollView.layer.backgroundColor = UIColor.cyan.cgColor
+            }
+            #elseif os(macOS)
+            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13)) { scrollView in
+                scrollView.drawsBackground = true
+                scrollView.backgroundColor = .cyan
+            }
+            #endif
+
+            ScrollView {
+                Text(".introspect(.scrollView, ..., scope: .ancestor)")
+                    .frame(maxWidth: .infinity)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+                    .font(.system(.subheadline, design: .monospaced))
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { scrollView in
+                        scrollView.layer.backgroundColor = UIColor.cyan.cgColor
+                    }
+                    #elseif os(macOS)
+                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { scrollView in
+                        scrollView.drawsBackground = true
+                        scrollView.backgroundColor = .cyan
+                    }
+                    #endif
+            }
+        }
     }
 }
 
@@ -149,28 +203,6 @@ struct ViewControllerShowcase: View {
 //            .introspectViewController { viewController in
 //                viewController.navigationItem.title = "Customized"
 //            }
-        }
-    }
-}
-
-struct ScrollViewShowcase: View {
-    var body: some View {
-        HStack {
-            ScrollView {
-                Text("Default")
-            }
-            ScrollView {
-                Text("ScrollView.introspectScrollView()")
-            }
-//            .introspectScrollView { scrollView in
-//                scrollView.layer.backgroundColor = UIColor.red.cgColor
-//            }
-            ScrollView {
-                Text("child.introspectScrollView()")
-//                    .introspectScrollView { scrollView in
-//                        scrollView.layer.backgroundColor = UIColor.green.cgColor
-//                    }
-            }
         }
     }
 }
@@ -271,11 +303,8 @@ struct SimpleElementsShowcase: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ListShowcase()
-//            NavigationShowcase()
-//        }
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(selection: 1)
+    }
+}

@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [0.4.0]
+
+- Added: all-new implementation, API, and module (#207)
+
 ## [0.3.1]
 
 - Fixed: wrong Swift version in podspec (#220)

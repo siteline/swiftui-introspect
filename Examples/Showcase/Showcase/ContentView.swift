@@ -196,20 +196,25 @@ struct NavigationShowcase: View {
     }
 }
 
+#if os(iOS) || os(tvOS)
 struct ViewControllerShowcase: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Customized")
+                Text(".introspect(.view, ...)")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .padding(.horizontal, 12)
+                    .font(.system(.subheadline, design: .monospaced))
             }
-            #if os(iOS) || os(tvOS)
-            .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { viewController in
-                viewController.view.backgroundColor = .cyan
-            }
-            #endif
+        }
+        .navigationViewStyle(.stack)
+        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { viewController in
+            viewController.children.first?.view.backgroundColor = .cyan
         }
     }
 }
+#endif
 
 struct SimpleElementsShowcase: View {
 
@@ -223,71 +228,119 @@ struct SimpleElementsShowcase: View {
         VStack {
             HStack {
                 TextField("Text Field Red", text: $textFieldValue)
-//                    .introspectTextField { textField in
-//                        textField.layer.backgroundColor = UIColor.red.cgColor
-//                    }
-//                    .background(Color.red)
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
+                        textField.backgroundColor = .red
+                    }
+                    #elseif os(macOS)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13)) { textField in
+                        textField.backgroundColor = .red
+                    }
+                    #endif
 
                 TextField("Text Field Green", text: $textFieldValue)
                     .cornerRadius(8)
-//                    .introspectTextField(observe: ) { textField in
-//                        textField.layer.backgroundColor = UIColor.green.cgColor
-//                    }
-//                    .background(Color.green)
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { textField in
+                        textField.backgroundColor = .green
+                    }
+                    #elseif os(macOS)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13)) { textField in
+                        textField.backgroundColor = .green
+                    }
+                    #endif
             }
 
             HStack {
                 Toggle("Toggle Red", isOn: $toggleValue)
-                    #if !os(tvOS)
-//                    .introspectSwitch { uiSwitch in
-//                        uiSwitch.layer.backgroundColor = UIColor.red.cgColor
-//                    }
+                    #if os(iOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16)) { toggle in
+                        toggle.backgroundColor = .red
+                    }
+                    #elseif os(macOS)
+                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13)) { toggle in
+                        toggle.layer?.backgroundColor = NSColor.red.cgColor
+                    }
                     #endif
 
                 Toggle("Toggle Green", isOn: $toggleValue)
-                    #if !os(tvOS)
-//                    .introspectSwitch { uiSwitch in
-//                        uiSwitch.layer.backgroundColor = UIColor.green.cgColor
-//                    }
+                    #if os(iOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16)) { toggle in
+                        toggle.backgroundColor = .green
+                    }
+                    #elseif os(macOS)
+                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13)) { toggle in
+                        toggle.layer?.backgroundColor = NSColor.green.cgColor
+                    }
                     #endif
             }
 
             #if !os(tvOS)
             HStack {
                 Slider(value: $sliderValue, in: 0...100)
-//                    .introspectSlider { slider in
-//                        slider.layer.backgroundColor = UIColor.red.cgColor
-//                    }
+                    #if os(iOS)
+                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16)) { slider in
+                        slider.backgroundColor = .red
+                    }
+                    #elseif os(macOS)
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13)) { slider in
+                        slider.layer?.backgroundColor = NSColor.red.cgColor
+                    }
+                    #endif
 
                 Slider(value: $sliderValue, in: 0...100)
-//                    .introspectSlider { slider in
-//                        slider.layer.backgroundColor = UIColor.green.cgColor
-//                    }
+                    #if os(iOS)
+                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16)) { slider in
+                        slider.backgroundColor = .green
+                    }
+                    #elseif os(macOS)
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13)) { slider in
+                        slider.layer?.backgroundColor = NSColor.green.cgColor
+                    }
+                    #endif
             }
 
             HStack {
                 Stepper(onIncrement: {}, onDecrement: {}) {
                     Text("Stepper Red")
                 }
-//                .introspectStepper { stepper in
-//                    stepper.layer.backgroundColor = UIColor.red.cgColor
-//                }
+                #if os(iOS)
+                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16)) { stepper in
+                    stepper.backgroundColor = .red
+                }
+                #elseif os(macOS)
+                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13)) { stepper in
+                    stepper.layer?.backgroundColor = NSColor.red.cgColor
+                }
+                #endif
 
                 Stepper(onIncrement: {}, onDecrement: {}) {
                     Text("Stepper Green")
                 }
-//                .introspectStepper { stepper in
-//                    stepper.layer.backgroundColor = UIColor.green.cgColor
-//                }
+                #if os(iOS)
+                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16)) { stepper in
+                    stepper.backgroundColor = .green
+                }
+                #elseif os(macOS)
+                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13)) { stepper in
+                    stepper.layer?.backgroundColor = NSColor.green.cgColor
+                }
+                #endif
             }
 
             HStack {
                 DatePicker(selection: $datePickerValue) {
                     Text("DatePicker Red")
                 }
-//                .introspectDatePicker { datePicker in
-//                    datePicker.layer.backgroundColor = UIColor.red.cgColor
-//                }
+                #if os(iOS)
+                .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16)) { datePicker in
+                    datePicker.backgroundColor = .red
+                }
+                #elseif os(macOS)
+                .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13)) { datePicker in
+                    datePicker.layer?.backgroundColor = NSColor.red.cgColor
+                }
+                #endif
             }
             #endif
 
@@ -298,9 +351,15 @@ struct SimpleElementsShowcase: View {
                     Text("Option 3").tag(2)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-//                .introspectSegmentedControl { segmentedControl in
-//                    segmentedControl.layer.backgroundColor = UIColor.red.cgColor
-//                }
+                #if os(iOS) || os(tvOS)
+                .introspect(.picker(style: .segmented), on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16)) { datePicker in
+                    datePicker.backgroundColor = .red
+                }
+                #elseif os(macOS)
+                .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13)) { datePicker in
+                    datePicker.layer?.backgroundColor = NSColor.red.cgColor
+                }
+                #endif
             }
         }
 
@@ -309,6 +368,6 @@ struct SimpleElementsShowcase: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selection: 1)
+        ContentView()
     }
 }

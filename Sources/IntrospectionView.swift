@@ -162,11 +162,6 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         handler?()
     }
 
-    override func viewDidLayout() {
-        super.viewDidLayout()
-        handler?()
-    }
-
     override func viewDidAppear() {
         super.viewDidAppear()
         handler?()

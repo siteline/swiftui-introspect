@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-podspec:
-    name: lint podspec
+  lint-podspecs:
+    name: lint podspecs
     runs-on: macos-latest
     steps:
       - name: Git Checkout
@@ -22,11 +22,17 @@ jobs:
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Lint Podspec
+      - name: Lint Introspect.podspec
         run: |
           set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint --allow-warnings
+          pod lib lint Introspect.podspec --allow-warnings
+
+      - name: Lint SwiftUIIntrospect.podspec
+        run: |
+          set -eo pipefail
+          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint SwiftUIIntrospect.podspec --allow-warnings
 
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}

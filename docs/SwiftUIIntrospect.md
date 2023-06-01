@@ -5,11 +5,11 @@ SwiftUIIntrospect
 [![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2FSwiftUI-Introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/SwiftUI-Introspect)
 
 > **Note**
-> 
+>
 > `SwiftUIIntrospect` is an all-new module based off the original `Introspect` module that improves on stability, predictability, and ergonomics.
-> 
+>
 > Both modules currently live together under this repo, but the plan is to ultimately obsolete `Introspect` in favor of `SwiftUIIntrospect` as part of a 1.0 release.
-> 
+>
 > While `Introspect` supports Swift 5.5 or higher, `SwiftUIIntrospect` requires Swift 5.7 or higher due to the use of more recent language features which partially enable the aforementioned improvements over the original.
 
 SwiftUIIntrospect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
@@ -87,7 +87,7 @@ Introspection
 
 _WIP_
 
-`SwiftUIIntrospect` already supports all the view types that `Introspect` supports, and more (e.g. `ProgressView`, `Table`). However, listing them all in a table is an arduous task that I'm still thinking of how to best accomplish (perhaps it's possible to automate via SwiftSyntax?). For now, I suggest diving into each view type's code file to figure out which platforms and underlying views are supported.
+`SwiftUIIntrospect` already supports all the view types that `Introspect` supports, and more (e.g. `ProgressView`, `Table`). However, listing them all in a table is an arduous task that I'm still thinking of how to best accomplish (perhaps it's possible to automate via SwiftSyntax?). For now, I suggest diving into the desired view type's code file to figure out which platforms and underlying views are supported. I also suggest checking out the showcase app and tests for example use cases.
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 

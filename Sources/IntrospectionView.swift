@@ -1,5 +1,7 @@
 import SwiftUI
 
+typealias IntrospectionAnchorID = UUID
+
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
     #if canImport(UIKit)
@@ -11,9 +13,9 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
 
-    let id: UUID
+    let id: IntrospectionAnchorID
 
-    init(id: UUID) {
+    init(id: IntrospectionAnchorID) {
         self._observed = .constant(())
         self.id = id
     }
@@ -28,9 +30,9 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
 }
 
 final class IntrospectionAnchorPlatformViewController: PlatformViewController {
-    let id: UUID
+    let id: IntrospectionAnchorID
 
-    init(id: UUID) {
+    init(id: IntrospectionAnchorID) {
         self.id = id
         super.init(nibName: nil, bundle: nil)
     }

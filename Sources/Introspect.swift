@@ -20,7 +20,7 @@ extension View {
         customize: @escaping (PlatformSpecificView) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
-            let id = UUID()
+            let id = IntrospectionAnchorID()
             self.background(
                     IntrospectionAnchorView(
                         id: id
@@ -93,7 +93,7 @@ extension View {
 extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type,
-        anchorID: UUID
+        anchorID: IntrospectionAnchorID
     ) -> PlatformSpecificView? {
         let frontView = self
         guard

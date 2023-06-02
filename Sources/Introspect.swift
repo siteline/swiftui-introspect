@@ -59,9 +59,6 @@ public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 
     @_spi(Internals)
-    var isIntrospectionEntity: Bool { get }
-
-    @_spi(Internals)
     var ancestor: Base? { get }
 
     @_spi(Internals)
@@ -140,27 +137,12 @@ extension PlatformEntity {
     ) -> PlatformSpecificEntity? {
         self.ancestors
             .lazy
-            .filter { !$0.isIntrospectionEntity }
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }
 }
 
 extension PlatformView: PlatformEntity {
-    @_spi(Internals)
-    public var isIntrospectionEntity: Bool {
-        #if canImport(UIKit)
-        if let next = self.next as? PlatformViewController {
-            return next.isIntrospectionEntity
-        }
-        #elseif canImport(AppKit)
-        if let next = self.nextResponder as? PlatformViewController {
-            return next.isIntrospectionEntity
-        }
-        #endif
-        return false
-    }
-
     @_spi(Internals)
     public var ancestor: PlatformView? {
         superview
@@ -178,12 +160,6 @@ extension PlatformView: PlatformEntity {
 }
 
 extension PlatformViewController: PlatformEntity {
-    @_spi(Internals)
-    public var isIntrospectionEntity: Bool {
-        return self is IntrospectionAnchorPlatformViewController
-            || self is IntrospectionPlatformViewController
-    }
-
     @_spi(Internals)
     public var ancestor: PlatformViewController? {
         parent

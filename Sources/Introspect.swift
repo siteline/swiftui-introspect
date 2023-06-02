@@ -62,28 +62,35 @@ extension View {
         customize: @escaping (PlatformSpecificViewController) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
-            self.overlay(
-                IntrospectionView(
-                    selector: { (viewController: PlatformViewController) in
-                        let scope = scope ?? viewType.scope
-                        if
-                            scope.contains(.receiver),
-                            let target = viewController.receiver(ofType: PlatformSpecificViewController.self)
-                        {
-                            return target
-                        }
-                        if
-                            scope.contains(.ancestor),
-                            let target = viewController.ancestor(ofType: PlatformSpecificViewController.self)
-                        {
-                            return target
-                        }
-                        return nil
-                    },
-                    customize: customize
+            let id = IntrospectionAnchorID()
+            self.background(
+                    IntrospectionAnchorView(
+                        id: id
+                    )
+                    .frame(width: 0, height: 0)
                 )
-                .frame(width: 0, height: 0)
-            )
+                .overlay(
+                    IntrospectionView(
+                        selector: { (viewController: PlatformViewController) in
+                            let scope = scope ?? viewType.scope
+                            if
+                                scope.contains(.receiver),
+                                let target = viewController.receiver(ofType: PlatformSpecificViewController.self, anchorID: id)
+                            {
+                                return target
+                            }
+                            if
+                                scope.contains(.ancestor),
+                                let target = viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                            {
+                                return target
+                            }
+                            return nil
+                        },
+                        customize: customize
+                    )
+                    .frame(width: 0, height: 0)
+                )
         } else {
             self
         }
@@ -112,7 +119,11 @@ extension PlatformView {
     fileprivate func ancestor<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type
     ) -> PlatformSpecificView? {
-        self.superviews.lazy.compactMap { $0 as? PlatformSpecificView }.first
+        self.superviews
+            .lazy
+//            .filter { !$0.isIntrospectionController }
+            .compactMap { $0 as? PlatformSpecificView }
+            .first
     }
 }
 
@@ -158,11 +169,20 @@ extension PlatformView {
 
 extension PlatformViewController {
     fileprivate func receiver<PlatformSpecificViewController: PlatformViewController>(
-        ofType type: PlatformSpecificViewController.Type
+        ofType type: PlatformSpecificViewController.Type,
+        anchorID: IntrospectionAnchorID
     ) -> PlatformSpecificViewController? {
-        self.hostingView?
-            .allChildren(ofType: PlatformSpecificViewController.self)
-            .filter { !($0 is IntrospectionPlatformViewController) }
+        let frontViewController = self
+        guard
+            let backViewController = Array(frontViewController.parents).last?.viewControllerWithTag(anchorID.hashValue),
+            let superview = backViewController.nearestCommonParent(with: frontViewController)
+        else {
+            return nil
+        }
+
+        return superview
+            .childrenBetween(backViewController, and: frontViewController)
+            .compactMap { $0 as? PlatformSpecificViewController }
             .first
     }
 
@@ -171,31 +191,66 @@ extension PlatformViewController {
     ) -> PlatformSpecificViewController? {
         self.parents
             .lazy
-            .filter { !($0 is IntrospectionPlatformViewController) }
+            .filter { !$0.isIntrospectionController }
             .compactMap { $0 as? PlatformSpecificViewController }
             .first
     }
 }
 
 extension PlatformViewController {
+    private var isIntrospectionController: Bool {
+        return self is IntrospectionAnchorPlatformViewController
+            || self is IntrospectionPlatformViewController
+    }
+
     private var parents: some Sequence<PlatformViewController> {
         sequence(first: self, next: \.parent).dropFirst()
     }
 
-    private var hostingView: PlatformViewController? {
-        self.parents.first(where: {
-            let type = String(reflecting: type(of: $0))
-            return type.hasPrefix("SwiftUI.") && type.contains("Hosting")
-        })
+    private func nearestCommonParent(with viewController: PlatformViewController) -> PlatformViewController? {
+        var currentVC: PlatformViewController? = viewController
+        while currentVC != nil {
+            if self.parents.contains(currentVC!) {
+                return currentVC
+            }
+            currentVC = currentVC?.parent
+        }
+        return nil
     }
 
-    private func allChildren<PlatformSpecificViewController: PlatformViewController>(
-        ofType type: PlatformSpecificViewController.Type
-    ) -> [PlatformSpecificViewController] {
-        var result = self.children.compactMap { $0 as? PlatformSpecificViewController }
-        for subview in self.children {
-            result.append(contentsOf: subview.allChildren(ofType: type))
+    private func viewControllerWithTag(_ tag: Int) -> PlatformViewController? {
+        if self.view.tag == tag {
+            return self
         }
+        for child in children {
+            if let childWithTag = child.viewControllerWithTag(tag) {
+                return childWithTag
+            }
+        }
+        return nil
+    }
+
+    private func childrenBetween(_ bottomViewController: PlatformViewController, and topViewController: PlatformViewController) -> [PlatformViewController] {
+        var entered = false
+        var result: [PlatformViewController] = []
+
+        for child in self.allChildren {
+            if child === bottomViewController {
+                entered = true
+                continue
+            }
+            if child === topViewController {
+                return result
+            }
+            if entered {
+                result.append(child)
+            }
+        }
+
         return result
+    }
+
+    private var allChildren: [PlatformViewController] {
+        self.children.reduce([self]) { $0 + $1.allChildren }
     }
 }

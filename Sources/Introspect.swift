@@ -13,11 +13,11 @@ public struct IntrospectionScope: OptionSet {
 
 extension View {
     @ViewBuilder
-    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificView: PlatformView>(
+    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
-        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificView>)...,
+        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>)...,
         scope: IntrospectionScope? = nil,
-        customize: @escaping (PlatformSpecificView) -> Void
+        customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
         if platforms.contains(where: \.isCurrent) {
             let id = IntrospectionAnchorID()
@@ -29,59 +29,17 @@ extension View {
                 )
                 .overlay(
                     IntrospectionView(
-                        selector: { (view: PlatformView) in
+                        selector: { entity in
                             let scope = scope ?? viewType.scope
                             if
                                 scope.contains(.receiver),
-                                let target = view.receiver(ofType: PlatformSpecificView.self, anchorID: id)
+                                let target = entity.receiver(ofType: PlatformSpecificEntity.self, anchorID: id)
                             {
                                 return target
                             }
                             if
                                 scope.contains(.ancestor),
-                                let target = view.ancestor(ofType: PlatformSpecificView.self)
-                            {
-                                return target
-                            }
-                            return nil
-                        },
-                        customize: customize
-                    )
-                    .frame(width: 0, height: 0)
-                )
-        } else {
-            self
-        }
-    }
-
-    @ViewBuilder
-    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificViewController: PlatformViewController>(
-        _ viewType: SwiftUIViewType,
-        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificViewController>)...,
-        scope: IntrospectionScope? = nil,
-        customize: @escaping (PlatformSpecificViewController) -> Void
-    ) -> some View {
-        if platforms.contains(where: \.isCurrent) {
-            let id = IntrospectionAnchorID()
-            self.background(
-                    IntrospectionAnchorView(
-                        id: id
-                    )
-                    .frame(width: 0, height: 0)
-                )
-                .overlay(
-                    IntrospectionView(
-                        selector: { (viewController: PlatformViewController) in
-                            let scope = scope ?? viewType.scope
-                            if
-                                scope.contains(.receiver),
-                                let target = viewController.receiver(ofType: PlatformSpecificViewController.self, anchorID: id)
-                            {
-                                return target
-                            }
-                            if
-                                scope.contains(.ancestor),
-                                let target = viewController.ancestor(ofType: PlatformSpecificViewController.self)
+                                let target = entity.ancestor(ofType: PlatformSpecificEntity.self)
                             {
                                 return target
                             }
@@ -97,160 +55,160 @@ extension View {
     }
 }
 
-extension PlatformView {
-    fileprivate func receiver<PlatformSpecificView: PlatformView>(
-        ofType type: PlatformSpecificView.Type,
-        anchorID: IntrospectionAnchorID
-    ) -> PlatformSpecificView? {
-        let frontView = self
-        guard
-            let backView = Array(frontView.superviews).last?.viewWithTag(anchorID.hashValue),
-            let superview = backView.nearestCommonSuperviewWith(frontView)
-        else {
-            return nil
-        }
+public protocol PlatformEntity: AnyObject {
+    associatedtype Base: PlatformEntity
 
-        return superview
-            .subviewsBetween(backView, and: frontView)
-            .compactMap { $0 as? PlatformSpecificView }
-            .first
-    }
+    @_spi(Internals)
+    var isIntrospectionEntity: Bool { get }
 
-    fileprivate func ancestor<PlatformSpecificView: PlatformView>(
-        ofType type: PlatformSpecificView.Type
-    ) -> PlatformSpecificView? {
-        self.superviews
-            .lazy
-//            .filter { !$0.isIntrospectionController }
-            .compactMap { $0 as? PlatformSpecificView }
-            .first
-    }
+    @_spi(Internals)
+    var ancestor: Base? { get }
+
+    @_spi(Internals)
+    var descendants: [Base] { get }
+
+    @_spi(Internals)
+    func isDescendant(of other: Base) -> Bool
+
+    @_spi(Internals)
+    func entityWithTag(_ tag: Int) -> Base?
 }
 
-extension PlatformView {
-    private var superviews: some Sequence<PlatformView> {
-        sequence(first: self, next: \.superview).dropFirst()
+extension PlatformEntity {
+    @_spi(Internals)
+    public var ancestors: some Sequence<Base> {
+        sequence(first: self as! Base, next: { $0.ancestor as? Base }).dropFirst()
     }
 
-    private func nearestCommonSuperviewWith(_ other: PlatformView) -> PlatformView? {
-        var nearestAncestor: PlatformView? = self
+    @_spi(Internals)
+    public var allDescendants: [Base] {
+        self.descendants.reduce([self as! Base]) { $0 + ($1.allDescendants as! [Base]) }
+    }
 
-        while let currentView = nearestAncestor, !other.isDescendant(of: currentView) {
-            nearestAncestor = currentView.superview
+    @_spi(Internals)
+    public func nearestCommonAncestor(with other: Base) -> Base? {
+        var nearestAncestor: Base? = self as? Base
+
+        while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity as! Base.Base) {
+            nearestAncestor = currentEntity.ancestor as? Base
         }
 
         return nearestAncestor
     }
 
-    private func subviewsBetween(_ bottomView: PlatformView, and topView: PlatformView) -> [PlatformView] {
+    @_spi(Internals)
+    public func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
         var entered = false
-        var result: [PlatformView] = []
+        var result: [Base] = []
 
-        for subview in self.allSubviews {
-            if subview === bottomView {
+        for descendant in self.allDescendants {
+            if descendant === bottomEntity {
                 entered = true
                 continue
             }
-            if subview === topView {
+            if descendant === topEntity {
                 return result
             }
             if entered {
-                result.append(subview)
+                result.append(descendant)
             }
         }
 
         return result
     }
 
-    private var allSubviews: [PlatformView] {
-        self.subviews.reduce([self]) { $0 + $1.allSubviews }
-    }
-}
-
-extension PlatformViewController {
-    fileprivate func receiver<PlatformSpecificViewController: PlatformViewController>(
-        ofType type: PlatformSpecificViewController.Type,
+    fileprivate func receiver<PlatformSpecificEntity: PlatformEntity>(
+        ofType type: PlatformSpecificEntity.Type,
         anchorID: IntrospectionAnchorID
-    ) -> PlatformSpecificViewController? {
-        let frontViewController = self
+    ) -> PlatformSpecificEntity? {
+        let frontEntity = self
         guard
-            let backViewController = Array(frontViewController.parents).last?.viewControllerWithTag(anchorID.hashValue),
-            let superview = backViewController.nearestCommonParent(with: frontViewController)
+            let backEntity = Array(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
+            let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity as! Base.Base.Base) as? Base
         else {
             return nil
         }
 
-        return superview
-            .childrenBetween(backViewController, and: frontViewController)
-            .compactMap { $0 as? PlatformSpecificViewController }
+        return commonAncestor
+            .descendantsBetween(backEntity, and: frontEntity as! Self.Base.Base)
+            .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }
 
-    fileprivate func ancestor<PlatformSpecificViewController: PlatformViewController>(
-        ofType type: PlatformSpecificViewController.Type
-    ) -> PlatformSpecificViewController? {
-        self.parents
+    fileprivate func ancestor<PlatformSpecificEntity: PlatformEntity>(
+        ofType type: PlatformSpecificEntity.Type
+    ) -> PlatformSpecificEntity? {
+        self.ancestors
             .lazy
-            .filter { !$0.isIntrospectionController }
-            .compactMap { $0 as? PlatformSpecificViewController }
+            .filter { !$0.isIntrospectionEntity }
+            .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }
 }
 
-extension PlatformViewController {
-    private var isIntrospectionController: Bool {
+extension PlatformView: PlatformEntity {
+    @_spi(Internals)
+    public var isIntrospectionEntity: Bool {
+        #if canImport(UIKit)
+        if let next = self.next as? PlatformViewController {
+            return next.isIntrospectionEntity
+        }
+        #elseif canImport(AppKit)
+        if let next = self.nextResponder as? PlatformViewController {
+            return next.isIntrospectionEntity
+        }
+        #endif
+        return false
+    }
+
+    @_spi(Internals)
+    public var ancestor: PlatformView? {
+        superview
+    }
+
+    @_spi(Internals)
+    public var descendants: [PlatformView] {
+        subviews
+    }
+
+    @_spi(Internals)
+    public func entityWithTag(_ tag: Int) -> PlatformView? {
+        viewWithTag(tag)
+    }
+}
+
+extension PlatformViewController: PlatformEntity {
+    @_spi(Internals)
+    public var isIntrospectionEntity: Bool {
         return self is IntrospectionAnchorPlatformViewController
             || self is IntrospectionPlatformViewController
     }
 
-    private var parents: some Sequence<PlatformViewController> {
-        sequence(first: self, next: \.parent).dropFirst()
+    @_spi(Internals)
+    public var ancestor: PlatformViewController? {
+        parent
     }
 
-    private func nearestCommonParent(with viewController: PlatformViewController) -> PlatformViewController? {
-        var currentVC: PlatformViewController? = viewController
-        while currentVC != nil {
-            if self.parents.contains(currentVC!) {
-                return currentVC
-            }
-            currentVC = currentVC?.parent
-        }
-        return nil
+    @_spi(Internals)
+    public var descendants: [PlatformViewController] {
+        children
     }
 
-    private func viewControllerWithTag(_ tag: Int) -> PlatformViewController? {
+    @_spi(Internals)
+    public func isDescendant(of other: PlatformViewController) -> Bool {
+        self.ancestors.contains(other)
+    }
+
+    @_spi(Internals)
+    public func entityWithTag(_ tag: Int) -> PlatformViewController? {
         if self.view.tag == tag {
             return self
         }
         for child in children {
-            if let childWithTag = child.viewControllerWithTag(tag) {
+            if let childWithTag = child.entityWithTag(tag) {
                 return childWithTag
             }
         }
         return nil
-    }
-
-    private func childrenBetween(_ bottomViewController: PlatformViewController, and topViewController: PlatformViewController) -> [PlatformViewController] {
-        var entered = false
-        var result: [PlatformViewController] = []
-
-        for child in self.allChildren {
-            if child === bottomViewController {
-                entered = true
-                continue
-            }
-            if child === topViewController {
-                return result
-            }
-            if entered {
-                result.append(child)
-            }
-        }
-
-        return result
-    }
-
-    private var allChildren: [PlatformViewController] {
-        self.children.reduce([self]) { $0 + $1.allChildren }
     }
 }

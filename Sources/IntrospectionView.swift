@@ -64,7 +64,7 @@ final class IntrospectionAnchorPlatformViewController: PlatformViewController {
     #endif
 }
 
-struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable {
+struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     typealias UIViewControllerType = IntrospectionPlatformViewController
     #elseif canImport(AppKit)
@@ -81,31 +81,26 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
     private let customize: (Target) -> Void
 
     init(
-        selector: @escaping (PlatformView) -> Target?,
+        selector: @escaping (any PlatformEntity) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
-        self.selector = { introspectionViewController in
-            #if canImport(UIKit)
-            if let introspectionView = introspectionViewController.viewIfLoaded {
-                return selector(introspectionView)
+        self.selector = { introspectionController in
+            if Target.Base.self == PlatformView.self {
+                #if canImport(UIKit)
+                if let introspectionView = introspectionController.viewIfLoaded {
+                    return selector(introspectionView)
+                }
+                #elseif canImport(AppKit)
+                if introspectionController.isViewLoaded {
+                    return selector(introspectionController.view)
+                }
+                #endif
+            } else if Target.Base.self == PlatformViewController.self {
+                return selector(introspectionController)
             }
-            #elseif canImport(AppKit)
-            if introspectionViewController.isViewLoaded {
-                return selector(introspectionViewController.view)
-            }
-            #endif
             return nil
         }
-        self.customize = customize
-    }
-
-    init(
-        selector: @escaping (PlatformViewController) -> Target?,
-        customize: @escaping (Target) -> Void
-    ) {
-        self._observed = .constant(())
-        self.selector = { selector($0) }
         self.customize = customize
     }
 

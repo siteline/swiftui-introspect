@@ -1,44 +1,83 @@
 import SwiftUI
 
 /// ⚓️
-struct IntrospectionAnchorView: PlatformViewRepresentable {
-    typealias ID = UUID
+struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = IntrospectionAnchorPlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = IntrospectionAnchorPlatformViewController
+    #endif
 
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
 
-    let id: ID
+    let id: UUID
 
-    init(id: ID) {
+    init(id: UUID) {
         self._observed = .constant(())
         self.id = id
     }
 
+    func makePlatformViewController(context: Context) -> IntrospectionAnchorPlatformViewController {
+        IntrospectionAnchorPlatformViewController(id: id)
+    }
+
+    func updatePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, context: Context) {}
+
+    static func dismantlePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, coordinator: Coordinator) {}
+}
+
+final class IntrospectionAnchorPlatformViewController: PlatformViewController {
+    let id: UUID
+
+    init(id: UUID) {
+        self.id = id
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     #if canImport(UIKit)
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         view.tag = id.hashValue
-        return view
     }
-    func updateUIView(_ controller: UIView, context: Context) {}
     #elseif canImport(AppKit)
-    func makeNSView(context: Context) -> NSView {
-        final class TaggableView: NSView {
-            private var _tag: Int?
-            override var tag: Int {
-                get { _tag ?? super.tag }
-                set { _tag = newValue }
-            }
+    final class TaggableView: NSView {
+        private var _tag: Int
+
+        init(tag: Int) {
+            self._tag = tag
+            super.init(frame: .zero)
         }
-        let view = TaggableView()
-        view.tag = id.hashValue
-        return view
+
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override var tag: Int {
+            get { _tag }
+        }
     }
-    func updateNSView(_ controller: NSView, context: Context) {}
+
+    override func loadView() {
+        let view = TaggableView(tag: id.hashValue)
+        self.view = view
+    }
     #endif
 }
 
 struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = IntrospectionPlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = IntrospectionPlatformViewController
+    #endif
+
     final class TargetCache {
         weak var target: Target?
     }

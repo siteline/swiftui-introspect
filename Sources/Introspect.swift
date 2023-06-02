@@ -93,7 +93,7 @@ extension View {
 extension PlatformView {
     fileprivate func receiver<PlatformSpecificView: PlatformView>(
         ofType type: PlatformSpecificView.Type,
-        anchorID: IntrospectionAnchorView.ID
+        anchorID: UUID
     ) -> PlatformSpecificView? {
         let frontView = self
         guard

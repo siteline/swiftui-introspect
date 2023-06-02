@@ -77,20 +77,20 @@ public protocol PlatformEntity: AnyObject {
 extension PlatformEntity {
     @_spi(Internals)
     public var ancestors: some Sequence<Base> {
-        sequence(first: self as! Base, next: { $0.ancestor as? Base }).dropFirst()
+        sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
     }
 
     @_spi(Internals)
     public var allDescendants: [Base] {
-        self.descendants.reduce([self as! Base]) { $0 + ($1.allDescendants as! [Base]) }
+        self.descendants.reduce([self~]) { $0 + $1.allDescendants~ }
     }
 
     @_spi(Internals)
     public func nearestCommonAncestor(with other: Base) -> Base? {
-        var nearestAncestor: Base? = self as? Base
+        var nearestAncestor: Base? = self~
 
-        while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity as! Base.Base) {
-            nearestAncestor = currentEntity.ancestor as? Base
+        while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity~) {
+            nearestAncestor = currentEntity.ancestor~
         }
 
         return nearestAncestor
@@ -124,13 +124,13 @@ extension PlatformEntity {
         let frontEntity = self
         guard
             let backEntity = Array(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
-            let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity as! Base.Base.Base) as? Base
+            let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
         else {
             return nil
         }
 
         return commonAncestor
-            .descendantsBetween(backEntity, and: frontEntity as! Self.Base.Base)
+            .descendantsBetween(backEntity~, and: frontEntity~)
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }

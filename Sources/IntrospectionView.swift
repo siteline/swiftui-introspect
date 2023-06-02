@@ -1,44 +1,76 @@
 import SwiftUI
 
+typealias IntrospectionAnchorID = UUID
+
 /// ⚓️
-struct IntrospectionAnchorView: PlatformViewRepresentable {
-    typealias ID = UUID
+struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = IntrospectionAnchorPlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = IntrospectionAnchorPlatformViewController
+    #endif
 
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
 
-    let id: ID
+    let id: IntrospectionAnchorID
 
-    init(id: ID) {
+    init(id: IntrospectionAnchorID) {
         self._observed = .constant(())
         self.id = id
     }
 
-    #if canImport(UIKit)
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView()
-        view.tag = id.hashValue
-        return view
+    func makePlatformViewController(context: Context) -> IntrospectionAnchorPlatformViewController {
+        IntrospectionAnchorPlatformViewController(id: id)
     }
-    func updateUIView(_ controller: UIView, context: Context) {}
+
+    func updatePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, context: Context) {}
+
+    static func dismantlePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, coordinator: Coordinator) {}
+}
+
+final class IntrospectionAnchorPlatformViewController: PlatformViewController {
+    let id: IntrospectionAnchorID
+
+    init(id: IntrospectionAnchorID) {
+        self.id = id
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    #if canImport(UIKit)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.tag = id.hashValue
+    }
     #elseif canImport(AppKit)
-    func makeNSView(context: Context) -> NSView {
-        final class TaggableView: NSView {
-            private var _tag: Int?
-            override var tag: Int {
-                get { _tag ?? super.tag }
-                set { _tag = newValue }
-            }
+    final class TaggableView: NSView {
+        private var _tag: Int?
+        override var tag: Int {
+            get { _tag ?? super.tag }
+            set { _tag = newValue }
         }
+    }
+
+    override func loadView() {
         let view = TaggableView()
         view.tag = id.hashValue
-        return view
+        self.view = view
     }
-    func updateNSView(_ controller: NSView, context: Context) {}
     #endif
 }
 
-struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable {
+struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = IntrospectionPlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = IntrospectionPlatformViewController
+    #endif
+
     final class TargetCache {
         weak var target: Target?
     }
@@ -49,31 +81,26 @@ struct IntrospectionView<Target: AnyObject>: PlatformViewControllerRepresentable
     private let customize: (Target) -> Void
 
     init(
-        selector: @escaping (PlatformView) -> Target?,
+        selector: @escaping (any PlatformEntity) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
-        self.selector = { introspectionViewController in
-            #if canImport(UIKit)
-            if let introspectionView = introspectionViewController.viewIfLoaded {
-                return selector(introspectionView)
+        self.selector = { introspectionController in
+            if Target.Base.self == PlatformView.self {
+                #if canImport(UIKit)
+                if let introspectionView = introspectionController.viewIfLoaded {
+                    return selector(introspectionView)
+                }
+                #elseif canImport(AppKit)
+                if introspectionController.isViewLoaded {
+                    return selector(introspectionController.view)
+                }
+                #endif
+            } else if Target.Base.self == PlatformViewController.self {
+                return selector(introspectionController)
             }
-            #elseif canImport(AppKit)
-            if introspectionViewController.isViewLoaded {
-                return selector(introspectionViewController.view)
-            }
-            #endif
             return nil
         }
-        self.customize = customize
-    }
-
-    init(
-        selector: @escaping (PlatformViewController) -> Target?,
-        customize: @escaping (Target) -> Void
-    ) {
-        self._observed = .constant(())
-        self.selector = { selector($0) }
         self.customize = customize
     }
 

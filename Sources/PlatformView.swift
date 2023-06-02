@@ -7,12 +7,6 @@ public typealias PlatformView = NSView
 #endif
 
 #if canImport(UIKit)
-typealias PlatformViewRepresentable = UIViewRepresentable
-#elseif canImport(AppKit)
-typealias PlatformViewRepresentable = NSViewRepresentable
-#endif
-
-#if canImport(UIKit)
 public typealias PlatformViewController = UIViewController
 #elseif canImport(AppKit)
 public typealias PlatformViewController = NSViewController
@@ -25,30 +19,36 @@ typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
 
 protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
-    func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController
-    func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context)
-    static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator)
+    #if canImport(UIKit)
+    typealias ViewController = UIViewControllerType
+    #elseif canImport(AppKit)
+    typealias ViewController = NSViewControllerType
+    #endif
+
+    func makePlatformViewController(context: Context) -> ViewController
+    func updatePlatformViewController(_ controller: ViewController, context: Context)
+    static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
 }
 
 extension PlatformViewControllerRepresentable {
     #if canImport(UIKit)
-    func makeUIViewController(context: Context) -> IntrospectionPlatformViewController {
+    func makeUIViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    func updateUIViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
+    func updateUIViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    static func dismantleUIViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
+    static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #elseif canImport(AppKit)
-    func makeNSViewController(context: Context) -> IntrospectionPlatformViewController {
+    func makeNSViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    func updateNSViewController(_ controller: IntrospectionPlatformViewController, context: Context) {
+    func updateNSViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    static func dismantleNSViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
+    static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #endif

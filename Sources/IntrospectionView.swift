@@ -49,25 +49,16 @@ final class IntrospectionAnchorPlatformViewController: PlatformViewController {
     }
     #elseif canImport(AppKit)
     final class TaggableView: NSView {
-        private var _tag: Int
-
-        init(tag: Int) {
-            self._tag = tag
-            super.init(frame: .zero)
-        }
-
-        @available(*, unavailable)
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
+        private var _tag: Int?
         override var tag: Int {
-            get { _tag }
+            get { _tag ?? super.tag }
+            set { _tag = newValue }
         }
     }
 
     override func loadView() {
-        let view = TaggableView(tag: id.hashValue)
+        let view = TaggableView()
+        view.tag = id.hashValue
         self.view = view
     }
     #endif

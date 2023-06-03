@@ -35,7 +35,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
-            $0.view.allDescendants.compactMap { $0 as? UISearchBar }.first
+            $0.view.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
     }
 }

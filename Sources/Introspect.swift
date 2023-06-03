@@ -95,18 +95,15 @@ extension PlatformEntity {
 
     @_spi(Internals)
     public func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
-        var entered = false
         var result: [Base] = []
+        var entered = false
 
         for descendant in self.allDescendants {
             if descendant === bottomEntity {
                 entered = true
-                continue
-            }
-            if descendant === topEntity {
-                return result
-            }
-            if entered {
+            } else if descendant === topEntity {
+                break
+            } else if entered {
                 result.append(descendant)
             }
         }

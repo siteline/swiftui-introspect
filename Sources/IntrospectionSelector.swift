@@ -1,3 +1,4 @@
+@_spi(Internals)
 public struct IntrospectionSelector<Target: PlatformEntity> {
     private let selector: (any PlatformEntity, IntrospectionScope, IntrospectionAnchorID) -> Target?
 

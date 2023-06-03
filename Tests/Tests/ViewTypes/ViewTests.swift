@@ -16,6 +16,7 @@ final class ViewTests: XCTestCase {
                         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
                         #endif
                 }
+                .navigationViewStyle(.stack)
 
                 NavigationView {
                     Text("Item 1")
@@ -23,6 +24,7 @@ final class ViewTests: XCTestCase {
                         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
                         #endif
                 }
+                .navigationViewStyle(.stack)
             }
         } extraAssertions: {
             XCTAssert($0[safe: 0] !== $0[safe: 1])

@@ -3,6 +3,13 @@ Changelog
 
 ## master
 
+## [0.5.0]
+
+- Added: support for custom selectors (#233)
+- Changed: unified introspect modifiers into one (#232)
+- Fixed: `searchField` introspection (#234)
+- Documentation: added explicit SPI import (#229)
+
 ## [0.4.0]
 
 - Added: all-new implementation, API, and module (#207)

@@ -83,6 +83,15 @@ lane :test do |options|
             raise "Unsupported scheme: #{scheme}"
         end
     else
+        is_legacy_sdk = (platform == "ios" && version == 13) || (platform == "tvos" && version == 13)
+        scheme = case scheme
+        when "Introspect"
+            "Introspect"
+        when "SwiftUIIntrospectTests"
+            is_legacy_sdk ? "LegacySwiftUIIntrospectTests" : "SwiftUIIntrospectTests"
+        else
+            raise "Unsupported scheme: #{scheme}"
+        end
         run_tests(
             configuration: configuration,
             scheme: scheme,

@@ -59,11 +59,13 @@ public protocol PlatformEntity: AnyObject {
 }
 
 extension PlatformEntity {
-    var ancestors: some Sequence<Base> {
+    @_spi(Internals)
+    public var ancestors: some Sequence<Base> {
         sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
     }
 
-    var allDescendants: [Base] {
+    @_spi(Internals)
+    public var allDescendants: [Base] {
         self.descendants.reduce([self~]) { $0 + $1.allDescendants~ }
     }
 

@@ -186,11 +186,17 @@ struct NavigationShowcase: View {
         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16)) { navigationController in
             navigationController.navigationBar.backgroundColor = .cyan
         }
-        .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16)) { searchField in
-            searchField.backgroundColor = .red
+        #endif
+        #if os(iOS)
+        .introspect(.searchField, on: .iOS(.v15, .v16)) { searchController in
+            searchController.searchBar.backgroundColor = .red
             #if os(iOS)
-            searchField.searchTextField.backgroundColor = .purple
+            searchController.searchBar.searchTextField.backgroundColor = .purple
             #endif
+        }
+        #elseif os(tvOS)
+        .introspect(.searchField, on: .tvOS(.v15, .v16)) { searchField in
+            searchField.backgroundColor = .red
         }
         #endif
     }

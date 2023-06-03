@@ -63,6 +63,12 @@ final class SearchFieldTests: XCTestCase {
             #if os(iOS) || os(tvOS)
             .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16), customize: spy)
             #endif
+            #if os(iOS)
+            // NB: this is necessary for ancestor introspection to work, because initially on iPad the "Customized" text isn't shown as it's hidden in the sidebar. This is why ancestor introspection is discouraged for most situations and it's opt-in.
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16)) {
+                $0.preferredDisplayMode = .oneOverSecondary
+            }
+            #endif
         }
     }
 
@@ -82,6 +88,12 @@ final class SearchFieldTests: XCTestCase {
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            #if os(iOS)
+            // NB: this is necessary for ancestor introspection to work, because initially on iPad the "Customized" text isn't shown as it's hidden in the sidebar. This is why ancestor introspection is discouraged for most situations and it's opt-in.
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16)) {
+                $0.preferredDisplayMode = .oneOverSecondary
+            }
+            #endif
         }
     }
 }

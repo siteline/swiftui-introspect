@@ -50,7 +50,8 @@ final class NavigationSplitViewTests: XCTestCase {
         XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
             let spy = spies[0]
 
-            NavigationSplitView {
+            // NB: columnVisibility is explicitly set here for ancestor introspection to work, because initially on iPad the sidebar is hidden, so the introspection modifier isn't triggered until the user makes the sidebar appear. This is why ancestor introspection is discouraged for most situations and it's opt-in.
+            NavigationSplitView(columnVisibility: .constant(.all)) {
                 ZStack {
                     Color.red
                     Text("Sidebar")

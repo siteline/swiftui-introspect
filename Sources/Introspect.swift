@@ -19,36 +19,23 @@ extension View {
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
-        if platforms.contains(where: \.isCurrent) {
-            let id = IntrospectionAnchorID()
+        if let platform = platforms.first(where: \.isCurrent) {
+            let anchorID = IntrospectionAnchorID()
             self.background(
-                    IntrospectionAnchorView(
-                        id: id
-                    )
-                    .frame(width: 0, height: 0)
+                IntrospectionAnchorView(
+                    id: anchorID
                 )
-                .overlay(
-                    IntrospectionView(
-                        selector: { entity in
-                            let scope = scope ?? viewType.scope
-                            if
-                                scope.contains(.receiver),
-                                let target = entity.receiver(ofType: PlatformSpecificEntity.self, anchorID: id)
-                            {
-                                return target
-                            }
-                            if
-                                scope.contains(.ancestor),
-                                let target = entity.ancestor(ofType: PlatformSpecificEntity.self)
-                            {
-                                return target
-                            }
-                            return nil
-                        },
-                        customize: customize
-                    )
-                    .frame(width: 0, height: 0)
+                .frame(width: 0, height: 0)
+            )
+            .overlay(
+                IntrospectionView(
+                    selector: { entity in
+                        (platform.selector ?? .default)(entity, scope ?? viewType.scope, anchorID)
+                    },
+                    customize: customize
                 )
+                .frame(width: 0, height: 0)
+            )
         } else {
             self
         }
@@ -72,18 +59,15 @@ public protocol PlatformEntity: AnyObject {
 }
 
 extension PlatformEntity {
-    @_spi(Internals)
-    public var ancestors: some Sequence<Base> {
+    var ancestors: some Sequence<Base> {
         sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
     }
 
-    @_spi(Internals)
-    public var allDescendants: [Base] {
+    var allDescendants: [Base] {
         self.descendants.reduce([self~]) { $0 + $1.allDescendants~ }
     }
 
-    @_spi(Internals)
-    public func nearestCommonAncestor(with other: Base) -> Base? {
+    func nearestCommonAncestor(with other: Base) -> Base? {
         var nearestAncestor: Base? = self~
 
         while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity~) {
@@ -93,8 +77,7 @@ extension PlatformEntity {
         return nearestAncestor
     }
 
-    @_spi(Internals)
-    public func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
+    func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
         var result: [Base] = []
         var entered = false
 
@@ -111,7 +94,7 @@ extension PlatformEntity {
         return result
     }
 
-    fileprivate func receiver<PlatformSpecificEntity: PlatformEntity>(
+    func receiver<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type,
         anchorID: IntrospectionAnchorID
     ) -> PlatformSpecificEntity? {
@@ -129,7 +112,7 @@ extension PlatformEntity {
             .first
     }
 
-    fileprivate func ancestor<PlatformSpecificEntity: PlatformEntity>(
+    func ancestor<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {
         self.ancestors

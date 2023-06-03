@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [0.5.1]
+
+- Fixed: SwiftUIIntrospect.podspec (#237)
+
 ## [0.5.0]
 
 - Added: support for custom selectors (#233)

@@ -13,16 +13,14 @@ enum TestUtils {
 }
 #elseif canImport(AppKit)
 enum TestUtils {
-    static func present(view: some View) {
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
-            backing: .buffered,
-            defer: true
-        )
+    private static let window = NSWindow(
+        contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+        styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+        backing: .buffered,
+        defer: true
+    )
 
-        window.center()
-        window.setFrameAutosaveName("Main Window")
+    static func present(view: some View) {
         window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         window.layoutIfNeeded()

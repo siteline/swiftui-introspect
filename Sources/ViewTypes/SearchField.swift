@@ -9,8 +9,7 @@ extension IntrospectableViewType where Self == SearchFieldType {
 }
 
 #if canImport(UIKit)
-@available(tvOS, unavailable)
-extension iOSViewVersion<SearchFieldType, UISearchController> {
+extension iOSViewVersion<SearchFieldType, UISearchBar> {
     @available(*, unavailable, message: ".searchable isn't available on iOS 13")
     public static let v13 = Self.unavailable()
     @available(*, unavailable, message: ".searchable isn't available on iOS 14")
@@ -18,9 +17,9 @@ extension iOSViewVersion<SearchFieldType, UISearchController> {
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
 
-    private static var selector: IntrospectionSelector<UISearchController> {
+    private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
-            $0.navigationBar.topItem?.searchController
+            $0.view.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
     }
 }

@@ -22,10 +22,8 @@ final class SearchFieldTests: XCTestCase {
                     .searchable(text: .constant(""))
             }
             .navigationViewStyle(.stack)
-            #if os(iOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16), customize: spy)
-            #elseif os(tvOS)
-            .introspect(.searchField, on: .tvOS(.v15, .v16), customize: spy)
+            #if os(iOS) || os(tvOS)
+            .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16), customize: spy)
             #endif
         }
     }
@@ -41,10 +39,8 @@ final class SearchFieldTests: XCTestCase {
             NavigationView {
                 Text("Customized")
                     .searchable(text: .constant(""))
-                    #if os(iOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16), scope: .ancestor, customize: spy)
-                    #elseif os(tvOS)
-                    .introspect(.searchField, on: .tvOS(.v15, .v16), scope: .ancestor, customize: spy)
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(.stack)
@@ -64,10 +60,8 @@ final class SearchFieldTests: XCTestCase {
                     .searchable(text: .constant(""))
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            #if os(iOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16), customize: spy)
-            #elseif os(tvOS)
-            .introspect(.searchField, on: .tvOS(.v15, .v16), customize: spy)
+            #if os(iOS) || os(tvOS)
+            .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16), customize: spy)
             #endif
         }
     }
@@ -83,10 +77,8 @@ final class SearchFieldTests: XCTestCase {
             NavigationView {
                 Text("Customized")
                     .searchable(text: .constant(""))
-                    #if os(iOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16), scope: .ancestor, customize: spy)
-                    #elseif os(tvOS)
-                    .introspect(.searchField, on: .tvOS(.v15, .v16), scope: .ancestor, customize: spy)
+                    #if os(iOS) || os(tvOS)
+                    .introspect(.searchField, on: .iOS(.v15, .v16), .tvOS(.v15, .v16), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())

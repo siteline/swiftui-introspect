@@ -19,7 +19,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
-            $0.view.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+            $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
     }
 }
@@ -34,7 +34,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
-            $0.view.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+            $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
     }
 }

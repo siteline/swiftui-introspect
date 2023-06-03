@@ -81,26 +81,11 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
     private let customize: (Target) -> Void
 
     init(
-        selector: @escaping (any PlatformEntity) -> Target?,
+        selector: @escaping (IntrospectionPlatformViewController) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
-        self.selector = { introspectionController in
-            if Target.Base.self == PlatformView.self {
-                #if canImport(UIKit)
-                if let introspectionView = introspectionController.viewIfLoaded {
-                    return selector(introspectionView)
-                }
-                #elseif canImport(AppKit)
-                if introspectionController.isViewLoaded {
-                    return selector(introspectionController.view)
-                }
-                #endif
-            } else if Target.Base.self == PlatformViewController.self {
-                return selector(introspectionController)
-            }
-            return nil
-        }
+        self.selector = selector
         self.customize = customize
     }
 

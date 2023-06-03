@@ -1,32 +1,49 @@
 import SwiftUI
 
-public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformView> {
+public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     let isCurrent: Bool
+    let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
-    public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
-        Self(isCurrent: versions.contains(where: \.isCurrent))
+    private init<Version: PlatformVersion>(
+        _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>]
+    ) {
+        if let currentVersion = versions.first(where: \.isCurrent) {
+            self.isCurrent = true
+            self.selector = currentVersion.selector
+        } else {
+            self.isCurrent = false
+            self.selector = nil
+        }
     }
 
-    public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
-        Self(isCurrent: versions.contains(where: \.isCurrent))
+    public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+        Self(versions)
     }
 
-    public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
-        Self(isCurrent: versions.contains(where: \.isCurrent))
+    public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+        Self(versions)
+    }
+
+    public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+        Self(versions)
     }
 }
 
-public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformView>
-public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformView>
-public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformView>
+public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
+    PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformSpecificEntity>
+public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
+    PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformSpecificEntity>
+public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
+    PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformView> {
+public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     let isCurrent: Bool
+    let selector: IntrospectionSelector<PlatformSpecificEntity>?
 }
 
 extension PlatformViewVersion {
-    @_spi(Internals) public init(for version: Version) {
-        self.init(isCurrent: version.isCurrent)
+    @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
+        self.init(isCurrent: version.isCurrent, selector: selector)
     }
 
     @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
@@ -43,6 +60,6 @@ extension PlatformViewVersion {
             https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
             """
         )
-        return Self(isCurrent: false)
+        return Self(isCurrent: false, selector: nil)
     }
 }

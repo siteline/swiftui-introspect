@@ -1,6 +1,5 @@
 import SwiftUI
 
-#if os(iOS) || os(tvOS)
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -13,13 +12,3 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-#elseif os(macOS)
-@main
-struct App: SwiftUI.App {
-    var body: some Scene {
-        WindowGroup {
-            EmptyView()
-        }
-    }
-}
-#endif

@@ -1,26 +1,29 @@
 import SwiftUI
 
-public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformView> {
+public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity> {
     let isCurrent: Bool
 
-    public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.isCurrent))
     }
 
-    public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.isCurrent))
     }
 
-    public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformView>)...) -> Self {
+    public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
         Self(isCurrent: versions.contains(where: \.isCurrent))
     }
 }
 
-public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformView>
-public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformView>
-public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformView> = PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformView>
+public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity> =
+    PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformSpecificEntity>
+public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity> =
+    PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformSpecificEntity>
+public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity> =
+    PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformView> {
+public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity> {
     let isCurrent: Bool
 }
 

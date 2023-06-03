@@ -3,36 +3,16 @@ import XCTest
 
 #if canImport(UIKit)
 enum TestUtils {
-    enum Constants {
-        static let timeout: TimeInterval = 3
-    }
+    private static let window = UIWindow(frame: UIScreen.main.bounds)
 
     static func present(view: some View) {
-        let hostingController = UIHostingController(rootView: view)
-
-        for window in UIApplication.shared.windows {
-            if let presentedViewController = window.rootViewController?.presentedViewController {
-                presentedViewController.dismiss(animated: false, completion: nil)
-            }
-            window.isHidden = true
-        }
-
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.layer.speed = 10
-
-        hostingController.beginAppearanceTransition(true, animated: false)
-        window.rootViewController = hostingController
+        window.rootViewController = UIHostingController(rootView: view)
         window.makeKeyAndVisible()
         window.layoutIfNeeded()
-        hostingController.endAppearanceTransition()
     }
 }
 #elseif canImport(AppKit)
 enum TestUtils {
-    enum Constants {
-        static let timeout: TimeInterval = 5
-    }
-
     static func present(view: some View) {
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -60,7 +40,7 @@ func XCTAssertViewIntrospection<V: View, PV: AnyObject>(
     let spies = Spies<PV>()
     let view = view(spies)
     TestUtils.present(view: view)
-    XCTWaiter(delegate: spies).wait(for: spies.expectations.values.map(\.0), timeout: TestUtils.Constants.timeout)
+    XCTWaiter(delegate: spies).wait(for: spies.expectations.values.map(\.0), timeout: 3)
     extraAssertions(spies.objects.sorted(by: { $0.key < $1.key }).map(\.value))
 }
 

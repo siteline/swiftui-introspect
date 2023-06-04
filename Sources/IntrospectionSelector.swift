@@ -1,8 +1,10 @@
 @_spi(Internals)
 public struct IntrospectionSelector<Target: PlatformEntity> {
-    private let selector: (IntrospectionPlatformViewController, IntrospectionScope, IntrospectionAnchorID) -> Target?
+    private var receiver: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
+    private var ancestor: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
 
-    static var `default`: Self { .from(Target.self, selector: { $0 }) }
+    @_spi(Internals)
+    public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
     @_spi(Internals)
     public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
@@ -43,8 +45,11 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         }
     }
 
-    init(_ selector: @escaping (IntrospectionPlatformViewController, IntrospectionScope, IntrospectionAnchorID) -> Target?) {
-        self.selector = selector
+    init(
+        _ selector: @escaping (IntrospectionPlatformViewController, IntrospectionScope, IntrospectionAnchorID) -> Target?
+    ) {
+        self.receiver = { selector($0, .receiver, $1) }
+        self.ancestor = { selector($0, .ancestor, $1) }
     }
 
     func callAsFunction(
@@ -52,6 +57,18 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         _ scope: IntrospectionScope,
         _ anchorID: IntrospectionAnchorID
     ) -> Target? {
-        selector(controller, scope, anchorID)
+        if
+            scope.contains(.receiver),
+            let target = receiver(controller, anchorID)
+        {
+            return target
+        }
+        if
+            scope.contains(.ancestor),
+            let target = ancestor(controller, anchorID)
+        {
+            return target
+        }
+        return nil
     }
 }

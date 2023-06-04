@@ -1,10 +1,19 @@
 @_spi(Internals)
 public struct IntrospectionSelector<Target: PlatformEntity> {
-    private var receiver: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
-    private var ancestor: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
+    private var receiverSelector: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
+    private var ancestorSelector: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
 
     @_spi(Internals)
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
+
+    @_spi(Internals)
+    public func overrideAncestorSelector(
+        _ selector: @escaping (PlatformViewController, IntrospectionAnchorID) -> Target?
+    ) -> Self {
+        var copy = self
+        copy.ancestorSelector = selector
+        return copy
+    }
 
     @_spi(Internals)
     public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
@@ -45,11 +54,9 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         }
     }
 
-    init(
-        _ selector: @escaping (IntrospectionPlatformViewController, IntrospectionScope, IntrospectionAnchorID) -> Target?
-    ) {
-        self.receiver = { selector($0, .receiver, $1) }
-        self.ancestor = { selector($0, .ancestor, $1) }
+    init(_ selector: @escaping (IntrospectionPlatformViewController, IntrospectionScope, IntrospectionAnchorID) -> Target?) {
+        self.receiverSelector = { selector($0, .receiver, $1) }
+        self.ancestorSelector = { selector($0, .ancestor, $1) }
     }
 
     func callAsFunction(
@@ -59,13 +66,13 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
     ) -> Target? {
         if
             scope.contains(.receiver),
-            let target = receiver(controller, anchorID)
+            let target = receiverSelector(controller, anchorID)
         {
             return target
         }
         if
             scope.contains(.ancestor),
-            let target = ancestor(controller, anchorID)
+            let target = ancestorSelector(controller, anchorID)
         {
             return target
         }

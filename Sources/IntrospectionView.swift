@@ -1,6 +1,7 @@
 import SwiftUI
 
-typealias IntrospectionAnchorID = UUID
+@_spi(Internals)
+public typealias IntrospectionAnchorID = UUID
 
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewControllerRepresentable {

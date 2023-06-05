@@ -25,14 +25,14 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
                 .listStyle(.insetGrouped)
                 #if os(iOS)
                 .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15)) { spy0($0) }
-                .introspect(.list(style: .insetGrouped), on: .iOS(.v16)) { spy0($0) }
+                .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(iOS)
                     .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .insetGrouped), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.insetGrouped)

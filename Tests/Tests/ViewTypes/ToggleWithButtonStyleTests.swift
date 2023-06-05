@@ -23,19 +23,19 @@ final class ToggleWithButtonStyleTests: XCTestCase {
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.button)
                     #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13), customize: spy0)
+                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 Toggle("", isOn: .constant(false))
                     .toggleStyle(.button)
                     #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13), customize: spy1)
+                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.button)
                     #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13), customize: spy2)
+                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {

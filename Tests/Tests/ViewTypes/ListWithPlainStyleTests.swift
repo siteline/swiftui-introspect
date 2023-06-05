@@ -21,18 +21,18 @@ final class ListWithPlainStyleTests: XCTestCase {
                 .listStyle(.plain)
                 #if os(iOS) || os(tvOS)
                 .introspect(.list(style: .plain), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { spy0($0) }
-                .introspect(.list(style: .plain), on: .iOS(.v16)) { spy0($0) }
+                .introspect(.list(style: .plain), on: .iOS(.v16, .v17)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.list(style: .plain), on: .macOS(.v10_15, .v11, .v12, .v13)) { spy0($0) }
+                .introspect(.list(style: .plain), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS)
                     .introspect(.list(style: .plain), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .plain), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .plain), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
-                    .introspect(.list(style: .plain), on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .plain), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.plain)

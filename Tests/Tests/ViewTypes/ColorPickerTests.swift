@@ -28,21 +28,21 @@ final class ColorPickerTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13), customize: spy0)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 ColorPicker("", selection: .constant(PlatformColor.green.cgColor))
                     #if os(iOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13), customize: spy1)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 ColorPicker("", selection: .constant(PlatformColor.blue.cgColor))
                     #if os(iOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13), customize: spy2)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {

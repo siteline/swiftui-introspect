@@ -25,8 +25,8 @@ final class FormWithGroupedStyleTests: XCTestCase {
                 }
                 .formStyle(.grouped)
                 #if os(iOS) || os(tvOS)
-                .introspect(.form(style: .grouped), on: .iOS(.v16)) { spy0($0) }
-                .introspect(.form(style: .grouped), on: .tvOS(.v16)) { spy0($0) }
+                .introspect(.form(style: .grouped), on: .iOS(.v16, .v17)) { spy0($0) }
+                .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17)) { spy0($0) }
                 #elseif os(macOS)
                 .introspect(.form(style: .grouped), on: .macOS(.v13)) { spy0($0) }
                 #endif
@@ -34,8 +34,8 @@ final class FormWithGroupedStyleTests: XCTestCase {
                 Form {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS)
-                    .introspect(.form(style: .grouped), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
-                    .introspect(.form(style: .grouped), on: .tvOS(.v16), scope: .ancestor) { spy1($0) }
+                    .introspect(.form(style: .grouped), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
+                    .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
                     .introspect(.form(style: .grouped), on: .macOS(.v13), scope: .ancestor) { spy1($0) }
                     #endif

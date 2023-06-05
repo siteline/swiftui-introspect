@@ -29,7 +29,7 @@ struct ContentView: View {
             tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
         }
         #elseif os(macOS)
-        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13)) { splitView in
+        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { splitView in
             splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
         }
         #endif
@@ -66,12 +66,12 @@ struct ListShowcase: View {
                     tableView.backgroundView = UIView()
                     tableView.backgroundColor = .cyan
                 }
-                .introspect(.list, on: .iOS(.v16)) { collectionView in
+                .introspect(.list, on: .iOS(.v16, .v17)) { collectionView in
                     collectionView.backgroundView = UIView()
                     collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                 }
                 #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13)) { tableView in
+                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { tableView in
                     tableView.backgroundColor = .cyan
                 }
                 #endif
@@ -91,12 +91,12 @@ struct ListShowcase: View {
                             tableView.backgroundView = UIView()
                             tableView.backgroundColor = .cyan
                         }
-                        .introspect(.list, on: .iOS(.v16), scope: .ancestor) { collectionView in
+                        .introspect(.list, on: .iOS(.v16, .v17), scope: .ancestor) { collectionView in
                             collectionView.backgroundView = UIView()
                             collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                         }
                         #elseif os(macOS)
-                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { tableView in
+                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { tableView in
                             tableView.backgroundColor = .cyan
                         }
                         #endif
@@ -131,7 +131,7 @@ struct ScrollViewShowcase: View {
                 scrollView.layer.backgroundColor = UIColor.cyan.cgColor
             }
             #elseif os(macOS)
-            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13)) { scrollView in
+            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { scrollView in
                 scrollView.drawsBackground = true
                 scrollView.backgroundColor = .cyan
             }
@@ -149,7 +149,7 @@ struct ScrollViewShowcase: View {
                         scrollView.layer.backgroundColor = UIColor.cyan.cgColor
                     }
                     #elseif os(macOS)
-                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { scrollView in
+                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { scrollView in
                         scrollView.drawsBackground = true
                         scrollView.backgroundColor = .cyan
                     }
@@ -233,7 +233,7 @@ struct SimpleElementsShowcase: View {
                         textField.backgroundColor = .red
                     }
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13)) { textField in
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { textField in
                         textField.backgroundColor = .red
                     }
                     #endif
@@ -245,7 +245,7 @@ struct SimpleElementsShowcase: View {
                         textField.backgroundColor = .green
                     }
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13)) { textField in
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { textField in
                         textField.backgroundColor = .green
                     }
                     #endif
@@ -258,7 +258,7 @@ struct SimpleElementsShowcase: View {
                         toggle.backgroundColor = .red
                     }
                     #elseif os(macOS)
-                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13)) { toggle in
+                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { toggle in
                         toggle.layer?.backgroundColor = NSColor.red.cgColor
                     }
                     #endif
@@ -269,7 +269,7 @@ struct SimpleElementsShowcase: View {
                         toggle.backgroundColor = .green
                     }
                     #elseif os(macOS)
-                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13)) { toggle in
+                    .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { toggle in
                         toggle.layer?.backgroundColor = NSColor.green.cgColor
                     }
                     #endif
@@ -283,7 +283,7 @@ struct SimpleElementsShowcase: View {
                         slider.backgroundColor = .red
                     }
                     #elseif os(macOS)
-                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13)) { slider in
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { slider in
                         slider.layer?.backgroundColor = NSColor.red.cgColor
                     }
                     #endif
@@ -294,7 +294,7 @@ struct SimpleElementsShowcase: View {
                         slider.backgroundColor = .green
                     }
                     #elseif os(macOS)
-                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13)) { slider in
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { slider in
                         slider.layer?.backgroundColor = NSColor.green.cgColor
                     }
                     #endif
@@ -309,7 +309,7 @@ struct SimpleElementsShowcase: View {
                     stepper.backgroundColor = .red
                 }
                 #elseif os(macOS)
-                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13)) { stepper in
+                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { stepper in
                     stepper.layer?.backgroundColor = NSColor.red.cgColor
                 }
                 #endif
@@ -322,7 +322,7 @@ struct SimpleElementsShowcase: View {
                     stepper.backgroundColor = .green
                 }
                 #elseif os(macOS)
-                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13)) { stepper in
+                .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { stepper in
                     stepper.layer?.backgroundColor = NSColor.green.cgColor
                 }
                 #endif
@@ -337,7 +337,7 @@ struct SimpleElementsShowcase: View {
                     datePicker.backgroundColor = .red
                 }
                 #elseif os(macOS)
-                .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13)) { datePicker in
+                .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { datePicker in
                     datePicker.layer?.backgroundColor = NSColor.red.cgColor
                 }
                 #endif
@@ -356,7 +356,7 @@ struct SimpleElementsShowcase: View {
                     datePicker.backgroundColor = .red
                 }
                 #elseif os(macOS)
-                .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13)) { datePicker in
+                .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { datePicker in
                     datePicker.layer?.backgroundColor = NSColor.red.cgColor
                 }
                 #endif

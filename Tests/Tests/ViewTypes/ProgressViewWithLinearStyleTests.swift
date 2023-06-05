@@ -25,7 +25,7 @@ final class ProgressViewWithLinearStyleTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13), customize: spy0)
+                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 ProgressView(value: 0.5)
@@ -33,7 +33,7 @@ final class ProgressViewWithLinearStyleTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13), customize: spy1)
+                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 ProgressView(value: 0.75)
@@ -41,7 +41,7 @@ final class ProgressViewWithLinearStyleTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16), .tvOS(.v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13), customize: spy2)
+                    .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {

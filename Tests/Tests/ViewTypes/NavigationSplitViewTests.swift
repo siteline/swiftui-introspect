@@ -33,9 +33,9 @@ final class NavigationSplitViewTests: XCTestCase {
                 }
             }
             #if os(iOS)
-            .introspect(.navigationSplitView, on: .iOS(.v16), customize: spy)
+            .introspect(.navigationSplitView, on: .iOS(.v16, .v17), customize: spy)
             #elseif os(tvOS)
-            .introspect(.navigationSplitView, on: .tvOS(.v16), customize: spy)
+            .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), customize: spy)
             #elseif os(macOS)
             .introspect(.navigationSplitView, on: .macOS(.v13), customize: spy)
             #endif
@@ -56,9 +56,9 @@ final class NavigationSplitViewTests: XCTestCase {
                     Color.red
                     Text("Sidebar")
                         #if os(iOS)
-                        .introspect(.navigationSplitView, on: .iOS(.v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationSplitView, on: .iOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
-                        .introspect(.navigationSplitView, on: .tvOS(.v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
                         .introspect(.navigationSplitView, on: .macOS(.v13), scope: .ancestor, customize: spy)
                         #endif

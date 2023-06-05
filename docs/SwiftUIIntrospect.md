@@ -112,7 +112,7 @@ List {
     tableView.backgroundView = UIView()
     tableView.backgroundColor = .cyan
 }
-.introspect(.list, on: .iOS(.v16)) { collectionView in
+.introspect(.list, on: .iOS(.v16, .v17)) { collectionView in
     collectionView.backgroundView = UIView()
     collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
 }

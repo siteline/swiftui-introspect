@@ -20,7 +20,7 @@ final class TextFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
@@ -28,7 +28,7 @@ final class TextFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy1)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
@@ -36,7 +36,7 @@ final class TextFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy2)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {
@@ -63,21 +63,21 @@ final class TextFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TextField("", text: .constant("Text Field 1"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy1)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TextField("", text: .constant("Text Field 2"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy2)
+                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {

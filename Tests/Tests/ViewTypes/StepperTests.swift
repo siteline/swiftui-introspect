@@ -21,7 +21,7 @@ final class StepperTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy0)
+                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
@@ -29,7 +29,7 @@ final class StepperTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy1)
+                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
@@ -37,7 +37,7 @@ final class StepperTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy2)
+                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif
             }
         } extraAssertions: {

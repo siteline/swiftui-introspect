@@ -17,9 +17,9 @@ final class ListCellTests: XCTestCase {
                 Text("Item 1")
                     #if os(iOS) || os(tvOS)
                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { spy($0) }
-                    .introspect(.listCell, on: .iOS(.v16)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v16, .v17)) { spy($0) }
                     #elseif os(macOS)
-                    .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13)) { spy($0) }
+                    .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy($0) }
                     #endif
             }
         }
@@ -33,9 +33,9 @@ final class ListCellTests: XCTestCase {
                 Text("Item 1")
                     #if os(iOS) || os(tvOS)
                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16)) { spy($0) }
-                    .introspect(.listCell, on: .iOS(.v16)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v16, .v17)) { spy($0) }
                     #elseif os(macOS)
-                    .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13)) { spy($0) }
+                    .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy($0) }
                     #endif
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 20.0))

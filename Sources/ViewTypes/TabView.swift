@@ -10,17 +10,25 @@ extension IntrospectableViewType where Self == TabViewType {
 
 #if canImport(UIKit)
 extension iOSViewVersion<TabViewType, UITabBarController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UITabBarController> {
+        .default.withAncestorSelector(\.tabBarController)
+    }
 }
 
 extension tvOSViewVersion<TabViewType, UITabBarController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UITabBarController> {
+        .default.withAncestorSelector(\.tabBarController)
+    }
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TabViewType, NSTabView> {

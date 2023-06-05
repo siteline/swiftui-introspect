@@ -64,21 +64,18 @@ lane :test do |options|
                 configuration: configuration.downcase,
             )
         when "SwiftUIIntrospectTests"
-            for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
-                run_tests(
-                    configuration: configuration,
-                    build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
-                    scheme: scheme,
-                    destination: [destination],
-                    catalyst_platform: "macos",
-                    disable_slide_to_type: false,
-                    prelaunch_simulator: false,
-                    ensure_devices_found: true,
-                    force_quit_simulator: false,
-                    disable_concurrent_testing: true,
-                    xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
-                )
-            end
+            run_tests(
+                configuration: configuration,
+                scheme: scheme,
+                destination: ["platform=macOS", "platform=macOS,variant=Mac Catalyst"],
+                catalyst_platform: "macos",
+                disable_slide_to_type: false,
+                prelaunch_simulator: false,
+                ensure_devices_found: true,
+                force_quit_simulator: false,
+                disable_concurrent_testing: true,
+                xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
+            )
         else
             raise "Unsupported scheme: #{scheme}"
         end

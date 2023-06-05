@@ -13,7 +13,7 @@ final class ViewTests: XCTestCase {
                 NavigationView {
                     Text("Item 0")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy0)
+                        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
                         #endif
                 }
                 .navigationViewStyle(.stack)
@@ -21,7 +21,7 @@ final class ViewTests: XCTestCase {
                 NavigationView {
                     Text("Item 1")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy1)
+                        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
                         #endif
                 }
                 .navigationViewStyle(.stack)

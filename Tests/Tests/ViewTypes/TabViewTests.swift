@@ -21,7 +21,7 @@ final class TabViewTests: XCTestCase {
                 }
             }
             #if os(iOS) || os(tvOS)
-            .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy)
+            .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
             #elseif os(macOS)
             .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy)
             #endif
@@ -37,7 +37,7 @@ final class TabViewTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
+                        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
                         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy)
                         #endif

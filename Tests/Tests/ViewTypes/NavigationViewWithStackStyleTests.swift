@@ -20,7 +20,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
             }
             .navigationViewStyle(.stack)
             #if os(iOS) || os(tvOS)
-            .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), customize: spy)
+            .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
             #endif
         }
     }
@@ -34,7 +34,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16), .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

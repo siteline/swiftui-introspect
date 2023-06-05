@@ -20,7 +20,7 @@ final class ToggleWithSwitchStyleTests: XCTestCase {
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.switch)
                     #if os(iOS)
-                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
+                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
@@ -28,7 +28,7 @@ final class ToggleWithSwitchStyleTests: XCTestCase {
                 Toggle("", isOn: .constant(false))
                     .toggleStyle(.switch)
                     #if os(iOS)
-                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
+                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
@@ -36,7 +36,7 @@ final class ToggleWithSwitchStyleTests: XCTestCase {
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.switch)
                     #if os(iOS)
-                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
+                    .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif

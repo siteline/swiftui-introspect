@@ -20,7 +20,7 @@ final class PickerWithWheelStyleTests: XCTestCase {
                 }
                 .pickerStyle(.wheel)
                 #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy0)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
                 #endif
                 .cornerRadius(8)
 
@@ -30,7 +30,7 @@ final class PickerWithWheelStyleTests: XCTestCase {
                 }
                 .pickerStyle(.wheel)
                 #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy1)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
                 #endif
                 .cornerRadius(8)
 
@@ -41,7 +41,7 @@ final class PickerWithWheelStyleTests: XCTestCase {
                 }
                 .pickerStyle(.wheel)
                 #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16), customize: spy2)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
                 #endif
             }
         } extraAssertions: {

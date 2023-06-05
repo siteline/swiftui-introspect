@@ -3,6 +3,11 @@ Changelog
 
 ## master
 
+## [0.5.2]
+
+- Added: selector overrides (#239)
+- Changed: optimized ancestor controller selectors (#240)
+
 ## [0.5.1]
 
 - Fixed: SwiftUIIntrospect.podspec (#237)

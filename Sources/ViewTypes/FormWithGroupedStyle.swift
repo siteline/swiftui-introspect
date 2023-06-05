@@ -24,6 +24,7 @@ extension iOSViewVersion<FormWithGroupedStyleType, UITableView> {
 
 extension iOSViewVersion<FormWithGroupedStyleType, UICollectionView> {
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 
 extension tvOSViewVersion<FormWithGroupedStyleType, UITableView> {
@@ -34,6 +35,7 @@ extension tvOSViewVersion<FormWithGroupedStyleType, UITableView> {
     @available(*, unavailable, message: ".formStyle(.grouped) isn't available on tvOS 15")
     public static let v15 = Self.unavailable()
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<FormWithGroupedStyleType, NSScrollView> {
@@ -44,5 +46,6 @@ extension macOSViewVersion<FormWithGroupedStyleType, NSScrollView> {
     @available(*, unavailable, message: ".formStyle(.grouped) isn't available on macOS 12")
     public static let v12 = Self.unavailable()
     public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
 }
 #endif

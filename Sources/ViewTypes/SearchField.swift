@@ -16,6 +16,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v14 = Self.unavailable()
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
@@ -31,6 +32,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v14 = Self.unavailable()
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {

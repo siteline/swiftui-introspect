@@ -18,6 +18,7 @@ extension iOSViewVersion<NavigationStackType, UINavigationController> {
     public static let v15 = Self.unavailable()
 
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)
@@ -33,6 +34,7 @@ extension tvOSViewVersion<NavigationStackType, UINavigationController> {
     public static let v15 = Self.unavailable()
 
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)

@@ -14,17 +14,25 @@ extension IntrospectableViewType where Self == NavigationViewWithColumnsStyleTyp
 
 #if canImport(UIKit)
 extension iOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UISplitViewController> {
+        .default.withAncestorSelector(\.splitViewController)
+    }
 }
 
 extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<NavigationViewWithColumnsStyleType, NSSplitView> {

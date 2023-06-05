@@ -17,7 +17,11 @@ extension iOSViewVersion<NavigationStackType, UINavigationController> {
     @available(*, unavailable, message: "NavigationStack isn't available on iOS 15")
     public static let v15 = Self.unavailable()
 
-    public static let v16 = Self(for: .v16)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 
 extension tvOSViewVersion<NavigationStackType, UINavigationController> {
@@ -28,6 +32,10 @@ extension tvOSViewVersion<NavigationStackType, UINavigationController> {
     @available(*, unavailable, message: "NavigationStack isn't available on tvOS 15")
     public static let v15 = Self.unavailable()
 
-    public static let v16 = Self(for: .v16)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 #endif

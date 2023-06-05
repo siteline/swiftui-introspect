@@ -14,16 +14,24 @@ extension IntrospectableViewType where Self == NavigationViewWithStackStyleType 
 
 #if canImport(UIKit)
 extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 
 extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 #endif

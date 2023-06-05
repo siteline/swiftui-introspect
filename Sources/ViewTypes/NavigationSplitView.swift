@@ -17,7 +17,11 @@ extension iOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     @available(*, unavailable, message: "NavigationSplitView isn't available on iOS 15")
     public static let v15 = Self.unavailable()
 
-    public static let v16 = Self(for: .v16)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UISplitViewController> {
+        .default.withAncestorSelector(\.splitViewController)
+    }
 }
 
 extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
@@ -28,7 +32,11 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
     @available(*, unavailable, message: "NavigationSplitView isn't available on tvOS 15")
     public static let v15 = Self.unavailable()
 
-    public static let v16 = Self(for: .v16)
+    public static let v16 = Self(for: .v16, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<NavigationSplitViewType, NSSplitView> {

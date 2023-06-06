@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-podspec:
-    name: lint podspec
+  lint-podspecs:
+    name: lint podspecs
     runs-on: macos-latest
     steps:
       - name: Git Checkout
@@ -22,61 +22,77 @@ jobs:
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Lint Podspec
+      - name: Lint Introspect.podspec
         run: |
           set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint --allow-warnings
+          pod lib lint Introspect.podspec --allow-warnings
+
+      - name: Lint SwiftUIIntrospect.podspec
+        run: |
+          set -eo pipefail
+          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint SwiftUIIntrospect.podspec --allow-warnings
 
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os || 'macos-13' }}
     strategy:
       fail-fast: false
       matrix:
         platform:
+          - [ios, 13]
           - [ios, 14]
           - [ios, 15]
           - [ios, 16]
 
+          - [tvos, 13]
           - [tvos, 14]
           - [tvos, 15]
           - [tvos, 16]
 
           - [macos, 11]
           - [macos, 12]
+          - [macos, 13]
         include:
+          - platform: [ios, 13]
+            runtime: iOS 13.7
+            install: true
           - platform: [ios, 14]
-            os: macos-11
-            xcode_version: 13.2.1
-            sdk: [12.5.1, iPhoneOS, iOS, 14.5]
-          - platform: [tvos, 14]
-            os: macos-11
-            xcode_version: 13.2.1
-            sdk: [12.5.1, AppleTVOS, tvOS, 14.5]
-
+            runtime: iOS 14.5
+            install: true
           - platform: [ios, 15]
-            os: macos-12
-            xcode_version: 14.2
-            sdk: [13.4.1, iPhoneOS, iOS, 15.5]
-          - platform: [tvos, 15]
-            os: macos-12
-            xcode_version: 14.2
-            sdk: [13.4.1, AppleTVOS, tvOS, 15.5]
-
+            runtime: iOS 15.5
+            install: true
           - platform: [ios, 16]
-            os: macos-12
-            xcode_version: 14.2
+            runtime: iOS 16.4
+            install: false
+
+          - platform: [tvos, 13]
+            runtime: tvOS 13.4
+            install: true
+          - platform: [tvos, 14]
+            runtime: tvOS 14.5
+            install: true
+          - platform: [tvos, 15]
+            runtime: tvOS 15.4
+            install: true
           - platform: [tvos, 16]
-            os: macos-12
-            xcode_version: 14.2
+            runtime: tvOS 16.4
+            install: false
 
           - platform: [macos, 11]
             os: macos-11
-            xcode_version: 13.2.1
+            xcode: 13.2.1
+            install: false
           - platform: [macos, 12]
             os: macos-12
-            xcode_version: 14.2
+            xcode: 14.2
+            install: false
+          - platform: [macos, 13]
+            os: macos-13
+            xcode: 14.3
+            install: false
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -84,22 +100,32 @@ jobs:
       - name: Select Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: ${{ matrix.xcode_version }}
+          xcode-version: ${{ matrix.xcode || '14.3' }}
 
-      - if: ${{ matrix.sdk }}
-        name: Symlink SDK
-        run: |
-          echo "Creating Runtimes folder if needed..."
-          sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
-
-          echo "Creating symlink of the ${{ matrix.sdk[2] }} ${{ matrix.sdk[3] }} runtime..."
-          sudo ln -s /Applications/Xcode_${{ matrix.sdk[0] }}.app/Contents/Developer/Platforms/${{ matrix.sdk[1] }}.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/${{ matrix.sdk[2] }}\ ${{ matrix.sdk[3] }}.simruntime
-
-      - name: Install Homebrew dependencies
+      - name: Install xcbeautify
         run: brew install xcbeautify
 
-      - name: Run Tests
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }}
-        env:
-          SKIP_SLOW_FASTLANE_WARNINGS: 1
-          FASTLANE_SKIP_UPDATE_CHECK: 1
+      - if: ${{ matrix.install }}
+        name: Install Required Runtime
+        run: |
+          brew install xcodesorg/made/xcodes
+          sudo xcodes runtimes install '${{ matrix.runtime }}'
+
+      - name: List Available Simulators
+        run: xcrun simctl list devices available
+
+      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
+        name: Build Showcase
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
+
+      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' }}
+        name: Run Tests (Introspect)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
+
+      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
+        name: Run Tests (SwiftUIIntrospect, Debug)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
+
+      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
+        name: Run Tests (SwiftUIIntrospect, Release)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Release

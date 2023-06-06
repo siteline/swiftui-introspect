@@ -3,8 +3,36 @@ Changelog
 
 ## master
 
+## [0.5.2]
+
+- Added: selector overrides (#239)
+- Changed: optimized ancestor controller selectors (#240)
+
+## [0.5.1]
+
+- Fixed: SwiftUIIntrospect.podspec (#237)
+
+## [0.5.0]
+
+- Added: support for custom selectors (#233)
+- Changed: unified introspect modifiers into one (#232)
+- Fixed: `searchField` introspection (#234)
+- Documentation: added explicit SPI import (#229)
+
+## [0.4.0]
+
+- Added: all-new implementation, API, and module (#207)
+
+## [0.3.1]
+
+- Fixed: wrong Swift version in podspec (#220)
+
+## [0.3.0]
+
 - Changed: minimum language version required is now Swift 5.5 (#209)
-- Infrastructure: symlink older SDKs to use in newer Xcode versions (#208)
+- Fixed: finding UIScrollViews that are clipped(), masked or combined with clipShape() or cornerRadius() (#213)
+- Documentation: UICollectionView introspection support in README (#218)
+- Infrastructure: symlink older SDKs to use in newer Xcode versions on CI (#208)
 
 ## [0.2.3]
 

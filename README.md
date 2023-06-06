@@ -1,3 +1,11 @@
+> **Note**
+> 
+> [`SwiftUIIntrospect`](Package@swift-5.7.swift#L19) is an all-new module based off the original [`Introspect`](Package.swift#L13) module that improves on stability, predictability, and ergonomics.
+> 
+> Both modules currently live together under this repo, but the plan is to ultimately obsolete `Introspect` in favor of `SwiftUIIntrospect` as part of a 1.0 release.
+> 
+> Read the [`SwiftUIIntrospect` documentation](docs/SwiftUIIntrospect.md) to learn more.
+
 Introspect for SwiftUI
 ======================
 
@@ -54,8 +62,10 @@ NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_
 NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
 _Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
 ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
-List | UITableView | NSTableView | `.introspectTableView()`
-View in List | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
+List (iOS15 and below) | UITableView | NSTableView | `.introspectTableView()`
+View in List (iOS15 and below) | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
+List (iOS 16) | UICollectionView | _N/A_ | `.introspectCollectionView()`
+View in List (iOS 16) | UICollectionViewCell | _N/A_ | `.introspectCollectionViewCell()`
 TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView()` (macOS)
 TextField | UITextField | NSTextField | `.introspectTextField()`
 Toggle | UISwitch | NSButton | `.introspectSwitch()` (iOS) <br/> `.introspectButton()` (macOS)

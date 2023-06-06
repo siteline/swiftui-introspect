@@ -37,7 +37,7 @@ final class NavigationSplitViewTests: XCTestCase {
             #elseif os(tvOS)
             .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), customize: spy)
             #elseif os(macOS)
-            .introspect(.navigationSplitView, on: .macOS(.v13), customize: spy)
+            .introspect(.navigationSplitView, on: .macOS(.v13, .v14), customize: spy)
             #endif
         }
     }
@@ -60,7 +60,7 @@ final class NavigationSplitViewTests: XCTestCase {
                         #elseif os(tvOS)
                         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
-                        .introspect(.navigationSplitView, on: .macOS(.v13), scope: .ancestor, customize: spy)
+                        .introspect(.navigationSplitView, on: .macOS(.v13, .v14), scope: .ancestor, customize: spy)
                         #endif
                 }
             } detail: {

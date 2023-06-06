@@ -28,7 +28,7 @@ final class FormWithGroupedStyleTests: XCTestCase {
                 .introspect(.form(style: .grouped), on: .iOS(.v16, .v17)) { spy0($0) }
                 .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.form(style: .grouped), on: .macOS(.v13)) { spy0($0) }
+                .introspect(.form(style: .grouped), on: .macOS(.v13, .v14)) { spy0($0) }
                 #endif
 
                 Form {
@@ -37,7 +37,7 @@ final class FormWithGroupedStyleTests: XCTestCase {
                     .introspect(.form(style: .grouped), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
-                    .introspect(.form(style: .grouped), on: .macOS(.v13), scope: .ancestor) { spy1($0) }
+                    .introspect(.form(style: .grouped), on: .macOS(.v13, .v14), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .formStyle(.grouped)

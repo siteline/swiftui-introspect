@@ -24,7 +24,7 @@ final class NavigationStackTests: XCTestCase {
                 }
             }
             #if os(iOS) || os(tvOS)
-            .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), customize: spy)
+            .introspect(.navigationStack, on: .iOS(.v16, .v17), .tvOS(.v16, .v17), customize: spy)
             #endif
         }
     }
@@ -42,7 +42,7 @@ final class NavigationStackTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS)
-                        .introspect(.navigationStack, on: .iOS(.v16), .tvOS(.v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationStack, on: .iOS(.v16, .v17), .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

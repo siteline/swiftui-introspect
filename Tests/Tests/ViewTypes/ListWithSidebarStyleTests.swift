@@ -27,18 +27,18 @@ final class ListWithSidebarStyleTests: XCTestCase {
                 .listStyle(.sidebar)
                 #if os(iOS)
                 .introspect(.list(style: .sidebar), on: .iOS(.v14, .v15)) { spy0($0) }
-                .introspect(.list(style: .sidebar), on: .iOS(.v16)) { spy0($0) }
+                .introspect(.list(style: .sidebar), on: .iOS(.v16, .v17)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13)) { spy0($0) }
+                .introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(iOS)
                     .introspect(.list(style: .sidebar), on: .iOS(.v14, .v15), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .sidebar), on: .iOS(.v16), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .sidebar), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
-                    .introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.sidebar)

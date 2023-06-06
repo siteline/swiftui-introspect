@@ -20,7 +20,7 @@ final class PickerWithMenuStyleTests: XCTestCase {
                 }
                 .pickerStyle(.menu)
                 #if os(macOS)
-                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13), customize: spy0)
+                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14), customize: spy0)
                 #endif
                 .cornerRadius(8)
 
@@ -30,7 +30,7 @@ final class PickerWithMenuStyleTests: XCTestCase {
                 }
                 .pickerStyle(.menu)
                 #if os(macOS)
-                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13), customize: spy1)
+                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14), customize: spy1)
                 #endif
                 .cornerRadius(8)
 
@@ -41,7 +41,7 @@ final class PickerWithMenuStyleTests: XCTestCase {
                 }
                 .pickerStyle(.menu)
                 #if os(macOS)
-                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13), customize: spy2)
+                .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14), customize: spy2)
                 #endif
             }
         } extraAssertions: {

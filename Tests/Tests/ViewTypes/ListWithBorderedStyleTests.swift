@@ -24,13 +24,13 @@ final class ListWithBorderedStyleTests: XCTestCase {
                 }
                 .listStyle(.bordered)
                 #if os(macOS)
-                .introspect(.list(style: .bordered), on: .macOS(.v12, .v13)) { spy0($0) }
+                .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(macOS)
-                    .introspect(.list(style: .bordered), on: .macOS(.v12, .v13), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.bordered)

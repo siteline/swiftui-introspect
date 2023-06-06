@@ -52,6 +52,16 @@ extension iOSVersion {
         }
         return false
     }
+
+    public static let v17 = iOSVersion {
+        if #available(iOS 18, *) {
+            return false
+        }
+        if #available(iOS 17, *) {
+            return true
+        }
+        return false
+    }
 }
 
 public struct tvOSVersion: PlatformVersion {
@@ -98,6 +108,16 @@ extension tvOSVersion {
             return false
         }
         if #available(tvOS 16, *) {
+            return true
+        }
+        return false
+    }
+
+    public static let v17 = tvOSVersion {
+        if #available(tvOS 18, *) {
+            return false
+        }
+        if #available(tvOS 17, *) {
             return true
         }
         return false
@@ -158,6 +178,16 @@ extension macOSVersion {
             return false
         }
         if #available(macOS 13, *) {
+            return true
+        }
+        return false
+    }
+
+    public static let v14 = macOSVersion {
+        if #available(macOS 15, *) {
+            return false
+        }
+        if #available(macOS 14, *) {
             return true
         }
         return false

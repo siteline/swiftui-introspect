@@ -24,6 +24,7 @@ extension iOSViewVersion<TextFieldWithVerticalAxisType, UITextView> {
     public static let v15 = Self.unavailable()
 
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 
 extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
@@ -35,6 +36,7 @@ extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
     public static let v15 = Self.unavailable()
 
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
@@ -46,5 +48,6 @@ extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
     public static let v12 = Self.unavailable()
 
     public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
 }
 #endif

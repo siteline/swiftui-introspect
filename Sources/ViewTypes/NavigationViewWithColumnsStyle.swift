@@ -18,6 +18,7 @@ extension iOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewControll
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UISplitViewController> {
         .default.withAncestorSelector(\.splitViewController)
@@ -29,6 +30,7 @@ extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationContro
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)
@@ -40,5 +42,6 @@ extension macOSViewVersion<NavigationViewWithColumnsStyleType, NSSplitView> {
     public static let v11 = Self(for: .v11)
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
 }
 #endif

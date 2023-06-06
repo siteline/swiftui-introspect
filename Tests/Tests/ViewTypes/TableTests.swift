@@ -24,23 +24,23 @@ final class TableTests: XCTestCase {
             VStack {
                 TipTable()
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy0)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy0)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TipTable()
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy1)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy1)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TipTable()
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy2)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy2)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif
             }
         }
@@ -60,25 +60,25 @@ final class TableTests: XCTestCase {
                 TipTable()
                     .tableStyle(.inset)
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy0)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy0)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TipTable()
                     .tableStyle(.inset)
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy1)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy1)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TipTable()
                     .tableStyle(.inset)
                     #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16), customize: spy2)
+                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy2)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif
             }
         }
@@ -99,19 +99,19 @@ final class TableTests: XCTestCase {
                 TipTable()
                     .tableStyle(.bordered)
                     #if os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy0)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TipTable()
                     .tableStyle(.bordered)
                     #if os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy1)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TipTable()
                     .tableStyle(.bordered)
                     #if os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13), customize: spy2)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif
             }
         }

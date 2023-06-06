@@ -18,6 +18,7 @@ extension iOSViewVersion<FormType, UITableView> {
 
 extension iOSViewVersion<FormType, UICollectionView> {
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 
 extension tvOSViewVersion<FormType, UITableView> {
@@ -25,6 +26,7 @@ extension tvOSViewVersion<FormType, UITableView> {
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
+    public static let v17 = Self(for: .v17)
 }
 #endif
 #endif

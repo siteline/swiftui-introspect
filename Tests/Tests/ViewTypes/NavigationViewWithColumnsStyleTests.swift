@@ -23,11 +23,11 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS)
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16), customize: spy)
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
             #elseif os(tvOS)
-            .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16), customize: spy)
+            .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
             #elseif os(macOS)
-            .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13), customize: spy)
+            .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy)
             #endif
         }
     }
@@ -41,18 +41,18 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS)
-                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
-                        .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16), scope: .ancestor, customize: spy)
+                        .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
-                        .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13), scope: .ancestor, customize: spy)
+                        .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy)
                         #endif
                 }
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS)
             // NB: this is necessary for ancestor introspection to work, because initially on iPad the "Customized" text isn't shown as it's hidden in the sidebar. This is why ancestor introspection is discouraged for most situations and it's opt-in.
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16)) {
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
                 $0.preferredDisplayMode = .oneOverSecondary
             }
             #endif

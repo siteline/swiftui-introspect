@@ -187,11 +187,13 @@ extension View {
     }
     
     /// Finds a `UIColorWell` from a `SwiftUI.ColorPicker`
+    #if os(iOS)
     @available(iOS 14, *)
     @available(tvOS, unavailable)
     public func introspectColorWell(customize: @escaping (UIColorWell) -> ()) -> some View {
         introspect(selector: TargetViewSelector.siblingContaining, customize: customize)
     }
+    #endif
 }
 #endif
 

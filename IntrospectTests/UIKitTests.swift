@@ -367,6 +367,7 @@ private struct SegmentedControlTestView: View {
     }
 }
 
+#if os(iOS)
 @available(iOS 14.0, *)
 @available(tvOS, unavailable)
 private struct ColorWellTestView: View {
@@ -380,6 +381,7 @@ private struct ColorWellTestView: View {
         }
     }
 }
+#endif
 
 import MapKit
 @available(iOS 14, tvOS 14, *)

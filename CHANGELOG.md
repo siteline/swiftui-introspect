@@ -3,16 +3,32 @@ Changelog
 
 ## master
 
+## [0.6.0]
+
+### SwiftUIIntrospect
+
+- Added: iOS 17 / tvOS 17 / macOS 14 compatibility (#243)
+
+### Introspect
+
+- Fixed: `UIColorWell` build error on tvOS 13 (#217)
+
 ## [0.5.2]
+
+### SwiftUIIntrospect
 
 - Added: selector overrides (#239)
 - Changed: optimized ancestor controller selectors (#240)
 
 ## [0.5.1]
 
+### SwiftUIIntrospect
+
 - Fixed: SwiftUIIntrospect.podspec (#237)
 
 ## [0.5.0]
+
+### SwiftUIIntrospect
 
 - Added: support for custom selectors (#233)
 - Changed: unified introspect modifiers into one (#232)
@@ -21,7 +37,7 @@ Changelog
 
 ## [0.4.0]
 
-- Added: all-new implementation, API, and module (#207)
+- Added: all-new implementation, API, and module (SwiftUIIntrospect) (#207)
 
 ## [0.3.1]
 

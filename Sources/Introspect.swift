@@ -65,8 +65,8 @@ extension PlatformEntity {
     }
 
     @_spi(Internals)
-    public var allDescendants: [Base] {
-        self.descendants.reduce([self~]) { $0 + $1.allDescendants~ }
+    public var allDescendants: some Sequence<Base> {
+        recursiveSequence([self~], children: { $0.descendants~ }).dropFirst()
     }
 
     func nearestCommonAncestor(with other: Base) -> Base? {
@@ -79,21 +79,11 @@ extension PlatformEntity {
         return nearestAncestor
     }
 
-    func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
-        var result: [Base] = []
-        var entered = false
-
-        for descendant in self.allDescendants {
-            if descendant === bottomEntity {
-                entered = true
-            } else if descendant === topEntity {
-                break
-            } else if entered {
-                result.append(descendant)
-            }
-        }
-
-        return result
+    func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
+        self.allDescendants
+            .lazy
+            .drop(while: { $0 !== bottomEntity })
+            .prefix(while: { $0 !== topEntity })
     }
 
     func receiver<PlatformSpecificEntity: PlatformEntity>(
@@ -102,14 +92,14 @@ extension PlatformEntity {
     ) -> PlatformSpecificEntity? {
         let frontEntity = self
         guard
-            let backEntity = Array(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
+            let backEntity = ContiguousArray(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
             let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
         else {
             return nil
         }
 
         return commonAncestor
-            .descendantsBetween(backEntity~, and: frontEntity~)
+            .allDescendants(between: backEntity~, and: frontEntity~)
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }

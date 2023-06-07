@@ -1,7 +1,30 @@
 import SwiftUI
 
-@_spi(Internals)
-public typealias IntrospectionAnchorID = UUID
+typealias IntrospectionViewID = UUID
+
+fileprivate enum IntrospectionStore {
+    static var shared: [IntrospectionViewID: Pair] = [:]
+
+    struct Pair {
+        weak var controller: IntrospectionPlatformViewController?
+        weak var anchor: IntrospectionAnchorPlatformViewController?
+    }
+}
+
+extension PlatformEntity {
+    var introspectionAnchorEntity: Base? {
+        if let introspectionController = self as? IntrospectionPlatformViewController {
+            return IntrospectionStore.shared[introspectionController.id]?.anchor~
+        }
+        if
+            let view = self as? PlatformView,
+            let introspectionController = view.introspectionController
+        {
+            return IntrospectionStore.shared[introspectionController.id]?.anchor?.view~
+        }
+        return nil
+    }
+}
 
 /// ⚓️
 struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
@@ -14,9 +37,9 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
 
-    let id: IntrospectionAnchorID
+    let id: IntrospectionViewID
 
-    init(id: IntrospectionAnchorID) {
+    init(id: IntrospectionViewID) {
         self._observed = .constant(())
         self.id = id
     }
@@ -31,11 +54,9 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
 }
 
 final class IntrospectionAnchorPlatformViewController: PlatformViewController {
-    let id: IntrospectionAnchorID
-
-    init(id: IntrospectionAnchorID) {
-        self.id = id
+    init(id: IntrospectionViewID) {
         super.init(nibName: nil, bundle: nil)
+        IntrospectionStore.shared[id, default: .init()].anchor = self
     }
 
     @available(*, unavailable)
@@ -43,24 +64,9 @@ final class IntrospectionAnchorPlatformViewController: PlatformViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    #if canImport(UIKit)
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.tag = id.hashValue
-    }
-    #elseif canImport(AppKit)
-    final class TaggableView: NSView {
-        private var _tag: Int?
-        override var tag: Int {
-            get { _tag ?? super.tag }
-            set { _tag = newValue }
-        }
-    }
-
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     override func loadView() {
-        let view = TaggableView()
-        view.tag = id.hashValue
-        self.view = view
+        view = NSView()
     }
     #endif
 }
@@ -78,14 +84,17 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 
     @Binding
     private var observed: Void // workaround for state changes not triggering view updates
+    private let id: IntrospectionViewID
     private let selector: (IntrospectionPlatformViewController) -> Target?
     private let customize: (Target) -> Void
 
     init(
+        id: IntrospectionViewID,
         selector: @escaping (IntrospectionPlatformViewController) -> Target?,
         customize: @escaping (Target) -> Void
     ) {
         self._observed = .constant(())
+        self.id = id
         self.selector = selector
         self.customize = customize
     }
@@ -95,7 +104,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
     }
 
     func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
-        let controller = IntrospectionPlatformViewController { controller in
+        let controller = IntrospectionPlatformViewController(id: id) { controller in
             guard let target = selector(controller) else {
                 return
             }
@@ -128,9 +137,14 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 }
 
 final class IntrospectionPlatformViewController: PlatformViewController {
+    let id: IntrospectionViewID
     var handler: (() -> Void)? = nil
 
-    fileprivate init(handler: ((IntrospectionPlatformViewController) -> Void)?) {
+    fileprivate init(
+        id: IntrospectionViewID,
+        handler: ((IntrospectionPlatformViewController) -> Void)?
+    ) {
+        self.id = id
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in
             guard let self = self else {
@@ -138,6 +152,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
             }
             handler?(self)
         }
+        IntrospectionStore.shared[id, default: .init()].controller = self
     }
 
     @available(*, unavailable)
@@ -146,13 +161,14 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     }
 
     #if canImport(UIKit)
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.introspectionController = self
         handler?()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         handler?()
     }
 
@@ -168,6 +184,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     #elseif canImport(AppKit)
     override func loadView() {
         view = NSView()
+        view.introspectionController = self
     }
 
     override func viewDidLoad() {
@@ -180,4 +197,19 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         handler?()
     }
     #endif
+}
+
+import ObjectiveC
+
+extension PlatformView {
+    fileprivate var introspectionController: IntrospectionPlatformViewController? {
+        get {
+            let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
+            return objc_getAssociatedObject(self, key) as? IntrospectionPlatformViewController
+        }
+        set {
+            let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
+            objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
 }

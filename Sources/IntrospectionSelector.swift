@@ -6,20 +6,20 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Internals)
     public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
         .init(
-            receiverSelector: { controller, anchorID in
-                controller.as(Entry.self)?.receiver(ofType: Entry.self, anchorID: anchorID).flatMap(selector)
+            receiverSelector: { controller in
+                controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)
             },
             ancestorSelector: { controller in
-                controller.as(Entry.self)?.ancestor(ofType: Entry.self).flatMap(selector)
+                controller.as(Entry.Base.self)?.ancestor(ofType: Entry.self).flatMap(selector)
             }
         )
     }
 
-    private var receiverSelector: (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?
+    private var receiverSelector: (IntrospectionPlatformViewController) -> Target?
     private var ancestorSelector: (IntrospectionPlatformViewController) -> Target?
 
     private init(
-        receiverSelector: @escaping (IntrospectionPlatformViewController, IntrospectionAnchorID) -> Target?,
+        receiverSelector: @escaping (IntrospectionPlatformViewController) -> Target?,
         ancestorSelector: @escaping (IntrospectionPlatformViewController) -> Target?
     ) {
         self.receiverSelector = receiverSelector
@@ -27,7 +27,7 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
     }
 
     @_spi(Internals)
-    public func withReceiverSelector(_ selector: @escaping (PlatformViewController, IntrospectionAnchorID) -> Target?) -> Self {
+    public func withReceiverSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.receiverSelector = selector
         return copy
@@ -40,14 +40,10 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         return copy
     }
 
-    func callAsFunction(
-        _ controller: IntrospectionPlatformViewController,
-        _ scope: IntrospectionScope,
-        _ anchorID: IntrospectionAnchorID
-    ) -> Target? {
+    func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
         if
             scope.contains(.receiver),
-            let target = receiverSelector(controller, anchorID)
+            let target = receiverSelector(controller)
         {
             return target
         }
@@ -62,14 +58,14 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 }
 
 extension PlatformViewController {
-    func `as`<Entity: PlatformEntity>(_ entityType: Entity.Type) -> (any PlatformEntity)? {
-        if Entity.Base.self == PlatformView.self {
+    func `as`<Base: PlatformEntity>(_ baseType: Base.Type) -> (any PlatformEntity)? {
+        if Base.self == PlatformView.self {
             #if canImport(UIKit)
             return viewIfLoaded
             #elseif canImport(AppKit)
             return isViewLoaded ? view : nil
             #endif
-        } else if Entity.Base.self == PlatformViewController.self {
+        } else if Base.self == PlatformViewController.self {
             return self
         }
         return nil

@@ -20,17 +20,18 @@ extension View {
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
         if let platform = platforms.first(where: \.isCurrent) {
-            let anchorID = IntrospectionAnchorID()
+            let introspectionViewID = IntrospectionViewID()
             self.background(
                 IntrospectionAnchorView(
-                    id: anchorID
+                    id: introspectionViewID
                 )
                 .frame(width: 0, height: 0)
             )
             .overlay(
                 IntrospectionView(
-                    selector: { entity in
-                        (platform.selector ?? .default)(entity, scope ?? viewType.scope, anchorID)
+                    id: introspectionViewID,
+                    selector: { controller in
+                        (platform.selector ?? .default)(controller, scope ?? viewType.scope)
                     },
                     customize: customize
                 )
@@ -53,9 +54,6 @@ public protocol PlatformEntity: AnyObject {
 
     @_spi(Internals)
     func isDescendant(of other: Base) -> Bool
-
-    @_spi(Internals)
-    func entityWithTag(_ tag: Int) -> Base?
 }
 
 extension PlatformEntity {
@@ -87,12 +85,11 @@ extension PlatformEntity {
     }
 
     func receiver<PlatformSpecificEntity: PlatformEntity>(
-        ofType type: PlatformSpecificEntity.Type,
-        anchorID: IntrospectionAnchorID
+        ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {
         let frontEntity = self
         guard
-            let backEntity = ContiguousArray(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue), // optimize this... maybe there's a way to hold a ref somewhere in memory without having to use tags?
+            let backEntity = frontEntity.introspectionAnchorEntity,
             let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
         else {
             return nil
@@ -124,11 +121,6 @@ extension PlatformView: PlatformEntity {
     public var descendants: [PlatformView] {
         subviews
     }
-
-    @_spi(Internals)
-    public func entityWithTag(_ tag: Int) -> PlatformView? {
-        viewWithTag(tag)
-    }
 }
 
 extension PlatformViewController: PlatformEntity {
@@ -145,18 +137,5 @@ extension PlatformViewController: PlatformEntity {
     @_spi(Internals)
     public func isDescendant(of other: PlatformViewController) -> Bool {
         self.ancestors.contains(other)
-    }
-
-    @_spi(Internals)
-    public func entityWithTag(_ tag: Int) -> PlatformViewController? {
-        if self.view.tag == tag {
-            return self
-        }
-        for child in children {
-            if let childWithTag = child.entityWithTag(tag) {
-                return childWithTag
-            }
-        }
-        return nil
     }
 }

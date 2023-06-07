@@ -92,7 +92,7 @@ extension PlatformEntity {
     ) -> PlatformSpecificEntity? {
         let frontEntity = self
         guard
-            let backEntity = ContiguousArray(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
+            let backEntity = ContiguousArray(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue), // optimize this... maybe there's a way to hold a ref somewhere in memory without having to use tags?
             let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
         else {
             return nil

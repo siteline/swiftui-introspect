@@ -106,10 +106,16 @@ jobs:
         run: brew install xcbeautify
 
       - if: ${{ matrix.install }}
-        name: Install Required Runtime
-        run: |
-          brew install xcodesorg/made/xcodes
-          sudo xcodes runtimes install '${{ matrix.runtime }}'
+        name: Install xcodes
+        run: brew install xcodesorg/made/xcodes
+
+      - if: ${{ matrix.install }}
+        name: Install Required Runtime (${{ matrix.runtime }})
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 12
+          max_attempts: 3
+          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Simulators
         run: xcrun simctl list devices available

@@ -20,17 +20,18 @@ extension View {
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
         if let platform = platforms.first(where: \.isCurrent) {
-            let anchorID = IntrospectionAnchorID()
+            let introspectionViewID = IntrospectionViewID()
             self.background(
                 IntrospectionAnchorView(
-                    id: anchorID
+                    id: introspectionViewID
                 )
                 .frame(width: 0, height: 0)
             )
             .overlay(
                 IntrospectionView(
-                    selector: { entity in
-                        (platform.selector ?? .default)(entity, scope ?? viewType.scope, anchorID)
+                    id: introspectionViewID,
+                    selector: { controller in
+                        (platform.selector ?? .default)(controller, scope ?? viewType.scope)
                     },
                     customize: customize
                 )
@@ -53,9 +54,6 @@ public protocol PlatformEntity: AnyObject {
 
     @_spi(Internals)
     func isDescendant(of other: Base) -> Bool
-
-    @_spi(Internals)
-    func entityWithTag(_ tag: Int) -> Base?
 }
 
 extension PlatformEntity {
@@ -65,8 +63,8 @@ extension PlatformEntity {
     }
 
     @_spi(Internals)
-    public var allDescendants: [Base] {
-        self.descendants.reduce([self~]) { $0 + $1.allDescendants~ }
+    public var allDescendants: some Sequence<Base> {
+        recursiveSequence([self~], children: { $0.descendants~ }).dropFirst()
     }
 
     func nearestCommonAncestor(with other: Base) -> Base? {
@@ -79,37 +77,26 @@ extension PlatformEntity {
         return nearestAncestor
     }
 
-    func descendantsBetween(_ bottomEntity: Base, and topEntity: Base) -> [Base] {
-        var result: [Base] = []
-        var entered = false
-
-        for descendant in self.allDescendants {
-            if descendant === bottomEntity {
-                entered = true
-            } else if descendant === topEntity {
-                break
-            } else if entered {
-                result.append(descendant)
-            }
-        }
-
-        return result
+    func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
+        self.allDescendants
+            .lazy
+            .drop(while: { $0 !== bottomEntity })
+            .prefix(while: { $0 !== topEntity })
     }
 
     func receiver<PlatformSpecificEntity: PlatformEntity>(
-        ofType type: PlatformSpecificEntity.Type,
-        anchorID: IntrospectionAnchorID
+        ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {
         let frontEntity = self
         guard
-            let backEntity = Array(frontEntity.ancestors).last?.entityWithTag(anchorID.hashValue),
+            let backEntity = frontEntity.introspectionAnchorEntity,
             let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
         else {
             return nil
         }
 
         return commonAncestor
-            .descendantsBetween(backEntity~, and: frontEntity~)
+            .allDescendants(between: backEntity~, and: frontEntity~)
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }
@@ -134,11 +121,6 @@ extension PlatformView: PlatformEntity {
     public var descendants: [PlatformView] {
         subviews
     }
-
-    @_spi(Internals)
-    public func entityWithTag(_ tag: Int) -> PlatformView? {
-        viewWithTag(tag)
-    }
 }
 
 extension PlatformViewController: PlatformEntity {
@@ -155,18 +137,5 @@ extension PlatformViewController: PlatformEntity {
     @_spi(Internals)
     public func isDescendant(of other: PlatformViewController) -> Bool {
         self.ancestors.contains(other)
-    }
-
-    @_spi(Internals)
-    public func entityWithTag(_ tag: Int) -> PlatformViewController? {
-        if self.view.tag == tag {
-            return self
-        }
-        for child in children {
-            if let childWithTag = child.entityWithTag(tag) {
-                return childWithTag
-            }
-        }
-        return nil
     }
 }

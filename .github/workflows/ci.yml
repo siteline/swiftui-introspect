@@ -115,7 +115,7 @@ jobs:
         with:
           timeout_minutes: 12
           max_attempts: 3
-          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
+          command: xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Simulators
         run: xcrun simctl list devices available

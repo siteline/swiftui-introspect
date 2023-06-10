@@ -12,33 +12,50 @@ public struct IntrospectionScope: OptionSet {
 }
 
 extension View {
-    @ViewBuilder
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>)...,
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
+        self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
+    }
+}
+
+struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: ViewModifier {
+    let id = IntrospectionViewID()
+    let scope: IntrospectionScope
+    let selector: IntrospectionSelector<PlatformSpecificEntity>?
+    let customize: (PlatformSpecificEntity) -> Void
+
+    init(
+        _ viewType: SwiftUIViewType,
+        platforms: [PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>],
+        scope: IntrospectionScope?,
+        customize: @escaping (PlatformSpecificEntity) -> Void
+    ) {
+        self.scope = scope ?? viewType.scope
         if let platform = platforms.first(where: \.isCurrent) {
-            let introspectionViewID = IntrospectionViewID()
-            self.background(
-                IntrospectionAnchorView(
-                    id: introspectionViewID
-                )
-                .frame(width: 0, height: 0)
-            )
-            .overlay(
-                IntrospectionView(
-                    id: introspectionViewID,
-                    selector: { controller in
-                        (platform.selector ?? .default)(controller, scope ?? viewType.scope)
-                    },
-                    customize: customize
-                )
-                .frame(width: 0, height: 0)
-            )
+            self.selector = platform.selector ?? .default
         } else {
-            self
+            self.selector = nil
+        }
+        self.customize = customize
+    }
+
+    func body(content: Content) -> some View {
+        if let selector {
+            content
+                .background(
+                    IntrospectionAnchorView(id: id)
+                        .frame(width: 0, height: 0)
+                )
+                .overlay(
+                    IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
+                        .frame(width: 0, height: 0)
+                )
+        } else {
+            content
         }
     }
 }

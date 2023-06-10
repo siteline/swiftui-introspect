@@ -3,6 +3,12 @@ Changelog
 
 ## master
 
+## [0.6.1]
+
+- Improved: optimized receiver lookup algorithm (#246)
+- Infrastructure: refactored `.introspect` to use `ViewModifier` (#253)
+- Infrastructure: retry runtime download on timeout or error on CI (#247)
+
 ## [0.6.0]
 
 ### SwiftUIIntrospect

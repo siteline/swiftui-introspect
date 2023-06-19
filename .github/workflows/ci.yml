@@ -57,6 +57,8 @@ jobs:
         include:
           - platform: [ios, 13]
             runtime: iOS 13.7
+            os: macos-12
+            xcode: 14.2
             install: true
           - platform: [ios, 14]
             runtime: iOS 14.5
@@ -70,6 +72,8 @@ jobs:
 
           - platform: [tvos, 13]
             runtime: tvOS 13.4
+            os: macos-12
+            xcode: 14.2
             install: true
           - platform: [tvos, 14]
             runtime: tvOS 14.5
@@ -117,8 +121,8 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - name: List Available Simulators
-        run: xcrun simctl list devices available
+      - name: List Available Runtimes and Simulators
+        run: xcrun simctl list
 
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
         name: Build Showcase

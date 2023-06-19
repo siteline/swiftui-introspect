@@ -1,4 +1,3 @@
-#if os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.DatePicker { ... }.datePickerStyle(.stepperField)
@@ -9,6 +8,7 @@ public struct DatePickerWithStepperFieldStyleType: IntrospectableViewType {
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithStepperFieldStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

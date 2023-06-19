@@ -1,10 +1,10 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.Toggle
 
 public struct ToggleType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ToggleType {
     public static var toggle: Self { .init() }
 }

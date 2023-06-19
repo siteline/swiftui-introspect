@@ -1,10 +1,10 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.DatePicker
 
 public struct DatePickerType: IntrospectableViewType {}
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == DatePickerType {
     public static var datePicker: Self { .init() }
 }

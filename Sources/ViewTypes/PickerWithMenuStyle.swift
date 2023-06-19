@@ -1,4 +1,3 @@
-#if os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.Picker { ... }.pickerStyle(.menu)
@@ -9,6 +8,7 @@ public struct PickerWithMenuStyleType: IntrospectableViewType {
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == PickerWithMenuStyleType {
     public static func picker(style: Self.Style) -> Self { .init() }
 }

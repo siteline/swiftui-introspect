@@ -1,10 +1,10 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.Stepper
 
 public struct StepperType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == StepperType {
     public static var stepper: Self { .init() }
 }

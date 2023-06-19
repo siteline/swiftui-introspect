@@ -1,4 +1,3 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.List { ... }.listStyle(.inset)
@@ -9,6 +8,7 @@ public struct ListWithInsetStyleType: IntrospectableViewType {
     }
 }
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == ListWithInsetStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

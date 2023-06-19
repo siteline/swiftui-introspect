@@ -1,4 +1,3 @@
-#if os(iOS)
 import SwiftUI
 
 // MARK: SwiftUI.List { ... }.listStyle(.insetGrouped)
@@ -9,6 +8,7 @@ public struct ListWithInsetGroupedStyleType: IntrospectableViewType {
     }
 }
 
+#if os(iOS)
 extension IntrospectableViewType where Self == ListWithInsetGroupedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

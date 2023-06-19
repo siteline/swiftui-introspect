@@ -1,10 +1,10 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.Table
 
 public struct TableType: IntrospectableViewType {}
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == TableType {
     public static var table: Self { .init() }
 }

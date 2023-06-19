@@ -1,4 +1,3 @@
-#if os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.Toggle(...).toggleStyle(.checkbox)
@@ -9,6 +8,7 @@ public struct ToggleWithCheckboxStyleType: IntrospectableViewType {
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == ToggleWithCheckboxStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }

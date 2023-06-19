@@ -1,4 +1,3 @@
-#if os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.List { ... }.listStyle(.bordered)
@@ -9,6 +8,7 @@ public struct ListWithBorderedStyleType: IntrospectableViewType {
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == ListWithBorderedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

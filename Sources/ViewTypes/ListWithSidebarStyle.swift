@@ -1,4 +1,3 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.List { ... }.listStyle(.sidebar)
@@ -9,6 +8,7 @@ public struct ListWithSidebarStyleType: IntrospectableViewType {
     }
 }
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == ListWithSidebarStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

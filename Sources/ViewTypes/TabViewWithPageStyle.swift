@@ -1,4 +1,3 @@
-#if !os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.TabView { ... }.tabViewStyle(.page)
@@ -9,6 +8,7 @@ public struct TabViewWithPageStyleType: IntrospectableViewType {
     }
 }
 
+#if !os(macOS)
 extension IntrospectableViewType where Self == TabViewWithPageStyleType {
     public static func tabView(style: Self.Style) -> Self { .init() }
 }

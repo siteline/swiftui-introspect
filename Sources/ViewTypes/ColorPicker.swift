@@ -1,10 +1,10 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.ColorPicker
 
 public struct ColorPickerType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ColorPickerType {
     public static var colorPicker: Self { .init() }
 }

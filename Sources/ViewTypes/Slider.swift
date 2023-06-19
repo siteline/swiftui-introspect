@@ -1,10 +1,10 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.Slider
 
 public struct SliderType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == SliderType {
     public static var slider: Self { .init() }
 }

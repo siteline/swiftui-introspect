@@ -1,4 +1,3 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.DatePicker { ... }.datePickerStyle(.graphical)
@@ -9,6 +8,7 @@ public struct DatePickerWithGraphicalStyleType: IntrospectableViewType {
     }
 }
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithGraphicalStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

@@ -1,4 +1,3 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.Toggle(...).toggleStyle(.switch)
@@ -9,6 +8,7 @@ public struct ToggleWithSwitchStyleType: IntrospectableViewType {
     }
 }
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ToggleWithSwitchStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }

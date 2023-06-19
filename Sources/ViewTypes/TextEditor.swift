@@ -1,10 +1,10 @@
-#if !os(tvOS)
 import SwiftUI
 
 // MARK: SwiftUI.TextEditor
 
 public struct TextEditorType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == TextEditorType {
     public static var textEditor: Self { .init() }
 }

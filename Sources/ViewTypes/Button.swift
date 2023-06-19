@@ -1,10 +1,10 @@
-#if os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.Button
 
 public struct ButtonType: IntrospectableViewType {}
 
+#if os(macOS)
 extension IntrospectableViewType where Self == ButtonType {
     public static var button: Self { .init() }
 }

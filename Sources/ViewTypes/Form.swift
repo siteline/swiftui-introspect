@@ -1,10 +1,10 @@
-#if !os(macOS)
 import SwiftUI
 
 // MARK: SwiftUI.Form
 
 public struct FormType: IntrospectableViewType {}
 
+#if !os(macOS)
 extension IntrospectableViewType where Self == FormType {
     public static var form: Self { .init() }
 }

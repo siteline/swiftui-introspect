@@ -1,4 +1,3 @@
-#if os(iOS)
 import SwiftUI
 
 // MARK: SwiftUI.Picker { ... }.pickerStyle(.wheel)
@@ -9,6 +8,7 @@ public struct PickerWithWheelStyleType: IntrospectableViewType {
     }
 }
 
+#if os(iOS)
 extension IntrospectableViewType where Self == PickerWithWheelStyleType {
     public static func picker(style: Self.Style) -> Self { .init() }
 }

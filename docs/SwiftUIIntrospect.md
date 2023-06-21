@@ -64,7 +64,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.4.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.6.1"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [

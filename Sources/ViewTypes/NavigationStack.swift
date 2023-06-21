@@ -1,7 +1,21 @@
 import SwiftUI
 
-// MARK: SwiftUI.NavigationStack
-
+/// An abstract representation of the `NavigationStack` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationStack {
+///             Text("Root")
+///         }
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.navigationStack, on: .iOS(.v16, .v17), .tvOS(.v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct NavigationStackType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == NavigationStackType {

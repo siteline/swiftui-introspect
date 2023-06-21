@@ -1,7 +1,22 @@
 import SwiftUI
 
-// MARK: SwiftUI.Toggle(...).toggleStyle(.button)
-
+/// An abstract representation of the `Toggle` type in SwiftUI, with `.button` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isOn = false
+/// 
+///     var body: some View {
+///         Toggle("Toggle", isOn: $isOn)
+///             .toggleStyle(.button)
+///             #if os(macOS)
+///             .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSButton
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct ToggleWithButtonStyleType: IntrospectableViewType {
     public enum Style {
         case button

@@ -3,7 +3,16 @@ Changelog
 
 ## master
 
+## [0.6.2]
+
+### SwiftUIIntrospect
+
+- Documentation: added docs for all view types (#258)
+- Infrastructure: fixed iOS/tvOS 13 checks on CI (#257)
+
 ## [0.6.1]
+
+### SwiftUIIntrospect
 
 - Improved: optimized receiver lookup algorithm (#246)
 - Infrastructure: refactored `.introspect` to use `ViewModifier` (#253)

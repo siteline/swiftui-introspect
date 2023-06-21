@@ -4,10 +4,10 @@ import SwiftUI
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var value = 0.5
+///     @State var selection = 0.5
 ///
 ///     var body: some View {
-///         Slider(value: $value, in: 0...1)
+///         Slider(value: $selection, in: 0...1)
 ///             #if os(iOS)
 ///             .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UISlider

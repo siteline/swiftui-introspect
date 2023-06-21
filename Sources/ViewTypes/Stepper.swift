@@ -1,7 +1,25 @@
 import SwiftUI
 
-// MARK: SwiftUI.Stepper
-
+/// An abstract representation of the `Stepper` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var selection = 5
+///
+///     var body: some View {
+///         Stepper("Select a number", value: $selection, in: 0...10)
+///             #if os(iOS)
+///             .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIStepper
+///             }
+///             #elseif os(macOS)
+///             .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSStepper
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct StepperType: IntrospectableViewType {}
 
 #if !os(tvOS)

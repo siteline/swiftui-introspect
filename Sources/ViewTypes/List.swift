@@ -1,7 +1,30 @@
 import SwiftUI
 
-// MARK: SwiftUI.List
-
+/// An abstract representation of the `List` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///         .introspect(.list, on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #elseif os(macOS)
+///         .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSTableView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct ListType: IntrospectableViewType {
     public enum Style {
         case plain

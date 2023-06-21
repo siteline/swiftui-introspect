@@ -85,9 +85,23 @@ Introspection
 
 ### Implemented
 
-_WIP_
-
-`SwiftUIIntrospect` already supports all the view types that `Introspect` supports, and more (e.g. `ProgressView`, `Table`). However, listing them all in a table is an arduous task that I'm still thinking of how to best accomplish (perhaps it's possible to automate via SwiftSyntax?). For now, I suggest diving into the desired view type's code file to figure out which platforms and underlying views are supported. I also suggest checking out the showcase app and tests for example use cases.
+- [`Button`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/buttontype)
+- [`ColorPicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/colorpickertype)
+- [`DatePicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickertype)
+- [`DatePicker` with `.compact` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithcompactstyletype)
+- [`DatePicker` with `.field` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithfieldstyletype)
+- [`DatePicker` with `.graphical` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithgraphicalstyletype)
+- [`DatePicker` with `.stepperField` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithstepperfieldstyletype)
+- [`DatePicker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithwheelstyletype)
+- [`Form`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formtype)
+- [`Form` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formwithgroupedstyletype)
+- [`List`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listtype)
+- [`List` with `.bordered` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithborderedstyletype)
+- [`List` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithgroupedstyletype)
+- [`List` with `.insetGrouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetgroupedstyletype)
+- [`List` with `.inset` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetstyletype)
+- [`List` with `.sidebar` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithsidebarstyletype)
+- [`ListCell`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listcelltype)
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 

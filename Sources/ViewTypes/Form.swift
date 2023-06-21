@@ -1,7 +1,26 @@
 import SwiftUI
 
-// MARK: SwiftUI.Form
-
+/// An abstract representation of the `Form` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///         .introspect(.form, on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct FormType: IntrospectableViewType {}
 
 #if !os(macOS)

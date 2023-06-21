@@ -1,7 +1,22 @@
 import SwiftUI
 
-// MARK: SwiftUI.NavigationView { ... }.navigationViewStyle(.stack)
-
+/// An abstract representation of the `NavigationView` type in SwiftUI, with `.stack` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///         }
+///         .navigationViewStyle(.stack)
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct NavigationViewWithStackStyleType: IntrospectableViewType {
     public enum Style {
         case stack

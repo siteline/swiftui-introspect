@@ -1,7 +1,26 @@
 import SwiftUI
 
-// MARK: SwiftUI.TabView
-
+/// An abstract representation of the `TabView` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         TabView {
+///             Text("Tab 1").tabItem { Text("Tab 1") }
+///             Text("Tab 2").tabItem { Text("Tab 2") }
+///         }
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UITabBarController
+///         }
+///         #elseif os(macOS)
+///         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSTabView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct TabViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == TabViewType {

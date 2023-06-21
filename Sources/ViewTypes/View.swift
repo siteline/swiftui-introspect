@@ -1,7 +1,22 @@
 import SwiftUI
 
-// MARK: SwiftUI.View
-
+/// An abstract representation of a generic view type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///                 #if os(iOS) || os(tvOS)
+///                 .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                     print(type(of: $0)) // UIViewController
+///                 }
+///                 #endif
+///         }
+///         .navigationViewStyle(.stack)
+///     }
+/// }
+/// ```
 public struct ViewType: IntrospectableViewType {
     public var scope: IntrospectionScope { [.receiver, .ancestor] }
 }

@@ -5,7 +5,7 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     @State var isOn = false
-/// 
+///
 ///     var body: some View {
 ///         Toggle("Toggle", isOn: $isOn)
 ///             .toggleStyle(.button)

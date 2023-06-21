@@ -1,7 +1,22 @@
 import SwiftUI
 
-// MARK: SwiftUI.Toggle(...).toggleStyle(.checkbox)
-
+/// An abstract representation of the `Toggle` type in SwiftUI, with `.checkbox` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isOn = false
+///
+///     var body: some View {
+///         Toggle("Checkbox", isOn: $isOn)
+///             .toggleStyle(.checkbox)
+///             #if os(macOS)
+///             .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSButton
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct ToggleWithCheckboxStyleType: IntrospectableViewType {
     public enum Style {
         case checkbox

@@ -1,7 +1,31 @@
 import SwiftUI
 
-// MARK: SwiftUI.Form { ... }.formStyle(.grouped)
-
+/// An abstract representation of the `Form` type in SwiftUI, with `.grouped` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .formStyle(.grouped)
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.form(style: .grouped), on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///         .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #elseif os(macOS)
+///         .introspect(.form(style: .grouped), on: .macOS(.v13, .v14)) {
+///             print(type(of: $0)) // NSScrollView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct FormWithGroupedStyleType: IntrospectableViewType {
     public enum Style {
         case grouped

@@ -1,14 +1,31 @@
-#if os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.List { ... }.listStyle(.bordered)
-
+/// An abstract representation of the `List` type in SwiftUI, with `.bordered` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.bordered)
+///         #if os(macOS)
+///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSTableView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct ListWithBorderedStyleType: IntrospectableViewType {
     public enum Style {
         case bordered
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == ListWithBorderedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

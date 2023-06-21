@@ -1,14 +1,33 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.DatePicker { ... }.datePickerStyle(.graphical)
-
+/// An abstract representation of the `DatePicker` type in SwiftUI, with `.graphical` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.graphical)
+///             #if os(iOS)
+///             .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIDatePicker
+///             }
+///             #elseif os(macOS)
+///             .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSDatePicker
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct DatePickerWithGraphicalStyleType: IntrospectableViewType {
     public enum Style {
         case graphical
     }
 }
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithGraphicalStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

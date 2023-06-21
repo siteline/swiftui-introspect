@@ -1,7 +1,30 @@
 import SwiftUI
 
-// MARK: SwiftUI.Picker { ... }.pickerStyle(.segmented)
-
+/// An abstract representation of the `Picker` type in SwiftUI, with `.segmented` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var selection = "1"
+///
+///     var body: some View {
+///         Picker("Pick a number", selection: $selection) {
+///             Text("1").tag("1")
+///             Text("2").tag("2")
+///             Text("3").tag("3")
+///         }
+///         .pickerStyle(.segmented)
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.picker(style: .segmented), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UISegmentedControl
+///         }
+///         #elseif os(macOS)
+///         .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSSegmentedControl
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct PickerWithSegmentedStyleType: IntrospectableViewType {
     public enum Style {
         case segmented

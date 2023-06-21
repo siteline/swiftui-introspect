@@ -1,14 +1,29 @@
-#if os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.DatePicker { ... }.datePickerStyle(.stepperField)
-
+/// An abstract representation of the `DatePicker` type in SwiftUI, with `.stepperField` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.stepperField)
+///             #if os(macOS)
+///             .introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSDatePicker
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct DatePickerWithStepperFieldStyleType: IntrospectableViewType {
     public enum Style {
         case stepperField
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithStepperFieldStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

@@ -1,14 +1,38 @@
-#if os(iOS) || os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.List { ... }.listStyle(.inset)
-
+/// An abstract representation of the `List` type in SwiftUI, with `.inset` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.inset)
+///         #if os(iOS)
+///         .introspect(.list(style: .inset), on: .iOS(.v14, .v15)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///         .introspect(.list(style: .inset), on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #elseif os(macOS)
+///         .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSTableView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct ListWithInsetStyleType: IntrospectableViewType {
     public enum Style {
         case inset
     }
 }
 
+#if os(iOS) || os(macOS)
 extension IntrospectableViewType where Self == ListWithInsetStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

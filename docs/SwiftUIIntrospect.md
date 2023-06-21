@@ -64,7 +64,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.4.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.6.1"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -85,9 +85,47 @@ Introspection
 
 ### Implemented
 
-_WIP_
-
-`SwiftUIIntrospect` already supports all the view types that `Introspect` supports, and more (e.g. `ProgressView`, `Table`). However, listing them all in a table is an arduous task that I'm still thinking of how to best accomplish (perhaps it's possible to automate via SwiftSyntax?). For now, I suggest diving into the desired view type's code file to figure out which platforms and underlying views are supported. I also suggest checking out the showcase app and tests for example use cases.
+- [`Button`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/buttontype)
+- [`ColorPicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/colorpickertype)
+- [`DatePicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickertype)
+- [`DatePicker` with `.compact` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithcompactstyletype)
+- [`DatePicker` with `.field` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithfieldstyletype)
+- [`DatePicker` with `.graphical` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithgraphicalstyletype)
+- [`DatePicker` with `.stepperField` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithstepperfieldstyletype)
+- [`DatePicker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithwheelstyletype)
+- [`Form`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formtype)
+- [`Form` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formwithgroupedstyletype)
+- [`List`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listtype)
+- [`List` with `.bordered` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithborderedstyletype)
+- [`List` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithgroupedstyletype)
+- [`List` with `.insetGrouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetgroupedstyletype)
+- [`List` with `.inset` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetstyletype)
+- [`List` with `.sidebar` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithsidebarstyletype)
+- [`ListCell`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listcelltype)
+- [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationsplitviewtype)
+- [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationstacktype)
+- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)
+- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithStackStyleType)
+- [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithmenustyletype)
+- [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
+- [`Picker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithwheelstyletype)
+- [`ProgressView` with `.circular` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithcircularstyletests)
+- [`ProgressView` with `.linear` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithlinearstyletests)
+- [`ScrollView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/scrollviewtype)
+- [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/searchfieldtype)
+- [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/slidertype)
+- [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/steppertype)
+- [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/tabletype)
+- [`TabView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/tabviewtype)
+- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/TabViewWithPageStyleType)
+- [`TextEditor`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/texteditortype)
+- [`TextField`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/textfieldtype)
+- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/TextFieldWithVerticalAxisType)
+- [`Toggle`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/toggletype)
+- [`Toggle` with `button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithbuttonstyletype)
+- [`Toggle` with `checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
+- [`Toggle` with `switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithswitchstyletype)
+- [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewtype)
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 

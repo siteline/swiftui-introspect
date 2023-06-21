@@ -1,14 +1,33 @@
-#if os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.Picker { ... }.pickerStyle(.menu)
-
+/// An abstract representation of the `Picker` type in SwiftUI, with `.menu` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var selection = "1"
+///
+///     var body: some View {
+///         Picker("Pick a number", selection: $selection) {
+///             Text("1").tag("1")
+///             Text("2").tag("2")
+///             Text("3").tag("3")
+///         }
+///         .pickerStyle(.menu)
+///         #if os(macOS)
+///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSPopUpButton
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct PickerWithMenuStyleType: IntrospectableViewType {
     public enum Style {
         case menu
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == PickerWithMenuStyleType {
     public static func picker(style: Self.Style) -> Self { .init() }
 }

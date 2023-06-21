@@ -1,14 +1,29 @@
-#if os(macOS)
 import SwiftUI
 
-// MARK: SwiftUI.DatePicker { ... }.datePickerStyle(.field)
-
+/// An abstract representation of the `DatePicker` type in SwiftUI, with `.field` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.field)
+///             #if os(macOS)
+///             .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSDatePicker
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct DatePickerWithFieldStyleType: IntrospectableViewType {
     public enum Style {
         case field
     }
 }
 
+#if os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithFieldStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

@@ -1,14 +1,33 @@
-#if !os(tvOS)
 import SwiftUI
 
-// MARK: SwiftUI.Toggle(...).toggleStyle(.switch)
-
+/// An abstract representation of the `Toggle` type in SwiftUI, with `.switch` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isOn = false
+///
+///     var body: some View {
+///         Toggle("Switch", isOn: $isOn)
+///             .toggleStyle(.switch)
+///             #if os(iOS)
+///             .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UISwitch
+///             }
+///             #elseif os(macOS)
+///             .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSSwitch
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct ToggleWithSwitchStyleType: IntrospectableViewType {
     public enum Style {
         case `switch`
     }
 }
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ToggleWithSwitchStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }

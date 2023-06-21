@@ -117,7 +117,7 @@ jobs:
         name: Install Required Runtime (${{ matrix.runtime }})
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 12
+          timeout_minutes: 15
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 

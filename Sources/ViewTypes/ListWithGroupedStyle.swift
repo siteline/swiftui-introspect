@@ -1,14 +1,34 @@
-#if os(iOS) || os(tvOS)
 import SwiftUI
 
-// MARK: SwiftUI.List { ... }.listStyle(.grouped)
-
+/// An abstract representation of the `List` type in SwiftUI, with `.grouped` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.grouped)
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///         .introspect(.list(style: .grouped), on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct ListWithGroupedStyleType: IntrospectableViewType {
     public enum Style {
         case grouped
     }
 }
 
+#if os(iOS) || os(tvOS)
 extension IntrospectableViewType where Self == ListWithGroupedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

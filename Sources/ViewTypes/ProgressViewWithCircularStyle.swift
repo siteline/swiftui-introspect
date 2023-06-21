@@ -1,7 +1,24 @@
 import SwiftUI
 
-// MARK: SwiftUI.ProgressView().progressViewStyle(.circular)
-
+/// An abstract representation of the `ProgressView` type in SwiftUI, with `.circular` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ProgressView(value: 0.5)
+///             .progressViewStyle(.circular)
+///             #if os(iOS) || os(tvOS)
+///             .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIActivityIndicatorView
+///             }
+///             #elseif os(macOS)
+///             .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSProgressIndicator
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct ProgressViewWithCircularStyleType: IntrospectableViewType {
     public enum Style {
         case circular

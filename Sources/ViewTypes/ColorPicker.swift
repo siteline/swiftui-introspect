@@ -1,10 +1,28 @@
-#if !os(tvOS)
 import SwiftUI
 
-// MARK: SwiftUI.ColorPicker
-
+/// An abstract representation of the `ColorPicker` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var color = Color.red
+///
+///     var body: some View {
+///         ColorPicker("Pick a color", selection: $color)
+///             #if os(iOS)
+///             .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIColorPicker
+///             }
+///             #elseif os(macOS)
+///             .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSColorPicker
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct ColorPickerType: IntrospectableViewType {}
 
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ColorPickerType {
     public static var colorPicker: Self { .init() }
 }

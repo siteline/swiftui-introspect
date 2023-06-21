@@ -1,7 +1,23 @@
 import SwiftUI
 
-// MARK: SwiftUI.TabView { ... }.tabViewStyle(.page)
-
+/// An abstract representation of the `TabView` type in SwiftUI, with `.page` style.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         TabView {
+///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
+///         }
+///         .tabViewStyle(.page(indexDisplayMode: .always))
+///         #if os(iOS) || os(tvOS)
+///         .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct TabViewWithPageStyleType: IntrospectableViewType {
     public enum Style {
         case page

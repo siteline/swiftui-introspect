@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: SwiftUI.List { ... }.listStyle(.grouped)
-
 /// An abstract representation of the `List` type in SwiftUI, with `.grouped` style.
 ///
 /// ```swift

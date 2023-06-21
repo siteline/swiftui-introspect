@@ -1,7 +1,25 @@
 import SwiftUI
 
-// MARK: SwiftUI.TextEditor
-
+/// An abstract representation of the `TextEditor` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextEditor(text: $text)
+///             #if os(iOS)
+///             .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UITextView
+///             }
+///             #elseif os(macOS)
+///             .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSTextView
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct TextEditorType: IntrospectableViewType {}
 
 #if !os(tvOS)

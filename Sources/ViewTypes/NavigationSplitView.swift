@@ -1,7 +1,31 @@
 import SwiftUI
 
-// MARK: SwiftUI.NavigationSplitView
-
+/// An abstract representation of the `NavigationSplitView` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationSplitView {
+///             Text("Root")
+///         } detail: {
+///             Text("Detail")
+///         }
+///         #if os(iOS)
+///         .introspect(.navigationSplitView, on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UISplitViewController
+///         }
+///         #elseif os(tvOS)
+///         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///         #elseif os(macOS)
+///         .introspect(.navigationSplitView, on: .macOS(.v13, .v14)) {
+///             print(type(of: $0)) // NSSplitView
+///         }
+///         #endif
+///     }
+/// }
+/// ```
 public struct NavigationSplitViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == NavigationSplitViewType {

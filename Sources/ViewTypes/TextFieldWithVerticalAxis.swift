@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// An abstract representation of the `TextField` type in SwiftUI, with `.vertical` style.
+/// An abstract representation of the `TextField` type in SwiftUI, with `.vertical` axis.
 ///
 /// ```swift
 /// struct ContentView: View {

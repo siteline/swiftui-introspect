@@ -10,8 +10,8 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         #if os(macOS)
 ///         .listStyle(.bordered)
+///         #if os(macOS)
 ///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }

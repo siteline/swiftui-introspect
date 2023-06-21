@@ -8,8 +8,8 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
-///             #if os(iOS)
 ///             .datePickerStyle(.wheel)
+///             #if os(iOS)
 ///             .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }

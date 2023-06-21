@@ -1,7 +1,25 @@
 import SwiftUI
 
-// MARK: SwiftUI.Slider
-
+/// An abstract representation of the `Slider` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var value = 0.5
+///
+///     var body: some View {
+///         Slider(value: $value, in: 0...1)
+///             #if os(iOS)
+///             .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UISlider
+///             }
+///             #elseif os(macOS)
+///             .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSSlider
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct SliderType: IntrospectableViewType {}
 
 #if !os(tvOS)

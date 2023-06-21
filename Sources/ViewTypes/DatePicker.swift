@@ -1,7 +1,25 @@
 import SwiftUI
 
-// MARK: SwiftUI.DatePicker
-
+/// An abstract representation of the `DatePicker` type in SwiftUI.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             #if os(iOS)
+///             .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIDatePicker
+///             }
+///             #elseif os(macOS)
+///             .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSDatePicker
+///             }
+///             #endif
+///     }
+/// }
+/// ```
 public struct DatePickerType: IntrospectableViewType {}
 
 #if os(iOS) || os(macOS)

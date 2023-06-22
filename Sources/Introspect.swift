@@ -50,13 +50,11 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
                     IntrospectionAnchorView(id: id)
                         .frame(width: 0, height: 0)
                         .accessibility(hidden: true)
-                        .hidden()
                 )
                 .overlay(
                     IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
                         .frame(width: 0, height: 0)
                         .accessibility(hidden: true)
-                        .hidden()
                 )
         } else {
             content

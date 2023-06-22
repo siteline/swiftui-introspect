@@ -39,7 +39,7 @@ ScrollView {
 - Traverse through all the subviews between both views until a `UIScrollView` instance (if any) is found.
 
 > **Warning**
-> Although the introspection method itself is very solid and unlikely to break in SwiftUI releases, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
+> Although the introspection method itself is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
 
 By default, `.introspect` works directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. This is different to the original `Introspect` module in which some views would implicitly allow introspection from within. This is because most of the time it's more stable and predictable to introspect views directly, but there are times when it's not possible or simply too inflexible for library developers. You **can** introspect an _ancestor_ with `SwiftUIIntrospect`, but you must opt into this explicitly by overriding the introspection `scope`:
 
@@ -109,8 +109,8 @@ Introspection
 - [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithmenustyletype)
 - [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
 - [`Picker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithwheelstyletype)
-- [`ProgressView` with `.circular` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithcircularstyletests)
-- [`ProgressView` with `.linear` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithlinearstyletests)
+- [`ProgressView` with `.circular` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithcircularstyletype)
+- [`ProgressView` with `.linear` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithlinearstyletype)
 - [`ScrollView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/scrollviewtype)
 - [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/searchfieldtype)
 - [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/slidertype)

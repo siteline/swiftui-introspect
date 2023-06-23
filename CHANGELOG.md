@@ -3,6 +3,9 @@ Changelog
 
 ## master
 
+- Changed: disabled accessibility for introspection views (#261)
+- Infrastructure: use [`xcodes`](https://github.com/XcodesOrg/xcodes) via [`tea`](https://github.com/teaxyz/cli) on CI (#261)
+
 ## [0.6.2]
 
 ### SwiftUIIntrospect

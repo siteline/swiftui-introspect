@@ -106,12 +106,11 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode || '14.3' }}
 
+      - name: Install tea
+        uses: teaxyz/setup@v0
+
       - name: Install xcbeautify
         run: brew install xcbeautify
-
-      - if: ${{ matrix.install }}
-        name: Install xcodes
-        run: brew install xcodesorg/made/xcodes
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
@@ -119,7 +118,7 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
+          command: sudo tea xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Runtimes and Simulators
         run: xcrun simctl list

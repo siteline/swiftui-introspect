@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `Button` type in SwiftUI.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {

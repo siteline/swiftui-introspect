@@ -2,24 +2,54 @@ import SwiftUI
 
 /// An abstract representation of a `List` cell type in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
 ///         List {
 ///             ForEach(1...3, id: \.self) { int in
 ///                 Text("Item \(int)")
-///                     #if os(iOS) || os(tvOS)
-///                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15)) {
 ///                         print(type(of: $0)) // UITableViewCell
 ///                     }
 ///                     .introspect(.listCell, on: .iOS(.v16, .v17)) {
 ///                         print(type(of: $0)) // UICollectionViewCell
 ///                     }
-///                     #elseif os(macOS)
+///             }
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             ForEach(1...3, id: \.self) { int in
+///                 Text("Item \(int)")
+///                     .introspect(.listCell, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                         print(type(of: $0)) // UITableViewCell
+///                     }
+///             }
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             ForEach(1...3, id: \.self) { int in
+///                 Text("Item \(int)")
 ///                     .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                         print(type(of: $0)) // NSTableCellView
 ///                     }
-///                     #endif
 ///             }
 ///         }
 ///     }

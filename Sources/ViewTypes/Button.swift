@@ -2,15 +2,23 @@ import SwiftUI
 
 /// An abstract representation of the `Button` type in SwiftUI.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
 ///         Button("Action", action: {})
-///             #if os(macOS)
 ///             .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSButton
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

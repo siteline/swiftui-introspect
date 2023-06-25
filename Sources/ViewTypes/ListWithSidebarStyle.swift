@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.sidebar` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -11,18 +13,34 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.sidebar)
-///         #if os(iOS)
 ///         .introspect(.list(style: .sidebar), on: .iOS(.v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///         .introspect(.list(style: .sidebar), on: .iOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
-///         #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.sidebar)
 ///         .introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```

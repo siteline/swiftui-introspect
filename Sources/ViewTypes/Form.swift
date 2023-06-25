@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `Form` type in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -10,17 +12,37 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         #if os(iOS) || os(tvOS)
-///         .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///         .introspect(.form, on: .iOS(.v13, .v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///         .introspect(.form, on: .iOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UITableView
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct FormType: IntrospectableViewType {}
 
 #if !os(macOS)

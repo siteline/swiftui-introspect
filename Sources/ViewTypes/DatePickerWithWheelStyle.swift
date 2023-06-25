@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.wheel` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var date = Date()
@@ -9,14 +11,21 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.wheel)
-///             #if os(iOS)
 ///             .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct DatePickerWithWheelStyleType: IntrospectableViewType {
     public enum Style {
         case wheel

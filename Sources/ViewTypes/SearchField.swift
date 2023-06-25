@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var searchTerm = ""
@@ -12,14 +14,36 @@ import SwiftUI
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         #if os(iOS) || os(tvOS)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17)) {
+///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var searchTerm = ""
+///
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///                 .searchable(text: $searchTerm)
+///         }
+///         .navigationViewStyle(.stack)
+///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17)) {
+///             print(type(of: $0)) // UISearchBar
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct SearchFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SearchFieldType {

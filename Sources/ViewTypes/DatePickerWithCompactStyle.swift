@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.compact` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var date = Date()
@@ -9,15 +11,29 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.compact)
-///             #if os(iOS)
 ///             .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
-///             #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.compact)
 ///             .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

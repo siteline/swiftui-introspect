@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `Form` type in SwiftUI, with `.grouped` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -11,18 +13,45 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .formStyle(.grouped)
-///         #if os(iOS) || os(tvOS)
 ///         .introspect(.form(style: .grouped), on: .iOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .formStyle(.grouped)
 ///         .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
-///         #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .formStyle(.grouped)
 ///         .introspect(.form(style: .grouped), on: .macOS(.v13, .v14)) {
 ///             print(type(of: $0)) // NSScrollView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```

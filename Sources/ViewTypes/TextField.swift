@@ -2,21 +2,47 @@ import SwiftUI
 
 /// An abstract representation of the `TextField` type in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var text = "Lorem ipsum"
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text)
-///             #if os(iOS) || os(tvOS)
-///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UITextField
 ///             }
-///             #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextField("Text Field", text: $text)
+///             .introspect(.textField, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UITextField
+///             }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextField("Text Field", text: $text)
 ///             .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSTextField
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `Picker` type in SwiftUI, with `.wheel` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var selection = "1"
@@ -13,14 +15,21 @@ import SwiftUI
 ///             Text("3").tag("3")
 ///         }
 ///         .pickerStyle(.wheel)
-///         #if os(iOS)
 ///         .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UIPickerView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct PickerWithWheelStyleType: IntrospectableViewType {
     public enum Style {
         case wheel

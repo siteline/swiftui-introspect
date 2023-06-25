@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.bordered` style.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -11,11 +21,9 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.bordered)
-///         #if os(macOS)
 ///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```

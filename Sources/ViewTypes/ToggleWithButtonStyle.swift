@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.button` style.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var isOn = false
@@ -9,11 +19,9 @@ import SwiftUI
 ///     var body: some View {
 ///         Toggle("Toggle", isOn: $isOn)
 ///             .toggleStyle(.button)
-///             #if os(macOS)
 ///             .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSButton
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

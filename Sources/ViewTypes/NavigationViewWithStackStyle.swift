@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `NavigationView` type in SwiftUI, with `.stack` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -9,14 +11,33 @@ import SwiftUI
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(.stack)
-///         #if os(iOS) || os(tvOS)
-///         .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///         .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///         }
+///         .navigationViewStyle(.stack)
+///         .introspect(.navigationView(style: .stack), on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct NavigationViewWithStackStyleType: IntrospectableViewType {
     public enum Style {
         case stack

@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.graphical` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var date = Date()
@@ -9,15 +11,29 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.graphical)
-///             #if os(iOS)
 ///             .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
-///             #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.graphical)
 ///             .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

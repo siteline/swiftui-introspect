@@ -2,24 +2,51 @@ import SwiftUI
 
 /// An abstract representation of the `ScrollView` type in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
 ///         ScrollView {
 ///             Text("Item")
 ///         }
-///         #if os(iOS) || os(tvOS)
-///         .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///         .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UIScrollView
 ///         }
-///         #elseif os(macOS)
-///         .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // NSScrollView
-///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ScrollView {
+///             Text("Item")
+///         }
+///         .introspect(.scrollView, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UIScrollView
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ScrollView {
+///             Text("Item")
+///         }
+///         .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSScrollView
+///         }
+///     }
+/// }
+/// ```
+///
 public struct ScrollViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == ScrollViewType {

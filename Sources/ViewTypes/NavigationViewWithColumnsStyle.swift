@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `NavigationView` type in SwiftUI, with `.columns` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -9,19 +11,41 @@ import SwiftUI
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         #if os(iOS)
 ///         .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UISplitViewController
 ///         }
-///         #elseif os(tvOS)
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///         }
+///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
 ///         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
-///         #elseif os(macOS)
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///         }
+///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
 ///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSSplitView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```

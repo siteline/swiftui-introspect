@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.insetGrouped` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -11,17 +13,24 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.insetGrouped)
-///         #if os(iOS)
 ///         .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///         .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// Not available.
+///
 public struct ListWithInsetGroupedStyleType: IntrospectableViewType {
     public enum Style {
         case insetGrouped

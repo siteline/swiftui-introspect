@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.inset` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
@@ -11,21 +13,38 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.inset)
-///         #if os(iOS)
 ///         .introspect(.list(style: .inset), on: .iOS(.v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///         .introspect(.list(style: .inset), on: .iOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
-///         #elseif os(macOS)
-///         .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // NSTableView
-///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.inset)
+///         .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13, .v14)) {
+///             print(type(of: $0)) // NSTableView
+///         }
+///     }
+/// }
+/// ```
+///
 public struct ListWithInsetStyleType: IntrospectableViewType {
     public enum Style {
         case inset

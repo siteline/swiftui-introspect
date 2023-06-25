@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.checkbox` style.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var isOn = false
@@ -9,11 +19,9 @@ import SwiftUI
 ///     var body: some View {
 ///         Toggle("Checkbox", isOn: $isOn)
 ///             .toggleStyle(.checkbox)
-///             #if os(macOS)
 ///             .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSButton
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

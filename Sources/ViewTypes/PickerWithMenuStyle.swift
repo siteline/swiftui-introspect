@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `Picker` type in SwiftUI, with `.menu` style.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var selection = "1"
@@ -13,11 +23,9 @@ import SwiftUI
 ///             Text("3").tag("3")
 ///         }
 ///         .pickerStyle(.menu)
-///         #if os(macOS)
 ///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSPopUpButton
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```

@@ -42,6 +42,7 @@ import SwiftUI
 /// ### macOS
 ///
 /// Not available.
+///
 public struct FormType: IntrospectableViewType {}
 
 #if !os(macOS)

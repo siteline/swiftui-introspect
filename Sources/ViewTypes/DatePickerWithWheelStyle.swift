@@ -25,6 +25,7 @@ import SwiftUI
 /// ### macOS
 ///
 /// Not available.
+///
 public struct DatePickerWithWheelStyleType: IntrospectableViewType {
     public enum Style {
         case wheel

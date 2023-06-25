@@ -2,23 +2,48 @@ import SwiftUI
 
 /// An abstract representation of the `ProgressView` type in SwiftUI, with `.linear` style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
 ///         ProgressView(value: 0.5)
 ///             .progressViewStyle(.linear)
-///             #if os(iOS) || os(tvOS)
-///             .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17)) {
+///             .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UIProgressView
 ///             }
-///             #elseif os(macOS)
-///             .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14)) {
-///                 print(type(of: $0)) // NSProgressIndicator
-///             }
-///             #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ProgressView(value: 0.5)
+///             .progressViewStyle(.linear)
+///             .introspect(.progressView(style: .linear), on: .tvOS(.v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIProgressView
+///             }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ProgressView(value: 0.5)
+///             .progressViewStyle(.linear)
+///             .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSProgressIndicator
+///             }
+///     }
+/// }
+/// ```
+///
 public struct ProgressViewWithLinearStyleType: IntrospectableViewType {
     public enum Style {
         case linear

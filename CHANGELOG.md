@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.6.3]
+
 ### SwiftUIIntrospect
 
 - Changed: disabled accessibility for introspection views (#261)

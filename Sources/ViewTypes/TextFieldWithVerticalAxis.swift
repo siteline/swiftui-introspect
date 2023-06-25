@@ -2,28 +2,51 @@ import SwiftUI
 
 /// An abstract representation of the `TextField` type in SwiftUI, with `.vertical` axis.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var text = "Lorem ipsum"
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             #if os(iOS)
 ///             .introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17)) {
 ///                 print(type(of: $0)) // UITextView
 ///             }
-///             #elseif os(tvOS)
-///             .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17)) {
-///                 print(type(of: $0)) // UITextField
-///             }
-///             #elseif os(macOS)
-///             .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14)) {
-///                 print(type(of: $0)) // NSTextField
-///             }
-///             #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextField("Text Field", text: $text, axis: .vertical)
+///             .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17)) {
+///                 print(type(of: $0)) // UITextField
+///             }
+///     }
+/// }
+/// ```
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextField("Text Field", text: $text, axis: .vertical)
+///             .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14)) {
+///                 print(type(of: $0)) // NSTextField
+///             }
+///     }
+/// }
+/// ```
+///
 public struct TextFieldWithVerticalAxisType: IntrospectableViewType {
     public enum Axis {
         case vertical

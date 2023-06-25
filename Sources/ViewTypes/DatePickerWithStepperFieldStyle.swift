@@ -2,6 +2,16 @@ import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.stepperField` style.
 ///
+/// ### iOS
+///
+/// Not available.
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var date = Date()
@@ -9,11 +19,9 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.stepperField)
-///             #if os(macOS)
 ///             .introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
-///             #endif
 ///     }
 /// }
 /// ```

@@ -2,24 +2,40 @@ import SwiftUI
 
 /// An abstract representation of the `Toggle` type in SwiftUI.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var isOn = false
-/// 
+///
 ///     var body: some View {
 ///         Toggle("Toggle", isOn: $isOn)
-///             #if os(iOS)
 ///             .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                 print(type(of: $0)) // UISwitch
 ///             }
-///             #elseif os(macOS)
-///             .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///                 print(type(of: $0)) // NSButton
-///             }
-///             #endif
 ///     }
 /// }
 /// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isOn = false
+///
+///     var body: some View {
+///         Toggle("Toggle", isOn: $isOn)
+///             .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSButton
+///             }
+///     }
+/// }
+/// ```
+///
 public struct ToggleType: IntrospectableViewType {}
 
 #if !os(tvOS)

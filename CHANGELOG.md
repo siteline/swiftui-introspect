@@ -6,6 +6,7 @@ Changelog
 ### SwiftUIIntrospect
 
 - Changed: disabled accessibility for introspection views (#261)
+- Documentation: code samples are now split by OS (#262)
 - Infrastructure: use [`xcodes`](https://github.com/XcodesOrg/xcodes) via [`tea`](https://github.com/teaxyz/cli) on CI (#261)
 
 ## [0.6.2]

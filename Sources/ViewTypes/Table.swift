@@ -2,6 +2,8 @@ import SwiftUI
 
 /// An abstract representation of the `Table` type in SwiftUI, with any style.
 ///
+/// ### iOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     struct Purchase: Identifiable {
@@ -20,26 +22,54 @@ import SwiftUI
 ///             TableColumn("With 20% tip") { purchase in
 ///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
 ///             }
-///             TableColumn("With 25% tip") { purchase in
-///                 Text(purchase.price * 1.25, format: .currency(code: "USD"))
+///         } rows: {
+///             TableRow(Purchase(price: 20))
+///             TableRow(Purchase(price: 50))
+///             TableRow(Purchase(price: 75))
+///         }
+///         .introspect(.table, on: .iOS(.v16, .v17)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### tvOS
+///
+/// Not available.
+///
+/// ### macOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     struct Purchase: Identifiable {
+///         let id = UUID()
+///         let price: Decimal
+///     }
+///
+///     var body: some View {
+///         Table(of: Purchase.self) {
+///             TableColumn("Base price") { purchase in
+///                 Text(purchase.price, format: .currency(code: "USD"))
+///             }
+///             TableColumn("With 15% tip") { purchase in
+///                 Text(purchase.price * 1.15, format: .currency(code: "USD"))
+///             }
+///             TableColumn("With 20% tip") { purchase in
+///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
 ///             }
 ///         } rows: {
 ///             TableRow(Purchase(price: 20))
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         #if os(iOS)
-///         .introspect(.table, on: .iOS(.v16, .v17)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
-///         #elseif os(macOS)
 ///         .introspect(.table, on: .macOS(.v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
-///         #endif
 ///     }
 /// }
 /// ```
+///
 public struct TableType: IntrospectableViewType {}
 
 #if os(iOS) || os(macOS)

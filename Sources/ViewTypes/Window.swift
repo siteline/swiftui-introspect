@@ -82,11 +82,11 @@ extension tvOSViewVersion<WindowType, UIWindow> {
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<WindowType, NSWindow> {
-    public static let v10_15 = Self(for: .v10_15)
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
+    public static let v10_15 = Self(for: .v10_15, selector: selector)
+    public static let v11 = Self(for: .v11, selector: selector)
+    public static let v12 = Self(for: .v12, selector: selector)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
 
     private static var selector: IntrospectionSelector<NSWindow> {
         .from(NSView.self, selector: \.window)

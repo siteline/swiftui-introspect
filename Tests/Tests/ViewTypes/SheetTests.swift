@@ -1,0 +1,91 @@
+#if os(iOS) || os(tvOS)
+import SwiftUI
+import SwiftUIIntrospect
+import XCTest
+
+final class SheetTests: XCTestCase {
+    #if os(iOS)
+    func testSheet_beforeiOS15() throws {
+        guard #unavailable(iOS 15, tvOS 15) else {
+            throw XCTSkip()
+        }
+
+        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+            let spy0 = spies[0]
+
+            Text("Root")
+                .sheet(isPresented: .constant(true)) {
+                    Text("Sheet")
+                        #if os(iOS) || os(tvOS)
+                        .introspect(
+                            .sheet,
+                            on: .iOS(.v13, .v14), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            customize: spy0
+                        )
+                        #endif
+                }
+        }
+    }
+
+    func testSheet_iOS15AndLater() throws {
+        guard #available(iOS 15, tvOS 15, *) else {
+            throw XCTSkip()
+        }
+
+        XCTAssertViewIntrospection(of: UISheetPresentationController.self) { spies in
+            let spy0 = spies[0]
+
+            Text("Root")
+                .sheet(isPresented: .constant(true)) {
+                    Text("Sheet")
+                        #if os(iOS) || os(tvOS)
+                        .introspect(
+                            .sheet,
+                            on: .iOS(.v15, .v16, .v17),
+                            customize: spy0
+                        )
+                        #endif
+                }
+        }
+    }
+    #elseif os(tvOS)
+    func testSheet() throws {
+        throw XCTSkip("FIXME: this test doesn't pass for some reason, even though introspection works in the Showcase app")
+
+        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+            let spy0 = spies[0]
+
+            Text("Root")
+                .sheet(isPresented: .constant(true)) {
+                    Text("Content")
+                        .introspect(
+                            .sheet,
+                            on: .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            customize: spy0
+                        )
+                }
+        }
+    }
+    #endif
+
+//    #if !os(tvOS)
+//    func testPresentationAsPopover() throws {
+//        XCTAssertViewIntrospection(of: PlatformPresentation.self) { spies in
+//            let spy0 = spies[0]
+//
+//            Text("Root")
+//                .popover(isPresented: .constant(true)) {
+//                    Text("Popover")
+//                        #if os(iOS) || os(tvOS)
+//                        .introspect(
+//                            .presentation,
+//                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
+//                            customize: spy0
+//                        )
+//                        #endif
+//                }
+//        }
+//    }
+//    #endif
+}
+#endif

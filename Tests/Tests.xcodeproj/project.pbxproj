@@ -96,7 +96,8 @@
 		D58CE15629C621B30081BFB0 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D58CE15529C621B30081BFB0 /* SwiftUIIntrospect */; };
 		D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58CE15729C621DD0081BFB0 /* TestUtils.swift */; };
 		D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */; };
-		D5ADFACC2A4A22AE009494FD /* PresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* PresentationTests.swift */; };
+		D5ADFACC2A4A22AE009494FD /* SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* SheetTests.swift */; };
+		D5ADFACE2A4A3482009494FD /* FullScreenCoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */; };
 		D5B67B842A0D318F007D5D9B /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */; };
@@ -174,7 +175,8 @@
 		D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplitViewTests.swift; sourceTree = "<group>"; };
 		D58CE15729C621DD0081BFB0 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithVerticalAxisTests.swift; sourceTree = "<group>"; };
-		D5ADFACB2A4A22AE009494FD /* PresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationTests.swift; sourceTree = "<group>"; };
+		D5ADFACB2A4A22AE009494FD /* SheetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTests.swift; sourceTree = "<group>"; };
+		D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverTests.swift; sourceTree = "<group>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
 		D5F0BE4929C0DBE800AD95AB /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHostApp.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */,
 				D57506872A27CB9800A628E4 /* FormTests.swift */,
 				D57506892A27CE7900A628E4 /* FormWithGroupedStyleTests.swift */,
+				D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */,
 				D58119C32A211B8A0081F853 /* ListCellTests.swift */,
 				D55F448C2A1FF209003381E4 /* ListTests.swift */,
 				D57506852A27CA4100A628E4 /* ListWithBorderedStyleTests.swift */,
@@ -254,11 +257,11 @@
 				D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */,
 				D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */,
 				D58119D52A23AED70081F853 /* PickerWithWheelStyleTests.swift */,
-				D5ADFACB2A4A22AE009494FD /* PresentationTests.swift */,
 				D575069B2A27F68700A628E4 /* ProgressViewWithCircularStyleTests.swift */,
 				D575069D2A27F80E00A628E4 /* ProgressViewWithLinearStyleTests.swift */,
 				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
 				D57506A12A281B9C00A628E4 /* SearchFieldTests.swift */,
+				D5ADFACB2A4A22AE009494FD /* SheetTests.swift */,
 				D58119CF2A23A62C0081F853 /* SliderTests.swift */,
 				D58119D12A23A77C0081F853 /* StepperTests.swift */,
 				D575069F2A27FC0400A628E4 /* TableTests.swift */,
@@ -562,6 +565,7 @@
 				D575067A2A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift in Sources */,
 				D57506922A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift in Sources */,
 				D57506822A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift in Sources */,
+				D5ADFACE2A4A3482009494FD /* FullScreenCoverTests.swift in Sources */,
 				D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */,
 				D575068A2A27CE7900A628E4 /* FormWithGroupedStyleTests.swift in Sources */,
 				D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */,
@@ -586,7 +590,7 @@
 				D58CE15829C621DD0081BFB0 /* TestUtils.swift in Sources */,
 				D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */,
 				D58119CE2A23A4A70081F853 /* TabViewWithPageStyleTests.swift in Sources */,
-				D5ADFACC2A4A22AE009494FD /* PresentationTests.swift in Sources */,
+				D5ADFACC2A4A22AE009494FD /* SheetTests.swift in Sources */,
 				D575069A2A27F48D00A628E4 /* DatePickerWithFieldStyleTests.swift in Sources */,
 				D503B2AC2A49BFE300027F5F /* VideoPlayerTests.swift in Sources */,
 				D57506A02A27FC0400A628E4 /* TableTests.swift in Sources */,

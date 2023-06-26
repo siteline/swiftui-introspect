@@ -11,13 +11,11 @@ final class PopoverTests: XCTestCase {
             Text("Root")
                 .popover(isPresented: .constant(true)) {
                     Text("Popover")
-                        #if os(iOS)
                         .introspect(
                             .popover,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17),
                             customize: spy0
                         )
-                        #endif
                 }
         }
     }

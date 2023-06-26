@@ -64,8 +64,8 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
     }
 }
 
+#if !os(tvOS)
 @available(iOS 15, *)
-@available(tvOS, unavailable)
 extension iOSViewVersion<SheetType, UISheetPresentationController> {
     @_disfavoredOverload
     public static let v15 = Self(for: .v15, selector: selector)
@@ -78,6 +78,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
         .from(UIViewController.self, selector: \.sheetPresentationController)
     }
 }
+#endif
 
 extension tvOSViewVersion<SheetType, UIPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)

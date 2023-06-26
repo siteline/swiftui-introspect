@@ -7,12 +7,13 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         SignInWithAppleButton {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
+///         SignInWithAppleButton(.signIn) { request in
+///             request.requestedScopes = [.fullName, .email]
+///         } onCompletion: { result in
+///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // UITabBarController
+///         .introspect(.signInWithAppleButton, on: .iOS(.v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
 /// }
@@ -23,12 +24,13 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         SignInWithAppleButton {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
+///         SignInWithAppleButton(.signIn) { request in
+///             request.requestedScopes = [.fullName, .email]
+///         } onCompletion: { result in
+///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // UITabBarController
+///         .introspect(.signInWithAppleButton, on: .tvOS(.v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
 /// }
@@ -39,17 +41,17 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         SignInWithAppleButton {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
+///         SignInWithAppleButton(.signIn) { request in
+///             request.requestedScopes = [.fullName, .email]
+///         } onCompletion: { result in
+///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // NSSignInWithAppleButton
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14),) {
+///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
 /// }
 /// ```
-///
 public struct SignInWithAppleButtonType: IntrospectableViewType {}
 
 #if canImport(AuthenticationServices)
@@ -59,7 +61,6 @@ extension IntrospectableViewType where Self == SignInWithAppleButtonType {
     public static var signInWithAppleButton: Self { .init() }
 }
 
-#if canImport(UIKit)
 extension iOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButton> {
     @available(*, unavailable, message: "SignInWithAppleButton isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -77,7 +78,7 @@ extension tvOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButto
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
 }
-#elseif canImport(AppKit)
+
 extension macOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButton> {
     @available(*, unavailable, message: "SignInWithAppleButton isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()
@@ -86,5 +87,4 @@ extension macOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButt
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
-#endif
 #endif

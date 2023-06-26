@@ -59,25 +59,5 @@ final class SheetTests: XCTestCase {
         }
     }
     #endif
-
-//    #if !os(tvOS)
-//    func testPresentationAsPopover() throws {
-//        XCTAssertViewIntrospection(of: PlatformPresentation.self) { spies in
-//            let spy0 = spies[0]
-//
-//            Text("Root")
-//                .popover(isPresented: .constant(true)) {
-//                    Text("Popover")
-//                        #if os(iOS) || os(tvOS)
-//                        .introspect(
-//                            .presentation,
-//                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
-//                            customize: spy0
-//                        )
-//                        #endif
-//                }
-//        }
-//    }
-//    #endif
 }
 #endif

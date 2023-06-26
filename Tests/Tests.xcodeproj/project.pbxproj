@@ -98,6 +98,7 @@
 		D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */; };
 		D5ADFACC2A4A22AE009494FD /* SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* SheetTests.swift */; };
 		D5ADFACE2A4A3482009494FD /* FullScreenCoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */; };
+		D5ADFAD02A4A3E54009494FD /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACF2A4A3E54009494FD /* PopoverTests.swift */; };
 		D5B67B842A0D318F007D5D9B /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformTests.swift */; };
@@ -177,6 +178,7 @@
 		D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithVerticalAxisTests.swift; sourceTree = "<group>"; };
 		D5ADFACB2A4A22AE009494FD /* SheetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTests.swift; sourceTree = "<group>"; };
 		D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverTests.swift; sourceTree = "<group>"; };
+		D5ADFACF2A4A3E54009494FD /* PopoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
 		D5F0BE4929C0DBE800AD95AB /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHostApp.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */,
 				D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */,
 				D58119D52A23AED70081F853 /* PickerWithWheelStyleTests.swift */,
+				D5ADFACF2A4A3E54009494FD /* PopoverTests.swift */,
 				D575069B2A27F68700A628E4 /* ProgressViewWithCircularStyleTests.swift */,
 				D575069D2A27F80E00A628E4 /* ProgressViewWithLinearStyleTests.swift */,
 				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
@@ -577,6 +580,7 @@
 				D57506942A27EED200A628E4 /* DatePickerWithStepperFieldStyleTests.swift in Sources */,
 				D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */,
 				D58119D02A23A62C0081F853 /* SliderTests.swift in Sources */,
+				D5ADFAD02A4A3E54009494FD /* PopoverTests.swift in Sources */,
 				D58119D82A23B3B00081F853 /* ButtonTests.swift in Sources */,
 				D55F448D2A1FF209003381E4 /* ListTests.swift in Sources */,
 				D58547FA2A1D12270068ADF4 /* NavigationSplitViewTests.swift in Sources */,

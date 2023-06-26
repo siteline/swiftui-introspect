@@ -55,6 +55,8 @@
 		D50E2F892A2B9F6600BAFB03 /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */; };
 		D50E2F8B2A2B9F6600BAFB03 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D50E2F5C2A2B9F6600BAFB03 /* SwiftUIIntrospect */; };
 		D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */; };
+		D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
+		D534D4DD2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
 		D55F448D2A1FF209003381E4 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55F448C2A1FF209003381E4 /* ListTests.swift */; };
 		D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */; };
 		D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */; };
@@ -142,6 +144,7 @@
 		D50E2F572A2B9EFB00BAFB03 /* LegacyTestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTestsHostApp.swift; sourceTree = "<group>"; };
 		D50E2F902A2B9F6600BAFB03 /* LegacyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LegacyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
+		D534D4DB2A4A596200218BFB /* WindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTests.swift; sourceTree = "<group>"; };
 		D55F448C2A1FF209003381E4 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonTests.swift; sourceTree = "<group>"; };
 		D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithSegmentedStyleTests.swift; sourceTree = "<group>"; };
@@ -288,6 +291,7 @@
 				D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */,
 				D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */,
 				D58119C52A227E930081F853 /* ViewTests.swift */,
+				D534D4DB2A4A596200218BFB /* WindowTests.swift */,
 			);
 			path = ViewTypes;
 			sourceTree = "<group>";
@@ -516,6 +520,7 @@
 				D50E2F632A2B9F6600BAFB03 /* TabViewTests.swift in Sources */,
 				D50E2F642A2B9F6600BAFB03 /* ListWithInsetStyleTests.swift in Sources */,
 				D50E2F652A2B9F6600BAFB03 /* PickerWithMenuStyleTests.swift in Sources */,
+				D534D4DD2A4A596200218BFB /* WindowTests.swift in Sources */,
 				D50E2F662A2B9F6600BAFB03 /* DatePickerWithWheelStyleTests.swift in Sources */,
 				D50E2F672A2B9F6600BAFB03 /* ListWithInsetGroupedStyleTests.swift in Sources */,
 				D5ADFAD32A4A4649009494FD /* SignInWithAppleButtonTests.swift in Sources */,
@@ -585,6 +590,7 @@
 				D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */,
 				D575068A2A27CE7900A628E4 /* FormWithGroupedStyleTests.swift in Sources */,
 				D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */,
+				D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */,
 				D58119CA2A239BAC0081F853 /* TextEditorTests.swift in Sources */,
 				D57506842A27C8D400A628E4 /* ListWithSidebarStyleTests.swift in Sources */,
 				D575069E2A27F80E00A628E4 /* ProgressViewWithLinearStyleTests.swift in Sources */,

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// An abstract representation of a presented view's type in SwiftUI.
+/// An abstract representation of `.fullScreenCover` in SwiftUI.
 ///
 /// ### iOS
 ///
@@ -10,9 +10,9 @@ import SwiftUI
 ///
 ///     public var body: some View {
 ///         Button("Root", action: { isPresented = true })
-///             .sheet(isPresented: $isPresented) {
-///                 Text("Sheet")
-///                     .introspect(.presentation, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///             .fullScreenCover(isPresented: $isPresented) {
+///                 Text("Content")
+///                     .introspect(.fullScreenCover, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -28,9 +28,9 @@ import SwiftUI
 ///
 ///     public var body: some View {
 ///         Button("Root", action: { isPresented = true })
-///             .sheet(isPresented: $isPresented) {
-///                 Text("Sheet")
-///                     .introspect(.presentation, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             .fullScreenCover(isPresented: $isPresented) {
+///                 Text("Content")
+///                     .introspect(.fullScreenCover, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -42,17 +42,17 @@ import SwiftUI
 ///
 /// Not available.
 ///
-public struct PresentationType: IntrospectableViewType {
+public struct FullScreenCoverType: IntrospectableViewType {
     public var scope: IntrospectionScope { .ancestor }
 }
 
 #if os(iOS) || os(tvOS)
-extension IntrospectableViewType where Self == PresentationType {
-    public static var presentation: Self { .init() }
+extension IntrospectableViewType where Self == FullScreenCoverType {
+    public static var fullScreenCover: Self { .init() }
 }
 
 #if canImport(UIKit)
-extension iOSViewVersion<PresentationType, UIPresentationController> {
+extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
@@ -64,7 +64,7 @@ extension iOSViewVersion<PresentationType, UIPresentationController> {
     }
 }
 
-extension tvOSViewVersion<PresentationType, UIPresentationController> {
+extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
@@ -74,17 +74,6 @@ extension tvOSViewVersion<PresentationType, UIPresentationController> {
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
     }
-}
-
-extension UIPresentationController: PlatformEntity {
-    @_spi(Internals)
-    public var ancestor: UIPresentationController? { nil }
-
-    @_spi(Internals)
-    public var descendants: [UIPresentationController] { [] }
-
-    @_spi(Internals)
-    public func isDescendant(of other: UIPresentationController) -> Bool { false }
 }
 #endif
 #endif

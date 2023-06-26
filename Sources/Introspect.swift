@@ -166,3 +166,16 @@ extension PlatformViewController: PlatformEntity {
         self.ancestors.contains(other)
     }
 }
+
+#if canImport(UIKit)
+extension UIPresentationController: PlatformEntity {
+    @_spi(Internals)
+    public var ancestor: UIPresentationController? { nil }
+
+    @_spi(Internals)
+    public var descendants: [UIPresentationController] { [] }
+
+    @_spi(Internals)
+    public func isDescendant(of other: UIPresentationController) -> Bool { false }
+}
+#endif

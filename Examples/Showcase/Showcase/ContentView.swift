@@ -239,12 +239,11 @@ struct PresentationShowcase: View {
             Button("Popover", action: { isPopoverPresented = true })
                 .popover(isPresented: $isPopoverPresented) {
                     Button("Dismiss", action: { isPopoverPresented = false })
+                        .padding()
                         .introspect(
                             .popover,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17)
                         ) { presentationController in
-                            presentationController.sourceView?.backgroundColor = .green
-                            presentationController.presentedView?.backgroundColor = .blue
                             presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                         }
                 }

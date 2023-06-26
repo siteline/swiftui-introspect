@@ -53,7 +53,8 @@ extension IntrospectableViewType where Self == FullScreenCoverType {
 
 #if canImport(UIKit)
 extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
-    public static let v13 = Self(for: .v13, selector: selector)
+    @available(*, unavailable, message: ".fullScreenCover isn't available on iOS 13")
+    public static let v13 = Self.unavailable()
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
@@ -65,7 +66,8 @@ extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
 }
 
 extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
-    public static let v13 = Self(for: .v13, selector: selector)
+    @available(*, unavailable, message: ".fullScreenCover isn't available on tvOS 13")
+    public static let v13 = Self.unavailable()
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)

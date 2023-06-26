@@ -16,13 +16,16 @@ struct ContentView: View {
             NavigationShowcase()
                 .tabItem { Text("Navigation") }
                 .tag(2)
+            PresentationShowcase()
+                .tabItem { Text("Presentation") }
+                .tag(3)
             #endif
             GenericViewShowcase()
                 .tabItem { Text("Generic View") }
-                .tag(3)
+                .tag(4)
             SimpleElementsShowcase()
                 .tabItem { Text("Simple elements") }
-                .tag(4)
+                .tag(5)
         }
         #if os(iOS) || os(tvOS)
         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { tabBarController in
@@ -193,6 +196,30 @@ struct NavigationShowcase: View {
             #endif
         }
         #endif
+    }
+}
+
+struct PresentationShowcase: View {
+    @State var isSheetPresented = false
+    @State var isFullScreenPresented = false
+    @State var isPopoverPresented = false
+
+    var body: some View {
+        if #available(iOS 14, tvOS 14, *) {
+            Button("Full Screen Cover", action: { isFullScreenPresented = true })
+                .fullScreenCover(isPresented: $isFullScreenPresented) {
+                    Button("Dismiss", action: { isFullScreenPresented = false })
+                        #if os(iOS) || os(tvOS)
+                        .introspect(
+                            .fullScreenCover,
+                            on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17)
+                        ) { presentationController in
+                            presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
+                            presentationController.presentedView?.backgroundColor = .blue
+                        }
+                        #endif
+                }
+        }
     }
 }
 

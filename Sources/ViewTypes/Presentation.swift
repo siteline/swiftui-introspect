@@ -5,19 +5,17 @@ import SwiftUI
 /// ### iOS
 ///
 /// ```swift
-/// struct ContentView: View {
-///     var body: some View {
-///         Presentation {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .introspect(.form, on: .iOS(.v13, .v14, .v15)) {
-///             print(type(of: $0)) // UITableView
-///         }
-///         .introspect(.form, on: .iOS(.v16, .v17)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+/// public struct ContentView: View {
+///     @State var isPresented = false
+///
+///     public var body: some View {
+///         Button("Root", action: { isPresented = true })
+///             .sheet(isPresented: $isPresented) {
+///                 Text("Sheet")
+///                     .introspect(.presentation, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                         print(type(of: $0)) // UIPresentationController
+///                     }
+///             }
 ///     }
 /// }
 /// ```
@@ -25,16 +23,17 @@ import SwiftUI
 /// ### tvOS
 ///
 /// ```swift
-/// struct ContentView: View {
-///     var body: some View {
-///         Presentation {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // UITableView
-///         }
+/// public struct ContentView: View {
+///     @State var isPresented = false
+///
+///     public var body: some View {
+///         Button("Root", action: { isPresented = true })
+///             .sheet(isPresented: $isPresented) {
+///                 Text("Sheet")
+///                     .introspect(.presentation, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                         print(type(of: $0)) // UIPresentationController
+///                     }
+///             }
 ///     }
 /// }
 /// ```

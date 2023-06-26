@@ -3,6 +3,9 @@ Changelog
 
 ## master
 
+- Added: `.sheet` introspection (#268)
+- Added: `.fullScreenCover` introspection (#268)
+- Added: `.popover` introspection (#268)
 - Added: `VideoPlayer` introspection (#264)
 - Added: `SignInWithAppleButton` introspection (#265)
 - Added: `View` introspection on macOS (#266)

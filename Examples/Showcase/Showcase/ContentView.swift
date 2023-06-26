@@ -199,6 +199,7 @@ struct NavigationShowcase: View {
     }
 }
 
+#if !os(macOS)
 struct PresentationShowcase: View {
     @State var isSheetPresented = false
     @State var isFullScreenPresented = false
@@ -236,6 +237,7 @@ struct PresentationShowcase: View {
         }
     }
 }
+#endif
 
 struct GenericViewShowcase: View {
     var body: some View {

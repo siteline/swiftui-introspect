@@ -56,6 +56,7 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
 final class IntrospectionAnchorPlatformViewController: PlatformViewController {
     init(id: IntrospectionViewID) {
         super.init(nibName: nil, bundle: nil)
+        self.isIntrospectionPlatformEntity = true
         IntrospectionStore.shared[id, default: .init()].anchor = self
     }
 
@@ -64,9 +65,15 @@ final class IntrospectionAnchorPlatformViewController: PlatformViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+    #if canImport(UIKit)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.isIntrospectionPlatformEntity = true
+    }
+    #elseif canImport(AppKit)
     override func loadView() {
         view = NSView()
+        view.isIntrospectionPlatformEntity = true
     }
     #endif
 }
@@ -152,6 +159,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
             }
             handler?(self)
         }
+        self.isIntrospectionPlatformEntity = true
         IntrospectionStore.shared[id, default: .init()].controller = self
     }
 
@@ -164,6 +172,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.introspectionController = self
+        view.isIntrospectionPlatformEntity = true
         handler?()
     }
 
@@ -185,6 +194,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     override func loadView() {
         view = NSView()
         view.introspectionController = self
+        view.isIntrospectionPlatformEntity = true
     }
 
     override func viewDidLoad() {
@@ -210,6 +220,19 @@ extension PlatformView {
         set {
             let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
             objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+}
+
+extension PlatformEntity {
+    var isIntrospectionPlatformEntity: Bool {
+        get {
+            let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
+            return objc_getAssociatedObject(self, key) as? Bool ?? false
+        }
+        set {
+            let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
+            objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

@@ -47,6 +47,12 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
         if let selector {
             content
                 .background(
+                    // boxes up content without affecting appearance or behavior, for more accurate `.view` introspection
+                    Color.white
+                        .opacity(0)
+                        .accessibility(hidden: true)
+                )
+                .background(
                     IntrospectionAnchorView(id: id)
                         .frame(width: 0, height: 0)
                         .accessibility(hidden: true)
@@ -116,6 +122,7 @@ extension PlatformEntity {
 
         return commonAncestor
             .allDescendants(between: backEntity~, and: frontEntity~)
+            .filter { !$0.isIntrospectionPlatformEntity }
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }
@@ -125,6 +132,7 @@ extension PlatformEntity {
     ) -> PlatformSpecificEntity? {
         self.ancestors
             .lazy
+            .filter { !$0.isIntrospectionPlatformEntity }
             .compactMap { $0 as? PlatformSpecificEntity }
             .first
     }

@@ -9,10 +9,10 @@ import SwiftUI
 ///     @State var isPresented = false
 ///
 ///     public var body: some View {
-///         Button("Root", action: { isPresented = true })
+///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
-///                 Text("Content")
-///                     .introspect(.fullScreenCover, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 Button("Dismiss", action: { isPresented = false })
+///                     .introspect(.fullScreenCover, on: .iOS(.v14, .v15, .v16, .v17)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -27,10 +27,10 @@ import SwiftUI
 ///     @State var isPresented = false
 ///
 ///     public var body: some View {
-///         Button("Root", action: { isPresented = true })
+///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
-///                 Text("Content")
-///                     .introspect(.fullScreenCover, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 Button("Dismiss", action: { isPresented = false })
+///                     .introspect(.fullScreenCover, on: .tvOS(.v14, .v15, .v16, .v17)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }

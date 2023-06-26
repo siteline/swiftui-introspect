@@ -43,7 +43,9 @@ import SwiftUI
 ///
 /// Not available.
 ///
-public struct PresentationType: IntrospectableViewType {}
+public struct PresentationType: IntrospectableViewType {
+    public var scope: IntrospectionScope { .ancestor }
+}
 
 #if os(iOS) || os(tvOS)
 extension IntrospectableViewType where Self == PresentationType {
@@ -59,7 +61,7 @@ extension iOSViewVersion<PresentationType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
-        .default.withAncestorSelector(\.presentationController)
+        .from(UIViewController.self, selector: \.presentationController)
     }
 }
 
@@ -71,25 +73,19 @@ extension tvOSViewVersion<PresentationType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
-        .default.withAncestorSelector(\.presentationController)
+        .from(UIViewController.self, selector: \.presentationController)
     }
 }
 
 extension UIPresentationController: PlatformEntity {
     @_spi(Internals)
-    public var ancestor: UIPresentationController? {
-        nil
-    }
+    public var ancestor: UIPresentationController? { nil }
 
     @_spi(Internals)
-    public var descendants: [UIPresentationController] {
-        []
-    }
+    public var descendants: [UIPresentationController] { [] }
 
     @_spi(Internals)
-    public func isDescendant(of other: UIPresentationController) -> Bool {
-        false
-    }
+    public func isDescendant(of other: UIPresentationController) -> Bool { false }
 }
 #endif
 #endif

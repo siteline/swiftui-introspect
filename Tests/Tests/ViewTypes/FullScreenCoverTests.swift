@@ -3,8 +3,8 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
-// FIXME: this doesn't pass, even though introspection works in the Showcase app
 final class FullScreenCoverTests: XCTestCase {
+    // FIXME: this doesn't pass, even though introspection works in the Showcase app
 //    func testPresentationAsFullScreenCover() throws {
 //        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
 //            let spy0 = spies[0]

@@ -5,29 +5,23 @@ import XCTest
 
 final class SheetTests: XCTestCase {
     #if os(iOS)
-    func testSheet_beforeiOS15() throws {
-        guard #unavailable(iOS 15, tvOS 15) else {
-            throw XCTSkip()
-        }
-
+    func testSheet() throws {
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Sheet")
-                        #if os(iOS) || os(tvOS)
                         .introspect(
                             .sheet,
-                            on: .iOS(.v13, .v14), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
                             customize: spy0
                         )
-                        #endif
                 }
         }
     }
 
-    func testSheet_iOS15AndLater() throws {
+    func testSheetAsSheetPresentationController() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()
         }
@@ -38,13 +32,11 @@ final class SheetTests: XCTestCase {
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Sheet")
-                        #if os(iOS) || os(tvOS)
                         .introspect(
                             .sheet,
                             on: .iOS(.v15, .v16, .v17),
                             customize: spy0
                         )
-                        #endif
                 }
         }
     }

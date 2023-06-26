@@ -12,8 +12,8 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .iOS(.v14, .v15, .v16, .v17)) {
-///                         print(type(of: $0)) // UISheetPresentationController
+///                     .introspect(.sheet, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
 ///     }
@@ -30,8 +30,8 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .tvOS(.v14, .v15, .v16, .v17)) {
-///                         print(type(of: $0)) // UISheetPresentationController
+///                     .introspect(.sheet, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
 ///     }
@@ -55,6 +55,9 @@ extension IntrospectableViewType where Self == SheetType {
 extension iOSViewVersion<SheetType, UIPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
@@ -64,8 +67,11 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
 @available(iOS 15, *)
 @available(tvOS, unavailable)
 extension iOSViewVersion<SheetType, UISheetPresentationController> {
+    @_disfavoredOverload
     public static let v15 = Self(for: .v15, selector: selector)
+    @_disfavoredOverload
     public static let v16 = Self(for: .v16, selector: selector)
+    @_disfavoredOverload
     public static let v17 = Self(for: .v17, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {

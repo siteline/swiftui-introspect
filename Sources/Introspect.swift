@@ -47,7 +47,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
         if let selector {
             content
                 .background(
-                    // boxes up content for more accurate `.view` introspection, without affecting original appearance or behavior
+                    // boxes up content without affecting appearance or behavior, for more accurate `.view` introspection
                     Color.white
                         .opacity(0)
                         .accessibility(hidden: true)

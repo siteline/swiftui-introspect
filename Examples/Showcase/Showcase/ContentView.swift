@@ -16,10 +16,10 @@ struct ContentView: View {
             NavigationShowcase()
                 .tabItem { Text("Navigation") }
                 .tag(2)
-            ViewControllerShowcase()
-                .tabItem { Text("ViewController") }
-                .tag(3)
             #endif
+            GenericViewShowcase()
+                .tabItem { Text("Generic View") }
+                .tag(3)
             SimpleElementsShowcase()
                 .tabItem { Text("Simple elements") }
                 .tag(4)
@@ -196,25 +196,58 @@ struct NavigationShowcase: View {
     }
 }
 
-#if os(iOS) || os(tvOS)
-struct ViewControllerShowcase: View {
+struct GenericViewShowcase: View {
     var body: some View {
-        NavigationView {
-            VStack {
-                Text(".introspect(.view, ...)")
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, 12)
-                    .font(.system(.subheadline, design: .monospaced))
-            }
+        VStack(spacing: 10) {
+            Text(".introspect(.view, ...)")
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .font(.system(.subheadline, design: .monospaced))
+                #if os(iOS) || os(tvOS)
+                .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { view in
+                    view.backgroundColor = .cyan
+                }
+                #elseif os(macOS)
+                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { view in
+                    view.layer?.backgroundColor = NSColor.cyan.cgColor
+                }
+                #endif
+
+            Button("A button", action: {})
+                .padding(5)
+                #if os(iOS) || os(tvOS)
+                .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { view in
+                    view.backgroundColor = .lightGray
+                }
+                #elseif os(macOS)
+                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { view in
+                    view.layer?.backgroundColor = NSColor.lightGray.cgColor
+                }
+                #endif
+
+            Image(systemName: "scribble")
+                #if os(iOS) || os(tvOS)
+                .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { view in
+                    view.backgroundColor = .blue
+                }
+                #elseif os(macOS)
+                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { view in
+                    view.layer?.backgroundColor = NSColor.blue.cgColor
+                }
+                #endif
         }
-        .navigationViewStyle(.stack)
-        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { viewController in
-            viewController.children.first?.view.backgroundColor = .cyan
+        .padding()
+        #if os(iOS) || os(tvOS)
+        .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { view in
+            view.backgroundColor = .red
         }
+        #elseif os(macOS)
+        .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { view in
+            view.layer?.backgroundColor = NSColor.red.cgColor
+        }
+        #endif
     }
 }
-#endif
 
 struct SimpleElementsShowcase: View {
 

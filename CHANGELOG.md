@@ -3,6 +3,11 @@ Changelog
 
 ## master
 
+- Added: `VideoPlayer` introspection (#264)
+- Added: `SignInWithAppleButton` introspection (#265)
+- Added: `View` introspection on macOS (#266)
+- Improved: `View` introspection accuracy (#266)
+
 ## [0.6.3]
 
 ### SwiftUIIntrospect

@@ -263,7 +263,6 @@
 				D58119CD2A23A4A70081F853 /* TabViewWithPageStyleTests.swift */,
 				D58119C92A239BAC0081F853 /* TextEditorTests.swift */,
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
-				D57506A12A281B9C00A628E4 /* SearchFieldTests.swift */,
 				D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 				D58119C72A22AC130081F853 /* ToggleTests.swift */,

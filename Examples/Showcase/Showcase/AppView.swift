@@ -1,6 +1,21 @@
 import SwiftUI
 import SwiftUIIntrospect
 
+struct AppView: View {
+    var body: some View {
+        ContentView()
+            #if os(iOS) || os(tvOS)
+            .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { window in
+                window.backgroundColor = .brown
+            }
+            #elseif os(macOS)
+            .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { window in
+                window.backgroundColor = .lightGray
+            }
+            #endif
+    }
+}
+
 struct ContentView: View {
     @State var selection = 0
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D503B2AC2A49BFE300027F5F /* VideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */; };
 		D50E2F582A2B9EFB00BAFB03 /* LegacyTestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50E2F572A2B9EFB00BAFB03 /* LegacyTestsHostApp.swift */; };
 		D50E2F5E2A2B9F6600BAFB03 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */; };
 		D50E2F5F2A2B9F6600BAFB03 /* NavigationStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */; };
@@ -126,6 +127,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerTests.swift; sourceTree = "<group>"; };
 		D50E2F552A2B9DEE00BAFB03 /* LegacyTestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LegacyTestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50E2F572A2B9EFB00BAFB03 /* LegacyTestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyTestsHostApp.swift; sourceTree = "<group>"; };
 		D50E2F902A2B9F6600BAFB03 /* LegacyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LegacyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,14 +235,14 @@
 				D57506912A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift */,
 				D57506872A27CB9800A628E4 /* FormTests.swift */,
 				D57506892A27CE7900A628E4 /* FormWithGroupedStyleTests.swift */,
+				D58119C32A211B8A0081F853 /* ListCellTests.swift */,
 				D55F448C2A1FF209003381E4 /* ListTests.swift */,
 				D57506852A27CA4100A628E4 /* ListWithBorderedStyleTests.swift */,
 				D575067D2A27C43400A628E4 /* ListWithGroupedStyleTests.swift */,
 				D57506812A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift */,
 				D575067F2A27C55600A628E4 /* ListWithInsetStyleTests.swift */,
-				D57506832A27C8D400A628E4 /* ListWithSidebarStyleTests.swift */,
 				D575067B2A27C24600A628E4 /* ListWithPlainStyleTests.swift */,
-				D58119C32A211B8A0081F853 /* ListCellTests.swift */,
+				D57506832A27C8D400A628E4 /* ListWithSidebarStyleTests.swift */,
 				D58547F92A1D12270068ADF4 /* NavigationSplitViewTests.swift */,
 				D58547F72A1CDD740068ADF4 /* NavigationStackTests.swift */,
 				D5F8D5EE2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift */,
@@ -251,6 +253,7 @@
 				D575069B2A27F68700A628E4 /* ProgressViewWithCircularStyleTests.swift */,
 				D575069D2A27F80E00A628E4 /* ProgressViewWithLinearStyleTests.swift */,
 				D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */,
+				D57506A12A281B9C00A628E4 /* SearchFieldTests.swift */,
 				D58119CF2A23A62C0081F853 /* SliderTests.swift */,
 				D58119D12A23A77C0081F853 /* StepperTests.swift */,
 				D575069F2A27FC0400A628E4 /* TableTests.swift */,
@@ -258,12 +261,12 @@
 				D58119CD2A23A4A70081F853 /* TabViewWithPageStyleTests.swift */,
 				D58119C92A239BAC0081F853 /* TextEditorTests.swift */,
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
-				D57506A12A281B9C00A628E4 /* SearchFieldTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 				D58119C72A22AC130081F853 /* ToggleTests.swift */,
 				D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */,
 				D575068F2A27D69600A628E4 /* ToggleWithCheckboxStyleTests.swift */,
 				D575068B2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift */,
+				D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */,
 				D58119C52A227E930081F853 /* ViewTests.swift */,
 			);
 			path = ViewTypes;
@@ -577,6 +580,7 @@
 				D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */,
 				D58119CE2A23A4A70081F853 /* TabViewWithPageStyleTests.swift in Sources */,
 				D575069A2A27F48D00A628E4 /* DatePickerWithFieldStyleTests.swift in Sources */,
+				D503B2AC2A49BFE300027F5F /* VideoPlayerTests.swift in Sources */,
 				D57506A02A27FC0400A628E4 /* TableTests.swift in Sources */,
 				D58119D42A23AC100081F853 /* DatePickerTests.swift in Sources */,
 				D575068C2A27D40500A628E4 /* ToggleWithSwitchStyleTests.swift in Sources */,

@@ -13,7 +13,7 @@ import SwiftUI
 ///             .popover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
 ///                     .introspect(.popover, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-///                         print(type(of: $0)) // UIPresentationController
+///                         print(type(of: $0)) // UIPopoverPresentationController
 ///                     }
 ///             }
 ///     }
@@ -22,21 +22,7 @@ import SwiftUI
 ///
 /// ### tvOS
 ///
-/// ```swift
-/// public struct ContentView: View {
-///     @State var isPresented = false
-///
-///     public var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .popover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.popover, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
-/// }
-/// ```
+/// Not available.
 ///
 /// ### macOS
 ///

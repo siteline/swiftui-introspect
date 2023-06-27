@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-podspecs:
-    name: lint podspecs
+  lint-podspec:
+    name: lint podspec
     runs-on: macos-latest
     steps:
       - name: Git Checkout
@@ -22,13 +22,7 @@ jobs:
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Lint Introspect.podspec
-        run: |
-          set -eo pipefail
-          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint Introspect.podspec --allow-warnings
-
-      - name: Lint SwiftUIIntrospect.podspec
+      - name: Lint podspec
         run: |
           set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
@@ -85,10 +79,6 @@ jobs:
             runtime: tvOS 16.4
             install: false
 
-          - platform: [macos, 11]
-            os: macos-11
-            xcode: 13.2.1
-            install: false
           - platform: [macos, 12]
             os: macos-12
             xcode: 14.2
@@ -123,18 +113,11 @@ jobs:
       - name: List Available Runtimes and Simulators
         run: xcrun simctl list
 
-      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
-        name: Build Showcase
+      - name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' }}
-        name: Run Tests (Introspect)
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
-
-      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
-        name: Run Tests (SwiftUIIntrospect, Debug)
+      - name: Run Tests (SwiftUIIntrospect, Debug)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
-      - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
-        name: Run Tests (SwiftUIIntrospect, Release)
+      - name: Run Tests (SwiftUIIntrospect, Release)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Release

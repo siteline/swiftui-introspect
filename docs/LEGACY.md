@@ -1,10 +1,8 @@
 > **Note**
 > 
-> [`SwiftUIIntrospect`](Package@swift-5.7.swift#L19) is an all-new module based off the original [`Introspect`](Package.swift#L13) module that improves on stability, predictability, and ergonomics.
-> 
-> Both modules currently live together under this repo, but the plan is to ultimately obsolete `Introspect` in favor of `SwiftUIIntrospect` as part of a 1.0 release.
-> 
-> Read the [`SwiftUIIntrospect` documentation](docs/SwiftUIIntrospect.md) to learn more.
+> [`Introspect`](../Package.swift#L13) is a legacy module being replaced by [`SwiftUIIntrospect`](../Package@swift-5.7.swift#L19) later this year.
+>
+> Please refer to this repo's [README](../README.md) to learn more.
 
 Introspect for SwiftUI
 ======================

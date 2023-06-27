@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added: window introspection (#269)
 - Added: `.sheet` introspection (#268)
 - Added: `.fullScreenCover` introspection (#268)
 - Added: `.popover` introspection (#268)

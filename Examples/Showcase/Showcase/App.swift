@@ -8,7 +8,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UIHostingController(rootView: ContentView())
+        window?.rootViewController = UIHostingController(rootView: AppView())
         window?.makeKeyAndVisible()
         return true
     }
@@ -18,7 +18,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 struct App: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppView()
         }
     }
 }

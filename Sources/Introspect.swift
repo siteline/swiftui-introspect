@@ -178,4 +178,15 @@ extension UIPresentationController: PlatformEntity {
     @_spi(Internals)
     public func isDescendant(of other: UIPresentationController) -> Bool { false }
 }
+#elseif canImport(AppKit)
+extension NSWindow: PlatformEntity {
+    @_spi(Internals)
+    public var ancestor: NSWindow? { nil }
+
+    @_spi(Internals)
+    public var descendants: [NSWindow] { [] }
+
+    @_spi(Internals)
+    public func isDescendant(of other: NSWindow) -> Bool { false }
+}
 #endif

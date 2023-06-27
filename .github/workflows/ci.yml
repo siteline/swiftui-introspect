@@ -117,7 +117,7 @@ jobs:
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
       - name: Run Tests (SwiftUIIntrospect, Debug)
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} configuration:Debug
 
       - name: Run Tests (SwiftUIIntrospect, Release)
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Release
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} configuration:Release

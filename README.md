@@ -127,7 +127,7 @@ Introspection
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewtype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
+**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-introspectable).
 
 ### Cannot implement
 
@@ -188,8 +188,8 @@ TextField("Text Field", text: <#Binding<String>#>)
     }
 ```
 
-Implement your own selector
----------------------------
+Implement your own introspectable
+---------------------------------
 
 **Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues).
 

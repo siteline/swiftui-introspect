@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.7.0]
+
 ### SwiftUIIntrospect
 
 - Added: window introspection (#269)

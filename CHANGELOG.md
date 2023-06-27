@@ -16,7 +16,7 @@ Changelog
 
 ### Introspect
 
-This module is now deprecated (#272), and will be removed later this year (whenever iOS/tvOS 17 come out).
+This module is now deprecated (#272) and will be removed later this year (whenever iOS/tvOS 17 come out).
 
 ## [0.6.3]
 

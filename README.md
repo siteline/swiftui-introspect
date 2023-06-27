@@ -1,4 +1,4 @@
-SwiftUIIntrospect
+SwiftUI Introspect
 =================
 
 [![CI Status Badge](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml)

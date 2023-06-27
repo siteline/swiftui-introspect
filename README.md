@@ -1,53 +1,84 @@
+SwiftUI Introspect
+=================
+
+[![CI Status Badge](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml)
+[![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2FSwiftUI-Introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/SwiftUI-Introspect)
+
 > **Note**
-> 
-> [`SwiftUIIntrospect`](Package@swift-5.7.swift#L19) is an all-new module based off the original [`Introspect`](Package.swift#L13) module that improves on stability, predictability, and ergonomics.
-> 
+>
+> [`SwiftUIIntrospect`](../Package@swift-5.7.swift#L19) is an all-new module based off the original [`Introspect`](../Package.swift#L13) module that improves on stability, predictability, and ergonomics.
+>
 > Both modules currently live together under this repo, but the plan is to ultimately obsolete `Introspect` in favor of `SwiftUIIntrospect` as part of a 1.0 release.
-> 
-> Read the [`SwiftUIIntrospect` documentation](docs/SwiftUIIntrospect.md) to learn more.
+>
+> While `Introspect` supports Swift 5.5 or higher, `SwiftUIIntrospect` requires Swift 5.7 or higher due to the use of more recent language features which partially enable the aforementioned improvements over the original.
 
-Introspect for SwiftUI
-======================
+SwiftUIIntrospect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
-[![GithubCI_Status]][GithubCI_URL] [![Siteline_Badge]](https://siteline.com) [![Quintschaf_Badge]](https://quintschaf.com)
-
-> Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
-
-For instance, with Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
+For instance, with SwiftUIIntrospect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
 
 How it works
 ------------
 
-Introspect works by adding a custom `IntrospectionView` to the view hierarchy, then looking into the UIKit hierarchy to find the relevant view.
+SwiftUIIntrospect works by adding an invisible `IntrospectionView` on top of the selected view, and an invisible "anchor" view underneath it, then looking through the UIKit/AppKit view hierarchy between the two to find the relevant view.
 
-![](./docs/diagram.png)
+For instance, when introspecting a `ScrollView`...
 
-For instance, when introspecting a `TextField`, it will:
+```swift
+ScrollView {
+    Text("Item 1")
+}
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
+    // do something with UIScrollView
+}
+```
 
- - Add `IntrospectionView` as an overlay of `TextField`
- - Get the view host of the introspection view (which is alongside the view host of the `UITextField`)
- - Get the previous sibling containing `UITextField`
+... it will:
 
-**Please note that this introspection method might break in future SwiftUI releases.** Future implementations might not use the same hierarchy, or might not use UIKit elements that are being looked for. Though the library is unlikely to crash, the `.introspect()` method will not be called in those cases.
+- Add `IntrospectionView` as an overlay of `TextField`
+- Add `IntrospectionAnchorView` as the background of `TextField`.
+- Traverse through all the subviews between both views until a `UIScrollView` instance (if any) is found.
+
+> **Warning**
+>
+> Although this introspection method itself is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
+
+By default, `.introspect` works directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. This is different to the original `Introspect` module in which some views would implicitly allow introspection from within. This is because most of the time it's more stable and predictable to introspect views directly, but there are times when it's not possible or simply too inflexible for library developers. You **can** introspect an _ancestor_ with `SwiftUIIntrospect`, but you must opt into this explicitly by overriding the introspection `scope`:
+
+```swift
+ScrollView {
+    Text("Item 1")
+        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { scrollView in
+            // do something with UIScrollView
+        }
+}
+```
 
 ### Usage in production
 
-`Introspect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit classes, and the `introspect()` methods are simply ignored if UIKit views cannot be found.
-
+`SwiftUIIntrospect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `introspect()` methods are simply ignored if UIKit/AppKit views cannot be found.
 
 Install
 -------
 
-### SwiftPM
+### Swift Package Manager
 
-```
-https://github.com/siteline/SwiftUI-Introspect.git
+```swift
+let package = Package(
+    dependencies: [
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.6.1"),
+    ],
+    targets: [
+        .target(name: <#Target Name#>, dependencies: [
+            .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
+        ]),
+    ]
+)
 ```
 
-### Cocoapods
+### CocoaPods
 
-```
-pod 'Introspect'
+```ruby
+pod 'SwiftUIIntrospect'
 ```
 
 Introspection
@@ -55,30 +86,55 @@ Introspection
 
 ### Implemented
 
-SwiftUI | UIKit | AppKit | Introspect
---- | --- | --- | ---
-NavigationView (StackNavigationViewStyle) | UINavigationController | _N/A_ | `.introspectNavigationController()`
-NavigationView (DoubleColumnNavigationViewStyle) | UISplitViewController | _N/A_ | `.introspectSplitViewController()`
-NavigationView (DoubleColumnNavigationViewStyle) | _N/A_ | NSSplitView | `.introspectSplitView()`
-_Any embedded view_ | UIViewController | _N/A_ | `.introspectViewController()`
-ScrollView | UIScrollView | NSScrollView | `.introspectScrollView()`
-List (iOS15 and below) | UITableView | NSTableView | `.introspectTableView()`
-View in List (iOS15 and below) | UITableViewCell | NSTableCellView | `introspectTableViewCell()`
-List (iOS 16) | UICollectionView | _N/A_ | `.introspectCollectionView()`
-View in List (iOS 16) | UICollectionViewCell | _N/A_ | `.introspectCollectionViewCell()`
-TabView | UITabBarController | NSTabView | `.introspectTabBarController()` (iOS) <br/> `.introspectTabView()` (macOS)
-TextField | UITextField | NSTextField | `.introspectTextField()`
-Toggle | UISwitch | NSButton | `.introspectSwitch()` (iOS) <br/> `.introspectButton()` (macOS)
-Slider | UISlider | NSSlider | `.introspectSlider()`
-Stepper | UIStepper | NSStepper | `.introspectStepper()`
-DatePicker | UIDatePicker | NSDatePicker | `.introspectDatePicker()`
-Picker (SegmentedPickerStyle) | UISegmentedControl | NSSegmentedControl | `.introspectSegmentedControl()`
-Button | _N/A_ | NSButton | `.introspectButton()`
-ColorPicker | UIColorWell | NSColorWell | `.introspectColorWell()`
-TextEditor | UITextView | NSTextView | `.introspectTextView()`
+- [`Button`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/buttontype)
+- [`ColorPicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/colorpickertype)
+- [`DatePicker`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickertype)
+- [`DatePicker` with `.compact` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithcompactstyletype)
+- [`DatePicker` with `.field` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithfieldstyletype)
+- [`DatePicker` with `.graphical` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithgraphicalstyletype)
+- [`DatePicker` with `.stepperField` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithstepperfieldstyletype)
+- [`DatePicker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/datepickerwithwheelstyletype)
+- [`Form`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formtype)
+- [`Form` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/formwithgroupedstyletype)
+- [`.fullScreenCover`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/fullScreenCovertype)
+- [`List`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listtype)
+- [`List` with `.bordered` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithborderedstyletype)
+- [`List` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithgroupedstyletype)
+- [`List` with `.insetGrouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetgroupedstyletype)
+- [`List` with `.inset` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetstyletype)
+- [`List` with `.sidebar` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithsidebarstyletype)
+- [`ListCell`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listcelltype)
+- [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationsplitviewtype)
+- [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationstacktype)
+- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)
+- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithStackStyleType)
+- [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithmenustyletype)
+- [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
+- [`Picker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithwheelstyletype)
+- [`.popover`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/popovertype)
+- [`ProgressView` with `.circular` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithcircularstyletype)
+- [`ProgressView` with `.linear` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithlinearstyletype)
+- [`ScrollView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/scrollviewtype)
+- [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/searchfieldtype)
+- [`.sheet`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/sheettype)
+- [`SignInWithAppleButton`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/SignInWithAppleButtonType)
+- [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/slidertype)
+- [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/steppertype)
+- [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/tabletype)
+- [`TabView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/tabviewtype)
+- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/TabViewWithPageStyleType)
+- [`TextEditor`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/texteditortype)
+- [`TextField`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/textfieldtype)
+- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/TextFieldWithVerticalAxisType)
+- [`Toggle`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/toggletype)
+- [`Toggle` with `button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithbuttonstyletype)
+- [`Toggle` with `checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
+- [`Toggle` with `switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithswitchstyletype)
+- [`VideoPlayer`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/videoplayertype)
+- [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewtype)
+- [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own selector](#implement-your-own-selector).
+**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 
 ### Cannot implement
 
@@ -95,16 +151,15 @@ Examples
 
 ```swift
 List {
-    Text("Item 1")
-    Text("Item 2")
+    Text("Item")
 }
-.introspectTableView { tableView in
-    tableView.separatorStyle = .none
+.introspect(.list, on: .iOS(.v13, .v14, .v15)) { tableView in
+    tableView.backgroundView = UIView()
+    tableView.backgroundColor = .cyan
 }
-.introspectTableViewCell { cell in
-    let backgroundView = UIView()
-    backgroundView.backgroundColor = .clear
-    cell.selectedBackgroundView = backgroundView
+.introspect(.list, on: .iOS(.v16, .v17)) { collectionView in
+    collectionView.backgroundView = UIView()
+    collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
 }
 ```
 
@@ -112,9 +167,9 @@ List {
 
 ```swift
 ScrollView {
-    Text("Item 2")
+    Text("Item")
 }
-.introspectScrollView { scrollView in
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
     scrollView.refreshControl = UIRefreshControl()
 }
 ```
@@ -123,19 +178,20 @@ ScrollView {
 
 ```swift
 NavigationView {
-    Text("Item 2")
-        .introspectNavigationController { navigationController in
-            navigationController.navigationBar.backgroundColor = .red
-        }
+    Text("Item")
+}
+.navigationViewStyle(.stack)
+.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { navigationController in
+    navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
 
 ### TextField
 
 ```swift
-TextField("Text Field", text: $textFieldValue)
-    .introspectTextField { textField in
-        textField.layer.backgroundColor = UIColor.red.cgColor
+TextField("Text Field", text: <#Binding<String>#>)
+    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { textField in
+        textField.backgroundColor = .red
     }
 ```
 
@@ -144,33 +200,40 @@ Implement your own selector
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
 
-In case Introspect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to look for a `UITextField`:
+In case SwiftUIIntrospect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to introspect a `TextField`:
 
 ```swift
-extension View {
-    public func introspectTextField(customize: @escaping (UITextField) -> ()) -> some View {
-        return inject(UIKitIntrospectionView(
-            selector: { introspectionView in
-                guard let viewHost = Introspect.findViewHost(from: introspectionView) else {
-                    return nil
-                }
-                return Introspect.previousSibling(containing: UITextField.self, from: viewHost)
-            },
-            customize: customize
-        ))
-    }
+@_spi(Internals) import SwiftUIIntrospect
+
+public struct TextFieldType: IntrospectableViewType {}
+
+extension IntrospectableViewType where Self == TextFieldType {
+    public static var textField: Self { .init() }
 }
+
+#if canImport(UIKit)
+extension iOSViewVersion<TextFieldType, UITextField> {
+    public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
+    public static let v16 = Self(for: .v16)
+}
+
+extension tvOSViewVersion<TextFieldType, UITextField> {
+    public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
+    public static let v16 = Self(for: .v16)
+}
+#elseif canImport(AppKit)
+extension macOSViewVersion<TextFieldType, NSTextField> {
+    public static let v10_15 = Self(for: .v10_15)
+    public static let v11 = Self(for: .v11)
+    public static let v12 = Self(for: .v12)
+    public static let v13 = Self(for: .v13)
+}
+#endif
 ```
-
-You can use any of the following [methods](https://github.com/timbersoftware/SwiftUI-Introspect/blob/master/Introspect/Introspect.swift#L3-L71) to inspect the hierarchy:
-
- - `Introspect.findChild(ofType:in:)`
- - `Introspect.findChildUsingFrame(ofType:in:from:)`
- - `Introspect.previousSibling(containing:from:)`
- - `Introspect.nextSibling(containing:from:)`
- - `Introspect.findAncestor(ofType:from:)`
- - `Introspect.findHostingView(from:)`
- - `Introspect.findViewHost(from:)`
 
 Releasing
 ---------
@@ -183,13 +246,3 @@ Releasing
     $ git tag X.Y.Z
     $ git push origin --tags
     ```
-
-<!-- References -->
-
-[GithubCI_Status]: https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg?branch=master
-
-[GithubCI_URL]: https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml
-
-[Siteline_Badge]: https://badgen.net/badge/Built%20by/Siteline/blue?icon=https://uploads-ssl.webflow.com/5f4513afbbfc64c4777fcccf/5f525b122370d681879e170e_siteline-icon.svg
-
-[Quintschaf_Badge]: https://badgen.net/badge/Maintained%20by/Quintschaf/cyan?icon=https://quintschaf.com/assets/logo.svg

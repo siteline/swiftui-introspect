@@ -13,6 +13,7 @@ Changelog
 - Added: `SignInWithAppleButton` introspection (#265)
 - Added: `View` introspection on macOS (#266)
 - Improved: `View` introspection accuracy (#266)
+- Documentation: added some more docs for public symbols (#273)
 
 ### Introspect
 

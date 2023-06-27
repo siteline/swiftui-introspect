@@ -35,7 +35,7 @@ ScrollView {
 >
 > Although this introspection method itself is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
 
-By default, `.introspect` works directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. This is different to the original `Introspect` module in which some views would implicitly allow introspection from within. This is because most of the time it's more stable and predictable to introspect views directly, but there are times when it's not possible or simply too inflexible for library developers. You **can** introspect an _ancestor_ with `SwiftUIIntrospect`, but you must opt into this explicitly by overriding the introspection `scope`:
+By default, the `.introspect` modifier acts directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. However, there are times when this is not possible or simply too inflexible, in which case you **can** introspect an _ancestor_, but you must opt into this explicitly by overriding the introspection `scope`:
 
 ```swift
 ScrollView {
@@ -127,7 +127,7 @@ Introspection
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewtype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
+**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 
 ### Cannot implement
 
@@ -191,7 +191,7 @@ TextField("Text Field", text: <#Binding<String>#>)
 Implement your own selector
 ---------------------------
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
+**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues).
 
 In case SwiftUIIntrospect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to introspect a `TextField`:
 

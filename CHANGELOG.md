@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+### SwiftUIIntrospect
+
 - Added: window introspection (#269)
 - Added: `.sheet` introspection (#268)
 - Added: `.fullScreenCover` introspection (#268)
@@ -11,6 +13,10 @@ Changelog
 - Added: `SignInWithAppleButton` introspection (#265)
 - Added: `View` introspection on macOS (#266)
 - Improved: `View` introspection accuracy (#266)
+
+### Introspect
+
+This module is now deprecated (#272) and will be removed later this year (whenever iOS/tvOS 17 come out).
 
 ## [0.6.3]
 

@@ -7,13 +7,10 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
-///         }
-///         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // some subclass of UIView
-///         }
+///         Text("Content")
+///             .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIWindow
+///             }
 ///     }
 /// }
 /// ```
@@ -23,13 +20,10 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
-///         }
-///         .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // some subclass of UIView
-///         }
+///         Text("Content")
+///             .introspect(.window, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                 print(type(of: $0)) // UIWindow
+///             }
 ///     }
 /// }
 /// ```
@@ -39,13 +33,10 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
-///         }
-///         .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // some subclass of NSView
-///         }
+///         Text("Content")
+///             .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///                 print(type(of: $0)) // NSWindow
+///             }
 ///     }
 /// }
 /// ```

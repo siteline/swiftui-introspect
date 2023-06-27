@@ -1,7 +1,12 @@
 import SwiftUI
 
+/// The scope of introspection i.e. where introspect should look to find
+/// the desired target view relative to the applied `.introspect(...)`
+/// modifier.
 public struct IntrospectionScope: OptionSet {
+    /// Look within the `receiver` of the `.introspect(...)` modifier.
     public static let receiver = Self(rawValue: 1 << 0)
+    /// Look for an `ancestor` relative to the `.introspect(...)` modifier.
     public static let ancestor = Self(rawValue: 1 << 1)
 
     @_spi(Private) public let rawValue: UInt
@@ -12,6 +17,28 @@ public struct IntrospectionScope: OptionSet {
 }
 
 extension View {
+    /// Introspects a SwiftUI view to find its underlying UIKit/AppKit instance.
+    ///
+    /// - Parameters:
+    ///   - viewType: The type of view to be introspected.
+    ///   - platforms: A list of `PlatformViewVersions` that specify platform-specific entities associated with the view, with one or more corresponding version numbers.
+    ///   - scope: An optional `IntrospectionScope` that specifies the scope of introspection.
+    ///   - customize: A closure that hands over the underlying UIKit/AppKit instance ready for customization.
+    ///
+    /// Here's an example usage:
+    ///
+    /// ```swift
+    /// struct ContentView: View {
+    ///     @State var date = Date()
+    ///
+    ///     var body: some View {
+    ///         DatePicker("Pick a date", selection: $date)
+    ///             .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///                 print(type(of: $0)) // UIDatePicker
+    ///             }
+    ///     }
+    /// }
+    /// ```
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>)...,

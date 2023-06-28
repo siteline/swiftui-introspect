@@ -163,7 +163,7 @@ ScrollView {
     Text("Item")
 }
 .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
-    scrollView.refreshControl = UIRefreshControl()
+    scrollView.backgroundColor = .red
 }
 ```
 

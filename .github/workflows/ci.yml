@@ -106,8 +106,11 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode || '14.3' }}
 
-      - name: Setup tea
+      - name: Setup tea environment
         uses: teaxyz/setup@v0
+        with:
+          +: |
+            RobotsAndPencils/xcodes
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
@@ -115,7 +118,7 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: sudo tea xcodes runtimes install '${{ matrix.runtime }}'
+          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Runtimes and Simulators
         run: xcrun simctl list

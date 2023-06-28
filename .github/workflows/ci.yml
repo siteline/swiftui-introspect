@@ -101,16 +101,14 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v3
 
-      - name: Select Xcode version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ matrix.xcode || '14.3' }}
-
       - name: Setup tea environment
         uses: teaxyz/setup@v0
         with:
           +: |
             github.com/RobotsAndPencils/xcodes
+
+      - name: Select Xcode version
+        run: xcodes select ${{ matrix.xcode || '14.3' }}
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})

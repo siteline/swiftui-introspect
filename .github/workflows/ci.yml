@@ -106,11 +106,8 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode || '14.3' }}
 
-      - name: Install tea
+      - name: Setup tea
         uses: teaxyz/setup@v0
-
-      - name: Install xcbeautify
-        run: brew install xcbeautify
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})

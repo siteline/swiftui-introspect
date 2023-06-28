@@ -108,7 +108,7 @@ jobs:
             github.com/RobotsAndPencils/xcodes
 
       - name: Select Xcode version
-        run: xcodes select ${{ matrix.xcode || '14.3' }}
+        run: sudo xcodes select ${{ matrix.xcode || '14.3' }}
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})

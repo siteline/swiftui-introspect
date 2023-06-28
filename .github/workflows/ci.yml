@@ -97,7 +97,7 @@ jobs:
         uses: teaxyz/setup@v0
         with:
           +: |
-            github.com/RobotsAndPencils/xcodes
+            github.com/XcodesOrg/xcodes
 
       - name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode || '14.3' }}

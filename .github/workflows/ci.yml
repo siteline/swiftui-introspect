@@ -91,16 +91,14 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v3
 
-      - name: Select Xcode version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ matrix.xcode || '14.3' }}
-
-      - name: Install tea
+      - name: Setup tea environment
         uses: teaxyz/setup@v0
+        with:
+          +: |
+            github.com/RobotsAndPencils/xcodes
 
-      - name: Install xcbeautify
-        run: brew install xcbeautify
+      - name: Select Xcode version
+        run: sudo xcodes select ${{ matrix.xcode || '14.3' }}
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
@@ -108,7 +106,7 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: sudo tea xcodes runtimes install '${{ matrix.runtime }}'
+          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: List Available Runtimes and Simulators
         run: xcrun simctl list

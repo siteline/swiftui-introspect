@@ -24,11 +24,11 @@ final class NavigationSplitViewTests: XCTestCase {
             NavigationSplitView {
                 ZStack {
                     Color.red
-                    Text("Something")
+                    Text("Root")
                 }
             } detail: {
                 ZStack {
-                    Color.red
+                    Color.blue
                     Text("Detail")
                 }
             }
@@ -64,7 +64,10 @@ final class NavigationSplitViewTests: XCTestCase {
                         #endif
                 }
             } detail: {
-                Text("Detail")
+                ZStack {
+                    Color.blue
+                    Text("Detail")
+                }
             }
         }
     }

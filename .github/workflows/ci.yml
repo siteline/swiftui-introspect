@@ -110,7 +110,7 @@ jobs:
         uses: teaxyz/setup@v0
         with:
           +: |
-            RobotsAndPencils/xcodes
+            github.com/RobotsAndPencils/xcodes
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})

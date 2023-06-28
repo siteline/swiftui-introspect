@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - "**"
+  schedule:
+    - cron: '3 3 * * 2' # 3:03 AM, every Tuesday
 
 concurrency:
   group: ci-${{ github.ref }}

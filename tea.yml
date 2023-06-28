@@ -1,0 +1,3 @@
+dependencies:
+  fastlane.tools: '*' # latest
+  tuist.io/xcbeautify: '*' # latest

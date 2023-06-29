@@ -29,6 +29,36 @@ public struct PlatformViewVersionGroup<SwiftUIViewType: IntrospectableViewType, 
     }
 }
 
+@_spi(Advanced)
+public struct PlatformViewVersionSingle<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+    let isCurrentOrPast: Bool
+    let selector: IntrospectionSelector<PlatformSpecificEntity>?
+
+    private init<Version: PlatformVersion>(
+        _ version: PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>
+    ) {
+        if version.isCurrentOrPast {
+            self.isCurrentOrPast = true
+            self.selector = version.selector
+        } else {
+            self.isCurrentOrPast = false
+            self.selector = nil
+        }
+    }
+
+    public static func iOS(_ version: iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>) -> Self {
+        Self(version)
+    }
+
+    public static func tvOS(_ version: tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>) -> Self {
+        Self(version)
+    }
+
+    public static func macOS(_ version: macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>) -> Self {
+        Self(version)
+    }
+}
+
 public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<iOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =

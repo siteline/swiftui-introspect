@@ -45,7 +45,17 @@ extension View {
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
-        self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
+        self.modifier(IntrospectModifier(viewType, on: platforms, scope: scope, customize: customize))
+    }
+
+    @_spi(Advanced)
+    public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
+        _ viewType: SwiftUIViewType,
+        onOrAfter platforms: (PlatformViewVersionSingle<SwiftUIViewType, PlatformSpecificEntity>)...,
+        scope: IntrospectionScope? = nil,
+        customize: @escaping (PlatformSpecificEntity) -> Void
+    ) -> some View {
+        self.modifier(IntrospectModifier(viewType, onOrAfter: platforms, scope: scope, customize: customize))
     }
 }
 
@@ -57,12 +67,27 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 
     init(
         _ viewType: SwiftUIViewType,
-        platforms: [PlatformViewVersionGroup<SwiftUIViewType, PlatformSpecificEntity>],
+        on platforms: [PlatformViewVersionGroup<SwiftUIViewType, PlatformSpecificEntity>],
         scope: IntrospectionScope?,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) {
         self.scope = scope ?? viewType.scope
         if let platform = platforms.first(where: \.containsCurrent) {
+            self.selector = platform.selector ?? .default
+        } else {
+            self.selector = nil
+        }
+        self.customize = customize
+    }
+
+    init(
+        _ viewType: SwiftUIViewType,
+        onOrAfter platforms: [PlatformViewVersionSingle<SwiftUIViewType, PlatformSpecificEntity>],
+        scope: IntrospectionScope?,
+        customize: @escaping (PlatformSpecificEntity) -> Void
+    ) {
+        self.scope = scope ?? viewType.scope
+        if let platform = platforms.first(where: \.isCurrentOrPast) {
             self.selector = platform.selector ?? .default
         } else {
             self.selector = nil

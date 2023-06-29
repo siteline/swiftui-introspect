@@ -67,8 +67,8 @@ public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platf
     PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
 public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
-    case unavailable
+    @_spi(Private) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
+    @_spi(Private) case unavailable
 
     var isCurrent: Bool {
         switch self {

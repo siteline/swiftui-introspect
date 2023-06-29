@@ -1,7 +1,7 @@
 @testable import SwiftUIIntrospect
 import XCTest
 
-final class PlatformTests: XCTestCase {
+final class PlatformVersionTests: XCTestCase {
     func test_iOS() {
         #if os(iOS)
         if #available(iOS 17, *) {

@@ -1,4 +1,3 @@
-@_spi(Internals)
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Internals)
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }

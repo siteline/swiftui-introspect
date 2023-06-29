@@ -1,17 +1,17 @@
 import SwiftUI
 
-public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    let isCurrent: Bool
+public struct PlatformViewVersionGroup<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+    let containsCurrent: Bool
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
     private init<Version: PlatformVersion>(
         _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>]
     ) {
         if let currentVersion = versions.first(where: \.isCurrent) {
-            self.isCurrent = true
+            self.containsCurrent = true
             self.selector = currentVersion.selector
         } else {
-            self.isCurrent = false
+            self.containsCurrent = false
             self.selector = nil
         }
     }
@@ -36,14 +36,41 @@ public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platfo
 public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    let isCurrent: Bool
-    let selector: IntrospectionSelector<PlatformSpecificEntity>?
+public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+    case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
+    case unavailable
+
+    var isCurrent: Bool {
+        switch self {
+        case .available(let version, _):
+            return version.isCurrent
+        case .unavailable:
+            return false
+        }
+    }
+
+    var isCurrentOrPast: Bool {
+        switch self {
+        case .available(let version, _):
+            return version.isCurrentOrPast
+        case .unavailable:
+            return false
+        }
+    }
+
+    var selector: IntrospectionSelector<PlatformSpecificEntity>? {
+        switch self {
+        case .available(_, let selector):
+            return selector
+        case .unavailable:
+            return nil
+        }
+    }
 }
 
 extension PlatformViewVersion {
     @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
-        self.init(isCurrent: version.isCurrent, selector: selector)
+        self = .available(version, selector)
     }
 
     @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
@@ -60,6 +87,6 @@ extension PlatformViewVersion {
             https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
             """
         )
-        return Self(isCurrent: false, selector: nil)
+        return .unavailable
     }
 }

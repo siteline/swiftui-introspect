@@ -41,7 +41,7 @@ extension View {
     /// ```
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
-        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>)...,
+        on platforms: (PlatformViewVersionGroup<SwiftUIViewType, PlatformSpecificEntity>)...,
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
@@ -57,12 +57,12 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 
     init(
         _ viewType: SwiftUIViewType,
-        platforms: [PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>],
+        platforms: [PlatformViewVersionGroup<SwiftUIViewType, PlatformSpecificEntity>],
         scope: IntrospectionScope?,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) {
         self.scope = scope ?? viewType.scope
-        if let platform = platforms.first(where: \.isCurrent) {
+        if let platform = platforms.first(where: \.containsCurrent) {
             self.selector = platform.selector ?? .default
         } else {
             self.selector = nil

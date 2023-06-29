@@ -11,11 +11,11 @@ public protocol PlatformVersion {
 }
 
 extension PlatformVersion {
-    var isCurrent: Bool {
+    public var isCurrent: Bool {
         condition == .current
     }
 
-    var isCurrentOrPast: Bool {
+    public var isCurrentOrPast: Bool {
         condition == .current || condition == .past
     }
 }

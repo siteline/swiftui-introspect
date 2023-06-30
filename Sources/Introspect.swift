@@ -29,12 +29,12 @@ extension View {
     ///
     /// ```swift
     /// struct ContentView: View {
-    ///     @State var date = Date()
+    ///     @State var text = ""
     ///
     ///     var body: some View {
-    ///         DatePicker("Pick a date", selection: $date)
-    ///             .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-    ///                 print(type(of: $0)) // UIDatePicker
+    ///         TextField("Placeholder", text: $text)
+    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///                 print(type(of: $0)) // UITextField
     ///             }
     ///     }
     /// }

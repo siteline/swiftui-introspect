@@ -21,8 +21,8 @@ extension View {
     ///
     /// - Parameters:
     ///   - viewType: The type of view to be introspected.
-    ///   - platforms: A list of `PlatformViewVersions` that specify platform-specific entities associated with the view, with one or more corresponding version numbers.
-    ///   - scope: An optional `IntrospectionScope` that specifies the scope of introspection.
+    ///   - platforms: A list of version predicates that specify platform-specific entities associated with the view.
+    ///   - scope: Optionally overrides the view's default scope of introspection.
     ///   - customize: A closure that hands over the underlying UIKit/AppKit instance ready for customization.
     ///
     /// Here's an example usage:

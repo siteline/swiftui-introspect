@@ -3,7 +3,7 @@ import SwiftUI
 public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     let matches: Bool
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
-    
+
     private init<Version: PlatformVersion>(
         _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>],
         matcher: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
@@ -16,16 +16,16 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
             self.selector = nil
         }
     }
-    
+
     public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
         Self(versions, matcher: \.isCurrent)
     }
-    
+
     @_spi(Advanced)
     public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
         Self([versions.lowerBound], matcher: \.isCurrentOrPast)
     }
-    
+
     public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
         Self(versions, matcher: \.isCurrent)
     }

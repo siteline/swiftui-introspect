@@ -53,30 +53,6 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
     @_spi(Private) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
     @_spi(Private) case unavailable
 
-    var version: Version? {
-        if case .available(let version, _) = self {
-            return version
-        } else {
-            return nil
-        }
-    }
-
-    var selector: IntrospectionSelector<PlatformSpecificEntity>? {
-        if case .available(_, let selector) = self {
-            return selector
-        } else {
-            return nil
-        }
-    }
-
-    var isCurrent: Bool {
-        version?.isCurrent ?? false
-    }
-
-    var isCurrentOrPast: Bool {
-        version?.isCurrentOrPast ?? false
-    }
-
     @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
         self = .available(version, selector)
     }
@@ -96,6 +72,30 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
             """
         )
         return .unavailable
+    }
+
+    private var version: Version? {
+        if case .available(let version, _) = self {
+            return version
+        } else {
+            return nil
+        }
+    }
+
+    fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
+        if case .available(_, let selector) = self {
+            return selector
+        } else {
+            return nil
+        }
+    }
+
+    fileprivate var isCurrent: Bool {
+        version?.isCurrent ?? false
+    }
+
+    fileprivate var isCurrentOrPast: Bool {
+        version?.isCurrentOrPast ?? false
     }
 }
 

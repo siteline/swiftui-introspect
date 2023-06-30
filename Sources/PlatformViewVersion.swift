@@ -107,12 +107,14 @@ extension PlatformViewVersion {
     }
 }
 
+// This conformance isn't meant to be used directly by the user,
+// it's only to satisfy requirements for forming ranges (e.g. `.v15...`).
 extension PlatformViewVersion: Comparable {
-    public static func < (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         true
     }
-    
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+
+    public static func < (lhs: Self, rhs: Self) -> Bool {
         true
     }
 }

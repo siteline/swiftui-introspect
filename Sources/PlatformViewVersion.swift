@@ -1,47 +1,44 @@
 import SwiftUI
 
 public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    let matches: Bool
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
     private init<Version: PlatformVersion>(
         _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>],
-        matcher: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
+        matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
     ) {
-        if let currentVersion = versions.first(where: matcher) {
-            self.matches = true
-            self.selector = currentVersion.selector
+        if let matchingVersion = versions.first(where: matches) {
+            self.selector = matchingVersion.selector ?? .default
         } else {
-            self.matches = false
             self.selector = nil
         }
     }
 
     public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions, matcher: \.isCurrent)
+        Self(versions, matches: \.isCurrent)
     }
 
     @_spi(Advanced)
     public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
-        Self([versions.lowerBound], matcher: \.isCurrentOrPast)
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 
     public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions, matcher: \.isCurrent)
+        Self(versions, matches: \.isCurrent)
     }
 
     @_spi(Advanced)
     public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
-        Self([versions.lowerBound], matcher: \.isCurrentOrPast)
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 
     public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions, matcher: \.isCurrent)
+        Self(versions, matches: \.isCurrent)
     }
 
     @_spi(Advanced)
     public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
-        Self([versions.lowerBound], matcher: \.isCurrentOrPast)
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 }
 
@@ -56,35 +53,30 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
     @_spi(Private) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
     @_spi(Private) case unavailable
 
-    var isCurrent: Bool {
-        switch self {
-        case .available(let version, _):
-            return version.isCurrent
-        case .unavailable:
-            return false
-        }
-    }
-
-    var isCurrentOrPast: Bool {
-        switch self {
-        case .available(let version, _):
-            return version.isCurrentOrPast
-        case .unavailable:
-            return false
+    var version: Version? {
+        if case .available(let version, _) = self {
+            return version
+        } else {
+            return nil
         }
     }
 
     var selector: IntrospectionSelector<PlatformSpecificEntity>? {
-        switch self {
-        case .available(_, let selector):
+        if case .available(_, let selector) = self {
             return selector
-        case .unavailable:
+        } else {
             return nil
         }
     }
-}
 
-extension PlatformViewVersion {
+    var isCurrent: Bool {
+        version?.isCurrent ?? false
+    }
+
+    var isCurrentOrPast: Bool {
+        version?.isCurrentOrPast ?? false
+    }
+
     @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
         self = .available(version, selector)
     }

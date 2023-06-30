@@ -62,11 +62,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) {
         self.scope = scope ?? viewType.scope
-        if let platform = platforms.first(where: \.matches) {
-            self.selector = platform.selector ?? .default
-        } else {
-            self.selector = nil
-        }
+        self.selector = platforms.lazy.compactMap(\.selector).first
         self.customize = customize
     }
 

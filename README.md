@@ -58,7 +58,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.7.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.8.0"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -196,7 +196,7 @@ Implement your own introspectable
 In case SwiftUIIntrospect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to introspect a `TextField`:
 
 ```swift
-@_spi(Internals) import SwiftUIIntrospect
+@_spi(Advanced) import SwiftUIIntrospect
 
 public struct TextFieldType: IntrospectableViewType {}
 

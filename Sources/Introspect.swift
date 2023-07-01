@@ -21,27 +21,27 @@ extension View {
     ///
     /// - Parameters:
     ///   - viewType: The type of view to be introspected.
-    ///   - platforms: A list of `PlatformViewVersions` that specify platform-specific entities associated with the view, with one or more corresponding version numbers.
-    ///   - scope: An optional `IntrospectionScope` that specifies the scope of introspection.
+    ///   - platforms: A list of version predicates that specify platform-specific entities associated with the view.
+    ///   - scope: Optionally overrides the view's default scope of introspection.
     ///   - customize: A closure that hands over the underlying UIKit/AppKit instance ready for customization.
     ///
     /// Here's an example usage:
     ///
     /// ```swift
     /// struct ContentView: View {
-    ///     @State var date = Date()
+    ///     @State var text = ""
     ///
     ///     var body: some View {
-    ///         DatePicker("Pick a date", selection: $date)
-    ///             .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-    ///                 print(type(of: $0)) // UIDatePicker
+    ///         TextField("Placeholder", text: $text)
+    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///                 print(type(of: $0)) // UITextField
     ///             }
     ///     }
     /// }
     /// ```
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
-        on platforms: (PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>)...,
+        on platforms: (PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>)...,
         scope: IntrospectionScope? = nil,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) -> some View {
@@ -57,16 +57,12 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 
     init(
         _ viewType: SwiftUIViewType,
-        platforms: [PlatformViewVersions<SwiftUIViewType, PlatformSpecificEntity>],
+        platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],
         scope: IntrospectionScope?,
         customize: @escaping (PlatformSpecificEntity) -> Void
     ) {
         self.scope = scope ?? viewType.scope
-        if let platform = platforms.first(where: \.isCurrent) {
-            self.selector = platform.selector ?? .default
-        } else {
-            self.selector = nil
-        }
+        self.selector = platforms.lazy.compactMap(\.selector).first
         self.customize = customize
     }
 

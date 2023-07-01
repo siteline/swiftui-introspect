@@ -9,9 +9,9 @@ public struct IntrospectionScope: OptionSet {
     /// Look for an `ancestor` relative to the `.introspect(...)` modifier.
     public static let ancestor = Self(rawValue: 1 << 1)
 
-    @_spi(Private) public let rawValue: UInt
+    @_spi(Internals) public let rawValue: UInt
 
-    @_spi(Private) public init(rawValue: UInt) {
+    @_spi(Internals) public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
 }

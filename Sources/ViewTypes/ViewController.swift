@@ -50,7 +50,9 @@ import SwiftUI
 /// }
 /// ```
 ///
-public struct ViewControllerType: IntrospectableViewType {}
+public struct ViewControllerType: IntrospectableViewType {
+    public var scope: IntrospectionScope { .ancestor }
+}
 
 extension IntrospectableViewType where Self == ViewControllerType {
     public static var viewController: Self { .init() }

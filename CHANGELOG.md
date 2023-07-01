@@ -3,15 +3,10 @@ Changelog
 
 ## master
 
-## [1.0.0]
-
-We are excited to announce the release of SwiftUIIntrospect 1.0! 🎉
-
-Introducing a stable, intuitive, and ergonomic new API for introspection of SwiftUI views.
-
-If you're migrating away from the old Introspect module, make sure to review the updated documentation, and feel free to ask any questions in the [Discussions](https://github.com/siteline/SwiftUI-Introspect/discussions) forum.
-
-We hope you enjoy using SwiftUIIntrospect 1.0. Your feedback is valuable to us, so please don't hesitate to reach out with any comments or suggestions.
+- Added: `Map` introspection (#288)
+- Added: advanced range-based platform version predicates (#285)
+- Documentation: generate docs for extensions (#282)
+- Infrastructure: set up `tea` for CI and local environments (#276)
 
 ## [0.7.0]
 

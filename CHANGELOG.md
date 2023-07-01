@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added: `Map` introspection (#288)
 - Added: advanced range-based platform version predicates (#285)
 - Documentation: generate docs for extensions (#282)
 - Infrastructure: set up `tea` for CI and local environments (#276)

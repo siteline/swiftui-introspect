@@ -40,7 +40,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
-///             .introspect(.map, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             .introspect(.map, on: .macOS(.v11, .v12, .v13, .v14)) {
 ///                 print(type(of: $0)) // MKMapView
 ///             }
 ///     }

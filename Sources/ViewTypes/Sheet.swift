@@ -5,10 +5,10 @@ import SwiftUI
 /// ### iOS
 ///
 /// ```swift
-/// public struct ContentView: View {
+/// struct ContentView: View {
 ///     @State var isPresented = false
 ///
-///     public var body: some View {
+///     var body: some View {
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
@@ -23,10 +23,10 @@ import SwiftUI
 /// ### tvOS
 ///
 /// ```swift
-/// public struct ContentView: View {
+/// struct ContentView: View {
 ///     @State var isPresented = false
 ///
-///     public var body: some View {
+///     var body: some View {
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })

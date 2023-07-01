@@ -1,31 +1,44 @@
 import SwiftUI
 
-public struct PlatformViewVersions<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    let isCurrent: Bool
+public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
     private init<Version: PlatformVersion>(
-        _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>]
+        _ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>],
+        matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
     ) {
-        if let currentVersion = versions.first(where: \.isCurrent) {
-            self.isCurrent = true
-            self.selector = currentVersion.selector
+        if let matchingVersion = versions.first(where: matches) {
+            self.selector = matchingVersion.selector ?? .default
         } else {
-            self.isCurrent = false
             self.selector = nil
         }
     }
 
     public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions)
+        Self(versions, matches: \.isCurrent)
+    }
+
+    @_spi(Advanced)
+    public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 
     public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions)
+        Self(versions, matches: \.isCurrent)
+    }
+
+    @_spi(Advanced)
+    public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 
     public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
-        Self(versions)
+        Self(versions, matches: \.isCurrent)
+    }
+
+    @_spi(Advanced)
+    public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
 }
 
@@ -36,14 +49,12 @@ public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platfo
 public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public struct PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    let isCurrent: Bool
-    let selector: IntrospectionSelector<PlatformSpecificEntity>?
-}
+public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+    @_spi(Private) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
+    @_spi(Private) case unavailable
 
-extension PlatformViewVersion {
     @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
-        self.init(isCurrent: version.isCurrent, selector: selector)
+        self = .available(version, selector)
     }
 
     @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
@@ -60,6 +71,42 @@ extension PlatformViewVersion {
             https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
             """
         )
-        return Self(isCurrent: false, selector: nil)
+        return .unavailable
+    }
+
+    private var version: Version? {
+        if case .available(let version, _) = self {
+            return version
+        } else {
+            return nil
+        }
+    }
+
+    fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
+        if case .available(_, let selector) = self {
+            return selector
+        } else {
+            return nil
+        }
+    }
+
+    fileprivate var isCurrent: Bool {
+        version?.isCurrent ?? false
+    }
+
+    fileprivate var isCurrentOrPast: Bool {
+        version?.isCurrentOrPast ?? false
+    }
+}
+
+// This conformance isn't meant to be used directly by the user,
+// it's only to satisfy requirements for forming ranges (e.g. `.v15...`).
+extension PlatformViewVersion: Comparable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        true
+    }
+
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        true
     }
 }

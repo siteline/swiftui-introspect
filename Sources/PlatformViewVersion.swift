@@ -50,14 +50,14 @@ public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platf
     PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
 public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
-    @_spi(Private) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
-    @_spi(Private) case unavailable
+    @_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
+    @_spi(Internals) case unavailable
 
-    @_spi(Internals) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
+    @_spi(Advanced) public init(for version: Version, selector: IntrospectionSelector<PlatformSpecificEntity>? = nil) {
         self = .available(version, selector)
     }
 
-    @_spi(Internals) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
+    @_spi(Advanced) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }
         let fileName = URL(fileURLWithPath: filePath).lastPathComponent
         runtimeWarn(

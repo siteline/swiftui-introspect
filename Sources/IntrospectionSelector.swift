@@ -1,9 +1,9 @@
-@_spi(Internals)
+@_spi(Advanced)
 public struct IntrospectionSelector<Target: PlatformEntity> {
-    @_spi(Internals)
+    @_spi(Advanced)
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
-    @_spi(Internals)
+    @_spi(Advanced)
     public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
         .init(
             receiverSelector: { controller in
@@ -26,14 +26,14 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         self.ancestorSelector = ancestorSelector
     }
 
-    @_spi(Internals)
+    @_spi(Advanced)
     public func withReceiverSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.receiverSelector = selector
         return copy
     }
 
-    @_spi(Internals)
+    @_spi(Advanced)
     public func withAncestorSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.ancestorSelector = selector

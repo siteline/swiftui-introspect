@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.8.0]
+
 - Added: `Map` introspection (#288)
 - Added: advanced range-based platform version predicates (#285)
 - Changed: renamed `@_spi(Internals)` to `@_spi(Advanced)` (#290)

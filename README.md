@@ -97,6 +97,7 @@ Introspection
 - [`List` with `.inset` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetstyletype)
 - [`List` with `.sidebar` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithsidebarstyletype)
 - [`ListCell`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listcelltype)
+- [`Map`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/maptype)
 - [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationsplitviewtype)
 - [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationstacktype)
 - [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)

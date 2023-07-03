@@ -40,7 +40,7 @@ ScrollView {
 
 > **Warning**
 >
-> Although this introspection method itself is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
+> Although this introspection method is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given potential differences in underlying UIKit/AppKit view types between major OS versions.
 
 By default, `.introspect` works directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. This is different to the original `Introspect` module in which some views would implicitly allow introspection from within. This is because most of the time it's more stable and predictable to introspect views directly, but there are times when it's not possible or simply too inflexible for library developers. You **can** introspect an _ancestor_ with `SwiftUIIntrospect`, but you must opt into this explicitly by overriding the introspection `scope`:
 
@@ -104,6 +104,7 @@ Introspection
 - [`List` with `.inset` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithinsetstyletype)
 - [`List` with `.sidebar` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listwithsidebarstyletype)
 - [`ListCell`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/listcelltype)
+- [`Map`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/maptype)
 - [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationsplitviewtype)
 - [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationstacktype)
 - [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)

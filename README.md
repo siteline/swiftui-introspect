@@ -33,7 +33,7 @@ ScrollView {
 
 > **Warning**
 >
-> Although this introspection method itself is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given differences between major OS versions which might not use the same UIKit/AppKit elements that are being looked for in previous OS versions.
+> Although this introspection method is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given potential differences in underlying UIKit/AppKit view types between major OS versions.
 
 By default, the `.introspect` modifier acts directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. However, there are times when this is not possible or simply too inflexible, in which case you **can** introspect an _ancestor_, but you must opt into this explicitly by overriding the introspection `scope`:
 

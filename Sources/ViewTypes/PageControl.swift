@@ -48,7 +48,7 @@ extension IntrospectableViewType where Self == PageControlType {
 
 #if canImport(UIKit)
 extension iOSViewVersion<PageControlType, UIPageControl> {
-    @available(*, unavailable, message: "TabView {}.tabViewStyle(.page) isn't available on iOS 13")
+    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
@@ -57,7 +57,7 @@ extension iOSViewVersion<PageControlType, UIPageControl> {
 }
 
 extension tvOSViewVersion<PageControlType, UIPageControl> {
-    @available(*, unavailable, message: "TabView {}.tabViewStyle(.page) isn't available on tvOS 13")
+    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)

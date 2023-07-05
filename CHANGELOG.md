@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added: page control introspection (#297)
+
 ## [0.8.0]
 
 - Added: `Map` introspection (#288)

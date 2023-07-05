@@ -18,10 +18,8 @@ final class TabViewWithPageStyleTests: XCTestCase {
             let spy = spies[0]
 
             TabView {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                }
+                Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+                Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
             }
             .tabViewStyle(.page)
             #if os(iOS) || os(tvOS)
@@ -39,11 +37,11 @@ final class TabViewWithPageStyleTests: XCTestCase {
             let spy = spies[0]
 
             TabView {
-                ZStack { Color.red; Text("1") }
+                Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                     #if os(iOS) || os(tvOS)
                     .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                     #endif
-                ZStack { Color.green; Text("2") }
+                Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
             }
             .tabViewStyle(.page)
         }

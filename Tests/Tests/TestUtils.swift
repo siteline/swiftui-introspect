@@ -28,9 +28,9 @@ enum TestUtils {
 }
 #endif
 
-func XCTAssertViewIntrospection<V: View, PV: AnyObject>(
+func XCTAssertViewIntrospection<PV: AnyObject>(
     of type: PV.Type,
-    @ViewBuilder view: (Spies<PV>) -> V,
+    @ViewBuilder view: (Spies<PV>) -> some View,
     extraAssertions: ([PV]) -> Void = { _ in },
     file: StaticString = #file,
     line: UInt = #line
@@ -97,12 +97,10 @@ final class Spies<PV: AnyObject>: NSObject, XCTWaiterDelegate {
 
 extension Collection {
     subscript(safe index: Index, file: StaticString = #file, line: UInt = #line) -> Element? {
-        get {
-            guard indices.contains(index) else {
-                XCTFail("Index \(index) is out of bounds", file: file, line: line)
-                return nil
-            }
-            return self[index]
+        guard indices.contains(index) else {
+            XCTFail("Index \(index) is out of bounds", file: file, line: line)
+            return nil
         }
+        return self[index]
     }
 }

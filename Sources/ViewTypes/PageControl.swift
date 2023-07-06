@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// An abstract representation of the `TabView` type in SwiftUI, with `.page` style.
+/// An abstract representation of the page control type in SwiftUI.
 ///
 /// ### iOS
 ///
@@ -12,8 +12,8 @@ import SwiftUI
 ///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///         }
 ///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // UICollectionView
+///         .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UIPageControl
 ///         }
 ///     }
 /// }
@@ -29,8 +29,8 @@ import SwiftUI
 ///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///         }
 ///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.tabView(style: .page), on: .tvOS(.v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // UICollectionView
+///         .introspect(.pageControl, on: .tvOS(.v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UIPageControl
 ///         }
 ///     }
 /// }
@@ -40,34 +40,28 @@ import SwiftUI
 ///
 /// Not available.
 ///
-public struct TabViewWithPageStyleType: IntrospectableViewType {
-    public enum Style {
-        case page
-    }
-}
+public struct PageControlType: IntrospectableViewType {}
 
-#if !os(macOS)
-extension IntrospectableViewType where Self == TabViewWithPageStyleType {
-    public static func tabView(style: Self.Style) -> Self { .init() }
+extension IntrospectableViewType where Self == PageControlType {
+    public static var pageControl: Self { .init() }
 }
 
 #if canImport(UIKit)
-extension iOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
+extension iOSViewVersion<PageControlType, UIPageControl> {
     @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
-    public static let v13 = Self.unavailable()
+    public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
 }
 
-extension tvOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
+extension tvOSViewVersion<PageControlType, UIPageControl> {
     @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
-    public static let v13 = Self.unavailable()
+    public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
 }
-#endif
 #endif

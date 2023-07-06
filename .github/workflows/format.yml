@@ -1,0 +1,24 @@
+name: format
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    name: swiftformat
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v3
+      - name: Format
+        run: swiftformat .
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Run SwiftFormat
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

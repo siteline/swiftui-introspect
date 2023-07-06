@@ -1,0 +1,8 @@
+--exclude Introspect,IntrospectTests
+--disable redundantNilInit,redundantSelf,redundantType,unusedArguments
+
+--header strip
+--indent 4
+--ifdef no-indent
+--extensionacl on-declarations
+--patternlet inline

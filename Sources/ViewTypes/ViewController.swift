@@ -1,18 +1,22 @@
 import SwiftUI
 
-/// An abstract representation of a generic view controller type in SwiftUI.
+/// An abstract representation of the receiving SwiftUI view's view controller,
+/// or the closest ancestor view controller if missing.
 ///
 /// ### iOS
 ///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
+///         NavigationView {
+///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///                 .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///                     print(type(of: $0)) // some subclass of UIHostingController
+///                 }
 ///         }
-///         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // some subclass of UIView
+///         .navigationViewStyle(.stack)
+///         .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
 /// }
@@ -23,12 +27,15 @@ import SwiftUI
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
+///         NavigationView {
+///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///                 .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///                     print(type(of: $0)) // some subclass of UIHostingController
+///                 }
 ///         }
-///         .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
-///             print(type(of: $0)) // some subclass of UIView
+///         .navigationViewStyle(.stack)
+///         .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
 /// }
@@ -36,19 +43,7 @@ import SwiftUI
 ///
 /// ### macOS
 ///
-/// ```swift
-/// struct ContentView: View {
-///     var body: some View {
-///         HStack {
-///             Image(systemName: "scribble")
-///             Text("Some text")
-///         }
-///         .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // some subclass of NSView
-///         }
-///     }
-/// }
-/// ```
+/// Not available.
 ///
 public struct ViewControllerType: IntrospectableViewType {
     public var scope: IntrospectionScope { [.receiver, .ancestor] }

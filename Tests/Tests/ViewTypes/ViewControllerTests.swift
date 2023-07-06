@@ -12,7 +12,7 @@ final class ViewControllerTests: XCTestCase {
 
             TabView {
                 NavigationView {
-                    Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+                    Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                         .introspect(
                             .viewController,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
@@ -22,7 +22,7 @@ final class ViewControllerTests: XCTestCase {
                 .navigationViewStyle(.stack)
                 .tabItem {
                     Image(systemName: "1.circle")
-                    Text("Page 1")
+                    Text("Tab 1")
                 }
                 .introspect(
                     .viewController,

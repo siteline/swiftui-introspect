@@ -55,7 +55,7 @@ ScrollView {
 
 ### Usage in production
 
-`SwiftUIIntrospect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `introspect()` methods are simply ignored if UIKit/AppKit views cannot be found.
+`SwiftUIIntrospect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `.introspect` modifier is simply ignored if UIKit/AppKit views cannot be found.
 
 Install
 -------
@@ -109,6 +109,7 @@ Introspection
 - [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/navigationstacktype)
 - [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)
 - [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/NavigationViewWithStackStyleType)
+- [`PageControl`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pagecontroltype)
 - [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithmenustyletype)
 - [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
 - [`Picker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/pickerwithwheelstyletype)

@@ -154,7 +154,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         self.id = id
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in
-            guard let self = self else {
+            guard let self else {
                 return
             }
             handler?(self)

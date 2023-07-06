@@ -3,6 +3,7 @@ Changelog
 
 ## master
 
+- Added: view controller introspection (#298)
 - Added: page control introspection (#297)
 
 ## [0.8.0]

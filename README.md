@@ -127,6 +127,7 @@ Introspection
 - [`Toggle` with `switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/togglewithswitchstyletype)
 - [`VideoPlayer`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/videoplayertype)
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewtype)
+- [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewcontrollertype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
 **Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-introspectable).

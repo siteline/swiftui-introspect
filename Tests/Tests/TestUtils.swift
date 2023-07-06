@@ -28,36 +28,36 @@ enum TestUtils {
 }
 #endif
 
-func XCTAssertViewIntrospection<PV: AnyObject>(
-    of type: PV.Type,
-    @ViewBuilder view: (Spies<PV>) -> some View,
-    extraAssertions: ([PV]) -> Void = { _ in },
+func XCTAssertViewIntrospection<Entity: AnyObject>(
+    of type: Entity.Type,
+    @ViewBuilder view: (Spies<Entity>) -> some View,
+    extraAssertions: ([Entity]) -> Void = { _ in },
     file: StaticString = #file,
     line: UInt = #line
 ) {
-    let spies = Spies<PV>()
+    let spies = Spies<Entity>()
     let view = view(spies)
     TestUtils.present(view: view)
     XCTWaiter(delegate: spies).wait(for: spies.expectations.values.map(\.0), timeout: 3)
-    extraAssertions(spies.objects.sorted(by: { $0.key < $1.key }).map(\.value))
+    extraAssertions(spies.entities.sorted(by: { $0.key < $1.key }).map(\.value))
 }
 
-final class Spies<PV: AnyObject>: NSObject, XCTWaiterDelegate {
-    private(set) var objects: [Int: PV] = [:]
+final class Spies<Entity: AnyObject>: NSObject, XCTWaiterDelegate {
+    private(set) var entities: [Int: Entity] = [:]
     private(set) var expectations: [ObjectIdentifier: (XCTestExpectation, StaticString, UInt)] = [:]
 
     subscript(
         number: Int,
         file: StaticString = #file,
         line: UInt = #line
-    ) -> (PV) -> Void {
+    ) -> (Entity) -> Void {
         let expectation = XCTestExpectation()
         expectations[ObjectIdentifier(expectation)] = (expectation, file, line)
         return { [self] in
-            if let object = objects[number] {
-                XCTAssert(object === $0, "Found view was overriden by another view", file: file, line: line)
+            if let entity = entities[number] {
+                XCTAssert(entity === $0, "Found view was overriden by another view", file: file, line: line)
             }
-            objects[number] = $0
+            entities[number] = $0
             expectation.fulfill()
         }
     }

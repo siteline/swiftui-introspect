@@ -70,10 +70,14 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
         if let selector {
             content
                 .background(
-                    // boxes up content without affecting appearance or behavior, for more accurate `.view` introspection
-                    Color.white
-                        .opacity(0)
-                        .accessibility(hidden: true)
+                    Group {
+                        // box up content for more accurate `.view` introspection
+                        if SwiftUIViewType.self == ViewType.self {
+                            Color.white
+                                .opacity(0)
+                                .accessibility(hidden: true)
+                        }
+                    }
                 )
                 .background(
                     IntrospectionAnchorView(id: id)

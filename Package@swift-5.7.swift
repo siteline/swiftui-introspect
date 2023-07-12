@@ -10,15 +10,15 @@ let package = Package(
         .macOS(.v10_15),
     ],
     products: [
-        // old module
-        .library(name: "Introspect", targets: ["Introspect"]),
-        .library(name: "Introspect-Static", type: .static, targets: ["Introspect"]),
-        .library(name: "Introspect-Dynamic", type: .dynamic, targets: ["Introspect"]),
-
         // new module
         .library(name: "SwiftUIIntrospect", targets: ["SwiftUIIntrospect"]),
         .library(name: "SwiftUIIntrospect-Static", type: .static, targets: ["SwiftUIIntrospect"]),
         .library(name: "SwiftUIIntrospect-Dynamic", type: .dynamic, targets: ["SwiftUIIntrospect"]),
+
+        // old module
+        .library(name: "Introspect", targets: ["Introspect"]),
+        .library(name: "Introspect-Static", type: .static, targets: ["Introspect"]),
+        .library(name: "Introspect-Dynamic", type: .dynamic, targets: ["Introspect"]),
     ],
     targets: [
         .target(

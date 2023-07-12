@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [0.9.1]
+
+- Fixed: only box up content for `.view` introspection (#305)
+
 ## [0.9.0]
 
 - Added: view controller introspection (#298)

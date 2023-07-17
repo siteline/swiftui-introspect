@@ -115,7 +115,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
             guard let target = selector(controller) else {
                 return
             }
-            #if canImport(UIKit)
+            #if os(iOS)
             if let target = target as? UIViewController {
                 controller.statusBarStyle = target.preferredStatusBarStyle
             }
@@ -151,7 +151,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 final class IntrospectionPlatformViewController: PlatformViewController {
     let id: IntrospectionViewID
     var handler: (() -> Void)? = nil
-    #if canImport(UIKit)
+    #if os(iOS)
     var statusBarStyle: UIStatusBarStyle?
     #endif
 
@@ -177,9 +177,11 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     }
 
     #if canImport(UIKit)
+    #if os(iOS)
     override var preferredStatusBarStyle: UIStatusBarStyle {
         statusBarStyle ?? super.preferredStatusBarStyle
     }
+    #endif
 
     override func viewDidLoad() {
         super.viewDidLoad()

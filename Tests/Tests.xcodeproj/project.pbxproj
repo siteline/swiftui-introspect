@@ -219,6 +219,7 @@
 		D5AEC3412A66F6470015AC1D /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D5AEC3422A66F6470015AC1D /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		D5AEC3432A66F6470015AC1D /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		D5B5B03E2A6725500086B9DE /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITests.xctestplan; path = "/Users/davdroman/Developer/davdroman/swiftui-introspect/Tests/UITests/UITests.xctestplan"; sourceTree = "<absolute>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
 		D5F0BE4929C0DBE800AD95AB /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHostApp.swift; sourceTree = "<group>"; };
@@ -308,6 +309,7 @@
 		D58D832C2A66BDD500A203BE /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				D5B5B03E2A6725500086B9DE /* UITests.xctestplan */,
 				D58D832D2A66BDD500A203BE /* StatusBarStyleUITests.swift */,
 				D5AEC33E2A66F31F0015AC1D /* UITestCase.swift */,
 				D5459AA32A67072F00F0D737 /* __Snapshots__ */,

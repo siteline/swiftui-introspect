@@ -1,5 +1,4 @@
 import SimulatorStatusMagic
-import UITestsHostApp
 import XCTest
 
 class UITestCase: XCTestCase {

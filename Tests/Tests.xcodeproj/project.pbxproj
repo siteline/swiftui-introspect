@@ -104,6 +104,7 @@
 		D58D83462A66C5EF00A203BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58D83452A66C5EF00A203BE /* Assets.xcassets */; };
 		D58D83492A66C5EF00A203BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D58D83482A66C5EF00A203BE /* Preview Assets.xcassets */; };
 		D58D83502A66C67A00A203BE /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D834F2A66C67A00A203BE /* TestCases.swift */; };
+		D5983E7D2A66FD3F00C50953 /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58D834F2A66C67A00A203BE /* TestCases.swift */; };
 		D5AAF56F2A502EF000CAFFB6 /* MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AAF56E2A502EF000CAFFB6 /* MapTests.swift */; };
 		D5AD0D912A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */; };
 		D5ADFACC2A4A22AE009494FD /* SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* SheetTests.swift */; };
@@ -737,6 +738,7 @@
 			files = (
 				D58D832E2A66BDD500A203BE /* StatusBarStyleUITests.swift in Sources */,
 				D5AEC33F2A66F31F0015AC1D /* UITestCase.swift in Sources */,
+				D5983E7D2A66FD3F00C50953 /* TestCases.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

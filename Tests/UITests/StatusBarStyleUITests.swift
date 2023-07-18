@@ -11,11 +11,16 @@ final class StatusBarStyleUITests: UITestCase {
             throw XCTSkip("SimulatorStatusMagic stopped working in iOS 17, so we can no longer consistently compare status bar screenshots")
         }
 
-        app.buttons["Navigate To Detail (bugged)"].tap()
         app.buttons["Navigate To Detail"].tap()
         app.buttons["Navigate To Detail"].tap()
         app.buttons["Navigate Back"].tap()
 
-        assertSnapshot(matching: app.windows.firstMatch.screenshot().image, as: .image)
+        let iOSDevice = UIDevice.current.userInterfaceIdiom == .pad ? "ipad" : "iphone"
+        let iOSVersion = ProcessInfo().operatingSystemVersion
+        func screenshotName(_ number: Int) -> String {
+            "\(iOSDevice)-ios-\(iOSVersion.majorVersion)-screenshot-\(number)"
+        }
+
+        assertSnapshot(matching: app.windows.firstMatch.screenshot().image, as: .image, named: screenshotName(1))
     }
 }

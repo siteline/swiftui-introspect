@@ -57,7 +57,6 @@
 		D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */; };
 		D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
 		D534D4DD2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
-		D5459AA62A67072F00F0D737 /* test.1.png in Resources */ = {isa = PBXBuildFile; fileRef = D5459AA52A67072F00F0D737 /* test.1.png */; };
 		D55F448D2A1FF209003381E4 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55F448C2A1FF209003381E4 /* ListTests.swift */; };
 		D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */; };
 		D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */; };
@@ -163,7 +162,6 @@
 		D50E2F902A2B9F6600BAFB03 /* LegacyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LegacyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		D534D4DB2A4A596200218BFB /* WindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTests.swift; sourceTree = "<group>"; };
-		D5459AA52A67072F00F0D737 /* test.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.1.png; sourceTree = "<group>"; };
 		D549D9732A66D876005D4FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D55F448C2A1FF209003381E4 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonTests.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 		D5459AA42A67072F00F0D737 /* StatusBarStyleUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D5459AA52A67072F00F0D737 /* test.1.png */,
 			);
 			path = StatusBarStyleUITests;
 			sourceTree = "<group>";
@@ -657,7 +654,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5459AA62A67072F00F0D737 /* test.1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

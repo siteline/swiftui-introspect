@@ -132,9 +132,9 @@ jobs:
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
-        name: Run Tests (SwiftUIIntrospect, Debug)
+        name: Run Tests (SwiftUIIntrospect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
-        name: Run Tests (SwiftUIIntrospect, Release)
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Release
+        name: Run UI Tests (SwiftUIIntrospect)
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

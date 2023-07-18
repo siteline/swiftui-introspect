@@ -115,11 +115,6 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
             guard let target = selector(controller) else {
                 return
             }
-            #if os(iOS)
-            if let target = target as? UIViewController {
-                controller.statusBarStyle = target.preferredStatusBarStyle
-            }
-            #endif
             context.coordinator.target = target
             customize(target)
             controller.handler = nil
@@ -151,9 +146,6 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 final class IntrospectionPlatformViewController: PlatformViewController {
     let id: IntrospectionViewID
     var handler: (() -> Void)? = nil
-    #if os(iOS)
-    var statusBarStyle: UIStatusBarStyle?
-    #endif
 
     fileprivate init(
         id: IntrospectionViewID,
@@ -179,7 +171,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     #if canImport(UIKit)
     #if os(iOS)
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        statusBarStyle ?? super.preferredStatusBarStyle
+        parent?.preferredStatusBarStyle ?? super.preferredStatusBarStyle
     }
     #endif
 

@@ -116,8 +116,9 @@ jobs:
       - name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - name: Run Tests (Debug)
+      - name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} configuration:Debug
 
-      - name: Run Tests (Release)
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} configuration:Release
+      - if: ${{ matrix.platform[0] == 'ios' && matrix.platform[1] >= '14' && matrix.platform[1] <= '16' }}
+        name: Run UI Tests
+        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

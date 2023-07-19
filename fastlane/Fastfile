@@ -73,7 +73,14 @@ lane :test do |options|
         end
     else
         is_legacy_sdk = (platform == "ios" && version == 13) || (platform == "tvos" && version == 13)
-        scheme = is_legacy_sdk ? "LegacySwiftUIIntrospectTests" : "SwiftUIIntrospectTests"
+        scheme = case scheme
+        when "SwiftUIIntrospectTests"
+            is_legacy_sdk ? "LegacySwiftUIIntrospectTests" : "SwiftUIIntrospectTests"
+        when "SwiftUIIntrospectUITests"
+            is_legacy_sdk ? raise "Unsupported platform: #{platform} #{version}" : "SwiftUIIntrospectUITests"
+        else
+            raise "Unsupported scheme: #{scheme}"
+        end
         run_tests(
             configuration: configuration,
             scheme: scheme,
@@ -82,6 +89,8 @@ lane :test do |options|
             ensure_devices_found: true,
             force_quit_simulator: true,
             disable_concurrent_testing: true,
+            result_bundle: true,
+            output_directory: Dir.pwd + "/test_output",
         )
     end
 end

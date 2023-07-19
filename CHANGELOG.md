@@ -3,6 +3,12 @@ Changelog
 
 ## master
 
+## [0.9.2]
+
+- Fixed: occasionally wrong status bar style (#313)
+- Infrastructure: added UI Test suite (#314)
+- Infrastructure: disabled "Autocreate schemes" (#308)
+
 ## [0.9.1]
 
 - Fixed: only box up content for `.view` introspection (#305)

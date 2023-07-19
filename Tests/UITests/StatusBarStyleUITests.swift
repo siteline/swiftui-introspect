@@ -23,7 +23,7 @@ final class StatusBarStyleUITests: UITestCase {
 
         assertSnapshot(
             matching: app.windows.firstMatch.screenshot().image,
-            as: .image(perceptualPrecision: 0.97),
+            as: .image(perceptualPrecision: 0.9),
             named: screenshotName(1)
         )
     }

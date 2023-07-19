@@ -89,6 +89,9 @@ lane :test do |options|
             "Introspect"
         when "SwiftUIIntrospectTests"
             is_legacy_sdk ? "LegacySwiftUIIntrospectTests" : "SwiftUIIntrospectTests"
+        when "SwiftUIIntrospectUITests"
+            next if is_legacy_sdk
+            "SwiftUIIntrospectUITests"
         else
             raise "Unsupported scheme: #{scheme}"
         end
@@ -100,6 +103,8 @@ lane :test do |options|
             ensure_devices_found: true,
             force_quit_simulator: true,
             disable_concurrent_testing: true,
+            result_bundle: true,
+            output_directory: Dir.pwd + "/test_output",
         )
     end
 end

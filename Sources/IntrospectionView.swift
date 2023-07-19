@@ -169,6 +169,12 @@ final class IntrospectionPlatformViewController: PlatformViewController {
     }
 
     #if canImport(UIKit)
+    #if os(iOS)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        parent?.preferredStatusBarStyle ?? super.preferredStatusBarStyle
+    }
+    #endif
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.introspectionController = self

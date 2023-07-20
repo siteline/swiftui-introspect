@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.10.0]
+
 - Added: `SecureField` introspection (#317)
 
 ## [0.9.2]

@@ -16,7 +16,7 @@ final class SecureFieldTests: XCTestCase {
             let spy2 = spies[2]
 
             VStack {
-                SecureField("", text: .constant("Text Field 0"))
+                SecureField("", text: .constant("Secure Field 0"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
                     #elseif os(macOS)
@@ -24,7 +24,7 @@ final class SecureFieldTests: XCTestCase {
                     #endif
                     .cornerRadius(8)
 
-                SecureField("", text: .constant("Text Field 1"))
+                SecureField("", text: .constant("Secure Field 1"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
                     #elseif os(macOS)
@@ -32,7 +32,7 @@ final class SecureFieldTests: XCTestCase {
                     #endif
                     .cornerRadius(8)
 
-                SecureField("", text: .constant("Text Field 2"))
+                SecureField("", text: .constant("Secure Field 2"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
                     #elseif os(macOS)
@@ -41,13 +41,13 @@ final class SecureFieldTests: XCTestCase {
             }
         } extraAssertions: {
             #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.text, "Secure Field 0")
+            XCTAssertEqual($0[safe: 1]?.text, "Secure Field 1")
+            XCTAssertEqual($0[safe: 2]?.text, "Secure Field 2")
             #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.stringValue, "Secure Field 0")
+            XCTAssertEqual($0[safe: 1]?.stringValue, "Secure Field 1")
+            XCTAssertEqual($0[safe: 2]?.stringValue, "Secure Field 2")
             #endif
         }
     }
@@ -59,21 +59,21 @@ final class SecureFieldTests: XCTestCase {
             let spy2 = spies[2]
 
             List {
-                SecureField("", text: .constant("Text Field 0"))
+                SecureField("", text: .constant("Secure Field 0"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
-                SecureField("", text: .constant("Text Field 1"))
+                SecureField("", text: .constant("Secure Field 1"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
-                SecureField("", text: .constant("Text Field 2"))
+                SecureField("", text: .constant("Secure Field 2"))
                     #if os(iOS) || os(tvOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
                     #elseif os(macOS)
@@ -82,13 +82,13 @@ final class SecureFieldTests: XCTestCase {
             }
         } extraAssertions: {
             #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.text, "Secure Field 0")
+            XCTAssertEqual($0[safe: 1]?.text, "Secure Field 1")
+            XCTAssertEqual($0[safe: 2]?.text, "Secure Field 2")
             #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 2")
+            XCTAssertEqual($0[safe: 0]?.stringValue, "Secure Field 0")
+            XCTAssertEqual($0[safe: 1]?.stringValue, "Secure Field 1")
+            XCTAssertEqual($0[safe: 2]?.stringValue, "Secure Field 2")
             #endif
         }
     }

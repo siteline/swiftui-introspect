@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added: `SecureField` introspection (#317)
+
 ## [0.9.2]
 
 - Fixed: occasionally wrong status bar style (#313)

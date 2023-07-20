@@ -118,6 +118,7 @@ Introspection
 - [`ProgressView` with `.linear` style](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/progressviewwithlinearstyletype)
 - [`ScrollView`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/scrollviewtype)
 - [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/searchfieldtype)
+- [`SecureField`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/securefieldtype)
 - [`.sheet`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/sheettype)
 - [`SignInWithAppleButton`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/SignInWithAppleButtonType)
 - [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/slidertype)

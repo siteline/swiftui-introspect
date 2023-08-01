@@ -107,7 +107,7 @@ jobs:
             install: false
           - platform: [macos, 13]
             os: macos-13
-            xcode: 14.3
+            xcode: 15.0
             install: false
     steps:
       - name: Git Checkout

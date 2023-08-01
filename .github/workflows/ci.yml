@@ -91,7 +91,6 @@ jobs:
             install: true
           - platform: [tvos, 16]
             runtime: tvOS 16.4
-            xcode: 14.3.1
             install: false
           - platform: [tvos, 17]
             runtime: tvOS 17.0

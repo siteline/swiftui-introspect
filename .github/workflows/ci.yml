@@ -73,7 +73,7 @@ jobs:
           - platform: [ios, 16]
             runtime: iOS 16.4
             install: true
-          - platform: [ios, 16]
+          - platform: [ios, 17]
             xcode: 15.0
             install: false
 

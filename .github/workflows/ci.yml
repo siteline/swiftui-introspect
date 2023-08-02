@@ -47,11 +47,13 @@ jobs:
           - [ios, 14]
           - [ios, 15]
           - [ios, 16]
+          - [ios, 17]
 
           - [tvos, 13]
           - [tvos, 14]
           - [tvos, 15]
           - [tvos, 16]
+          - [tvos, 17]
 
           - [macos, 11]
           - [macos, 12]
@@ -70,7 +72,9 @@ jobs:
             install: true
           - platform: [ios, 16]
             runtime: iOS 16.4
-            install: false
+            xcode: 14.3.1
+          - platform: [ios, 17]
+            runtime: iOS 17.0
 
           - platform: [tvos, 13]
             runtime: tvOS 13.4
@@ -85,20 +89,21 @@ jobs:
             install: true
           - platform: [tvos, 16]
             runtime: tvOS 16.4
-            install: false
+          - platform: [tvos, 17]
+            runtime: tvOS 17.0
 
           - platform: [macos, 11]
+            runtime: macOS 11
             os: macos-11
             xcode: 13.2.1
-            install: false
           - platform: [macos, 12]
+            runtime: macOS 12
             os: macos-12
             xcode: 14.2
-            install: false
           - platform: [macos, 13]
+            runtime: macOS 13
             os: macos-13
-            xcode: 14.3
-            install: false
+            xcode: 15.0
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -110,7 +115,7 @@ jobs:
             github.com/XcodesOrg/xcodes
 
       - name: Select Xcode version
-        run: sudo xcodes select ${{ matrix.xcode || '14.3' }}
+        run: sudo xcodes select ${{ matrix.xcode || '15.0' }}
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
@@ -127,7 +132,7 @@ jobs:
         name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' }}
+      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' && join(matrix.platform, ' ') != 'ios 17' && join(matrix.platform, ' ') != 'tvos 17' }}
         name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 

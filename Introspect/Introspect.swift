@@ -3,14 +3,14 @@ import SwiftUI
 #if os(macOS)
 public typealias PlatformView = NSView
 #endif
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 public typealias PlatformView = UIView
 #endif
 
 #if os(macOS)
 public typealias PlatformViewController = NSViewController
 #endif
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 public typealias PlatformViewController = UIViewController
 #endif
 

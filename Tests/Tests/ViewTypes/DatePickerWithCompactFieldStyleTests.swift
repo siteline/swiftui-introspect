@@ -1,4 +1,4 @@
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -28,8 +28,8 @@ final class DatePickerWithCompactStyleTests: XCTestCase {
             VStack {
                 DatePicker("", selection: .constant(date0))
                     .datePickerStyle(.compact)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
@@ -37,8 +37,8 @@ final class DatePickerWithCompactStyleTests: XCTestCase {
 
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.compact)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
@@ -46,8 +46,8 @@ final class DatePickerWithCompactStyleTests: XCTestCase {
 
                 DatePicker("", selection: .constant(date2))
                     .datePickerStyle(.compact)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), customize: spy2)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif

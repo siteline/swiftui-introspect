@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import XCTest
 
 final class NavigationViewWithColumnsStyleTests: XCTestCase {
-    #if canImport(UIKit) && os(iOS)
+    #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationViewWithColumnsStyle = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
     typealias PlatformNavigationViewWithColumnsStyle = UINavigationController

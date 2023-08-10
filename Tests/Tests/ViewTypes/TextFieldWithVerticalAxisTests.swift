@@ -5,7 +5,7 @@ import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
 final class TextFieldWithVerticalAxisTests: XCTestCase {
-    #if canImport(UIKit) && os(iOS)
+    #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformTextField = UITextView
     #elseif canImport(UIKit) && os(tvOS)
     typealias PlatformTextField = UITextField

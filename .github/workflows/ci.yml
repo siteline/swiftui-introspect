@@ -58,6 +58,8 @@ jobs:
           - [macos, 11]
           - [macos, 12]
           - [macos, 13]
+
+          - [visionos, 1]
         include:
           - platform: [ios, 13]
             runtime: iOS 13.7
@@ -104,6 +106,10 @@ jobs:
             runtime: macOS 13
             os: macos-13
             xcode: 15.0
+
+          - platform: [visionos, 1]
+            runtime: visionOS 1.0
+            os: macos-13
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

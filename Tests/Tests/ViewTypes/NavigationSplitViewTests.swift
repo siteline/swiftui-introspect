@@ -5,7 +5,7 @@ import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
 final class NavigationSplitViewTests: XCTestCase {
-    #if canImport(UIKit) && os(iOS)
+    #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationSplitView = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
     typealias PlatformNavigationSplitView = UINavigationController

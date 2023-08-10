@@ -1,4 +1,4 @@
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest

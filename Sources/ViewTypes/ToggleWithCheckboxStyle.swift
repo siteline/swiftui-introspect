@@ -25,13 +25,17 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct ToggleWithCheckboxStyleType: IntrospectableViewType {
     public enum Style {
         case checkbox
     }
 }
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleWithCheckboxStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }

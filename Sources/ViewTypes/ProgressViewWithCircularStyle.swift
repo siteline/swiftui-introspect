@@ -44,6 +44,19 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ProgressView(value: 0.5)
+///             .progressViewStyle(.circular)
+///             .introspect(.progressView(style: .circular), on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIActivityIndicatorView
+///             }
+///     }
+/// }
+/// ```
 public struct ProgressViewWithCircularStyleType: IntrospectableViewType {
     public enum Style {
         case circular
@@ -71,6 +84,10 @@ extension tvOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicator
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicatorView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ProgressViewWithCircularStyleType, NSProgressIndicator> {

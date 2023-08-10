@@ -1,4 +1,4 @@
-#if os(iOS)
+#if !os(tvOS) && !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -19,8 +19,8 @@ final class PickerWithWheelStyleTests: XCTestCase {
                     Text("1").tag("1")
                 }
                 .pickerStyle(.wheel)
-                #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                #if os(iOS) || os(visionOS)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                 #endif
                 .cornerRadius(8)
 
@@ -29,8 +29,8 @@ final class PickerWithWheelStyleTests: XCTestCase {
                     Text("2").tag("2")
                 }
                 .pickerStyle(.wheel)
-                #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                #if os(iOS) || os(visionOS)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                 #endif
                 .cornerRadius(8)
 
@@ -40,8 +40,8 @@ final class PickerWithWheelStyleTests: XCTestCase {
                     Text("3").tag("3")
                 }
                 .pickerStyle(.wheel)
-                #if os(iOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+                #if os(iOS) || os(visionOS)
+                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                 #endif
             }
         } extraAssertions: {

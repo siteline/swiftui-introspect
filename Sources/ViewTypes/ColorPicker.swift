@@ -68,12 +68,10 @@ extension iOSViewVersion<ColorPickerType, UIColorWell> {
     public static let v17 = Self(for: .v17)
 }
 
-#if os(visionOS)
-@available(visionOS 1, *)
+@available(iOS 14, *)
 extension visionOSViewVersion<ColorPickerType, UIColorWell> {
     public static let v1 = Self(for: .v1)
 }
-#endif
 #elseif canImport(AppKit)
 @available(macOS 11, *)
 extension macOSViewVersion<ColorPickerType, NSColorWell> {

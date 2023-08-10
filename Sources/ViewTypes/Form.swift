@@ -43,6 +43,22 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .introspect(.form, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct FormType: IntrospectableViewType {}
 
 #if !os(macOS)
@@ -68,6 +84,10 @@ extension tvOSViewVersion<FormType, UITableView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<FormType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #endif
 #endif

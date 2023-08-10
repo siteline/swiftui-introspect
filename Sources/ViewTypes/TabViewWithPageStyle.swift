@@ -40,6 +40,22 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         TabView {
+///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
+///         }
+///         .tabViewStyle(.page(indexDisplayMode: .always))
+///         .introspect(.tabView(style: .page), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct TabViewWithPageStyleType: IntrospectableViewType {
     public enum Style {
         case page
@@ -68,6 +84,10 @@ extension tvOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #endif
 #endif

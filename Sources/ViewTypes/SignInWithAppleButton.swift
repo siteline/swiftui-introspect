@@ -52,6 +52,23 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         SignInWithAppleButton(.signIn) { request in
+///             request.requestedScopes = [.fullName, .email]
+///         } onCompletion: { result in
+///             // do something with result
+///         }
+///         .introspect(.signInWithAppleButton, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // ASAuthorizationAppleIDButton
+///         }
+///     }
+/// }
+/// ```
 public struct SignInWithAppleButtonType: IntrospectableViewType {}
 
 #if canImport(AuthenticationServices)
@@ -86,5 +103,9 @@ extension macOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButt
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+}
+
+extension visionOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButton> {
+    public static let v1 = Self(for: .v1)
 }
 #endif

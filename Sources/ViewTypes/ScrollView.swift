@@ -47,6 +47,20 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         ScrollView {
+///             Text("Item")
+///         }
+///         .introspect(.scrollView, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UIScrollView
+///         }
+///     }
+/// }
+/// ```
 public struct ScrollViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == ScrollViewType {
@@ -68,6 +82,10 @@ extension tvOSViewVersion<ScrollViewType, UIScrollView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ScrollViewType, UIScrollView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ScrollViewType, NSScrollView> {

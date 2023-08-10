@@ -55,6 +55,23 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .introspect(.list, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct ListType: IntrospectableViewType {
     public enum Style {
         case plain
@@ -84,6 +101,10 @@ extension tvOSViewVersion<ListType, UITableView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ListType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListType, NSTableView> {

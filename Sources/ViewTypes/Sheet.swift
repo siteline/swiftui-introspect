@@ -42,11 +42,28 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isPresented = false
+///
+///     var body: some View {
+///         Button("Present", action: { isPresented = true })
+///             .sheet(isPresented: $isPresented) {
+///                 Button("Dismiss", action: { isPresented = false })
+///                     .introspect(.sheet, on: .visionOS(.v1)) {
+///                         print(type(of: $0)) // UISheetPresentationController
+///                     }
+///             }
+///     }
+/// }
+/// ```
 public struct SheetType: IntrospectableViewType {
     public var scope: IntrospectionScope { .ancestor }
 }
 
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 extension IntrospectableViewType where Self == SheetType {
     public static var sheet: Self { .init() }
 }
@@ -73,6 +90,15 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v16 = Self(for: .v16, selector: selector)
     @_disfavoredOverload
     public static let v17 = Self(for: .v17, selector: selector)
+
+    private static var selector: IntrospectionSelector<UISheetPresentationController> {
+        .from(UIViewController.self, selector: \.sheetPresentationController)
+    }
+}
+
+@available(iOS 15, *)
+extension visionOSViewVersion<SheetType, UISheetPresentationController> {
+    public static let v1 = Self(for: .v1, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: \.sheetPresentationController)

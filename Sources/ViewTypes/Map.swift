@@ -46,6 +46,21 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///
+///     var body: some View {
+///         Map(coordinateRegion: $region)
+///             .introspect(.map, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // MKMapView
+///             }
+///     }
+/// }
+/// ```
 public struct MapType: IntrospectableViewType {}
 
 #if canImport(MapKit)
@@ -80,5 +95,9 @@ extension macOSViewVersion<MapType, MKMapView> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+}
+
+extension visionOSViewVersion<MapType, MKMapView> {
+    public static let v1 = Self(for: .v1)
 }
 #endif

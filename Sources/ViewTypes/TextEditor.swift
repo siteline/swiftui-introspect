@@ -35,6 +35,21 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextEditor(text: $text)
+///             .introspect(.textEditor, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UITextView
+///             }
+///     }
+/// }
+/// ```
 public struct TextEditorType: IntrospectableViewType {}
 
 #if !os(tvOS)
@@ -50,6 +65,10 @@ extension iOSViewVersion<TextEditorType, UITextView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<TextEditorType, UITextView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextEditorType, NSTextView> {

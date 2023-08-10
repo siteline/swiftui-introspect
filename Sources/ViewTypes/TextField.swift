@@ -46,6 +46,21 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var text = "Lorem ipsum"
+///
+///     var body: some View {
+///         TextField("Text Field", text: $text)
+///             .introspect(.textField, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UITextField
+///             }
+///     }
+/// }
+/// ```
 public struct TextFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == TextFieldType {
@@ -67,6 +82,10 @@ extension tvOSViewVersion<TextFieldType, UITextField> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<TextFieldType, UITextField> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldType, NSTextField> {

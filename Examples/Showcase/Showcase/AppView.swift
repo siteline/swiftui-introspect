@@ -248,17 +248,15 @@ struct PresentationShowcase: View {
             Button("Sheet", action: { isSheetPresented = true })
                 .sheet(isPresented: $isSheetPresented) {
                     Button("Dismiss", action: { isSheetPresented = false })
-                        #if os(iOS) || os(tvOS) || os(visionOS)
+                        #if os(iOS) || os(tvOS)
                         .introspect(
                             .sheet,
-                            on: .iOS(.v13, .v14), .tvOS(.v13, .v14, .v15, .v16, .v17)
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)
                         ) { presentationController in
                             presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                         }
-                        .introspect(
-                            .sheet,
-                            on: .iOS(.v15, .v16, .v17), .visionOS(.v1)
-                        ) { sheetPresentationController in
+                        #elseif os(visionOS)
+                        .introspect(.sheet, on: .visionOS(.v1)) { sheetPresentationController in
                             sheetPresentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                         }
                         #endif

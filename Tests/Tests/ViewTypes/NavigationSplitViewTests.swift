@@ -32,8 +32,8 @@ final class NavigationSplitViewTests: XCTestCase {
                     Text("Detail")
                 }
             }
-            #if os(iOS)
-            .introspect(.navigationSplitView, on: .iOS(.v16, .v17), customize: spy)
+            #if os(iOS) || os(visionOS)
+            .introspect(.navigationSplitView, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy)
             #elseif os(tvOS)
             .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), customize: spy)
             #elseif os(macOS)
@@ -55,8 +55,8 @@ final class NavigationSplitViewTests: XCTestCase {
                 ZStack {
                     Color.red
                     Text("Sidebar")
-                        #if os(iOS)
-                        .introspect(.navigationSplitView, on: .iOS(.v16, .v17), scope: .ancestor, customize: spy)
+                        #if os(iOS) || os(visionOS)
+                        .introspect(.navigationSplitView, on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
                         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)

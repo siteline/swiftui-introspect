@@ -40,6 +40,22 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         TabView {
+///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
+///         }
+///         .tabViewStyle(.page(indexDisplayMode: .always))
+///         .introspect(.pageControl, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UIPageControl
+///         }
+///     }
+/// }
+/// ```
 public struct PageControlType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == PageControlType {
@@ -63,5 +79,9 @@ extension tvOSViewVersion<PageControlType, UIPageControl> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<PageControlType, UIPageControl> {
+    public static let v1 = Self(for: .v1)
 }
 #endif

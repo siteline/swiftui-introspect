@@ -40,6 +40,15 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
     public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
         Self([versions.lowerBound], matches: \.isCurrentOrPast)
     }
+
+    public static func visionOS(_ versions: (visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+        Self(versions, matches: \.isCurrent)
+    }
+
+    @_spi(Advanced)
+    public static func visionOS(_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+        Self([versions.lowerBound], matches: \.isCurrentOrPast)
+    }
 }
 
 public typealias iOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
@@ -48,6 +57,8 @@ public typealias tvOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platfo
     PlatformViewVersion<tvOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<macOSVersion, SwiftUIViewType, PlatformSpecificEntity>
+public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
+    PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
 public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     @_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)

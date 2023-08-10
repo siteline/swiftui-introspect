@@ -41,6 +41,18 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Text("Content")
+///             .introspect(.window, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIWindow
+///             }
+///     }
+/// }
+/// ```
 public struct WindowType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == WindowType {
@@ -66,6 +78,14 @@ extension tvOSViewVersion<WindowType, UIWindow> {
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
+
+    private static var selector: IntrospectionSelector<UIWindow> {
+        .from(UIView.self, selector: \.window)
+    }
+}
+
+extension visionOSViewVersion<WindowType, UIWindow> {
+    public static let v1 = Self(for: .v1, selector: selector)
 
     private static var selector: IntrospectionSelector<UIWindow> {
         .from(UIView.self, selector: \.window)

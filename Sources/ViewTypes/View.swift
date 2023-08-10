@@ -50,6 +50,21 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         HStack {
+///             Image(systemName: "scribble")
+///             Text("Some text")
+///         }
+///         .introspect(.view, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // some subclass of UIView
+///         }
+///     }
+/// }
+/// ```
 public struct ViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == ViewType {
@@ -71,6 +86,10 @@ extension tvOSViewVersion<ViewType, UIView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ViewType, UIView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ViewType, NSView> {

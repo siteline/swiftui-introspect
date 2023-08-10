@@ -36,9 +36,12 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// Not available.
 public struct SliderType: IntrospectableViewType {}
 
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == SliderType {
     public static var slider: Self { .init() }
 }

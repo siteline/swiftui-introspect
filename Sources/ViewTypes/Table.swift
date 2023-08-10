@@ -70,9 +70,40 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     struct Purchase: Identifiable {
+///         let id = UUID()
+///         let price: Decimal
+///     }
+///
+///     var body: some View {
+///         Table(of: Purchase.self) {
+///             TableColumn("Base price") { purchase in
+///                 Text(purchase.price, format: .currency(code: "USD"))
+///             }
+///             TableColumn("With 15% tip") { purchase in
+///                 Text(purchase.price * 1.15, format: .currency(code: "USD"))
+///             }
+///             TableColumn("With 20% tip") { purchase in
+///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
+///             }
+///         } rows: {
+///             TableRow(Purchase(price: 20))
+///             TableRow(Purchase(price: 50))
+///             TableRow(Purchase(price: 75))
+///         }
+///         .introspect(.table, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct TableType: IntrospectableViewType {}
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 extension IntrospectableViewType where Self == TableType {
     public static var table: Self { .init() }
 }
@@ -88,7 +119,11 @@ extension iOSViewVersion<TableType, UICollectionView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
 }
-#elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+
+extension visionOSViewVersion<TableType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
+}
+#elseif canImport(AppKit)
 extension macOSViewVersion<TableType, NSTableView> {
     @available(*, unavailable, message: "Table isn't available on macOS 10.15")
     public static let v10_15 = Self(for: .v10_15)

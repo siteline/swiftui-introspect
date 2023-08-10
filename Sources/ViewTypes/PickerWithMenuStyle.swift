@@ -29,13 +29,17 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct PickerWithMenuStyleType: IntrospectableViewType {
     public enum Style {
         case menu
     }
 }
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == PickerWithMenuStyleType {
     public static func picker(style: Self.Style) -> Self { .init() }
 }

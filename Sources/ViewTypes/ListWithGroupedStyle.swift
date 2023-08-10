@@ -45,13 +45,30 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.grouped)
+///         .introspect(.list(style: .grouped), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct ListWithGroupedStyleType: IntrospectableViewType {
     public enum Style {
         case grouped
     }
 }
 
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 extension IntrospectableViewType where Self == ListWithGroupedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }
@@ -74,6 +91,10 @@ extension tvOSViewVersion<ListWithGroupedStyleType, UITableView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ListWithGroupedStyleType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #endif
 #endif

@@ -26,13 +26,28 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.wheel)
+///             .introspect(.datePicker(style: .wheel), on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIDatePicker
+///             }
+///     }
+/// }
+/// ```
 public struct DatePickerWithWheelStyleType: IntrospectableViewType {
     public enum Style {
         case wheel
     }
 }
 
-#if os(iOS)
+#if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithWheelStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }
@@ -44,6 +59,10 @@ extension iOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
+    public static let v1 = Self(for: .v1)
 }
 #endif
 #endif

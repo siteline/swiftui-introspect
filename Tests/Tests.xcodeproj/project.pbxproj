@@ -58,7 +58,6 @@
 		D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
 		D534D4DD2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
 		D55F448D2A1FF209003381E4 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55F448C2A1FF209003381E4 /* ListTests.swift */; };
-		D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */; };
 		D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */; };
 		D575067A2A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */; };
 		D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D575067B2A27C24600A628E4 /* ListWithPlainStyleTests.swift */; };
@@ -165,7 +164,6 @@
 		D534D4DB2A4A596200218BFB /* WindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTests.swift; sourceTree = "<group>"; };
 		D549D9732A66D876005D4FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D55F448C2A1FF209003381E4 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
-		D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonTests.swift; sourceTree = "<group>"; };
 		D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithSegmentedStyleTests.swift; sourceTree = "<group>"; };
 		D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithMenuStyleTests.swift; sourceTree = "<group>"; };
 		D575067B2A27C24600A628E4 /* ListWithPlainStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithPlainStyleTests.swift; sourceTree = "<group>"; };
@@ -396,7 +394,6 @@
 				D58119CD2A23A4A70081F853 /* TabViewWithPageStyleTests.swift */,
 				D58119C92A239BAC0081F853 /* TextEditorTests.swift */,
 				D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */,
-				D568532B2A49DBB10039A99F /* SignInWithAppleButtonTests.swift */,
 				D5AD0D902A114B98003D8DEC /* TextFieldWithVerticalAxisTests.swift */,
 				D58119C72A22AC130081F853 /* ToggleTests.swift */,
 				D575068D2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift */,
@@ -799,7 +796,6 @@
 				D57506922A27EE4700A628E4 /* DatePickerWithWheelStyleTests.swift in Sources */,
 				D57506822A27C74600A628E4 /* ListWithInsetGroupedStyleTests.swift in Sources */,
 				D5ADFACE2A4A3482009494FD /* FullScreenCoverTests.swift in Sources */,
-				D568532C2A49DBB10039A99F /* SignInWithAppleButtonTests.swift in Sources */,
 				D575068A2A27CE7900A628E4 /* FormWithGroupedStyleTests.swift in Sources */,
 				D575067C2A27C24600A628E4 /* ListWithPlainStyleTests.swift in Sources */,
 				D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */,

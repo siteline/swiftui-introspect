@@ -138,7 +138,7 @@ jobs:
         name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' && join(matrix.platform, ' ') != 'ios 17' && join(matrix.platform, ' ') != 'tvos 17' }}
+      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' && join(matrix.platform, ' ') != 'ios 17' && join(matrix.platform, ' ') != 'tvos 17' && matrix.platform[0] != 'visionos' }}
         name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 

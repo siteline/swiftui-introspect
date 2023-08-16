@@ -16,7 +16,7 @@ devices = {
         17 => ["Apple TV (17.0)"],
     },
     "visionos" => {
-        1 => ["Apple Vision Pro"],
+        1 => ["Apple Vision Pro (1.0)"],
     },
 }
 

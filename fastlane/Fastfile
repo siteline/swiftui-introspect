@@ -1,5 +1,4 @@
 skip_docs
-opt_out_usage
 
 devices = {
     "ios" => {

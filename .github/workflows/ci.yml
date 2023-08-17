@@ -89,9 +89,10 @@ jobs:
             os: macos-13
             xcode: 15.0
 
-          - platform: [visionos, 1]
-            runtime: visionOS 1.0
-            os: macos-13
+          # FIXME: re-enable when visionOS stops segfaulting on GitHub Actions
+          # - platform: [visionos, 1]
+          #   runtime: visionOS 1.0
+          #   os: macos-13
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

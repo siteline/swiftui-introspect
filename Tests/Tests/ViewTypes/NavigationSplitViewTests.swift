@@ -5,7 +5,7 @@ import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
 final class NavigationSplitViewTests: XCTestCase {
-    #if canImport(UIKit) && os(iOS)
+    #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationSplitView = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
     typealias PlatformNavigationSplitView = UINavigationController
@@ -32,8 +32,8 @@ final class NavigationSplitViewTests: XCTestCase {
                     Text("Detail")
                 }
             }
-            #if os(iOS)
-            .introspect(.navigationSplitView, on: .iOS(.v16, .v17), customize: spy)
+            #if os(iOS) || os(visionOS)
+            .introspect(.navigationSplitView, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy)
             #elseif os(tvOS)
             .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), customize: spy)
             #elseif os(macOS)
@@ -55,8 +55,8 @@ final class NavigationSplitViewTests: XCTestCase {
                 ZStack {
                     Color.red
                     Text("Sidebar")
-                        #if os(iOS)
-                        .introspect(.navigationSplitView, on: .iOS(.v16, .v17), scope: .ancestor, customize: spy)
+                        #if os(iOS) || os(visionOS)
+                        .introspect(.navigationSplitView, on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
                         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)

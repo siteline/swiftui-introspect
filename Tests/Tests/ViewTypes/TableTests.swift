@@ -1,4 +1,4 @@
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -23,22 +23,22 @@ final class TableTests: XCTestCase {
 
             VStack {
                 TipTable()
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy0)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TipTable()
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy1)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TipTable()
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy2)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif
@@ -59,24 +59,24 @@ final class TableTests: XCTestCase {
             VStack {
                 TipTable()
                     .tableStyle(.inset)
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy0)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TipTable()
                     .tableStyle(.inset)
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy1)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TipTable()
                     .tableStyle(.inset)
-                    #if os(iOS)
-                    .introspect(.table, on: .iOS(.v16, .v17), customize: spy2)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14), customize: spy2)
                     #endif

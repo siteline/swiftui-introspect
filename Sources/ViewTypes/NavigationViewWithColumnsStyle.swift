@@ -49,6 +49,22 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root")
+///         }
+///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
+///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UISplitViewController
+///         }
+///     }
+/// }
+/// ```
 public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {
     public enum Style {
         case columns
@@ -81,6 +97,14 @@ extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationContro
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)
+    }
+}
+
+extension visionOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewController> {
+    public static let v1 = Self(for: .v1, selector: selector)
+
+    private static var selector: IntrospectionSelector<UISplitViewController> {
+        .default.withAncestorSelector(\.splitViewController)
     }
 }
 #elseif canImport(AppKit)

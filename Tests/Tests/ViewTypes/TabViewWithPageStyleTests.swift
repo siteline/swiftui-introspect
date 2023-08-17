@@ -22,8 +22,8 @@ final class TabViewWithPageStyleTests: XCTestCase {
                 Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
             }
             .tabViewStyle(.page)
-            #if os(iOS) || os(tvOS)
-            .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #endif
         }
     }
@@ -38,8 +38,8 @@ final class TabViewWithPageStyleTests: XCTestCase {
 
             TabView {
                 Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                     #endif
                 Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
             }

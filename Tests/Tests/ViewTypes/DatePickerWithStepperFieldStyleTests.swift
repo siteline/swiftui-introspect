@@ -1,19 +1,19 @@
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
-final class DatePickerWithWheelStyleTests: XCTestCase {
+final class DatePickerWithStepperFieldStyleTests: XCTestCase {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-    typealias PlatformDatePickerWithWheelStyle = NSDatePicker
+    typealias PlatformDatePickerWithStepperFieldStyle = NSDatePicker
     #endif
 
-    func testDatePickerWithWheelStyle() {
+    func testDatePickerWithStepperFieldStyle() {
         let date0 = Date(timeIntervalSince1970: 0)
         let date1 = Date(timeIntervalSince1970: 5)
         let date2 = Date(timeIntervalSince1970: 10)
 
-        XCTAssertViewIntrospection(of: PlatformDatePickerWithWheelStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformDatePickerWithStepperFieldStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

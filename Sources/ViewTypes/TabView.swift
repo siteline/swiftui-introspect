@@ -50,8 +50,12 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// Not available.
 public struct TabViewType: IntrospectableViewType {}
 
+#if !os(visionOS)
 extension IntrospectableViewType where Self == TabViewType {
     public static var tabView: Self { .init() }
 }
@@ -88,4 +92,5 @@ extension macOSViewVersion<TabViewType, NSTabView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif

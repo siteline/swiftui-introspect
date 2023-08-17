@@ -42,11 +42,28 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var isPresented = false
+///
+///     var body: some View {
+///         Button("Present", action: { isPresented = true })
+///             .fullScreenCover(isPresented: $isPresented) {
+///                 Button("Dismiss", action: { isPresented = false })
+///                     .introspect(.fullScreenCover, on: .visionOS(.v1)) {
+///                         print(type(of: $0)) // UIPresentationController
+///                     }
+///             }
+///     }
+/// }
+/// ```
 public struct FullScreenCoverType: IntrospectableViewType {
     public var scope: IntrospectionScope { .ancestor }
 }
 
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 extension IntrospectableViewType where Self == FullScreenCoverType {
     public static var fullScreenCover: Self { .init() }
 }
@@ -72,6 +89,14 @@ extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
+
+    private static var selector: IntrospectionSelector<UIPresentationController> {
+        .from(UIViewController.self, selector: \.presentationController)
+    }
+}
+
+extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
+    public static let v1 = Self(for: .v1, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)

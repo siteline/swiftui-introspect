@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import XCTest
 
 final class NavigationViewWithColumnsStyleTests: XCTestCase {
-    #if canImport(UIKit) && os(iOS)
+    #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationViewWithColumnsStyle = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
     typealias PlatformNavigationViewWithColumnsStyle = UINavigationController
@@ -22,8 +22,8 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
                 }
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            #if os(iOS)
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(visionOS)
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #elseif os(tvOS)
             .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
             #elseif os(macOS)
@@ -40,8 +40,8 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
                 ZStack {
                     Color.red
                     Text("Something")
-                        #if os(iOS)
-                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
+                        #if os(iOS) || os(visionOS)
+                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
                         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
                         #elseif os(macOS)

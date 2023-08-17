@@ -231,6 +231,10 @@ extension tvOSViewVersion<TextFieldType, UITextField> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
 }
+
+extension visionOSViewVersion<TextFieldType, UITextField> {
+    public static let v1 = Self(for: .v1)
+}
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldType, NSTextField> {
     public static let v10_15 = Self(for: .v10_15)

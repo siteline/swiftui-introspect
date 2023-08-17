@@ -36,9 +36,12 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// Not available.
 public struct StepperType: IntrospectableViewType {}
 
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == StepperType {
     public static var stepper: Self { .init() }
 }

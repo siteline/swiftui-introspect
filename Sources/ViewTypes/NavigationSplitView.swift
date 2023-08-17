@@ -53,6 +53,22 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationSplitView {
+///             Text("Root")
+///         } detail: {
+///             Text("Detail")
+///         }
+///         .introspect(.navigationSplitView, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UISplitViewController
+///         }
+///     }
+/// }
+/// ```
 public struct NavigationSplitViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == NavigationSplitViewType {
@@ -89,6 +105,14 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)
+    }
+}
+
+extension visionOSViewVersion<NavigationSplitViewType, UISplitViewController> {
+    public static let v1 = Self(for: .v1, selector: selector)
+
+    private static var selector: IntrospectionSelector<UISplitViewController> {
+        .default.withAncestorSelector(\.splitViewController)
     }
 }
 #elseif canImport(AppKit)

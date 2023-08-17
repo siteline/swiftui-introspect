@@ -14,7 +14,7 @@ import SwiftUI
 ///         }
 ///         .formStyle(.grouped)
 ///         .introspect(.form(style: .grouped), on: .iOS(.v16, .v17)) {
-///             print(type(of: $0)) // UITableView
+///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
 /// }
@@ -32,7 +32,7 @@ import SwiftUI
 ///         }
 ///         .formStyle(.grouped)
 ///         .introspect(.form(style: .grouped), on: .tvOS(.v16, .v17)) {
-///             print(type(of: $0)) // UICollectionView
+///             print(type(of: $0)) // UITableView
 ///         }
 ///     }
 /// }
@@ -51,6 +51,24 @@ import SwiftUI
 ///         .formStyle(.grouped)
 ///         .introspect(.form(style: .grouped), on: .macOS(.v13, .v14)) {
 ///             print(type(of: $0)) // NSScrollView
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         Form {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .formStyle(.grouped)
+///         .introspect(.form(style: .grouped), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
 /// }
@@ -89,6 +107,10 @@ extension tvOSViewVersion<FormWithGroupedStyleType, UITableView> {
     public static let v15 = Self.unavailable()
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<FormWithGroupedStyleType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<FormWithGroupedStyleType, NSScrollView> {

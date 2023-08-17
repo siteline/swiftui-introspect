@@ -55,6 +55,23 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             ForEach(1...3, id: \.self) { int in
+///                 Text("Item \(int)")
+///                     .introspect(.listCell, on: .visionOS(.v1)) {
+///                         print(type(of: $0)) // UICollectionViewCell
+///                     }
+///             }
+///         }
+///     }
+/// }
+/// ```
 public struct ListCellType: IntrospectableViewType {
     public var scope: IntrospectionScope { .ancestor }
 }
@@ -81,6 +98,10 @@ extension tvOSViewVersion<ListCellType, UITableViewCell> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ListCellType, UICollectionViewCell> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListCellType, NSTableCellView> {

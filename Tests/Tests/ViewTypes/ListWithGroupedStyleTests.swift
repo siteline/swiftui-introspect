@@ -18,16 +18,16 @@ final class ListWithGroupedStyleTests: XCTestCase {
                     Text("Item 1")
                 }
                 .listStyle(.grouped)
-                #if os(iOS) || os(tvOS)
+                #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { spy0($0) }
-                .introspect(.list(style: .grouped), on: .iOS(.v16, .v17)) { spy0($0) }
+                .introspect(.list(style: .grouped), on: .iOS(.v16, .v17), .visionOS(.v1)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
-                    #if os(iOS) || os(tvOS)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .grouped), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .grouped), on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.grouped)

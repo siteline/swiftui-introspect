@@ -17,24 +17,24 @@ final class SecureFieldTests: XCTestCase {
 
             VStack {
                 SecureField("", text: .constant("Secure Field 0"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 SecureField("", text: .constant("Secure Field 1"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 SecureField("", text: .constant("Secure Field 2"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif
@@ -60,22 +60,22 @@ final class SecureFieldTests: XCTestCase {
 
             List {
                 SecureField("", text: .constant("Secure Field 0"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 SecureField("", text: .constant("Secure Field 1"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 SecureField("", text: .constant("Secure Field 2"))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif

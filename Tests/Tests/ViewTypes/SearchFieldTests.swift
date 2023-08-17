@@ -1,4 +1,4 @@
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -22,8 +22,8 @@ final class SearchFieldTests: XCTestCase {
                     .searchable(text: .constant(""))
             }
             .navigationViewStyle(.stack)
-            #if os(iOS) || os(tvOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #endif
         }
     }
@@ -39,8 +39,8 @@ final class SearchFieldTests: XCTestCase {
             NavigationView {
                 Text("Customized")
                     .searchable(text: .constant(""))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), scope: .ancestor, customize: spy)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(.stack)
@@ -60,8 +60,8 @@ final class SearchFieldTests: XCTestCase {
                     .searchable(text: .constant(""))
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            #if os(iOS) || os(tvOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #endif
             #if os(iOS)
             // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
@@ -83,8 +83,8 @@ final class SearchFieldTests: XCTestCase {
             NavigationView {
                 Text("Customized")
                     .searchable(text: .constant(""))
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), scope: .ancestor, customize: spy)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())

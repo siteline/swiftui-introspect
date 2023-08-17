@@ -36,6 +36,20 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationStack {
+///             Text("Root")
+///         }
+///         .introspect(.navigationStack, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///     }
+/// }
+/// ```
 public struct NavigationStackType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == NavigationStackType {
@@ -69,6 +83,14 @@ extension tvOSViewVersion<NavigationStackType, UINavigationController> {
 
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
+
+    private static var selector: IntrospectionSelector<UINavigationController> {
+        .default.withAncestorSelector(\.navigationController)
+    }
+}
+
+extension visionOSViewVersion<NavigationStackType, UINavigationController> {
+    public static let v1 = Self(for: .v1, selector: selector)
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector(\.navigationController)

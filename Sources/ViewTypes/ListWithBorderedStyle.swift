@@ -27,13 +27,17 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct ListWithBorderedStyleType: IntrospectableViewType {
     public enum Style {
         case bordered
     }
 }
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ListWithBorderedStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }

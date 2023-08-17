@@ -40,6 +40,19 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
+///             .introspect(.videoPlayer, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // AVPlayerViewController
+///             }
+///     }
+/// }
+/// ```
 public struct VideoPlayerType: IntrospectableViewType {}
 
 #if canImport(AVKit)
@@ -66,6 +79,10 @@ extension tvOSViewVersion<VideoPlayerType, AVPlayerViewController> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<VideoPlayerType, AVPlayerViewController> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<VideoPlayerType, AVPlayerView> {

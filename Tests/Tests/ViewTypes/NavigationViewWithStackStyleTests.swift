@@ -19,8 +19,8 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
                 }
             }
             .navigationViewStyle(.stack)
-            #if os(iOS) || os(tvOS)
-            .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #endif
         }
     }
@@ -33,8 +33,8 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
                 ZStack {
                     Color.red
                     Text("Something")
-                        #if os(iOS) || os(tvOS)
-                        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor, customize: spy)
+                        #if os(iOS) || os(tvOS) || os(visionOS)
+                        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

@@ -3,6 +3,9 @@ Changelog
 
 ## master
 
+- Added: visionOS support (#327)
+- Infrastructure: run CI tests on iOS & tvOS 17 (#323)
+
 ## [0.10.0]
 
 - Added: `SecureField` introspection (#317)

@@ -33,9 +33,24 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .introspect(.datePicker, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIDatePicker
+///             }
+///     }
+/// }
+/// ```
 public struct DatePickerType: IntrospectableViewType {}
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 extension IntrospectableViewType where Self == DatePickerType {
     public static var datePicker: Self { .init() }
 }
@@ -47,6 +62,10 @@ extension iOSViewVersion<DatePickerType, UIDatePicker> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<DatePickerType, UIDatePicker> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<DatePickerType, NSDatePicker> {

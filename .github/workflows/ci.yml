@@ -42,22 +42,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - [ios, 13]
-          - [ios, 14]
-          - [ios, 15]
-          - [ios, 16]
-          - [ios, 17]
-
-          - [tvos, 13]
-          - [tvos, 14]
-          - [tvos, 15]
-          - [tvos, 16]
-          - [tvos, 17]
-
-          - [macos, 11]
-          - [macos, 12]
-          - [macos, 13]
         include:
           - platform: [ios, 13]
             runtime: iOS 13.7
@@ -66,6 +50,7 @@ jobs:
             install: true
           - platform: [ios, 14]
             runtime: iOS 14.5
+            xcode: 14.2
             install: true
           - platform: [ios, 15]
             runtime: iOS 15.5
@@ -104,6 +89,11 @@ jobs:
             runtime: macOS 13
             os: macos-13
             xcode: 15.0
+
+          # FIXME: this currently hangs on CI
+          # - platform: [visionos, 1]
+          #   runtime: visionOS 1.0-beta2
+          #   install: true
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
@@ -125,14 +115,17 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - name: List Available Runtimes and Simulators
-        run: xcrun simctl list
+      - if: false
+        name: '[Debug] List Available Runtimes, Simulators, and Destinations'
+        run: |
+          xcrun simctl list
+          xcodebuild -scheme "Showcase" -showdestinations
 
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
         name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' && join(matrix.platform, ' ') != 'ios 17' && join(matrix.platform, ' ') != 'tvos 17' }}
+      - if: ${{ join(matrix.platform, ' ') != 'ios 13' && join(matrix.platform, ' ') != 'tvos 13' && join(matrix.platform, ' ') != 'ios 17' && join(matrix.platform, ' ') != 'tvos 17' && matrix.platform[0] != 'visionos' }}
         name: Run Tests (Introspect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Introspect
 

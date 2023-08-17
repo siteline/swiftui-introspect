@@ -18,22 +18,22 @@ final class ToggleTests: XCTestCase {
 
             VStack {
                 Toggle("", isOn: .constant(true))
-                    #if os(iOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 Toggle("", isOn: .constant(false))
-                    #if os(iOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 Toggle("", isOn: .constant(true))
-                    #if os(iOS)
-                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.toggle, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif

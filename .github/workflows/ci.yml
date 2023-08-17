@@ -117,6 +117,9 @@ jobs:
       - name: List Available Runtimes and Simulators
         run: xcrun simctl list
 
+      - name: List Compatible Destinations
+        run: xcodebuild -scheme "Showcase" -showdestinations
+
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
         name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase

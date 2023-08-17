@@ -32,7 +32,7 @@ jobs:
 
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
-    runs-on: ${{ matrix.os || 'macos-13' }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -44,16 +44,22 @@ jobs:
             install: true
           - platform: [ios, 14]
             runtime: iOS 14.5
-            xcode: 14.2
+            os: macos-13
+            xcode: 14.3.1
             install: true
           - platform: [ios, 15]
             runtime: iOS 15.5
+            os: macos-13
+            xcode: 15.0
             install: true
           - platform: [ios, 16]
             runtime: iOS 16.4
+            os: macos-13
             xcode: 14.3.1
           - platform: [ios, 17]
             runtime: iOS 17.0
+            os: macos-13
+            xcode: 15.0
 
           - platform: [tvos, 13]
             runtime: tvOS 13.4
@@ -62,14 +68,22 @@ jobs:
             install: true
           - platform: [tvos, 14]
             runtime: tvOS 14.5
+            os: macos-13
+            xcode: 14.3.1
             install: true
           - platform: [tvos, 15]
             runtime: tvOS 15.4
+            os: macos-13
+            xcode: 15.0
             install: true
           - platform: [tvos, 16]
             runtime: tvOS 16.4
+            os: macos-13
+            xcode: 15.0
           - platform: [tvos, 17]
             runtime: tvOS 17.0
+            os: macos-13
+            xcode: 15.0
 
           - platform: [macos, 12]
             runtime: macOS 12
@@ -83,6 +97,8 @@ jobs:
           # FIXME: this currently hangs on CI
           # - platform: [visionos, 1]
           #   runtime: visionOS 1.0-beta2
+          #   os: macos-13
+          #   xcode: 15.0
           #   install: true
     steps:
       - name: Git Checkout
@@ -95,7 +111,7 @@ jobs:
             github.com/XcodesOrg/xcodes
 
       - name: Select Xcode version
-        run: sudo xcodes select ${{ matrix.xcode || '15.0' }}
+        run: sudo xcodes select ${{ matrix.xcode }}
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})

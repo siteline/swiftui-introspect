@@ -15,14 +15,8 @@ devices = {
         16 => ["Apple TV (16.4)"],
         17 => ["Apple TV (17.0)"],
     },
-}
-
-destinations = {
-    "macos" => {
-        1 => ["platform=macOS", "platform=macOS,variant=Mac Catalyst"],
-    },
     "visionos" => {
-        1 => ["platform=visionOS"],
+        1 => ["Apple Vision Pro (1.0)"],
     },
 }
 
@@ -37,7 +31,7 @@ lane :build do |options|
     end
 
     if platform == "macos"
-        for destination in destinations[platform][version]
+        for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
             build_app(
                 scheme: scheme,
                 destination: destination,
@@ -48,31 +42,16 @@ lane :build do |options|
             )
         end
     else
-        if destinations[platform]
-            for destination in destinations[platform][version]
-                run_tests(
-                    configuration: "Debug",
-                    build_for_testing: true,
-                    scheme: scheme,
-                    destination: destination,
-                    prelaunch_simulator: false,
-                    ensure_devices_found: true,
-                    force_quit_simulator: true,
-                    disable_concurrent_testing: true,
-                )
-            end
-        else
-            run_tests(
-                configuration: "Debug",
-                build_for_testing: true,
-                scheme: scheme,
-                devices: devices[platform][version],
-                prelaunch_simulator: false,
-                ensure_devices_found: true,
-                force_quit_simulator: true,
-                disable_concurrent_testing: true,
-            )
-        end
+        run_tests(
+            configuration: "Debug",
+            build_for_testing: true,
+            scheme: scheme,
+            devices: devices[platform][version],
+            prelaunch_simulator: false,
+            ensure_devices_found: true,
+            force_quit_simulator: true,
+            disable_concurrent_testing: true,
+        )
     end
 end
 

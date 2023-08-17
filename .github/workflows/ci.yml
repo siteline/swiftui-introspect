@@ -114,11 +114,11 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - name: List Available Runtimes and Simulators
-        run: xcrun simctl list
-
-      - name: List Compatible Destinations
-        run: xcodebuild -scheme "Showcase" -showdestinations
+      - if: false
+        name: '[Debug] List Available Runtimes, Simulators, and Destinations'
+        run: |
+          xcrun simctl list
+          xcodebuild -scheme "Showcase" -showdestinations
 
       - if: ${{ join(matrix.platform, ' ') != 'macos 11' }}
         name: Build Showcase

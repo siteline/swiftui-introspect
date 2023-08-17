@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.11.0]
+
 - Added: visionOS support (#327)
 - Infrastructure: run CI tests on iOS & tvOS 17 (#323)
 

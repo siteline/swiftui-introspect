@@ -89,9 +89,10 @@ jobs:
             os: macos-13
             xcode: 15.0
 
-          - platform: [visionos, 1]
-            runtime: visionOS 1.0-beta2
-            install: true
+          # FIXME: this currently hangs on CI
+          # - platform: [visionos, 1]
+          #   runtime: visionOS 1.0-beta2
+          #   install: true
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

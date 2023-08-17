@@ -44,13 +44,31 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.sidebar)
+///         .introspect(.list(style: .sidebar), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct ListWithSidebarStyleType: IntrospectableViewType {
     public enum Style {
         case sidebar
     }
 }
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ListWithSidebarStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }
@@ -66,6 +84,10 @@ extension iOSViewVersion<ListWithSidebarStyleType, UITableView> {
 extension iOSViewVersion<ListWithSidebarStyleType, UICollectionView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ListWithSidebarStyleType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListWithSidebarStyleType, NSTableView> {

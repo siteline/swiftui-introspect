@@ -1,4 +1,4 @@
-#if os(iOS)
+#if !os(tvOS) && !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -23,16 +23,16 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
                     Text("Item 1")
                 }
                 .listStyle(.insetGrouped)
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15)) { spy0($0) }
-                .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17)) { spy0($0) }
+                .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17), .visionOS(.v1)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
-                    #if os(iOS)
+                    #if os(iOS) || os(visionOS)
                     .introspect(.list(style: .insetGrouped), on: .iOS(.v14, .v15), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .insetGrouped), on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.insetGrouped)

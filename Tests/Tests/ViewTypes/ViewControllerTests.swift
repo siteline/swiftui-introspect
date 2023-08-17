@@ -1,4 +1,4 @@
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -15,7 +15,7 @@ final class ViewControllerTests: XCTestCase {
                     Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                         .introspect(
                             .viewController,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
                             customize: spy2
                         )
                 }
@@ -26,17 +26,19 @@ final class ViewControllerTests: XCTestCase {
                 }
                 .introspect(
                     .viewController,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
                     customize: spy1
                 )
             }
             .introspect(
                 .viewController,
-                on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
                 customize: spy0
             )
         } extraAssertions: {
+            #if !os(visionOS)
             XCTAssert($0[safe: 0] is UITabBarController)
+            #endif
             XCTAssert($0[safe: 1] is UINavigationController)
             XCTAssert(String(describing: $0[safe: 2]).contains("UIHostingController"))
             XCTAssert($0[safe: 1] === $0[safe: 2]?.parent)

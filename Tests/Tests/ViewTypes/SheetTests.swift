@@ -1,4 +1,4 @@
-#if os(iOS) || os(tvOS)
+#if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -53,6 +53,22 @@ final class SheetTests: XCTestCase {
                         .introspect(
                             .sheet,
                             on: .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            customize: spy0
+                        )
+                }
+        }
+    }
+    #elseif os(visionOS)
+    func testSheet() throws {
+        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+            let spy0 = spies[0]
+
+            Text("Root")
+                .sheet(isPresented: .constant(true)) {
+                    Text("Sheet")
+                        .introspect(
+                            .sheet,
+                            on: .visionOS(.v1),
                             customize: spy0
                         )
                 }

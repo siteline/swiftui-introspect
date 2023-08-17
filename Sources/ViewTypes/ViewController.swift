@@ -45,6 +45,24 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         NavigationView {
+///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///                 .introspect(.viewController, on: .visionOS(.v1)) {
+///                     print(type(of: $0)) // some subclass of UIHostingController
+///                 }
+///         }
+///         .navigationViewStyle(.stack)
+///         .introspect(.viewController, on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UINavigationController
+///         }
+///     }
+/// }
+/// ```
 public struct ViewControllerType: IntrospectableViewType {
     public var scope: IntrospectionScope { [.receiver, .ancestor] }
 }
@@ -68,5 +86,9 @@ extension tvOSViewVersion<ViewControllerType, UIViewController> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ViewControllerType, UIViewController> {
+    public static let v1 = Self(for: .v1)
 }
 #endif

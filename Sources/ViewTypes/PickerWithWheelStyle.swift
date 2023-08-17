@@ -30,13 +30,32 @@ import SwiftUI
 ///
 /// Not available.
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var selection = "1"
+///
+///     var body: some View {
+///         Picker("Pick a number", selection: $selection) {
+///             Text("1").tag("1")
+///             Text("2").tag("2")
+///             Text("3").tag("3")
+///         }
+///         .pickerStyle(.wheel)
+///         .introspect(.picker(style: .wheel), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UIPickerView
+///         }
+///     }
+/// }
+/// ```
 public struct PickerWithWheelStyleType: IntrospectableViewType {
     public enum Style {
         case wheel
     }
 }
 
-#if os(iOS)
+#if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == PickerWithWheelStyleType {
     public static func picker(style: Self.Style) -> Self { .init() }
 }
@@ -48,6 +67,10 @@ extension iOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
+    public static let v1 = Self(for: .v1)
 }
 #endif
 #endif

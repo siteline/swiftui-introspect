@@ -1,4 +1,4 @@
-#if os(iOS)
+#if !os(tvOS) && !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -21,22 +21,22 @@ final class DatePickerWithWheelStyleTests: XCTestCase {
             VStack {
                 DatePicker("", selection: .constant(date0))
                     .datePickerStyle(.wheel)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.wheel)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date2))
                     .datePickerStyle(.wheel)
-                    #if os(iOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
                     #endif
             }
         } extraAssertions: {

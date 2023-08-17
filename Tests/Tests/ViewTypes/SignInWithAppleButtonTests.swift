@@ -22,21 +22,21 @@ final class SignInWithAppleButtonTests: XCTestCase {
                 SignInWithAppleButton(.continue, onRequest: { _ in }, onCompletion: { _ in })
                     .introspect(
                         .signInWithAppleButton,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14),
+                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy0
                     )
 
                 SignInWithAppleButton(.signIn, onRequest: { _ in }, onCompletion: { _ in })
                     .introspect(
                         .signInWithAppleButton,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14),
+                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy1
                     )
 
                 SignInWithAppleButton(.signUp, onRequest: { _ in }, onCompletion: { _ in })
                     .introspect(
                         .signInWithAppleButton,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14),
+                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy2
                     )
             }

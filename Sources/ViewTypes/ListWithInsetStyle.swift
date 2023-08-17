@@ -45,13 +45,30 @@ import SwiftUI
 /// }
 /// ```
 ///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         List {
+///             Text("Item 1")
+///             Text("Item 2")
+///             Text("Item 3")
+///         }
+///         .listStyle(.inset)
+///         .introspect(.list(style: .inset), on: .visionOS(.v1)) {
+///             print(type(of: $0)) // UICollectionView
+///         }
+///     }
+/// }
+/// ```
 public struct ListWithInsetStyleType: IntrospectableViewType {
     public enum Style {
         case inset
     }
 }
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 extension IntrospectableViewType where Self == ListWithInsetStyleType {
     public static func list(style: Self.Style) -> Self { .init() }
 }
@@ -67,6 +84,10 @@ extension iOSViewVersion<ListWithInsetStyleType, UITableView> {
 extension iOSViewVersion<ListWithInsetStyleType, UICollectionView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<ListWithInsetStyleType, UICollectionView> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListWithInsetStyleType, NSTableView> {

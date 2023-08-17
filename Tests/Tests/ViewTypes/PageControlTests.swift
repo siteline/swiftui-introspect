@@ -22,8 +22,8 @@ final class PageControlTests: XCTestCase {
                 Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
-            #if os(iOS) || os(tvOS)
-            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), customize: spy)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy)
             #endif
         }
     }

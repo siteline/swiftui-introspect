@@ -35,6 +35,21 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var color = Color.red
+///
+///     var body: some View {
+///         ColorPicker("Pick a color", selection: $color)
+///             .introspect(.colorPicker, on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIColorPicker
+///             }
+///     }
+/// }
+/// ```
 public struct ColorPickerType: IntrospectableViewType {}
 
 #if !os(tvOS)
@@ -51,6 +66,11 @@ extension iOSViewVersion<ColorPickerType, UIColorWell> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+@available(iOS 14, *)
+extension visionOSViewVersion<ColorPickerType, UIColorWell> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 @available(macOS 11, *)

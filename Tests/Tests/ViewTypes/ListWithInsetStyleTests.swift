@@ -25,18 +25,18 @@ final class ListWithInsetStyleTests: XCTestCase {
                     Text("Item 1")
                 }
                 .listStyle(.inset)
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 .introspect(.list(style: .inset), on: .iOS(.v14, .v15)) { spy0($0) }
-                .introspect(.list(style: .inset), on: .iOS(.v16, .v17)) { spy0($0) }
+                .introspect(.list(style: .inset), on: .iOS(.v16, .v17), .visionOS(.v1)) { spy0($0) }
                 #elseif os(macOS)
                 .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13, .v14)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
-                    #if os(iOS)
+                    #if os(iOS) || os(visionOS)
                     .introspect(.list(style: .inset), on: .iOS(.v14, .v15), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .inset), on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .inset), on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
                     .introspect(.list(style: .inset), on: .macOS(.v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
                     #endif

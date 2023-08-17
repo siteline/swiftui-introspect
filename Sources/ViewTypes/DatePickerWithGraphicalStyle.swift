@@ -37,13 +37,29 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var date = Date()
+///
+///     var body: some View {
+///         DatePicker("Pick a date", selection: $date)
+///             .datePickerStyle(.graphical)
+///             .introspect(.datePicker(style: .graphical), on: .visionOS(.v1)) {
+///                 print(type(of: $0)) // UIDatePicker
+///             }
+///     }
+/// }
+/// ```
 public struct DatePickerWithGraphicalStyleType: IntrospectableViewType {
     public enum Style {
         case graphical
     }
 }
 
-#if os(iOS) || os(macOS)
+#if !os(tvOS)
 extension IntrospectableViewType where Self == DatePickerWithGraphicalStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }
@@ -56,6 +72,10 @@ extension iOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+}
+
+extension visionOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {
+    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension macOSViewVersion<DatePickerWithGraphicalStyleType, NSDatePicker> {

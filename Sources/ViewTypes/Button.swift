@@ -22,9 +22,13 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct ButtonType: IntrospectableViewType {}
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ButtonType {
     public static var button: Self { .init() }
 }

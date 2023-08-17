@@ -25,13 +25,17 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct ToggleWithButtonStyleType: IntrospectableViewType {
     public enum Style {
         case button
     }
 }
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleWithButtonStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }

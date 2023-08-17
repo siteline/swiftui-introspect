@@ -25,13 +25,17 @@ import SwiftUI
 ///     }
 /// }
 /// ```
+///
+/// ### visionOS
+///
+/// Not available.
 public struct DatePickerWithFieldStyleType: IntrospectableViewType {
     public enum Style {
         case field
     }
 }
 
-#if os(macOS)
+#if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == DatePickerWithFieldStyleType {
     public static func datePicker(style: Self.Style) -> Self { .init() }
 }

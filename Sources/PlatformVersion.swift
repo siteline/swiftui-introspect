@@ -273,3 +273,27 @@ extension macOSVersion {
         #endif
     }
 }
+
+public struct visionOSVersion: PlatformVersion {
+    public let condition: PlatformVersionCondition?
+
+    public init(condition: () -> PlatformVersionCondition?) {
+        self.condition = condition()
+    }
+}
+
+extension visionOSVersion {
+    public static let v1 = visionOSVersion {
+        #if os(visionOS)
+        if #available(visionOS 2, *) {
+            return .past
+        }
+        if #available(visionOS 1, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
+}

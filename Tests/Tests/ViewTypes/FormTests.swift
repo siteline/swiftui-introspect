@@ -19,16 +19,16 @@ final class FormTests: XCTestCase {
                 Form {
                     Text("Item 1")
                 }
-                #if os(iOS) || os(tvOS)
+                #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { spy0($0) }
-                .introspect(.form, on: .iOS(.v16, .v17)) { spy0($0) }
+                .introspect(.form, on: .iOS(.v16, .v17), .visionOS(.v1)) { spy0($0) }
                 #endif
 
                 Form {
                     Text("Item 1")
-                    #if os(iOS) || os(tvOS)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { spy1($0) }
-                    .introspect(.form, on: .iOS(.v16, .v17), scope: .ancestor) { spy1($0) }
+                    .introspect(.form, on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { spy1($0) }
                     #endif
                 }
             }

@@ -11,22 +11,22 @@ final class ViewTests: XCTestCase {
 
             VStack(spacing: 10) {
                 Image(systemName: "scribble").resizable().frame(height: 30)
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy0)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 Text("Text").frame(height: 40)
-                    #if os(iOS) || os(tvOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy1)
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
             }
             .padding(10)
-            #if os(iOS) || os(tvOS)
-            .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), customize: spy2)
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
             #elseif os(macOS)
             .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
             #endif

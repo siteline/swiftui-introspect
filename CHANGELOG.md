@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Fixed: `@_spi` errors (#339)
+
 ## [0.11.0]
 
 - Added: visionOS support (#327)

@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.11.1]
+
 - Fixed: `@_spi` errors (#339)
 
 ## [0.11.0]

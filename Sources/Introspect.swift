@@ -178,9 +178,6 @@ extension PlatformEntity {
 
 extension PlatformView: PlatformEntity {
     @_spi(Internals)
-    public typealias Base = PlatformView
-
-    @_spi(Internals)
     public var ancestor: PlatformView? {
         superview
     }
@@ -192,9 +189,6 @@ extension PlatformView: PlatformEntity {
 }
 
 extension PlatformViewController: PlatformEntity {
-    @_spi(Internals)
-    public typealias Base = PlatformViewController
-
     @_spi(Internals)
     public var ancestor: PlatformViewController? {
         parent
@@ -213,12 +207,10 @@ extension PlatformViewController: PlatformEntity {
 
 #if canImport(UIKit)
 extension UIPresentationController: PlatformEntity {
-    @_spi(Internals)
     public typealias Base = UIPresentationController
 }
 #elseif canImport(AppKit)
 extension NSWindow: PlatformEntity {
-    @_spi(Internals)
     public typealias Base = NSWindow
 }
 #endif

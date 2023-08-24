@@ -129,10 +129,6 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - if: ${{ matrix.platform[0] == 'visionos' }}
-        name: Install visionOS Runtime
-        run: xcodebuild -downloadPlatform visionOS
-
       - if: false
         name: '[Debug] List Available Runtimes, Simulators, and Destinations'
         run: |

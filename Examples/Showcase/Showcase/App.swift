@@ -23,3 +23,9 @@ struct App: SwiftUI.App {
     }
 }
 #endif
+
+#if swift(>=5.9)
+#Preview {
+    AppView()
+}
+#endif

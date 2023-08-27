@@ -27,8 +27,8 @@ ScrollView {
 
 ... it will:
 
-- Add `IntrospectionView` as an overlay of `TextField`
-- Add `IntrospectionAnchorView` as the background of `TextField`.
+- Add `IntrospectionView` as an overlay of `ScrollView`
+- Add `IntrospectionAnchorView` as a background of `ScrollView`.
 - Traverse through all the subviews between both views until a `UIScrollView` instance (if any) is found.
 
 > **Warning**

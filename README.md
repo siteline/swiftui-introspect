@@ -192,14 +192,19 @@ TextField("Text Field", text: <#Binding<String>#>)
     }
 ```
 
-Implement your own introspectable
----------------------------------
+Advanced usage
+--------------
+
+### Implement your own introspectable type
 
 **Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/issues).
 
-In case SwiftUIIntrospect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to introspect a `TextField`:
+In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
+
+For example, here's how the library implements the introspectable `TextField` type:
 
 ```swift
+import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 
 public struct TextFieldType: IntrospectableViewType {}
@@ -239,14 +244,48 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 #endif
 ```
 
-Releasing
----------
+### Introspect on future platform versions
 
-1. Update changelog with new version
-2. PR as 'Bump to X.Y.Z' and merge it
-3. Tag new version:
+By default, introspection applies per specific platform version. This is a sensible default for maximum predictability in regularly maintained codebases, but it's not always a good fit for e.g. library developers who may want to cover as many future platform versions as possible in order to provide the best chance for long-term future functionality of their library without regular maintenance.
 
-    ```sh
-    $ git tag X.Y.Z
-    $ git push origin --tags
-    ```
+For such cases, SwiftUI Introspect offers range-based platform version predicates behind the Advanced SPI:
+
+```swift
+import SwiftUI
+@_spi(Advanced) import SwiftUIIntrospect
+
+struct ContentView: View {
+    var body: some View {
+        ScrollView {
+            // ...
+        }
+        .introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
+            // ...
+        }
+    }
+}
+```
+
+Bear in mind this should be used cautiosly, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 18 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
+
+### Keep instances outside the customize closure
+
+Sometimes, you might need to keep your introspected instance around for longer than the customization closure lifetime. In such cases, `@State` is not a good option because it produces retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
+
+```swift
+import SwiftUI
+@_spi(Advanced) import SwiftUIIntrospect
+
+struct ContentView: View {
+    @Weak var scrollView: UIScrollView?
+
+    var body: some View {
+        ScrollView {
+            // ...
+        }
+        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
+            self.scrollView = scrollView
+        }
+    }
+}
+```

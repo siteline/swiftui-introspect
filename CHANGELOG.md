@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [0.12.0]
+
 - Added: `@Weak` property wrapper (#341)
 - Infrastructure: removed iOS version constraints for UI Tests on CI (#343)
 - Documentation: added advanced usage section to README (#341)

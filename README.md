@@ -277,7 +277,7 @@ Bear in mind this should be used cautiosly, and with full knowledge that any fut
 
 ### Keep instances outside the customize closure
 
-Sometimes, you might need to keep your introspected instance around for longer than the customization closure lifetime. In such cases, `@State` is not a good option because it will result in large memory consumption due to memory leaks. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
+Sometimes, you might need to keep your introspected instance around for longer than the customization closure lifetime. In such cases, `@State` is not a good option because it produces retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
 
 ```swift
 import SwiftUI

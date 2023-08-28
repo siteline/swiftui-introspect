@@ -296,3 +296,13 @@ struct ContentView: View {
     }
 }
 ```
+
+Community projects
+------------------
+
+Here's a list of open source libraries powered by the SwiftUI Introspect library:
+
+- [CustomKeyboardKit](https://github.com/paescebu/CustomKeyboardKit)
+- [NavigationTransitions](https://github.com/davdroman/swiftui-navigation-transitions)
+
+If you're working on a library built on SwiftUI Introspect or know of one, feel free to submit a PR adding it to the list.

@@ -104,10 +104,10 @@ lane :test do |options|
             configuration: configuration,
             scheme: scheme,
             devices: devices[platform][version],
-            # prelaunch_simulator: true,
+            prelaunch_simulator: true,
             ensure_devices_found: true,
-            # force_quit_simulator: true,
-            # disable_concurrent_testing: true,
+            force_quit_simulator: true,
+            disable_concurrent_testing: true,
             result_bundle: true,
             output_directory: Dir.pwd + "/test_output",
         )

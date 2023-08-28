@@ -453,8 +453,8 @@
 			children = (
 				D5B67B852A0D3193007D5D9B /* ViewTypes */,
 				D5F0BE6729C0DC4900AD95AB /* PlatformVersionTests.swift */,
-				D591D1112A9CC2FF00AE05E8 /* WeakTests.swift */,
 				D58CE15729C621DD0081BFB0 /* TestUtils.swift */,
+				D591D1112A9CC2FF00AE05E8 /* WeakTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

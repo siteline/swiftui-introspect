@@ -149,6 +149,6 @@ jobs:
         name: Run Tests (SwiftUIIntrospect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
-      - if: ${{ matrix.platform[0] == 'ios' && matrix.platform[1] >= '14' }}
+      - if: ${{ matrix.platform[0] == 'ios' }}
         name: Run UI Tests (SwiftUIIntrospect)
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

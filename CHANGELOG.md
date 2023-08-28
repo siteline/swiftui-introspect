@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Added: `@Weak` property wrapper (#341)
+
 ## [0.11.1]
 
 - Fixed: `@_spi` errors (#339)

@@ -4,6 +4,8 @@ Changelog
 ## master
 
 - Added: `@Weak` property wrapper (#341)
+- Documentation: added advanced usage section to README (#341)
+- Documentation: added community projects section to README (#342)
 
 ## [0.11.1]
 

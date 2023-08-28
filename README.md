@@ -199,12 +199,16 @@ TextField("Text Field", text: <#Binding<String>#>)
     }
 ```
 
-Implement your own selector
----------------------------
+Advanced usage
+--------------
+
+### Implement your own introspectable type
 
 **Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
 
-In case SwiftUIIntrospect doesn't support the SwiftUI element that you're looking for, you can implement your own selector. For example, to introspect a `TextField`:
+In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
+
+For example, here's how the library implements the introspectable `TextField` type:
 
 ```swift
 @_spi(Advanced) import SwiftUIIntrospect
@@ -245,6 +249,10 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 }
 #endif
 ```
+
+### Introspect on future platform versions
+
+### Keep instances outside the customize closure
 
 Releasing
 ---------

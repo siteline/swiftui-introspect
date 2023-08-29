@@ -83,11 +83,7 @@ lane :test do |options|
         when "SwiftUIIntrospectTests"
             is_legacy_sdk ? "LegacySwiftUIIntrospectTests" : "SwiftUIIntrospectTests"
         when "SwiftUIIntrospectUITests"
-            if is_legacy_sdk
-                raise "Unsupported platform: #{platform} #{version}"
-            else
-                "SwiftUIIntrospectUITests"
-            end
+            "SwiftUIIntrospectUITests"
         else
             raise "Unsupported scheme: #{scheme}"
         end

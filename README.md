@@ -27,9 +27,8 @@ ScrollView {
 
 ... it will:
 
-- Add `IntrospectionView` as an overlay of `ScrollView`
-- Add `IntrospectionAnchorView` as a background of `ScrollView`.
-- Traverse through all the subviews between both views until a `UIScrollView` instance (if any) is found.
+1. Add marker views in front and behind `ScrollView`.
+2. Traverse through all subviews between both marker views until a `UIScrollView` instance (if any) is found.
 
 > **Warning**
 >
@@ -58,7 +57,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.11.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.12.0"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -289,3 +288,13 @@ struct ContentView: View {
     }
 }
 ```
+
+Community projects
+------------------
+
+Here's a list of open source libraries powered by the SwiftUI Introspect library:
+
+- [CustomKeyboardKit](https://github.com/paescebu/CustomKeyboardKit)
+- [NavigationTransitions](https://github.com/davdroman/swiftui-navigation-transitions)
+
+If you're working on a library built on SwiftUI Introspect or know of one, feel free to submit a PR adding it to the list.

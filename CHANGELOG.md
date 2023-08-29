@@ -3,7 +3,7 @@ Changelog
 
 ## master
 
-- Infrastructure: removed iOS version constraints for UI Tests on CI (#343)
+- Infrastructure: removed min iOS version constraint for UI Tests (#343)
 
 ## [0.12.0]
 

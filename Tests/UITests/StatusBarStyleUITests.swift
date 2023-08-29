@@ -7,6 +7,9 @@ final class StatusBarStyleUITests: UITestCase {
     }
 
     func test() throws {
+        guard #available(iOS 14, *) else {
+            throw XCTSkip("TODO: run on iOS 13 and check in screenshots in order to be able to remove this skip")
+        }
         guard #unavailable(iOS 17) else {
             throw XCTSkip("SimulatorStatusMagic stopped working in iOS 17, so we can no longer consistently compare status bar screenshots")
         }

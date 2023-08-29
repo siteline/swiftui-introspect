@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Infrastructure: removed min iOS version constraint for UI Tests (#343)
+
 ## [0.12.0]
 
 - Added: `@Weak` property wrapper (#341)

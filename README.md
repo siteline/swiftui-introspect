@@ -34,9 +34,8 @@ ScrollView {
 
 ... it will:
 
-- Add `IntrospectionView` as an overlay of `ScrollView`
-- Add `IntrospectionAnchorView` as a background of `ScrollView`.
-- Traverse through all the subviews between both views until a `UIScrollView` instance (if any) is found.
+1. Add marker views in front and behind `ScrollView`.
+2. Traverse through all subviews between both marker views until a `UIScrollView` instance (if any) is found.
 
 > **Warning**
 >

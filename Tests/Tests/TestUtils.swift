@@ -3,16 +3,16 @@ import XCTest
 
 #if canImport(UIKit)
 enum TestUtils {
-    #if os(visionOS)
-    private static let window = UIWindow(frame: .init(x: 0, y: 0, width: 800, height: 800))
-    #else
-    private static let window = UIWindow(frame: UIScreen.main.bounds)
-    #endif
-
-    static func present(view: some View) {
-        window.rootViewController = UIHostingController(rootView: view)
-        window.makeKeyAndVisible()
-        window.layoutIfNeeded()
+    static func present(view: some View, file: StaticString = #file, line: UInt = #line) {
+        if let window =
+            UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first
+            ??
+            UIApplication.shared.windows.first
+        {
+            window.rootViewController = UIHostingController(rootView: view)
+        } else {
+            XCTFail("No window found", file: file, line: line)
+        }
     }
 }
 #elseif canImport(AppKit)

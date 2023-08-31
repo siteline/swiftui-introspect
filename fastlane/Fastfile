@@ -72,7 +72,7 @@ lane :test do |options|
             for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
                 run_tests(
                     configuration: configuration,
-                    build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
+                    # build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
                     scheme: scheme,
                     destination: [destination],
                     catalyst_platform: "macos",

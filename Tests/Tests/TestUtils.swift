@@ -5,14 +5,11 @@ import XCTest
 enum TestUtils {
     #if targetEnvironment(macCatalyst)
     static let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 480, height: 300))
+    #else
+    static let window = UIWindow(frame: UIScreen.main.bounds)
     #endif
 
     static func present(view: some View, file: StaticString = #file, line: UInt = #line) {
-        #if targetEnvironment(macCatalyst)
-        window.rootViewController = UIHostingController(rootView: view)
-        window.makeKeyAndVisible()
-        window.layoutIfNeeded()
-        #else
         if let window =
             UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first
             ??
@@ -20,9 +17,10 @@ enum TestUtils {
         {
             window.rootViewController = UIHostingController(rootView: view)
         } else {
-            XCTFail("No window found", file: file, line: line)
+            window.rootViewController = UIHostingController(rootView: view)
+            window.makeKeyAndVisible()
+            window.layoutIfNeeded()
         }
-        #endif
     }
 }
 #elseif canImport(AppKit)

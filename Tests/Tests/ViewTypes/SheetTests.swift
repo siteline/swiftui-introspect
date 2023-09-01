@@ -1,4 +1,4 @@
-#if !os(macOS)
+#if !os(macOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest
@@ -42,8 +42,6 @@ final class SheetTests: XCTestCase {
     }
     #elseif os(tvOS)
     func testSheet() throws {
-        throw XCTSkip("FIXME: this test doesn't pass for some reason, even though introspection works in the Showcase app")
-
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 

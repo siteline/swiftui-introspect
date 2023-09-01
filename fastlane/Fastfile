@@ -65,8 +65,8 @@ lane :test do |options|
         for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
             run_tests(
                 configuration: configuration,
-                build_for_testing: (destination.include? "Catalyst"), # build-only on Mac Catalyst since tests crash because app isn't launched for some reason. error: Thread 1: "NSApplication has not been created yet. Consider using -[UINSApplicationDelegate runBlockWhenSharedDelegateBecomesAvailable:] to avoid premature instantiation."
-                scheme: "SwiftUIIntrospectTests",
+                build_for_testing: (destination.include? "Catalyst"), # TODO: investigate CI failures on macOS 13 to be able to remove this
+                scheme: scheme,
                 destination: [destination],
                 catalyst_platform: "macos",
                 disable_slide_to_type: false,

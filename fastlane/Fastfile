@@ -75,18 +75,20 @@ lane :test do |options|
             else
                 ["platform=macOS", "platform=macOS,variant=Mac Catalyst"] # TODO: figure out why Catalyst tests fail on macOS 13
             end
-            run_tests(
-                configuration: configuration,
-                scheme: scheme,
-                destination: destinations,
-                catalyst_platform: "macos",
-                disable_slide_to_type: false,
-                prelaunch_simulator: false,
-                ensure_devices_found: true,
-                force_quit_simulator: false,
-                disable_concurrent_testing: true,
-                xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
-            )
+            for destination in destinations
+                run_tests(
+                    configuration: configuration,
+                    scheme: scheme,
+                    destination: destinations,
+                    catalyst_platform: "macos",
+                    disable_slide_to_type: false,
+                    prelaunch_simulator: false,
+                    ensure_devices_found: true,
+                    force_quit_simulator: false,
+                    disable_concurrent_testing: true,
+                    xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
+                )
+            end
         else
             raise "Unsupported scheme: #{scheme}"
         end

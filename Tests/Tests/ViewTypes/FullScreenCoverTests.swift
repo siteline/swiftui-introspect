@@ -5,14 +5,6 @@ import XCTest
 
 final class FullScreenCoverTests: XCTestCase {
     func testPresentationAsFullScreenCover() throws {
-        #if !os(visionOS)
-        throw XCTSkip("FIXME: this doesn't pass on anything other than visionOS, even though introspection works in the Showcase app")
-        #endif
-
-        guard #available(iOS 14, tvOS 14, *) else {
-            throw XCTSkip()
-        }
-
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 

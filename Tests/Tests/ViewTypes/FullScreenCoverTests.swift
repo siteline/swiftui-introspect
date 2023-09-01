@@ -3,8 +3,13 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@available(iOS 14, tvOS 14, *)
 final class FullScreenCoverTests: XCTestCase {
     func testPresentationAsFullScreenCover() throws {
+        guard #available(iOS 14, tvOS 14, *) else {
+            throw XCTSkip()
+        }
+
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 

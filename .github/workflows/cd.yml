@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to CocoaPods Trunk
     runs-on: macos-latest
     steps:
       - name: Git Checkout

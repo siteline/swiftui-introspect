@@ -137,7 +137,7 @@ Introspection
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewcontrollertype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
+**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-introspectable-type).
 
 ### Cannot implement
 

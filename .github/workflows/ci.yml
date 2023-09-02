@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   lint-podspecs:
-    name: lint podspecs
+    name: Lint Podspecs
     runs-on: macos-latest
     steps:
       - name: Git Checkout

@@ -203,7 +203,7 @@ Advanced usage
 
 ### Implement your own introspectable type
 
-**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
+**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
 
 In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
 

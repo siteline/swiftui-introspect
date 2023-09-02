@@ -1,8 +1,8 @@
 SwiftUI Introspect
 =================
 
-[![CI Status Badge](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/SwiftUI-Introspect/actions/workflows/ci.yml)
-[![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2FSwiftUI-Introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/SwiftUI-Introspect)
+[![CI Status Badge](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml)
+[![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 
 > **Note**
 >
@@ -137,7 +137,7 @@ Introspection
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewcontrollertype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
+**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 
 ### Cannot implement
 
@@ -203,7 +203,7 @@ Advanced usage
 
 ### Implement your own introspectable type
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
+**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
 
 In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
 

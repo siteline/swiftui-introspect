@@ -21,7 +21,7 @@ devices = {
 }
 
 lane :build do |options|
-    platform = options[:platform].to_s
+    platform = options[:platform].to_s.downcase
     version = options[:version].to_i
     scheme = options[:scheme].to_s
 
@@ -57,7 +57,7 @@ end
 
 lane :test do |options|
     configuration = (options[:configuration] || "Debug").to_s
-    platform = options[:platform].to_s
+    platform = options[:platform].to_s.downcase
     version = options[:version].to_i
     scheme = options[:scheme].to_s
 

@@ -69,12 +69,17 @@ lane :test do |options|
                 configuration: configuration.downcase,
             )
         when "SwiftUIIntrospectTests"
-            for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
+            destinations = case version
+            when 13
+                ["platform=macOS"]
+            else
+                ["platform=macOS", "platform=macOS,variant=Mac Catalyst"] # TODO: figure out why Catalyst tests fail on macOS 13
+            end
+            for destination in destinations
                 run_tests(
                     configuration: configuration,
-                    build_for_testing: (destination.include? "Catalyst"), # TODO: investigate CI failures on macOS 13 to be able to remove this
                     scheme: scheme,
-                    destination: [destination],
+                    destination: destination,
                     catalyst_platform: "macos",
                     disable_slide_to_type: false,
                     prelaunch_simulator: false,

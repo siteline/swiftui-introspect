@@ -1,7 +1,7 @@
 import SwiftUI
 
 #if os(iOS) || os(tvOS)
-@UIApplicationMain
+@main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?

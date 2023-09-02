@@ -137,7 +137,7 @@ Introspection
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/viewcontrollertype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/master/documentation/swiftuiintrospect/windowtype)
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
+**Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-view-type).
 
 ### Cannot implement
 
@@ -203,7 +203,7 @@ Advanced usage
 
 ### Implement your own introspectable type
 
-**Missing an element?** Please [create an issue](https://github.com/timbersoftware/SwiftUI-Introspect/issues).
+**Missing an element?** Please [create an issue](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
 
 In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
 

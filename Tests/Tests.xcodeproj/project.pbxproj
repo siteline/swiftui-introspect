@@ -128,6 +128,7 @@
 		D5AEC3462A66F6470015AC1D /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AEC3432A66F6470015AC1D /* NavigationView.swift */; };
 		D5AEC3482A66F6AA0015AC1D /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5AEC3472A66F6AA0015AC1D /* SwiftUIIntrospect */; };
 		D5B67B842A0D318F007D5D9B /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */; };
+		D5C482402AA354B0005FBE0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5C4823F2AA354B0005FBE0A /* LaunchScreen.storyboard */; platformFilter = ios; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformVersionTests.swift */; };
 		D5F210812A66DDCB002B8385 /* SimulatorStatusMagic in Frameworks */ = {isa = PBXBuildFile; productRef = D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */; };
@@ -229,6 +230,7 @@
 		D5AEC3432A66F6470015AC1D /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		D5B5B03E2A6725500086B9DE /* UITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UITests.xctestplan; path = "/Users/davdroman/Developer/davdroman/swiftui-introspect/Tests/UITests/UITests.xctestplan"; sourceTree = "<absolute>"; };
 		D5B67B832A0D318F007D5D9B /* TextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
+		D5C4823F2AA354B0005FBE0A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5F0BE4929C0DBE800AD95AB /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsHostApp.swift; sourceTree = "<group>"; };
 		D5F0BE5D29C0DC0000AD95AB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,6 +297,7 @@
 		D50E2F562A2B9EB600BAFB03 /* LegacyTestsHostApp */ = {
 			isa = PBXGroup;
 			children = (
+				D5C4823F2AA354B0005FBE0A /* LaunchScreen.storyboard */,
 				D50E2F572A2B9EFB00BAFB03 /* LegacyTestsHostApp.swift */,
 			);
 			path = LegacyTestsHostApp;
@@ -653,6 +656,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5C482402AA354B0005FBE0A /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,7 +947,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
@@ -1027,7 +1031,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;

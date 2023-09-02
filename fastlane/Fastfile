@@ -79,7 +79,6 @@ lane :test do |options|
                 ensure_devices_found: true,
                 force_quit_simulator: false,
                 disable_concurrent_testing: true,
-                xcargs: version == 11 ? 'SWIFT_ACTIVE_COMPILATION_CONDITIONS="$(inherited) LEGACY_MACOS_SDK"' : nil,
             )
         end
     else

@@ -1,4 +1,4 @@
-#if !os(visionOS) && !LEGACY_MACOS_SDK
+#if !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
 import XCTest

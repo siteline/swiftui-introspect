@@ -44,7 +44,7 @@ jobs:
       matrix:
         include:
           - platform: [visionOS, 1]
-            runtime: visionOS 1.0-beta2
+            runtime: visionOS 1.0-beta3
             os: macos-13
             xcode: 15.0
             install: true

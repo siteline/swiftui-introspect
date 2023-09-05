@@ -5,14 +5,14 @@ SwiftUI Introspect
 [![Swift Version Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 [![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 
-SwiftUIIntrospect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
+SwiftUI Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
 
-For instance, with SwiftUIIntrospect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
+For instance, with SwiftUI Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
 
 How it works
 ------------
 
-SwiftUIIntrospect works by adding an invisible `IntrospectionView` on top of the selected view, and an invisible "anchor" view underneath it, then looking through the UIKit/AppKit view hierarchy between the two to find the relevant view.
+SwiftUI Introspect works by adding an invisible `IntrospectionView` on top of the selected view, and an invisible "anchor" view underneath it, then looking through the UIKit/AppKit view hierarchy between the two to find the relevant view.
 
 For instance, when introspecting a `ScrollView`...
 
@@ -47,7 +47,7 @@ ScrollView {
 
 ### Usage in production
 
-`SwiftUIIntrospect` is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `.introspect` modifier is simply ignored if UIKit/AppKit views cannot be found.
+SwiftUI Introspect is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `.introspect` modifier is simply ignored if UIKit/AppKit views cannot be found.
 
 Install
 -------
@@ -198,7 +198,7 @@ Advanced usage
 
 **Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
 
-In case SwiftUIIntrospect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
+In case SwiftUI Introspect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
 
 For example, here's how the library implements the introspectable `TextField` type:
 

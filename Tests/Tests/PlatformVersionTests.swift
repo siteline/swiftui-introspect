@@ -1,4 +1,4 @@
-import SwiftUIIntrospect
+@_spi(Internals) import SwiftUIIntrospect
 import XCTest
 
 final class PlatformVersionTests: XCTestCase {

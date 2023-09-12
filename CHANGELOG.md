@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [1.0.0]
+
 - Removed: obsoleted Introspect module (#275)
 - Infrastructure: renamed default branch to `main`
 - Infrastructure: fixed modal introspection tests (#345)

@@ -7,24 +7,19 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to CocoaPods Trunk
     runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        podspec:
-          - Introspect.podspec
-          - SwiftUIIntrospect.podspec
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Deploy to CocoaPods Trunk (${{ matrix.podspec }})
+      - name: Deploy to CocoaPods Trunk
         run: |
           set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint ${{ matrix.podspec }} --allow-warnings
-          pod trunk push ${{ matrix.podspec }} --allow-warnings
+          pod lib lint SwiftUIIntrospect.podspec --allow-warnings
+          pod trunk push SwiftUIIntrospect.podspec --allow-warnings
         env:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}

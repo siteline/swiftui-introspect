@@ -3,7 +3,11 @@ Changelog
 
 ## master
 
-- Infrastructure: removed min iOS version constraint for UI Tests (#343)
+- Removed: obsoleted Introspect module (#275)
+- Infrastructure: renamed default branch to `main`
+- Infrastructure: fixed modal introspection tests (#345)
+- Infrastructure: run UI Tests on iOS 13 (#347)
+- Infrastructure: run tests on macCatalyst (#346)
 
 ## [0.12.0]
 

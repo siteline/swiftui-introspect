@@ -57,7 +57,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.12.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.0.0"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -70,7 +70,7 @@ let package = Package(
 ### CocoaPods
 
 ```ruby
-pod 'SwiftUIIntrospect'
+pod 'SwiftUIIntrospect', '~> 1.0'
 ```
 
 Introspection

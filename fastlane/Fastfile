@@ -92,6 +92,9 @@ lane :test do |options|
             raise "Unsupported scheme: #{scheme}"
         end
         for device in devices[platform][version]
+            if platform == 'ios' && version >= 17
+                ENV['REQUIRE_SIM_STATUS_BAR_SCRIPT'] = '1'
+            end
             run_tests(
                 configuration: configuration,
                 scheme: scheme,

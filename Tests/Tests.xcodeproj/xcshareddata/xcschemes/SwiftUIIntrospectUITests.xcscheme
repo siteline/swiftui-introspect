@@ -32,7 +32,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "#!/bin/bash&#10;&#10;set -e&#10;&#10;unset MACOSX_DEPLOYMENT_TARGET&#10;unset TVOS_DEPLOYMENT_TARGET&#10;unset WATCHOS_DEPLOYMENT_TARGET&#10;unset DRIVERKIT_DEPLOYMENT_TARGET&#10;unset XROS_DEPLOYMENT_TARGET&#10;&#10;cd ${PROJECT_DIR}/SimulatorStatusMagic &#10;./build_and_inject.sh booted &gt; build/build_and_inject.log 2&gt;&amp;1&#10;cd -&#10;">
+               scriptText = "#!/bin/bash&#10;&#10;if [[ ! -v $REQUIRE_SIM_STATUS_BAR_SCRIPT ]]; then&#10;    exit 0&#10;fi&#10;&#10;set -e&#10;&#10;unset MACOSX_DEPLOYMENT_TARGET&#10;unset TVOS_DEPLOYMENT_TARGET&#10;unset WATCHOS_DEPLOYMENT_TARGET&#10;unset DRIVERKIT_DEPLOYMENT_TARGET&#10;unset XROS_DEPLOYMENT_TARGET&#10;&#10;cd ${PROJECT_DIR}/SimulatorStatusMagic&#10;./build_and_inject.sh booted &gt; build/build_and_inject.log 2&gt;&amp;1&#10;cd -&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

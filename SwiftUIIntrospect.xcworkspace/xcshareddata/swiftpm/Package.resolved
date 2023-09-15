@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/shinydevelopment/SimulatorStatusMagic",
       "state" : {
-        "revision" : "76095ec820674457a11dc3cc621d8a5c369eea0e",
-        "version" : "2.7.0"
+        "branch" : "master",
+        "revision" : "5ec46c95fe0089bc5036b7a3229967ca09bd2214"
       }
     },
     {

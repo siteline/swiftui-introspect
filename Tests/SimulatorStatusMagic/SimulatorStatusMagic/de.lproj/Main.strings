@@ -1,0 +1,20 @@
+/* Class = "UILabel"; text = "Bluetooth Icon"; ObjectID = "1W5-6m-qnr"; */
+"1W5-6m-qnr.text" = "Bluetooth Icon";
+
+/* Class = "UILabel"; text = "String instead of clock"; ObjectID = "CcU-Mb-bVk"; */
+"CcU-Mb-bVk.text" = "Text als Uhrzeit";
+
+/* Class = "UIButton"; normalTitle = "Apply Clean Status Bar Overrides"; ObjectID = "Omy-wd-t1z"; */
+"Omy-wd-t1z.normalTitle" = "Statusleiste mit Clean Status Bar überschreiben";
+
+/* Class = "UITextField"; placeholder = "Text that will be displayed as clock"; ObjectID = "QuK-wD-2d0"; */
+"QuK-wD-2d0.placeholder" = "Text, der anstelle der Uhrzeit angezeigt wird";
+
+/* Class = "UISegmentedControl"; VEX-a6-wUU.segmentTitles[0] = "Hidden"; ObjectID = "VEX-a6-wUU"; */
+"VEX-a6-wUU.segmentTitles[0]" = "Kein Bluetooth";
+
+/* Class = "UISegmentedControl"; VEX-a6-wUU.segmentTitles[1] = "Dimmed"; ObjectID = "VEX-a6-wUU"; */
+"VEX-a6-wUU.segmentTitles[1]" = "Nicht Verbunden";
+
+/* Class = "UISegmentedControl"; VEX-a6-wUU.segmentTitles[2] = "Connected"; ObjectID = "VEX-a6-wUU"; */
+"VEX-a6-wUU.segmentTitles[2]" = "Verbunden";

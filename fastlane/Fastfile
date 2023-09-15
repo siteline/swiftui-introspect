@@ -92,17 +92,28 @@ lane :test do |options|
             raise "Unsupported scheme: #{scheme}"
         end
         for device in devices[platform][version]
+            sh 'xcrun simctl shutdown all'
+
             if platform == 'ios' && version >= 17
-                ENV['REQUIRE_SIM_STATUS_BAR_SCRIPT'] = '1'
+                # prelaunch here so UI Tests have enough time to set up status bar
+                launch_ios_simulator(
+                    device: device,
+                    reset_before_launching: true
+                )
+                sleep 5
+                sh Dir.pwd + '/../Tests/SimulatorStatusMagic/build_and_inject.sh booted'
+                needs_prelaunch = false
+            else
+                needs_prelaunch = true
             end
+
             run_tests(
                 configuration: configuration,
                 scheme: scheme,
                 device: device,
                 ensure_devices_found: true,
-                force_quit_simulator: true,
-                prelaunch_simulator: true,
-                reset_simulator: true,
+                prelaunch_simulator: needs_prelaunch,
+                reset_simulator: needs_prelaunch,
                 disable_concurrent_testing: true,
                 result_bundle: true,
                 output_directory: Dir.pwd + "/test_output",

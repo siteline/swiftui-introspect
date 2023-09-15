@@ -14,6 +14,7 @@ struct RootView: View {
         VStack {
             Button("Navigate To Detail", action: navigateToDetail)
         }
+        .prefersHomeButtonHidden()
     }
 
     private func navigateToDetail() {
@@ -35,6 +36,7 @@ struct DetailView: View {
                 Button("Navigate Back", action: goBack)
             }
         }
+        .prefersHomeButtonHidden()
         .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16)) { viewController in
             /// some customizations there
         }

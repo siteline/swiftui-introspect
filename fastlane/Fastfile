@@ -91,16 +91,26 @@ lane :test do |options|
         else
             raise "Unsupported scheme: #{scheme}"
         end
-        run_tests(
-            configuration: configuration,
-            scheme: scheme,
-            devices: devices[platform][version],
-            prelaunch_simulator: true,
-            ensure_devices_found: true,
-            force_quit_simulator: true,
-            disable_concurrent_testing: true,
-            result_bundle: true,
-            output_directory: Dir.pwd + "/test_output",
-        )
+        for device in devices[platform][version]
+            sh 'xcrun simctl shutdown all'
+            # if platform == "ios"
+            #     # prelaunch here so UI Tests have enough time to set up status bar
+            #     launch_ios_simulator(
+            #         device: device,
+            #         reset_before_launching: true
+            #     )
+            # end
+            run_tests(
+                configuration: configuration,
+                scheme: scheme,
+                device: device,
+                ensure_devices_found: true,
+                prelaunch_simulator: true,
+                reset_simulator: true,
+                disable_concurrent_testing: true,
+                result_bundle: true,
+                output_directory: Dir.pwd + "/test_output",
+            )
+        end
     end
 end

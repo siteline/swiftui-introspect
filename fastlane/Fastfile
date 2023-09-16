@@ -101,7 +101,7 @@ lane :test do |options|
                     reset_before_launching: true
                 )
                 sleep 5
-                sh Dir.pwd + '/../Tests/SimulatorStatusMagic/build_and_inject.sh booted'
+                sh "cd #{Dir.pwd}/../Tests/SimulatorStatusMagic; ./build_and_inject.sh booted"
                 needs_prelaunch = false
             else
                 needs_prelaunch = true

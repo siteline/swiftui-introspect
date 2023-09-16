@@ -94,17 +94,16 @@ lane :test do |options|
         for device in devices[platform][version]
             sh 'xcrun simctl shutdown all'
 
-            if platform == 'ios' && version >= 17
-                # prelaunch here so UI Tests have enough time to set up status bar
+            needs_manual_prelaunch = (scheme == "SwiftUIIntrospectUITests" && platform == 'ios' && version >= 17)
+
+            if needs_manual_prelaunch
+                # prelaunch simulator manually here so we have enough time to set up clean status bar via script
                 launch_ios_simulator(
                     device: device,
                     reset_before_launching: true
                 )
                 sleep 5
                 sh "cd #{Dir.pwd}/../Tests/SimulatorStatusMagic; ./build_and_inject.sh booted"
-                needs_prelaunch = false
-            else
-                needs_prelaunch = true
             end
 
             run_tests(
@@ -112,8 +111,8 @@ lane :test do |options|
                 scheme: scheme,
                 device: device,
                 ensure_devices_found: true,
-                prelaunch_simulator: needs_prelaunch,
-                reset_simulator: needs_prelaunch,
+                prelaunch_simulator: !needs_manual_prelaunch,
+                reset_simulator: !needs_manual_prelaunch,
                 disable_concurrent_testing: true,
                 result_bundle: true,
                 output_directory: Dir.pwd + "/test_output",

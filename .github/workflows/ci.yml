@@ -135,5 +135,6 @@ jobs:
       - name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
-      - name: Run UI Tests
+      - if: ${{ matrix.platform[0] == 'iOS' }}
+        name: Run UI Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

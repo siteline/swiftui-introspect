@@ -102,7 +102,7 @@ jobs:
           #   install: true
     steps:
       - name: Set up tea environment
-        uses: teaxyz/setup@v0
+        uses: teaxyz/setup@v1
         with:
           +: |
             github.com/XcodesOrg/xcodes

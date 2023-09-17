@@ -104,8 +104,7 @@ jobs:
       - name: Set up tea environment
         uses: teaxyz/setup@v1
         with:
-          +: |
-            github.com/XcodesOrg/xcodes
+          +: xcodes
 
       - name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode }}

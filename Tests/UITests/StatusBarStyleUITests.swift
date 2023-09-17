@@ -17,8 +17,6 @@ final class StatusBarStyleUITests: UITestCase {
             "\(iOSDevice)-ios-\(iOSVersion.majorVersion)-screenshot-\(number)"
         }
 
-        sleep(4)
-
         assertSnapshot(
             matching: app.windows.firstMatch.screenshot().image,
             as: .image(perceptualPrecision: 0.95),

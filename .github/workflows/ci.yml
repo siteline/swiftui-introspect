@@ -101,6 +101,11 @@ jobs:
           #   xcode: 15.0
           #   install: true
     steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
       - name: Set up tea environment
         uses: teaxyz/setup@v1
         with:
@@ -125,11 +130,6 @@ jobs:
         run: |
           xcrun simctl list
           xcodebuild -scheme "Showcase" -showdestinations
-
-      - name: Git Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
       - name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase

@@ -106,7 +106,7 @@ jobs:
         with:
           +: xcodes
 
-      - name: Set env variables
+      - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
       - name: Select Xcode version

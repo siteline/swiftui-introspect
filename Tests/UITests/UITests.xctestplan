@@ -9,7 +9,8 @@
     }
   ],
   "defaultOptions" : {
-
+    "language" : "en",
+    "region" : "US"
   },
   "testTargets" : [
     {

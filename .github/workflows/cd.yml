@@ -15,6 +15,9 @@ jobs:
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
+      - name: Set up tea environment
+        uses: teaxyz/setup@v0
+
       - name: Deploy to CocoaPods Trunk
         run: |
           set -eo pipefail

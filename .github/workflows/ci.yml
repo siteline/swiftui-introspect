@@ -27,7 +27,10 @@ jobs:
       - name: Set up tea environment
         uses: teaxyz/setup@v1
         with:
-          +: pod
+          +: pod xcodes
+
+      - name: Select Xcode version
+        run: sudo xcodes select 15.0
 
       - name: Lint Podspec
         run: |

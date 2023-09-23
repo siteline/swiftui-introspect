@@ -17,7 +17,7 @@ concurrency:
 jobs:
   lint-podspec:
     name: Lint Podspec
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3

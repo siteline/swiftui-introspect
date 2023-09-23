@@ -32,6 +32,13 @@ jobs:
       - name: Select Xcode version
         run: sudo xcodes select 15.0
 
+      - name: Install visionOS Runtime
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: sudo xcodes runtimes install 'visionOS 1.0-beta3'
+
       - name: Lint Podspec
         run: |
           set -eo pipefail

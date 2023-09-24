@@ -297,7 +297,6 @@ Here's a list of open source libraries powered by the SwiftUI Introspect library
 <a href="https://github.com/paescebu/CustomKeyboardKit">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=paescebu&repo=CustomKeyboardKit" height=150 />
 </a>
-
 <a href="https://github.com/davdroman/swiftui-navigation-transitions">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=davdroman&repo=swiftui-navigation-transitions" height=150 />
 </a>

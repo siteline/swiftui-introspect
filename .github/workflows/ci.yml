@@ -20,7 +20,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
@@ -44,7 +44,7 @@ jobs:
             install: true
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up tea environment
         uses: teaxyz/setup@v1

@@ -30,8 +30,7 @@ ScrollView {
 1. Add marker views in front and behind `ScrollView`.
 2. Traverse through all subviews between both marker views until a `UIScrollView` instance (if any) is found.
 
-> **Warning**
->
+> [!IMPORTANT]
 > Although this introspection method is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given potential differences in underlying UIKit/AppKit view types between major OS versions.
 
 By default, the `.introspect` modifier acts directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. However, there are times when this is not possible or simply too inflexible, in which case you **can** introspect an _ancestor_, but you must opt into this explicitly by overriding the introspection `scope`:
@@ -294,7 +293,12 @@ Community projects
 
 Here's a list of open source libraries powered by the SwiftUI Introspect library:
 
-- [CustomKeyboardKit](https://github.com/paescebu/CustomKeyboardKit)
-- [NavigationTransitions](https://github.com/davdroman/swiftui-navigation-transitions)
+<a href="https://github.com/paescebu/CustomKeyboardKit">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=paescebu&repo=CustomKeyboardKit" />
+</a>
+
+<a href="https://github.com/davdroman/swiftui-navigation-transitions">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=davdroman&repo=swiftui-navigation-transitions" />
+</a>
 
 If you're working on a library built on SwiftUI Introspect or know of one, feel free to submit a PR adding it to the list.

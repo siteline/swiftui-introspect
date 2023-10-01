@@ -106,8 +106,8 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up tea environment
-        uses: teaxyz/setup@v1
+      - name: Set up pkgx environment
+        uses: pkgxdev/setup@v1
         with:
           +: xcodes
 

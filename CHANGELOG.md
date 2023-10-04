@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [1.1.0]
+
 - Removed: `Toggle` introspection on visionOS (#373)
 
 ## [1.0.0]

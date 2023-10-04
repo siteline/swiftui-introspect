@@ -401,12 +401,14 @@ struct SimpleElementsShowcase: View {
                     #endif
             }
 
+            #if !os(tvOS)
+            #if !os(visionOS)
             HStack {
                 Toggle("Toggle Red", isOn: $toggleValue)
-                    #if os(iOS) || os(visionOS)
+                    #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
                     ) { toggle in
                         toggle.backgroundColor = .red
                     }
@@ -417,10 +419,10 @@ struct SimpleElementsShowcase: View {
                     #endif
 
                 Toggle("Toggle Green", isOn: $toggleValue)
-                    #if os(iOS) || os(visionOS)
+                    #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
                     ) { toggle in
                         toggle.backgroundColor = .green
                     }
@@ -431,8 +433,6 @@ struct SimpleElementsShowcase: View {
                     #endif
             }
 
-            #if !os(tvOS)
-            #if !os(visionOS)
             HStack {
                 Slider(value: $sliderValue, in: 0...100)
                     #if os(iOS)

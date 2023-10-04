@@ -408,7 +408,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
                     ) { toggle in
                         toggle.backgroundColor = .red
                     }
@@ -422,7 +422,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
                     ) { toggle in
                         toggle.backgroundColor = .green
                     }

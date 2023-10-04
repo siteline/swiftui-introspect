@@ -3,7 +3,7 @@ import XCTest
 
 #if canImport(UIKit)
 enum TestUtils {
-    #if targetEnvironment(macCatalyst)
+    #if targetEnvironment(macCatalyst) || os(visionOS)
     static let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 480, height: 300))
     #else
     static let window = UIWindow(frame: UIScreen.main.bounds)

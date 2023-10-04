@@ -40,26 +40,14 @@ import SwiftUI
 ///
 /// ### visionOS
 ///
-/// ```swift
-/// struct ContentView: View {
-///     @State var isOn = false
-///
-///     var body: some View {
-///         Toggle("Switch", isOn: $isOn)
-///             .toggleStyle(.switch)
-///             .introspect(.toggle(style: .switch), on: .visionOS(.v1)) {
-///                 print(type(of: $0)) // UISwitch
-///             }
-///     }
-/// }
-/// ```
+/// Not available.
 public struct ToggleWithSwitchStyleType: IntrospectableViewType {
     public enum Style {
         case `switch`
     }
 }
 
-#if !os(tvOS)
+#if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleWithSwitchStyleType {
     public static func toggle(style: Self.Style) -> Self { .init() }
 }
@@ -71,10 +59,6 @@ extension iOSViewVersion<ToggleWithSwitchStyleType, UISwitch> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
-}
-
-extension visionOSViewVersion<ToggleWithSwitchStyleType, UISwitch> {
-    public static let v1 = Self(for: .v1)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ToggleWithSwitchStyleType, NSSwitch> {

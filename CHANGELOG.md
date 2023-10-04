@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+- Removed: `Toggle` introspection on visionOS (#373)
+
 ## [1.0.0]
 
 - Removed: obsoleted Introspect module (#275)

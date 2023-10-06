@@ -103,7 +103,7 @@ lane :test do |options|
                     reset_before_launching: true
                 )
                 sleep 5
-                sh "cd #{Dir.pwd}/../Tests/UITests/SimulatorStatusMagic; ./build_and_inject.sh booted"
+                sh "#{Dir.pwd}/../Tests/UITests/SimulatorStatusMagic/build_and_inject.sh booted"
             end
 
             run_tests(

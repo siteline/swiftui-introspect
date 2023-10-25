@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.insetGrouped` style.
@@ -75,5 +76,6 @@ extension iOSViewVersion<ListWithInsetGroupedStyleType, UICollectionView> {
 extension visionOSViewVersion<ListWithInsetGroupedStyleType, UICollectionView> {
     public static let v1 = Self(for: .v1)
 }
+#endif
 #endif
 #endif

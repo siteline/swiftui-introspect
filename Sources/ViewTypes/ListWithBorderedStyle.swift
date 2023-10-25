@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `List` type in SwiftUI, with `.bordered` style.
@@ -52,5 +53,6 @@ extension macOSViewVersion<ListWithBorderedStyleType, NSTableView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif
 #endif

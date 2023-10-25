@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.compact` style.
@@ -87,5 +88,6 @@ extension macOSViewVersion<DatePickerWithCompactStyleType, NSDatePicker> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif
 #endif

@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `Form` type in SwiftUI, with `.grouped` style.
@@ -123,4 +124,5 @@ extension macOSViewVersion<FormWithGroupedStyleType, NSScrollView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif

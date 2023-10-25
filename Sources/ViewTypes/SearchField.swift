@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
@@ -110,4 +111,5 @@ extension visionOSViewVersion<SearchFieldType, UISearchBar> {
         }
     }
 }
+#endif
 #endif

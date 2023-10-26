@@ -85,6 +85,12 @@ jobs:
             os: macos-13
             xcode: 15.0
 
+          - platform: [watchOS, 10]
+            runtime: watchOS 10.0
+            os: macos-13
+            xcode: 15.0
+            install: true
+
           - platform: [macOS, 12]
             runtime: macOS 12
             os: macos-12
@@ -129,10 +135,16 @@ jobs:
           xcrun simctl list
           xcodebuild -scheme "Showcase" -showdestinations
 
-      - name: Build Showcase
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - name: Run Tests
+      - if: ${{ matrix.platform[0] == 'watchOS' }}
+        name: Build Library
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospect
+
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
       - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}

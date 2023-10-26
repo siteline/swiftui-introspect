@@ -59,7 +59,7 @@ jobs:
           - platform: [iOS, 17]
             runtime: iOS 17.0
             os: macos-13
-            xcode: 15.0
+            xcode: 15.0.1
 
           # - platform: [tvOS, 13]
           #   runtime: tvOS 13.4

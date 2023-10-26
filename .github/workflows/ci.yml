@@ -40,7 +40,7 @@ jobs:
           - platform: [visionOS, 1]
             runtime: visionOS 1.0-beta4
             os: macos-13
-            xcode: 15.1
+            xcode: 15.0.1
             install: true
     steps:
       - name: Git Checkout

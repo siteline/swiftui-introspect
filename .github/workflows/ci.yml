@@ -86,7 +86,7 @@ jobs:
           #   xcode: 15.0
 
           - platform: [watchOS, 6]
-            runtime: watchOS 6.2
+            runtime: watchOS 6.2.1
             os: macos-12
             xcode: 14.2
             install: true

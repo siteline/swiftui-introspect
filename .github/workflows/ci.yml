@@ -57,11 +57,7 @@ jobs:
 
       - if: ${{ matrix.install_xcode }}
         name: Install Required Xcode
-        uses: nick-fields/retry@v2
-        with:
-          timeout_minutes: 60
-          max_attempts: 2
-          command: sudo xcodes install '${{ matrix.xcode }}' --select
+        run: sudo xcodes install '${{ matrix.xcode }}' --select
 
       - if: ${{ !matrix.install_xcode }}
         name: Select Xcode version

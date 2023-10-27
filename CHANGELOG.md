@@ -3,6 +3,8 @@ Changelog
 
 ## master
 
+## [1.1.1]
+
 - Fixed: SwiftUI previews on watchOS no longer fail to build (#380)
 - Infrastructure: fixed iOS 17 tests failing on CI (#381)
 

@@ -59,7 +59,7 @@ jobs:
         name: Install Required Xcode
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 20
+          timeout_minutes: 30
           max_attempts: 2
           command: sudo xcodes install '${{ matrix.xcode }}' --select
 

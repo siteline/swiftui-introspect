@@ -61,7 +61,7 @@ jobs:
         with:
           timeout_minutes: 20
           max_attempts: 2
-          command: sudo xcodes install '${{ matrix.xcode }}'
+          command: sudo xcodes install '${{ matrix.xcode }}' --select
 
       - if: ${{ !matrix.install_xcode }}
         name: Select Xcode version

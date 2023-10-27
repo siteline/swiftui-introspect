@@ -151,7 +151,7 @@ jobs:
         name: '[Debug] List Available Runtimes, Simulators, and Destinations'
         run: |
           xcrun simctl list
-          xcodebuild -scheme "Showcase" -showdestinations
+          xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
 
       - if: ${{ matrix.platform[0] != 'watchOS' }}
         name: Build Showcase

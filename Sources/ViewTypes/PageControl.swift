@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the page control type in SwiftUI.
@@ -84,4 +85,5 @@ extension tvOSViewVersion<PageControlType, UIPageControl> {
 extension visionOSViewVersion<PageControlType, UIPageControl> {
     public static let v1 = Self(for: .v1)
 }
+#endif
 #endif

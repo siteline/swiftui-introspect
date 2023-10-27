@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 #if canImport(UIKit)
@@ -53,3 +54,4 @@ extension PlatformViewControllerRepresentable {
     }
     #endif
 }
+#endif

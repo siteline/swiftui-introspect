@@ -85,6 +85,25 @@ jobs:
             os: macos-13
             xcode: 15.0.1
 
+          - platform: [watchOS, 7]
+            runtime: watchOS 7.4
+            os: macos-13
+            xcode: 14.3.1
+            install: true
+          - platform: [watchOS, 8]
+            runtime: watchOS 8.5
+            os: macos-13
+            xcode: 15.0.1
+            install: true
+          - platform: [watchOS, 9]
+            runtime: watchOS 9.4
+            os: macos-13
+            xcode: 14.3.1
+          - platform: [watchOS, 10]
+            runtime: watchOS 10.0
+            os: macos-13
+            xcode: 15.0.1
+
           - platform: [macOS, 12]
             runtime: macOS 12
             os: macos-12
@@ -127,12 +146,18 @@ jobs:
         name: '[Debug] List Available Runtimes, Simulators, and Destinations'
         run: |
           xcrun simctl list
-          xcodebuild -scheme "Showcase" -showdestinations
+          xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
 
-      - name: Build Showcase
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - name: Run Tests
+      - if: ${{ matrix.platform[0] == 'watchOS' }}
+        name: Build Library
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospect
+
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
       - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}

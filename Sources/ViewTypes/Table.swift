@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `Table` type in SwiftUI, with any style.
@@ -133,5 +134,6 @@ extension macOSViewVersion<TableType, NSTableView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif
 #endif

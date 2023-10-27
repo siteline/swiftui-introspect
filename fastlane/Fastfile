@@ -15,6 +15,12 @@ devices = {
         16 => ["Apple TV (16.4)"],
         17 => ["Apple TV (17.0)"],
     },
+    "watchos" => {
+        7 => ["Apple Watch Series 6 (44mm) (7.4)"],
+        8 => ["Apple Watch Series 7 (45mm) (8.5)"],
+        9 => ["Apple Watch Series 8 (45mm) (9.4)"],
+        10 => ["Apple Watch Series 9 (45mm) (10.0)"],
+    },
     "visionos" => {
         1 => ["Apple Vision Pro (1.0)"],
     },
@@ -25,7 +31,7 @@ lane :build do |options|
     version = options[:version].to_i
     scheme = options[:scheme].to_s
 
-    unless scheme == "Showcase"
+    unless scheme == "Showcase" || scheme == "SwiftUIIntrospect"
         raise "Unsupported scheme: #{scheme}"
         next
     end

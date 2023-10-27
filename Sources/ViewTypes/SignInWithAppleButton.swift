@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `SignInWithAppleButton` type in SwiftUI.
@@ -108,4 +109,5 @@ extension macOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButt
 extension visionOSViewVersion<SignInWithAppleButtonType, ASAuthorizationAppleIDButton> {
     public static let v1 = Self(for: .v1)
 }
+#endif
 #endif

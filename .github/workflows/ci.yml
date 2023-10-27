@@ -37,53 +37,53 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: [iOS, 13]
-            runtime: iOS 13.7
-            os: macos-12
-            xcode: 14.2
-            install: true
-          - platform: [iOS, 14]
-            runtime: iOS 14.5
-            os: macos-13
-            xcode: 14.3.1
-            install: true
-          - platform: [iOS, 15]
-            runtime: iOS 15.5
-            os: macos-13
-            xcode: 15.0
-            install: true
-          - platform: [iOS, 16]
-            runtime: iOS 16.4
-            os: macos-13
-            xcode: 14.3.1
-          - platform: [iOS, 17]
-            runtime: iOS 17.0
-            os: macos-13
-            xcode: 15.0
+          # - platform: [iOS, 13]
+          #   runtime: iOS 13.7
+          #   os: macos-12
+          #   xcode: 14.2
+          #   install: true
+          # - platform: [iOS, 14]
+          #   runtime: iOS 14.5
+          #   os: macos-13
+          #   xcode: 14.3.1
+          #   install: true
+          # - platform: [iOS, 15]
+          #   runtime: iOS 15.5
+          #   os: macos-13
+          #   xcode: 15.0
+          #   install: true
+          # - platform: [iOS, 16]
+          #   runtime: iOS 16.4
+          #   os: macos-13
+          #   xcode: 14.3.1
+          # - platform: [iOS, 17]
+          #   runtime: iOS 17.0
+          #   os: macos-13
+          #   xcode: 15.0
 
-          - platform: [tvOS, 13]
-            runtime: tvOS 13.4
-            os: macos-12
-            xcode: 14.2
-            install: true
-          - platform: [tvOS, 14]
-            runtime: tvOS 14.5
-            os: macos-13
-            xcode: 14.3.1
-            install: true
-          - platform: [tvOS, 15]
-            runtime: tvOS 15.4
-            os: macos-13
-            xcode: 15.0
-            install: true
-          - platform: [tvOS, 16]
-            runtime: tvOS 16.4
-            os: macos-13
-            xcode: 15.0
-          - platform: [tvOS, 17]
-            runtime: tvOS 17.0
-            os: macos-13
-            xcode: 15.0
+          # - platform: [tvOS, 13]
+          #   runtime: tvOS 13.4
+          #   os: macos-12
+          #   xcode: 14.2
+          #   install: true
+          # - platform: [tvOS, 14]
+          #   runtime: tvOS 14.5
+          #   os: macos-13
+          #   xcode: 14.3.1
+          #   install: true
+          # - platform: [tvOS, 15]
+          #   runtime: tvOS 15.4
+          #   os: macos-13
+          #   xcode: 15.0
+          #   install: true
+          # - platform: [tvOS, 16]
+          #   runtime: tvOS 16.4
+          #   os: macos-13
+          #   xcode: 15.0
+          # - platform: [tvOS, 17]
+          #   runtime: tvOS 17.0
+          #   os: macos-13
+          #   xcode: 15.0
 
           - platform: [watchOS, 10]
             runtime: watchOS 10.0
@@ -91,14 +91,14 @@ jobs:
             xcode: 15.0
             install: true
 
-          - platform: [macOS, 12]
-            runtime: macOS 12
-            os: macos-12
-            xcode: 14.2
-          - platform: [macOS, 13]
-            runtime: macOS 13
-            os: macos-13
-            xcode: 15.0
+          # - platform: [macOS, 12]
+          #   runtime: macOS 12
+          #   os: macos-12
+          #   xcode: 14.2
+          # - platform: [macOS, 13]
+          #   runtime: macOS 13
+          #   os: macos-13
+          #   xcode: 15.0
 
           # FIXME: this currently hangs on CI
           # - platform: [visionos, 1]

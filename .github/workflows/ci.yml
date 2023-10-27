@@ -89,7 +89,6 @@ jobs:
             runtime: watchOS 10.0
             os: macos-13
             xcode: 15.0
-            install: true
 
           # - platform: [macOS, 12]
           #   runtime: macOS 12

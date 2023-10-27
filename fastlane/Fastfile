@@ -16,7 +16,7 @@ devices = {
         17 => ["Apple TV (17.0)"],
     },
     "watchos" => {
-        6 => ["Apple Watch Series 5 (44mm) (6.2.1)"],
+        6 => ["Apple Watch Series 5 (44mm) (6.2)"],
         7 => ["Apple Watch Series 6 (44mm) (7.4)"],
         8 => ["Apple Watch Series 7 (45mm) (8.5)"],
         9 => ["Apple Watch Series 8 (45mm) (9.4)"],

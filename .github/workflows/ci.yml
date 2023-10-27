@@ -40,7 +40,8 @@ jobs:
           - platform: [visionOS, 1]
             runtime: visionOS 1.0-beta4
             os: macos-13
-            xcode: 15.0.1
+            xcode: 15.1 Beta 2
+            install_xcode: true
             install: true
     steps:
       - name: Git Checkout
@@ -54,7 +55,16 @@ jobs:
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
-      - name: Select Xcode version
+      - if: ${{ matrix.install_xcode }}
+        name: Install Required Xcode
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 20
+          max_attempts: 2
+          command: sudo xcodes install '${{ matrix.xcode }}'
+
+      - if: ${{ !matrix.install_xcode }}
+        name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode }}
 
       - if: ${{ matrix.install }}

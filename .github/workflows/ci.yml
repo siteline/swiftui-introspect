@@ -85,10 +85,29 @@ jobs:
           #   os: macos-13
           #   xcode: 15.0
 
+          - platform: [watchOS, 6]
+            runtime: watchOS 6.2.1
+            os: macos-13
+            xcode: 14.3.1
+            install: true
+          - platform: [watchOS, 7]
+            runtime: watchOS 7.4
+            os: macos-13
+            xcode: 14.3.1
+            install: true
+          - platform: [watchOS, 8]
+            runtime: watchOS 8.5
+            os: macos-13
+            xcode: 15.0.1
+            install: true
+          - platform: [watchOS, 9]
+            runtime: watchOS 9.4
+            os: macos-13
+            xcode: 14.3.1
           - platform: [watchOS, 10]
             runtime: watchOS 10.0
             os: macos-13
-            xcode: 15.0
+            xcode: 15.0.1
 
           # - platform: [macOS, 12]
           #   runtime: macOS 12

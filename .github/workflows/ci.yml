@@ -107,7 +107,7 @@ jobs:
       - name: Set up pkgx environment
         uses: pkgxdev/setup@v1
         with:
-          +: fastlane pod xcodes
+          +: fastlane xcodes
 
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV

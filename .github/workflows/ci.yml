@@ -147,7 +147,7 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - if: true
+      - if: false
         name: '[Debug] List Available Runtimes, Simulators, and Destinations'
         run: |
           xcrun simctl list

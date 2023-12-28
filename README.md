@@ -53,6 +53,12 @@ Install
 
 ### Swift Package Manager
 
+#### Xcode
+
+<img width="656" src="https://github.com/siteline/swiftui-introspect/assets/2538074/d19c1dd3-9aa4-4e4f-a5a5-b2d6a5b9b927">
+
+#### Package.swift
+
 ```swift
 let package = Package(
     dependencies: [

@@ -23,6 +23,9 @@ extension PlatformVersion {
     public var isCurrentOrPast: Bool {
         condition == .current || condition == .past
     }
+  
+    @_spi(Internals)
+    public var condition: PlatformVersionCondition? { nil }
 }
 
 public struct iOSVersion: PlatformVersion {

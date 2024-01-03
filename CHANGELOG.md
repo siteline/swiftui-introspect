@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [1.1.2]
+
+- Fixed: "Protocol requirement cannot be declared '@_spi'" (#392)
+
 ## [1.1.1]
 
 - Fixed: SwiftUI previews on watchOS no longer fail to build (#380)

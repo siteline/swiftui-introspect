@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
@@ -121,3 +122,4 @@ extension PlatformViewVersion: Comparable {
         true
     }
 }
+#endif

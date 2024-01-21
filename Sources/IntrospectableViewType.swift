@@ -1,3 +1,4 @@
+#if !os(watchOS)
 public protocol IntrospectableViewType {
     /// The scope of introspection for this particular view type, i.e. where introspect
     /// should look to find the desired target view relative to the applied
@@ -15,3 +16,4 @@ public protocol IntrospectableViewType {
 extension IntrospectableViewType {
     public var scope: IntrospectionScope { .receiver }
 }
+#endif

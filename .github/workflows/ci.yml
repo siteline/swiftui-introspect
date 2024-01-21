@@ -49,7 +49,7 @@ jobs:
       - name: Set up pkgx environment
         uses: pkgxdev/setup@v1
         with:
-          +: xcodes
+          +: fastlane xcodes
 
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
@@ -74,12 +74,18 @@ jobs:
         name: '[Debug] List Available Runtimes, Simulators, and Destinations'
         run: |
           xcrun simctl list
-          xcodebuild -scheme "Showcase" -showdestinations
+          xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
 
-      - name: Build Showcase
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - name: Run Tests
+      - if: ${{ matrix.platform[0] == 'watchOS' }}
+        name: Build Library
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospect
+
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
       - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}

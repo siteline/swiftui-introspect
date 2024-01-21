@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import Foundation
 
 @_spi(Internals)
@@ -22,6 +23,9 @@ extension PlatformVersion {
     public var isCurrentOrPast: Bool {
         condition == .current || condition == .past
     }
+  
+    @_spi(Internals)
+    public var condition: PlatformVersionCondition? { nil }
 }
 
 public struct iOSVersion: PlatformVersion {
@@ -309,3 +313,4 @@ extension visionOSVersion {
         #endif
     }
 }
+#endif

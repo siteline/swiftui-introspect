@@ -38,9 +38,9 @@ jobs:
       matrix:
         include:
           - platform: [visionOS, 1]
-            runtime: visionOS 1.0-beta4
+            runtime: visionOS 1.0
             os: macos-13
-            xcode: 15.1
+            xcode: 15.2
             install: true
     steps:
       - name: Git Checkout
@@ -53,6 +53,11 @@ jobs:
 
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
+
+      - if: ${{ matrix.platform[0] == 'visionOS' }}
+        run: |
+          defaults write com.apple.dt.Xcode AllowUnsupportedVisionOSHost -bool YES
+          defaults write com.apple.CoreSimulator AllowUnsupportedVisionOSHost -bool YES
 
       - name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode }}

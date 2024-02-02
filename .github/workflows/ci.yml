@@ -39,7 +39,7 @@ jobs:
         include:
           - platform: [visionOS, 1]
             runtime: visionOS 1.0
-            os: macos-13
+            os: macos-14
             xcode: 15.2
             install: true
     steps:

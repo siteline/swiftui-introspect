@@ -41,7 +41,6 @@ jobs:
             runtime: visionOS 1.0
             os: macos-14
             xcode: 15.2
-            install: true
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

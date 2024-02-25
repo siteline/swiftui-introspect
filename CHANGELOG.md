@@ -3,6 +3,14 @@ Changelog
 
 ## master
 
+## [1.1.3]
+
+Due to a mysterious bug on Apple's part that may cause a complete app hang, the unfortunate decision has been made to remove support for `SignInWithAppleButton` introspection.
+
+We apologize for this inconvenience.
+
+More details can be found at https://github.com/siteline/swiftui-introspect/issues/400
+
 ## [1.1.2]
 
 - Fixed: "Protocol requirement cannot be declared '@_spi'" (#392)

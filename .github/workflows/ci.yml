@@ -122,6 +122,8 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up pkgx environment
         uses: pkgxdev/setup@v1
@@ -160,6 +162,6 @@ jobs:
         name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
-      - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}
+      - if: ${{ matrix.platform[0] == 'iOS' }}
         name: Run UI Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

@@ -1,0 +1,3 @@
+[submodule "SimulatorStatusMagic"]
+	path = Tests/UITests/SimulatorStatusMagic
+	url = git@github.com:shinydevelopment/SimulatorStatusMagic.git

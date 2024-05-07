@@ -129,7 +129,6 @@
 		D5C482402AA354B0005FBE0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5C4823F2AA354B0005FBE0A /* LaunchScreen.storyboard */; platformFilter = ios; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformVersionTests.swift */; };
-		D5F210812A66DDCB002B8385 /* SimulatorStatusMagic in Frameworks */ = {isa = PBXBuildFile; productRef = D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */; };
 		D5F26E022A561130001209E6 /* PageControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F26E012A561130001209E6 /* PageControlTests.swift */; };
 		D5F26E042A56E74B001209E6 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F26E032A56E74B001209E6 /* ViewControllerTests.swift */; };
 		D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */; };
@@ -259,7 +258,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5F210812A66DDCB002B8385 /* SimulatorStatusMagic in Frameworks */,
 				D58D83382A66C01300A203BE /* SnapshotTesting in Frameworks */,
 				D58D833A2A66C04600A203BE /* SwiftUIIntrospect in Frameworks */,
 			);
@@ -526,7 +524,6 @@
 			packageProductDependencies = (
 				D58D83372A66C01300A203BE /* SnapshotTesting */,
 				D58D83392A66C04600A203BE /* SwiftUIIntrospect */,
-				D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */,
 			);
 			productName = UITests;
 			productReference = D58D832B2A66BDD500A203BE /* UITests.xctest */;
@@ -631,7 +628,6 @@
 			mainGroup = D5F0BE3E29C0DB9700AD95AB;
 			packageReferences = (
 				D58D83362A66C01300A203BE /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */,
 			);
 			productRefGroup = D5F0BE4A29C0DBE800AD95AB /* Products */;
 			projectDirPath = "";
@@ -2023,14 +2019,6 @@
 				minimumVersion = 1.11.1;
 			};
 		};
-		D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/shinydevelopment/SimulatorStatusMagic";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2054,11 +2042,6 @@
 		D5AEC3472A66F6AA0015AC1D /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftUIIntrospect;
-		};
-		D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */;
-			productName = SimulatorStatusMagic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

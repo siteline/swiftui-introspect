@@ -87,8 +87,8 @@ jobs:
 
           - platform: [watchOS, 7]
             runtime: watchOS 7.4
-            os: macos-13
-            xcode: 14.3.1
+            os: macos-12
+            xcode: 14.2
             install: true
           - platform: [watchOS, 8]
             runtime: watchOS 8.5

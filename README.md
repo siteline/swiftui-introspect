@@ -117,7 +117,6 @@ Introspection
 - [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/searchfieldtype)
 - [`SecureField`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/securefieldtype)
 - [`.sheet`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/sheettype)
-- [`SignInWithAppleButton`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/SignInWithAppleButtonType)
 - [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/slidertype)
 - [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/steppertype)
 - [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabletype)

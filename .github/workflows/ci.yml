@@ -142,6 +142,10 @@ jobs:
         run: sudo xcodes select ${{ matrix.xcode }}
 
       - if: ${{ matrix.install }}
+        name: "[Debug] List Available Installable Runtimes"
+        run: xcodes runtimes --include-betas
+
+      - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
         uses: nick-fields/retry@v2
         with:
@@ -149,8 +153,7 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - if: true
-        name: "[Debug] List Available Runtimes, Simulators, and Destinations"
+      - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |
           xcrun simctl list
           xcodebuild -scheme "SwiftUIIntrospect" -showdestinations

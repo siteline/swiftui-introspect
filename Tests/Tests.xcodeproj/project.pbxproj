@@ -116,8 +116,6 @@
 		D5ADFACC2A4A22AE009494FD /* SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* SheetTests.swift */; };
 		D5ADFACE2A4A3482009494FD /* FullScreenCoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */; };
 		D5ADFAD02A4A3E54009494FD /* PopoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACF2A4A3E54009494FD /* PopoverTests.swift */; };
-		D5ADFAD22A4A41CB009494FD /* SignInWithAppleButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFAD12A4A41CB009494FD /* SignInWithAppleButtonTests.swift */; };
-		D5ADFAD32A4A4649009494FD /* SignInWithAppleButtonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFAD12A4A41CB009494FD /* SignInWithAppleButtonTests.swift */; };
 		D5ADFAD42A4A4653009494FD /* FullScreenCoverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */; };
 		D5ADFAD52A4A4653009494FD /* SheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5ADFACB2A4A22AE009494FD /* SheetTests.swift */; };
 		D5ADFAD62A4A4653009494FD /* VideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */; };
@@ -131,7 +129,6 @@
 		D5C482402AA354B0005FBE0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5C4823F2AA354B0005FBE0A /* LaunchScreen.storyboard */; platformFilter = ios; };
 		D5F0BE4D29C0DBE800AD95AB /* TestsHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE4C29C0DBE800AD95AB /* TestsHostApp.swift */; };
 		D5F0BE6A29C0DC4900AD95AB /* PlatformVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F0BE6729C0DC4900AD95AB /* PlatformVersionTests.swift */; };
-		D5F210812A66DDCB002B8385 /* SimulatorStatusMagic in Frameworks */ = {isa = PBXBuildFile; productRef = D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */; };
 		D5F26E022A561130001209E6 /* PageControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F26E012A561130001209E6 /* PageControlTests.swift */; };
 		D5F26E042A56E74B001209E6 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F26E032A56E74B001209E6 /* ViewControllerTests.swift */; };
 		D5F8D5ED2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F8D5EC2A1E7B490054E9AB /* NavigationViewWithStackStyleTests.swift */; };
@@ -223,7 +220,6 @@
 		D5ADFACB2A4A22AE009494FD /* SheetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTests.swift; sourceTree = "<group>"; };
 		D5ADFACD2A4A3482009494FD /* FullScreenCoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenCoverTests.swift; sourceTree = "<group>"; };
 		D5ADFACF2A4A3E54009494FD /* PopoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTests.swift; sourceTree = "<group>"; };
-		D5ADFAD12A4A41CB009494FD /* SignInWithAppleButtonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonTests.swift; sourceTree = "<group>"; };
 		D5AEC33E2A66F31F0015AC1D /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
 		D5AEC3412A66F6470015AC1D /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D5AEC3422A66F6470015AC1D /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
@@ -262,7 +258,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5F210812A66DDCB002B8385 /* SimulatorStatusMagic in Frameworks */,
 				D58D83382A66C01300A203BE /* SnapshotTesting in Frameworks */,
 				D58D833A2A66C04600A203BE /* SwiftUIIntrospect in Frameworks */,
 			);
@@ -399,7 +394,6 @@
 				D57506A12A281B9C00A628E4 /* SearchFieldTests.swift */,
 				D57E66F92A6956EB0092F43E /* SecureFieldTests.swift */,
 				D5ADFACB2A4A22AE009494FD /* SheetTests.swift */,
-				D5ADFAD12A4A41CB009494FD /* SignInWithAppleButtonTests.swift */,
 				D58119CF2A23A62C0081F853 /* SliderTests.swift */,
 				D58119D12A23A77C0081F853 /* StepperTests.swift */,
 				D575069F2A27FC0400A628E4 /* TableTests.swift */,
@@ -530,7 +524,6 @@
 			packageProductDependencies = (
 				D58D83372A66C01300A203BE /* SnapshotTesting */,
 				D58D83392A66C04600A203BE /* SwiftUIIntrospect */,
-				D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */,
 			);
 			productName = UITests;
 			productReference = D58D832B2A66BDD500A203BE /* UITests.xctest */;
@@ -635,7 +628,6 @@
 			mainGroup = D5F0BE3E29C0DB9700AD95AB;
 			packageReferences = (
 				D58D83362A66C01300A203BE /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */,
 			);
 			productRefGroup = D5F0BE4A29C0DBE800AD95AB /* Products */;
 			projectDirPath = "";
@@ -728,7 +720,6 @@
 				D534D4DD2A4A596200218BFB /* WindowTests.swift in Sources */,
 				D50E2F662A2B9F6600BAFB03 /* DatePickerWithWheelStyleTests.swift in Sources */,
 				D50E2F672A2B9F6600BAFB03 /* ListWithInsetGroupedStyleTests.swift in Sources */,
-				D5ADFAD32A4A4649009494FD /* SignInWithAppleButtonTests.swift in Sources */,
 				D50E2F682A2B9F6600BAFB03 /* FormWithGroupedStyleTests.swift in Sources */,
 				D5ADFAD52A4A4653009494FD /* SheetTests.swift in Sources */,
 				D50E2F692A2B9F6600BAFB03 /* ListWithPlainStyleTests.swift in Sources */,
@@ -839,7 +830,6 @@
 				D57506882A27CB9800A628E4 /* FormTests.swift in Sources */,
 				D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */,
 				D58119D22A23A77C0081F853 /* StepperTests.swift in Sources */,
-				D5ADFAD22A4A41CB009494FD /* SignInWithAppleButtonTests.swift in Sources */,
 				D58119DA2A23B7700081F853 /* ColorPickerTests.swift in Sources */,
 				D575068E2A27D4DC00A628E4 /* ToggleWithButtonStyleTests.swift in Sources */,
 				D5F0BE6A29C0DC4900AD95AB /* PlatformVersionTests.swift in Sources */,
@@ -2029,14 +2019,6 @@
 				minimumVersion = 1.11.1;
 			};
 		};
-		D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/shinydevelopment/SimulatorStatusMagic";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2060,11 +2042,6 @@
 		D5AEC3472A66F6AA0015AC1D /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftUIIntrospect;
-		};
-		D5F210802A66DDCB002B8385 /* SimulatorStatusMagic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D5F2107D2A66DC85002B8385 /* XCRemoteSwiftPackageReference "SimulatorStatusMagic" */;
-			productName = SimulatorStatusMagic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

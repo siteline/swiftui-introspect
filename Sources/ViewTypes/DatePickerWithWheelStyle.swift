@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.wheel` style.
@@ -64,5 +65,6 @@ extension iOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
 extension visionOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
     public static let v1 = Self(for: .v1)
 }
+#endif
 #endif
 #endif

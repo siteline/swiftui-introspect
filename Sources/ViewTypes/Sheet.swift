@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of `.sheet` in SwiftUI.
@@ -117,5 +118,6 @@ extension tvOSViewVersion<SheetType, UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
     }
 }
+#endif
 #endif
 #endif

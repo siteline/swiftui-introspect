@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `Slider` type in SwiftUI.
@@ -62,5 +63,6 @@ extension macOSViewVersion<SliderType, NSSlider> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
 }
+#endif
 #endif
 #endif

@@ -53,6 +53,12 @@ Install
 
 ### Swift Package Manager
 
+#### Xcode
+
+<img width="656" src="https://github.com/siteline/swiftui-introspect/assets/2538074/d19c1dd3-9aa4-4e4f-a5a5-b2d6a5b9b927">
+
+#### Package.swift
+
 ```swift
 let package = Package(
     dependencies: [
@@ -111,7 +117,6 @@ Introspection
 - [`.searchable`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/searchfieldtype)
 - [`SecureField`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/securefieldtype)
 - [`.sheet`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/sheettype)
-- [`SignInWithAppleButton`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/SignInWithAppleButtonType)
 - [`Slider`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/slidertype)
 - [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/steppertype)
 - [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabletype)
@@ -264,7 +269,7 @@ struct ContentView: View {
 }
 ```
 
-Bear in mind this should be used cautiosly, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 18 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
+Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 18 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
 
 ### Keep instances outside the customize closure
 

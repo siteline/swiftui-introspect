@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `NavigationView` type in SwiftUI, with `.stack` style.
@@ -95,4 +96,5 @@ extension visionOSViewVersion<NavigationViewWithStackStyleType, UINavigationCont
         .default.withAncestorSelector(\.navigationController)
     }
 }
+#endif
 #endif

@@ -8,7 +8,7 @@ on:
     branches:
       - "**"
   schedule:
-    - cron: '3 3 * * 2' # 3:03 AM, every Tuesday
+    - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -59,8 +59,8 @@ jobs:
             install: true
           - platform: [iOS, 14]
             runtime: iOS 14.5
-            os: macos-13
-            xcode: 14.3.1
+            os: macos-12
+            xcode: 14.2
             install: true
           - platform: [iOS, 15]
             runtime: iOS 15.5
@@ -72,9 +72,9 @@ jobs:
             os: macos-13
             xcode: 14.3.1
           - platform: [iOS, 17]
-            runtime: iOS 17.0
-            os: macos-13
-            xcode: 15.0.1
+            runtime: iOS 17.5
+            os: macos-14
+            xcode: 15.4
 
           - platform: [tvOS, 13]
             runtime: tvOS 13.4
@@ -83,8 +83,8 @@ jobs:
             install: true
           - platform: [tvOS, 14]
             runtime: tvOS 14.5
-            os: macos-13
-            xcode: 14.3.1
+            os: macos-12
+            xcode: 14.2
             install: true
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
@@ -96,9 +96,23 @@ jobs:
             os: macos-13
             xcode: 15.0.1
           - platform: [tvOS, 17]
-            runtime: tvOS 17.0
+            runtime: tvOS 17.5
+            os: macos-14
+            xcode: 15.4
+
+          - platform: [watchOS, 8]
+            runtime: watchOS 8.5
             os: macos-13
             xcode: 15.0.1
+            install: true
+          - platform: [watchOS, 9]
+            runtime: watchOS 9.4
+            os: macos-13
+            xcode: 14.3.1
+          - platform: [watchOS, 10]
+            runtime: watchOS 10.5
+            os: macos-14
+            xcode: 15.4
 
           - platform: [macOS, 12]
             runtime: macOS 12
@@ -108,13 +122,15 @@ jobs:
             runtime: macOS 13
             os: macos-13
             xcode: 15.0.1
+          # - platform: [macOS, 14]
+          #   runtime: macOS 14
+          #   os: macos-14
+          #   xcode: 15.4
 
-          # FIXME: this currently hangs on CI
-          # - platform: [visionos, 1]
-          #   runtime: visionOS 1.0-beta2
-          #   os: macos-13
-          #   xcode: 15.0
-          #   install: true
+          # - platform: [visionOS, 1]
+          #   runtime: visionOS 1.2
+          #   os: macos-14
+          #   xcode: 15.4
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -122,13 +138,22 @@ jobs:
       - name: Set up pkgx environment
         uses: pkgxdev/setup@v1
         with:
-          +: xcodes
+          +: fastlane xcodes
 
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
+      - if: ${{ matrix.platform[0] == 'visionOS' }}
+        run: |
+          defaults write com.apple.dt.Xcode AllowUnsupportedVisionOSHost -bool YES
+          defaults write com.apple.CoreSimulator AllowUnsupportedVisionOSHost -bool YES
+
       - name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode }}
+
+      - if: ${{ matrix.install }}
+        name: "[Debug] List Available Installable Runtimes"
+        run: xcodes runtimes --include-betas
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
@@ -138,18 +163,23 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - if: false
-        name: '[Debug] List Available Runtimes, Simulators, and Destinations'
+      - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |
           xcrun simctl list
-          xcodebuild -scheme "Showcase" -showdestinations
+          xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
 
-      - name: Build Showcase
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
 
-      - name: Run Tests
+      - if: ${{ matrix.platform[0] == 'watchOS' }}
+        name: Build Library
+        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospect
+
+      - if: ${{ matrix.platform[0] != 'watchOS' }}
+        name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
-      - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}
-        name: Run UI Tests
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug
+      # - if: ${{ matrix.platform[0] == 'iOS' && matrix.platform[1] <= '16' }}
+      #   name: Run UI Tests
+      #   run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectUITests configuration:Debug

@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of `.popover` in SwiftUI.
@@ -74,5 +75,6 @@ extension visionOSViewVersion<PopoverType, UIPopoverPresentationController> {
         .from(UIViewController.self, selector: \.popoverPresentationController)
     }
 }
+#endif
 #endif
 #endif

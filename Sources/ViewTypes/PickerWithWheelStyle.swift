@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `Picker` type in SwiftUI, with `.wheel` style.
@@ -72,5 +73,6 @@ extension iOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
 extension visionOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
     public static let v1 = Self(for: .v1)
 }
+#endif
 #endif
 #endif

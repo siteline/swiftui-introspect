@@ -1,3 +1,4 @@
+#if !os(watchOS)
 @_spi(Advanced)
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Advanced)
@@ -71,3 +72,4 @@ extension PlatformViewController {
         return nil
     }
 }
+#endif

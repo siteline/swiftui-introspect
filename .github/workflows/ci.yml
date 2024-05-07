@@ -8,7 +8,7 @@ on:
     branches:
       - "**"
   schedule:
-    - cron: '3 3 * * 2' # 3:03 AM, every Tuesday
+    - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -143,7 +143,7 @@ jobs:
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - if: false
-        name: '[Debug] List Available Runtimes, Simulators, and Destinations'
+        name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |
           xcrun simctl list
           xcodebuild -scheme "SwiftUIIntrospect" -showdestinations

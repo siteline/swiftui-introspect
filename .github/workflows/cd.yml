@@ -3,17 +3,25 @@ name: CD
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   deploy:
     name: Deploy to CocoaPods Trunk
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # required to be able to find Git tags
+
+      - name: Set up pkgx environment
+        uses: pkgxdev/setup@v1
+        with:
+          +: pod xcodes
+
+      - name: Select Xcode version
+        run: sudo xcodes select 15.4
 
       - name: Deploy to CocoaPods Trunk
         run: |

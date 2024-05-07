@@ -3,12 +3,12 @@ name: CD
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   deploy:
     name: Deploy to CocoaPods Trunk
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
           +: pod xcodes
 
       - name: Select Xcode version
-        run: sudo xcodes select 15.0
+        run: sudo xcodes select 15.4
 
       - name: Deploy to CocoaPods Trunk
         run: |

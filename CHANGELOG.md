@@ -3,6 +3,10 @@ Changelog
 
 ## master
 
+## [1.1.4]
+
+This version removes the SimulatorStatusMagic dev dependency in order for SwiftUIIntrospect not to require a privacy manifest (#411). See #406 for more details.
+
 ## [1.1.3]
 
 Due to a mysterious bug on Apple's part that may cause a complete app hang, the unfortunate decision has been made to remove support for `SignInWithAppleButton` introspection.

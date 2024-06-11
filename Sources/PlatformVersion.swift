@@ -300,6 +300,20 @@ extension macOSVersion {
         return nil
         #endif
     }
+
+    public static let v15 = macOSVersion {
+        #if os(macOS)
+        if #available(macOS 16, *) {
+            return .past
+        }
+        if #available(macOS 15, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct visionOSVersion: PlatformVersion {

@@ -191,12 +191,12 @@ extension tvOSVersion {
         #endif
     }
 
-    public static let v17 = tvOSVersion {
+    public static let v18 = tvOSVersion {
         #if os(tvOS)
-        if #available(tvOS 18, *) {
+        if #available(tvOS 19, *) {
             return .past
         }
-        if #available(tvOS 17, *) {
+        if #available(tvOS 18, *) {
             return .current
         }
         return .future

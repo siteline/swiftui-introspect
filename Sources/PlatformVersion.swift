@@ -190,6 +190,20 @@ extension tvOSVersion {
         return nil
         #endif
     }
+    
+    public static let v17 = tvOSVersion {
+#if os(tvOS)
+        if #available(tvOS 18, *) {
+            return .past
+        }
+        if #available(tvOS 17, *) {
+            return .current
+        }
+        return .future
+#else
+        return nil
+#endif
+    }
 
     public static let v18 = tvOSVersion {
         #if os(tvOS)

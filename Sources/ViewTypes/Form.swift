@@ -16,7 +16,7 @@ import SwiftUI
 ///         .introspect(.form, on: .iOS(.v13, .v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
-///         .introspect(.form, on: .iOS(.v16, .v17)) {
+///         .introspect(.form, on: .iOS(.v16, .v17, .v18)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -33,7 +33,7 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17)) {
+///         .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///     }
@@ -54,7 +54,7 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         .introspect(.form, on: .visionOS(.v1)) {
+///         .introspect(.form, on: .visionOS(.v1, .v2)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -77,6 +77,7 @@ extension iOSViewVersion<FormType, UITableView> {
 extension iOSViewVersion<FormType, UICollectionView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+    public static let v18 = Self(for: .v18)
 }
 
 extension tvOSViewVersion<FormType, UITableView> {
@@ -85,10 +86,12 @@ extension tvOSViewVersion<FormType, UITableView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+    public static let v18 = Self(for: .v18)
 }
 
 extension visionOSViewVersion<FormType, UICollectionView> {
     public static let v1 = Self(for: .v1)
+    public static let v2 = Self(for: .v2)
 }
 #endif
 #endif

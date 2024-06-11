@@ -108,6 +108,20 @@ extension iOSVersion {
         return nil
         #endif
     }
+
+    public static let v18 = iOSVersion {
+        #if os(iOS)
+        if #available(iOS 19, *) {
+            return .past
+        }
+        if #available(iOS 18, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct tvOSVersion: PlatformVersion {

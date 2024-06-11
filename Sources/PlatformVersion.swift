@@ -340,5 +340,19 @@ extension visionOSVersion {
         return nil
         #endif
     }
+
+    public static let v2 = visionOSVersion {
+        #if os(visionOS)
+        if #available(visionOS 3, *) {
+            return .past
+        }
+        if #available(visionOS 2, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 #endif

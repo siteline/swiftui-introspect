@@ -79,6 +79,7 @@ extension tvOSViewVersion<WindowType, UIWindow> {
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
     public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
     private static var selector: IntrospectionSelector<UIWindow> {

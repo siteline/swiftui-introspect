@@ -78,7 +78,7 @@ extension iOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
 
 extension visionOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
     public static let v1 = Self(for: .v1)
-    public static let v1 = Self(for: .v2)
+    public static let v2 = Self(for: .v2)
 }
 #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension macOSViewVersion<DatePickerWithCompactStyleType, NSDatePicker> {

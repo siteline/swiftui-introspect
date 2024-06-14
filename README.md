@@ -269,7 +269,7 @@ struct ContentView: View {
 }
 ```
 
-Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 18 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
+Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 19 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
 
 ### Keep instances outside the customize closure
 

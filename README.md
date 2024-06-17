@@ -20,7 +20,7 @@ For instance, when introspecting a `ScrollView`...
 ScrollView {
     Text("Item 1")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { scrollView in
     // do something with UIScrollView
 }
 ```
@@ -38,7 +38,7 @@ By default, the `.introspect` modifier acts directly on its _receiver_. This mea
 ```swift
 ScrollView {
     Text("Item 1")
-        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { scrollView in
+        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { scrollView in
             // do something with UIScrollView
         }
 }
@@ -157,7 +157,7 @@ List {
     tableView.backgroundView = UIView()
     tableView.backgroundColor = .cyan
 }
-.introspect(.list, on: .iOS(.v16, .v17)) { collectionView in
+.introspect(.list, on: .iOS(.v16, .v17, .v18)) { collectionView in
     collectionView.backgroundView = UIView()
     collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
 }
@@ -169,7 +169,7 @@ List {
 ScrollView {
     Text("Item")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { scrollView in
     scrollView.backgroundColor = .red
 }
 ```
@@ -181,7 +181,7 @@ NavigationView {
     Text("Item")
 }
 .navigationViewStyle(.stack)
-.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17)) { navigationController in
+.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { navigationController in
     navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
@@ -190,7 +190,7 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: <#Binding<String>#>)
-    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { textField in
+    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { textField in
         textField.backgroundColor = .red
     }
 ```
@@ -269,7 +269,7 @@ struct ContentView: View {
 }
 ```
 
-Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 18 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
+Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 19 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
 
 ### Keep instances outside the customize closure
 
@@ -286,7 +286,7 @@ struct ContentView: View {
         ScrollView {
             // ...
         }
-        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { scrollView in
+        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { scrollView in
             self.scrollView = scrollView
         }
     }

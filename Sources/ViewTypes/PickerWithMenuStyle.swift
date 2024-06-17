@@ -24,7 +24,7 @@ import SwiftUI
 ///             Text("3").tag("3")
 ///         }
 ///         .pickerStyle(.menu)
-///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14)) {
+///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
 ///             print(type(of: $0)) // NSPopUpButton
 ///         }
 ///     }
@@ -53,6 +53,7 @@ extension macOSViewVersion<PickerWithMenuStyleType, NSPopUpButton> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

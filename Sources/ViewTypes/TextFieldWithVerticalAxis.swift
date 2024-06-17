@@ -11,7 +11,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17)) {
+///             .introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18)) {
 ///                 print(type(of: $0)) // UITextView
 ///             }
 ///     }
@@ -26,7 +26,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17)) {
+///             .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18)) {
 ///                 print(type(of: $0)) // UITextField
 ///             }
 ///     }
@@ -41,7 +41,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14)) {
+///             .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15)) {
 ///                 print(type(of: $0)) // NSTextField
 ///             }
 ///     }
@@ -56,7 +56,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .visionOS(.v1)) {
+///             .introspect(.textField(axis: .vertical), on: .visionOS(.v1, .v2)) {
 ///                 print(type(of: $0)) // UITextView
 ///             }
 ///     }
@@ -85,6 +85,7 @@ extension iOSViewVersion<TextFieldWithVerticalAxisType, UITextView> {
 
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+    public static let v18 = Self(for: .v18)
 }
 
 extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
@@ -97,10 +98,12 @@ extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
 
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+    public static let v18 = Self(for: .v18)
 }
 
 extension visionOSViewVersion<TextFieldWithVerticalAxisType, UITextView> {
     public static let v1 = Self(for: .v1)
+    public static let v2 = Self(for: .v2)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
@@ -113,6 +116,7 @@ extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
 
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

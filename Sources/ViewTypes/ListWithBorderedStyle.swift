@@ -22,7 +22,7 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.bordered)
-///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14)) {
+///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
 ///     }
@@ -52,6 +52,7 @@ extension macOSViewVersion<ListWithBorderedStyleType, NSTableView> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

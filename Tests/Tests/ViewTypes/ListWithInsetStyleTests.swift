@@ -11,6 +11,7 @@ final class ListWithInsetStyleTests: XCTestCase {
     typealias PlatformListWithInsetStyle = NSTableView
     #endif
 
+    @MainActor
     func testListWithInsetStyle() throws {
         guard #available(iOS 14, macOS 11, *) else {
             throw XCTSkip()

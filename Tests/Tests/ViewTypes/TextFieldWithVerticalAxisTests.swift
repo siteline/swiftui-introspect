@@ -12,6 +12,7 @@ final class TextFieldWithVerticalAxisTests: XCTestCase {
     typealias PlatformTextField = NSTextField
     #endif
 
+    @MainActor
     func testTextFieldWithVerticalAxis() throws {
         guard #available(iOS 16, tvOS 16, macOS 13, *) else {
             throw XCTSkip()

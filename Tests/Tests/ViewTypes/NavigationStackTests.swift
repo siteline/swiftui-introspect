@@ -9,6 +9,7 @@ final class NavigationStackTests: XCTestCase {
     typealias PlatformNavigationStack = UINavigationController
     #endif
 
+    @MainActor
     func testNavigationStack() throws {
         guard #available(iOS 16, tvOS 16, *) else {
             throw XCTSkip()
@@ -29,6 +30,7 @@ final class NavigationStackTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testNavigationStackAsAncestor() throws {
         guard #available(iOS 16, tvOS 16, *) else {
             throw XCTSkip()

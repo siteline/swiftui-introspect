@@ -12,6 +12,7 @@ final class NavigationSplitViewTests: XCTestCase {
     typealias PlatformNavigationSplitView = NSSplitView
     #endif
 
+    @MainActor
     func testNavigationSplitView() throws {
         guard #available(iOS 16, tvOS 16, macOS 13, *) else {
             throw XCTSkip()
@@ -41,6 +42,7 @@ final class NavigationSplitViewTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testNavigationSplitViewAsAncestor() throws {
         guard #available(iOS 16, tvOS 16, macOS 13, *) else {
             throw XCTSkip()

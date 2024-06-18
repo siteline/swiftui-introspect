@@ -26,30 +26,30 @@ protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentab
     typealias ViewController = NSViewControllerType
     #endif
 
-    func makePlatformViewController(context: Context) -> ViewController
-    func updatePlatformViewController(_ controller: ViewController, context: Context)
-    static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
+    @MainActor func makePlatformViewController(context: Context) -> ViewController
+    @MainActor func updatePlatformViewController(_ controller: ViewController, context: Context)
+    @MainActor static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
 }
 
 extension PlatformViewControllerRepresentable {
     #if canImport(UIKit)
-    func makeUIViewController(context: Context) -> ViewController {
+    @MainActor func makeUIViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    func updateUIViewController(_ controller: ViewController, context: Context) {
+    @MainActor func updateUIViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
+    @MainActor static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #elseif canImport(AppKit)
-    func makeNSViewController(context: Context) -> ViewController {
+    @MainActor func makeNSViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    func updateNSViewController(_ controller: ViewController, context: Context) {
+    @MainActor func updateNSViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
+    @MainActor static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #endif

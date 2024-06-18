@@ -1,6 +1,7 @@
 #if !os(watchOS)
 import SwiftUI
 
+@MainActor
 public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
@@ -94,6 +95,7 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
         }
     }
 
+    @MainActor
     fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
         if case .available(_, let selector) = self {
             return selector

@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 final class ViewControllerTests: XCTestCase {
+    @MainActor
     func testViewController() {
         XCTAssertViewIntrospection(of: PlatformViewController.self) { spies in
             let spy0 = spies[0]

@@ -11,6 +11,7 @@ final class ListWithSidebarStyleTests: XCTestCase {
     typealias PlatformListWithSidebarStyle = NSTableView
     #endif
 
+    @MainActor
     func testListWithSidebarStyle() throws {
         guard #available(iOS 14, macOS 10.15, *) else {
             throw XCTSkip()

@@ -50,33 +50,33 @@ import SwiftUI
 /// }
 /// ```
 public struct ListWithInsetGroupedStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case insetGrouped
     }
 }
 
 #if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == ListWithInsetGroupedStyleType {
-    public static func list(style: Self.Style) -> Self { .init() }
+    @MainActor public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)
 extension iOSViewVersion<ListWithInsetGroupedStyleType, UITableView> {
     @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on iOS 13")
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
+    @MainActor public static let v13 = Self(for: .v13)
+    @MainActor public static let v14 = Self(for: .v14)
+    @MainActor public static let v15 = Self(for: .v15)
 }
 
 extension iOSViewVersion<ListWithInsetGroupedStyleType, UICollectionView> {
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
+    @MainActor public static let v16 = Self(for: .v16)
+    @MainActor public static let v17 = Self(for: .v17)
+    @MainActor public static let v18 = Self(for: .v18)
 }
 
 extension visionOSViewVersion<ListWithInsetGroupedStyleType, UICollectionView> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
+    @MainActor public static let v1 = Self(for: .v1)
+    @MainActor public static let v2 = Self(for: .v2)
 }
 #endif
 #endif

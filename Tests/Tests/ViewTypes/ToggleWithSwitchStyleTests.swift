@@ -10,6 +10,7 @@ final class ToggleWithSwitchStyleTests: XCTestCase {
     typealias PlatformToggleWithSwitchStyle = NSSwitch
     #endif
 
+    @MainActor
     func testToggleWithSwitchStyle() {
         XCTAssertViewIntrospection(of: PlatformToggleWithSwitchStyle.self) { spies in
             let spy0 = spies[0]

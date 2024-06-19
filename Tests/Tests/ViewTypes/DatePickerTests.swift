@@ -10,6 +10,7 @@ final class DatePickerTests: XCTestCase {
     typealias PlatformDatePicker = NSDatePicker
     #endif
 
+    @MainActor
     func testDatePicker() {
         let date0 = Date(timeIntervalSince1970: 0)
         let date1 = Date(timeIntervalSince1970: 5)

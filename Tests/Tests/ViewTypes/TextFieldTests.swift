@@ -9,6 +9,7 @@ final class TextFieldTests: XCTestCase {
     typealias PlatformTextField = NSTextField
     #endif
 
+    @MainActor
     func testTextField() {
         XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
             let spy0 = spies[0]
@@ -52,6 +53,7 @@ final class TextFieldTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testTextFieldsEmbeddedInList() {
         XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
             let spy0 = spies[0]

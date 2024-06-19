@@ -9,6 +9,7 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
     typealias PlatformProgressViewWithCircularStyle = NSProgressIndicator
     #endif
 
+    @MainActor
     func testProgressViewWithCircularStyle() throws {
         guard #available(iOS 14, tvOS 14, macOS 11, *) else {
             throw XCTSkip()

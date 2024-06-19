@@ -9,6 +9,7 @@ final class PageControlTests: XCTestCase {
     typealias PlatformPageControl = UIPageControl
     #endif
 
+    @MainActor
     func testPageControl() throws {
         guard #available(iOS 14, tvOS 14, *) else {
             throw XCTSkip()

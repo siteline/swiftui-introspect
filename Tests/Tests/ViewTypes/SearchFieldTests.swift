@@ -9,6 +9,7 @@ final class SearchFieldTests: XCTestCase {
     typealias PlatformSearchField = UISearchBar
     #endif
 
+    @MainActor
     func testSearchFieldInNavigationStack() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()
@@ -28,6 +29,7 @@ final class SearchFieldTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testSearchFieldInNavigationStackAsAncestor() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()
@@ -47,6 +49,7 @@ final class SearchFieldTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testSearchFieldInNavigationSplitView() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()
@@ -72,6 +75,7 @@ final class SearchFieldTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testSearchFieldInNavigationSplitViewAsAncestor() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()

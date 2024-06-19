@@ -12,6 +12,7 @@ final class VideoPlayerTests: XCTestCase {
     typealias PlatformVideoPlayer = AVPlayerView
     #endif
 
+    @MainActor
     func testVideoPlayer() throws {
         guard #available(iOS 14, tvOS 14, macOS 11, *) else {
             throw XCTSkip()

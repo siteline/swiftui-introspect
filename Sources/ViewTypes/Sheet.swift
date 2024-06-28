@@ -79,7 +79,7 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
     public static let v18 = Self(for: .v18, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
-        .from(UIViewController.self, selector: \.presentationController)
+        .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
 
@@ -96,7 +96,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v18 = Self(for: .v18, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
-        .from(UIViewController.self, selector: \.sheetPresentationController)
+        .from(UIViewController.self, selector: { $0.sheetPresentationController })
     }
 }
 
@@ -106,7 +106,7 @@ extension visionOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v2 = Self(for: .v2, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
-        .from(UIViewController.self, selector: \.sheetPresentationController)
+        .from(UIViewController.self, selector: { $0.sheetPresentationController })
     }
 }
 #endif
@@ -120,7 +120,7 @@ extension tvOSViewVersion<SheetType, UIPresentationController> {
     public static let v18 = Self(for: .v18, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
-        .from(UIViewController.self, selector: \.presentationController)
+        .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
 #endif

@@ -56,7 +56,7 @@ func runtimeWarn(
     //
     // Feedback filed: https://gist.github.com/stephencelis/a8d06383ed6ccde3e5ef5d1b3ad52bbc
     @usableFromInline
-    let dso = { () -> UnsafeMutableRawPointer in
+    nonisolated(unsafe) let dso = { () -> UnsafeMutableRawPointer in
       let count = _dyld_image_count()
       for i in 0..<count {
         if let name = _dyld_get_image_name(i) {

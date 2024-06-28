@@ -5,7 +5,7 @@ public struct IntrospectionSelector<Target: PlatformEntity>: Sendable {
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
     @_spi(Advanced)
-    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
+    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @MainActor @Sendable @escaping (Entry) -> Target?) -> Self {
         .init(
             receiverSelector: { controller in
                 controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)

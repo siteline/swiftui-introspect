@@ -65,7 +65,7 @@ extension iOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v18 = Self(for: .v18, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
-        .from(UIViewController.self, selector: \.popoverPresentationController)
+        .from(UIViewController.self, selector: { $0.popoverPresentationController })
     }
 }
 
@@ -74,7 +74,7 @@ extension visionOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v2 = Self(for: .v2, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
-        .from(UIViewController.self, selector: \.popoverPresentationController)
+        .from(UIViewController.self, selector: { $0.popoverPresentationController })
     }
 }
 #endif

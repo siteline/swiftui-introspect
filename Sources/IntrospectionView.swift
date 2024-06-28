@@ -4,7 +4,7 @@ import SwiftUI
 typealias IntrospectionViewID = UUID
 
 fileprivate enum IntrospectionStore {
-    static var shared: [IntrospectionViewID: Pair] = [:]
+    @MainActor static var shared: [IntrospectionViewID: Pair] = [:]
 
     struct Pair {
         weak var controller: IntrospectionPlatformViewController?
@@ -13,7 +13,7 @@ fileprivate enum IntrospectionStore {
 }
 
 extension PlatformEntity {
-    var introspectionAnchorEntity: Base? {
+    @MainActor var introspectionAnchorEntity: Base? {
         if let introspectionController = self as? IntrospectionPlatformViewController {
             return IntrospectionStore.shared[introspectionController.id]?.anchor~
         }

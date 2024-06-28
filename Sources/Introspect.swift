@@ -4,7 +4,7 @@ import SwiftUI
 /// The scope of introspection i.e. where introspect should look to find
 /// the desired target view relative to the applied `.introspect(...)`
 /// modifier.
-public struct IntrospectionScope: OptionSet {
+public struct IntrospectionScope: OptionSet, Sendable {
     /// Look within the `receiver` of the `.introspect(...)` modifier.
     public static let receiver = Self(rawValue: 1 << 0)
     /// Look for an `ancestor` relative to the `.introspect(...)` modifier.
@@ -96,6 +96,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     }
 }
 
+@MainActor
 public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 

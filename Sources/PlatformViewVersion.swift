@@ -61,7 +61,7 @@ public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platf
 public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: Sendable {
     @_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
     @_spi(Internals) case unavailable
 

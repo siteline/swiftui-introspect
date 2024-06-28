@@ -1561,6 +1561,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,3,2,6";
 				TVOS_DEPLOYMENT_TARGET = 13.0;
 				XROS_DEPLOYMENT_TARGET = 1.0;
@@ -1602,6 +1604,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,3,2,6";
 				TVOS_DEPLOYMENT_TARGET = 13.0;
 				XROS_DEPLOYMENT_TARGET = 1.0;

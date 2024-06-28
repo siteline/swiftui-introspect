@@ -19,6 +19,7 @@ typealias _PlatformViewControllerRepresentable = UIViewControllerRepresentable
 typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
 
+@MainActor
 protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     typealias ViewController = UIViewControllerType

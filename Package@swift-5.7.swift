@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version:5.7
 
 import PackageDescription
 
@@ -19,6 +19,5 @@ let package = Package(
             name: "SwiftUIIntrospect",
             path: "Sources"
         ),
-    ],
-    swiftLanguageVersions: [.v5, .v6]
+    ]
 )

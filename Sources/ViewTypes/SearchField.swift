@@ -66,21 +66,21 @@ import SwiftUI
 public struct SearchFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SearchFieldType {
-    public static var searchField: Self { .init() }
+    @MainActor public static var searchField: Self { .init() }
 }
 
 #if canImport(UIKit)
 extension iOSViewVersion<SearchFieldType, UISearchBar> {
     @available(*, unavailable, message: ".searchable isn't available on iOS 13")
-    public static let v13 = Self.unavailable()
+    @MainActor public static let v13 = Self.unavailable()
     @available(*, unavailable, message: ".searchable isn't available on iOS 14")
-    public static let v14 = Self.unavailable()
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+    @MainActor public static let v14 = Self.unavailable()
+    @MainActor public static let v15 = Self(for: .v15, selector: selector)
+    @MainActor public static let v16 = Self(for: .v16, selector: selector)
+    @MainActor public static let v17 = Self(for: .v17, selector: selector)
+    @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
-    private static var selector: IntrospectionSelector<UISearchBar> {
+    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
@@ -89,15 +89,15 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
 
 extension tvOSViewVersion<SearchFieldType, UISearchBar> {
     @available(*, unavailable, message: ".searchable isn't available on tvOS 13")
-    public static let v13 = Self.unavailable()
+    @MainActor public static let v13 = Self.unavailable()
     @available(*, unavailable, message: ".searchable isn't available on tvOS 14")
-    public static let v14 = Self.unavailable()
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+    @MainActor public static let v14 = Self.unavailable()
+    @MainActor public static let v15 = Self(for: .v15, selector: selector)
+    @MainActor public static let v16 = Self(for: .v16, selector: selector)
+    @MainActor public static let v17 = Self(for: .v17, selector: selector)
+    @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
-    private static var selector: IntrospectionSelector<UISearchBar> {
+    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
@@ -105,10 +105,10 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 }
 
 extension visionOSViewVersion<SearchFieldType, UISearchBar> {
-    public static let v1 = Self(for: .v1, selector: selector)
-    public static let v2 = Self(for: .v2, selector: selector)
+    @MainActor public static let v1 = Self(for: .v1, selector: selector)
+    @MainActor public static let v2 = Self(for: .v2, selector: selector)
 
-    private static var selector: IntrospectionSelector<UISearchBar> {
+    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }

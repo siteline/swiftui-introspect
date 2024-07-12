@@ -1,11 +1,14 @@
 #if !os(watchOS)
 @_spi(Advanced)
+@MainActor
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Advanced)
+    @MainActor
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
     @_spi(Advanced)
-    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
+    @MainActor
+    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @MainActor @escaping (Entry) -> Target?) -> Self {
         .init(
             receiverSelector: { controller in
                 controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)
@@ -16,12 +19,12 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         )
     }
 
-    private var receiverSelector: (IntrospectionPlatformViewController) -> Target?
-    private var ancestorSelector: (IntrospectionPlatformViewController) -> Target?
+    private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
+    private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 
     private init(
-        receiverSelector: @escaping (IntrospectionPlatformViewController) -> Target?,
-        ancestorSelector: @escaping (IntrospectionPlatformViewController) -> Target?
+        receiverSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?,
+        ancestorSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?
     ) {
         self.receiverSelector = receiverSelector
         self.ancestorSelector = ancestorSelector
@@ -41,6 +44,7 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         return copy
     }
 
+    @MainActor
     func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
         if
             scope.contains(.receiver),

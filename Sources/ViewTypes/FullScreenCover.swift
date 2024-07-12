@@ -66,43 +66,43 @@ public struct FullScreenCoverType: IntrospectableViewType {
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == FullScreenCoverType {
-    public static var fullScreenCover: Self { .init() }
+    @MainActor public static var fullScreenCover: Self { .init() }
 }
 
 #if canImport(UIKit)
 extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @available(*, unavailable, message: ".fullScreenCover isn't available on iOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+    @MainActor public static let v13 = Self.unavailable()
+    @MainActor public static let v14 = Self(for: .v14, selector: selector)
+    @MainActor public static let v15 = Self(for: .v15, selector: selector)
+    @MainActor public static let v16 = Self(for: .v16, selector: selector)
+    @MainActor public static let v17 = Self(for: .v17, selector: selector)
+    @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
-    private static var selector: IntrospectionSelector<UIPresentationController> {
+    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
     }
 }
 
 extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @available(*, unavailable, message: ".fullScreenCover isn't available on tvOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+    @MainActor public static let v13 = Self.unavailable()
+    @MainActor public static let v14 = Self(for: .v14, selector: selector)
+    @MainActor public static let v15 = Self(for: .v15, selector: selector)
+    @MainActor public static let v16 = Self(for: .v16, selector: selector)
+    @MainActor public static let v17 = Self(for: .v17, selector: selector)
+    @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
-    private static var selector: IntrospectionSelector<UIPresentationController> {
+    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
     }
 }
 
 extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
-    public static let v1 = Self(for: .v1, selector: selector)
-    public static let v2 = Self(for: .v2, selector: selector)
+    @MainActor public static let v1 = Self(for: .v1, selector: selector)
+    @MainActor public static let v2 = Self(for: .v2, selector: selector)
 
-    private static var selector: IntrospectionSelector<UIPresentationController> {
+    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: \.presentationController)
     }
 }

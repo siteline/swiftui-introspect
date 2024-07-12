@@ -4,7 +4,7 @@ import SwiftUI
 /// The scope of introspection i.e. where introspect should look to find
 /// the desired target view relative to the applied `.introspect(...)`
 /// modifier.
-public struct IntrospectionScope: OptionSet {
+public struct IntrospectionScope: OptionSet, Sendable {
     /// Look within the `receiver` of the `.introspect(...)` modifier.
     public static let receiver = Self(rawValue: 1 << 0)
     /// Look for an `ancestor` relative to the `.introspect(...)` modifier.
@@ -40,6 +40,7 @@ extension View {
     ///     }
     /// }
     /// ```
+    @MainActor
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>)...,
@@ -56,6 +57,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
     let customize: (PlatformSpecificEntity) -> Void
 
+    @MainActor
     init(
         _ viewType: SwiftUIViewType,
         platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],
@@ -100,37 +102,46 @@ public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 
     @_spi(Internals)
+    @MainActor
     var ancestor: Base? { get }
 
     @_spi(Internals)
+    @MainActor
     var descendants: [Base] { get }
 
     @_spi(Internals)
+    @MainActor
     func isDescendant(of other: Base) -> Bool
 }
 
 extension PlatformEntity {
     @_spi(Internals)
+    @MainActor
     public var ancestor: Base? { nil }
 
     @_spi(Internals)
+    @MainActor
     public var descendants: [Base] { [] }
 
     @_spi(Internals)
+    @MainActor
     public func isDescendant(of other: Base) -> Bool { false }
 }
 
 extension PlatformEntity {
     @_spi(Internals)
+    @MainActor
     public var ancestors: some Sequence<Base> {
         sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
     }
 
     @_spi(Internals)
+    @MainActor
     public var allDescendants: some Sequence<Base> {
         recursiveSequence([self~], children: { $0.descendants~ }).dropFirst()
     }
 
+    @MainActor
     func nearestCommonAncestor(with other: Base) -> Base? {
         var nearestAncestor: Base? = self~
 
@@ -141,6 +152,7 @@ extension PlatformEntity {
         return nearestAncestor
     }
 
+    @MainActor
     func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
         self.allDescendants
             .lazy
@@ -148,6 +160,7 @@ extension PlatformEntity {
             .prefix(while: { $0 !== topEntity })
     }
 
+    @MainActor
     func receiver<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {
@@ -166,6 +179,7 @@ extension PlatformEntity {
             .first
     }
 
+    @MainActor
     func ancestor<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {

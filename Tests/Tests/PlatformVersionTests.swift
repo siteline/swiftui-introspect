@@ -2,6 +2,7 @@
 import XCTest
 
 final class PlatformVersionTests: XCTestCase {
+    @MainActor
     func test_iOS_isCurrent() {
         #if os(iOS)
         if #available(iOS 17, *) {
@@ -44,6 +45,7 @@ final class PlatformVersionTests: XCTestCase {
         #endif
     }
 
+    @MainActor
     func test_iOS_isCurrentOrPast() {
         #if os(iOS)
         if #available(iOS 17, *) {
@@ -86,6 +88,7 @@ final class PlatformVersionTests: XCTestCase {
         #endif
     }
 
+    @MainActor
     func test_macOS_isCurrent() {
         #if os(macOS)
         if #available(macOS 14, *) {
@@ -128,6 +131,7 @@ final class PlatformVersionTests: XCTestCase {
         #endif
     }
 
+    @MainActor
     func test_macOS_isCurrentOrPast() {
         #if os(macOS)
         if #available(macOS 14, *) {
@@ -170,6 +174,7 @@ final class PlatformVersionTests: XCTestCase {
         #endif
     }
 
+    @MainActor
     func test_tvOS_isCurrent() {
         #if os(tvOS)
         if #available(tvOS 17, *) {
@@ -212,6 +217,7 @@ final class PlatformVersionTests: XCTestCase {
         #endif
     }
 
+    @MainActor
     func test_tvOS_isCurrentOrPast() {
         #if os(tvOS)
         if #available(tvOS 17, *) {

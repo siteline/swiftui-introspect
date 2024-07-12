@@ -11,6 +11,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
     typealias PlatformNavigationViewWithColumnsStyle = NSSplitView
     #endif
 
+    @MainActor
     func testNavigationViewWithColumnsStyle() {
         XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
             let spy = spies[0]
@@ -32,6 +33,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
         }
     }
 
+    @MainActor
     func testNavigationViewWithColumnsStyleAsAncestor() {
         XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
             let spy = spies[0]

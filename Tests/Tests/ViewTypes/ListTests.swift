@@ -9,6 +9,7 @@ final class ListTests: XCTestCase {
     typealias PlatformList = NSTableView
     #endif
 
+    @MainActor
     func testList() {
         XCTAssertViewIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]
@@ -41,6 +42,7 @@ final class ListTests: XCTestCase {
     }
 
     #if !os(macOS)
+    @MainActor
     func testNestedList() {
         XCTAssertViewIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]
@@ -67,6 +69,7 @@ final class ListTests: XCTestCase {
     }
     #endif
 
+    @MainActor
     func testMaskedList() {
         XCTAssertViewIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]

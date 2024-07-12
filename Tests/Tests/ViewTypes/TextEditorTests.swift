@@ -11,6 +11,7 @@ final class TextEditorTests: XCTestCase {
     typealias PlatformTextEditor = NSTextView
     #endif
 
+    @MainActor
     func testTextEditor() throws {
         guard #available(iOS 14, macOS 11, *) else {
             throw XCTSkip()

@@ -10,6 +10,7 @@ final class StepperTests: XCTestCase {
     typealias PlatformStepper = NSStepper
     #endif
 
+    @MainActor
     func testStepper() {
         XCTAssertViewIntrospection(of: PlatformStepper.self) { spies in
             let spy0 = spies[0]

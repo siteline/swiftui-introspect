@@ -8,6 +8,7 @@ final class ListWithGroupedStyleTests: XCTestCase {
     typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
     #endif
 
+    @MainActor
     func testListWithGroupedStyle() {
         XCTAssertViewIntrospection(of: PlatformListWithGroupedStyle.self) { spies in
             let spy0 = spies[0]

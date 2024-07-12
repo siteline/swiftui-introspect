@@ -8,6 +8,7 @@ final class PickerWithWheelStyleTests: XCTestCase {
     typealias PlatformPickerWithWheelStyle = UIPickerView
     #endif
 
+    @MainActor
     func testPickerWithWheelStyle() {
         XCTAssertViewIntrospection(of: PlatformPickerWithWheelStyle.self) { spies in
             let spy0 = spies[0]

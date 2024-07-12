@@ -9,6 +9,7 @@ final class ToggleWithButtonStyleTests: XCTestCase {
     typealias PlatformToggleWithButtonStyle = NSButton
     #endif
 
+    @MainActor
     func testToggleWithButtonStyle() throws {
         guard #available(macOS 12, *) else {
             throw XCTSkip()

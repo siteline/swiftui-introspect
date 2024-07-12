@@ -5,6 +5,8 @@ import XCTest
 
 @available(iOS 14, tvOS 14, *)
 final class FullScreenCoverTests: XCTestCase {
+
+    @MainActor
     func testPresentationAsFullScreenCover() throws {
         guard #available(iOS 14, tvOS 14, *) else {
             throw XCTSkip()

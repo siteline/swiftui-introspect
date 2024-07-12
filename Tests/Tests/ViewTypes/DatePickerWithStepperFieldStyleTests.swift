@@ -8,6 +8,7 @@ final class DatePickerWithStepperFieldStyleTests: XCTestCase {
     typealias PlatformDatePickerWithStepperFieldStyle = NSDatePicker
     #endif
 
+    @MainActor
     func testDatePickerWithStepperFieldStyle() {
         let date0 = Date(timeIntervalSince1970: 0)
         let date1 = Date(timeIntervalSince1970: 5)

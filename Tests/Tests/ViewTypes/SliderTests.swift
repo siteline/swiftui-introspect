@@ -10,6 +10,7 @@ final class SliderTests: XCTestCase {
     typealias PlatformSlider = NSSlider
     #endif
 
+    @MainActor
     func testSlider() {
         XCTAssertViewIntrospection(of: PlatformSlider.self) { spies in
             let spy0 = spies[0]

@@ -8,6 +8,7 @@ final class ToggleWithCheckboxStyleTests: XCTestCase {
     typealias PlatformToggleWithCheckboxStyle = NSButton
     #endif
 
+    @MainActor
     func testToggleWithCheckboxStyle() throws {
         XCTAssertViewIntrospection(of: PlatformToggleWithCheckboxStyle.self) { spies in
             let spy0 = spies[0]

@@ -8,6 +8,7 @@ final class PickerWithMenuStyleTests: XCTestCase {
     typealias PlatformPickerWithMenuStyle = NSPopUpButton
     #endif
 
+    @MainActor
     func testPickerWithMenuStyle() {
         XCTAssertViewIntrospection(of: PlatformPickerWithMenuStyle.self) { spies in
             let spy0 = spies[0]

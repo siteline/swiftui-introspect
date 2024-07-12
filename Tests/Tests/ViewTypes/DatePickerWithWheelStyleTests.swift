@@ -8,6 +8,7 @@ final class DatePickerWithWheelStyleTests: XCTestCase {
     typealias PlatformDatePickerWithWheelStyle = UIDatePicker
     #endif
 
+    @MainActor
     func testDatePickerWithWheelStyle() {
         let date0 = Date(timeIntervalSince1970: 0)
         let date1 = Date(timeIntervalSince1970: 5)

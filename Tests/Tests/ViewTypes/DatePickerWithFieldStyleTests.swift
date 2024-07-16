@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class DatePickerWithFieldStyleTests: XCTestCase {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformDatePickerWithFieldStyle = NSDatePicker

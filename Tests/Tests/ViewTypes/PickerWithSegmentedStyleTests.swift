@@ -10,7 +10,6 @@ final class PickerWithSegmentedStyleTests: XCTestCase {
     typealias PlatformPickerWithSegmentedStyle = NSSegmentedControl
     #endif
 
-    @MainActor
     func testPickerWithSegmentedStyle() {
         XCTAssertViewIntrospection(of: PlatformPickerWithSegmentedStyle.self) { spies in
             let spy0 = spies[0]

@@ -14,7 +14,6 @@ final class ColorPickerTests: XCTestCase {
     typealias PlatformColorPicker = NSColorWell
     #endif
 
-    @MainActor
     func testColorPicker() throws {
         guard #available(iOS 14, macOS 11, *) else {
             throw XCTSkip()

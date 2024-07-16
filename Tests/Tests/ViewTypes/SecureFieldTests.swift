@@ -10,7 +10,6 @@ final class SecureFieldTests: XCTestCase {
     typealias PlatformSecureField = NSTextField
     #endif
 
-    @MainActor
     func testSecureField() {
         XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
             let spy0 = spies[0]
@@ -54,7 +53,6 @@ final class SecureFieldTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testSecureFieldsEmbeddedInList() {
         XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
             let spy0 = spies[0]

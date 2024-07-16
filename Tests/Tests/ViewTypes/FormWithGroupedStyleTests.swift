@@ -11,7 +11,6 @@ final class FormWithGroupedStyleTests: XCTestCase {
     typealias PlatformFormWithGroupedStyle = NSScrollView
     #endif
 
-    @MainActor
     func testFormWithGroupedStyle() throws {
         guard #available(iOS 16, tvOS 16, macOS 13, *) else {
             throw XCTSkip()

@@ -10,7 +10,6 @@ final class ListCellTests: XCTestCase {
     typealias PlatformListCell = NSTableCellView
     #endif
 
-    @MainActor
     func testListCell() {
         XCTAssertViewIntrospection(of: PlatformListCell.self) { spies in
             let spy = spies[0]
@@ -27,7 +26,6 @@ final class ListCellTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testMaskedListCell() {
         XCTAssertViewIntrospection(of: PlatformListCell.self) { spies in
             let spy = spies[0]

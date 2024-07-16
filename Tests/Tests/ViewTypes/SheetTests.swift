@@ -6,7 +6,6 @@ import XCTest
 @MainActor
 final class SheetTests: XCTestCase {
     #if os(iOS)
-    @MainActor
     func testSheet() throws {
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
@@ -23,7 +22,6 @@ final class SheetTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testSheetAsSheetPresentationController() throws {
         guard #available(iOS 15, tvOS 15, *) else {
             throw XCTSkip()
@@ -44,7 +42,6 @@ final class SheetTests: XCTestCase {
         }
     }
     #elseif os(tvOS)
-    @MainActor
     func testSheet() throws {
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
@@ -61,7 +58,6 @@ final class SheetTests: XCTestCase {
         }
     }
     #elseif os(visionOS)
-    @MainActor
     func testSheet() throws {
         XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]

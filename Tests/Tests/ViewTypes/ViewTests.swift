@@ -4,7 +4,6 @@ import XCTest
 
 @MainActor
 final class ViewTests: XCTestCase {
-    @MainActor
     func testView() {
         XCTAssertViewIntrospection(of: PlatformView.self) { spies in
             let spy0 = spies[0]

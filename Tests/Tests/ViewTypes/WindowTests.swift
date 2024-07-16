@@ -10,7 +10,6 @@ final class WindowTests: XCTestCase {
     typealias PlatformWindow = NSWindow
     #endif
 
-    @MainActor
     func testWindow() {
         XCTAssertViewIntrospection(of: PlatformWindow.self) { spies in
             let spy0 = spies[0]

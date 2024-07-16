@@ -11,7 +11,6 @@ final class FormTests: XCTestCase {
     typealias PlatformForm = NSScrollView
     #endif
 
-    @MainActor
     func testForm() throws {
         XCTAssertViewIntrospection(of: PlatformForm.self) { spies in
             let spy0 = spies[0]

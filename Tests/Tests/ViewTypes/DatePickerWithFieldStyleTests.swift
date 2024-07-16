@@ -9,7 +9,6 @@ final class DatePickerWithFieldStyleTests: XCTestCase {
     typealias PlatformDatePickerWithFieldStyle = NSDatePicker
     #endif
 
-    @MainActor
     func testDatePickerWithFieldStyle() {
         let date0 = Date(timeIntervalSince1970: 0)
         let date1 = Date(timeIntervalSince1970: 5)

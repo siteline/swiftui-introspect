@@ -10,7 +10,6 @@ final class ScrollViewTests: XCTestCase {
     typealias PlatformScrollView = NSScrollView
     #endif
 
-    @MainActor
     func testScrollView() {
         XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]
@@ -51,7 +50,6 @@ final class ScrollViewTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testNestedScrollView() {
         XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]
@@ -90,7 +88,6 @@ final class ScrollViewTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testMaskedScrollView() {
         XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]

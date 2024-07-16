@@ -12,7 +12,6 @@ final class DatePickerWithCompactStyleTests: XCTestCase {
     typealias PlatformDatePickerWithCompactStyle = NSDatePicker
     #endif
 
-    @MainActor
     func testDatePickerWithCompactStyle() throws {
         guard #available(iOS 14, macOS 10.15.4, *) else {
             throw XCTSkip()

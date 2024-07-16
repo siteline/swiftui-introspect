@@ -5,8 +5,6 @@ import XCTest
 
 @MainActor
 final class PopoverTests: XCTestCase {
-
-    @MainActor
     func testPopover() throws {
         XCTAssertViewIntrospection(of: UIPopoverPresentationController.self) { spies in
             let spy0 = spies[0]

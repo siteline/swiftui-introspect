@@ -12,7 +12,6 @@ final class DatePickerWithGraphicalStyleTests: XCTestCase {
     typealias PlatformDatePickerWithGraphicalStyle = NSDatePicker
     #endif
 
-    @MainActor
     func testDatePickerWithGraphicalStyle() throws {
         guard #available(iOS 14, *) else {
             throw XCTSkip()

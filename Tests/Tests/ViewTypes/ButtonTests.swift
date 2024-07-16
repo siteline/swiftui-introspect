@@ -9,7 +9,6 @@ final class ButtonTests: XCTestCase {
     typealias PlatformButton = NSButton
     #endif
 
-    @MainActor
     func testButton() {
         XCTAssertViewIntrospection(of: PlatformButton.self) { spies in
             let spy0 = spies[0]

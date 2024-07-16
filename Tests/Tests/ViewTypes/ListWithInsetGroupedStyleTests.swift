@@ -10,7 +10,6 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
     typealias PlatformListWithInsetGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
     #endif
 
-    @MainActor
     func testListWithInsetGroupedStyle() throws {
         guard #available(iOS 14, *) else {
             throw XCTSkip()

@@ -11,7 +11,6 @@ final class ToggleTests: XCTestCase {
     typealias PlatformToggle = NSButton
     #endif
 
-    @MainActor
     func testToggle() {
         XCTAssertViewIntrospection(of: PlatformToggle.self) { spies in
             let spy0 = spies[0]

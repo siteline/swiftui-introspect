@@ -9,7 +9,6 @@ import XCTest
 final class MapTests: XCTestCase {
     typealias PlatformMap = MKMapView
 
-    @MainActor
     func testMap() throws {
         guard #available(iOS 14, tvOS 14, macOS 11, *) else {
             throw XCTSkip()

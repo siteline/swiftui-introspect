@@ -10,7 +10,6 @@ final class ProgressViewWithLinearStyleTests: XCTestCase {
     typealias PlatformProgressViewWithLinearStyle = NSProgressIndicator
     #endif
 
-    @MainActor
     func testProgressViewWithLinearStyle() throws {
         guard #available(iOS 14, tvOS 14, macOS 11, *) else {
             throw XCTSkip()

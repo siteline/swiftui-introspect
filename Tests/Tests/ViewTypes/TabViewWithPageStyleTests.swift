@@ -10,7 +10,6 @@ final class TabViewWithPageStyleTests: XCTestCase {
     typealias PlatformTabViewWithPageStyle = UICollectionView
     #endif
 
-    @MainActor
     func testTabViewWithPageStyle() throws {
         guard #available(iOS 14, tvOS 14, *) else {
             throw XCTSkip()
@@ -30,7 +29,6 @@ final class TabViewWithPageStyleTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testTabViewWithPageStyleAsAncestor() throws {
         guard #available(iOS 14, tvOS 14, *) else {
             throw XCTSkip()

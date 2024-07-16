@@ -12,7 +12,6 @@ final class TableTests: XCTestCase {
     typealias PlatformTable = NSTableView
     #endif
 
-    @MainActor
     func testTable() throws {
         guard #available(iOS 16, macOS 12, *) else {
             throw XCTSkip()
@@ -48,7 +47,6 @@ final class TableTests: XCTestCase {
         }
     }
 
-    @MainActor
     func testTableWithInsetStyle() throws {
         guard #available(iOS 16, macOS 12, *) else {
             throw XCTSkip()
@@ -88,7 +86,6 @@ final class TableTests: XCTestCase {
     }
 
     #if os(macOS)
-    @MainActor
     func testTableWithBorderedStyle() throws {
         guard #available(macOS 12, *) else {
             throw XCTSkip()

@@ -10,7 +10,6 @@ final class ListWithPlainStyleTests: XCTestCase {
     typealias PlatformListWithPlainStyle = NSTableView
     #endif
 
-    @MainActor
     func testListWithPlainStyle() {
         XCTAssertViewIntrospection(of: PlatformListWithPlainStyle.self) { spies in
             let spy0 = spies[0]

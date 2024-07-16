@@ -10,7 +10,6 @@ final class ListWithBorderedStyleTests: XCTestCase {
     typealias PlatformListWithBorderedStyle = NSTableView
     #endif
 
-    @MainActor
     func testListWithBorderedStyle() throws {
         guard #available(macOS 12, *) else {
             throw XCTSkip()

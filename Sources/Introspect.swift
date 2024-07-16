@@ -103,46 +103,37 @@ public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 
     @_spi(Internals)
-    @MainActor
     var ancestor: Base? { get }
 
     @_spi(Internals)
-    @MainActor
     var descendants: [Base] { get }
 
     @_spi(Internals)
-    @MainActor
     func isDescendant(of other: Base) -> Bool
 }
 
 extension PlatformEntity {
     @_spi(Internals)
-    @MainActor
     public var ancestor: Base? { nil }
 
     @_spi(Internals)
-    @MainActor
     public var descendants: [Base] { [] }
 
     @_spi(Internals)
-    @MainActor
     public func isDescendant(of other: Base) -> Bool { false }
 }
 
 extension PlatformEntity {
     @_spi(Internals)
-    @MainActor
     public var ancestors: some Sequence<Base> {
         sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
     }
 
     @_spi(Internals)
-    @MainActor
     public var allDescendants: some Sequence<Base> {
         recursiveSequence([self~], children: { $0.descendants~ }).dropFirst()
     }
 
-    @MainActor
     func nearestCommonAncestor(with other: Base) -> Base? {
         var nearestAncestor: Base? = self~
 
@@ -153,7 +144,6 @@ extension PlatformEntity {
         return nearestAncestor
     }
 
-    @MainActor
     func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
         self.allDescendants
             .lazy
@@ -161,7 +151,6 @@ extension PlatformEntity {
             .prefix(while: { $0 !== topEntity })
     }
 
-    @MainActor
     func receiver<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {
@@ -180,7 +169,6 @@ extension PlatformEntity {
             .first
     }
 
-    @MainActor
     func ancestor<PlatformSpecificEntity: PlatformEntity>(
         ofType type: PlatformSpecificEntity.Type
     ) -> PlatformSpecificEntity? {

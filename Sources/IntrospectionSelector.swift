@@ -4,11 +4,9 @@
 @MainActor
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Advanced)
-    @MainActor
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
     @_spi(Advanced)
-    @MainActor
     public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @MainActor @escaping (Entry) -> Target?) -> Self {
         .init(
             receiverSelector: { controller in
@@ -45,7 +43,6 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         return copy
     }
 
-    @MainActor
     func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
         if
             scope.contains(.receiver),

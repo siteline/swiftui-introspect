@@ -74,7 +74,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ListCellType: IntrospectableViewType {
-    @MainActor public var scope: IntrospectionScope { .ancestor }
+    public var scope: IntrospectionScope { .ancestor }
 }
 
 extension IntrospectableViewType where Self == ListCellType {

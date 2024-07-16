@@ -72,7 +72,7 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
     @_spi(Advanced) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }
         let fileName = URL(fileURLWithPath: filePath).lastPathComponent
-        runtimeWarn(
+        print(
             """
             If you're seeing this, someone forgot to mark \(fileName):\(line) as unavailable.
 

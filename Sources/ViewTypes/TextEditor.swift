@@ -55,7 +55,7 @@ public struct TextEditorType: IntrospectableViewType {}
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == TextEditorType {
-    @MainActor public static var textEditor: Self { .init() }
+    public static var textEditor: Self { .init() }
 }
 
 #if canImport(UIKit)

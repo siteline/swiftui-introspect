@@ -80,8 +80,8 @@ public struct ListType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == ListType {
-    @MainActor public static var list: Self { .init() }
-    @MainActor public static func list(style: Self.Style) -> Self { .init() }
+    public static var list: Self { .init() }
+    public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

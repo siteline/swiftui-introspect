@@ -31,7 +31,7 @@ public struct ButtonType: IntrospectableViewType {}
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ButtonType {
-    @MainActor public static var button: Self { .init() }
+    public static var button: Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

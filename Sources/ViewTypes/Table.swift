@@ -106,7 +106,7 @@ public struct TableType: IntrospectableViewType {}
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == TableType {
-    @MainActor public static var table: Self { .init() }
+    public static var table: Self { .init() }
 }
 
 #if canImport(UIKit)

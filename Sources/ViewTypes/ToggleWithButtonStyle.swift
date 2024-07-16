@@ -38,7 +38,7 @@ public struct ToggleWithButtonStyleType: IntrospectableViewType {
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleWithButtonStyleType {
-    @MainActor public static func toggle(style: Self.Style) -> Self { .init() }
+    public static func toggle(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

@@ -60,7 +60,7 @@ import SwiftUI
 public struct PageControlType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == PageControlType {
-    @MainActor public static var pageControl: Self { .init() }
+    public static var pageControl: Self { .init() }
 }
 
 #if canImport(UIKit)

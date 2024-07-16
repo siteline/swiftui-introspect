@@ -61,7 +61,7 @@ public struct NavigationViewWithStackStyleType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == NavigationViewWithStackStyleType {
-    @MainActor public static func navigationView(style: Self.Style) -> Self { .init() }
+    public static func navigationView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -73,7 +73,7 @@ extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationControlle
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
+    private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
     }
 }
@@ -86,7 +86,7 @@ extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationControll
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
+    private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
     }
 }
@@ -95,7 +95,7 @@ extension visionOSViewVersion<NavigationViewWithStackStyleType, UINavigationCont
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
+    private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
     }
 }

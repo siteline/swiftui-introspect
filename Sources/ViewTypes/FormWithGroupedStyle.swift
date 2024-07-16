@@ -81,7 +81,7 @@ public struct FormWithGroupedStyleType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == FormWithGroupedStyleType {
-    @MainActor public static func form(style: Self.Style) -> Self { .init() }
+    public static func form(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

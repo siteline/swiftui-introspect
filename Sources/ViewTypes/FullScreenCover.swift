@@ -66,7 +66,7 @@ public struct FullScreenCoverType: IntrospectableViewType {
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == FullScreenCoverType {
-    @MainActor public static var fullScreenCover: Self { .init() }
+    public static var fullScreenCover: Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -79,7 +79,7 @@ extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
+    private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
@@ -93,7 +93,7 @@ extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
+    private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
@@ -102,7 +102,7 @@ extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
+    private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
     }
 }

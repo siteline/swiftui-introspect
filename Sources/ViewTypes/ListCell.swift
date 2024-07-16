@@ -78,7 +78,7 @@ public struct ListCellType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == ListCellType {
-    @MainActor public static var listCell: Self { .init() }
+    public static var listCell: Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -40,7 +40,7 @@ public struct ListWithBorderedStyleType: IntrospectableViewType {
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ListWithBorderedStyleType {
-    @MainActor public static func list(style: Self.Style) -> Self { .init() }
+    public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

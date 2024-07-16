@@ -71,7 +71,7 @@ public struct ListWithSidebarStyleType: IntrospectableViewType {
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == ListWithSidebarStyleType {
-    @MainActor public static func list(style: Self.Style) -> Self { .init() }
+    public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

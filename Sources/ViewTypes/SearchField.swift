@@ -66,7 +66,7 @@ import SwiftUI
 public struct SearchFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SearchFieldType {
-    @MainActor public static var searchField: Self { .init() }
+    public static var searchField: Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -80,7 +80,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
+    private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
@@ -97,7 +97,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
+    private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }
@@ -108,7 +108,7 @@ extension visionOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISearchBar> {
+    private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
             $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
         }

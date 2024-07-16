@@ -58,7 +58,7 @@ public struct PickerWithWheelStyleType: IntrospectableViewType {
 
 #if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == PickerWithWheelStyleType {
-    @MainActor public static func picker(style: Self.Style) -> Self { .init() }
+    public static func picker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

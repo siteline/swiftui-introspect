@@ -50,7 +50,7 @@ public struct DatePickerWithWheelStyleType: IntrospectableViewType {
 
 #if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == DatePickerWithWheelStyleType {
-    @MainActor public static func datePicker(style: Self.Style) -> Self { .init() }
+    public static func datePicker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -52,7 +52,7 @@ public struct PopoverType: IntrospectableViewType {
 
 #if !os(tvOS) && !os(macOS)
 extension IntrospectableViewType where Self == PopoverType {
-    @MainActor public static var popover: Self { .init() }
+    public static var popover: Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -64,7 +64,7 @@ extension iOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
+    private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
         .from(UIViewController.self, selector: { $0.popoverPresentationController })
     }
 }
@@ -73,7 +73,7 @@ extension visionOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
+    private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
         .from(UIViewController.self, selector: { $0.popoverPresentationController })
     }
 }

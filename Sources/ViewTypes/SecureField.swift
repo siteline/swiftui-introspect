@@ -65,7 +65,7 @@ import SwiftUI
 public struct SecureFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SecureFieldType {
-    @MainActor public static var secureField: Self { .init() }
+    public static var secureField: Self { .init() }
 }
 
 #if canImport(UIKit)

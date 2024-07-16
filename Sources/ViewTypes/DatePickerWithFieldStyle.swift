@@ -38,7 +38,7 @@ public struct DatePickerWithFieldStyleType: IntrospectableViewType {
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == DatePickerWithFieldStyleType {
-    @MainActor public static func datePicker(style: Self.Style) -> Self { .init() }
+    public static func datePicker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

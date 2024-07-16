@@ -89,7 +89,7 @@ public struct PickerWithSegmentedStyleType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == PickerWithSegmentedStyleType {
-    @MainActor public static func picker(style: Self.Style) -> Self { .init() }
+    public static func picker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

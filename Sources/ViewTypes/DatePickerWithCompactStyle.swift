@@ -62,7 +62,7 @@ public struct DatePickerWithCompactStyleType: IntrospectableViewType {
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == DatePickerWithCompactStyleType {
-    @MainActor public static func datePicker(style: Self.Style) -> Self { .init() }
+    public static func datePicker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -50,7 +50,7 @@ public struct ToggleWithSwitchStyleType: IntrospectableViewType {
 
 #if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleWithSwitchStyleType {
-    @MainActor public static func toggle(style: Self.Style) -> Self { .init() }
+    public static func toggle(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

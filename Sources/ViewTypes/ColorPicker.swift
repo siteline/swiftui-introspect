@@ -55,7 +55,7 @@ public struct ColorPickerType: IntrospectableViewType {}
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == ColorPickerType {
-    @MainActor public static var colorPicker: Self { .init() }
+    public static var colorPicker: Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -65,7 +65,7 @@ import SwiftUI
 public struct TextFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == TextFieldType {
-    @MainActor public static var textField: Self { .init() }
+    public static var textField: Self { .init() }
 }
 
 #if canImport(UIKit)

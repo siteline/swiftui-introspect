@@ -42,7 +42,7 @@ public struct PickerWithMenuStyleType: IntrospectableViewType {
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == PickerWithMenuStyleType {
-    @MainActor public static func picker(style: Self.Style) -> Self { .init() }
+    public static func picker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

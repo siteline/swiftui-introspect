@@ -44,7 +44,7 @@ public struct ToggleType: IntrospectableViewType {}
 
 #if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == ToggleType {
-    @MainActor public static var toggle: Self { .init() }
+    public static var toggle: Self { .init() }
 }
 
 #if canImport(UIKit)

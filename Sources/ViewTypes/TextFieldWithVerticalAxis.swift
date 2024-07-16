@@ -69,7 +69,7 @@ public struct TextFieldWithVerticalAxisType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == TextFieldWithVerticalAxisType {
-    @MainActor public static func textField(axis: Self.Axis) -> Self { .init() }
+    public static func textField(axis: Self.Axis) -> Self { .init() }
 }
 
 // MARK: SwiftUI.TextField(..., axis: .vertical) - iOS

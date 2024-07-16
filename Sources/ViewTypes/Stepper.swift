@@ -44,7 +44,7 @@ public struct StepperType: IntrospectableViewType {}
 
 #if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == StepperType {
-    @MainActor public static var stepper: Self { .init() }
+    public static var stepper: Self { .init() }
 }
 
 #if canImport(UIKit)

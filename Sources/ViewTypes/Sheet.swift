@@ -66,7 +66,7 @@ public struct SheetType: IntrospectableViewType {
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == SheetType {
-    @MainActor public static var sheet: Self { .init() }
+    public static var sheet: Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -78,7 +78,7 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
+    private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
@@ -95,7 +95,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
     @_disfavoredOverload
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISheetPresentationController> {
+    private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
     }
 }
@@ -105,7 +105,7 @@ extension visionOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISheetPresentationController> {
+    private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
     }
 }
@@ -119,7 +119,7 @@ extension tvOSViewVersion<SheetType, UIPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
+    private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
     }
 }

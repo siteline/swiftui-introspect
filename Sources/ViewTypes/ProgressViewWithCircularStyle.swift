@@ -65,7 +65,7 @@ public struct ProgressViewWithCircularStyleType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == ProgressViewWithCircularStyleType {
-    @MainActor public static func progressView(style: Self.Style) -> Self { .init() }
+    public static func progressView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

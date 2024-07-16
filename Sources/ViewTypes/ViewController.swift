@@ -69,7 +69,7 @@ public struct ViewControllerType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == ViewControllerType {
-    @MainActor public static var viewController: Self { .init() }
+    public static var viewController: Self { .init() }
 }
 
 #if canImport(UIKit)

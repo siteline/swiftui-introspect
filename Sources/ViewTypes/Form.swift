@@ -64,7 +64,7 @@ public struct FormType: IntrospectableViewType {}
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == FormType {
-    @MainActor public static var form: Self { .init() }
+    public static var form: Self { .init() }
 }
 
 #if canImport(UIKit)

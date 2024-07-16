@@ -73,7 +73,7 @@ import SwiftUI
 public struct NavigationSplitViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == NavigationSplitViewType {
-    @MainActor public static var navigationSplitView: Self { .init() }
+    public static var navigationSplitView: Self { .init() }
 }
 
 #if canImport(UIKit)
@@ -89,7 +89,7 @@ extension iOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISplitViewController> {
+    private static var selector: IntrospectionSelector<UISplitViewController> {
         .default.withAncestorSelector { $0.splitViewController }
     }
 }
@@ -106,7 +106,7 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
+    private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
     }
 }
@@ -115,7 +115,7 @@ extension visionOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor private static var selector: IntrospectionSelector<UISplitViewController> {
+    private static var selector: IntrospectionSelector<UISplitViewController> {
         .default.withAncestorSelector { $0.splitViewController }
     }
 }

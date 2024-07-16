@@ -53,7 +53,7 @@ public struct DatePickerType: IntrospectableViewType {}
 
 #if !os(tvOS)
 extension IntrospectableViewType where Self == DatePickerType {
-    @MainActor public static var datePicker: Self { .init() }
+    public static var datePicker: Self { .init() }
 }
 
 #if canImport(UIKit)

@@ -68,7 +68,7 @@ public struct MapType: IntrospectableViewType {}
 import MapKit
 
 extension IntrospectableViewType where Self == MapType {
-    @MainActor public static var map: Self { .init() }
+    public static var map: Self { .init() }
 }
 
 extension iOSViewVersion<MapType, MKMapView> {

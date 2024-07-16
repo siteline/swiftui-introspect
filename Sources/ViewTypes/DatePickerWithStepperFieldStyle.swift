@@ -38,7 +38,7 @@ public struct DatePickerWithStepperFieldStyleType: IntrospectableViewType {
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == DatePickerWithStepperFieldStyleType {
-    @MainActor public static func datePicker(style: Self.Style) -> Self { .init() }
+    public static func datePicker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)

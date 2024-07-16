@@ -60,7 +60,7 @@ public struct VideoPlayerType: IntrospectableViewType {}
 import AVKit
 
 extension IntrospectableViewType where Self == VideoPlayerType {
-    @MainActor public static var videoPlayer: Self { .init() }
+    public static var videoPlayer: Self { .init() }
 }
 
 #if canImport(UIKit)

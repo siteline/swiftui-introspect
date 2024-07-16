@@ -58,7 +58,7 @@ public struct TabViewType: IntrospectableViewType {}
 
 #if !os(visionOS)
 extension IntrospectableViewType where Self == TabViewType {
-    @MainActor public static var tabView: Self { .init() }
+    public static var tabView: Self { .init() }
 }
 
 #if canImport(UIKit)

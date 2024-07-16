@@ -44,7 +44,7 @@ public struct SliderType: IntrospectableViewType {}
 
 #if !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == SliderType {
-    @MainActor public static var slider: Self { .init() }
+    public static var slider: Self { .init() }
 }
 
 #if canImport(UIKit)

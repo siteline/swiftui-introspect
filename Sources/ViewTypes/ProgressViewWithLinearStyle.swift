@@ -65,7 +65,7 @@ public struct ProgressViewWithLinearStyleType: IntrospectableViewType {
 }
 
 extension IntrospectableViewType where Self == ProgressViewWithLinearStyleType {
-    @MainActor public static func progressView(style: Self.Style) -> Self { .init() }
+    public static func progressView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

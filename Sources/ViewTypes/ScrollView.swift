@@ -65,7 +65,7 @@ import SwiftUI
 public struct ScrollViewType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == ScrollViewType {
-    @MainActor public static var scrollView: Self { .init() }
+    public static var scrollView: Self { .init() }
 }
 
 #if canImport(UIKit)

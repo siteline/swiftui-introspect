@@ -71,7 +71,7 @@ public struct ListWithGroupedStyleType: IntrospectableViewType {
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == ListWithGroupedStyleType {
-    @MainActor public static func list(style: Self.Style) -> Self { .init() }
+    public static func list(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)

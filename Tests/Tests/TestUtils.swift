@@ -2,6 +2,7 @@ import SwiftUI
 import XCTest
 
 #if canImport(UIKit)
+@MainActor
 enum TestUtils {
     #if targetEnvironment(macCatalyst) || os(visionOS)
     static let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 480, height: 300))
@@ -24,6 +25,7 @@ enum TestUtils {
     }
 }
 #elseif canImport(AppKit)
+@MainActor
 enum TestUtils {
     private static let window = NSWindow(
         contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -40,6 +42,7 @@ enum TestUtils {
 }
 #endif
 
+@MainActor
 func XCTAssertViewIntrospection<Entity: AnyObject>(
     of type: Entity.Type,
     @ViewBuilder view: (Spies<Entity>) -> some View,

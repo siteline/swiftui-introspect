@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class StepperTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformStepper = UIStepper

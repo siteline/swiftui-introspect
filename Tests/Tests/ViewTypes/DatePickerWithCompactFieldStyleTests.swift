@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, macOS 10.15.4, *)
+@MainActor
 final class DatePickerWithCompactStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformDatePickerWithCompactStyle = UIDatePicker

@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class DatePickerWithWheelStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformDatePickerWithWheelStyle = UIDatePicker

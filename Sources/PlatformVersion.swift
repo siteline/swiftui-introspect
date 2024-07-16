@@ -2,13 +2,13 @@
 import Foundation
 
 @_spi(Internals)
-public enum PlatformVersionCondition {
+public enum PlatformVersionCondition: Sendable {
     case past
     case current
     case future
 }
 
-public protocol PlatformVersion {
+public protocol PlatformVersion: Sendable {
     @_spi(Internals)
     var condition: PlatformVersionCondition? { get }
 }

@@ -1,11 +1,11 @@
 #if !os(watchOS)
 @_spi(Advanced)
-public struct IntrospectionSelector<Target: PlatformEntity> {
+public struct IntrospectionSelector<Target: PlatformEntity>: Sendable {
     @_spi(Advanced)
     public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
     @_spi(Advanced)
-    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @escaping (Entry) -> Target?) -> Self {
+    public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @MainActor @Sendable @escaping (Entry) -> Target?) -> Self {
         .init(
             receiverSelector: { controller in
                 controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)
@@ -16,32 +16,32 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
         )
     }
 
-    private var receiverSelector: (IntrospectionPlatformViewController) -> Target?
-    private var ancestorSelector: (IntrospectionPlatformViewController) -> Target?
+    private var receiverSelector: @MainActor @Sendable (IntrospectionPlatformViewController) -> Target?
+    private var ancestorSelector: @MainActor @Sendable (IntrospectionPlatformViewController) -> Target?
 
     private init(
-        receiverSelector: @escaping (IntrospectionPlatformViewController) -> Target?,
-        ancestorSelector: @escaping (IntrospectionPlatformViewController) -> Target?
+        receiverSelector: @MainActor @Sendable @escaping (IntrospectionPlatformViewController) -> Target?,
+        ancestorSelector: @MainActor @Sendable @escaping (IntrospectionPlatformViewController) -> Target?
     ) {
         self.receiverSelector = receiverSelector
         self.ancestorSelector = ancestorSelector
     }
 
     @_spi(Advanced)
-    public func withReceiverSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
+    public func withReceiverSelector(_ selector: @MainActor @Sendable @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.receiverSelector = selector
         return copy
     }
 
     @_spi(Advanced)
-    public func withAncestorSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
+    public func withAncestorSelector(_ selector: @MainActor @Sendable @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.ancestorSelector = selector
         return copy
     }
 
-    func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
+    @MainActor func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
         if
             scope.contains(.receiver),
             let target = receiverSelector(controller)

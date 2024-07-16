@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class PopoverTests: XCTestCase {
     func testPopover() throws {
         XCTAssertViewIntrospection(of: UIPopoverPresentationController.self) { spies in

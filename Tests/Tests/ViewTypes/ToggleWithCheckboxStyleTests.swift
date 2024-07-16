@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ToggleWithCheckboxStyleTests: XCTestCase {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformToggleWithCheckboxStyle = NSButton

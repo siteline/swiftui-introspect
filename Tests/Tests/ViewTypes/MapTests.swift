@@ -5,6 +5,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, macOS 11, *)
+@MainActor
 final class MapTests: XCTestCase {
     typealias PlatformMap = MKMapView
 

@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class PickerWithWheelStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformPickerWithWheelStyle = UIPickerView

@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ListWithGroupedStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView

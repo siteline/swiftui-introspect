@@ -66,12 +66,12 @@ extension IntrospectableViewType where Self == NavigationViewWithStackStyleType 
 
 #if canImport(UIKit)
 extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
-    @MainActor public static let v13 = Self(for: .v13, selector: selector)
-    @MainActor public static let v14 = Self(for: .v14, selector: selector)
-    @MainActor public static let v15 = Self(for: .v15, selector: selector)
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
@@ -79,12 +79,12 @@ extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationControlle
 }
 
 extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
-    @MainActor public static let v13 = Self(for: .v13, selector: selector)
-    @MainActor public static let v14 = Self(for: .v14, selector: selector)
-    @MainActor public static let v15 = Self(for: .v15, selector: selector)
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
@@ -92,8 +92,8 @@ extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationControll
 }
 
 extension visionOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
-    @MainActor public static let v1 = Self(for: .v1, selector: selector)
-    @MainActor public static let v2 = Self(for: .v2, selector: selector)
+    public static let v1 = Self(for: .v1, selector: selector)
+    public static let v2 = Self(for: .v2, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }

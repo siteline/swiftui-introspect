@@ -60,15 +60,15 @@ extension IntrospectableViewType where Self == NavigationStackType {
 #if canImport(UIKit)
 extension iOSViewVersion<NavigationStackType, UINavigationController> {
     @available(*, unavailable, message: "NavigationStack isn't available on iOS 13")
-    @MainActor public static let v13 = Self.unavailable()
+    public static let v13 = Self.unavailable()
     @available(*, unavailable, message: "NavigationStack isn't available on iOS 14")
-    @MainActor public static let v14 = Self.unavailable()
+    public static let v14 = Self.unavailable()
     @available(*, unavailable, message: "NavigationStack isn't available on iOS 15")
-    @MainActor public static let v15 = Self.unavailable()
+    public static let v15 = Self.unavailable()
 
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
@@ -77,15 +77,15 @@ extension iOSViewVersion<NavigationStackType, UINavigationController> {
 
 extension tvOSViewVersion<NavigationStackType, UINavigationController> {
     @available(*, unavailable, message: "NavigationStack isn't available on tvOS 13")
-    @MainActor public static let v13 = Self.unavailable()
+    public static let v13 = Self.unavailable()
     @available(*, unavailable, message: "NavigationStack isn't available on tvOS 14")
-    @MainActor public static let v14 = Self.unavailable()
+    public static let v14 = Self.unavailable()
     @available(*, unavailable, message: "NavigationStack isn't available on tvOS 15")
-    @MainActor public static let v15 = Self.unavailable()
+    public static let v15 = Self.unavailable()
 
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }
@@ -93,8 +93,8 @@ extension tvOSViewVersion<NavigationStackType, UINavigationController> {
 }
 
 extension visionOSViewVersion<NavigationStackType, UINavigationController> {
-    @MainActor public static let v1 = Self(for: .v1, selector: selector)
-    @MainActor public static let v2 = Self(for: .v2, selector: selector)
+    public static let v1 = Self(for: .v1, selector: selector)
+    public static let v2 = Self(for: .v2, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }

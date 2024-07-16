@@ -19,7 +19,6 @@ typealias _PlatformViewControllerRepresentable = UIViewControllerRepresentable
 typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
 
-@MainActor
 protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     typealias ViewController = UIViewControllerType
@@ -27,30 +26,30 @@ protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentab
     typealias ViewController = NSViewControllerType
     #endif
 
-    @MainActor func makePlatformViewController(context: Context) -> ViewController
-    @MainActor func updatePlatformViewController(_ controller: ViewController, context: Context)
-    @MainActor static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
+    func makePlatformViewController(context: Context) -> ViewController
+    func updatePlatformViewController(_ controller: ViewController, context: Context)
+    static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
 }
 
 extension PlatformViewControllerRepresentable {
     #if canImport(UIKit)
-    @MainActor func makeUIViewController(context: Context) -> ViewController {
+    func makeUIViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    @MainActor func updateUIViewController(_ controller: ViewController, context: Context) {
+    func updateUIViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    @MainActor static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
+    static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #elseif canImport(AppKit)
-    @MainActor func makeNSViewController(context: Context) -> ViewController {
+    func makeNSViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)
     }
-    @MainActor func updateNSViewController(_ controller: ViewController, context: Context) {
+    func updateNSViewController(_ controller: ViewController, context: Context) {
         updatePlatformViewController(controller, context: context)
     }
-    @MainActor static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
+    static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
         dismantlePlatformViewController(controller, coordinator: coordinator)
     }
     #endif

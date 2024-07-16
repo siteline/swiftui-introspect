@@ -62,6 +62,7 @@ public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platf
 public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
+@MainActor
 public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: Sendable {
     @_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
     @_spi(Internals) case unavailable
@@ -116,11 +117,11 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 // This conformance isn't meant to be used directly by the user,
 // it's only to satisfy requirements for forming ranges (e.g. `.v15...`).
 extension PlatformViewVersion: Comparable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
         true
     }
 
-    public static func < (lhs: Self, rhs: Self) -> Bool {
+    nonisolated public static func < (lhs: Self, rhs: Self) -> Bool {
         true
     }
 }

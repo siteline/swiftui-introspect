@@ -46,13 +46,13 @@ extension IntrospectableViewType where Self == ListWithBorderedStyleType {
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension macOSViewVersion<ListWithBorderedStyleType, NSTableView> {
     @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on macOS 10.15")
-    @MainActor public static let v10_15 = Self.unavailable()
+    public static let v10_15 = Self.unavailable()
     @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on macOS 11")
-    @MainActor public static let v11 = Self.unavailable()
-    @MainActor public static let v12 = Self(for: .v12)
-    @MainActor public static let v13 = Self(for: .v13)
-    @MainActor public static let v14 = Self(for: .v14)
-    @MainActor public static let v15 = Self(for: .v15)
+    public static let v11 = Self.unavailable()
+    public static let v12 = Self(for: .v12)
+    public static let v13 = Self(for: .v13)
+    public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

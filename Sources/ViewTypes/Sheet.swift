@@ -71,12 +71,12 @@ extension IntrospectableViewType where Self == SheetType {
 
 #if canImport(UIKit)
 extension iOSViewVersion<SheetType, UIPresentationController> {
-    @MainActor public static let v13 = Self(for: .v13, selector: selector)
-    @MainActor public static let v14 = Self(for: .v14, selector: selector)
-    @MainActor public static let v15 = Self(for: .v15, selector: selector)
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
@@ -87,13 +87,13 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
 @available(iOS 15, *)
 extension iOSViewVersion<SheetType, UISheetPresentationController> {
     @_disfavoredOverload
-    @MainActor public static let v15 = Self(for: .v15, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
     @_disfavoredOverload
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
     @_disfavoredOverload
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
     @_disfavoredOverload
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
@@ -102,8 +102,8 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
 
 @available(iOS 15, *)
 extension visionOSViewVersion<SheetType, UISheetPresentationController> {
-    @MainActor public static let v1 = Self(for: .v1, selector: selector)
-    @MainActor public static let v2 = Self(for: .v2, selector: selector)
+    public static let v1 = Self(for: .v1, selector: selector)
+    public static let v2 = Self(for: .v2, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
@@ -112,12 +112,12 @@ extension visionOSViewVersion<SheetType, UISheetPresentationController> {
 #endif
 
 extension tvOSViewVersion<SheetType, UIPresentationController> {
-    @MainActor public static let v13 = Self(for: .v13, selector: selector)
-    @MainActor public static let v14 = Self(for: .v14, selector: selector)
-    @MainActor public static let v15 = Self(for: .v15, selector: selector)
-    @MainActor public static let v16 = Self(for: .v16, selector: selector)
-    @MainActor public static let v17 = Self(for: .v17, selector: selector)
-    @MainActor public static let v18 = Self(for: .v18, selector: selector)
+    public static let v13 = Self(for: .v13, selector: selector)
+    public static let v14 = Self(for: .v14, selector: selector)
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
+    public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })

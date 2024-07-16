@@ -19,9 +19,5 @@ let package = Package(
             name: "SwiftUIIntrospect",
             path: "Sources"
         ),
-    ],
-    swiftLanguageVersions: [
-        .v5,
-        .version("6.0"),
     ]
 )

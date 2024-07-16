@@ -69,7 +69,6 @@ extension iOSViewVersion<WindowType, UIWindow> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
         .from(UIView.self, selector: { $0.window })
     }
@@ -83,7 +82,6 @@ extension tvOSViewVersion<WindowType, UIWindow> {
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
 
-    @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
         .from(UIView.self, selector: { $0.window })
     }
@@ -93,7 +91,6 @@ extension visionOSViewVersion<WindowType, UIWindow> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
 
-    @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
         .from(UIView.self, selector: { $0.window })
     }
@@ -107,7 +104,6 @@ extension macOSViewVersion<WindowType, NSWindow> {
     public static let v14 = Self(for: .v14, selector: selector)
     public static let v15 = Self(for: .v15, selector: selector)
 
-    @MainActor
     private static var selector: IntrospectionSelector<NSWindow> {
         .from(NSView.self, selector: { $0.window })
     }

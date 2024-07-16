@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class NavigationViewWithStackStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformNavigationViewWithStackStyle = UINavigationController

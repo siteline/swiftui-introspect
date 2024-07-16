@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ViewTests: XCTestCase {
     func testView() {
         XCTAssertViewIntrospection(of: PlatformView.self) { spies in

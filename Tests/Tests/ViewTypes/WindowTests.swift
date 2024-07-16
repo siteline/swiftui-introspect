@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class WindowTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformWindow = UIWindow

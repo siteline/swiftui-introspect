@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, macOS 11, *)
+@MainActor
 final class ListWithInsetStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithInsetStyle = UIScrollView // covers both UITableView and UICollectionView

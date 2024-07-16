@@ -3,6 +3,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
+@MainActor
 final class NavigationSplitViewTests: XCTestCase {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationSplitView = UISplitViewController

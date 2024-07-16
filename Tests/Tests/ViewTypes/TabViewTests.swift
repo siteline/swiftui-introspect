@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class TabViewTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformTabView = UITabBarController

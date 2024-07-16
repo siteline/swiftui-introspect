@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, macOS 10.15, *)
+@MainActor
 final class ListWithSidebarStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithSidebarStyle = UIScrollView // covers both UITableView and UICollectionView

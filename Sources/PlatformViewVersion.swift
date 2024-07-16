@@ -62,7 +62,7 @@ public typealias macOSViewVersion<SwiftUIViewType: IntrospectableViewType, Platf
 public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> =
     PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
-public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: Sendable {
     @_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
     @_spi(Internals) case unavailable
 
@@ -73,7 +73,7 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
     @_spi(Advanced) public static func unavailable(file: StaticString = #file, line: UInt = #line) -> Self {
         let filePath = file.withUTF8Buffer { String(decoding: $0, as: UTF8.self) }
         let fileName = URL(fileURLWithPath: filePath).lastPathComponent
-        runtimeWarn(
+        print(
             """
             If you're seeing this, someone forgot to mark \(fileName):\(line) as unavailable.
 

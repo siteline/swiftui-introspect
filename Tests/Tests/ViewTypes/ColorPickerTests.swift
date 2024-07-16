@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, macOS 11, *)
+@MainActor
 final class ColorPickerTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformColor = UIColor

@@ -98,6 +98,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     }
 }
 
+@MainActor
 public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 

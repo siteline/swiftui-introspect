@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 15, tvOS 15, *)
+@MainActor
 final class SearchFieldTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformSearchField = UISearchBar

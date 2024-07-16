@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ToggleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformToggle = UISwitch

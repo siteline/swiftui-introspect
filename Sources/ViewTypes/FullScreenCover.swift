@@ -80,7 +80,7 @@ extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
-        .from(UIViewController.self, selector: \.presentationController)
+        .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
 
@@ -94,7 +94,7 @@ extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
-        .from(UIViewController.self, selector: \.presentationController)
+        .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
 
@@ -103,7 +103,7 @@ extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @MainActor public static let v2 = Self(for: .v2, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UIPresentationController> {
-        .from(UIViewController.self, selector: \.presentationController)
+        .from(UIViewController.self, selector: { $0.presentationController })
     }
 }
 #endif

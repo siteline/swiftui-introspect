@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ProgressViewWithCircularStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformProgressViewWithCircularStyle = UIActivityIndicatorView

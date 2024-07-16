@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class TextFieldTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformTextField = UITextField

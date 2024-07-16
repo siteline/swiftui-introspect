@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ListCellTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListCell = UIView // covers both UITableViewCell and UICollectionViewCell

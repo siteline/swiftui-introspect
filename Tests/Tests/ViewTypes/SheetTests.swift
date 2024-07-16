@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class SheetTests: XCTestCase {
     #if os(iOS)
     @MainActor

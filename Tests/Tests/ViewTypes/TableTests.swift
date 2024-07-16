@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 16, macOS 12, *)
+@MainActor
 final class TableTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformTable = UICollectionView

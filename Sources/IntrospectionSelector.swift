@@ -1,5 +1,6 @@
 #if !os(watchOS)
 @_spi(Advanced)
+
 @MainActor
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Advanced)
@@ -31,14 +32,14 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
     }
 
     @_spi(Advanced)
-    public func withReceiverSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
+    public func withReceiverSelector(_ selector: @MainActor @Sendable @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.receiverSelector = selector
         return copy
     }
 
     @_spi(Advanced)
-    public func withAncestorSelector(_ selector: @escaping (PlatformViewController) -> Target?) -> Self {
+    public func withAncestorSelector(_ selector: @MainActor @Sendable @escaping (PlatformViewController) -> Target?) -> Self {
         var copy = self
         copy.ancestorSelector = selector
         return copy

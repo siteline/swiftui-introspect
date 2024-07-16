@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 16, tvOS 16, *)
+@MainActor
 final class NavigationStackTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformNavigationStack = UINavigationController

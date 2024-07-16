@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ListTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformList = UIScrollView // covers both UITableView and UICollectionView

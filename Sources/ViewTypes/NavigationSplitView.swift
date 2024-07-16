@@ -90,7 +90,7 @@ extension iOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UISplitViewController> {
-        .default.withAncestorSelector(\.splitViewController)
+        .default.withAncestorSelector { $0.splitViewController }
     }
 }
 
@@ -107,7 +107,7 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
     @MainActor public static let v18 = Self(for: .v18, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UINavigationController> {
-        .default.withAncestorSelector(\.navigationController)
+        .default.withAncestorSelector { $0.navigationController }
     }
 }
 
@@ -116,7 +116,7 @@ extension visionOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     @MainActor public static let v2 = Self(for: .v2, selector: selector)
 
     @MainActor private static var selector: IntrospectionSelector<UISplitViewController> {
-        .default.withAncestorSelector(\.splitViewController)
+        .default.withAncestorSelector { $0.splitViewController }
     }
 }
 #elseif canImport(AppKit)

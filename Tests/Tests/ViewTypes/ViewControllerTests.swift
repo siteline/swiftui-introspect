@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ViewControllerTests: XCTestCase {
     @MainActor
     func testViewController() {

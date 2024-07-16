@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ProgressViewWithLinearStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformProgressViewWithLinearStyle = UIProgressView

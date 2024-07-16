@@ -71,7 +71,7 @@ extension iOSViewVersion<WindowType, UIWindow> {
 
     @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: \.window)
+        .from(UIView.self, selector: { $0.window })
     }
 }
 
@@ -85,7 +85,7 @@ extension tvOSViewVersion<WindowType, UIWindow> {
 
     @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: \.window)
+        .from(UIView.self, selector: { $0.window })
     }
 }
 
@@ -95,7 +95,7 @@ extension visionOSViewVersion<WindowType, UIWindow> {
 
     @MainActor
     private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: \.window)
+        .from(UIView.self, selector: { $0.window })
     }
 }
 #elseif canImport(AppKit)
@@ -109,7 +109,7 @@ extension macOSViewVersion<WindowType, NSWindow> {
 
     @MainActor
     private static var selector: IntrospectionSelector<NSWindow> {
-        .from(NSView.self, selector: \.window)
+        .from(NSView.self, selector: { $0.window })
     }
 }
 #endif

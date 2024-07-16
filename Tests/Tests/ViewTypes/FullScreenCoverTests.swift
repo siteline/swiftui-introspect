@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, *)
+@MainActor
 final class FullScreenCoverTests: XCTestCase {
 
     @MainActor

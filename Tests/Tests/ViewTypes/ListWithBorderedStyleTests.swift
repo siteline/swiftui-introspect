@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(macOS 12, *)
+@MainActor
 final class ListWithBorderedStyleTests: XCTestCase {
     #if canImport(AppKit)
     typealias PlatformListWithBorderedStyle = NSTableView

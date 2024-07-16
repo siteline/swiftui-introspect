@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ScrollViewTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformScrollView = UIScrollView

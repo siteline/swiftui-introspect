@@ -3,6 +3,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 16, tvOS 16, macOS 13, *)
+@MainActor
 final class TextFieldWithVerticalAxisTests: XCTestCase {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformTextField = UITextView

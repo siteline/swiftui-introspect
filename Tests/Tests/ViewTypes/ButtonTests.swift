@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ButtonTests: XCTestCase {
     #if canImport(AppKit)
     typealias PlatformButton = NSButton

@@ -16,6 +16,7 @@ struct RootView: View {
         }
     }
 
+    @MainActor // for below Swift 6.0
     private func navigateToDetail() {
         let controller = HostingController(rootView: DetailView())
         controller.statusBarStyle = .lightContent
@@ -44,6 +45,7 @@ struct DetailView: View {
         dismiss.wrappedValue.dismiss()
     }
 
+    @MainActor // for below Swift 6.0
     private func navigateToDetail() {
         let controller = HostingController(rootView: DetailView())
         controller.statusBarStyle = .lightContent

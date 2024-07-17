@@ -127,10 +127,10 @@ jobs:
             runtime: macOS 13
             os: macos-13
             xcode: 15.0.1
-          # - platform: [macOS, 14]
-          #   runtime: macOS 14
-          #   os: macos-14
-          #   xcode: 15.4
+          - platform: [macOS, 14]
+            runtime: macOS 14
+            os: macos-14
+            xcode: 15.4
 
           - platform: [visionOS, 1]
             runtime: visionOS 1.2

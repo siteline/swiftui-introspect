@@ -132,10 +132,10 @@ jobs:
           #   os: macos-14
           #   xcode: 15.4
 
-          # - platform: [visionOS, 1]
-          #   runtime: visionOS 1.2
-          #   os: macos-14
-          #   xcode: 15.4
+          - platform: [visionOS, 1]
+            runtime: visionOS 1.2
+            os: macos-14
+            xcode: 15.4
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

@@ -25,6 +25,7 @@ devices = {
     },
     "visionos" => {
         1 => ["Apple Vision Pro (1.2)"],
+        2 => ["Apple Vision Pro (2.0)"],
     },
 }
 

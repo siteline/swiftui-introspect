@@ -64,7 +64,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .visionOS(.v1)) {
+///         .introspect(.signInWithAppleButton, on: .visionOS(.v1, .v2)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }

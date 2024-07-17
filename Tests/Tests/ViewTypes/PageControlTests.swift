@@ -24,7 +24,7 @@ final class PageControlTests: XCTestCase {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy)
+            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
             #endif
         }
     }

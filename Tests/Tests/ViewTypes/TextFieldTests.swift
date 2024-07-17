@@ -19,7 +19,7 @@ final class TextFieldTests: XCTestCase {
             VStack {
                 TextField("", text: .constant("Text Field 0"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy0)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
@@ -27,7 +27,7 @@ final class TextFieldTests: XCTestCase {
 
                 TextField("", text: .constant("Text Field 1"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy1)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
@@ -35,7 +35,7 @@ final class TextFieldTests: XCTestCase {
 
                 TextField("", text: .constant("Text Field 2"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy2)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif
@@ -62,21 +62,21 @@ final class TextFieldTests: XCTestCase {
             List {
                 TextField("", text: .constant("Text Field 0"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy0)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 TextField("", text: .constant("Text Field 1"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy1)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 TextField("", text: .constant("Text Field 2"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy2)
+                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
                     #endif

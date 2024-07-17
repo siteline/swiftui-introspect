@@ -30,7 +30,7 @@ import SwiftUI
 ///         } detail: {
 ///             Text("Detail")
 ///         }
-///         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17, .v18)) {
+///         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -104,7 +104,8 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
 
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+    @available(*, unavailable, message: "NavigationSplitView isn't backed by UIKit since tvOS 18")
+    public static let v18 = Self.unavailable()
 
     private static var selector: IntrospectionSelector<UINavigationController> {
         .default.withAncestorSelector { $0.navigationController }

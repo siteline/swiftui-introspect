@@ -67,7 +67,7 @@ final class SheetTests: XCTestCase {
                     Text("Sheet")
                         .introspect(
                             .sheet,
-                            on: .visionOS(.v1),
+                            on: .visionOS(.v1, .v2),
                             customize: spy0
                         )
                 }

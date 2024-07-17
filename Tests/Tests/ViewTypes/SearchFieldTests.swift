@@ -24,7 +24,7 @@ final class SearchFieldTests: XCTestCase {
             }
             .navigationViewStyle(.stack)
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
             #endif
         }
     }
@@ -41,7 +41,7 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(.stack)
@@ -62,7 +62,7 @@ final class SearchFieldTests: XCTestCase {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
             #endif
             #if os(iOS)
             // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
@@ -85,7 +85,7 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())

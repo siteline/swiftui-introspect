@@ -132,10 +132,14 @@ jobs:
           #   os: macos-14
           #   xcode: 15.4
 
-          # - platform: [visionOS, 1]
-          #   runtime: visionOS 1.2
-          #   os: macos-14
-          #   xcode: 15.4
+          - platform: [visionOS, 1]
+            runtime: visionOS 1.2
+            os: macos-14
+            xcode: 15.4
+          - platform: [visionOS, 2]
+            runtime: visionOS 2.0
+            os: macos-14
+            xcode: 16.0
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -147,11 +151,6 @@ jobs:
 
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
-
-      - if: ${{ matrix.platform[0] == 'visionOS' }}
-        run: |
-          defaults write com.apple.dt.Xcode AllowUnsupportedVisionOSHost -bool YES
-          defaults write com.apple.CoreSimulator AllowUnsupportedVisionOSHost -bool YES
 
       - name: Select Xcode version
         run: sudo xcodes select ${{ matrix.xcode }}

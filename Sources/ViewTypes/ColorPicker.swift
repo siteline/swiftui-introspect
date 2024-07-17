@@ -45,7 +45,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         ColorPicker("Pick a color", selection: $color)
-///             .introspect(.colorPicker, on: .visionOS(.v1)) {
+///             .introspect(.colorPicker, on: .visionOS(.v1, .v2)) {
 ///                 print(type(of: $0)) // UIColorPicker
 ///             }
 ///     }
@@ -73,6 +73,7 @@ extension iOSViewVersion<ColorPickerType, UIColorWell> {
 @available(iOS 14, *)
 extension visionOSViewVersion<ColorPickerType, UIColorWell> {
     public static let v1 = Self(for: .v1)
+    public static let v2 = Self(for: .v2)
 }
 #elseif canImport(AppKit)
 @available(macOS 11, *)

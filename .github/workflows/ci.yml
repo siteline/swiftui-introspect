@@ -132,10 +132,10 @@ jobs:
           #   os: macos-14
           #   xcode: 15.4
 
-          - platform: [visionOS, 1]
-            runtime: visionOS 1.2
-            os: macos-14
-            xcode: 15.4
+          # - platform: [visionOS, 1]
+          #   runtime: visionOS 1.2
+          #   os: macos-14
+          #   xcode: 15.4
           - platform: [visionOS, 2]
             runtime: visionOS 2.0
             os: macos-14

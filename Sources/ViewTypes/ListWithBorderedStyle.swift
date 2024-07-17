@@ -33,7 +33,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct ListWithBorderedStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case bordered
     }
 }

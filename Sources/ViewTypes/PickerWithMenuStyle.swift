@@ -35,7 +35,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct PickerWithMenuStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case menu
     }
 }

@@ -55,7 +55,7 @@ import SwiftUI
 /// }
 /// ```
 public struct DatePickerWithGraphicalStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case graphical
     }
 }

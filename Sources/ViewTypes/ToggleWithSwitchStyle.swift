@@ -43,7 +43,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct ToggleWithSwitchStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case `switch`
     }
 }

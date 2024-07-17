@@ -59,7 +59,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ProgressViewWithCircularStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case circular
     }
 }

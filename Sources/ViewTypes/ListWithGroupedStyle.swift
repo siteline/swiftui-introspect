@@ -64,7 +64,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ListWithGroupedStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case grouped
     }
 }

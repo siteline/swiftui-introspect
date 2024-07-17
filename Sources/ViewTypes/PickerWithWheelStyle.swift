@@ -51,7 +51,7 @@ import SwiftUI
 /// }
 /// ```
 public struct PickerWithWheelStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case wheel
     }
 }

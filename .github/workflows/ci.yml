@@ -68,6 +68,10 @@ jobs:
             runtime: iOS 17.5
             os: macos-14
             xcode: 15.4
+          - platform: [iOS, 18]
+            runtime: iOS 18.0
+            os: macos-14
+            xcode: 16.0
 
           - platform: [tvOS, 13]
             runtime: tvOS 13.4
@@ -92,6 +96,10 @@ jobs:
             runtime: tvOS 17.5
             os: macos-14
             xcode: 15.4
+          - platform: [tvOS, 18]
+            runtime: tvOS 18.0
+            os: macos-14
+            xcode: 16.0
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
@@ -106,6 +114,10 @@ jobs:
             runtime: watchOS 10.5
             os: macos-14
             xcode: 15.4
+          - platform: [watchOS, 11]
+            runtime: watchOS 11.0
+            os: macos-14
+            xcode: 16.0
 
           - platform: [macOS, 12]
             runtime: macOS 12

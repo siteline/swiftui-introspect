@@ -67,7 +67,7 @@ import SwiftUI
 /// }
 /// ```
 public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case columns
     }
 }

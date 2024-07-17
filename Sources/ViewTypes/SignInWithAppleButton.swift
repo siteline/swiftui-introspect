@@ -13,7 +13,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .iOS(.v14, .v15, .v16, .v17)) {
+///         .introspect(.signInWithAppleButton, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -30,7 +30,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .tvOS(.v14, .v15, .v16, .v17)) {
+///         .introspect(.signInWithAppleButton, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }

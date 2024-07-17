@@ -63,7 +63,7 @@ import SwiftUI
 /// }
 /// ```
 public struct TextFieldWithVerticalAxisType: IntrospectableViewType {
-    public enum Axis {
+    public enum Axis: Sendable {
         case vertical
     }
 }

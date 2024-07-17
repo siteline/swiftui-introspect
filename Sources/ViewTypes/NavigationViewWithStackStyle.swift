@@ -55,7 +55,7 @@ import SwiftUI
 /// }
 /// ```
 public struct NavigationViewWithStackStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case stack
     }
 }

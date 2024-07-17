@@ -50,7 +50,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ListWithInsetGroupedStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case insetGrouped
     }
 }

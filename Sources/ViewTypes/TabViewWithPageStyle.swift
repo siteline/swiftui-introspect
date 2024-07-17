@@ -58,7 +58,7 @@ import SwiftUI
 /// }
 /// ```
 public struct TabViewWithPageStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case page
     }
 }

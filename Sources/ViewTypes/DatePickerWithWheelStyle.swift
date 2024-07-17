@@ -43,7 +43,7 @@ import SwiftUI
 /// }
 /// ```
 public struct DatePickerWithWheelStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case wheel
     }
 }

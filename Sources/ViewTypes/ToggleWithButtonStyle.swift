@@ -31,7 +31,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct ToggleWithButtonStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case button
     }
 }

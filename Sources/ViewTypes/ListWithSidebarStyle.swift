@@ -64,7 +64,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ListWithSidebarStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case sidebar
     }
 }

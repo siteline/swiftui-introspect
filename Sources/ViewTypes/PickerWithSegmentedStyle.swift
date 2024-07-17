@@ -83,7 +83,7 @@ import SwiftUI
 /// }
 /// ```
 public struct PickerWithSegmentedStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case segmented
     }
 }

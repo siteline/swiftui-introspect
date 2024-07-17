@@ -74,7 +74,7 @@ import SwiftUI
 /// }
 /// ```
 public struct ListType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case plain
     }
 }

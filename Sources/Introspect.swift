@@ -34,12 +34,13 @@ extension View {
     ///
     ///     var body: some View {
     ///         TextField("Placeholder", text: $text)
-    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
     ///                 print(type(of: $0)) // UITextField
     ///             }
     ///     }
     /// }
     /// ```
+    @MainActor
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>)...,
@@ -56,6 +57,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
     let customize: (PlatformSpecificEntity) -> Void
 
+    @MainActor
     init(
         _ viewType: SwiftUIViewType,
         platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],

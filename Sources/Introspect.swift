@@ -34,7 +34,7 @@ extension View {
     ///
     ///     var body: some View {
     ///         TextField("Placeholder", text: $text)
-    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
     ///                 print(type(of: $0)) // UITextField
     ///             }
     ///     }

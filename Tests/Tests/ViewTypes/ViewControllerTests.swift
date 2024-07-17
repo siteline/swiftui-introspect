@@ -16,7 +16,7 @@ final class ViewControllerTests: XCTestCase {
                     Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                         .introspect(
                             .viewController,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1),
                             customize: spy2
                         )
                 }
@@ -27,13 +27,13 @@ final class ViewControllerTests: XCTestCase {
                 }
                 .introspect(
                     .viewController,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1),
                     customize: spy1
                 )
             }
             .introspect(
                 .viewController,
-                on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
+                on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1),
                 customize: spy0
             )
         } extraAssertions: {

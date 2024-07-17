@@ -7,7 +7,7 @@ struct AppView: View {
             #if os(iOS) || os(tvOS) || os(visionOS)
             .introspect(
                 .window,
-                on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
             ) { window in
                 window.backgroundColor = .brown
             }
@@ -46,7 +46,7 @@ struct ContentView: View {
                 .tag(5)
         }
         #if os(iOS) || os(tvOS)
-        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)) { tabBarController in
+        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { tabBarController in
             tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
         }
         #elseif os(macOS)
@@ -83,11 +83,11 @@ struct ListShowcase: View {
                     Text("Item 2")
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { tableView in
+                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { tableView in
                     tableView.backgroundView = UIView()
                     tableView.backgroundColor = .cyan
                 }
-                .introspect(.list, on: .iOS(.v16, .v17), .visionOS(.v1)) { collectionView in
+                .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1)) { collectionView in
                     collectionView.backgroundView = UIView()
                     collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                 }
@@ -108,11 +108,11 @@ struct ListShowcase: View {
                     Text("Item 1")
                     Text("Item 2")
                         #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { tableView in
+                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { tableView in
                             tableView.backgroundView = UIView()
                             tableView.backgroundColor = .cyan
                         }
-                        .introspect(.list, on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { collectionView in
+                        .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1), scope: .ancestor) { collectionView in
                             collectionView.backgroundView = UIView()
                             collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
                         }
@@ -150,7 +150,7 @@ struct ScrollViewShowcase: View {
             #if os(iOS) || os(tvOS) || os(visionOS)
             .introspect(
                 .scrollView,
-                on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
             ) { scrollView in
                 scrollView.layer.backgroundColor = UIColor.cyan.cgColor
             }
@@ -171,7 +171,7 @@ struct ScrollViewShowcase: View {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(
                         .scrollView,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1),
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1),
                         scope: .ancestor
                     ) { scrollView in
                         scrollView.layer.backgroundColor = UIColor.cyan.cgColor
@@ -207,13 +207,13 @@ struct NavigationShowcase: View {
         #if os(iOS) || os(tvOS) || os(visionOS)
         .introspect(
             .navigationView(style: .stack),
-            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
         ) { navigationController in
             navigationController.navigationBar.backgroundColor = .cyan
         }
         .introspect(
             .navigationView(style: .columns),
-            on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
         ) { splitViewController in
             #if os(visionOS)
             splitViewController.preferredDisplayMode = .oneBesideSecondary
@@ -221,12 +221,12 @@ struct NavigationShowcase: View {
             splitViewController.preferredDisplayMode = .oneOverSecondary
             #endif
         }
-        .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17)) { navigationController in
+        .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { navigationController in
             navigationController.navigationBar.backgroundColor = .cyan
         }
         .introspect(
             .searchField,
-            on: .iOS(.v15, .v16, .v17), .tvOS(.v15, .v16, .v17), .visionOS(.v1)
+            on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1)
         ) { searchBar in
             searchBar.backgroundColor = .red
             #if os(iOS)
@@ -251,7 +251,7 @@ struct PresentationShowcase: View {
                         #if os(iOS) || os(tvOS)
                         .introspect(
                             .sheet,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17)
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)
                         ) { presentationController in
                             presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                         }
@@ -269,7 +269,7 @@ struct PresentationShowcase: View {
                             #if os(iOS) || os(tvOS) || os(visionOS)
                             .introspect(
                                 .fullScreenCover,
-                                on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1)
+                                on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                             ) { presentationController in
                                 presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                             }
@@ -284,7 +284,7 @@ struct PresentationShowcase: View {
                         .padding()
                         .introspect(
                             .popover,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                         ) { presentationController in
                             presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
                         }
@@ -305,7 +305,7 @@ struct GenericViewShowcase: View {
                 #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(
                     .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                 ) { view in
                     view.backgroundColor = .cyan
                 }
@@ -320,7 +320,7 @@ struct GenericViewShowcase: View {
                 #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(
                     .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                 ) { view in
                     view.backgroundColor = .lightGray
                 }
@@ -334,7 +334,7 @@ struct GenericViewShowcase: View {
                 #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(
                     .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                 ) { view in
                     view.backgroundColor = .blue
                 }
@@ -348,7 +348,7 @@ struct GenericViewShowcase: View {
         #if os(iOS) || os(tvOS) || os(visionOS)
         .introspect(
             .view,
-            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
         ) { view in
             view.backgroundColor = .red
         }
@@ -375,7 +375,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(
                         .textField,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                     ) { textField in
                         textField.backgroundColor = .red
                     }
@@ -390,7 +390,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(
                         .textField,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                     ) { textField in
                         textField.backgroundColor = .green
                     }
@@ -408,7 +408,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)
                     ) { toggle in
                         toggle.backgroundColor = .red
                     }
@@ -422,7 +422,7 @@ struct SimpleElementsShowcase: View {
                     #if os(iOS)
                     .introspect(
                         .toggle,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17)
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)
                     ) { toggle in
                         toggle.backgroundColor = .green
                     }
@@ -436,7 +436,7 @@ struct SimpleElementsShowcase: View {
             HStack {
                 Slider(value: $sliderValue, in: 0...100)
                     #if os(iOS)
-                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { slider in
+                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { slider in
                         slider.backgroundColor = .red
                     }
                     #elseif os(macOS)
@@ -447,7 +447,7 @@ struct SimpleElementsShowcase: View {
 
                 Slider(value: $sliderValue, in: 0...100)
                     #if os(iOS)
-                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { slider in
+                    .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { slider in
                         slider.backgroundColor = .green
                     }
                     #elseif os(macOS)
@@ -462,7 +462,7 @@ struct SimpleElementsShowcase: View {
                     Text("Stepper Red")
                 }
                 #if os(iOS)
-                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { stepper in
+                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { stepper in
                     stepper.backgroundColor = .red
                 }
                 #elseif os(macOS)
@@ -475,7 +475,7 @@ struct SimpleElementsShowcase: View {
                     Text("Stepper Green")
                 }
                 #if os(iOS)
-                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { stepper in
+                .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { stepper in
                     stepper.backgroundColor = .green
                 }
                 #elseif os(macOS)
@@ -491,7 +491,7 @@ struct SimpleElementsShowcase: View {
                     Text("DatePicker Red")
                 }
                 #if os(iOS) || os(visionOS)
-                .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)) { datePicker in
+                .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)) { datePicker in
                     datePicker.backgroundColor = .red
                 }
                 #elseif os(macOS)
@@ -512,7 +512,7 @@ struct SimpleElementsShowcase: View {
                 #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(
                     .picker(style: .segmented),
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1)
+                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1)
                 ) { datePicker in
                     datePicker.backgroundColor = .red
                 }

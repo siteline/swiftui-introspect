@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, *)
+@MainActor
 final class PageControlTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformPageControl = UIPageControl
@@ -23,7 +24,7 @@ final class PageControlTests: XCTestCase {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy)
+            .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy)
             #endif
         }
     }

@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 16, tvOS 16, *)
+@MainActor
 final class NavigationStackTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformNavigationStack = UINavigationController
@@ -24,7 +25,7 @@ final class NavigationStackTests: XCTestCase {
                 }
             }
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.navigationStack, on: .iOS(.v16, .v17), .tvOS(.v16, .v17), .visionOS(.v1), customize: spy)
+            .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18), .tvOS(.v16, .v17, .v18), .visionOS(.v1), customize: spy)
             #endif
         }
     }
@@ -42,7 +43,7 @@ final class NavigationStackTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.navigationStack, on: .iOS(.v16, .v17), .tvOS(.v16, .v17), .visionOS(.v1), scope: .ancestor, customize: spy)
+                        .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18), .tvOS(.v16, .v17, .v18), .visionOS(.v1), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

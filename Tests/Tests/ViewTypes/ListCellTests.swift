@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ListCellTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListCell = UIView // covers both UITableViewCell and UICollectionViewCell
@@ -16,8 +17,8 @@ final class ListCellTests: XCTestCase {
             List {
                 Text("Item 1")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { spy($0) }
-                    .introspect(.listCell, on: .iOS(.v16, .v17), .visionOS(.v1)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v16, .v17, .v18), .visionOS(.v1)) { spy($0) }
                     #elseif os(macOS)
                     .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy($0) }
                     #endif
@@ -32,8 +33,8 @@ final class ListCellTests: XCTestCase {
             List {
                 Text("Item 1")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { spy($0) }
-                    .introspect(.listCell, on: .iOS(.v16, .v17), .visionOS(.v1)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy($0) }
+                    .introspect(.listCell, on: .iOS(.v16, .v17, .v18), .visionOS(.v1)) { spy($0) }
                     #elseif os(macOS)
                     .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy($0) }
                     #endif

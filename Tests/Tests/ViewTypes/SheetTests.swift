@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class SheetTests: XCTestCase {
     #if os(iOS)
     func testSheet() throws {
@@ -14,7 +15,7 @@ final class SheetTests: XCTestCase {
                     Text("Sheet")
                         .introspect(
                             .sheet,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
                             customize: spy0
                         )
                 }
@@ -34,7 +35,7 @@ final class SheetTests: XCTestCase {
                     Text("Sheet")
                         .introspect(
                             .sheet,
-                            on: .iOS(.v15, .v16, .v17),
+                            on: .iOS(.v15, .v16, .v17, .v18),
                             customize: spy0
                         )
                 }
@@ -50,7 +51,7 @@ final class SheetTests: XCTestCase {
                     Text("Content")
                         .introspect(
                             .sheet,
-                            on: .tvOS(.v13, .v14, .v15, .v16, .v17),
+                            on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
                             customize: spy0
                         )
                 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 typealias IntrospectionViewID = UUID
 
+@MainActor
 fileprivate enum IntrospectionStore {
     static var shared: [IntrospectionViewID: Pair] = [:]
 

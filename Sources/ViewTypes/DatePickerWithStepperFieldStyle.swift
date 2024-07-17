@@ -20,7 +20,7 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.stepperField)
-///             .introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///             .introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
 ///     }
@@ -31,7 +31,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct DatePickerWithStepperFieldStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case stepperField
     }
 }
@@ -48,6 +48,7 @@ extension macOSViewVersion<DatePickerWithStepperFieldStyleType, NSDatePicker> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

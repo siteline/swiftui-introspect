@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class PickerWithMenuStyleTests: XCTestCase {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformPickerWithMenuStyle = NSPopUpButton

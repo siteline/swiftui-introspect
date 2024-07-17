@@ -5,6 +5,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, macOS 11, *)
+@MainActor
 final class VideoPlayerTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformVideoPlayer = AVPlayerViewController
@@ -29,21 +30,21 @@ final class VideoPlayerTests: XCTestCase {
             VStack {
                 VideoPlayer(player: AVPlayer(url: videoURL0))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
+                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.videoPlayer, on: .macOS(.v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 VideoPlayer(player: AVPlayer(url: videoURL1))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
+                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.videoPlayer, on: .macOS(.v11, .v12, .v13, .v14), customize: spy1)
                     #endif
 
                 VideoPlayer(player: AVPlayer(url: videoURL2))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
+                    .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.videoPlayer, on: .macOS(.v11, .v12, .v13, .v14), customize: spy2)
                     #endif

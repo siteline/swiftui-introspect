@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class WindowTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformWindow = UIWindow
@@ -18,20 +19,20 @@ final class WindowTests: XCTestCase {
             VStack {
                 Image(systemName: "scribble")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy0)
+                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy0)
                     #elseif os(macOS)
                     .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
                     #endif
 
                 Text("Text")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy1)
+                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
                     #endif
             }
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17), .tvOS(.v13, .v14, .v15, .v16, .v17), .visionOS(.v1), customize: spy2)
+            .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1), customize: spy2)
             #elseif os(macOS)
             .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
             #endif

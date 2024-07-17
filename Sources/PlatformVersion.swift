@@ -2,13 +2,13 @@
 import Foundation
 
 @_spi(Internals)
-public enum PlatformVersionCondition {
+public enum PlatformVersionCondition: Sendable {
     case past
     case current
     case future
 }
 
-public protocol PlatformVersion {
+public protocol PlatformVersion: Sendable {
     @_spi(Internals)
     var condition: PlatformVersionCondition? { get }
 }
@@ -108,6 +108,20 @@ extension iOSVersion {
         return nil
         #endif
     }
+
+    public static let v18 = iOSVersion {
+        #if os(iOS)
+        if #available(iOS 19, *) {
+            return .past
+        }
+        if #available(iOS 18, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct tvOSVersion: PlatformVersion {
@@ -176,13 +190,27 @@ extension tvOSVersion {
         return nil
         #endif
     }
-
+    
     public static let v17 = tvOSVersion {
-        #if os(tvOS)
+#if os(tvOS)
         if #available(tvOS 18, *) {
             return .past
         }
         if #available(tvOS 17, *) {
+            return .current
+        }
+        return .future
+#else
+        return nil
+#endif
+    }
+
+    public static let v18 = tvOSVersion {
+        #if os(tvOS)
+        if #available(tvOS 19, *) {
+            return .past
+        }
+        if #available(tvOS 18, *) {
             return .current
         }
         return .future
@@ -286,6 +314,20 @@ extension macOSVersion {
         return nil
         #endif
     }
+
+    public static let v15 = macOSVersion {
+        #if os(macOS)
+        if #available(macOS 16, *) {
+            return .past
+        }
+        if #available(macOS 15, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct visionOSVersion: PlatformVersion {
@@ -305,6 +347,20 @@ extension visionOSVersion {
             return .past
         }
         if #available(visionOS 1, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
+
+    public static let v2 = visionOSVersion {
+        #if os(visionOS)
+        if #available(visionOS 3, *) {
+            return .past
+        }
+        if #available(visionOS 2, *) {
             return .current
         }
         return .future

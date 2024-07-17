@@ -28,7 +28,7 @@ import SwiftUI
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         .introspect(.table, on: .iOS(.v16, .v17)) {
+///         .introspect(.table, on: .iOS(.v16, .v17, .v18)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -64,7 +64,7 @@ import SwiftUI
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         .introspect(.table, on: .macOS(.v12, .v13, .v14)) {
+///         .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
 ///     }
@@ -96,7 +96,7 @@ import SwiftUI
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         .introspect(.table, on: .visionOS(.v1)) {
+///         .introspect(.table, on: .visionOS(.v1, .v2)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -119,10 +119,12 @@ extension iOSViewVersion<TableType, UICollectionView> {
     public static let v15 = Self(for: .v15)
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
+    public static let v18 = Self(for: .v18)
 }
 
 extension visionOSViewVersion<TableType, UICollectionView> {
     public static let v1 = Self(for: .v1)
+    public static let v2 = Self(for: .v2)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TableType, NSTableView> {
@@ -133,6 +135,7 @@ extension macOSViewVersion<TableType, NSTableView> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

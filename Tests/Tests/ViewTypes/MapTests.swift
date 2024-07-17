@@ -5,6 +5,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, macOS 11, *)
+@MainActor
 final class MapTests: XCTestCase {
     typealias PlatformMap = MKMapView
 
@@ -24,21 +25,21 @@ final class MapTests: XCTestCase {
                 Map(coordinateRegion: region)
                     .introspect(
                         .map,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
+                        on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy0
                     )
 
                 Map(coordinateRegion: region)
                     .introspect(
                         .map,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
+                        on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy1
                     )
 
                 Map(coordinateRegion: region)
                     .introspect(
                         .map,
-                        on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
+                        on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .macOS(.v11, .v12, .v13, .v14), .visionOS(.v1),
                         customize: spy2
                     )
             }

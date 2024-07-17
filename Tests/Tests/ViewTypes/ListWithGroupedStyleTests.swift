@@ -3,6 +3,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import XCTest
 
+@MainActor
 final class ListWithGroupedStyleTests: XCTestCase {
     #if canImport(UIKit)
     typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
@@ -19,15 +20,15 @@ final class ListWithGroupedStyleTests: XCTestCase {
                 }
                 .listStyle(.grouped)
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17)) { spy0($0) }
-                .introspect(.list(style: .grouped), on: .iOS(.v16, .v17), .visionOS(.v1)) { spy0($0) }
+                .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
+                .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18), .visionOS(.v1)) { spy0($0) }
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .grouped), on: .iOS(.v16, .v17), .visionOS(.v1), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18), .visionOS(.v1), scope: .ancestor) { spy1($0) }
                     #endif
                 }
                 .listStyle(.grouped)

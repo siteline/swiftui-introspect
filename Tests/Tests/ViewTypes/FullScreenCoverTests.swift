@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(iOS 14, tvOS 14, *)
+@MainActor
 final class FullScreenCoverTests: XCTestCase {
     func testPresentationAsFullScreenCover() throws {
         guard #available(iOS 14, tvOS 14, *) else {
@@ -19,7 +20,7 @@ final class FullScreenCoverTests: XCTestCase {
                         #if os(iOS) || os(tvOS) || os(visionOS)
                         .introspect(
                             .fullScreenCover,
-                            on: .iOS(.v14, .v15, .v16, .v17), .tvOS(.v14, .v15, .v16, .v17), .visionOS(.v1),
+                            on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1),
                             customize: spy0
                         )
                         #endif

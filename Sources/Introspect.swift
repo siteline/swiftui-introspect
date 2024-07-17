@@ -4,7 +4,7 @@ import SwiftUI
 /// The scope of introspection i.e. where introspect should look to find
 /// the desired target view relative to the applied `.introspect(...)`
 /// modifier.
-public struct IntrospectionScope: OptionSet {
+public struct IntrospectionScope: OptionSet, Sendable {
     /// Look within the `receiver` of the `.introspect(...)` modifier.
     public static let receiver = Self(rawValue: 1 << 0)
     /// Look for an `ancestor` relative to the `.introspect(...)` modifier.
@@ -34,12 +34,13 @@ extension View {
     ///
     ///     var body: some View {
     ///         TextField("Placeholder", text: $text)
-    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) {
+    ///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
     ///                 print(type(of: $0)) // UITextField
     ///             }
     ///     }
     /// }
     /// ```
+    @MainActor
     public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
         _ viewType: SwiftUIViewType,
         on platforms: (PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>)...,
@@ -56,6 +57,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     let selector: IntrospectionSelector<PlatformSpecificEntity>?
     let customize: (PlatformSpecificEntity) -> Void
 
+    @MainActor
     init(
         _ viewType: SwiftUIViewType,
         platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],
@@ -96,6 +98,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
     }
 }
 
+@MainActor
 public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 

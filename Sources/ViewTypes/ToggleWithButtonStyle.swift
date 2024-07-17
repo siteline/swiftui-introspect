@@ -20,7 +20,7 @@ import SwiftUI
 ///     var body: some View {
 ///         Toggle("Toggle", isOn: $isOn)
 ///             .toggleStyle(.button)
-///             .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14)) {
+///             .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15)) {
 ///                 print(type(of: $0)) // NSButton
 ///             }
 ///     }
@@ -31,7 +31,7 @@ import SwiftUI
 ///
 /// Not available.
 public struct ToggleWithButtonStyleType: IntrospectableViewType {
-    public enum Style {
+    public enum Style: Sendable {
         case button
     }
 }
@@ -50,6 +50,7 @@ extension macOSViewVersion<ToggleWithButtonStyleType, NSButton> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    public static let v15 = Self(for: .v15)
 }
 #endif
 #endif

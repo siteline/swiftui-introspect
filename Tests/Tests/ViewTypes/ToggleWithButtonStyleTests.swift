@@ -4,6 +4,7 @@ import SwiftUIIntrospect
 import XCTest
 
 @available(macOS 12, *)
+@MainActor
 final class ToggleWithButtonStyleTests: XCTestCase {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformToggleWithButtonStyle = NSButton

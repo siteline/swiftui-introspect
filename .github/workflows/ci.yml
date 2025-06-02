@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0 # required to be able to find Git tags
 
       - name: Set up pkgx environment
-        uses: pkgxdev/setup@v1
+        uses: pkgxdev/setup@v4
         with:
           +: pod xcodes
 
@@ -145,7 +145,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up pkgx environment
-        uses: pkgxdev/setup@v1
+        uses: pkgxdev/setup@v4
         with:
           +: fastlane xcodes
 
@@ -161,7 +161,7 @@ jobs:
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v4
         with:
           timeout_minutes: 15
           max_attempts: 3

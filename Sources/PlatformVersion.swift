@@ -122,6 +122,20 @@ extension iOSVersion {
         return nil
         #endif
     }
+
+    public static let v26 = iOSVersion {
+        #if os(iOS)
+        if #available(iOS 27, *) {
+            return .past
+        }
+        if #available(iOS 26, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct tvOSVersion: PlatformVersion {
@@ -192,7 +206,7 @@ extension tvOSVersion {
     }
     
     public static let v17 = tvOSVersion {
-#if os(tvOS)
+        #if os(tvOS)
         if #available(tvOS 18, *) {
             return .past
         }
@@ -200,9 +214,9 @@ extension tvOSVersion {
             return .current
         }
         return .future
-#else
+        #else
         return nil
-#endif
+        #endif
     }
 
     public static let v18 = tvOSVersion {
@@ -211,6 +225,20 @@ extension tvOSVersion {
             return .past
         }
         if #available(tvOS 18, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
+
+    public static let v26 = tvOSVersion {
+        #if os(tvOS)
+        if #available(tvOS 27, *) {
+            return .past
+        }
+        if #available(tvOS 26, *) {
             return .current
         }
         return .future
@@ -328,6 +356,20 @@ extension macOSVersion {
         return nil
         #endif
     }
+
+    public static let v26 = macOSVersion {
+        #if os(macOS)
+        if #available(macOS 27, *) {
+            return .past
+        }
+        if #available(macOS 26, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct visionOSVersion: PlatformVersion {
@@ -361,6 +403,20 @@ extension visionOSVersion {
             return .past
         }
         if #available(visionOS 2, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
+
+    public static let v26 = visionOSVersion {
+        #if os(visionOS)
+        if #available(visionOS 27, *) {
+            return .past
+        }
+        if #available(visionOS 26, *) {
             return .current
         }
         return .future

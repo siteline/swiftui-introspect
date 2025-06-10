@@ -24,25 +24,25 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
                 ProgressView(value: 0.25)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy0)
+                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
 
                 ProgressView(value: 0.5)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy1)
+                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
                 ProgressView(value: 0.75)
                     .progressViewStyle(.circular)
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18), .tvOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
+                    .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy2)
+                    .introspect(.progressView(style: .circular), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

@@ -13,7 +13,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.signInWithAppleButton, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -30,7 +30,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.signInWithAppleButton, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -47,7 +47,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15),) {
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26),) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -64,7 +64,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .visionOS(.v1, .v2)) {
+///         .introspect(.signInWithAppleButton, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }

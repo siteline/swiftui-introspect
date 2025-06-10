@@ -20,17 +20,17 @@ final class ScrollViewTests: XCTestCase {
                     Text("Item 1")
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
                 #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
+                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                 #endif
 
                 ScrollView(showsIndicators: true) {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy1)
+                    .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), scope: .ancestor, customize: spy1)
+                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor, customize: spy1)
                     #endif
                 }
             }
@@ -62,15 +62,15 @@ final class ScrollViewTests: XCTestCase {
                     Text("Item 1")
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
                 #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                 #endif
             }
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
             #elseif os(macOS)
-            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
+            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
             #endif
         } extraAssertions: {
             #if canImport(UIKit)
@@ -98,9 +98,9 @@ final class ScrollViewTests: XCTestCase {
                     Text("Item 1")
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
                 #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
+                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                 #endif
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
@@ -109,9 +109,9 @@ final class ScrollViewTests: XCTestCase {
                 ScrollView(showsIndicators: true) {
                     Text("Item 1")
                         #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy1)
+                        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy1)
                         #elseif os(macOS)
-                        .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), scope: .ancestor, customize: spy1)
+                        .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor, customize: spy1)
                         #endif
                 }
             }

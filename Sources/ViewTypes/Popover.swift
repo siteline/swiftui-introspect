@@ -13,7 +13,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .popover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.popover, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                     .introspect(.popover, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                         print(type(of: $0)) // UIPopoverPresentationController
 ///                     }
 ///             }
@@ -39,7 +39,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .popover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.popover, on: .visionOS(.v1, .v2)) {
+///                     .introspect(.popover, on: .visionOS(.v1, .v2, .v26)) {
 ///                         print(type(of: $0)) // UIPopoverPresentationController
 ///                     }
 ///             }
@@ -63,6 +63,7 @@ extension iOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
         .from(UIViewController.self, selector: { $0.popoverPresentationController })
@@ -72,6 +73,7 @@ extension iOSViewVersion<PopoverType, UIPopoverPresentationController> {
 extension visionOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPopoverPresentationController> {
         .from(UIViewController.self, selector: { $0.popoverPresentationController })

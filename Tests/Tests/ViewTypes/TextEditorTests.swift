@@ -25,25 +25,25 @@ final class TextEditorTests: XCTestCase {
             VStack {
                 TextEditor(text: .constant("Text Field 0"))
                     #if os(iOS) || os(visionOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy0)
+                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 TextEditor(text: .constant("Text Field 1"))
                     #if os(iOS) || os(visionOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy1)
+                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 TextEditor(text: .constant("Text Field 2"))
                     #if os(iOS) || os(visionOS)
-                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
+                    .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy2)
+                    .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

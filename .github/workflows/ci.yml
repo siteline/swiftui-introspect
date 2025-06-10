@@ -71,7 +71,7 @@ jobs:
           - platform: [iOS, 18]
             runtime: iOS 18.0
             os: macos-14
-            xcode: 16.0
+            xcode: 16.2
 
           - platform: [tvOS, 13]
             runtime: tvOS 13.4
@@ -99,7 +99,7 @@ jobs:
           - platform: [tvOS, 18]
             runtime: tvOS 18.0
             os: macos-14
-            xcode: 16.0
+            xcode: 16.2
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
@@ -117,7 +117,7 @@ jobs:
           - platform: [watchOS, 11]
             runtime: watchOS 11.0
             os: macos-14
-            xcode: 16.0
+            xcode: 16.2
 
           - platform: [macOS, 12]
             runtime: macOS 12
@@ -139,7 +139,7 @@ jobs:
           - platform: [visionOS, 2]
             runtime: visionOS 2.0
             os: macos-14
-            xcode: 16.0
+            xcode: 16.2
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

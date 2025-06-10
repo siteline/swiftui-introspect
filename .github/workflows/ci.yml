@@ -137,7 +137,7 @@ jobs:
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
-        uses: nick-fields/retry@v4
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15
           max_attempts: 3

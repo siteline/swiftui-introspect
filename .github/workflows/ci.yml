@@ -115,7 +115,7 @@ jobs:
             os: macos-14
             xcode: 15.4
           - platform: [watchOS, 11]
-            runtime: watchOS 11.0
+            runtime: watchOS 11.2
             os: macos-14
             xcode: 16.2
 

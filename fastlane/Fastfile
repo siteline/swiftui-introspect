@@ -21,7 +21,7 @@ devices = {
         8 => ["Apple Watch Series 7 (45mm) (8.5)"],
         9 => ["Apple Watch Series 8 (45mm) (9.4)"],
         10 => ["Apple Watch Series 9 (45mm) (10.5)"],
-        11 => ["Apple Watch Series 9 (45mm) (11.0)"],
+        11 => ["Apple Watch Series 10 (42mm) (11.2)"],
     },
     "visionos" => {
         1 => ["Apple Vision Pro (1.2)"],

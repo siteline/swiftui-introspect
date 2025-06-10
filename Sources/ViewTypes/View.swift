@@ -44,7 +44,7 @@ import SwiftUI
 ///             Image(systemName: "scribble")
 ///             Text("Some text")
 ///         }
-///         .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
 ///             print(type(of: $0)) // some subclass of NSView
 ///         }
 ///     }
@@ -103,6 +103,7 @@ extension macOSViewVersion<ViewType, NSView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

@@ -44,7 +44,7 @@ import SwiftUI
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
 ///             print(type(of: $0)) // NSSplitView
 ///         }
 ///     }
@@ -119,6 +119,7 @@ extension macOSViewVersion<NavigationViewWithColumnsStyleType, NSSplitView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
     public static let v15 = Self(for: .v15)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

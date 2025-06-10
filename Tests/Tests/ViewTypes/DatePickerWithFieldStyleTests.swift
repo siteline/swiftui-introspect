@@ -23,21 +23,21 @@ final class DatePickerWithFieldStyleTests: XCTestCase {
                 DatePicker("", selection: .constant(date0))
                     .datePickerStyle(.field)
                     #if os(macOS)
-                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
+                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.field)
                     #if os(macOS)
-                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date2))
                     .datePickerStyle(.field)
                     #if os(macOS)
-                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

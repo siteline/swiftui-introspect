@@ -26,7 +26,7 @@ final class DatePickerTests: XCTestCase {
                     #if os(iOS) || os(visionOS)
                     .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
+                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
@@ -34,7 +34,7 @@ final class DatePickerTests: XCTestCase {
                     #if os(iOS) || os(visionOS)
                     .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
@@ -42,7 +42,7 @@ final class DatePickerTests: XCTestCase {
                     #if os(iOS) || os(visionOS)
                     .introspect(.datePicker, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+                    .introspect(.datePicker, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

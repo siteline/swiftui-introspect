@@ -47,7 +47,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15),) {
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26),) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }

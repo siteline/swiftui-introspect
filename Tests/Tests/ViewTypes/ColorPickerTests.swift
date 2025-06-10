@@ -29,21 +29,21 @@ final class ColorPickerTests: XCTestCase {
                     #if os(iOS) || os(visionOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy0)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
 
                 ColorPicker("", selection: .constant(PlatformColor.green.cgColor))
                     #if os(iOS) || os(visionOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy1)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
                 ColorPicker("", selection: .constant(PlatformColor.blue.cgColor))
                     #if os(iOS) || os(visionOS)
                     .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15), customize: spy2)
+                    .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

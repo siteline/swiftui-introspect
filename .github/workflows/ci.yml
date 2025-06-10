@@ -137,7 +137,7 @@ jobs:
             os: macos-14
             xcode: 15.4
           - platform: [visionOS, 2]
-            runtime: visionOS 2.0
+            runtime: visionOS 2.5
             os: macos-15
             xcode: 16.4
     steps:

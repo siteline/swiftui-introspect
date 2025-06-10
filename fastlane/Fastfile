@@ -6,7 +6,7 @@ devices = {
         14 => ["iPhone 12 (14.5)", "iPad Pro (9.7-inch) (14.5)"],
         15 => ["iPhone SE (3rd generation) (15.5)", "iPad Air (5th generation) (15.5)",],
         16 => ["iPhone 14 (16.4)", "iPad Pro (11-inch) (4th generation) (16.4)"],
-        17 => ["iPhone 15 (17.5)", "iPad Pro (11-inch) (4th generation) (17.5)"],
+        17 => ["iPhone 15 (17.5)", "iPad Pro 11-inch (M4) (17.5)"],
         18 => ["iPhone 15 (18.0)", "iPad Pro 11-inch (M4) (18.0)"],
     },
     "tvos" => {

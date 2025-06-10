@@ -12,7 +12,7 @@ final class TabViewTests: XCTestCase {
     #endif
 
     func testTabView() throws {
-        if #available(macOS 15, *) {
+        guard #unavailable(macOS 15) else {
             throw XCTSkip()
         }
 
@@ -34,7 +34,7 @@ final class TabViewTests: XCTestCase {
     }
 
     func testTabViewAsAncestor() throws {
-        if #available(macOS 15, *) {
+        guard #unavailable(macOS 15) else {
             throw XCTSkip()
         }
 

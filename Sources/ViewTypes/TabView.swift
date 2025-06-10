@@ -96,6 +96,8 @@ extension macOSViewVersion<TabViewType, NSTabView> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
+    @available(*, unavailable, message: "TabView is no longer backed by NSTabView starting macOS 15")
+    public static let v15 = Self.unavailable()
 }
 #endif
 #endif

@@ -15,7 +15,7 @@ final class SheetTests: XCTestCase {
                     Text("Sheet")
                         .introspect(
                             .sheet,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
                             customize: spy0
                         )
                 }
@@ -35,7 +35,7 @@ final class SheetTests: XCTestCase {
                     Text("Sheet")
                         .introspect(
                             .sheet,
-                            on: .iOS(.v15, .v16, .v17, .v18),
+                            on: .iOS(.v15, .v16, .v17, .v18, .v26),
                             customize: spy0
                         )
                 }
@@ -51,7 +51,7 @@ final class SheetTests: XCTestCase {
                     Text("Content")
                         .introspect(
                             .sheet,
-                            on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+                            on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
                             customize: spy0
                         )
                 }

@@ -12,7 +12,7 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.graphical)
-///             .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
 ///     }
@@ -74,6 +74,7 @@ extension iOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {

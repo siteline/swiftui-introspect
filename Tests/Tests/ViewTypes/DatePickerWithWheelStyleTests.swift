@@ -23,21 +23,21 @@ final class DatePickerWithWheelStyleTests: XCTestCase {
                 DatePicker("", selection: .constant(date0))
                     .datePickerStyle(.wheel)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.wheel)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date2))
                     .datePickerStyle(.wheel)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
+                    .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy2)
                     #endif
             }
         } extraAssertions: {

@@ -11,7 +11,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         Stepper("Select a number", value: $selection, in: 0...10)
-///             .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UIStepper
 ///             }
 ///     }
@@ -55,6 +55,7 @@ extension iOSViewVersion<StepperType, UIStepper> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<StepperType, NSStepper> {

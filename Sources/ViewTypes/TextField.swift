@@ -11,7 +11,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text)
-///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UITextField
 ///             }
 ///     }
@@ -26,7 +26,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text)
-///             .introspect(.textField, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.textField, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UITextField
 ///             }
 ///     }
@@ -76,6 +76,7 @@ extension iOSViewVersion<TextFieldType, UITextField> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<TextFieldType, UITextField> {
@@ -85,6 +86,7 @@ extension tvOSViewVersion<TextFieldType, UITextField> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<TextFieldType, UITextField> {

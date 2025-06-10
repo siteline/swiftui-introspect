@@ -10,7 +10,7 @@ import SwiftUI
 ///     var body: some View {
 ///         ProgressView(value: 0.5)
 ///             .progressViewStyle(.circular)
-///             .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.progressView(style: .circular), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UIActivityIndicatorView
 ///             }
 ///     }
@@ -24,7 +24,7 @@ import SwiftUI
 ///     var body: some View {
 ///         ProgressView(value: 0.5)
 ///             .progressViewStyle(.circular)
-///             .introspect(.progressView(style: .circular), on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.progressView(style: .circular), on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // UIActivityIndicatorView
 ///             }
 ///     }
@@ -77,6 +77,7 @@ extension iOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicatorV
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicatorView> {
@@ -87,6 +88,7 @@ extension tvOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicator
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicatorView> {

@@ -14,7 +14,7 @@ import SwiftUI
 ///                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15)) {
 ///                         print(type(of: $0)) // UITableViewCell
 ///                     }
-///                     .introspect(.listCell, on: .iOS(.v16, .v17, .v18)) {
+///                     .introspect(.listCell, on: .iOS(.v16, .v17, .v18, .v26)) {
 ///                         print(type(of: $0)) // UICollectionViewCell
 ///                     }
 ///             }
@@ -31,7 +31,7 @@ import SwiftUI
 ///         List {
 ///             ForEach(1...3, id: \.self) { int in
 ///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                     .introspect(.listCell, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                         print(type(of: $0)) // UITableViewCell
 ///                     }
 ///             }
@@ -92,6 +92,7 @@ extension iOSViewVersion<ListCellType, UICollectionViewCell> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<ListCellType, UITableViewCell> {
@@ -101,6 +102,7 @@ extension tvOSViewVersion<ListCellType, UITableViewCell> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<ListCellType, UICollectionViewCell> {

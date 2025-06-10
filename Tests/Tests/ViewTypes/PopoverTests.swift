@@ -14,7 +14,7 @@ final class PopoverTests: XCTestCase {
                     Text("Popover")
                         .introspect(
                             .popover,
-                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2),
+                            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2),
                             customize: spy0
                         )
                 }

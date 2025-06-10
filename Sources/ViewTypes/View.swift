@@ -12,7 +12,7 @@ import SwiftUI
 ///             Image(systemName: "scribble")
 ///             Text("Some text")
 ///         }
-///         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // some subclass of UIView
 ///         }
 ///     }
@@ -28,7 +28,7 @@ import SwiftUI
 ///             Image(systemName: "scribble")
 ///             Text("Some text")
 ///         }
-///         .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // some subclass of UIView
 ///         }
 ///     }
@@ -80,6 +80,7 @@ extension iOSViewVersion<ViewType, UIView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<ViewType, UIView> {
@@ -89,6 +90,7 @@ extension tvOSViewVersion<ViewType, UIView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<ViewType, UIView> {

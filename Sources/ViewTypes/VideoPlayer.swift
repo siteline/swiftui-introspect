@@ -9,7 +9,7 @@ import SwiftUI
 /// struct ContentView: View {
 ///     var body: some View {
 ///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // AVPlayerViewController
 ///             }
 ///     }
@@ -22,7 +22,7 @@ import SwiftUI
 /// struct ContentView: View {
 ///     var body: some View {
 ///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///             .introspect(.videoPlayer, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                 print(type(of: $0)) // AVPlayerViewController
 ///             }
 ///     }
@@ -72,6 +72,7 @@ extension iOSViewVersion<VideoPlayerType, AVPlayerViewController> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<VideoPlayerType, AVPlayerViewController> {
@@ -82,6 +83,7 @@ extension tvOSViewVersion<VideoPlayerType, AVPlayerViewController> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<VideoPlayerType, AVPlayerViewController> {

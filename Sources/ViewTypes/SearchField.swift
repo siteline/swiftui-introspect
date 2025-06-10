@@ -15,7 +15,7 @@ import SwiftUI
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
+///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -34,7 +34,7 @@ import SwiftUI
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18)) {
+///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -79,6 +79,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {
@@ -96,6 +97,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {

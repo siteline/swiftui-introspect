@@ -28,7 +28,7 @@ import SwiftUI
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         .introspect(.table, on: .iOS(.v16, .v17, .v18)) {
+///         .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -120,6 +120,7 @@ extension iOSViewVersion<TableType, UICollectionView> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<TableType, UICollectionView> {

@@ -21,15 +21,15 @@ final class FormTests: XCTestCase {
                     Text("Item 1")
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
-                .introspect(.form, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
+                .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { spy0($0) }
+                .introspect(.form, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2)) { spy0($0) }
                 #endif
 
                 Form {
                     Text("Item 1")
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
-                    .introspect(.form, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
+                    .introspect(.form, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { spy1($0) }
+                    .introspect(.form, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
                     #endif
                 }
             }

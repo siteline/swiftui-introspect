@@ -24,7 +24,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS) || os(visionOS)
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy)
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
             #elseif os(tvOS)
             .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), customize: spy)
             #elseif os(macOS)
@@ -42,7 +42,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
                     Color.red
                     Text("Something")
                         #if os(iOS) || os(visionOS)
-                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
+                        .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
                         #elseif os(tvOS)
                         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor, customize: spy)
                         #elseif os(macOS)

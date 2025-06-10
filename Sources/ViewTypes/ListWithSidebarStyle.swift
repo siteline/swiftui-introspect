@@ -57,7 +57,7 @@ import SwiftUI
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.sidebar)
-///         .introspect(.list(style: .sidebar), on: .visionOS(.v1, .v2)) {
+///         .introspect(.list(style: .sidebar), on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -92,6 +92,7 @@ extension iOSViewVersion<ListWithSidebarStyleType, UICollectionView> {
 extension visionOSViewVersion<ListWithSidebarStyleType, UICollectionView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListWithSidebarStyleType, NSTableView> {

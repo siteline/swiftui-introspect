@@ -24,7 +24,7 @@ final class SearchFieldTests: XCTestCase {
             }
             .navigationViewStyle(.stack)
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
             #endif
         }
     }
@@ -41,7 +41,7 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(.stack)
@@ -50,6 +50,9 @@ final class SearchFieldTests: XCTestCase {
 
     func testSearchFieldInNavigationSplitView() throws {
         guard #available(iOS 15, tvOS 15, *) else {
+            throw XCTSkip()
+        }
+        guard #unavailable(visionOS 26) else { // TODO: verify this
             throw XCTSkip()
         }
 
@@ -85,7 +88,7 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())

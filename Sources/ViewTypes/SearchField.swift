@@ -57,7 +57,7 @@ import SwiftUI
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .visionOS(.v1, .v2)) {
+///         .introspect(.searchField, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -109,6 +109,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 extension visionOSViewVersion<SearchFieldType, UISearchBar> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISearchBar> {
         .from(UINavigationController.self) {

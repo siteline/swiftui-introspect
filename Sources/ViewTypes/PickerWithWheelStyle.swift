@@ -44,7 +44,7 @@ import SwiftUI
 ///             Text("3").tag("3")
 ///         }
 ///         .pickerStyle(.wheel)
-///         .introspect(.picker(style: .wheel), on: .visionOS(.v1, .v2)) {
+///         .introspect(.picker(style: .wheel), on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UIPickerView
 ///         }
 ///     }
@@ -75,6 +75,7 @@ extension iOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
 extension visionOSViewVersion<PickerWithWheelStyleType, UIPickerView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

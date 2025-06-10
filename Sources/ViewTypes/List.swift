@@ -67,7 +67,7 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         .introspect(.list, on: .visionOS(.v1, .v2)) {
+///         .introspect(.list, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -111,6 +111,7 @@ extension tvOSViewVersion<ListType, UITableView> {
 extension visionOSViewVersion<ListType, UICollectionView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListType, NSTableView> {

@@ -64,7 +64,7 @@ import SwiftUI
 ///         } detail: {
 ///             Text("Detail")
 ///         }
-///         .introspect(.navigationSplitView, on: .visionOS(.v1, .v2)) {
+///         .introspect(.navigationSplitView, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UISplitViewController
 ///         }
 ///     }
@@ -118,6 +118,7 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
 extension visionOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISplitViewController> {
         .default.withAncestorSelector { $0.splitViewController }

@@ -53,7 +53,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .visionOS(.v1, .v2)) {
+///                     .introspect(.sheet, on: .visionOS(.v1, .v2, .v26)) {
 ///                         print(type(of: $0)) // UISheetPresentationController
 ///                     }
 ///             }
@@ -107,6 +107,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
 extension visionOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })

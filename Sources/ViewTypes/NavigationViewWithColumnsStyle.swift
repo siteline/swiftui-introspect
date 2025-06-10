@@ -60,7 +60,7 @@ import SwiftUI
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2)) {
+///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UISplitViewController
 ///         }
 ///     }
@@ -108,6 +108,7 @@ extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationContro
 extension visionOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISplitViewController> {
         .default.withAncestorSelector { $0.splitViewController }

@@ -56,7 +56,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
-///             .introspect(.map, on: .visionOS(.v1, .v2)) {
+///             .introspect(.map, on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // MKMapView
 ///             }
 ///     }
@@ -107,6 +107,7 @@ extension macOSViewVersion<MapType, MKMapView> {
 extension visionOSViewVersion<MapType, MKMapView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

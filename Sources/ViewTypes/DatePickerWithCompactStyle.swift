@@ -48,7 +48,7 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.compact)
-///             .introspect(.datePicker(style: .compact), on: .visionOS(.v1, .v2)) {
+///             .introspect(.datePicker(style: .compact), on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
 ///     }
@@ -80,6 +80,7 @@ extension iOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
 extension visionOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
 extension macOSViewVersion<DatePickerWithCompactStyleType, NSDatePicker> {

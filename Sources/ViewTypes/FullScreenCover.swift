@@ -53,7 +53,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .visionOS(.v1, .v2)) {
+///                     .introspect(.fullScreenCover, on: .visionOS(.v1, .v2, .v26)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -103,6 +103,7 @@ extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
 extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })

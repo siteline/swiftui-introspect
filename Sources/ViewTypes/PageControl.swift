@@ -51,7 +51,7 @@ import SwiftUI
 ///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///         }
 ///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.pageControl, on: .visionOS(.v1, .v2)) {
+///         .introspect(.pageControl, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UIPageControl
 ///         }
 ///     }
@@ -89,6 +89,7 @@ extension tvOSViewVersion<PageControlType, UIPageControl> {
 extension visionOSViewVersion<PageControlType, UIPageControl> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

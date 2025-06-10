@@ -65,7 +65,7 @@ import SwiftUI
 ///         List {
 ///             ForEach(1...3, id: \.self) { int in
 ///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .visionOS(.v1, .v2)) {
+///                     .introspect(.listCell, on: .visionOS(.v1, .v2, .v26)) {
 ///                         print(type(of: $0)) // UICollectionViewCell
 ///                     }
 ///             }
@@ -108,6 +108,7 @@ extension tvOSViewVersion<ListCellType, UITableViewCell> {
 extension visionOSViewVersion<ListCellType, UICollectionViewCell> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ListCellType, NSTableCellView> {

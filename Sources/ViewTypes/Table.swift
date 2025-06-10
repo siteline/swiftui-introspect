@@ -96,7 +96,7 @@ import SwiftUI
 ///             TableRow(Purchase(price: 50))
 ///             TableRow(Purchase(price: 75))
 ///         }
-///         .introspect(.table, on: .visionOS(.v1, .v2)) {
+///         .introspect(.table, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -126,6 +126,7 @@ extension iOSViewVersion<TableType, UICollectionView> {
 extension visionOSViewVersion<TableType, UICollectionView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TableType, NSTableView> {

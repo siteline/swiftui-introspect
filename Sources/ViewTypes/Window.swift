@@ -48,7 +48,7 @@ import SwiftUI
 /// struct ContentView: View {
 ///     var body: some View {
 ///         Text("Content")
-///             .introspect(.window, on: .visionOS(.v1, .v2)) {
+///             .introspect(.window, on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // UIWindow
 ///             }
 ///     }
@@ -92,6 +92,7 @@ extension tvOSViewVersion<WindowType, UIWindow> {
 extension visionOSViewVersion<WindowType, UIWindow> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIWindow> {
         .from(UIView.self, selector: { $0.window })

@@ -56,7 +56,7 @@ import SwiftUI
 ///
 ///     var body: some View {
 ///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .visionOS(.v1, .v2)) {
+///             .introspect(.textField(axis: .vertical), on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // UITextView
 ///             }
 ///     }
@@ -106,6 +106,7 @@ extension tvOSViewVersion<TextFieldWithVerticalAxisType, UITextField> {
 extension visionOSViewVersion<TextFieldWithVerticalAxisType, UITextView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {

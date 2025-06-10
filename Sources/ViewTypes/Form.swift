@@ -54,7 +54,7 @@ import SwiftUI
 ///             Text("Item 2")
 ///             Text("Item 3")
 ///         }
-///         .introspect(.form, on: .visionOS(.v1, .v2)) {
+///         .introspect(.form, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -94,6 +94,7 @@ extension tvOSViewVersion<FormType, UITableView> {
 extension visionOSViewVersion<FormType, UICollectionView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

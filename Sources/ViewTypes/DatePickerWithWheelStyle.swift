@@ -36,7 +36,7 @@ import SwiftUI
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.wheel)
-///             .introspect(.datePicker(style: .wheel), on: .visionOS(.v1, .v2)) {
+///             .introspect(.datePicker(style: .wheel), on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
 ///     }
@@ -67,6 +67,7 @@ extension iOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
 extension visionOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

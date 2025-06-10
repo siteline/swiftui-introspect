@@ -52,7 +52,7 @@ import SwiftUI
 ///     var body: some View {
 ///         ProgressView(value: 0.5)
 ///             .progressViewStyle(.linear)
-///             .introspect(.progressView(style: .linear), on: .visionOS(.v1, .v2)) {
+///             .introspect(.progressView(style: .linear), on: .visionOS(.v1, .v2, .v26)) {
 ///                 print(type(of: $0)) // UIProgressView
 ///             }
 ///     }
@@ -94,6 +94,7 @@ extension tvOSViewVersion<ProgressViewWithLinearStyleType, UIProgressView> {
 extension visionOSViewVersion<ProgressViewWithLinearStyleType, UIProgressView> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<ProgressViewWithLinearStyleType, NSProgressIndicator> {

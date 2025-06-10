@@ -394,13 +394,13 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(visionOSVersion.v2.isCurrent, false)
             XCTAssertEqual(visionOSVersion.v1.isCurrent, false)
         } else if #available(visionOS 2, *) {
-            XCTAssertEqual(visionOSVersion.v18.isCurrent, false)
+            XCTAssertEqual(visionOSVersion.v26.isCurrent, false)
             XCTAssertEqual(visionOSVersion.v2.isCurrent, true)
             XCTAssertEqual(visionOSVersion.v1.isCurrent, false)
         } else if #available(visionOS 1, *) {
-            XCTAssertEqual(tvOSVersion.v18.isCurrent, false)
-            XCTAssertEqual(tvOSVersion.v2.isCurrent, false)
-            XCTAssertEqual(tvOSVersion.v1.isCurrent, true)
+            XCTAssertEqual(visionOSVersion.v26.isCurrent, false)
+            XCTAssertEqual(visionOSVersion.v2.isCurrent, false)
+            XCTAssertEqual(visionOSVersion.v1.isCurrent, true)
         }
         #else
         XCTAssertEqual(visionOSVersion.v26.isCurrent, false)

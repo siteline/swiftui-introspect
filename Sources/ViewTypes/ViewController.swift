@@ -53,12 +53,12 @@ import SwiftUI
 ///     var body: some View {
 ///         NavigationView {
 ///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///                 .introspect(.viewController, on: .visionOS(.v1, .v2)) {
+///                 .introspect(.viewController, on: .visionOS(.v1, .v2, .v26)) {
 ///                     print(type(of: $0)) // some subclass of UIHostingController
 ///                 }
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.viewController, on: .visionOS(.v1, .v2)) {
+///         .introspect(.viewController, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -96,6 +96,7 @@ extension tvOSViewVersion<ViewControllerType, UIViewController> {
 extension visionOSViewVersion<ViewControllerType, UIViewController> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

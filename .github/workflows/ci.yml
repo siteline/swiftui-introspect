@@ -69,7 +69,7 @@ jobs:
             os: macos-14
             xcode: 15.4
           - platform: [iOS, 18]
-            runtime: iOS 18.0
+            runtime: iOS 18.2
             os: macos-14
             xcode: 16.2
 
@@ -97,7 +97,7 @@ jobs:
             os: macos-14
             xcode: 15.4
           - platform: [tvOS, 18]
-            runtime: tvOS 18.0
+            runtime: tvOS 18.2
             os: macos-14
             xcode: 16.2
 

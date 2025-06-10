@@ -232,6 +232,20 @@ extension tvOSVersion {
         return nil
         #endif
     }
+
+    public static let v26 = tvOSVersion {
+        #if os(tvOS)
+        if #available(tvOS 27, *) {
+            return .past
+        }
+        if #available(tvOS 26, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct macOSVersion: PlatformVersion {

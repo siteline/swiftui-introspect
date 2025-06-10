@@ -21,7 +21,7 @@ final class SecureFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
@@ -29,7 +29,7 @@ final class SecureFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
@@ -37,7 +37,7 @@ final class SecureFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
                     #endif
             }
         } extraAssertions: {
@@ -64,21 +64,21 @@ final class SecureFieldTests: XCTestCase {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
                     #endif
 
                 SecureField("", text: .constant("Secure Field 1"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
                     #endif
 
                 SecureField("", text: .constant("Secure Field 2"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
                     #endif
             }
         } extraAssertions: {

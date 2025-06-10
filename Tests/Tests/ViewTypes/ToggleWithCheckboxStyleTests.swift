@@ -19,19 +19,19 @@ final class ToggleWithCheckboxStyleTests: XCTestCase {
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.checkbox)
                     #if os(macOS)
-                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
                     #endif
 
                 Toggle("", isOn: .constant(false))
                     .toggleStyle(.checkbox)
                     #if os(macOS)
-                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
                     #endif
 
                 Toggle("", isOn: .constant(true))
                     .toggleStyle(.checkbox)
                     #if os(macOS)
-                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
                     #endif
             }
         } extraAssertions: {

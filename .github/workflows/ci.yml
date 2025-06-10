@@ -119,6 +119,10 @@ jobs:
             runtime: macOS 14
             os: macos-14
             xcode: 15.4
+          - platform: [macOS, 15]
+            runtime: macOS 15
+            os: macos-15
+            xcode: 16.2
           # - platform: [macOS, 26]
           #   runtime: macOS 26.0
           #   os: macos-15

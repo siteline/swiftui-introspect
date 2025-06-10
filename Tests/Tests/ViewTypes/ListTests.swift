@@ -23,7 +23,7 @@ final class ListTests: XCTestCase {
                 .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
                 .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
+                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) { spy0($0) }
                 #endif
 
                 List {
@@ -32,7 +32,7 @@ final class ListTests: XCTestCase {
                     .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
                     .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
                     #elseif os(macOS)
-                    .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
+                    .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), scope: .ancestor) { spy1($0) }
                     #endif
                 }
             }
@@ -81,7 +81,7 @@ final class ListTests: XCTestCase {
                 .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
                 .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
                 #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
+                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) { spy0($0) }
                 #endif
                 .clipped()
                 .clipShape(RoundedRectangle(cornerRadius: 20.0))
@@ -93,7 +93,7 @@ final class ListTests: XCTestCase {
                         .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
                         .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
                         #elseif os(macOS)
-                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
+                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), scope: .ancestor) { spy1($0) }
                         #endif
                 }
             }

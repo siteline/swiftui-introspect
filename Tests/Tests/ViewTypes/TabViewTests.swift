@@ -11,7 +11,11 @@ final class TabViewTests: XCTestCase {
     typealias PlatformTabView = NSTabView
     #endif
 
-    func testTabView() {
+    func testTabView() throws {
+        guard #unavailable(macOS 15) else {
+            throw XCTSkip()
+        }
+
         XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
             let spy = spies[0]
 
@@ -29,7 +33,11 @@ final class TabViewTests: XCTestCase {
         }
     }
 
-    func testTabViewAsAncestor() {
+    func testTabViewAsAncestor() throws {
+        guard #unavailable(macOS 15) else {
+            throw XCTSkip()
+        }
+
         XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
             let spy = spies[0]
 

@@ -22,7 +22,7 @@ final class SliderTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
@@ -30,7 +30,7 @@ final class SliderTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
@@ -38,7 +38,7 @@ final class SliderTests: XCTestCase {
                     #if os(iOS)
                     .introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
                     #endif
             }
         } extraAssertions: {

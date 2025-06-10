@@ -47,12 +47,12 @@ jobs:
         include:
           - platform: [iOS, 13]
             runtime: iOS 13.7
-            os: macos-12
+            os: macos-13
             xcode: 14.2
             install: true
           - platform: [iOS, 14]
             runtime: iOS 14.5
-            os: macos-12
+            os: macos-13
             xcode: 14.2
             install: true
           - platform: [iOS, 15]
@@ -75,12 +75,12 @@ jobs:
 
           - platform: [tvOS, 13]
             runtime: tvOS 13.4
-            os: macos-12
+            os: macos-13
             xcode: 14.2
             install: true
           - platform: [tvOS, 14]
             runtime: tvOS 14.5
-            os: macos-12
+            os: macos-13
             xcode: 14.2
             install: true
           - platform: [tvOS, 15]
@@ -119,10 +119,6 @@ jobs:
             os: macos-14
             xcode: 16.2
 
-          - platform: [macOS, 12]
-            runtime: macOS 12
-            os: macos-12
-            xcode: 14.2
           - platform: [macOS, 13]
             runtime: macOS 13
             os: macos-13
@@ -131,6 +127,10 @@ jobs:
             runtime: macOS 14
             os: macos-14
             xcode: 15.4
+          - platform: [macOS, 15]
+            runtime: macOS 15
+            os: macos-15
+            xcode: 16.4
 
           - platform: [visionOS, 1]
             runtime: visionOS 1.2

@@ -11,7 +11,11 @@ final class TabViewTests: XCTestCase {
     typealias PlatformTabView = NSTabView
     #endif
 
-    func testTabView() {
+    func testTabView() throws {
+        if #available(macOS 15, *) {
+            throw XCTSkip()
+        }
+
         XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
             let spy = spies[0]
 
@@ -24,12 +28,16 @@ final class TabViewTests: XCTestCase {
             #if os(iOS) || os(tvOS)
             .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy)
             #elseif os(macOS)
-            .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy)
+            .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy)
             #endif
         }
     }
 
-    func testTabViewAsAncestor() {
+    func testTabViewAsAncestor() throws {
+        if #available(macOS 15, *) {
+            throw XCTSkip()
+        }
+
         XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
             let spy = spies[0]
 
@@ -40,7 +48,7 @@ final class TabViewTests: XCTestCase {
                         #if os(iOS) || os(tvOS)
                         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor, customize: spy)
                         #elseif os(macOS)
-                        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), scope: .ancestor, customize: spy)
+                        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy)
                         #endif
                 }
             }

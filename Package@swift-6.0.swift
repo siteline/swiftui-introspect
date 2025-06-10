@@ -19,6 +19,5 @@ let package = Package(
             name: "SwiftUIIntrospect",
             path: "Sources"
         ),
-    ],
-    swiftLanguageModes: [.v6]
+    ]
 )

@@ -122,6 +122,20 @@ extension iOSVersion {
         return nil
         #endif
     }
+
+    public static let v26 = iOSVersion {
+        #if os(iOS)
+        if #available(iOS 27, *) {
+            return .past
+        }
+        if #available(iOS 26, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct tvOSVersion: PlatformVersion {

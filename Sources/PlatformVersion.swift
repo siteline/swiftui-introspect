@@ -356,6 +356,20 @@ extension macOSVersion {
         return nil
         #endif
     }
+
+    public static let v26 = macOSVersion {
+        #if os(macOS)
+        if #available(macOS 27, *) {
+            return .past
+        }
+        if #available(macOS 26, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
 }
 
 public struct visionOSVersion: PlatformVersion {
@@ -389,6 +403,20 @@ extension visionOSVersion {
             return .past
         }
         if #available(visionOS 2, *) {
+            return .current
+        }
+        return .future
+        #else
+        return nil
+        #endif
+    }
+
+    public static let v26 = visionOSVersion {
+        #if os(visionOS)
+        if #available(visionOS 27, *) {
+            return .past
+        }
+        if #available(visionOS 26, *) {
             return .current
         }
         return .future

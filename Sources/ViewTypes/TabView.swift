@@ -44,7 +44,7 @@ import SwiftUI
 ///             Text("Tab 1").tabItem { Text("Tab 1") }
 ///             Text("Tab 2").tabItem { Text("Tab 2") }
 ///         }
-///         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
 ///             print(type(of: $0)) // NSTabView
 ///         }
 ///     }

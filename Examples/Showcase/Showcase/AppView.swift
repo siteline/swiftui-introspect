@@ -50,7 +50,7 @@ struct ContentView: View {
             tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
         }
         #elseif os(macOS)
-        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) { splitView in
+        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { splitView in
             splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
         }
         #endif

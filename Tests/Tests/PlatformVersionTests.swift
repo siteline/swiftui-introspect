@@ -4,7 +4,15 @@ import XCTest
 final class PlatformVersionTests: XCTestCase {
     func test_iOS_isCurrent() {
         #if os(iOS)
-        if #available(iOS 18, *) {
+        if #available(iOS 26, *) {
+            XCTAssertEqual(iOSVersion.v26.isCurrent, true)
+            XCTAssertEqual(iOSVersion.v18.isCurrent, false)
+            XCTAssertEqual(iOSVersion.v17.isCurrent, false)
+            XCTAssertEqual(iOSVersion.v16.isCurrent, false)
+            XCTAssertEqual(iOSVersion.v15.isCurrent, false)
+            XCTAssertEqual(iOSVersion.v14.isCurrent, false)
+            XCTAssertEqual(iOSVersion.v13.isCurrent, false)
+        } else if #available(iOS 18, *) {
             XCTAssertEqual(iOSVersion.v18.isCurrent, true)
             XCTAssertEqual(iOSVersion.v17.isCurrent, false)
             XCTAssertEqual(iOSVersion.v16.isCurrent, false)
@@ -48,6 +56,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(iOSVersion.v13.isCurrent, true)
         }
         #else
+        XCTAssertEqual(iOSVersion.v26.isCurrent, false)
         XCTAssertEqual(iOSVersion.v18.isCurrent, false)
         XCTAssertEqual(iOSVersion.v17.isCurrent, false)
         XCTAssertEqual(iOSVersion.v16.isCurrent, false)
@@ -59,7 +68,15 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_iOS_isCurrentOrPast() {
         #if os(iOS)
-        if #available(iOS 18, *) {
+        if #available(iOS 26, *) {
+            XCTAssertEqual(iOSVersion.v26.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v18.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v17.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v16.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v15.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v14.isCurrentOrPast, true)
+            XCTAssertEqual(iOSVersion.v13.isCurrentOrPast, true)
+        } else if #available(iOS 18, *) {
             XCTAssertEqual(iOSVersion.v18.isCurrentOrPast, true)
             XCTAssertEqual(iOSVersion.v17.isCurrentOrPast, true)
             XCTAssertEqual(iOSVersion.v16.isCurrentOrPast, true)
@@ -103,6 +120,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(iOSVersion.v13.isCurrentOrPast, true)
         }
         #else
+        XCTAssertEqual(iOSVersion.v26.isCurrentOrPast, false)
         XCTAssertEqual(iOSVersion.v18.isCurrentOrPast, false)
         XCTAssertEqual(iOSVersion.v17.isCurrentOrPast, false)
         XCTAssertEqual(iOSVersion.v16.isCurrentOrPast, false)
@@ -114,7 +132,15 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_macOS_isCurrent() {
         #if os(macOS)
-        if #available(macOS 15, *) {
+        if #available(macOS 26, *) {
+            XCTAssertEqual(macOSVersion.v26.isCurrent, true)
+            XCTAssertEqual(macOSVersion.v15.isCurrent, false)
+            XCTAssertEqual(macOSVersion.v14.isCurrent, false)
+            XCTAssertEqual(macOSVersion.v13.isCurrent, false)
+            XCTAssertEqual(macOSVersion.v12.isCurrent, false)
+            XCTAssertEqual(macOSVersion.v11.isCurrent, false)
+            XCTAssertEqual(macOSVersion.v10_15.isCurrent, false)
+        } else if #available(macOS 15, *) {
             XCTAssertEqual(macOSVersion.v15.isCurrent, true)
             XCTAssertEqual(macOSVersion.v14.isCurrent, false)
             XCTAssertEqual(macOSVersion.v13.isCurrent, false)
@@ -158,6 +184,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(macOSVersion.v10_15.isCurrent, true)
         }
         #else
+        XCTAssertEqual(macOSVersion.v26.isCurrent, false)
         XCTAssertEqual(macOSVersion.v15.isCurrent, false)
         XCTAssertEqual(macOSVersion.v14.isCurrent, false)
         XCTAssertEqual(macOSVersion.v13.isCurrent, false)
@@ -169,7 +196,15 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_macOS_isCurrentOrPast() {
         #if os(macOS)
-        if #available(macOS 15, *) {
+        if #available(macOS 26, *) {
+            XCTAssertEqual(macOSVersion.v26.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v15.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v14.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v13.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v12.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v11.isCurrentOrPast, true)
+            XCTAssertEqual(macOSVersion.v10_15.isCurrentOrPast, true)
+        } else if #available(macOS 15, *) {
             XCTAssertEqual(macOSVersion.v15.isCurrentOrPast, true)
             XCTAssertEqual(macOSVersion.v14.isCurrentOrPast, true)
             XCTAssertEqual(macOSVersion.v13.isCurrentOrPast, true)
@@ -213,6 +248,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(macOSVersion.v10_15.isCurrentOrPast, true)
         }
         #else
+        XCTAssertEqual(macOSVersion.v26.isCurrentOrPast, false)
         XCTAssertEqual(macOSVersion.v15.isCurrentOrPast, false)
         XCTAssertEqual(macOSVersion.v14.isCurrentOrPast, false)
         XCTAssertEqual(macOSVersion.v13.isCurrentOrPast, false)
@@ -224,7 +260,15 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_tvOS_isCurrent() {
         #if os(tvOS)
-        if #available(tvOS 18, *) {
+        if #available(tvOS 26, *) {
+            XCTAssertEqual(tvOSVersion.v26.isCurrent, true)
+            XCTAssertEqual(tvOSVersion.v18.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v17.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v16.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v15.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v14.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v13.isCurrent, false)
+        } else if #available(tvOS 18, *) {
             XCTAssertEqual(tvOSVersion.v18.isCurrent, true)
             XCTAssertEqual(tvOSVersion.v17.isCurrent, false)
             XCTAssertEqual(tvOSVersion.v16.isCurrent, false)
@@ -269,6 +313,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(tvOSVersion.v13.isCurrent, true)
         }
         #else
+        XCTAssertEqual(tvOSVersion.v26.isCurrent, false)
         XCTAssertEqual(tvOSVersion.v18.isCurrent, false)
         XCTAssertEqual(tvOSVersion.v17.isCurrent, false)
         XCTAssertEqual(tvOSVersion.v16.isCurrent, false)
@@ -280,7 +325,15 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_tvOS_isCurrentOrPast() {
         #if os(tvOS)
-        if #available(tvOS 18, *) {
+        if #available(tvOS 26, *) {
+            XCTAssertEqual(tvOSVersion.v26.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v18.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v17.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v16.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v15.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v14.isCurrentOrPast, true)
+            XCTAssertEqual(tvOSVersion.v13.isCurrentOrPast, true)
+        } else if #available(tvOS 18, *) {
             XCTAssertEqual(tvOSVersion.v18.isCurrentOrPast, true)
             XCTAssertEqual(tvOSVersion.v17.isCurrentOrPast, true)
             XCTAssertEqual(tvOSVersion.v16.isCurrentOrPast, true)
@@ -324,6 +377,7 @@ final class PlatformVersionTests: XCTestCase {
             XCTAssertEqual(tvOSVersion.v13.isCurrentOrPast, true)
         }
         #else
+        XCTAssertEqual(tvOSVersion.v26.isCurrentOrPast, false)
         XCTAssertEqual(tvOSVersion.v18.isCurrentOrPast, false)
         XCTAssertEqual(tvOSVersion.v17.isCurrentOrPast, false)
         XCTAssertEqual(tvOSVersion.v16.isCurrentOrPast, false)

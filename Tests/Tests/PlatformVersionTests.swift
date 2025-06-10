@@ -386,4 +386,48 @@ final class PlatformVersionTests: XCTestCase {
         XCTAssertEqual(tvOSVersion.v13.isCurrentOrPast, false)
         #endif
     }
+
+    func test_visionOS_isCurrent() {
+        #if os(visionOS)
+        if #available(visionOS 26, *) {
+            XCTAssertEqual(visionOSVersion.v26.isCurrent, true)
+            XCTAssertEqual(visionOSVersion.v2.isCurrent, false)
+            XCTAssertEqual(visionOSVersion.v1.isCurrent, false)
+        } else if #available(visionOS 2, *) {
+            XCTAssertEqual(visionOSVersion.v18.isCurrent, false)
+            XCTAssertEqual(visionOSVersion.v2.isCurrent, true)
+            XCTAssertEqual(visionOSVersion.v1.isCurrent, false)
+        } else if #available(visionOS 1, *) {
+            XCTAssertEqual(tvOSVersion.v18.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v2.isCurrent, false)
+            XCTAssertEqual(tvOSVersion.v1.isCurrent, true)
+        }
+        #else
+        XCTAssertEqual(visionOSVersion.v26.isCurrent, false)
+        XCTAssertEqual(visionOSVersion.v2.isCurrent, false)
+        XCTAssertEqual(visionOSVersion.v1.isCurrent, false)
+        #endif
+    }
+
+    func test_visionOS_isCurrentOrPast() {
+        #if os(visionOS)
+        if #available(visionOS 26, *) {
+            XCTAssertEqual(visionOSVersion.v26.isCurrentOrPast, true)
+            XCTAssertEqual(visionOSVersion.v2.isCurrentOrPast, true)
+            XCTAssertEqual(visionOSVersion.v1.isCurrentOrPast, true)
+        } else if #available(visionOS 2, *) {
+            XCTAssertEqual(visionOSVersion.v26.isCurrentOrPast, false)
+            XCTAssertEqual(visionOSVersion.v2.isCurrentOrPast, true)
+            XCTAssertEqual(visionOSVersion.v1.isCurrentOrPast, true)
+        } else if #available(visionOS 1, *) {
+            XCTAssertEqual(visionOSVersion.v26.isCurrentOrPast, false)
+            XCTAssertEqual(visionOSVersion.v2.isCurrentOrPast, false)
+            XCTAssertEqual(visionOSVersion.v1.isCurrentOrPast, true)
+        }
+        #else
+        XCTAssertEqual(visionOSVersion.v26.isCurrentOrPast, false)
+        XCTAssertEqual(visionOSVersion.v2.isCurrentOrPast, false)
+        XCTAssertEqual(visionOSVersion.v1.isCurrentOrPast, false)
+        #endif
+    }
 }

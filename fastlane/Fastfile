@@ -67,25 +67,17 @@ lane :test do |options|
     scheme = options[:scheme].to_s
 
     if platform == "macos"
-        destinations = case version
-        when 13
-            ["platform=macOS"]
-        else
-            ["platform=macOS", "platform=macOS,variant=Mac Catalyst"] # TODO: figure out why Catalyst tests fail on macOS 13
-        end
-        for destination in destinations
-            run_tests(
-                configuration: configuration,
-                scheme: scheme,
-                destination: destination,
-                catalyst_platform: "macos",
-                disable_slide_to_type: false,
-                prelaunch_simulator: false,
-                ensure_devices_found: true,
-                force_quit_simulator: false,
-                disable_concurrent_testing: true,
-            )
-        end
+        run_tests(
+            configuration: configuration,
+            scheme: scheme,
+            destination: "platform=macOS",
+            catalyst_platform: "macos",
+            disable_slide_to_type: false,
+            prelaunch_simulator: false,
+            ensure_devices_found: true,
+            force_quit_simulator: false,
+            disable_concurrent_testing: true,
+        )
     else
         unless ["SwiftUIIntrospectTests", "SwiftUIIntrospectUITests"].include?(scheme)
             raise "Unsupported scheme: #{scheme}"

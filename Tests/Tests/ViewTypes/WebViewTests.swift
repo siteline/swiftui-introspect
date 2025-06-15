@@ -1,9 +1,8 @@
 #if compiler(>=6.2) && canImport(WebKit)
 import SwiftUI
 import SwiftUIIntrospect
-import WebKit
-import XCTest
 import Testing
+import WebKit
 
 @MainActor
 @Suite

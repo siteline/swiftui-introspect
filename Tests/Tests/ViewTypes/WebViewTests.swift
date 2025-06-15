@@ -9,7 +9,7 @@ import WebKit
 struct WebViewTests {
     @available(iOS 26, tvOS 26, macOS 26, visionOS 26, *)
     @Test func webView() async throws {
-        assertIntrospection(of: WKWebView.self) { spies in
+        XCTAssertViewIntrospection(of: WKWebView.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

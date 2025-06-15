@@ -17,7 +17,7 @@ final class ListWithSidebarStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformListWithSidebarStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformListWithSidebarStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

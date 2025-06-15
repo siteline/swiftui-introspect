@@ -15,7 +15,7 @@ final class ListWithInsetGroupedStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformListWithInsetGroupedStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformListWithInsetGroupedStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

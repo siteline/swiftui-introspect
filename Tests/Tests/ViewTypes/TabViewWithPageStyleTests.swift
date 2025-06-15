@@ -15,7 +15,7 @@ final class TabViewWithPageStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
             let spy = spies[0]
 
             TabView {
@@ -34,7 +34,7 @@ final class TabViewWithPageStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
             let spy = spies[0]
 
             TabView {

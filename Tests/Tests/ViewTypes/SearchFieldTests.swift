@@ -15,7 +15,7 @@ final class SearchFieldTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformSearchField.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformSearchField.self) { spies in
             let spy = spies[0]
 
             NavigationView {
@@ -34,7 +34,7 @@ final class SearchFieldTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformSearchField.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformSearchField.self) { spies in
             let spy = spies[0]
 
             NavigationView {
@@ -56,7 +56,7 @@ final class SearchFieldTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformSearchField.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformSearchField.self) { spies in
             let spy = spies[0]
 
             NavigationView {
@@ -81,7 +81,7 @@ final class SearchFieldTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformSearchField.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformSearchField.self) { spies in
             let spy = spies[0]
 
             NavigationView {

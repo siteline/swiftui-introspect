@@ -43,7 +43,7 @@ enum TestUtils {
 #endif
 
 @MainActor
-func assertIntrospection<Entity: AnyObject>(
+func XCTAssertViewIntrospection<Entity: AnyObject>(
     of type: Entity.Type,
     @ViewBuilder view: (Spies<Entity>) -> some View,
     extraAssertions: ([Entity]) -> Void = { _ in },

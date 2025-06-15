@@ -12,7 +12,7 @@ final class FormTests: XCTestCase {
     #endif
 
     func testForm() throws {
-        assertIntrospection(of: PlatformForm.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformForm.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

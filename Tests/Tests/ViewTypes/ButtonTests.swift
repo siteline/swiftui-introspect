@@ -10,7 +10,7 @@ final class ButtonTests: XCTestCase {
     #endif
 
     func testButton() {
-        assertIntrospection(of: PlatformButton.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformButton.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

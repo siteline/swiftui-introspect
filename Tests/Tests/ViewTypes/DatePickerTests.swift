@@ -16,7 +16,7 @@ final class DatePickerTests: XCTestCase {
         let date1 = Date(timeIntervalSince1970: 5)
         let date2 = Date(timeIntervalSince1970: 10)
 
-        assertIntrospection(of: PlatformDatePicker.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformDatePicker.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

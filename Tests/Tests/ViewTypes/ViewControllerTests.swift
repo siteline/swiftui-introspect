@@ -6,7 +6,7 @@ import XCTest
 @MainActor
 final class ViewControllerTests: XCTestCase {
     func testViewController() {
-        assertIntrospection(of: PlatformViewController.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformViewController.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

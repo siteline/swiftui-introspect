@@ -12,7 +12,7 @@ final class ToggleWithSwitchStyleTests: XCTestCase {
     #endif
 
     func testToggleWithSwitchStyle() {
-        assertIntrospection(of: PlatformToggleWithSwitchStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformToggleWithSwitchStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

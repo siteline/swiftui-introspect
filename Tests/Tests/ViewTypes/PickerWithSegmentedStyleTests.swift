@@ -11,7 +11,7 @@ final class PickerWithSegmentedStyleTests: XCTestCase {
     #endif
 
     func testPickerWithSegmentedStyle() {
-        assertIntrospection(of: PlatformPickerWithSegmentedStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformPickerWithSegmentedStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

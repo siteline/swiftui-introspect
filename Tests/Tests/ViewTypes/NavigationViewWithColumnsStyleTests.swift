@@ -13,7 +13,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
     #endif
 
     func testNavigationViewWithColumnsStyle() {
-        assertIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
             let spy = spies[0]
 
             NavigationView {
@@ -34,7 +34,7 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
     }
 
     func testNavigationViewWithColumnsStyleAsAncestor() {
-        assertIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
             let spy = spies[0]
 
             NavigationView {

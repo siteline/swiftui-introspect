@@ -11,7 +11,7 @@ final class ListCellTests: XCTestCase {
     #endif
 
     func testListCell() {
-        assertIntrospection(of: PlatformListCell.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformListCell.self) { spies in
             let spy = spies[0]
 
             List {
@@ -27,7 +27,7 @@ final class ListCellTests: XCTestCase {
     }
 
     func testMaskedListCell() {
-        assertIntrospection(of: PlatformListCell.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformListCell.self) { spies in
             let spy = spies[0]
 
             List {

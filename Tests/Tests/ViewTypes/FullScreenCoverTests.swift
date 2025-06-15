@@ -11,7 +11,7 @@ final class FullScreenCoverTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: UIPresentationController.self) { spies in
+        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")

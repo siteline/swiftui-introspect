@@ -15,7 +15,7 @@ final class ToggleWithButtonStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        assertIntrospection(of: PlatformToggleWithButtonStyle.self) { spies in
+        XCTAssertViewIntrospection(of: PlatformToggleWithButtonStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

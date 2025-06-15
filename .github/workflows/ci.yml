@@ -171,9 +171,6 @@ jobs:
           xcrun simctl list
           xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
 
-      - name: Reset Simulators
-        run: xcrun simctl shutdown all && xcrun simctl erase all
-
       - if: ${{ matrix.platform[0] != 'watchOS' }}
         name: Build Showcase
         run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase

@@ -89,6 +89,7 @@ lane :test do |options|
             prelaunch_simulator: true,
             ensure_devices_found: true,
             force_quit_simulator: true,
+            reset_simulator: true,
             disable_concurrent_testing: true,
             result_bundle: true,
             output_directory: Dir.pwd + "/test_output",

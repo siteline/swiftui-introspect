@@ -13,7 +13,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                     .introspect(.sheet, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -31,7 +31,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                     .introspect(.sheet, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -53,7 +53,7 @@ import SwiftUI
 ///         Button("Present", action: { isPresented = true })
 ///             .sheet(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .visionOS(.v1, .v2)) {
+///                     .introspect(.sheet, on: .visionOS(.v1, .v2, .v26)) {
 ///                         print(type(of: $0)) // UISheetPresentationController
 ///                     }
 ///             }
@@ -77,6 +77,7 @@ extension iOSViewVersion<SheetType, UIPresentationController> {
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })
@@ -94,6 +95,8 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v17 = Self(for: .v17, selector: selector)
     @_disfavoredOverload
     public static let v18 = Self(for: .v18, selector: selector)
+    @_disfavoredOverload
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
@@ -104,6 +107,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
 extension visionOSViewVersion<SheetType, UISheetPresentationController> {
     public static let v1 = Self(for: .v1, selector: selector)
     public static let v2 = Self(for: .v2, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UISheetPresentationController> {
         .from(UIViewController.self, selector: { $0.sheetPresentationController })
@@ -118,6 +122,7 @@ extension tvOSViewVersion<SheetType, UIPresentationController> {
     public static let v16 = Self(for: .v16, selector: selector)
     public static let v17 = Self(for: .v17, selector: selector)
     public static let v18 = Self(for: .v18, selector: selector)
+    public static let v26 = Self(for: .v26, selector: selector)
 
     private static var selector: IntrospectionSelector<UIPresentationController> {
         .from(UIViewController.self, selector: { $0.presentationController })

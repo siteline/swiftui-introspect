@@ -20,24 +20,24 @@ final class ButtonTests: XCTestCase {
                 Button("Button 0", action: {})
                     .buttonStyle(.bordered)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
 
                 Button("Button 1", action: {})
                     .buttonStyle(.borderless)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
                 Button("Button 2", action: {})
                     .buttonStyle(.link)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
 
                 Button("Button 3", action: {})
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy3)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
                     #endif
             }
         } extraAssertions: {

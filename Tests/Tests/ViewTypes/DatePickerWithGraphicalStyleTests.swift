@@ -30,27 +30,27 @@ final class DatePickerWithGraphicalStyleTests: XCTestCase {
                 DatePicker("", selection: .constant(date0))
                     .datePickerStyle(.graphical)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
+                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
                     #elseif os(macOS)
-                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
+                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.graphical)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
                     #elseif os(macOS)
-                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
+                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
                     .cornerRadius(8)
 
                 DatePicker("", selection: .constant(date2))
                     .datePickerStyle(.graphical)
                     #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
+                    .introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
                     #elseif os(macOS)
-                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
+                    .introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
             }
         } extraAssertions: {

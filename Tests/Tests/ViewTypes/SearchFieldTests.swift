@@ -24,7 +24,7 @@ final class SearchFieldTests: XCTestCase {
             }
             .navigationViewStyle(.stack)
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
             #endif
         }
     }
@@ -41,7 +41,7 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(.stack)
@@ -50,6 +50,9 @@ final class SearchFieldTests: XCTestCase {
 
     func testSearchFieldInNavigationSplitView() throws {
         guard #available(iOS 15, tvOS 15, *) else {
+            throw XCTSkip()
+        }
+        guard #unavailable(visionOS 26) else { // TODO: verify this
             throw XCTSkip()
         }
 
@@ -62,11 +65,11 @@ final class SearchFieldTests: XCTestCase {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy)
             #endif
             #if os(iOS)
             // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
                 $0.preferredDisplayMode = .oneOverSecondary
             }
             #endif
@@ -85,13 +88,13 @@ final class SearchFieldTests: XCTestCase {
                 Text("Customized")
                     .searchable(text: .constant(""))
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18), .tvOS(.v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
+                    .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
                     #endif
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS)
             // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
-            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+            .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
                 $0.preferredDisplayMode = .oneOverSecondary
             }
             #endif

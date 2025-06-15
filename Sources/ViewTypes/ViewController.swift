@@ -11,12 +11,12 @@ import SwiftUI
 ///     var body: some View {
 ///         NavigationView {
 ///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///                 .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                 .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                     print(type(of: $0)) // some subclass of UIHostingController
 ///                 }
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -30,12 +30,12 @@ import SwiftUI
 ///     var body: some View {
 ///         NavigationView {
 ///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///                 .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///                 .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///                     print(type(of: $0)) // some subclass of UIHostingController
 ///                 }
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         .introspect(.viewController, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -53,12 +53,12 @@ import SwiftUI
 ///     var body: some View {
 ///         NavigationView {
 ///             Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///                 .introspect(.viewController, on: .visionOS(.v1, .v2)) {
+///                 .introspect(.viewController, on: .visionOS(.v1, .v2, .v26)) {
 ///                     print(type(of: $0)) // some subclass of UIHostingController
 ///                 }
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.viewController, on: .visionOS(.v1, .v2)) {
+///         .introspect(.viewController, on: .visionOS(.v1, .v2, .v26)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -80,6 +80,7 @@ extension iOSViewVersion<ViewControllerType, UIViewController> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<ViewControllerType, UIViewController> {
@@ -89,11 +90,13 @@ extension tvOSViewVersion<ViewControllerType, UIViewController> {
     public static let v16 = Self(for: .v16)
     public static let v17 = Self(for: .v17)
     public static let v18 = Self(for: .v18)
+    public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<ViewControllerType, UIViewController> {
     public static let v1 = Self(for: .v1)
     public static let v2 = Self(for: .v2)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

@@ -15,7 +15,7 @@ final class ProgressViewWithCircularStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformProgressViewWithCircularStyle.self) { spies in
+        assertIntrospection(of: PlatformProgressViewWithCircularStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

@@ -10,7 +10,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
     #endif
 
     func testNavigationViewWithStackStyle() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
+        assertIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
             let spy = spies[0]
 
             NavigationView {
@@ -27,7 +27,7 @@ final class NavigationViewWithStackStyleTests: XCTestCase {
     }
 
     func testNavigationViewWithStackStyleAsAncestor() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
+        assertIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
             let spy = spies[0]
 
             NavigationView {

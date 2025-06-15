@@ -10,7 +10,7 @@ final class ToggleWithCheckboxStyleTests: XCTestCase {
     #endif
 
     func testToggleWithCheckboxStyle() throws {
-        XCTAssertViewIntrospection(of: PlatformToggleWithCheckboxStyle.self) { spies in
+        assertIntrospection(of: PlatformToggleWithCheckboxStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

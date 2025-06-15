@@ -16,7 +16,7 @@ final class FormWithGroupedStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformFormWithGroupedStyle.self) { spies in
+        assertIntrospection(of: PlatformFormWithGroupedStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

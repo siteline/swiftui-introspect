@@ -22,7 +22,7 @@ final class VideoPlayerTests: XCTestCase {
         let videoURL1 = URL(string: "https://bit.ly/swswift#2")!
         let videoURL2 = URL(string: "https://bit.ly/swswift#3")!
 
-        XCTAssertViewIntrospection(of: PlatformVideoPlayer.self) { spies in
+        assertIntrospection(of: PlatformVideoPlayer.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

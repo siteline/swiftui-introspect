@@ -7,7 +7,7 @@ import XCTest
 final class SheetTests: XCTestCase {
     #if os(iOS)
     func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+        assertIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")
@@ -27,7 +27,7 @@ final class SheetTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: UISheetPresentationController.self) { spies in
+        assertIntrospection(of: UISheetPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")
@@ -43,7 +43,7 @@ final class SheetTests: XCTestCase {
     }
     #elseif os(tvOS)
     func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+        assertIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")
@@ -59,7 +59,7 @@ final class SheetTests: XCTestCase {
     }
     #elseif os(visionOS)
     func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
+        assertIntrospection(of: UIPresentationController.self) { spies in
             let spy0 = spies[0]
 
             Text("Root")

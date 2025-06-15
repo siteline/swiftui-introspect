@@ -10,7 +10,7 @@ final class PickerWithMenuStyleTests: XCTestCase {
     #endif
 
     func testPickerWithMenuStyle() {
-        XCTAssertViewIntrospection(of: PlatformPickerWithMenuStyle.self) { spies in
+        assertIntrospection(of: PlatformPickerWithMenuStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

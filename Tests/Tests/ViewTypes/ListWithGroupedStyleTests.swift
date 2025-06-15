@@ -10,7 +10,7 @@ final class ListWithGroupedStyleTests: XCTestCase {
     #endif
 
     func testListWithGroupedStyle() {
-        XCTAssertViewIntrospection(of: PlatformListWithGroupedStyle.self) { spies in
+        assertIntrospection(of: PlatformListWithGroupedStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

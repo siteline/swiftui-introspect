@@ -17,7 +17,7 @@ final class ListWithInsetStyleTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformListWithInsetStyle.self) { spies in
+        assertIntrospection(of: PlatformListWithInsetStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

@@ -11,7 +11,7 @@ final class SecureFieldTests: XCTestCase {
     #endif
 
     func testSecureField() {
-        XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
+        assertIntrospection(of: PlatformSecureField.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]
@@ -54,7 +54,7 @@ final class SecureFieldTests: XCTestCase {
     }
 
     func testSecureFieldsEmbeddedInList() {
-        XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
+        assertIntrospection(of: PlatformSecureField.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

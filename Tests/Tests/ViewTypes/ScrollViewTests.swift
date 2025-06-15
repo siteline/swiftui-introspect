@@ -11,7 +11,7 @@ final class ScrollViewTests: XCTestCase {
     #endif
 
     func testScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
+        assertIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 
@@ -51,7 +51,7 @@ final class ScrollViewTests: XCTestCase {
     }
 
     func testNestedScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
+        assertIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 
@@ -89,7 +89,7 @@ final class ScrollViewTests: XCTestCase {
     }
 
     func testMaskedScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
+        assertIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

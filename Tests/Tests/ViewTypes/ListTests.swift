@@ -11,7 +11,7 @@ final class ListTests: XCTestCase {
     #endif
 
     func testList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
+        assertIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 
@@ -43,7 +43,7 @@ final class ListTests: XCTestCase {
 
     #if !os(macOS)
     func testNestedList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
+        assertIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 
@@ -69,7 +69,7 @@ final class ListTests: XCTestCase {
     #endif
 
     func testMaskedList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
+        assertIntrospection(of: PlatformList.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

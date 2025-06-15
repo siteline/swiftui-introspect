@@ -17,7 +17,7 @@ final class TableTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
+        assertIntrospection(of: PlatformTable.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]
@@ -52,7 +52,7 @@ final class TableTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
+        assertIntrospection(of: PlatformTable.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]
@@ -91,7 +91,7 @@ final class TableTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
+        assertIntrospection(of: PlatformTable.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]

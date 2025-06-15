@@ -11,7 +11,7 @@ final class ListWithPlainStyleTests: XCTestCase {
     #endif
 
     func testListWithPlainStyle() {
-        XCTAssertViewIntrospection(of: PlatformListWithPlainStyle.self) { spies in
+        assertIntrospection(of: PlatformListWithPlainStyle.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
 

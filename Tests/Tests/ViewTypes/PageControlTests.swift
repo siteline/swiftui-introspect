@@ -15,7 +15,7 @@ final class PageControlTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformPageControl.self) { spies in
+        assertIntrospection(of: PlatformPageControl.self) { spies in
             let spy = spies[0]
 
             TabView {

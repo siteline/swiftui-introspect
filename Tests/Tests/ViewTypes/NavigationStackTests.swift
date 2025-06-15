@@ -15,7 +15,7 @@ final class NavigationStackTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
+        assertIntrospection(of: PlatformNavigationStack.self) { spies in
             let spy = spies[0]
 
             NavigationStack {
@@ -35,7 +35,7 @@ final class NavigationStackTests: XCTestCase {
             throw XCTSkip()
         }
 
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
+        assertIntrospection(of: PlatformNavigationStack.self) { spies in
             let spy = spies[0]
 
             NavigationStack {

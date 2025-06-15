@@ -1,16 +1,16 @@
-#if canImport(WebKit)
+#if compiler(>=6.2) && canImport(WebKit)
 import SwiftUI
 import SwiftUIIntrospect
 import WebKit
 import XCTest
+import Testing
 
-@available(iOS 26, tvOS 26, macOS 26, *)
 @MainActor
-final class WebViewTests: XCTestCase {
-    typealias PlatformMap = WKWebView
-
-    func testWebView() throws {
-        XCTAssertViewIntrospection(of: PlatformMap.self) { spies in
+@Suite
+struct WebViewTests {
+    @available(iOS 26, tvOS 26, macOS 26, visionOS 26, *)
+    @Test func webView() async throws {
+        XCTAssertViewIntrospection(of: WKWebView.self) { spies in
             let spy0 = spies[0]
             let spy1 = spies[1]
             let spy2 = spies[2]
@@ -38,9 +38,9 @@ final class WebViewTests: XCTestCase {
                     )
             }
         } extraAssertions: {
-            XCTAssertNotIdentical($0[safe: 0], $0[safe: 1])
-            XCTAssertNotIdentical($0[safe: 0], $0[safe: 2])
-            XCTAssertNotIdentical($0[safe: 1], $0[safe: 2])
+            #expect($0[safe: 0] !== $0[safe: 1])
+            #expect($0[safe: 0] !== $0[safe: 2])
+            #expect($0[safe: 1] !== $0[safe: 2])
         }
     }
 }

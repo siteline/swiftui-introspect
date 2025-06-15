@@ -75,7 +75,7 @@ extension IntrospectableViewType where Self == WebViewType {
     public static var webView: Self { .init() }
 }
 
-extension iOSViewVersion<MapType, WKWebView> {
+extension iOSViewVersion<WebViewType, WKWebView> {
     @available(*, unavailable, message: "WebView isn't available on iOS 13")
     public static let v13 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on iOS 14")
@@ -92,7 +92,7 @@ extension iOSViewVersion<MapType, WKWebView> {
     public static let v26 = Self(for: .v26)
 }
 
-extension tvOSViewVersion<MapType, WKWebView> {
+extension tvOSViewVersion<WebViewType, WKWebView> {
     @available(*, unavailable, message: "WebView isn't available on tvOS 13")
     public static let v13 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on tvOS 14")
@@ -109,7 +109,7 @@ extension tvOSViewVersion<MapType, WKWebView> {
     public static let v26 = Self(for: .v26)
 }
 
-extension macOSViewVersion<MapType, WKWebView> {
+extension macOSViewVersion<WebViewType, WKWebView> {
     @available(*, unavailable, message: "WebView isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on macOS 11")
@@ -126,7 +126,7 @@ extension macOSViewVersion<MapType, WKWebView> {
     public static let v26 = Self(for: .v26)
 }
 
-extension visionOSViewVersion<MapType, WKWebView> {
+extension visionOSViewVersion<WebViewType, WKWebView> {
     @available(*, unavailable, message: "WebView isn't available on visionOS 1")
     public static let v1 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on visionOS 2")

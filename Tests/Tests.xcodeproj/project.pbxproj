@@ -10,6 +10,7 @@
 		D503B2AC2A49BFE300027F5F /* VideoPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */; };
 		D50FFE8E2A17E2A400C32641 /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */; };
 		D534D4DC2A4A596200218BFB /* WindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D534D4DB2A4A596200218BFB /* WindowTests.swift */; };
+		D55BAD142DFF2B050038443E /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55BAD132DFF2B050038443E /* WebViewTests.swift */; };
 		D55F448D2A1FF209003381E4 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55F448C2A1FF209003381E4 /* ListTests.swift */; };
 		D57506782A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */; };
 		D575067A2A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */; };
@@ -101,6 +102,7 @@
 		D50FFE8D2A17E2A400C32641 /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		D534D4DB2A4A596200218BFB /* WindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowTests.swift; sourceTree = "<group>"; };
 		D549D9732A66D876005D4FB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D55BAD132DFF2B050038443E /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		D55F448C2A1FF209003381E4 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		D57506772A27BBBD00A628E4 /* PickerWithSegmentedStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithSegmentedStyleTests.swift; sourceTree = "<group>"; };
 		D57506792A27BF6C00A628E4 /* PickerWithMenuStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithMenuStyleTests.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				D503B2AB2A49BFE300027F5F /* VideoPlayerTests.swift */,
 				D58119C52A227E930081F853 /* ViewTests.swift */,
 				D5F26E032A56E74B001209E6 /* ViewControllerTests.swift */,
+				D55BAD132DFF2B050038443E /* WebViewTests.swift */,
 				D534D4DB2A4A596200218BFB /* WindowTests.swift */,
 			);
 			path = ViewTypes;
@@ -606,6 +609,7 @@
 				D58547FA2A1D12270068ADF4 /* NavigationSplitViewTests.swift in Sources */,
 				D5F8D5EF2A1E87950054E9AB /* NavigationViewWithColumnsStyleTests.swift in Sources */,
 				D57506882A27CB9800A628E4 /* FormTests.swift in Sources */,
+				D55BAD142DFF2B050038443E /* WebViewTests.swift in Sources */,
 				D58119C82A22AC130081F853 /* ToggleTests.swift in Sources */,
 				D58119D22A23A77C0081F853 /* StepperTests.swift in Sources */,
 				D58119DA2A23B7700081F853 /* ColorPickerTests.swift in Sources */,

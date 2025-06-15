@@ -40,6 +40,7 @@ extension iOSViewVersion<MapType, WKWebView> {
     public static let v17 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on iOS 18")
     public static let v18 = Self.unavailable()
+
     public static let v26 = Self(for: .v26)
 }
 
@@ -56,6 +57,7 @@ extension tvOSViewVersion<MapType, WKWebView> {
     public static let v17 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on tvOS 18")
     public static let v18 = Self.unavailable()
+
     public static let v26 = Self(for: .v26)
 }
 
@@ -72,6 +74,7 @@ extension macOSViewVersion<MapType, WKWebView> {
     public static let v14 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on macOS 15")
     public static let v15 = Self.unavailable()
+
     public static let v26 = Self(for: .v26)
 }
 
@@ -80,6 +83,7 @@ extension visionOSViewVersion<MapType, WKWebView> {
     public static let v1 = Self.unavailable()
     @available(*, unavailable, message: "WebView isn't available on visionOS 2")
     public static let v2 = Self.unavailable()
+
     public static let v26 = Self(for: .v26)
 }
 #endif

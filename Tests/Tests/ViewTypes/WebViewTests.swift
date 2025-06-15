@@ -18,21 +18,21 @@ final class WebViewTests: XCTestCase {
             VStack {
                 WebView(url: nil)
                     .introspect(
-                        .map,
+                        .webView,
                         on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
                         customize: spy0
                     )
 
                 WebView(url: nil)
                     .introspect(
-                        .map,
+                        .webView,
                         on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
                         customize: spy1
                     )
 
                 WebView(url: nil)
                     .introspect(
-                        .map,
+                        .webView,
                         on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
                         customize: spy2
                     )

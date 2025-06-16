@@ -4,7 +4,7 @@ import XCTest
 final class PlatformVersionTests: XCTestCase {
     func test_iOS_isCurrent() {
         #if os(iOS)
-        if #available(iOS 26, *) {
+        if #available(iOS 19, *) {
             XCTAssertEqual(iOSVersion.v26.isCurrent, true)
             XCTAssertEqual(iOSVersion.v18.isCurrent, false)
             XCTAssertEqual(iOSVersion.v17.isCurrent, false)
@@ -68,7 +68,7 @@ final class PlatformVersionTests: XCTestCase {
 
     func test_iOS_isCurrentOrPast() {
         #if os(iOS)
-        if #available(iOS 26, *) {
+        if #available(iOS 19, *) {
             XCTAssertEqual(iOSVersion.v26.isCurrentOrPast, true)
             XCTAssertEqual(iOSVersion.v18.isCurrentOrPast, true)
             XCTAssertEqual(iOSVersion.v17.isCurrentOrPast, true)

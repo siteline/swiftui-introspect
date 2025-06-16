@@ -128,7 +128,7 @@ extension iOSVersion {
         if #available(iOS 27, *) {
             return .past
         }
-        if #available(iOS 26, *) {
+        if #available(iOS 19, *) {
             return .current
         }
         return .future

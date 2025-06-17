@@ -128,7 +128,9 @@ extension iOSVersion {
         if #available(iOS 27, *) {
             return .past
         }
-        if #available(iOS 26, *) {
+        // Apps built before the iOS 26 SDK get "19.0" as the system version from ProcessInfo.
+        // Once built with the iOS 26 SDK, the version then becomes "26.0".
+        if #available(iOS 19, *) {
             return .current
         }
         return .future
@@ -238,7 +240,9 @@ extension tvOSVersion {
         if #available(tvOS 27, *) {
             return .past
         }
-        if #available(tvOS 26, *) {
+        // Apps built before the tvOS 26 SDK get "19.0" as the system version from ProcessInfo.
+        // Once built with the tvOS 26 SDK, the version then becomes "26.0".
+        if #available(tvOS 19, *) {
             return .current
         }
         return .future
@@ -362,7 +366,9 @@ extension macOSVersion {
         if #available(macOS 27, *) {
             return .past
         }
-        if #available(macOS 26, *) {
+        // Apps built before the macOS 26 SDK get "16.0" as the system version from ProcessInfo.
+        // Once built with the macOS 26 SDK, the version then becomes "26.0".
+        if #available(macOS 16, *) {
             return .current
         }
         return .future
@@ -416,7 +422,9 @@ extension visionOSVersion {
         if #available(visionOS 27, *) {
             return .past
         }
-        if #available(visionOS 26, *) {
+        // Apps built before the visionOS 26 SDK get "3.0" as the system version from ProcessInfo.
+        // Once built with the visionOS 26 SDK, the version then becomes "26.0".
+        if #available(visionOS 3, *) {
             return .current
         }
         return .future

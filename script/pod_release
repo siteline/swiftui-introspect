@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+
+echo "Publishing version $LIB_VERSION"
+pod trunk push SwiftUIIntrospect.podspec --allow-warnings

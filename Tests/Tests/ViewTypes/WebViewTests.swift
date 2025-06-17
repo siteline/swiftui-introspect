@@ -7,7 +7,7 @@ import WebKit
 @MainActor
 @Suite
 struct WebViewTests {
-    @available(iOS 19, tvOS 26, macOS 26, visionOS 26, *)
+    @available(iOS 26, tvOS 26, macOS 26, visionOS 26, *)
     @Test func webView() async throws {
         XCTAssertViewIntrospection(of: WKWebView.self) { spies in
             let spy0 = spies[0]

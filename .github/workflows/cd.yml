@@ -7,8 +7,9 @@ on:
 
 jobs:
   deploy:
+    if: false
     name: Deploy to CocoaPods Trunk
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -21,7 +22,7 @@ jobs:
           +: pod xcodes
 
       - name: Select Xcode version
-        run: sudo xcodes select 15.4
+        run: sudo xcodes select 16.4
 
       - name: Deploy to CocoaPods Trunk
         run: |

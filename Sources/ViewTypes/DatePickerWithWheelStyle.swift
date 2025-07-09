@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.wheel` style.
 ///
 /// ### iOS
@@ -54,6 +52,8 @@ extension IntrospectableViewType where Self == DatePickerWithWheelStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)

@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `NavigationView` type in SwiftUI, with `.stack` style.
 ///
 /// ### iOS
@@ -65,6 +63,8 @@ extension IntrospectableViewType where Self == NavigationViewWithStackStyleType 
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)

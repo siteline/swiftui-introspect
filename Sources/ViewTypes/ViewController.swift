@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the receiving SwiftUI view's view controller,
 /// or the closest ancestor view controller if missing.
 ///
@@ -73,6 +71,8 @@ extension IntrospectableViewType where Self == ViewControllerType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ViewControllerType, UIViewController> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)

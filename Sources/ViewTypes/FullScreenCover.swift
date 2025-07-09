@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of `.fullScreenCover` in SwiftUI.
 ///
 /// ### iOS
@@ -70,6 +68,8 @@ extension IntrospectableViewType where Self == FullScreenCoverType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
     @available(*, unavailable, message: ".fullScreenCover isn't available on iOS 13")
     public static let v13 = Self.unavailable()

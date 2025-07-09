@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `List` type in SwiftUI, with `.insetGrouped` style.
 ///
 /// ### iOS
@@ -61,6 +59,8 @@ extension IntrospectableViewType where Self == ListWithInsetGroupedStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ListWithInsetGroupedStyleType, UITableView> {
     @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on iOS 13")
     public static let v13 = Self(for: .v13)

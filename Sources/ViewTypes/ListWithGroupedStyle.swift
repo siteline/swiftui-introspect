@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `List` type in SwiftUI, with `.grouped` style.
 ///
 /// ### iOS
@@ -75,6 +73,8 @@ extension IntrospectableViewType where Self == ListWithGroupedStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ListWithGroupedStyleType, UITableView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)

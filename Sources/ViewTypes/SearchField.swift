@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
 ///
 /// ### iOS
@@ -70,6 +68,8 @@ extension IntrospectableViewType where Self == SearchFieldType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<SearchFieldType, UISearchBar> {
     @available(*, unavailable, message: ".searchable isn't available on iOS 13")
     public static let v13 = Self.unavailable()

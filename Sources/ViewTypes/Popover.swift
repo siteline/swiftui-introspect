@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of `.popover` in SwiftUI.
 ///
 /// ### iOS
@@ -56,6 +54,8 @@ extension IntrospectableViewType where Self == PopoverType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<PopoverType, UIPopoverPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)

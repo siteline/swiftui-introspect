@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `TabView` type in SwiftUI, with `.page` style.
 ///
 /// ### iOS
@@ -69,6 +67,8 @@ extension IntrospectableViewType where Self == TabViewWithPageStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
     @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
     public static let v13 = Self.unavailable()

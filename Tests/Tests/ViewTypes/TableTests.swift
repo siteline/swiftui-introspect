@@ -73,7 +73,7 @@ struct TableTests {
 
     #if os(macOS)
     @available(macOS 12, *)
-    func testTableWithBorderedStyle() async throws {
+    @Test func introspectWithBorderedStyle() async throws {
         try await introspection(of: PlatformTable.self) { spy1, spy2, spy3 in
             VStack {
                 TipTable()

@@ -51,7 +51,7 @@ func introspection<Entity: AnyObject & Sendable>(
     ) -> some View
 ) async throws -> Entity {
     var entity1: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
+    return try await confirmation(expectedCount: 1...3) { confirmation1 in
         let view = view(
             {
                 confirmation1()
@@ -80,8 +80,8 @@ func introspection<Entity: AnyObject & Sendable>(
 ) async throws -> (Entity, Entity) {
     var entity1: Entity?
     var entity2: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
+    return try await confirmation(expectedCount: 1...3) { confirmation1 in
+        try await confirmation(expectedCount: 1...3) { confirmation2 in
             let view = view(
                 {
                     confirmation1()
@@ -123,9 +123,9 @@ func introspection<Entity: AnyObject & Sendable>(
     var entity1: Entity?
     var entity2: Entity?
     var entity3: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
-            try await confirmation(expectedCount: 1...) { confirmation3 in
+    return try await confirmation(expectedCount: 1...3) { confirmation1 in
+        try await confirmation(expectedCount: 1...3) { confirmation2 in
+            try await confirmation(expectedCount: 1...3) { confirmation3 in
                 let view = view(
                     {
                         confirmation1()
@@ -176,10 +176,10 @@ func introspection<Entity: AnyObject & Sendable>(
     var entity2: Entity?
     var entity3: Entity?
     var entity4: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
-            try await confirmation(expectedCount: 1...) { confirmation3 in
-                try await confirmation(expectedCount: 1...) { confirmation4 in
+    return try await confirmation(expectedCount: 1...3) { confirmation1 in
+        try await confirmation(expectedCount: 1...3) { confirmation2 in
+            try await confirmation(expectedCount: 1...3) { confirmation3 in
+                try await confirmation(expectedCount: 1...3) { confirmation4 in
                     let view = view(
                         {
                             confirmation1()

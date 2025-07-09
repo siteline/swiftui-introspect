@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ToggleWithSwitchStyleTests {
     #if canImport(UIKit)
     typealias PlatformToggleWithSwitchStyle = UISwitch

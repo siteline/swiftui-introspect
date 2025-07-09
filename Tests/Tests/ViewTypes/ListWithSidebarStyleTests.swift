@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListWithSidebarStyleTests {
     #if canImport(UIKit)
     typealias PlatformListWithSidebarStyle = UIScrollView // covers both UITableView and UICollectionView

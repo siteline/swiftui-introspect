@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListTests {
     #if canImport(UIKit)
     typealias PlatformList = UIScrollView // covers both UITableView and UICollectionView

@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListWithGroupedStyleTests {
     #if canImport(UIKit)
     typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView

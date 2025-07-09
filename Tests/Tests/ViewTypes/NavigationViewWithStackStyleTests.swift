@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct NavigationViewWithStackStyleTests {
     #if canImport(UIKit)
     typealias PlatformNavigationViewWithStackStyle = UINavigationController

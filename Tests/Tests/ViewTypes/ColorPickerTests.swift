@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ColorPickerTests {
     #if canImport(UIKit)
     typealias PlatformColor = UIColor

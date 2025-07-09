@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct FullScreenCoverTests {
     @Test func introspect() async throws {
         try await introspection(of: UIPresentationController.self) { spy in

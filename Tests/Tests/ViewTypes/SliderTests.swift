@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct SliderTests {
     #if canImport(UIKit)
     typealias PlatformSlider = UISlider

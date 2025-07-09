@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct StepperTests {
     #if canImport(UIKit)
     typealias PlatformStepper = UIStepper

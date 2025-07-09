@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct TableTests {
     #if canImport(UIKit)
     typealias PlatformTable = UICollectionView

@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListWithPlainStyleTests {
     #if canImport(UIKit)
     typealias PlatformListWithPlainStyle = UIScrollView // covers both UITableView and UICollectionView

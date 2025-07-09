@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct FormWithGroupedStyleTests {
     #if canImport(UIKit)
     typealias PlatformFormWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView

@@ -5,7 +5,7 @@ import Testing
 import WebKit
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct WebViewTests {
     @available(iOS 26, tvOS 26, macOS 26, visionOS 26, *)
     @Test func introspect() async throws {

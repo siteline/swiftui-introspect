@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ButtonTests {
     #if canImport(AppKit)
     typealias PlatformButton = NSButton

@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct NavigationViewWithColumnsStyleTests {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationViewWithColumnsStyle = UISplitViewController

@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct DatePickerTests {
     #if canImport(UIKit)
     typealias PlatformDatePicker = UIDatePicker

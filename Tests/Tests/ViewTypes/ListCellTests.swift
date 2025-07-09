@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListCellTests {
     #if canImport(UIKit)
     typealias PlatformListCell = UIView // covers both UITableViewCell and UICollectionViewCell

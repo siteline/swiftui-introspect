@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct ListWithInsetStyleTests {
     #if canImport(UIKit)
     typealias PlatformListWithInsetStyle = UIScrollView // covers both UITableView and UICollectionView

@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct TabViewWithPageStyleTests {
     #if canImport(UIKit)
     typealias PlatformTabViewWithPageStyle = UICollectionView

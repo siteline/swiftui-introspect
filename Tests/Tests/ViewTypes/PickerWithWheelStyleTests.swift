@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct PickerWithWheelStyleTests {
     #if canImport(UIKit)
     typealias PlatformPickerWithWheelStyle = UIPickerView

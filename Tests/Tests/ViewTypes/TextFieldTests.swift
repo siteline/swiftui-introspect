@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite
 struct TextFieldTests {
     #if canImport(UIKit)
     typealias PlatformTextField = UITextField

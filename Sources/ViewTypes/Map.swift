@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Map` type in SwiftUI.
 ///
 /// ### iOS
@@ -65,7 +63,7 @@ import SwiftUI
 public struct MapType: IntrospectableViewType {}
 
 #if canImport(MapKit)
-import MapKit
+public import MapKit
 
 extension IntrospectableViewType where Self == MapType {
     public static var map: Self { .init() }

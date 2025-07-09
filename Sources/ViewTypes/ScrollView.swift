@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `ScrollView` type in SwiftUI.
 ///
 /// ### iOS
@@ -69,6 +67,8 @@ extension IntrospectableViewType where Self == ScrollViewType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ScrollViewType, UIScrollView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
@@ -95,6 +95,8 @@ extension visionOSViewVersion<ScrollViewType, UIScrollView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ScrollViewType, NSScrollView> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

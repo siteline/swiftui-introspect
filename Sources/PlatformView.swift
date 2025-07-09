@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 #if canImport(UIKit)
 public typealias PlatformView = UIView

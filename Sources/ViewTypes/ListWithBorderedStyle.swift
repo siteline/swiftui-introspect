@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `List` type in SwiftUI, with `.bordered` style.
 ///
 /// ### iOS
@@ -44,6 +42,8 @@ extension IntrospectableViewType where Self == ListWithBorderedStyleType {
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<ListWithBorderedStyleType, NSTableView> {
     @available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

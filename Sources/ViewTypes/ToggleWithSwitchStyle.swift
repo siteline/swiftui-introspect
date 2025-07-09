@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.switch` style.
 ///
 /// ### iOS
@@ -54,6 +52,8 @@ extension IntrospectableViewType where Self == ToggleWithSwitchStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ToggleWithSwitchStyleType, UISwitch> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
@@ -64,6 +64,8 @@ extension iOSViewVersion<ToggleWithSwitchStyleType, UISwitch> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ToggleWithSwitchStyleType, NSSwitch> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

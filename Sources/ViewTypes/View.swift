@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of a generic SwiftUI view type.
 ///
 /// ### iOS
@@ -73,6 +71,8 @@ extension IntrospectableViewType where Self == ViewType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ViewType, UIView> {
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
@@ -99,6 +99,8 @@ extension visionOSViewVersion<ViewType, UIView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ViewType, NSView> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

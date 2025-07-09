@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 /// The scope of introspection i.e. where introspect should look to find
 /// the desired target view relative to the applied `.introspect(...)`

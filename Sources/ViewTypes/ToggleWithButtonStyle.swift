@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.button` style.
 ///
 /// ### iOS
@@ -42,6 +40,8 @@ extension IntrospectableViewType where Self == ToggleWithButtonStyleType {
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<ToggleWithButtonStyleType, NSButton> {
     @available(*, unavailable, message: ".toggleStyle(.button) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

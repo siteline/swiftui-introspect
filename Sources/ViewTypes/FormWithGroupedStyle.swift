@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Form` type in SwiftUI, with `.grouped` style.
 ///
 /// ### iOS
@@ -85,6 +83,8 @@ extension IntrospectableViewType where Self == FormWithGroupedStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<FormWithGroupedStyleType, UITableView> {
     @available(*, unavailable, message: ".formStyle(.grouped) isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -120,6 +120,8 @@ extension visionOSViewVersion<FormWithGroupedStyleType, UICollectionView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<FormWithGroupedStyleType, NSScrollView> {
     @available(*, unavailable, message: ".formStyle(.grouped) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

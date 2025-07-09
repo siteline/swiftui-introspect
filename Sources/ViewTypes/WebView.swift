@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `WebView` type in SwiftUI.
 ///
 /// ### iOS
@@ -69,7 +67,7 @@ import SwiftUI
 public struct WebViewType: IntrospectableViewType {}
 
 #if canImport(WebKit)
-import WebKit
+public import WebKit
 
 extension IntrospectableViewType where Self == WebViewType {
     public static var webView: Self { .init() }

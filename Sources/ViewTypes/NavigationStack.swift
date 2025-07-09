@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `NavigationStack` type in SwiftUI.
 ///
 /// ### iOS
@@ -58,6 +56,8 @@ extension IntrospectableViewType where Self == NavigationStackType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<NavigationStackType, UINavigationController> {
     @available(*, unavailable, message: "NavigationStack isn't available on iOS 13")
     public static let v13 = Self.unavailable()

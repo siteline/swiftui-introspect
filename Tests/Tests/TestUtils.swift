@@ -1,5 +1,5 @@
 import SwiftUI
-import XCTest
+import Testing
 
 #if canImport(UIKit)
 @MainActor
@@ -43,79 +43,181 @@ enum TestUtils {
 #endif
 
 @MainActor
-func XCTAssertViewIntrospection<Entity: AnyObject>(
+@discardableResult
+func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
-    @ViewBuilder view: (Spies<Entity>) -> some View,
-    extraAssertions: ([Entity]) -> Void = { _ in },
-    file: StaticString = #file,
-    line: UInt = #line
-) {
-    let spies = Spies<Entity>()
-    let view = view(spies)
-    TestUtils.present(view: view)
-    XCTWaiter(delegate: spies).wait(for: spies.expectations.values.map(\.0), timeout: 3)
-    extraAssertions(spies.entities.sorted(by: { $0.key < $1.key }).map(\.value))
+    @ViewBuilder view: (
+        _ spy1: @escaping (Entity) -> Void
+    ) -> some View
+) async throws -> Entity {
+    var entity1: Entity?
+    return try await confirmation(expectedCount: 1...) { confirmation1 in
+        let view = view(
+            {
+                confirmation1()
+                entity1 = $0
+            },
+        )
+
+        TestUtils.present(view: view)
+
+        while entity1 == nil {
+            await Task.yield()
+        }
+
+        return try #require(entity1)
+    }
 }
 
-final class Spies<Entity: AnyObject>: NSObject, XCTWaiterDelegate {
-    private(set) var entities: [Int: Entity] = [:]
-    private(set) var expectations: [ObjectIdentifier: (XCTestExpectation, StaticString, UInt)] = [:]
+@MainActor
+@discardableResult
+func introspection<Entity: AnyObject & Sendable>(
+    of type: Entity.Type,
+    @ViewBuilder view: (
+        _ spy1: @escaping (Entity) -> Void,
+        _ spy2: @escaping (Entity) -> Void
+    ) -> some View
+) async throws -> (Entity, Entity) {
+    var entity1: Entity?
+    var entity2: Entity?
+    return try await confirmation(expectedCount: 1...) { confirmation1 in
+        try await confirmation(expectedCount: 1...) { confirmation2 in
+            let view = view(
+                {
+                    confirmation1()
+                    entity1 = $0
+                },
+                {
+                    confirmation2()
+                    entity2 = $0
+                },
+            )
 
-    subscript(
-        number: Int,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) -> (Entity) -> Void {
-        let expectation = XCTestExpectation()
-        expectations[ObjectIdentifier(expectation)] = (expectation, file, line)
-        return { [self] in
-            if let entity = entities[number] {
-                XCTAssert(entity === $0, "Found view was overriden by another view", file: file, line: line)
+            TestUtils.present(view: view)
+
+            while
+                entity1 == nil ||
+                entity2 == nil
+            {
+                await Task.yield()
             }
-            entities[number] = $0
-            expectation.fulfill()
+
+            return try (
+                #require(entity1),
+                #require(entity2),
+            )
         }
-    }
-
-    func waiter(
-        _ waiter: XCTWaiter,
-        didTimeoutWithUnfulfilledExpectations unfulfilledExpectations: [XCTestExpectation]
-    ) {
-        for expectation in unfulfilledExpectations {
-            let (_, file, line) = expectations[ObjectIdentifier(expectation)]!
-            XCTFail("Spy not called", file: file, line: line)
-        }
-    }
-
-    func nestedWaiter(
-        _ waiter: XCTWaiter,
-        wasInterruptedByTimedOutWaiter outerWaiter: XCTWaiter
-    ) {
-        XCTFail("wasInterruptedByTimedOutWaiter")
-    }
-
-    func waiter(
-        _ waiter: XCTWaiter,
-        fulfillmentDidViolateOrderingConstraintsFor expectation: XCTestExpectation,
-        requiredExpectation: XCTestExpectation
-    ) {
-        XCTFail("fulfillmentDidViolateOrderingConstraintsFor")
-    }
-
-    func waiter(
-        _ waiter: XCTWaiter,
-        didFulfillInvertedExpectation expectation: XCTestExpectation
-    ) {
-        XCTFail("didFulfillInvertedExpectation")
     }
 }
 
-extension Collection {
-    subscript(safe index: Index, file: StaticString = #file, line: UInt = #line) -> Element? {
-        guard indices.contains(index) else {
-            XCTFail("Index \(index) is out of bounds", file: file, line: line)
-            return nil
+@MainActor
+@discardableResult
+func introspection<Entity: AnyObject & Sendable>(
+    of type: Entity.Type,
+    @ViewBuilder view: (
+        _ spy1: @escaping (Entity) -> Void,
+        _ spy2: @escaping (Entity) -> Void,
+        _ spy3: @escaping (Entity) -> Void
+    ) -> some View
+) async throws -> (Entity, Entity, Entity) {
+    var entity1: Entity?
+    var entity2: Entity?
+    var entity3: Entity?
+    return try await confirmation(expectedCount: 1...) { confirmation1 in
+        try await confirmation(expectedCount: 1...) { confirmation2 in
+            try await confirmation(expectedCount: 1...) { confirmation3 in
+                let view = view(
+                    {
+                        confirmation1()
+                        entity1 = $0
+                    },
+                    {
+                        confirmation2()
+                        entity2 = $0
+                    },
+                    {
+                        confirmation3()
+                        entity3 = $0
+                    },
+                )
+
+                TestUtils.present(view: view)
+
+                while
+                    entity1 == nil ||
+                    entity2 == nil ||
+                    entity3 == nil
+                {
+                    await Task.yield()
+                }
+
+                return try (
+                    #require(entity1),
+                    #require(entity2),
+                    #require(entity3),
+                )
+            }
         }
-        return self[index]
+    }
+}
+
+@MainActor
+@discardableResult
+func introspection<Entity: AnyObject & Sendable>(
+    of type: Entity.Type,
+    @ViewBuilder view: (
+        _ spy1: @escaping (Entity) -> Void,
+        _ spy2: @escaping (Entity) -> Void,
+        _ spy3: @escaping (Entity) -> Void,
+        _ spy4: @escaping (Entity) -> Void
+    ) -> some View
+) async throws -> (Entity, Entity, Entity, Entity) {
+    var entity1: Entity?
+    var entity2: Entity?
+    var entity3: Entity?
+    var entity4: Entity?
+    return try await confirmation(expectedCount: 1...) { confirmation1 in
+        try await confirmation(expectedCount: 1...) { confirmation2 in
+            try await confirmation(expectedCount: 1...) { confirmation3 in
+                try await confirmation(expectedCount: 1...) { confirmation4 in
+                    let view = view(
+                        {
+                            confirmation1()
+                            entity1 = $0
+                        },
+                        {
+                            confirmation2()
+                            entity2 = $0
+                        },
+                        {
+                            confirmation3()
+                            entity3 = $0
+                        },
+                        {
+                            confirmation4()
+                            entity4 = $0
+                        },
+                    )
+
+                    TestUtils.present(view: view)
+
+                    while
+                        entity1 == nil ||
+                        entity2 == nil ||
+                        entity3 == nil ||
+                        entity4 == nil
+                    {
+                        await Task.yield()
+                    }
+
+                    return try (
+                        #require(entity1),
+                        #require(entity2),
+                        #require(entity3),
+                        #require(entity4),
+                    )
+                }
+            }
+        }
     }
 }

@@ -1,30 +1,19 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class SecureFieldTests: XCTestCase {
+@Suite
+struct SecureFieldTests {
     #if canImport(UIKit)
     typealias PlatformSecureField = UITextField
     #elseif canImport(AppKit)
     typealias PlatformSecureField = NSTextField
     #endif
 
-    func testSecureField() {
-        XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformSecureField.self) { spy1, spy2, spy3 in
             VStack {
-                SecureField("", text: .constant("Secure Field 0"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-                    .cornerRadius(8)
-
                 SecureField("", text: .constant("Secure Field 1"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
@@ -39,34 +28,30 @@ final class SecureFieldTests: XCTestCase {
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+                    .cornerRadius(8)
+
+                SecureField("", text: .constant("Secure Field 3"))
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                    #elseif os(macOS)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Secure Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Secure Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Secure Field 2")
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Secure Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Secure Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Secure Field 2")
-            #endif
         }
+        #if canImport(UIKit)
+        #expect(entity1.text == "Secure Field 1")
+        #expect(entity2.text == "Secure Field 2")
+        #expect(entity3.text == "Secure Field 3")
+        #elseif canImport(AppKit)
+        #expect(entity1.stringValue == "Secure Field 1")
+        #expect(entity2.stringValue == "Secure Field 2")
+        #expect(entity3.stringValue == "Secure Field 3")
+        #endif
     }
 
-    func testSecureFieldsEmbeddedInList() {
-        XCTAssertViewIntrospection(of: PlatformSecureField.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @Test func introspectEmbeddedInList() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformSecureField.self) { spy1, spy2, spy3 in
             List {
-                SecureField("", text: .constant("Secure Field 0"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
                 SecureField("", text: .constant("Secure Field 1"))
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
@@ -80,17 +65,23 @@ final class SecureFieldTests: XCTestCase {
                     #elseif os(macOS)
                     .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+
+                SecureField("", text: .constant("Secure Field 3"))
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                    #elseif os(macOS)
+                    .introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Secure Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Secure Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Secure Field 2")
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Secure Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Secure Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Secure Field 2")
-            #endif
         }
+        #if canImport(UIKit)
+        #expect(entity1.text == "Secure Field 1")
+        #expect(entity2.text == "Secure Field 2")
+        #expect(entity3.text == "Secure Field 3")
+        #elseif canImport(AppKit)
+        #expect(entity1.stringValue == "Secure Field 1")
+        #expect(entity2.stringValue == "Secure Field 2")
+        #expect(entity3.stringValue == "Secure Field 3")
+        #endif
     }
 }

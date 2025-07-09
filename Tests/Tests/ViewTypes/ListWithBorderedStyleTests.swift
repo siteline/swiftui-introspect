@@ -1,44 +1,37 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(macOS 12, *)
 @MainActor
-final class ListWithBorderedStyleTests: XCTestCase {
+@Suite
+struct ListWithBorderedStyleTests {
     #if canImport(AppKit)
     typealias PlatformListWithBorderedStyle = NSTableView
     #endif
 
-    func testListWithBorderedStyle() throws {
-        guard #available(macOS 12, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformListWithBorderedStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-
+    @available(macOS 12, *)
+    @Test func introspect() async throws {
+        let (entity1, entity2) = try await introspection(of: PlatformListWithBorderedStyle.self) { spy1, spy2 in
             HStack {
                 List {
                     Text("Item 1")
                 }
                 .listStyle(.bordered)
                 #if os(macOS)
-                .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26)) { spy0($0) }
+                .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
                 #endif
 
                 List {
                     Text("Item 1")
                     #if os(macOS)
-                    .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), scope: .ancestor) { spy1($0) }
+                    .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), scope: .ancestor, customize: spy2)
                     #endif
                 }
                 .listStyle(.bordered)
             }
-        } extraAssertions: {
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
         }
+        #expect(entity1 !== entity2)
     }
 }
 #endif

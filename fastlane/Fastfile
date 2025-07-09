@@ -79,7 +79,7 @@ lane :test do |options|
             disable_concurrent_testing: true,
         )
     else
-        unless ["SwiftUIIntrospectTests", "SwiftUIIntrospectUITests"].include?(scheme)
+        unless ["SwiftUIIntrospectTests"].include?(scheme)
             raise "Unsupported scheme: #{scheme}"
         end
         run_tests(

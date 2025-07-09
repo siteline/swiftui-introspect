@@ -1,10 +1,10 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 16, tvOS 16, macOS 13, *)
 @MainActor
-final class NavigationSplitViewTests: XCTestCase {
+@Suite
+struct NavigationSplitViewTests {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationSplitView = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
@@ -13,17 +13,10 @@ final class NavigationSplitViewTests: XCTestCase {
     typealias PlatformNavigationSplitView = NSSplitView
     #endif
 
-    func testNavigationSplitView() throws {
-        guard #available(iOS 16, tvOS 16, macOS 13, *) else {
-            throw XCTSkip()
-        }
-        guard #unavailable(tvOS 18) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
-            let spy = spies[0]
-
+    @available(iOS 16, macOS 13, *)
+    @available(tvOS, introduced: 16, obsoleted: 18)
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformNavigationSplitView.self) { spy in
             NavigationSplitView {
                 ZStack {
                     Color.red
@@ -45,17 +38,10 @@ final class NavigationSplitViewTests: XCTestCase {
         }
     }
 
-    func testNavigationSplitViewAsAncestor() throws {
-        guard #available(iOS 16, tvOS 16, macOS 13, *) else {
-            throw XCTSkip()
-        }
-        guard #unavailable(tvOS 18) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformNavigationSplitView.self) { spies in
-            let spy = spies[0]
-
+    @available(iOS 16, macOS 13, *)
+    @available(tvOS, introduced: 16, obsoleted: 18)
+    @Test func introspectAsAncestor() async throws {
+        try await introspection(of: PlatformNavigationSplitView.self) { spy in
             // NB: columnVisibility is explicitly set here for ancestor introspection to work, because initially on iPad the sidebar is hidden, so the introspection modifier isn't triggered until the user makes the sidebar appear. This is why ancestor introspection is discouraged for most situations and it's opt-in.
             NavigationSplitView(columnVisibility: .constant(.all)) {
                 ZStack {

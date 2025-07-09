@@ -1,51 +1,43 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(macOS 12, *)
 @MainActor
-final class ToggleWithButtonStyleTests: XCTestCase {
+@Suite
+struct ToggleWithButtonStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformToggleWithButtonStyle = NSButton
     #endif
 
-    func testToggleWithButtonStyle() throws {
-        guard #available(macOS 12, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformToggleWithButtonStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @available(macOS 12, *)
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformToggleWithButtonStyle.self) { spy1, spy2, spy3 in
             VStack {
                 Toggle("", isOn: .constant(true))
-                    .toggleStyle(.button)
-                    #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
-                Toggle("", isOn: .constant(false))
                     .toggleStyle(.button)
                     #if os(macOS)
                     .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
-                Toggle("", isOn: .constant(true))
+                Toggle("", isOn: .constant(false))
                     .toggleStyle(.button)
                     #if os(macOS)
                     .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+
+                Toggle("", isOn: .constant(true))
+                    .toggleStyle(.button)
+                    #if os(macOS)
+                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            XCTAssertEqual($0[safe: 0]?.state, .on)
-            XCTAssertEqual($0[safe: 1]?.state, .off)
-            XCTAssertEqual($0[safe: 2]?.state, .on)
-            #endif
         }
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        #expect(entity1.state == .on)
+        #expect(entity2.state == .off)
+        #expect(entity3.state == .on)
+        #endif
     }
 }
 #endif

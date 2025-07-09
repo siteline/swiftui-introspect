@@ -1,46 +1,42 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ToggleWithCheckboxStyleTests: XCTestCase {
+@Suite
+struct ToggleWithCheckboxStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformToggleWithCheckboxStyle = NSButton
     #endif
 
-    func testToggleWithCheckboxStyle() throws {
-        XCTAssertViewIntrospection(of: PlatformToggleWithCheckboxStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformToggleWithCheckboxStyle.self) { spy1, spy2, spy3 in
             VStack {
                 Toggle("", isOn: .constant(true))
-                    .toggleStyle(.checkbox)
-                    #if os(macOS)
-                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
-                Toggle("", isOn: .constant(false))
                     .toggleStyle(.checkbox)
                     #if os(macOS)
                     .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
-                Toggle("", isOn: .constant(true))
+                Toggle("", isOn: .constant(false))
                     .toggleStyle(.checkbox)
                     #if os(macOS)
                     .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+
+                Toggle("", isOn: .constant(true))
+                    .toggleStyle(.checkbox)
+                    #if os(macOS)
+                    .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            XCTAssertEqual($0[safe: 0]?.state, .on)
-            XCTAssertEqual($0[safe: 1]?.state, .off)
-            XCTAssertEqual($0[safe: 2]?.state, .on)
-            #endif
         }
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        #expect(entity1.state == .on)
+        #expect(entity2.state == .off)
+        #expect(entity3.state == .on)
+        #endif
     }
 }
 #endif

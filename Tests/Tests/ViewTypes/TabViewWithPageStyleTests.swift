@@ -1,23 +1,17 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 14, tvOS 14, *)
 @MainActor
-final class TabViewWithPageStyleTests: XCTestCase {
+@Suite
+struct TabViewWithPageStyleTests {
     #if canImport(UIKit)
     typealias PlatformTabViewWithPageStyle = UICollectionView
     #endif
 
-    func testTabViewWithPageStyle() throws {
-        guard #available(iOS 14, tvOS 14, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
-            let spy = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformTabViewWithPageStyle.self) { spy in
             TabView {
                 Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                 Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
@@ -29,14 +23,8 @@ final class TabViewWithPageStyleTests: XCTestCase {
         }
     }
 
-    func testTabViewWithPageStyleAsAncestor() throws {
-        guard #available(iOS 14, tvOS 14, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTabViewWithPageStyle.self) { spies in
-            let spy = spies[0]
-
+    @Test func introspectAsAncestor() async throws {
+        try await introspection(of: PlatformTabViewWithPageStyle.self) { spy in
             TabView {
                 Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                     #if os(iOS) || os(tvOS) || os(visionOS)

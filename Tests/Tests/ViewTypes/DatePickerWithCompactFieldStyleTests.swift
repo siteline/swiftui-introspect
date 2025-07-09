@@ -1,41 +1,24 @@
 #if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 14, macOS 10.15.4, *)
 @MainActor
-final class DatePickerWithCompactStyleTests: XCTestCase {
+@Suite
+struct DatePickerWithCompactStyleTests {
     #if canImport(UIKit)
     typealias PlatformDatePickerWithCompactStyle = UIDatePicker
     #elseif canImport(AppKit)
     typealias PlatformDatePickerWithCompactStyle = NSDatePicker
     #endif
 
-    func testDatePickerWithCompactStyle() throws {
-        guard #available(iOS 14, macOS 10.15.4, *) else {
-            throw XCTSkip()
-        }
+    func introspect() async throws {
+        let date1 = Date(timeIntervalSince1970: 0)
+        let date2 = Date(timeIntervalSince1970: 5)
+        let date3 = Date(timeIntervalSince1970: 10)
 
-        let date0 = Date(timeIntervalSince1970: 0)
-        let date1 = Date(timeIntervalSince1970: 5)
-        let date2 = Date(timeIntervalSince1970: 10)
-
-        XCTAssertViewIntrospection(of: PlatformDatePickerWithCompactStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformDatePickerWithCompactStyle.self) { spy1, spy2, spy3 in
             VStack {
-                DatePicker("", selection: .constant(date0))
-                    .datePickerStyle(.compact)
-                    #if os(iOS) || os(visionOS)
-                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-                    .cornerRadius(8)
-
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.compact)
                     #if os(iOS) || os(visionOS)
@@ -52,18 +35,26 @@ final class DatePickerWithCompactStyleTests: XCTestCase {
                     #elseif os(macOS)
                     .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+                    .cornerRadius(8)
+
+                DatePicker("", selection: .constant(date3))
+                    .datePickerStyle(.compact)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.datePicker(style: .compact), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                    #elseif os(macOS)
+                    .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.date, date0)
-            XCTAssertEqual($0[safe: 1]?.date, date1)
-            XCTAssertEqual($0[safe: 2]?.date, date2)
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.dateValue, date0)
-            XCTAssertEqual($0[safe: 1]?.dateValue, date1)
-            XCTAssertEqual($0[safe: 2]?.dateValue, date2)
-            #endif
         }
+        #if canImport(UIKit)
+        #expect(entity1.date == date1)
+        #expect(entity2.date == date2)
+        #expect(entity3.date == date3)
+        #elseif canImport(AppKit)
+        #expect(entity1.dateValue == date1)
+        #expect(entity2.dateValue == date2)
+        #expect(entity3.dateValue == date3)
+        #endif
     }
 }
 #endif

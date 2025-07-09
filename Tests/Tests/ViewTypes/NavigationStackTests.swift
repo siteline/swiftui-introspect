@@ -1,23 +1,18 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 16, tvOS 16, *)
 @MainActor
-final class NavigationStackTests: XCTestCase {
+@Suite
+struct NavigationStackTests {
     #if canImport(UIKit)
     typealias PlatformNavigationStack = UINavigationController
     #endif
 
-    func testNavigationStack() throws {
-        guard #available(iOS 16, tvOS 16, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
-            let spy = spies[0]
-
+    @available(iOS 16, tvOS 16, *)
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformNavigationStack.self) { spy in
             NavigationStack {
                 ZStack {
                     Color.red
@@ -30,14 +25,9 @@ final class NavigationStackTests: XCTestCase {
         }
     }
 
-    func testNavigationStackAsAncestor() throws {
-        guard #available(iOS 16, tvOS 16, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
-            let spy = spies[0]
-
+    @available(iOS 16, tvOS 16, *)
+    @Test func introspectAsAncestor() async throws {
+        try await introspection(of: PlatformNavigationStack.self) { spy in
             NavigationStack {
                 ZStack {
                     Color.red

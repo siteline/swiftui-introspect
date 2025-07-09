@@ -1,36 +1,21 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class PickerWithSegmentedStyleTests: XCTestCase {
+@Suite
+struct PickerWithSegmentedStyleTests {
     #if canImport(UIKit)
     typealias PlatformPickerWithSegmentedStyle = UISegmentedControl
     #elseif canImport(AppKit)
     typealias PlatformPickerWithSegmentedStyle = NSSegmentedControl
     #endif
 
-    func testPickerWithSegmentedStyle() {
-        XCTAssertViewIntrospection(of: PlatformPickerWithSegmentedStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformPickerWithSegmentedStyle.self) { spy1, spy2, spy3 in
             VStack {
                 Picker("Pick", selection: .constant("1")) {
                     Text("1").tag("1")
-                }
-                .pickerStyle(.segmented)
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.picker(style: .segmented), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                #elseif os(macOS)
-                .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                #endif
-                .cornerRadius(8)
-
-                Picker("Pick", selection: .constant("1")) {
-                    Text("1").tag("1")
-                    Text("2").tag("2")
                 }
                 .pickerStyle(.segmented)
                 #if os(iOS) || os(tvOS) || os(visionOS)
@@ -43,7 +28,6 @@ final class PickerWithSegmentedStyleTests: XCTestCase {
                 Picker("Pick", selection: .constant("1")) {
                     Text("1").tag("1")
                     Text("2").tag("2")
-                    Text("3").tag("3")
                 }
                 .pickerStyle(.segmented)
                 #if os(iOS) || os(tvOS) || os(visionOS)
@@ -51,17 +35,29 @@ final class PickerWithSegmentedStyleTests: XCTestCase {
                 #elseif os(macOS)
                 .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                 #endif
+                .cornerRadius(8)
+
+                Picker("Pick", selection: .constant("1")) {
+                    Text("1").tag("1")
+                    Text("2").tag("2")
+                    Text("3").tag("3")
+                }
+                .pickerStyle(.segmented)
+                #if os(iOS) || os(tvOS) || os(visionOS)
+                .introspect(.picker(style: .segmented), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                #elseif os(macOS)
+                .introspect(.picker(style: .segmented), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                #endif
             }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.numberOfSegments, 1)
-            XCTAssertEqual($0[safe: 1]?.numberOfSegments, 2)
-            XCTAssertEqual($0[safe: 2]?.numberOfSegments, 3)
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.segmentCount, 1)
-            XCTAssertEqual($0[safe: 1]?.segmentCount, 2)
-            XCTAssertEqual($0[safe: 2]?.segmentCount, 3)
-            #endif
         }
+        #if canImport(UIKit)
+        #expect(entity1.numberOfSegments == 1)
+        #expect(entity2.numberOfSegments == 2)
+        #expect(entity3.numberOfSegments == 3)
+        #elseif canImport(AppKit)
+        #expect(entity1.segmentCount == 1)
+        #expect(entity2.segmentCount == 2)
+        #expect(entity3.segmentCount == 3)
+        #endif
     }
 }

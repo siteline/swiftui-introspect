@@ -1,56 +1,57 @@
 @_spi(Advanced) import SwiftUIIntrospect
-import XCTest
+import Testing
 
-final class WeakTests: XCTestCase {
+@Suite
+struct WeakTests {
     final class Foo {}
 
     var strongFoo: Foo? = Foo()
 
-    func testInit_nil() {
+    @Test func Init_nil() {
         @Weak var weakFoo: Foo?
-        XCTAssertNil(weakFoo)
+        #expect(weakFoo == nil)
     }
 
-    func testInit_nonNil() {
+    @Test func Init_nonNil() {
         @Weak var weakFoo: Foo? = strongFoo
-        XCTAssertIdentical(weakFoo, strongFoo)
+        #expect(weakFoo === strongFoo)
     }
 
-    func testAssignment_nilToNil() {
+    @Test func Assignment_nilToNil() {
         @Weak var weakFoo: Foo?
         weakFoo = nil
-        XCTAssertNil(weakFoo)
+        #expect(weakFoo == nil)
     }
 
-    func testAssignment_nilToNonNil() {
+    @Test func Assignment_nilToNonNil() {
         @Weak var weakFoo: Foo?
         let otherFoo = Foo()
         weakFoo = otherFoo
-        XCTAssertIdentical(weakFoo, otherFoo)
+        #expect(weakFoo === otherFoo)
     }
 
-    func testAssignment_nonNilToNil() {
+    @Test func Assignment_nonNilToNil() {
         @Weak var weakFoo: Foo? = strongFoo
         weakFoo = nil
-        XCTAssertNil(weakFoo)
+        #expect(weakFoo == nil)
     }
 
-    func testAssignment_nonNilToNonNil() {
+    @Test func Assignment_nonNilToNonNil() {
         @Weak var weakFoo: Foo? = strongFoo
         let otherFoo = Foo()
         weakFoo = otherFoo
-        XCTAssertIdentical(weakFoo, otherFoo)
+        #expect(weakFoo === otherFoo)
     }
 
-    func testIndirectAssignment_nonNilToNil() {
+    @Test mutating func IndirectAssignment_nonNilToNil() {
         @Weak var weakFoo: Foo? = strongFoo
         strongFoo = nil
-        XCTAssertNil(weakFoo)
+        #expect(weakFoo == nil)
     }
 
-    func testIndirectAssignment_nonNilToNonNil() {
+    @Test mutating func IndirectAssignment_nonNilToNonNil() {
         @Weak var weakFoo: Foo? = strongFoo
         strongFoo = Foo()
-        XCTAssertNil(weakFoo)
+        #expect(weakFoo == nil)
     }
 }

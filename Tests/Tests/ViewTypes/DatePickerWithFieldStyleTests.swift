@@ -1,32 +1,22 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class DatePickerWithFieldStyleTests: XCTestCase {
+@Suite
+struct DatePickerWithFieldStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformDatePickerWithFieldStyle = NSDatePicker
     #endif
 
-    func testDatePickerWithFieldStyle() {
-        let date0 = Date(timeIntervalSince1970: 0)
-        let date1 = Date(timeIntervalSince1970: 5)
-        let date2 = Date(timeIntervalSince1970: 10)
+    @Test func introspect() async throws {
+        let date1 = Date(timeIntervalSince1970: 0)
+        let date2 = Date(timeIntervalSince1970: 5)
+        let date3 = Date(timeIntervalSince1970: 10)
 
-        XCTAssertViewIntrospection(of: PlatformDatePickerWithFieldStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformDatePickerWithFieldStyle.self) { spy1, spy2, spy3 in
             VStack {
-                DatePicker("", selection: .constant(date0))
-                    .datePickerStyle(.field)
-                    #if os(macOS)
-                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-                    .cornerRadius(8)
-
                 DatePicker("", selection: .constant(date1))
                     .datePickerStyle(.field)
                     #if os(macOS)
@@ -39,14 +29,20 @@ final class DatePickerWithFieldStyleTests: XCTestCase {
                     #if os(macOS)
                     .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
+                    .cornerRadius(8)
+
+                DatePicker("", selection: .constant(date3))
+                    .datePickerStyle(.field)
+                    #if os(macOS)
+                    .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    #endif
             }
-        } extraAssertions: {
-            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            XCTAssertEqual($0[safe: 0]?.dateValue, date0)
-            XCTAssertEqual($0[safe: 1]?.dateValue, date1)
-            XCTAssertEqual($0[safe: 2]?.dateValue, date2)
-            #endif
         }
+        #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+        #expect(entity1.dateValue == date1)
+        #expect(entity2.dateValue == date2)
+        #expect(entity3.dateValue == date3)
+        #endif
     }
 }
 #endif

@@ -1,35 +1,21 @@
 #if !os(tvOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 16, macOS 12, *)
 @MainActor
-final class TableTests: XCTestCase {
+@Suite
+struct TableTests {
     #if canImport(UIKit)
     typealias PlatformTable = UICollectionView
     #elseif canImport(AppKit)
     typealias PlatformTable = NSTableView
     #endif
 
-    func testTable() throws {
-        guard #available(iOS 16, macOS 12, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @available(iOS 16, macOS 12, *)
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformTable.self) { spy1, spy2, spy3 in
             VStack {
-                TipTable()
-                    #if os(iOS) || os(visionOS)
-                    .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
                 TipTable()
                     #if os(iOS) || os(visionOS)
                     .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
@@ -42,30 +28,22 @@ final class TableTests: XCTestCase {
                     .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    #endif
+
+                TipTable()
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                    #elseif os(macOS)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
                     #endif
             }
         }
     }
 
-    func testTableWithInsetStyle() throws {
-        guard #available(iOS 16, macOS 12, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @available(iOS 16, macOS 12, *)
+    @Test func introspectWithInsetStyle() async throws {
+        try await introspection(of: PlatformTable.self) { spy1, spy2, spy3 in
             VStack {
-                TipTable()
-                    .tableStyle(.inset)
-                    #if os(iOS) || os(visionOS)
-                    .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
                 TipTable()
                     .tableStyle(.inset)
                     #if os(iOS) || os(visionOS)
@@ -80,29 +58,24 @@ final class TableTests: XCTestCase {
                     .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
                     #elseif os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    #endif
+
+                TipTable()
+                    .tableStyle(.inset)
+                    #if os(iOS) || os(visionOS)
+                    .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+                    #elseif os(macOS)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
                     #endif
             }
         }
     }
 
     #if os(macOS)
-    func testTableWithBorderedStyle() throws {
-        guard #available(macOS 12, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTable.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @available(macOS 12, *)
+    @Test func introspectWithBorderedStyle() async throws {
+        try await introspection(of: PlatformTable.self) { spy1, spy2, spy3 in
             VStack {
-                TipTable()
-                    .tableStyle(.bordered)
-                    #if os(macOS)
-                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
                 TipTable()
                     .tableStyle(.bordered)
                     #if os(macOS)
@@ -113,6 +86,12 @@ final class TableTests: XCTestCase {
                     .tableStyle(.bordered)
                     #if os(macOS)
                     .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    #endif
+
+                TipTable()
+                    .tableStyle(.bordered)
+                    #if os(macOS)
+                    .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
                     #endif
             }
         }

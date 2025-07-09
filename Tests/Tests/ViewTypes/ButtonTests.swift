@@ -1,50 +1,45 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ButtonTests: XCTestCase {
+@Suite
+struct ButtonTests {
     #if canImport(AppKit)
     typealias PlatformButton = NSButton
     #endif
 
-    func testButton() {
-        XCTAssertViewIntrospection(of: PlatformButton.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-            let spy3 = spies[3]
-
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3, entity4) = try await introspection(of: PlatformButton.self) { spy1, spy2, spy3, spy4 in
             VStack {
                 Button("Button 0", action: {})
                     .buttonStyle(.bordered)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
 
                 Button("Button 1", action: {})
                     .buttonStyle(.borderless)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
                     #endif
 
                 Button("Button 2", action: {})
                     .buttonStyle(.link)
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
                     #endif
 
                 Button("Button 3", action: {})
                     #if os(macOS)
-                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+                    .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy4)
                     #endif
             }
-        } extraAssertions: {
-            #if canImport(AppKit)
-            XCTAssert(Set($0.map(ObjectIdentifier.init)).count == 4)
-            #endif
         }
+        #if canImport(AppKit)
+        #expect(Set([entity1, entity2, entity3, entity4].map(ObjectIdentifier.init)).count == 4)
+        #endif
     }
 }
 #endif

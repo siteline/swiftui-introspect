@@ -1,24 +1,20 @@
 #if !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class TabViewTests: XCTestCase {
+@Suite
+struct TabViewTests {
     #if canImport(UIKit)
     typealias PlatformTabView = UITabBarController
     #elseif canImport(AppKit)
     typealias PlatformTabView = NSTabView
     #endif
 
-    func testTabView() throws {
-        guard #unavailable(macOS 15) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
-            let spy = spies[0]
-
+    @available(macOS, introduced: 10.15, obsoleted: 15)
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformTabView.self) { spy in
             TabView {
                 ZStack {
                     Color.red
@@ -33,14 +29,9 @@ final class TabViewTests: XCTestCase {
         }
     }
 
-    func testTabViewAsAncestor() throws {
-        guard #unavailable(macOS 15) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformTabView.self) { spies in
-            let spy = spies[0]
-
+    @available(macOS, introduced: 10.15, obsoleted: 15)
+    @Test func introspectAsAncestor() async throws {
+        try await introspection(of: PlatformTabView.self) { spy in
             TabView {
                 ZStack {
                     Color.red

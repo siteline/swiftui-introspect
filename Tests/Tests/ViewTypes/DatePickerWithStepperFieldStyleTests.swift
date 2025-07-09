@@ -39,8 +39,8 @@ import Testing
         }
         #if canImport(AppKit) && !targetEnvironment(macCatalyst)
         #expect(entity1.dateValue == date1)
-        #expect(entity2.dateValue == date3)
-        #expect(entity3.dateValue == date2)
+        #expect(entity2.dateValue == date2)
+        #expect(entity3.dateValue == date3)
         #endif
     }
 }

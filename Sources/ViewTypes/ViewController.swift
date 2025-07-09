@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 /// An abstract representation of the receiving SwiftUI view's view controller,
 /// or the closest ancestor view controller if missing.

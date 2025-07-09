@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 /// An abstract representation of the `Form` type in SwiftUI, with `.grouped` style.
 ///

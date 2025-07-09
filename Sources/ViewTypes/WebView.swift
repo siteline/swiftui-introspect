@@ -69,7 +69,7 @@ import SwiftUI
 public struct WebViewType: IntrospectableViewType {}
 
 #if canImport(WebKit)
-import WebKit
+public import WebKit
 
 extension IntrospectableViewType where Self == WebViewType {
     public static var webView: Self { .init() }

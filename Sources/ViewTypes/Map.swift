@@ -65,7 +65,7 @@ import SwiftUI
 public struct MapType: IntrospectableViewType {}
 
 #if canImport(MapKit)
-import MapKit
+public import MapKit
 
 extension IntrospectableViewType where Self == MapType {
     public static var map: Self { .init() }

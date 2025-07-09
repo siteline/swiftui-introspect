@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 /// An abstract representation of the `Table` type in SwiftUI, with any style.
 ///

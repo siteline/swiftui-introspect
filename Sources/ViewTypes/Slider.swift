@@ -1,5 +1,5 @@
 #if !os(watchOS)
-import SwiftUI
+public import SwiftUI
 
 /// An abstract representation of the `Slider` type in SwiftUI.
 ///

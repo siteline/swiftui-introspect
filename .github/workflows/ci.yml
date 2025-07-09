@@ -24,11 +24,6 @@ jobs:
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Set up pkgx environment
-        uses: pkgxdev/setup@v1
-        with:
-          +: pod xcodes
-
       - name: Select Xcode version
         run: sudo xcodes select 16.4
 
@@ -143,11 +138,6 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v4
 
-      - name: Set up pkgx environment
-        uses: pkgxdev/setup@v1
-        with:
-          +: fastlane xcodes
-
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
@@ -160,7 +150,7 @@ jobs:
 
       - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15
           max_attempts: 3

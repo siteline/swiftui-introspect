@@ -331,7 +331,6 @@
 			);
 			mainGroup = D5F0BE3E29C0DB9700AD95AB;
 			packageReferences = (
-				D58D83362A66C01300A203BE /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = D5F0BE4A29C0DBE800AD95AB /* Products */;
 			projectDirPath = "";
@@ -895,17 +894,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D58D83362A66C01300A203BE /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.11.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		D58CE15529C621B30081BFB0 /* SwiftUIIntrospect */ = {

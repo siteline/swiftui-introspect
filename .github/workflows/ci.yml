@@ -60,9 +60,10 @@ jobs:
             os: macos-15
             xcode: 16.4
           - platform: [iOS, 26]
-            runtime: iOS 26.0
+            runtime: iOS 26.0-beta1
             os: macos-15
             xcode: 26.0
+            install: true
 
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
@@ -84,9 +85,10 @@ jobs:
             os: macos-15
             xcode: 16.4
           - platform: [tvOS, 26]
-            runtime: tvOS 26.0
+            runtime: tvOS 26.0-beta1
             os: macos-15
             xcode: 26.0
+            install: true
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
@@ -108,9 +110,10 @@ jobs:
             os: macos-15
             xcode: 16.4
           - platform: [watchOS, 26]
-            runtime: watchOS 26.0
+            runtime: watchOS 26.0-beta1
             os: macos-15
             xcode: 26.0
+            install: true
 
           - platform: [macOS, 15]
             runtime: macOS 15
@@ -131,9 +134,10 @@ jobs:
             os: macos-15
             xcode: 16.4
           - platform: [visionOS, 26]
-            runtime: visionOS 26.0
+            runtime: visionOS 26.0-beta1
             os: macos-15
             xcode: 26.0
+            install: true
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -154,7 +158,9 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
+          command: |
+            sudo xcodes runtimes --include-betas
+            sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |

@@ -138,11 +138,6 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v4
 
-      - name: Set up pkgx environment
-        uses: pkgxdev/setup@v4
-        with:
-          +: fastlane xcodes
-
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 

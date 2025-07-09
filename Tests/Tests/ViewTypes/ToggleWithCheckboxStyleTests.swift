@@ -10,7 +10,7 @@ struct ToggleWithCheckboxStyleTests {
     typealias PlatformToggleWithCheckboxStyle = NSButton
     #endif
 
-    @Test func testToggleWithCheckboxStyle() async throws {
+    @Test func introspect() async throws {
         let (entity1, entity2, entity3) = try await introspection(of: PlatformToggleWithCheckboxStyle.self) { spy1, spy2, spy3 in
             VStack {
                 Toggle("", isOn: .constant(true))

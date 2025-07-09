@@ -1,45 +1,41 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class WindowTests: XCTestCase {
+@Suite
+struct WindowTests {
     #if canImport(UIKit)
     typealias PlatformWindow = UIWindow
     #elseif canImport(AppKit)
     typealias PlatformWindow = NSWindow
     #endif
 
-    func testWindow() {
-        XCTAssertViewIntrospection(of: PlatformWindow.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformWindow.self) { spy1, spy2, spy3 in
             VStack {
                 Image(systemName: "scribble")
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy0)
-                    #endif
-
-                Text("Text")
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
                     #elseif os(macOS)
                     .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
                     #endif
+
+                Text("Text")
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+                    #elseif os(macOS)
+                    .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    #endif
             }
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+            .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
             #elseif os(macOS)
-            .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+            .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
             #endif
-        } extraAssertions: {
-            XCTAssertIdentical($0[safe: 0], $0[safe: 1])
-            XCTAssertIdentical($0[safe: 0], $0[safe: 2])
-            XCTAssertIdentical($0[safe: 1], $0[safe: 2])
         }
+        #expect(entity1 === entity2)
+        #expect(entity1 === entity3)
+        #expect(entity2 === entity3)
     }
 }

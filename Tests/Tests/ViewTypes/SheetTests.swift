@@ -1,74 +1,64 @@
 #if !os(macOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class SheetTests: XCTestCase {
+@Suite
+struct SheetTests {
     #if os(iOS)
-    func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
-            let spy0 = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: UIPresentationController.self) { spy in
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Sheet")
                         .introspect(
                             .sheet,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
-                            customize: spy0
+                            customize: spy
                         )
                 }
         }
     }
 
-    func testSheetAsSheetPresentationController() throws {
-        guard #available(iOS 15, tvOS 15, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: UISheetPresentationController.self) { spies in
-            let spy0 = spies[0]
-
+    @available(iOS 15, tvOS 15, *)
+    @Test func introspectAsSheetPresentationController() async throws {
+        try await introspection(of: UISheetPresentationController.self) { spy in
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Sheet")
                         .introspect(
                             .sheet,
                             on: .iOS(.v15, .v16, .v17, .v18, .v26),
-                            customize: spy0
+                            customize: spy
                         )
                 }
         }
     }
     #elseif os(tvOS)
-    func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
-            let spy0 = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: UIPresentationController.self) { spy in
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Content")
                         .introspect(
                             .sheet,
                             on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
-                            customize: spy0
+                            customize: spy
                         )
                 }
         }
     }
     #elseif os(visionOS)
-    func testSheet() throws {
-        XCTAssertViewIntrospection(of: UIPresentationController.self) { spies in
-            let spy0 = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: UIPresentationController.self) { spy in
             Text("Root")
                 .sheet(isPresented: .constant(true)) {
                     Text("Sheet")
                         .introspect(
                             .sheet,
                             on: .visionOS(.v1, .v2, .v26),
-                            customize: spy0
+                            customize: spy
                         )
                 }
         }

@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `Picker` type in SwiftUI, with `.menu` style.
 ///
 /// ### iOS
@@ -46,6 +44,8 @@ extension IntrospectableViewType where Self == PickerWithMenuStyleType {
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<PickerWithMenuStyleType, NSPopUpButton> {
     @available(*, unavailable, message: ".pickerStyle(.menu) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

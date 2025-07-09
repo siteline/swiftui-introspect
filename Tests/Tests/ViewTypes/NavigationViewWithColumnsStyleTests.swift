@@ -1,9 +1,10 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class NavigationViewWithColumnsStyleTests: XCTestCase {
+@Suite
+struct NavigationViewWithColumnsStyleTests {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformNavigationViewWithColumnsStyle = UISplitViewController
     #elseif canImport(UIKit) && os(tvOS)
@@ -12,10 +13,8 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
     typealias PlatformNavigationViewWithColumnsStyle = NSSplitView
     #endif
 
-    func testNavigationViewWithColumnsStyle() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
-            let spy = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformNavigationViewWithColumnsStyle.self) { spy in
             NavigationView {
                 ZStack {
                     Color.red
@@ -33,10 +32,8 @@ final class NavigationViewWithColumnsStyleTests: XCTestCase {
         }
     }
 
-    func testNavigationViewWithColumnsStyleAsAncestor() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithColumnsStyle.self) { spies in
-            let spy = spies[0]
-
+    @Test func introspectAsAncestor() async throws {
+        try await introspection(of: PlatformNavigationViewWithColumnsStyle.self) { spy in
             NavigationView {
                 ZStack {
                     Color.red

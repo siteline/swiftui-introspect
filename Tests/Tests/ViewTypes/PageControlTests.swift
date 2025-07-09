@@ -1,23 +1,17 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 14, tvOS 14, *)
 @MainActor
-final class PageControlTests: XCTestCase {
+@Suite
+struct PageControlTests {
     #if canImport(UIKit)
     typealias PlatformPageControl = UIPageControl
     #endif
 
-    func testPageControl() throws {
-        guard #available(iOS 14, tvOS 14, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformPageControl.self) { spies in
-            let spy = spies[0]
-
+    @Test func introspect() async throws {
+        try await introspection(of: PlatformPageControl.self) { spy in
             TabView {
                 Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                 Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)

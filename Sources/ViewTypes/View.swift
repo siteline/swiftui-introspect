@@ -1,10 +1,11 @@
 #if !os(watchOS)
 /// An abstract representation of a generic SwiftUI view type.
 ///
-/// Note: prior to iOS 26, `Text`, `Image`, and `Button` were drawn inside a subclass of
-/// `UIView` called `_UIGraphicsView` which was introspectable via `.introspect(.view)`,
-/// however starting iOS 26 this is no longer the case and all SwiftUI primitives
-/// seem to somehow be drawn without an underlying `UIView` vessel.
+/// Note: prior to iOS 26, primitive views like `Text`, `Image`, `Button`, and layout
+/// stacks were drawn inside a subclass of `UIView` called `_UIGraphicsView` which was
+/// introspectable via `.introspect(.view)`, however starting iOS 26 this is no longer the
+/// case and all SwiftUI primitives seem to somehow be drawn without an underlying
+/// `UIView` vessel.
 ///
 /// ### iOS
 ///

@@ -1,23 +1,20 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ViewControllerTests: XCTestCase {
-    func testViewController() {
-        XCTAssertViewIntrospection(of: PlatformViewController.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
-
+@Suite
+struct ViewControllerTests {
+    @Test func introspect() async throws {
+        let (entity1, entity2, entity3) = try await introspection(of: PlatformViewController.self) { spy1, spy2, spy3 in
             TabView {
                 NavigationView {
                     Text("Root").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
                         .introspect(
                             .viewController,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
-                            customize: spy2
+                            customize: spy3
                         )
                 }
                 .navigationViewStyle(.stack)
@@ -28,22 +25,21 @@ final class ViewControllerTests: XCTestCase {
                 .introspect(
                     .viewController,
                     on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
-                    customize: spy1
+                    customize: spy2
                 )
             }
             .introspect(
                 .viewController,
                 on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
-                customize: spy0
+                customize: spy1
             )
-        } extraAssertions: {
-            #if !os(visionOS)
-            XCTAssert($0[safe: 0] is UITabBarController)
-            #endif
-            XCTAssert($0[safe: 1] is UINavigationController)
-            XCTAssert(String(describing: $0[safe: 2]).contains("UIHostingController"))
-            XCTAssert($0[safe: 1] === $0[safe: 2]?.parent)
         }
+        #if !os(visionOS)
+        #expect(entity1 is UITabBarController)
+        #endif
+        #expect(entity2 is UINavigationController)
+        #expect(String(describing: entity3).contains("UIHostingController"))
+        #expect(entity2 === entity3.parent)
     }
 }
 #endif

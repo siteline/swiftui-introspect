@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.graphical` style.
 ///
 /// ### iOS
@@ -66,6 +64,8 @@ extension IntrospectableViewType where Self == DatePickerWithGraphicalStyleType 
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {
     @available(*, unavailable, message: ".datePickerStyle(.graphical) isn't available on iOS 13")
     public static let v13 = Self(for: .v13)
@@ -83,6 +83,8 @@ extension visionOSViewVersion<DatePickerWithGraphicalStyleType, UIDatePicker> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<DatePickerWithGraphicalStyleType, NSDatePicker> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

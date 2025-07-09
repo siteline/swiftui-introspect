@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `TextEditor` type in SwiftUI.
 ///
 /// ### iOS
@@ -59,6 +57,8 @@ extension IntrospectableViewType where Self == TextEditorType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<TextEditorType, UITextView> {
     @available(*, unavailable, message: "TextEditor isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -76,6 +76,8 @@ extension visionOSViewVersion<TextEditorType, UITextView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<TextEditorType, NSTextView> {
     @available(*, unavailable, message: "TextEditor isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

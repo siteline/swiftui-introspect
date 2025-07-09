@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `ColorPicker` type in SwiftUI.
 ///
 /// ### iOS
@@ -59,6 +57,8 @@ extension IntrospectableViewType where Self == ColorPickerType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 @available(iOS 14, *)
 extension iOSViewVersion<ColorPickerType, UIColorWell> {
     @available(*, unavailable, message: "ColorPicker isn't available on iOS 13")
@@ -78,6 +78,8 @@ extension visionOSViewVersion<ColorPickerType, UIColorWell> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 @available(macOS 11, *)
 extension macOSViewVersion<ColorPickerType, NSColorWell> {
     @available(*, unavailable, message: "ColorPicker isn't available on macOS 10.15")

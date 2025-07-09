@@ -1,6 +1,4 @@
 #if !os(watchOS)
-public import SwiftUI
-
 /// An abstract representation of the `NavigationSplitView` type in SwiftUI.
 ///
 /// ### iOS
@@ -77,6 +75,8 @@ extension IntrospectableViewType where Self == NavigationSplitViewType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     @available(*, unavailable, message: "NavigationSplitView isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -125,6 +125,8 @@ extension visionOSViewVersion<NavigationSplitViewType, UISplitViewController> {
     }
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<NavigationSplitViewType, NSSplitView> {
     @available(*, unavailable, message: "NavigationSplitView isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

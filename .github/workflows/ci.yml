@@ -118,7 +118,7 @@ jobs:
             xcode: 16.4
           # - platform: [macOS, 26]
           #   runtime: macOS 26.0
-          #   os: macos-15
+          #   os: macos-26
           #   xcode: 26.0
 
           - platform: [visionOS, 1]

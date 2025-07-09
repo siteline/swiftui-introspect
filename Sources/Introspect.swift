@@ -26,6 +26,14 @@ extension View {
     ///   - scope: Optionally overrides the view's default scope of introspection.
     ///   - customize: A closure that hands over the underlying UIKit/AppKit instance ready for customization.
     ///
+    ///     Note there is no guarantee of one-time execution for this closure. As `customize` may fire multiple times,
+    ///     make sure to guard against repeated or heavy work in your closure by keeping track of its completeness.
+    ///
+    ///     Additionally, note mutating SwiftUI state within `customize` will trigger runtime warnings unless that mutation
+    ///     is wrapped in a `DispatchQueue.main.async { ... }` call. This is because introspect attempts to hand you
+    ///     the requested view as soon as possible, and this might mean SwiftUI isn't ready for state mutations at that
+    ///     particular moment.
+    ///
     /// Here's an example usage:
     ///
     /// ```swift

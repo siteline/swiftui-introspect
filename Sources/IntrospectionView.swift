@@ -121,15 +121,6 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
             customize(target)
             controller.handler = nil
         }
-
-        // - Workaround -
-        // iOS/tvOS 13 sometimes need a nudge on the next run loop.
-        if #available(iOS 14, tvOS 14, *) {} else {
-            DispatchQueue.main.async { [weak controller] in
-                controller?.handler?()
-            }
-        }
-
         return controller
     }
 
@@ -159,7 +150,12 @@ final class IntrospectionPlatformViewController: PlatformViewController {
             guard let self else {
                 return
             }
-            handler?(self)
+
+            // NB: .introspect makes no guarantees about the number of times it's callback is invoked, so the below is fair play to maximize compatibility and predictability
+            handler?(self) // we call this eagerly as most customization can successfully happen without a thread hop
+            DispatchQueue.main.async {
+                handler?(self) // we also thread hop to cover the rest of the cases where the underlying UI component isn't quite ready for customization
+            }
         }
         self.isIntrospectionPlatformEntity = true
         IntrospectionStore.shared[id, default: .init()].controller = self

@@ -57,7 +57,7 @@ import SwiftUI
 public struct VideoPlayerType: IntrospectableViewType {}
 
 #if canImport(AVKit)
-import AVKit
+public import AVKit
 
 extension IntrospectableViewType where Self == VideoPlayerType {
     public static var videoPlayer: Self { .init() }

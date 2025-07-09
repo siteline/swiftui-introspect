@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of `.sheet` in SwiftUI.
 ///
 /// ### iOS
@@ -70,6 +68,8 @@ extension IntrospectableViewType where Self == SheetType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<SheetType, UIPresentationController> {
     public static let v13 = Self(for: .v13, selector: selector)
     public static let v14 = Self(for: .v14, selector: selector)

@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `List` type in SwiftUI, with `.inset` style.
 ///
 /// ### iOS
@@ -75,6 +73,8 @@ extension IntrospectableViewType where Self == ListWithInsetStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ListWithInsetStyleType, UITableView> {
     @available(*, unavailable, message: ".listStyle(.inset) isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -95,6 +95,8 @@ extension visionOSViewVersion<ListWithInsetStyleType, UICollectionView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ListWithInsetStyleType, NSTableView> {
     @available(*, unavailable, message: ".listStyle(.inset) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.stepperField` style.
 ///
 /// ### iOS
@@ -42,6 +40,8 @@ extension IntrospectableViewType where Self == DatePickerWithStepperFieldStyleTy
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<DatePickerWithStepperFieldStyleType, NSDatePicker> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

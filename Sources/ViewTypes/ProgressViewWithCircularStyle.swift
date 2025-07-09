@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `ProgressView` type in SwiftUI, with `.circular` style.
 ///
 /// ### iOS
@@ -69,6 +67,8 @@ extension IntrospectableViewType where Self == ProgressViewWithCircularStyleType
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndicatorView> {
     @available(*, unavailable, message: ".progressViewStyle(.circular) isn't available on iOS 13")
     public static let v13 = Self(for: .v13)
@@ -97,6 +97,8 @@ extension visionOSViewVersion<ProgressViewWithCircularStyleType, UIActivityIndic
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ProgressViewWithCircularStyleType, NSProgressIndicator> {
     @available(*, unavailable, message: ".progressViewStyle(.circular) isn't available on macOS 10.15")
     public static let v10_15 = Self(for: .v10_15)

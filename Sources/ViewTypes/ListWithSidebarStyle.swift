@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `List` type in SwiftUI, with `.sidebar` style.
 ///
 /// ### iOS
@@ -75,6 +73,8 @@ extension IntrospectableViewType where Self == ListWithSidebarStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<ListWithSidebarStyleType, UITableView> {
     @available(*, unavailable, message: ".listStyle(.sidebar) isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -95,6 +95,8 @@ extension visionOSViewVersion<ListWithSidebarStyleType, UICollectionView> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
+public import AppKit
+
 extension macOSViewVersion<ListWithSidebarStyleType, NSTableView> {
     public static let v10_15 = Self(for: .v10_15)
     public static let v11 = Self(for: .v11)

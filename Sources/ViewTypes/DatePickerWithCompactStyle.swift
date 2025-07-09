@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.compact` style.
 ///
 /// ### iOS
@@ -66,6 +64,8 @@ extension IntrospectableViewType where Self == DatePickerWithCompactStyleType {
 }
 
 #if canImport(UIKit)
+public import UIKit
+
 extension iOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
     @available(*, unavailable, message: ".datePickerStyle(.compact) isn't available on iOS 13")
     public static let v13 = Self.unavailable()
@@ -83,6 +83,8 @@ extension visionOSViewVersion<DatePickerWithCompactStyleType, UIDatePicker> {
     public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<DatePickerWithCompactStyleType, NSDatePicker> {
     @available(*, unavailable, message: ".datePickerStyle(.compact) isn't available on macOS 10.15")
     public static let v10_15 = Self.unavailable()

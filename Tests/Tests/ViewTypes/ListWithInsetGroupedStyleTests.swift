@@ -10,7 +10,7 @@ struct ListWithInsetGroupedStyleTests {
     typealias PlatformListWithInsetGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
     #endif
 
-    @Test func testListWithInsetGroupedStyle() async throws {
+    @Test func introspect() async throws {
         let (entity1, entity2) = try await introspection(of: PlatformListWithInsetGroupedStyle.self) { spy1, spy2 in
             HStack {
                 List {

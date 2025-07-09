@@ -59,10 +59,10 @@ jobs:
             runtime: iOS 18.5
             os: macos-15
             xcode: 16.4
-          # - platform: [iOS, 26]
-          #   runtime: iOS 26.0
-          #   os: macos-15
-          #   xcode: 26.0
+          - platform: [iOS, 26]
+            runtime: iOS 26.0
+            os: macos-15
+            xcode: 26.0
 
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
@@ -83,10 +83,10 @@ jobs:
             runtime: tvOS 18.5
             os: macos-15
             xcode: 16.4
-          # - platform: [tvOS, 26]
-          #   runtime: tvOS 26.0
-          #   os: macos-15
-          #   xcode: 26.0
+          - platform: [tvOS, 26]
+            runtime: tvOS 26.0
+            os: macos-15
+            xcode: 26.0
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
@@ -107,10 +107,10 @@ jobs:
             runtime: watchOS 11.5
             os: macos-15
             xcode: 16.4
-          # - platform: [watchOS, 26]
-          #   runtime: watchOS 26.0
-          #   os: macos-15
-          #   xcode: 26.0
+          - platform: [watchOS, 26]
+            runtime: watchOS 26.0
+            os: macos-15
+            xcode: 26.0
 
           - platform: [macOS, 15]
             runtime: macOS 15
@@ -130,10 +130,10 @@ jobs:
             runtime: visionOS 2.5
             os: macos-15
             xcode: 16.4
-          # - platform: [visionOS, 26]
-          #   runtime: visionOS 26.0
-          #   os: macos-15
-          #   xcode: 26.0
+          - platform: [visionOS, 26]
+            runtime: visionOS 26.0
+            os: macos-15
+            xcode: 26.0
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

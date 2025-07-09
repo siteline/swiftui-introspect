@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct ScrollViewTests {
     #if canImport(UIKit)
     typealias PlatformScrollView = UIScrollView

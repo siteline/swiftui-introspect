@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct ProgressViewWithCircularStyleTests {
     #if canImport(UIKit)
     typealias PlatformProgressViewWithCircularStyle = UIActivityIndicatorView

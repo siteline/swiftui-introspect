@@ -5,7 +5,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct VideoPlayerTests {
     #if canImport(UIKit)
     typealias PlatformVideoPlayer = AVPlayerViewController

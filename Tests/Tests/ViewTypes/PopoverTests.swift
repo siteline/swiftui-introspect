@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct PopoverTests {
     @Test func introspect() async throws {
         try await introspection(of: UIPopoverPresentationController.self) { spy in

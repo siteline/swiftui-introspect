@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct ToggleTests {
     #if canImport(UIKit)
     typealias PlatformToggle = UISwitch

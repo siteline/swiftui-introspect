@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct DatePickerWithFieldStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformDatePickerWithFieldStyle = NSDatePicker

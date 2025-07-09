@@ -5,7 +5,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite struct MapTests {
+@Suite(.serialized) struct MapTests {
     typealias PlatformMap = MKMapView
 
     @Test func introspect() async throws {

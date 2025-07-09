@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct ListWithBorderedStyleTests {
     #if canImport(AppKit)
     typealias PlatformListWithBorderedStyle = NSTableView

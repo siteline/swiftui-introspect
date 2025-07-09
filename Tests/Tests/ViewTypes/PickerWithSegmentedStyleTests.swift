@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct PickerWithSegmentedStyleTests {
     #if canImport(UIKit)
     typealias PlatformPickerWithSegmentedStyle = UISegmentedControl

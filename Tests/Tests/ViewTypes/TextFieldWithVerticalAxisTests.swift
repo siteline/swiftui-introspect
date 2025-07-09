@@ -3,7 +3,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct TextFieldWithVerticalAxisTests {
     #if canImport(UIKit) && (os(iOS) || os(visionOS))
     typealias PlatformTextField = UITextView

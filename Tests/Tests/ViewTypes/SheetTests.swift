@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct SheetTests {
     #if os(iOS)
     @Test func introspect() async throws {

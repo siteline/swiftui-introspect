@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct TabViewTests {
     #if canImport(UIKit)
     typealias PlatformTabView = UITabBarController

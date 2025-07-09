@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct PageControlTests {
     #if canImport(UIKit)
     typealias PlatformPageControl = UIPageControl

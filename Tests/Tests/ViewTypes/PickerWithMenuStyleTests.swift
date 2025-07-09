@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct PickerWithMenuStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformPickerWithMenuStyle = NSPopUpButton

@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
+@Suite(.serialized)
 struct ToggleWithButtonStyleTests {
     #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     typealias PlatformToggleWithButtonStyle = NSButton

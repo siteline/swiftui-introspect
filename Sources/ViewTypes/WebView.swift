@@ -1,6 +1,4 @@
 #if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `WebView` type in SwiftUI.
 ///
 /// ### iOS

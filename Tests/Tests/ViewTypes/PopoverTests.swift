@@ -1,21 +1,20 @@
 #if !os(tvOS) && !os(macOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class PopoverTests: XCTestCase {
-    func testPopover() throws {
-        XCTAssertViewIntrospection(of: UIPopoverPresentationController.self) { spies in
-            let spy0 = spies[0]
-
+@Suite
+struct PopoverTests {
+    @Test func introspect() async throws {
+        try await introspection(of: UIPopoverPresentationController.self) { spy in
             Text("Root")
                 .popover(isPresented: .constant(true)) {
                     Text("Popover")
                         .introspect(
                             .popover,
                             on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
-                            customize: spy0
+                            customize: spy
                         )
                 }
         }

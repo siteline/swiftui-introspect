@@ -10,7 +10,7 @@ struct NavigationViewWithStackStyleTests {
     typealias PlatformNavigationViewWithStackStyle = UINavigationController
     #endif
 
-    func testNavigationViewWithStackStyle() async throws {
+    @Test func introspect() async throws {
         try await introspection(of: PlatformNavigationViewWithStackStyle.self) { spy in
             NavigationView {
                 ZStack {
@@ -25,7 +25,7 @@ struct NavigationViewWithStackStyleTests {
         }
     }
 
-    func testNavigationViewWithStackStyleAsAncestor() async throws {
+    @Test func introspectAsAncestor() async throws {
         try await introspection(of: PlatformNavigationViewWithStackStyle.self) { spy in
             NavigationView {
                 ZStack {

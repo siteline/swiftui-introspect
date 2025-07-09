@@ -47,8 +47,8 @@ enum TestUtils {
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     @ViewBuilder view: (
-        _ spy1: @escaping (Entity) -> Void,
-    ) -> some View,
+        _ spy1: @escaping (Entity) -> Void
+    ) -> some View
 ) async throws -> Entity {
     var entity1: Entity?
     return try await confirmation(expectedCount: 1...) { confirmation1 in
@@ -75,8 +75,8 @@ func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
-        _ spy2: @escaping (Entity) -> Void,
-    ) -> some View,
+        _ spy2: @escaping (Entity) -> Void
+    ) -> some View
 ) async throws -> (Entity, Entity) {
     var entity1: Entity?
     var entity2: Entity?
@@ -117,8 +117,8 @@ func introspection<Entity: AnyObject & Sendable>(
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
-        _ spy3: @escaping (Entity) -> Void,
-    ) -> some View,
+        _ spy3: @escaping (Entity) -> Void
+    ) -> some View
 ) async throws -> (Entity, Entity, Entity) {
     var entity1: Entity?
     var entity2: Entity?
@@ -169,8 +169,8 @@ func introspection<Entity: AnyObject & Sendable>(
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
         _ spy3: @escaping (Entity) -> Void,
-        _ spy4: @escaping (Entity) -> Void,
-    ) -> some View,
+        _ spy4: @escaping (Entity) -> Void
+    ) -> some View
 ) async throws -> (Entity, Entity, Entity, Entity) {
     var entity1: Entity?
     var entity2: Entity?

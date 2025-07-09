@@ -1,5 +1,5 @@
 import SwiftUI
-import SwiftUIIntrospect
+@testable import SwiftUIIntrospect
 import XCTest
 
 @MainActor
@@ -32,23 +32,33 @@ final class ViewTests: XCTestCase {
     }
 }
 
-struct SUTView: UIViewRepresentable {
-    func makeUIView(context: Context) -> some UIView {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+struct SUTView: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = PlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = PlatformViewController
+    #endif
 
-        let widthConstraint = view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+    func makePlatformViewController(context: Context) -> PlatformViewController {
+        let controller = PlatformViewController(nibName: nil, bundle: nil)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+
+        let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
         widthConstraint.priority = .defaultLow
 
-        let heightConstraint = view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+        let heightConstraint = controller.view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
         heightConstraint.priority = .defaultLow
 
         NSLayoutConstraint.activate([widthConstraint, heightConstraint])
 
-        return view
+        return controller
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
+    func updatePlatformViewController(_ controller: PlatformViewController, context: Context) {
+        // NO-OP
+    }
+
+    static func dismantlePlatformViewController(_ controller: PlatformViewController, coordinator: Coordinator) {
         // NO-OP
     }
 }

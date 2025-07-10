@@ -145,9 +145,6 @@ jobs:
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
-      - name: Select Xcode version
-        run: sudo xcodes select ${{ matrix.xcode }}
-
       - if: ${{ matrix.install }}
         name: "[Debug] List Available Installable Runtimes"
         run: xcodes runtimes --include-betas
@@ -159,6 +156,9 @@ jobs:
           timeout_minutes: 15
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
+
+      - name: Select Xcode version
+        run: sudo xcodes select ${{ matrix.xcode }}
 
       - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |

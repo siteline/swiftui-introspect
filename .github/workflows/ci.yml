@@ -150,6 +150,10 @@ jobs:
         run: xcodes runtimes --include-betas
 
       - if: ${{ matrix.install }}
+        name: Select Xcode for installing runtimes
+        run: sudo xcodes select 16.4
+
+      - if: ${{ matrix.install }}
         name: Install Required Runtime (${{ matrix.runtime }})
         uses: nick-fields/retry@v3
         with:

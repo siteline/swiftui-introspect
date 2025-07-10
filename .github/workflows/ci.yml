@@ -158,9 +158,7 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: |
-            sudo xcodes runtimes --include-betas
-            sudo xcodes runtimes install '${{ matrix.runtime }}'
+          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |

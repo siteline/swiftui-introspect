@@ -6,22 +6,26 @@ devices = {
         16 => ["iPhone 14 (16.4)", "iPad Pro (11-inch) (4th generation) (16.4)"],
         17 => ["iPhone 15 (17.5)", "iPad Pro 11-inch (M4) (17.5)"],
         18 => ["iPhone 16 (18.2)", "iPad Pro 11-inch (M4) (18.2)"],
+        26 => ["iPhone 16 (26.0)", "iPad Pro 11-inch (M4) (26.0)"],
     },
     "tvos" => {
         15 => ["Apple TV (15.4)"],
         16 => ["Apple TV (16.4)"],
         17 => ["Apple TV (17.5)"],
         18 => ["Apple TV (18.2)"],
+        26 => ["Apple TV (26.0)"],
     },
     "watchos" => {
         8 => ["Apple Watch Series 7 (45mm) (8.5)"],
         9 => ["Apple Watch Series 8 (45mm) (9.4)"],
         10 => ["Apple Watch Series 9 (45mm) (10.5)"],
         11 => ["Apple Watch Series 10 (42mm) (11.2)"],
+        26 => ["Apple Watch Series 10 (42mm) (26.0)"],
     },
     "visionos" => {
         1 => ["Apple Vision Pro (1.2)"],
         2 => ["Apple Vision Pro (2.5)"],
+        26 => ["Apple Vision Pro (26.0)"],
     },
 }
 

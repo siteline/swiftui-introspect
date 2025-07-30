@@ -179,7 +179,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [iOS, macOS, tvOS, watchOS, visionOS]
+        platform: [iOS, macOS, tvOS, watchOS, visionOS, macCatalyst]
+        include:
+          - platform: iOS
+            destination: "generic/platform=iOS"
+          - platform: macOS
+            destination: "generic/platform=macOS"
+          - platform: tvOS
+            destination: "generic/platform=tvOS"
+          - platform: watchOS
+            destination: "generic/platform=watchOS"
+          - platform: visionOS
+            destination: "generic/platform=visionOS"
+          - platform: macCatalyst
+            destination: "platform=macOS,variant=Mac Catalyst"
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

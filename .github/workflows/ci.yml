@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0 # required to be able to find Git tags
 
       - name: Select Xcode version
-        run: xcodes select 16.4
+        run: sudo xcodes select 16.4
 
       - name: Lint Podspec
         run: |
@@ -142,7 +142,7 @@ jobs:
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
       - name: Select Xcode version
-        run: xcodes select ${{ matrix.xcode }}
+        run: sudo xcodes select ${{ matrix.xcode }}
 
       - if: ${{ matrix.install }}
         name: "[Debug] List Available Installable Runtimes"
@@ -154,7 +154,7 @@ jobs:
         with:
           timeout_minutes: 15
           max_attempts: 3
-          command: xcodes runtimes install '${{ matrix.runtime }}'
+          command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
       - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
         run: |
@@ -198,7 +198,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Select Xcode version
-        run: xcodes select 16.4
+        run: sudo xcodes select 16.4
 
       - name: Archive Framework
         run: |

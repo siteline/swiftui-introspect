@@ -172,3 +172,39 @@ jobs:
       - if: ${{ matrix.platform[0] != 'watchOS' }}
         name: Run Tests
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
+
+  framework-archiving:
+    name: Archive Framework (${{ matrix.platform }})
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [iOS, macOS, tvOS, watchOS, visionOS, macCatalyst]
+        include:
+          - platform: iOS
+            destination: "generic/platform=iOS"
+          - platform: macOS
+            destination: "generic/platform=macOS"
+          - platform: tvOS
+            destination: "generic/platform=tvOS"
+          - platform: watchOS
+            destination: "generic/platform=watchOS"
+          - platform: visionOS
+            destination: "generic/platform=visionOS"
+          - platform: macCatalyst
+            destination: "platform=macOS,variant=Mac Catalyst"
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        run: sudo xcodes select 16.4
+
+      - name: Archive Framework
+        run: |
+          xcodebuild archive \
+            -scheme "SwiftUIIntrospectTestFramework" \
+            -destination "${{ matrix.destination }}" \
+            -archivePath .build/archiving/${{ matrix.platform }} \
+            SKIP_INSTALL=NO \
+            BUILD_LIBRARY_FOR_DISTRIBUTION=YES

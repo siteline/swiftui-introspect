@@ -1,4 +1,8 @@
+#if os(iOS) || os(tvOS) || os(visionOS)
 public import UIKit
+#elseif os(macOS)
+public import AppKit
+#endif
 
 #if !os(watchOS)
 @_spi(Advanced)

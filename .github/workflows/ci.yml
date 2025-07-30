@@ -174,7 +174,7 @@ jobs:
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
   framework-archiving:
-    name: Archive Framework (${{ matrix.platform[0] }})
+    name: Archive Framework (${{ matrix.platform }})
     runs-on: macos-15
     strategy:
       fail-fast: false

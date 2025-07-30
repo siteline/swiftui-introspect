@@ -192,7 +192,7 @@ jobs:
           - platform: visionOS
             destination: "generic/platform=visionOS"
           - platform: macCatalyst
-            destination: "platform=macOS,variant=Mac Catalyst,name=Any Mac"
+            destination: "platform=macOS,variant=Mac Catalyst"
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

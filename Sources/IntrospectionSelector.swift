@@ -1,3 +1,5 @@
+public import UIKit
+
 #if !os(watchOS)
 @_spi(Advanced)
 

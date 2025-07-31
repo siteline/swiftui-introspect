@@ -1,6 +1,11 @@
 #if !os(watchOS)
-@_spi(Advanced)
+#if os(iOS) || os(tvOS) || os(visionOS)
+public import UIKit
+#elseif os(macOS)
+public import AppKit
+#endif
 
+@_spi(Advanced)
 @MainActor
 public struct IntrospectionSelector<Target: PlatformEntity> {
     @_spi(Advanced)

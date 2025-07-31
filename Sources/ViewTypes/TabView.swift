@@ -49,6 +49,24 @@
 /// }
 /// ```
 ///
+/// ### macOS 15+ (non-root placement only)
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         GroupBox {
+///             TabView {
+///                 Text("Tab 1").tabItem { Text("Tab 1") }
+///                 Text("Tab 2").tabItem { Text("Tab 2") }
+///             }
+///             .introspect(.tabView, on: .macOS(.v15, .v26)) {
+///                 print(type(of: $0)) // NSTabView
+///             }
+///         }
+///     }
+/// }
+/// ```
+///
 /// ### visionOS
 ///
 /// Not available.
@@ -100,10 +118,8 @@ extension macOSViewVersion<TabViewType, NSTabView> {
     public static let v12 = Self(for: .v12)
     public static let v13 = Self(for: .v13)
     public static let v14 = Self(for: .v14)
-    @available(*, unavailable, message: "TabView is no longer backed by NSTabView starting macOS 15")
-    public static let v15 = Self.unavailable()
-    @available(*, unavailable, message: "TabView is no longer backed by NSTabView starting macOS 15")
-    public static let v26 = Self.unavailable()
+    public static let v15 = Self(for: .v15)
+    public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

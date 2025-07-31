@@ -46,6 +46,7 @@ struct TabViewTests {
         }
     }
 
+    @available(tvOS, unavailable)
     @Test func introspectWithNonRootPlacement() async throws {
         try await introspection(of: PlatformTabView.self) { spy in
             GroupBox {
@@ -64,6 +65,7 @@ struct TabViewTests {
         }
     }
 
+    @available(tvOS, unavailable)
     @Test func introspectWithNonRootPlacementAsAncestor() async throws {
         try await introspection(of: PlatformTabView.self) { spy in
             GroupBox {

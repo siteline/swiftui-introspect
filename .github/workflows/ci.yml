@@ -46,73 +46,91 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        xcode:
-          - 26.0
         include:
           - platform: [iOS, 15]
             runtime: iOS 15.5
             os: macos-15
+            xcode: 26.0
           - platform: [iOS, 16]
             runtime: iOS 16.4
             os: macos-15
+            xcode: 26.0
           - platform: [iOS, 17]
             runtime: iOS 17.5
             os: macos-15
+            xcode: 26.0
           - platform: [iOS, 18]
             runtime: iOS 18.6
             os: macos-15
+            xcode: 26.0
           - platform: [iOS, 26]
             runtime: iOS 26.0
             os: macos-15
+            xcode: 26.0
 
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
             os: macos-15
+            xcode: 26.0
           - platform: [tvOS, 16]
             runtime: tvOS 16.4
             os: macos-15
+            xcode: 26.0
           - platform: [tvOS, 17]
             runtime: tvOS 17.5
             os: macos-15
+            xcode: 26.0
           - platform: [tvOS, 18]
             runtime: tvOS 18.5
             os: macos-15
+            xcode: 26.0
           - platform: [tvOS, 26]
             runtime: tvOS 26.0
             os: macos-15
+            xcode: 26.0
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
             os: macos-15
+            xcode: 26.0
           - platform: [watchOS, 9]
             runtime: watchOS 9.4
             os: macos-15
+            xcode: 26.0
           - platform: [watchOS, 10]
             runtime: watchOS 10.5
             os: macos-15
+            xcode: 26.0
           - platform: [watchOS, 11]
             runtime: watchOS 11.5
             os: macos-15
+            xcode: 26.0
           - platform: [watchOS, 26]
             runtime: watchOS 26.0
             os: macos-15
+            xcode: 26.0
 
           - platform: [macOS, 15]
             runtime: macOS 15
             os: macos-15
+            xcode: 26.0
           # - platform: [macOS, 26]
           #   runtime: macOS 26.0
           #   os: macos-26
+          #   xcode: 26.0
 
           - platform: [visionOS, 1]
             runtime: visionOS 1.2
             os: macos-15
+            xcode: 26.0
           - platform: [visionOS, 2]
             runtime: visionOS 2.5
             os: macos-15
+            xcode: 26.0
           - platform: [visionOS, 26]
             runtime: visionOS 26.0
             os: macos-15
+            xcode: 26.0
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4

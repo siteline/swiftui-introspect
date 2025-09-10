@@ -46,6 +46,7 @@ enum TestUtils {
 @discardableResult
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
+    timeout: TimeInterval = 3,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void
     ) -> some View
@@ -61,7 +62,11 @@ func introspection<Entity: AnyObject & Sendable>(
 
         TestUtils.present(view: view)
 
-        while entity1 == nil {
+        let startInstant = Date()
+        while
+            Date().timeIntervalSince(startInstant) < timeout,
+            entity1 == nil
+        {
             await Task.yield()
         }
 
@@ -73,6 +78,7 @@ func introspection<Entity: AnyObject & Sendable>(
 @discardableResult
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
+    timeout: TimeInterval = 3,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void
@@ -95,7 +101,9 @@ func introspection<Entity: AnyObject & Sendable>(
 
             TestUtils.present(view: view)
 
+            let startInstant = Date()
             while
+                Date().timeIntervalSince(startInstant) < timeout,
                 entity1 == nil ||
                 entity2 == nil
             {
@@ -114,6 +122,7 @@ func introspection<Entity: AnyObject & Sendable>(
 @discardableResult
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
+    timeout: TimeInterval = 3,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
@@ -143,7 +152,9 @@ func introspection<Entity: AnyObject & Sendable>(
 
                 TestUtils.present(view: view)
 
+                let startInstant = Date()
                 while
+                    Date().timeIntervalSince(startInstant) < timeout,
                     entity1 == nil ||
                     entity2 == nil ||
                     entity3 == nil
@@ -165,6 +176,7 @@ func introspection<Entity: AnyObject & Sendable>(
 @discardableResult
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
+    timeout: TimeInterval = 3,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
@@ -201,7 +213,9 @@ func introspection<Entity: AnyObject & Sendable>(
 
                     TestUtils.present(view: view)
 
+                    let startInstant = Date()
                     while
+                        Date().timeIntervalSince(startInstant) < timeout,
                         entity1 == nil ||
                         entity2 == nil ||
                         entity3 == nil ||

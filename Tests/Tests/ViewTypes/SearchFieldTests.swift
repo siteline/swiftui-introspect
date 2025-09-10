@@ -11,7 +11,7 @@ struct SearchFieldTests {
     #endif
 
     @available(iOS 15, tvOS 15, *)
-    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    @Test(.disabledOn_iOS26_exceptFor_iPad())
     func introspectInNavigationStack() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
@@ -42,7 +42,7 @@ struct SearchFieldTests {
     }
 
     @available(iOS 15, tvOS 15, *)
-    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    @Test(.disabledOn_iOS26_exceptFor_iPad())
     func introspectInNavigationStackAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
@@ -73,7 +73,7 @@ struct SearchFieldTests {
     }
 
     @available(iOS 15, tvOS 15, *)
-    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    @Test(.disabledOn_iOS26_exceptFor_iPad())
     func introspectInNavigationSplitView() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
@@ -116,7 +116,7 @@ struct SearchFieldTests {
     }
 
     @available(iOS 15, tvOS 15, *)
-    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    @Test(.disabledOn_iOS26_exceptFor_iPad())
     func introspectInNavigationSplitViewAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
@@ -163,12 +163,12 @@ struct SearchFieldTests {
 @MainActor
 extension Trait where Self == ConditionTrait {
     // TODO: rename to `disabled on iOS 26+ except for iPad` when Swift 6.2 becomes available (on Xcode 26)
-    static var disabledOn_iOS26_exceptFor_iPad: Self {
+    static func disabledOn_iOS26_exceptFor_iPad(sourceLocation: SourceLocation = #_sourceLocation) -> Self {
         let disabled = if #available(iOS 26, *) {
             UIDevice.current.userInterfaceIdiom != .pad
         } else {
             false
         }
-        return .disabled(if: disabled)
+        return .disabled(if: disabled, "Disabled on iOS 26+ except for iPad", sourceLocation: sourceLocation)
     }
 }

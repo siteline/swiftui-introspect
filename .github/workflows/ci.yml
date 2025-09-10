@@ -145,13 +145,12 @@ jobs:
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
-      - name: Select Xcode version
+      - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcodes select ${{ matrix.xcode }}
 
-      - name: When Xcode 26 is selected, uninstall and re-install 2026 runtimes
-        if: ${{ matrix.xcode == '26.0' }}
-        run: |
-          xcodebuild -downloadAllPlatforms
+      - if: ${{ matrix.xcode == '26.0' }}
+        name: Install 2026 Runtime
+        run: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
 
       - if: ${{ matrix.install }}
         name: "[Debug] List Available Installable Runtimes"

@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0 # required to be able to find Git tags
 
       - name: Select Xcode version
-        run: sudo xcodes select 16.4
+        run: sudo xcodes select 26.0
 
       - name: Lint Podspec
         run: |
@@ -43,22 +43,23 @@ jobs:
           - platform: [iOS, 15]
             runtime: iOS 15.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [iOS, 16]
             runtime: iOS 16.4
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [iOS, 17]
             runtime: iOS 17.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [iOS, 18]
             runtime: iOS 18.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
+            install: true
           # - platform: [iOS, 26]
           #   runtime: iOS 26.0
           #   os: macos-15
@@ -67,22 +68,23 @@ jobs:
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [tvOS, 16]
             runtime: tvOS 16.4
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [tvOS, 17]
             runtime: tvOS 17.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [tvOS, 18]
             runtime: tvOS 18.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
+            install: true
           # - platform: [tvOS, 26]
           #   runtime: tvOS 26.0
           #   os: macos-15
@@ -91,22 +93,23 @@ jobs:
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [watchOS, 9]
             runtime: watchOS 9.4
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [watchOS, 10]
             runtime: watchOS 10.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [watchOS, 11]
             runtime: watchOS 11.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
+            install: true
           # - platform: [watchOS, 26]
           #   runtime: watchOS 26.0
           #   os: macos-15
@@ -115,7 +118,7 @@ jobs:
           - platform: [macOS, 15]
             runtime: macOS 15
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
           # - platform: [macOS, 26]
           #   runtime: macOS 26.0
           #   os: macos-15
@@ -124,12 +127,13 @@ jobs:
           - platform: [visionOS, 1]
             runtime: visionOS 1.2
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
             install: true
           - platform: [visionOS, 2]
             runtime: visionOS 2.5
             os: macos-15
-            xcode: 16.4
+            xcode: 26.0
+            install: true
           # - platform: [visionOS, 26]
           #   runtime: visionOS 26.0
           #   os: macos-15

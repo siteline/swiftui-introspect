@@ -13,7 +13,35 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UISearchBar
+///         }
+///     }
+/// }
+/// ```
+///
+/// From iOS 26 onward, search bar is only backed by UIKit when `.searchable` is used within a
+/// `NavigationView` or `NavigationStack` contained inside a `TabView`.
+///
+/// If `.searchable` is used outside of these containers, it is backed by SwiftUI's own implementation,
+/// and there is no UIKit view to introspect.
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var searchTerm = ""
+///
+///     var body: some View {
+///         TabView {
+///             NavigationView {
+///                 Text("Root")
+///                     .searchable(text: $searchTerm)
+///             }
+///             .navigationViewStyle(.stack)
+///             .tabItem {
+///                 Label("Home", systemImage: "house")
+///             }
+///         }
+///         .introspect(.searchField, on: .iOS(.v26)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }

@@ -1,7 +1,7 @@
 #if !os(watchOS)
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
 ///
-/// ### iOS
+/// ### iOS 15 - 18
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -13,7 +13,40 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UISearchBar
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### iOS 26+
+///
+/// From iOS 26 onward, search bar is only backed by UIKit when `.searchable` is used within a
+/// `NavigationView` or `NavigationStack` contained inside a `TabView`.
+///
+/// If `.searchable` is used outside of these containers, it is backed by SwiftUI's own implementation,
+/// and there is no UIKit view to introspect.
+///
+/// The only exception to this is on iPad, where double column `NavigationView` and `NavigationSplitView`
+/// still use `UISearchBar` even outside of a `TabView` (for now...).
+///
+/// ```swift
+/// struct ContentView: View {
+///     @State var searchTerm = ""
+///
+///     var body: some View {
+///         TabView {
+///             NavigationView {
+///                 Text("Root")
+///                     .searchable(text: $searchTerm)
+///             }
+///             .navigationViewStyle(.stack)
+///             .tabItem {
+///                 Label("Home", systemImage: "house")
+///             }
+///         }
+///         .introspect(.searchField, on: .iOS(.v26)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }

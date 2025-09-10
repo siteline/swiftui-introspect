@@ -11,7 +11,8 @@ struct SearchFieldTests {
     #endif
 
     @available(iOS 15, tvOS 15, *)
-    @Test func introspectInNavigationStack() async throws {
+    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    func introspectInNavigationStack() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
                 Text("Customized")
@@ -24,8 +25,25 @@ struct SearchFieldTests {
         }
     }
 
+    @available(iOS 26, *)
+    @Test func introspectInNavigationStackInTabView() async throws {
+        try await introspection(of: PlatformSearchField.self) { spy in
+            TabView {
+                NavigationView {
+                    Text("Customized")
+                        .searchable(text: .constant(""))
+                }
+                .navigationViewStyle(.stack)
+            }
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
+            #endif
+        }
+    }
+
     @available(iOS 15, tvOS 15, *)
-    @Test func introspectInNavigationStackAsAncestor() async throws {
+    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    func introspectInNavigationStackAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
                 Text("Customized")
@@ -38,9 +56,25 @@ struct SearchFieldTests {
         }
     }
 
+    @available(iOS 26, *)
+    @Test func introspectInNavigationStackInTabViewAsAncestor() async throws {
+        try await introspection(of: PlatformSearchField.self) { spy in
+            TabView {
+                NavigationView {
+                    Text("Customized")
+                        .searchable(text: .constant(""))
+                        #if os(iOS) || os(tvOS) || os(visionOS)
+                        .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
+                        #endif
+                }
+                .navigationViewStyle(.stack)
+            }
+        }
+    }
+
     @available(iOS 15, tvOS 15, *)
-    @available(visionOS, introduced: 1, obsoleted: 26)
-    @Test func introspectInNavigationSplitView() async throws {
+    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    func introspectInNavigationSplitView() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
                 Text("Customized")
@@ -48,7 +82,7 @@ struct SearchFieldTests {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2), customize: spy)
+            .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
             #endif
             #if os(iOS)
             // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
@@ -59,8 +93,31 @@ struct SearchFieldTests {
         }
     }
 
+    @available(iOS 26, *)
+    @Test func introspectInNavigationSplitViewInTabView() async throws {
+        try await introspection(of: PlatformSearchField.self) { spy in
+            TabView {
+                NavigationView {
+                    Text("Customized")
+                        .searchable(text: .constant(""))
+                }
+                .navigationViewStyle(DoubleColumnNavigationViewStyle())
+                #if os(iOS) || os(tvOS) || os(visionOS)
+                .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
+                #endif
+                #if os(iOS)
+                // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
+                .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+                    $0.preferredDisplayMode = .oneOverSecondary
+                }
+                #endif
+            }
+        }
+    }
+
     @available(iOS 15, tvOS 15, *)
-    @Test func introspectInNavigationSplitViewAsAncestor() async throws {
+    @Test(.disabledOn_iOS26_exceptFor_iPad)
+    func introspectInNavigationSplitViewAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             NavigationView {
                 Text("Customized")
@@ -78,5 +135,40 @@ struct SearchFieldTests {
             #endif
         }
     }
+
+    @available(iOS 26, *)
+    @Test func introspectInNavigationSplitViewInTabViewAsAncestor() async throws {
+        try await introspection(of: PlatformSearchField.self) { spy in
+            TabView {
+                NavigationView {
+                    Text("Customized")
+                        .searchable(text: .constant(""))
+                        #if os(iOS) || os(tvOS) || os(visionOS)
+                        .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
+                        #endif
+                }
+                .navigationViewStyle(DoubleColumnNavigationViewStyle())
+                #if os(iOS)
+                // NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
+                .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+                    $0.preferredDisplayMode = .oneOverSecondary
+                }
+                #endif
+            }
+        }
+    }
 }
 #endif
+
+@MainActor
+extension Trait where Self == ConditionTrait {
+    // TODO: rename to `disabled on iOS 26+ except for iPad` when Swift 6.2 becomes available (on Xcode 26)
+    static var disabledOn_iOS26_exceptFor_iPad: Self {
+        let disabled = if #available(iOS 26, *) {
+            UIDevice.current.userInterfaceIdiom != .pad
+        } else {
+            false
+        }
+        return .disabled(if: disabled)
+    }
+}

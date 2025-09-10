@@ -138,7 +138,8 @@ jobs:
       - name: Set environment variables
         run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
 
-      - name: Check for ${{ matrix.runtime }} runtime
+      - if: ${{ matrix.platform[0] != 'macOS' }}
+        name: Check for ${{ matrix.runtime }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "${{ matrix.runtime }}"; then
             echo "has_runtime=true" >> "$GITHUB_ENV"

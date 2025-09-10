@@ -25,7 +25,7 @@ struct SearchFieldTests {
         }
     }
 
-    @available(iOS 26, *)
+    @available(iOS 26, tvOS 15, *)
     @Test func introspectInNavigationStackInTabView() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             TabView {
@@ -56,7 +56,7 @@ struct SearchFieldTests {
         }
     }
 
-    @available(iOS 26, *)
+    @available(iOS 26, tvOS 15, *)
     @Test func introspectInNavigationStackInTabViewAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             TabView {
@@ -93,7 +93,7 @@ struct SearchFieldTests {
         }
     }
 
-    @available(iOS 26, *)
+    @available(iOS 26, tvOS 15, *)
     @Test func introspectInNavigationSplitViewInTabView() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             TabView {
@@ -136,7 +136,7 @@ struct SearchFieldTests {
         }
     }
 
-    @available(iOS 26, *)
+    @available(iOS 26, tvOS 15, *)
     @Test func introspectInNavigationSplitViewInTabViewAsAncestor() async throws {
         try await introspection(of: PlatformSearchField.self) { spy in
             TabView {

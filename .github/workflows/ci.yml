@@ -56,7 +56,7 @@ jobs:
             xcode: 26.0
             install: true
           - platform: [iOS, 18]
-            runtime: iOS 18.5
+            runtime: iOS 18.6
             os: macos-15
             xcode: 26.0
             install: true

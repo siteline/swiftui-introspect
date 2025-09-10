@@ -47,12 +47,13 @@ enum TestUtils {
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     timeout: TimeInterval = 3,
+    sourceLocation: SourceLocation = #_sourceLocation,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void
     ) -> some View
 ) async throws -> Entity {
     var entity1: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
+    return try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation1 in
         let view = view(
             {
                 confirmation1()
@@ -70,7 +71,7 @@ func introspection<Entity: AnyObject & Sendable>(
             await Task.yield()
         }
 
-        return try #require(entity1)
+        return try #require(entity1, sourceLocation: sourceLocation)
     }
 }
 
@@ -79,6 +80,7 @@ func introspection<Entity: AnyObject & Sendable>(
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     timeout: TimeInterval = 3,
+    sourceLocation: SourceLocation = #_sourceLocation,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void
@@ -86,8 +88,8 @@ func introspection<Entity: AnyObject & Sendable>(
 ) async throws -> (Entity, Entity) {
     var entity1: Entity?
     var entity2: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
+    return try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation1 in
+        try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation2 in
             let view = view(
                 {
                     confirmation1()
@@ -111,8 +113,8 @@ func introspection<Entity: AnyObject & Sendable>(
             }
 
             return try (
-                #require(entity1),
-                #require(entity2),
+                #require(entity1, sourceLocation: sourceLocation),
+                #require(entity2, sourceLocation: sourceLocation),
             )
         }
     }
@@ -123,6 +125,7 @@ func introspection<Entity: AnyObject & Sendable>(
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     timeout: TimeInterval = 3,
+    sourceLocation: SourceLocation = #_sourceLocation,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
@@ -132,9 +135,9 @@ func introspection<Entity: AnyObject & Sendable>(
     var entity1: Entity?
     var entity2: Entity?
     var entity3: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
-            try await confirmation(expectedCount: 1...) { confirmation3 in
+    return try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation1 in
+        try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation2 in
+            try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation3 in
                 let view = view(
                     {
                         confirmation1()
@@ -163,9 +166,9 @@ func introspection<Entity: AnyObject & Sendable>(
                 }
 
                 return try (
-                    #require(entity1),
-                    #require(entity2),
-                    #require(entity3),
+                    #require(entity1, sourceLocation: sourceLocation),
+                    #require(entity2, sourceLocation: sourceLocation),
+                    #require(entity3, sourceLocation: sourceLocation),
                 )
             }
         }
@@ -177,6 +180,7 @@ func introspection<Entity: AnyObject & Sendable>(
 func introspection<Entity: AnyObject & Sendable>(
     of type: Entity.Type,
     timeout: TimeInterval = 3,
+    sourceLocation: SourceLocation = #_sourceLocation,
     @ViewBuilder view: (
         _ spy1: @escaping (Entity) -> Void,
         _ spy2: @escaping (Entity) -> Void,
@@ -188,10 +192,10 @@ func introspection<Entity: AnyObject & Sendable>(
     var entity2: Entity?
     var entity3: Entity?
     var entity4: Entity?
-    return try await confirmation(expectedCount: 1...) { confirmation1 in
-        try await confirmation(expectedCount: 1...) { confirmation2 in
-            try await confirmation(expectedCount: 1...) { confirmation3 in
-                try await confirmation(expectedCount: 1...) { confirmation4 in
+    return try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation1 in
+        try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation2 in
+            try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation3 in
+                try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation4 in
                     let view = view(
                         {
                             confirmation1()
@@ -225,10 +229,10 @@ func introspection<Entity: AnyObject & Sendable>(
                     }
 
                     return try (
-                        #require(entity1),
-                        #require(entity2),
-                        #require(entity3),
-                        #require(entity4),
+                        #require(entity1, sourceLocation: sourceLocation),
+                        #require(entity2, sourceLocation: sourceLocation),
+                        #require(entity3, sourceLocation: sourceLocation),
+                        #require(entity4, sourceLocation: sourceLocation),
                     )
                 }
             }

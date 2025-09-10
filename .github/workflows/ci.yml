@@ -151,14 +151,7 @@ jobs:
       - name: When Xcode 26 is selected, uninstall and re-install 2026 runtimes
         if: ${{ matrix.xcode == '26.0' }}
         run: |
-          script/remove-runtime iOS 26.0
-          script/remove-runtime tvOS 26.0
-          script/remove-runtime watchOS 26.0
-          script/remove-runtime visionOS 26.0
-          sudo xcodes runtimes install 'iOS 26.0'
-          sudo xcodes runtimes install 'tvOS 26.0'
-          sudo xcodes runtimes install 'watchOS 26.0'
-          sudo xcodes runtimes install 'visionOS 26.0'
+          xcodebuild -downloadAllPlatforms
 
       - if: ${{ matrix.install }}
         name: "[Debug] List Available Installable Runtimes"

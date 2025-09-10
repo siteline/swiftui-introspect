@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0 # required to be able to find Git tags
 
       - name: Select Xcode version
-        run: sudo xcodes select 26.0
+        run: sudo xcodes select 16.4
 
       - name: Lint Podspec
         run: |

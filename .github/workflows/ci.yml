@@ -150,7 +150,11 @@ jobs:
 
       - if: ${{ matrix.xcode == '26.0' && matrix.platform[0] != 'macOS' }}
         name: Install 2026 Runtime
-        run: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
 
       - if: ${{ matrix.install }}
         name: "[Debug] List Available Installable Runtimes"

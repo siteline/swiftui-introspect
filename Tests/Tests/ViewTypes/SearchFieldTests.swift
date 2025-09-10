@@ -158,7 +158,6 @@ struct SearchFieldTests {
         }
     }
 }
-#endif
 
 @MainActor
 extension Trait where Self == ConditionTrait {
@@ -172,3 +171,4 @@ extension Trait where Self == ConditionTrait {
         return .disabled(if: disabled, "Disabled on iOS 26+ except for iPad", sourceLocation: sourceLocation)
     }
 }
+#endif

@@ -148,7 +148,7 @@ jobs:
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcodes select ${{ matrix.xcode }}
 
-      - if: ${{ matrix.xcode == '26.0' }}
+      - if: ${{ matrix.xcode == '26.0' && matrix.platform[0] != 'macOS' }}
         name: Install 2026 Runtime
         run: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
 

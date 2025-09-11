@@ -60,6 +60,14 @@
 /// ```
 public struct ViewType: IntrospectableViewType {}
 
+// TODO: I think if Swift ever gets parameterized extensions we could introduce subtypes like:
+//
+// public struct ViewType<PlatformViewType: PlatformView>: IntrospectableViewType {}
+//
+// extension <V: PlatformView> IntrospectableViewType where Self == ViewType<V> {
+//     public static func view<V>(ofType: V.Type) -> Self { ... }
+// }
+
 extension IntrospectableViewType where Self == ViewType {
     public static var view: Self { .init() }
 }

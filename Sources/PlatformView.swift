@@ -14,13 +14,16 @@ public typealias PlatformViewController = NSViewController
 #endif
 
 #if canImport(UIKit)
-typealias _PlatformViewControllerRepresentable = UIViewControllerRepresentable
+@_spi(Internals)
+public typealias _PlatformViewControllerRepresentable = UIViewControllerRepresentable
 #elseif canImport(AppKit)
-typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
+@_spi(Internals)
+public typealias _PlatformViewControllerRepresentable = NSViewControllerRepresentable
 #endif
 
 @MainActor
-protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
+@_spi(Internals)
+public protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     typealias ViewController = UIViewControllerType
     #elseif canImport(AppKit)
@@ -32,7 +35,8 @@ protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepresentab
     static func dismantlePlatformViewController(_ controller: ViewController, coordinator: Coordinator)
 }
 
-extension PlatformViewControllerRepresentable {
+@_spi(Internals)
+public extension PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     func makeUIViewController(context: Context) -> ViewController {
         makePlatformViewController(context: context)

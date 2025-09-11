@@ -1,13 +1,10 @@
 import SwiftUI
-import SwiftUIIntrospect
+@_spi(Internals) import SwiftUIIntrospect
 
 struct UIViewRepresentableShowcase: View {
     var body: some View {
         VStack(spacing: 10) {
-            Text(".introspect(.view, ...)")
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .font(.system(.subheadline, design: .monospaced))
+            GenericViewRepresentable()
                 #if os(iOS) || os(tvOS) || os(visionOS)
                 .introspect(
                     .view,
@@ -18,35 +15,6 @@ struct UIViewRepresentableShowcase: View {
                 #elseif os(macOS)
                 .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
                     view.layer?.backgroundColor = NSColor.cyan.cgColor
-                }
-                #endif
-
-            Button("A button", action: {})
-                .padding(5)
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(
-                    .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
-                ) { view in
-                    view.backgroundColor = .yellow
-                }
-                #elseif os(macOS)
-                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
-                    view.layer?.backgroundColor = NSColor.yellow.cgColor
-                }
-                #endif
-
-            Image(systemName: "scribble")
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(
-                    .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
-                ) { view in
-                    view.backgroundColor = .blue
-                }
-                #elseif os(macOS)
-                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
-                    view.layer?.backgroundColor = NSColor.blue.cgColor
                 }
                 #endif
         }
@@ -63,5 +31,37 @@ struct UIViewRepresentableShowcase: View {
             view.layer?.backgroundColor = NSColor.red.cgColor
         }
         #endif
+    }
+}
+
+@MainActor
+struct GenericViewRepresentable: PlatformViewControllerRepresentable {
+    #if canImport(UIKit)
+    typealias UIViewControllerType = PlatformViewController
+    #elseif canImport(AppKit)
+    typealias NSViewControllerType = PlatformViewController
+    #endif
+
+    func makePlatformViewController(context: Context) -> PlatformViewController {
+        let controller = PlatformViewController(nibName: nil, bundle: nil)
+        controller.view.translatesAutoresizingMaskIntoConstraints = false
+
+        let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+        widthConstraint.priority = .defaultLow
+
+        let heightConstraint = controller.view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+        heightConstraint.priority = .defaultLow
+
+        NSLayoutConstraint.activate([widthConstraint, heightConstraint])
+
+        return controller
+    }
+
+    func updatePlatformViewController(_ controller: PlatformViewController, context: Context) {
+        // NO-OP
+    }
+
+    static func dismantlePlatformViewController(_ controller: PlatformViewController, coordinator: Coordinator) {
+        // NO-OP
     }
 }

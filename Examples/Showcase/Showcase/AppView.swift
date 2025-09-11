@@ -20,44 +20,43 @@ struct AppView: View {
 }
 
 struct ContentView: View {
-    @State var selection = 0
-
     var body: some View {
-        TabView(selection: $selection) {
+        TabView {
             ListShowcase()
-                .tabItem { Text("List") }
-                .tag(0)
+                .tabItem { Label("List", systemImage: "1.circle") }
             ScrollViewShowcase()
-                .tabItem { Text("ScrollView") }
-                .tag(1)
+                .tabItem { Label("ScrollView", systemImage: "2.circle") }
             #if !os(macOS)
             NavigationShowcase()
-                .tabItem { Text("Navigation") }
-                .tag(2)
+                .tabItem { Label("Navigation", systemImage: "3.circle") }
             PresentationShowcase()
-                .tabItem { Text("Presentation") }
-                .tag(3)
+                .tabItem { Label("Presentation", systemImage: "4.circle") }
             #endif
             ControlsShowcase()
-                .tabItem { Text("Controls") }
-                .tag(4)
+                .tabItem { Label("Controls", systemImage: "5.circle") }
             UIViewRepresentableShowcase()
-                .tabItem { Text("UIViewRepresentables") }
-                .tag(5)
+                .tabItem { Label("UIViewRepresentables", systemImage: "6.circle") }
         }
         #if os(iOS) || os(tvOS)
         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tabBarController in
-            tabBarController.tabBar.layer.backgroundColor = UIColor.green.cgColor
+            if #available(iOS 26, macOS 26, tvOS 26, *) {
+                tabBarController.tabBar.backgroundColor = .green
+            } else {
+                let appearance = UITabBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = .green
+                tabBarController.tabBar.standardAppearance = appearance
+                tabBarController.tabBar.scrollEdgeAppearance = appearance
+            }
         }
         #elseif os(macOS)
         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { splitView in
             splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
         }
         #endif
-        .preferredColorScheme(.light)
     }
 }
 
 #Preview {
-    ContentView()
+    AppView().preferredColorScheme(.light)
 }

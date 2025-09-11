@@ -1,5 +1,5 @@
 import SwiftUI
-@testable import SwiftUIIntrospect
+@_spi(Internals) import SwiftUIIntrospect
 import Testing
 
 @MainActor

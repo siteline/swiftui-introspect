@@ -62,7 +62,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.0.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -75,7 +75,7 @@ let package = Package(
 ### CocoaPods
 
 ```ruby
-pod 'SwiftUIIntrospect', '~> 1.0'
+pod 'SwiftUIIntrospect', '~> 26.0.0'
 ```
 
 Introspection
@@ -143,6 +143,18 @@ SwiftUI | Affected Frameworks | Why
 Text | UIKit, AppKit | Not a UILabel / NSLabel
 Image | UIKit, AppKit | Not a UIImageView / NSImageView
 Button | UIKit | Not a UIButton
+Link | UIKit, AppKit | Not a UIButton / NSButton
+NavigationLink | UIKit | Not a UIButton
+GroupBox | AppKit | No underlying view
+Menu | UIKit, AppKit | No underlying view
+Spacer | UIKit, AppKit | No underlying view
+Divider | UIKit, AppKit | No underlying view
+HStack, VStack, ZStack | UIKit, AppKit | No underlying view
+LazyVStack, LazyHStack, LazyVGrid, LazyHGrid | UIKit, AppKit | No underlying view
+Color | UIKit, AppKit | No underlying view
+ForEach | UIKit, AppKit | No underlying view
+GeometryReader | UIKit, AppKit | No underlying view
+Chart | UIKit, AppKit | No underlying view
 
 Examples
 --------
@@ -154,12 +166,10 @@ List {
     Text("Item")
 }
 .introspect(.list, on: .iOS(.v13, .v14, .v15)) { tableView in
-    tableView.backgroundView = UIView()
-    tableView.backgroundColor = .cyan
+    tableView.bounces = false
 }
 .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26)) { collectionView in
-    collectionView.backgroundView = UIView()
-    collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
+    collectionView.bounces = false
 }
 ```
 
@@ -170,7 +180,7 @@ ScrollView {
     Text("Item")
 }
 .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-    scrollView.backgroundColor = .red
+    scrollView.bounces = false
 }
 ```
 
@@ -194,6 +204,18 @@ TextField("Text Field", text: <#Binding<String>#>)
         textField.backgroundColor = .red
     }
 ```
+
+General Guidelines
+------------------
+
+Here are some guidelines to keep in mind when using SwiftUI Introspect:
+
+- **Use sparingly**: Introspection should be a last resort when you need to access underlying UIKit/AppKit components that SwiftUI does not expose. Overusing it can lead to fragile code that may break with future SwiftUI updates. As Apple introduces new modifiers to SwiftUI, consider replacing introspection with native SwiftUI solutions.
+- **Test on all target OS versions**: Since SwiftUI Introspect relies on the underlying view hierarchy, it's crucial to test your app on all the OS versions you intend to support. Different OS versions may have different underlying implementations, which can affect introspection.
+- **Do not modify state directly**: Avoid changing SwiftUI state directly from within the introspection closure. If you need to update state, enclose it within a `DispatchQueue.main.async` block to ensure it happens within safe SwiftUI update cycles.
+- **Do not assume idempotency**: The introspection closure may be called multiple times during the view's lifecycle, such as during view updates or re-renders. Ensure that your customization code can handle being executed multiple times without causing unintended side effects.
+- **Avoid retain cycles**: Be cautious about capturing `self` or other strong references within the introspection closure, as this can lead to memory leaks. Use `[weak self]` or `[unowned self]` capture lists as appropriate.
+- **Use the correct scope**: By default, the `.introspect` modifier acts on its receiver. If you need to introspect an ancestor view, make sure to set the `scope` parameter to `.ancestor`. In general, you won't need to worry about this as each view type has sensible, predictable scope defaults.
 
 Advanced usage
 --------------

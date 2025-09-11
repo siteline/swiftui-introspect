@@ -9,6 +9,19 @@ SwiftUI Introspect allows you to get the underlying UIKit or AppKit element of a
 
 For instance, with SwiftUI Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
 
+- [How it works](#how-it-works)
+- [Install](#install)
+    - [Swift Package Manager](#swift-package-manager)
+    - [CocoaPods](#cocoapods)
+- [View Types](#view-types)
+- [Examples](#examples)
+- [General Guidelines](#general-guidelines)
+- [Advanced usage](#advanced-usage)
+    - [Implement your own introspectable type](#implement-your-own-introspectable-type)
+    - [Introspect on future platform versions](#introspect-on-future-platform-versions)
+    - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
+- [Community projects](#community-projects)
+
 How it works
 ------------
 
@@ -78,8 +91,8 @@ let package = Package(
 pod 'SwiftUIIntrospect', '~> 26.0.0'
 ```
 
-Introspection
--------------
+View Types
+----------
 
 ### Implemented
 

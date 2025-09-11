@@ -33,12 +33,15 @@ struct ScrollViewShowcase: View {
                 .scrollView,
                 on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
             ) { _ in
-                receiverScrollViewFound = true
+                DispatchQueue.main.async {
+                    receiverScrollViewFound = true
+                }
             }
             #elseif os(macOS)
             .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { scrollView in
-                scrollView.drawsBackground = true
-                scrollView.backgroundColor = .cyan
+                DispatchQueue.main.async {
+                    receiverScrollViewFound = true
+                }
             }
             #endif
 
@@ -55,12 +58,15 @@ struct ScrollViewShowcase: View {
                         on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
                         scope: .ancestor
                     ) { _ in
-                        ancestorScrollViewFound = true
+                        DispatchQueue.main.async {
+                            ancestorScrollViewFound = true
+                        }
                     }
                     #elseif os(macOS)
                     .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor) { scrollView in
-                        scrollView.drawsBackground = true
-                        scrollView.backgroundColor = .cyan
+                        DispatchQueue.main.async {
+                            ancestorScrollViewFound = true
+                        }
                     }
                     #endif
             }

@@ -35,6 +35,7 @@ end
 
 lane :create_simulators do
     require 'json'
+    require 'set'
 
     # map Fastfile platform keys to display names used by CoreSimulator runtimes
     platforms_to_os = {
@@ -50,10 +51,16 @@ lane :create_simulators do
         list = JSON.parse(list_json)
         devtypes = list["devicetypes"] || []
         runtimes = list["runtimes"] || []
+
+        # Build a set of existing simulator names to prevent duplicates
+        devices_json = sh("xcrun simctl list -j devices", log: false)
+        devices_list = JSON.parse(devices_json)
+        existing_names = (devices_list["devices"] || {}).values.flatten.map { |d| d["name"] }.compact.to_set
     rescue => e
         UI.message("Failed to read simctl lists: #{e}")
         devtypes = []
         runtimes = []
+        existing_names = Set.new
     end
 
     device_name_to_id = devtypes.each_with_object({}) do |dt, h|
@@ -103,7 +110,13 @@ lane :create_simulators do
 
                 sim_name = descriptor # keep the nice human-readable name
 
+                if existing_names.include?(sim_name)
+                    UI.message("Already exists: #{sim_name}, skipping")
+                    next
+                end
+
                 sh(%(xcrun simctl create "#{sim_name}" "#{device_type_id}" "#{runtime_id}" || true))
+                existing_names.add(sim_name)
             rescue => e
                 UI.message("Skipping #{descriptor}: #{e}")
             end

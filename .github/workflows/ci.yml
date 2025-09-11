@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   lint-podspec:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Lint Podspec
     runs-on: macos-15
     steps:
@@ -41,6 +42,7 @@ jobs:
           pod lib lint SwiftUIIntrospect.podspec --allow-warnings
 
   ci:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -195,6 +197,7 @@ jobs:
         run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
 
   framework-archiving:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Archive Framework (${{ matrix.platform }})
     runs-on: macos-15
     strategy:

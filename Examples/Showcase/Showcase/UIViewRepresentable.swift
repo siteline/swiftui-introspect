@@ -2,21 +2,25 @@ import SwiftUI
 @_spi(Internals) import SwiftUIIntrospect
 
 struct UIViewRepresentableShowcase: View {
+    let colors: [Color] = [.red, .green, .blue]
+
     var body: some View {
         VStack(spacing: 10) {
-            GenericViewRepresentable()
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(
-                    .view,
-                    on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
-                ) { view in
-                    view.backgroundColor = .cyan
-                }
-                #elseif os(macOS)
-                .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
-                    view.layer?.backgroundColor = NSColor.cyan.cgColor
-                }
-                #endif
+            ForEach(colors, id: \.self) { color in
+                GenericViewRepresentable()
+                    #if os(iOS) || os(tvOS) || os(visionOS)
+                    .introspect(
+                        .view,
+                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+                    ) { view in
+                        view.backgroundColor = UIColor(color)
+                    }
+                    #elseif os(macOS)
+                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
+                        view.layer?.backgroundColor = NSColor(color).cgColor
+                    }
+                    #endif
+            }
         }
         .padding()
         #if os(iOS) || os(tvOS) || os(visionOS)

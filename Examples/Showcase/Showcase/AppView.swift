@@ -26,18 +26,24 @@ struct ContentView: View {
         TabView(selection: $selection) {
             ListShowcase()
                 .tabItem { Label("List", systemImage: "1.circle") }
+                .tag(0)
             ScrollViewShowcase()
                 .tabItem { Label("ScrollView", systemImage: "2.circle") }
+                .tag(1)
             #if !os(macOS)
             NavigationShowcase()
                 .tabItem { Label("Navigation", systemImage: "3.circle") }
+                .tag(2)
             PresentationShowcase()
                 .tabItem { Label("Presentation", systemImage: "4.circle") }
+                .tag(3)
             #endif
             ControlsShowcase()
                 .tabItem { Label("Controls", systemImage: "5.circle") }
+                .tag(4)
             UIViewRepresentableShowcase()
                 .tabItem { Label("UIViewRepresentable", systemImage: "6.circle") }
+                .tag(5)
         }
         #if os(iOS) || os(tvOS)
         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tabBarController in

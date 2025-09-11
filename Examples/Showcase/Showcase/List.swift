@@ -29,13 +29,15 @@ struct ListShowcase: View {
                     Text("Item 2")
                 }
                 .modifier { list in
-                    if #available(iOS 16, *) {
+                    if #available(iOS 16, macOS 13, *) {
                         list.background {
                                 if receiverListFound {
-                                    Color(uiColor: .cyan)
+                                    Color(.cyan)
                                 }
                             }
+                            #if !os(tvOS)
                             .scrollContentBackground(.hidden)
+                            #endif
                     } else {
                         list
                     }
@@ -87,13 +89,15 @@ struct ListShowcase: View {
                         #endif
                 }
                 .modifier { list in
-                    if #available(iOS 16, *) {
+                    if #available(iOS 16, macOS 13, *) {
                         list.background {
                             if ancestorListFound {
-                                Color(uiColor: .cyan)
+                                Color(.cyan)
                             }
                         }
+                        #if !os(tvOS)
                         .scrollContentBackground(.hidden)
+                        #endif
                     } else {
                         list
                     }

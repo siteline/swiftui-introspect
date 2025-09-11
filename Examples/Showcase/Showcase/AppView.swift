@@ -27,22 +27,22 @@ struct ContentView: View {
             ListShowcase()
                 .tabItem { Text("List") }
                 .tag(0)
-            ScrollViewShowcase()
-                .tabItem { Text("ScrollView") }
-                .tag(1)
             #if !os(macOS)
             NavigationShowcase()
                 .tabItem { Text("Navigation") }
-                .tag(2)
+                .tag(1)
             PresentationShowcase()
                 .tabItem { Text("Presentation") }
-                .tag(3)
+                .tag(2)
             #endif
-            GenericViewShowcase()
-                .tabItem { Text("Generic View") }
-                .tag(4)
+            ScrollViewShowcase()
+                .tabItem { Text("ScrollView") }
+                .tag(3)
             SimpleElementsShowcase()
                 .tabItem { Text("Simple elements") }
+                .tag(4)
+            UIViewRepresentableShowcase()
+                .tabItem { Text("UIViewRepresentables") }
                 .tag(5)
         }
         #if os(iOS) || os(tvOS)
@@ -55,76 +55,6 @@ struct ContentView: View {
         }
         #endif
         .preferredColorScheme(.light)
-    }
-}
-
-struct ListShowcase: View {
-    var body: some View {
-        VStack(spacing: 40) {
-            VStack {
-                Text("Default")
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, 12)
-                List {
-                    Text("Item 1")
-                    Text("Item 2")
-                }
-            }
-
-            VStack {
-                Text(".introspect(.list, ...)")
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, 12)
-                    .font(.system(.subheadline, design: .monospaced))
-                List {
-                    Text("Item 1")
-                    Text("Item 2")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tableView in
-                    tableView.backgroundView = UIView()
-                    tableView.backgroundColor = .cyan
-                }
-                .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)) { collectionView in
-                    collectionView.backgroundView = UIView()
-                    collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
-                }
-                #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { tableView in
-                    tableView.backgroundColor = .cyan
-                }
-                #endif
-            }
-
-            VStack {
-                Text(".introspect(.list, ..., scope: .ancestor)")
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.horizontal, 12)
-                    .font(.system(.subheadline, design: .monospaced))
-                List {
-                    Text("Item 1")
-                    Text("Item 2")
-                        #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { tableView in
-                            tableView.backgroundView = UIView()
-                            tableView.backgroundColor = .cyan
-                        }
-                        .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor) { collectionView in
-                            collectionView.backgroundView = UIView()
-                            collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
-                        }
-                        #elseif os(macOS)
-                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor) { tableView in
-                            tableView.backgroundColor = .cyan
-                        }
-                        #endif
-                }
-            }
-        }
-
     }
 }
 
@@ -236,7 +166,7 @@ struct PresentationShowcase: View {
 }
 #endif
 
-struct GenericViewShowcase: View {
+struct UIViewRepresentableShowcase: View {
     var body: some View {
         VStack(spacing: 10) {
             Text(".introspect(.view, ...)")

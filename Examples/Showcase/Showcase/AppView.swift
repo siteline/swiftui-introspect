@@ -20,8 +20,10 @@ struct AppView: View {
 }
 
 struct ContentView: View {
+    @State var selection = 0
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             ListShowcase()
                 .tabItem { Label("List", systemImage: "1.circle") }
             ScrollViewShowcase()

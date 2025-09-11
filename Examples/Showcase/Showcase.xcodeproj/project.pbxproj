@@ -12,6 +12,7 @@
 		D5B829752999738200920EBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B829742999738200920EBD /* Helpers.swift */; };
 		D5B864E82E72BF0F002F5243 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864E72E72BF0F002F5243 /* ScrollView.swift */; };
 		D5B864EA2E72CE71002F5243 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864E92E72CE71002F5243 /* List.swift */; };
+		D5B864EC2E72D9E1002F5243 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864EB2E72D9E1002F5243 /* Navigation.swift */; };
 		D5E3180329C132B6005847DC /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E3180229C132B6005847DC /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		D5B829742999738200920EBD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		D5B864E72E72BF0F002F5243 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		D5B864E92E72CE71002F5243 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		D5B864EB2E72D9E1002F5243 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				D53071F829983CEF00F1936C /* AppView.swift */,
 				D5B864E92E72CE71002F5243 /* List.swift */,
 				D5B864E72E72BF0F002F5243 /* ScrollView.swift */,
+				D5B864EB2E72D9E1002F5243 /* Navigation.swift */,
 				D5B829742999738200920EBD /* Helpers.swift */,
 			);
 			path = Showcase;
@@ -148,6 +151,7 @@
 				D53071F929983CEF00F1936C /* AppView.swift in Sources */,
 				D5B864E82E72BF0F002F5243 /* ScrollView.swift in Sources */,
 				D5B829752999738200920EBD /* Helpers.swift in Sources */,
+				D5B864EC2E72D9E1002F5243 /* Navigation.swift in Sources */,
 				D5B864EA2E72CE71002F5243 /* List.swift in Sources */,
 				D53071F729983CEF00F1936C /* App.swift in Sources */,
 			);

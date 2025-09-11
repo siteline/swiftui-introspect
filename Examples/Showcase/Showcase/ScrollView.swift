@@ -2,8 +2,8 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct ScrollViewShowcase: View {
-    @State var firstScrollViewFound: Bool = false
-    @State var secondScrollViewFound: Bool = false
+    @State var receiverScrollViewFound: Bool = false
+    @State var ancestorScrollViewFound: Bool = false
 
     var body: some View {
         VStack(spacing: 40) {
@@ -23,23 +23,18 @@ struct ScrollViewShowcase: View {
                     .padding(.horizontal, 12)
                     .font(.system(.subheadline, design: .monospaced))
             }
-            .background(Color(.cyan))
+            .background {
+                if receiverScrollViewFound {
+                    Color(.cyan)
+                }
+            }
             #if os(iOS) || os(tvOS) || os(visionOS)
             .introspect(
                 .scrollView,
                 on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
-            ) { scrollView in
-                scrollView.layer.backgroundColor = UIColor.cyan.cgColor
-                scrollView.layer.cornerRadius = 12
-                scrollView.clipsToBounds = true
-//                scrollView.flashScrollIndicators()
-                scrollView.bounces = false
+            ) { _ in
+                receiverScrollViewFound = true
             }
-//            .modifier {
-//                if #available(iOS 16, tvOS 16, *) {
-//                    $0.scroll
-//                }
-//            }
             #elseif os(macOS)
             .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { scrollView in
                 scrollView.drawsBackground = true
@@ -59,8 +54,8 @@ struct ScrollViewShowcase: View {
                         .scrollView,
                         on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
                         scope: .ancestor
-                    ) { scrollView in
-                        scrollView.layer.backgroundColor = UIColor.cyan.cgColor
+                    ) { _ in
+                        ancestorScrollViewFound = true
                     }
                     #elseif os(macOS)
                     .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor) { scrollView in
@@ -68,6 +63,11 @@ struct ScrollViewShowcase: View {
                         scrollView.backgroundColor = .cyan
                     }
                     #endif
+            }
+            .background {
+                if ancestorScrollViewFound {
+                    Color(.cyan)
+                }
             }
         }
     }

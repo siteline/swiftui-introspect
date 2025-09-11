@@ -30,7 +30,7 @@ devices = {
 }
 
 before_all do |lane, options|
-    create_simulators
+    create_simulators unless lane == :create_simulators
 end
 
 lane :create_simulators do
@@ -46,42 +46,35 @@ lane :create_simulators do
 
     # Build lookup tables from CoreSimulator for robust name→identifier mapping
     begin
-        devtypes_json = sh("xcrun simctl list -j devicetypes", log: false)
-        runtimes_json = sh("xcrun simctl list -j runtimes", log: false)
-        devtypes = JSON.parse(devtypes_json)["devicetypes"] || []
-        runtimes = JSON.parse(runtimes_json)["runtimes"] || []
+        list_json = sh("xcrun simctl list -j", log: false)
+        list = JSON.parse(list_json)
+        devtypes = list["devicetypes"] || []
+        runtimes = list["runtimes"] || []
     rescue => e
         UI.message("Failed to read simctl lists: #{e}")
         devtypes = []
         runtimes = []
     end
 
-    device_name_to_id = {}
-    devtypes.each do |dt|
-        name = dt["name"]
-        id = dt["identifier"]
-        device_name_to_id[name] = id if name && id
+    device_name_to_id = devtypes.each_with_object({}) do |dt, h|
+        name = dt["name"]; id = dt["identifier"]
+        h[name] = id if name && id
     end
 
-    runtime_name_to_id = {}
-    runtimes.each do |rt|
+    runtime_name_to_id = runtimes.each_with_object({}) do |rt, h|
         next unless rt["isAvailable"]
-        name = rt["name"] # e.g. "iOS 16.4"
-        id = rt["identifier"] # e.g. "com.apple.CoreSimulator.SimRuntime.iOS-16-4"
-        runtime_name_to_id[name] = id if name && id
+        name = rt["name"]; id = rt["identifier"]
+        h[name] = id if name && id
     end
 
     # Fallback builders when exact matches are not present in the lookup tables
     build_device_type_id = proc do |device_name|
-        # Remove parentheses but keep their contents, replace spaces with hyphens, drop non-word chars except hyphens
-        s = device_name.gsub(/[()]/, '')
-        s = s.gsub(/\s+/, '-')
-        s = s.gsub(/[^A-Za-z0-9-]/, '')
-        "com.apple.CoreSimulator.SimDeviceType." + s
+        s = device_name.gsub(/[()]/, '').gsub(/\s+/, '-').gsub(/[^A-Za-z0-9-]/, '')
+        "com.apple.CoreSimulator.SimDeviceType.#{s}"
     end
 
     build_runtime_id = proc do |os_name, version|
-        "com.apple.CoreSimulator.SimRuntime." + os_name + "-" + version.tr('.', '-')
+        "com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
     end
 
     devices.each do |platform, versions|
@@ -94,10 +87,11 @@ lane :create_simulators do
             #   "iPad Pro (11-inch) (4th generation) (16.4)"
             #   "Apple Vision Pro (2.5)"
             begin
-                # Strip only the trailing " (x.y)" to get the device name
-                device_name = descriptor.sub(/\s*\([^()]+\)\s*\z/, '')
-                runtime_version = descriptor[/\(([^)]+)\)\s*\z/, 1]
-                if runtime_version.nil?
+                # Parse trailing "(x.y)" and derive device name
+                if descriptor =~ /\s*\(([^()]+)\)\s*\z/
+                    runtime_version = $1
+                    device_name = descriptor.sub(/\s*\([^()]+\)\s*\z/, '')
+                else
                     UI.message("Could not parse runtime version from '#{descriptor}', skipping")
                     next
                 end

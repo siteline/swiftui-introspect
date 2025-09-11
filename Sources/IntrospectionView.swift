@@ -148,14 +148,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
         super.init(nibName: nil, bundle: nil)
         self.handler = { [weak self] in
             guard let self else { return }
-
-            // NB: .introspect makes no guarantees about the number of times its callback is invoked,
-            // so the below is fair play to maximize compatibility and predictability
-            handler?(self) // we call this eagerly as most customization can successfully happen without a thread hop
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                handler?(self) // we also thread hop to cover the rest of the cases where the underlying UI component isn't quite ready for customization
-            }
+            handler?(self)
         }
         self.isIntrospectionPlatformEntity = true
         IntrospectionStore.shared[id, default: .init()].controller = self

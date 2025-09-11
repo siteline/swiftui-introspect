@@ -10,6 +10,7 @@
 		D53071F729983CEF00F1936C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F629983CEF00F1936C /* App.swift */; };
 		D53071F929983CEF00F1936C /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53071F829983CEF00F1936C /* AppView.swift */; };
 		D5B829752999738200920EBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B829742999738200920EBD /* Helpers.swift */; };
+		D5B864E82E72BF0F002F5243 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864E72E72BF0F002F5243 /* ScrollView.swift */; };
 		D5E3180329C132B6005847DC /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E3180229C132B6005847DC /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +20,7 @@
 		D53071F829983CEF00F1936C /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		D530720429983D9300F1936C /* Showcase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Showcase.entitlements; sourceTree = "<group>"; };
 		D5B829742999738200920EBD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		D5B864E72E72BF0F002F5243 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				D530720429983D9300F1936C /* Showcase.entitlements */,
 				D53071F629983CEF00F1936C /* App.swift */,
 				D53071F829983CEF00F1936C /* AppView.swift */,
+				D5B864E72E72BF0F002F5243 /* ScrollView.swift */,
 				D5B829742999738200920EBD /* Helpers.swift */,
 			);
 			path = Showcase;
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D53071F929983CEF00F1936C /* AppView.swift in Sources */,
+				D5B864E82E72BF0F002F5243 /* ScrollView.swift in Sources */,
 				D5B829752999738200920EBD /* Helpers.swift in Sources */,
 				D53071F729983CEF00F1936C /* App.swift in Sources */,
 			);

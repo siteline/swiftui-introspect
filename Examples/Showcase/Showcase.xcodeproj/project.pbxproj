@@ -14,6 +14,7 @@
 		D5B864EA2E72CE71002F5243 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864E92E72CE71002F5243 /* List.swift */; };
 		D5B864EC2E72D9E1002F5243 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864EB2E72D9E1002F5243 /* Navigation.swift */; };
 		D5B864EE2E72DB42002F5243 /* Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864ED2E72DB42002F5243 /* Presentation.swift */; };
+		D5B864F02E72DC75002F5243 /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B864EF2E72DC75002F5243 /* Controls.swift */; };
 		D5E3180329C132B6005847DC /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E3180229C132B6005847DC /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		D5B864E92E72CE71002F5243 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		D5B864EB2E72D9E1002F5243 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		D5B864ED2E72DB42002F5243 /* Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentation.swift; sourceTree = "<group>"; };
+		D5B864EF2E72DC75002F5243 /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				D5B864E72E72BF0F002F5243 /* ScrollView.swift */,
 				D5B864EB2E72D9E1002F5243 /* Navigation.swift */,
 				D5B864ED2E72DB42002F5243 /* Presentation.swift */,
+				D5B864EF2E72DC75002F5243 /* Controls.swift */,
 				D5B829742999738200920EBD /* Helpers.swift */,
 			);
 			path = Showcase;
@@ -156,6 +159,7 @@
 				D5B864E82E72BF0F002F5243 /* ScrollView.swift in Sources */,
 				D5B829752999738200920EBD /* Helpers.swift in Sources */,
 				D5B864EC2E72D9E1002F5243 /* Navigation.swift in Sources */,
+				D5B864F02E72DC75002F5243 /* Controls.swift in Sources */,
 				D5B864EA2E72CE71002F5243 /* List.swift in Sources */,
 				D53071F729983CEF00F1936C /* App.swift in Sources */,
 			);

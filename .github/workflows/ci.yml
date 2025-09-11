@@ -159,7 +159,7 @@ jobs:
           command: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
 
       - if: env.has_runtime == 'false'
-        name: "[Debug] List Available Installable Runtimes"
+        name: "List Downloadable Runtimes"
         run: xcodes runtimes --include-betas
 
       - if: env.has_runtime == 'false'
@@ -170,7 +170,7 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - name: "[Debug] List Available Runtimes, Simulators, and Destinations"
+      - name: "List Available Runtimes, Simulators, and Destinations"
         run: |
           xcrun simctl list
           xcodebuild -scheme "SwiftUIIntrospect" -showdestinations

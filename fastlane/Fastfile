@@ -24,10 +24,121 @@ devices = {
     },
     "visionos" => {
         1 => ["Apple Vision Pro (at 2732x2048) (1.2)"],
-        2 => ["Apple Vision Pro (2.5)"],
+        2 => ["Apple Vision Pro (at 2732x2048) (2.5)"],
         26 => ["Apple Vision Pro (26.0)"],
     },
 }
+
+before_all do |lane, options|
+    next if lane == :create_simulators
+    create_simulators(platform: options[:platform], version: options[:version])
+end
+
+lane :create_simulators do |options|
+    require 'json'
+    require 'set'
+
+    # map Fastfile platform keys to display names used by CoreSimulator runtimes
+    platforms_to_os = {
+        "ios" => "iOS",
+        "tvos" => "tvOS",
+        "watchos" => "watchOS",
+        "visionos" => "visionOS",
+    }
+
+    # Build lookup tables from CoreSimulator for robust name→identifier mapping
+    begin
+        list_json = sh("xcrun simctl list -j", log: false)
+        list = JSON.parse(list_json)
+        devtypes = list["devicetypes"] || []
+        runtimes = list["runtimes"] || []
+
+        # Build a set of existing simulator names to prevent duplicates
+        devices_json = sh("xcrun simctl list -j devices", log: false)
+        devices_list = JSON.parse(devices_json)
+        existing_names = (devices_list["devices"] || {}).values.flatten.map { |d| d["name"] }.compact.to_set
+    rescue => e
+        UI.message("Failed to read simctl lists: #{e}")
+        devtypes = []
+        runtimes = []
+        existing_names = Set.new
+    end
+
+    device_name_to_id = devtypes.each_with_object({}) do |dt, h|
+        name = dt["name"]; id = dt["identifier"]
+        h[name] = id if name && id
+    end
+
+    runtime_name_to_id = runtimes.each_with_object({}) do |rt, h|
+        next unless rt["isAvailable"]
+        name = rt["name"]; id = rt["identifier"]
+        h[name] = id if name && id
+    end
+
+    # Fallback builders when exact matches are not present in the lookup tables
+    build_device_type_id = proc do |device_name|
+        s = device_name.gsub(/[()]/, '').gsub(/\s+/, '-').gsub(/[^A-Za-z0-9-]/, '')
+        "com.apple.CoreSimulator.SimDeviceType.#{s}"
+    end
+
+    build_runtime_id = proc do |os_name, version|
+        "com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
+    end
+
+    platform_opt = options && options[:platform] ? options[:platform].to_s.downcase : nil
+    version_opt  = options && options[:version] ? options[:version].to_i : nil
+
+    local_devices = if platform_opt && devices.key?(platform_opt)
+        subset_versions = devices[platform_opt]
+        if version_opt && subset_versions.key?(version_opt)
+            { platform_opt => { version_opt => subset_versions[version_opt] } }
+        else
+            { platform_opt => subset_versions }
+        end
+    else
+        devices
+    end
+
+    local_devices.each do |platform, versions|
+        os_name = platforms_to_os[platform]
+        next if os_name.nil?
+
+        versions.values.flatten.each do |descriptor|
+            # descriptor examples:
+            #   "iPhone 14 Pro (16.4)"
+            #   "iPad Pro (11-inch) (4th generation) (16.4)"
+            #   "Apple Vision Pro (2.5)"
+            begin
+                # Parse trailing "(x.y)" and derive device name
+                if descriptor =~ /\s*\(([^()]+)\)\s*\z/
+                    runtime_version = $1
+                    device_name = descriptor.sub(/\s*\([^()]+\)\s*\z/, '')
+                else
+                    UI.message("Could not parse runtime version from '#{descriptor}', skipping")
+                    next
+                end
+
+                runtime_name = "#{os_name} #{runtime_version}"
+
+                device_type_id = device_name_to_id[device_name] || build_device_type_id.call(device_name)
+                runtime_id = runtime_name_to_id[runtime_name] || build_runtime_id.call(os_name, runtime_version)
+
+                # Use the device name without the version suffix as the simulator name
+                sim_name = device_name
+
+                if existing_names.include?(sim_name)
+                    UI.message("Already exists: #{sim_name} (#{runtime_version}), skipping")
+                    next
+                end
+
+                sh(%(xcrun simctl create "#{sim_name}" "#{device_type_id}" "#{runtime_id}" || true))
+                existing_names.add(sim_name)
+            rescue => e
+                UI.message("Skipping #{descriptor}: #{e}")
+            end
+        end
+    end
+end
 
 lane :build do |options|
     platform = options[:platform].to_s.downcase

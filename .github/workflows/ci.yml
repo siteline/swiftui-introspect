@@ -172,7 +172,14 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install '${{ matrix.runtime }}'
 
-      - name: "List Available Runtimes, Simulators, and Destinations"
+      - if: ${{ matrix.platform[0] != 'macOS' }}
+        name: Create Required Simulators
+        run: |
+          set -eo pipefail
+          xcrun simctl delete all
+          fastlane create_simulators platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }}
+
+      - name: List Available Runtimes, Simulators, and Destinations
         run: |
           xcrun simctl list
           xcodebuild -scheme "SwiftUIIntrospect" -showdestinations

@@ -238,7 +238,7 @@ Advanced usage
 > The following features are considered advanced and are not necessary for most use cases. They are provided for users who need more control or flexibility when using SwiftUI Introspect.
 
 > [!IMPORTANT]
-> To access these features, import SwiftUIIntrospect using `@_spi(Advanced)`.
+> To access these features, import SwiftUI Introspect using `@_spi(Advanced)` (see examples below).
 
 ### Implement your own introspectable type
 

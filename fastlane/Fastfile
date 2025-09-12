@@ -31,22 +31,7 @@ devices = {
 
 before_all do |lane, options|
     next if lane == :create_simulators
-
-    platform = options[:platform].to_s.downcase if options.key?(:platform)
-    version  = options[:version].to_i if options.key?(:version)
-
-    if platform && devices.key?(platform)
-        # Filter to the requested platform and optionally the specific version
-        subset_versions = devices[platform]
-        if version && subset_versions.key?(version)
-            filtered = { platform => { version => subset_versions[version] } }
-        else
-            filtered = { platform => subset_versions }
-        end
-        create_simulators(devices_subset: filtered)
-    else
-        create_simulators
-    end
+    create_simulators(platform: options[:platform], version: options[:version])
 end
 
 lane :create_simulators do |options|
@@ -100,7 +85,19 @@ lane :create_simulators do |options|
         "com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
     end
 
-    local_devices = (options && options[:devices_subset]) || devices
+    platform_opt = options && options[:platform] ? options[:platform].to_s.downcase : nil
+    version_opt  = options && options[:version] ? options[:version].to_i : nil
+
+    local_devices = if platform_opt && devices.key?(platform_opt)
+        subset_versions = devices[platform_opt]
+        if version_opt && subset_versions.key?(version_opt)
+            { platform_opt => { version_opt => subset_versions[version_opt] } }
+        else
+            { platform_opt => subset_versions }
+        end
+    else
+        devices
+    end
 
     local_devices.each do |platform, versions|
         os_name = platforms_to_os[platform]
@@ -130,7 +127,7 @@ lane :create_simulators do |options|
                 sim_name = device_name
 
                 if existing_names.include?(sim_name)
-                    UI.message("Already exists: #{sim_name}, skipping")
+                    UI.message("Already exists: #{sim_name} (#{runtime_version}), skipping")
                     next
                 end
 

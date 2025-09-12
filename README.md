@@ -20,6 +20,7 @@ For instance, with SwiftUI Introspect you can access `UITableView` to modify sep
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
     - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
+- [Guidelines for library maintainers](#guidelines-for-library-maintainers)
 - [Community projects](#community-projects)
 
 How it works
@@ -68,7 +69,7 @@ Install
 
 #### Xcode
 
-<img width="656" src="https://github.com/siteline/swiftui-introspect/assets/2538074/d19c1dd3-9aa4-4e4f-a5a5-b2d6a5b9b927">
+<img width="660" height="300" src="https://github.com/user-attachments/assets/40a719ed-b6b5-4a00-8b90-b813ae5f1e65" />
 
 #### Package.swift
 
@@ -341,6 +342,15 @@ struct ContentView: View {
         }
     }
 }
+```
+
+Guidelines for library maintainers
+----------------------------------
+
+If you maintain a SwiftUI Introspect-based library, make sure to declare your library's dependency on SwiftUI Introspect with a version range covering at least the last two major SwiftUI Introspect versions. This ensures that your library's dependency on SwiftUI Introspect doesn't clash with other libraries that may depend on different versions of SwiftUI Introspect, or with the target app's direct dependency on SwiftUI Introspect.
+
+```swift
+.package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
 ```
 
 Community projects

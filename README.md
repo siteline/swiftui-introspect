@@ -20,7 +20,7 @@ For instance, with SwiftUI Introspect you can access `UITableView` to modify sep
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
     - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
-- [Guidelines for library maintainers](#guidelines-for-library-maintainers)
+- [Note for library maintainers](#note-for-library-maintainers)
 - [Community projects](#community-projects)
 
 How it works
@@ -69,7 +69,7 @@ Install
 
 #### Xcode
 
-<img width="660" height="300" src="https://github.com/user-attachments/assets/40a719ed-b6b5-4a00-8b90-b813ae5f1e65" />
+<img width="660" height="300" src="https://github.com/user-attachments/assets/ab1c1a62-96d9-417d-ad2b-43012a69cae8" />
 
 #### Package.swift
 
@@ -169,7 +169,7 @@ LazyVStack, LazyHStack, LazyVGrid, LazyHGrid | UIKit, AppKit | No underlying vie
 Color | UIKit, AppKit | No underlying view
 ForEach | UIKit, AppKit | No underlying view
 GeometryReader | UIKit, AppKit | No underlying view
-Chart | UIKit, AppKit | No underlying view
+Chart | UIKit, AppKit | Native SwiftUI framework
 
 Examples
 --------
@@ -344,8 +344,8 @@ struct ContentView: View {
 }
 ```
 
-Guidelines for library maintainers
-----------------------------------
+Note for library maintainers
+----------------------------
 
 If you maintain a SwiftUI Introspect-based library, make sure to declare your library's dependency on SwiftUI Introspect with a version range covering at least the last two major SwiftUI Introspect versions. This ensures that your library's dependency on SwiftUI Introspect doesn't clash with other libraries that may depend on different versions of SwiftUI Introspect, or with the target app's direct dependency on SwiftUI Introspect.
 

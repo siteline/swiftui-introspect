@@ -30,10 +30,26 @@ devices = {
 }
 
 before_all do |lane, options|
-    create_simulators unless lane == :create_simulators
+    next if lane == :create_simulators
+
+    platform = options[:platform].to_s.downcase if options.key?(:platform)
+    version  = options[:version].to_i if options.key?(:version)
+
+    if platform && devices.key?(platform)
+        # Filter to the requested platform and optionally the specific version
+        subset_versions = devices[platform]
+        if version && subset_versions.key?(version)
+            filtered = { platform => { version => subset_versions[version] } }
+        else
+            filtered = { platform => subset_versions }
+        end
+        create_simulators(devices_subset: filtered)
+    else
+        create_simulators
+    end
 end
 
-lane :create_simulators do
+lane :create_simulators do |options|
     require 'json'
     require 'set'
 
@@ -84,7 +100,9 @@ lane :create_simulators do
         "com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
     end
 
-    devices.each do |platform, versions|
+    local_devices = (options && options[:devices_subset]) || devices
+
+    local_devices.each do |platform, versions|
         os_name = platforms_to_os[platform]
         next if os_name.nil?
 
@@ -108,7 +126,8 @@ lane :create_simulators do
                 device_type_id = device_name_to_id[device_name] || build_device_type_id.call(device_name)
                 runtime_id = runtime_name_to_id[runtime_name] || build_runtime_id.call(os_name, runtime_version)
 
-                sim_name = descriptor # keep the nice human-readable name
+                # Use the device name without the version suffix as the simulator name
+                sim_name = device_name
 
                 if existing_names.include?(sim_name)
                     UI.message("Already exists: #{sim_name}, skipping")

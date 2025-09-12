@@ -224,14 +224,18 @@ General Guidelines
 Here are some guidelines to keep in mind when using SwiftUI Introspect:
 
 - **Use sparingly**: introspection should be a last resort when you need to access underlying UIKit/AppKit components that SwiftUI does not expose. Overusing it can lead to fragile code that may break with future SwiftUI updates. As Apple introduces new modifiers to SwiftUI, consider replacing introspection with native SwiftUI solutions.
-- **Test on all target OS versions**: since SwiftUI Introspect relies on the underlying view hierarchy, it's crucial to test your app on all the OS versions you intend to support. Different OS versions may have different underlying implementations, which can affect introspection.
+- **Program defensively**: the introspection closure may be called multiple times during the view's lifecycle, such as during view updates or re-renders. Ensure that your customization code can handle being executed multiple times without causing unintended side effects.
 - **Do not modify state directly**: avoid changing SwiftUI state directly from within the introspection closure. If you need to update state, enclose it within a `DispatchQueue.main.async` block to ensure it happens within safe SwiftUI update cycles.
-- **Do not assume idempotency**: the introspection closure may be called multiple times during the view's lifecycle, such as during view updates or re-renders. Ensure that your customization code can handle being executed multiple times without causing unintended side effects.
+- **Test on all target OS versions**: since SwiftUI Introspect relies on the underlying view hierarchy, it's crucial to test your app on all the OS versions you intend to support. Different OS versions may have different underlying implementations, which can affect introspection.
 - **Avoid retain cycles**: be cautious about capturing `self` or other strong references within the introspection closure, as this can lead to memory leaks. Use `[weak self]` or `[unowned self]` capture lists as appropriate.
 - **Use the correct scope**: by default, the `.introspect` modifier acts on its receiver. If you need to introspect an ancestor view, make sure to set the `scope` parameter to `.ancestor`. In general, you won't need to worry about this as each view type has sensible, predictable scope defaults.
 
 Advanced usage
 --------------
+
+> [!NOTE]
+> The following features are considered advanced and are not necessary for most use cases. They are provided for users who need more control or flexibility when using SwiftUI Introspect.
+> To access these features, import SwiftUIIntrospect using `@_spi(Advanced)`.
 
 ### Implement your own introspectable type
 

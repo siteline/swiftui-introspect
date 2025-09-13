@@ -2,7 +2,7 @@ skip_docs
 
 devices = {
     "ios" => {
-        15 => ["iPhone SE (3rd generation) (15.5)", "iPad Air (5th generation) (15.5)",],
+        15 => ["iPhone 13 Pro (15.5)", "iPad Pro (11-inch) (3rd generation) (15.5)",],
         16 => ["iPhone 14 Pro (16.4)", "iPad Pro (11-inch) (4th generation) (16.4)"],
         17 => ["iPhone 15 Pro (17.5)", "iPad Pro 11-inch (M4) (17.5)"],
         18 => ["iPhone 16 Pro (18.6)", "iPad Pro 11-inch (M4) (18.6)"],
@@ -48,20 +48,27 @@ lane :create_simulators do |options|
 
     # Build lookup tables from CoreSimulator for robust name→identifier mapping
     begin
+        # Build a set of existing simulator name+runtime pairs to prevent duplicates across OS versions
+        devices_json = sh("xcrun simctl list -j devices", log: false)
+        devices_list = JSON.parse(devices_json)
+        existing_pairs = Set.new
+        (devices_list["devices"] || {}).each do |runtime_key, arr|
+            Array(arr).each do |d|
+                name = d["name"]
+                next unless name && runtime_key
+                existing_pairs.add("#{name}||#{runtime_key}")
+            end
+        end
+
         list_json = sh("xcrun simctl list -j", log: false)
         list = JSON.parse(list_json)
         devtypes = list["devicetypes"] || []
         runtimes = list["runtimes"] || []
-
-        # Build a set of existing simulator names to prevent duplicates
-        devices_json = sh("xcrun simctl list -j devices", log: false)
-        devices_list = JSON.parse(devices_json)
-        existing_names = (devices_list["devices"] || {}).values.flatten.map { |d| d["name"] }.compact.to_set
     rescue => e
         UI.message("Failed to read simctl lists: #{e}")
         devtypes = []
         runtimes = []
-        existing_names = Set.new
+        existing_pairs = Set.new
     end
 
     device_name_to_id = devtypes.each_with_object({}) do |dt, h|
@@ -126,13 +133,14 @@ lane :create_simulators do |options|
                 # Use the device name without the version suffix as the simulator name
                 sim_name = device_name
 
-                if existing_names.include?(sim_name)
+                pair_key = "#{sim_name}||#{runtime_id}"
+                if existing_pairs.include?(pair_key)
                     UI.message("Already exists: #{sim_name} (#{runtime_version}), skipping")
                     next
                 end
 
                 sh(%(xcrun simctl create "#{sim_name}" "#{device_type_id}" "#{runtime_id}" || true))
-                existing_names.add(sim_name)
+                existing_pairs.add(pair_key)
             rescue => e
                 UI.message("Skipping #{descriptor}: #{e}")
             end

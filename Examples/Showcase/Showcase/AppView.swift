@@ -66,5 +66,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    AppView().preferredColorScheme(.light)
+    AppView()
 }

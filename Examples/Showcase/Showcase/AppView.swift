@@ -46,7 +46,7 @@ struct ContentView: View {
                 .tag(5)
         }
         #if os(iOS) || os(tvOS)
-        .introspect(.tabView, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tabBarController in
+        .introspect(.tabView, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26)) { tabBarController in
             if #available(iOS 26, macOS 26, tvOS 26, *) {
                 tabBarController.tabBar.backgroundColor = .green
             } else {

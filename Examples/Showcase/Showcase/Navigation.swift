@@ -5,13 +5,7 @@ struct NavigationShowcase: View {
     var body: some View {
         NavigationView {
             Text("Content")
-                .modifier {
-                    if #available(iOS 15, tvOS 15, macOS 12, *) {
-                        $0.searchable(text: .constant(""))
-                    } else {
-                        $0
-                    }
-                }
+                .searchable(text: .constant(""))
                 #if os(iOS) || os(visionOS)
                 .navigationBarTitle(Text("Customized"), displayMode: .inline)
                 #elseif os(macOS)

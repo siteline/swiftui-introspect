@@ -26,20 +26,18 @@ struct PresentationShowcase: View {
                         #endif
                 }
 
-            if #available(iOS 14, tvOS 14, *) {
-                Button("Full Screen Cover", action: { isFullScreenPresented = true })
-                    .fullScreenCover(isPresented: $isFullScreenPresented) {
-                        Button("Dismiss", action: { isFullScreenPresented = false })
-                            #if os(iOS) || os(tvOS) || os(visionOS)
-                            .introspect(
-                                .fullScreenCover,
-                                on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
-                            ) { presentationController in
-                                presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
-                            }
-                            #endif
-                    }
-            }
+            Button("Full Screen Cover", action: { isFullScreenPresented = true })
+                .fullScreenCover(isPresented: $isFullScreenPresented) {
+                    Button("Dismiss", action: { isFullScreenPresented = false })
+                        #if os(iOS) || os(tvOS) || os(visionOS)
+                        .introspect(
+                            .fullScreenCover,
+                            on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+                        ) { presentationController in
+                            presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
+                        }
+                        #endif
+                }
 
             #if os(iOS) || os(visionOS)
             Button("Popover", action: { isPopoverPresented = true })

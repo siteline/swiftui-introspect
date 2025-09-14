@@ -347,11 +347,13 @@ struct ContentView: View {
 Note for library maintainers
 ----------------------------
 
-If you maintain a SwiftUI Introspect-based library, make sure to declare your library's dependency on SwiftUI Introspect with a version range covering at least the last two major SwiftUI Introspect versions. This ensures that your library's dependency on SwiftUI Introspect doesn't clash with other libraries that may depend on different versions of SwiftUI Introspect, or with the target app's direct dependency on SwiftUI Introspect.
+If your library depends on SwiftUI Introspect, declare your dependency with a version range that spans at least the **last two major versions** rather than bumping straight to the latest one. This avoids conflicts when apps depend on SwiftUI Introspect directly or through multiple libraries at once. For example:
 
 ```swift
 .package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
 ```
+
+Supporting a wider range is safe because SwiftUI Introspect is essentially a “finished” library: no new features will be added, only support for newer platform versions. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it’s already future-proofed without requiring frequent version bumps.
 
 Community projects
 ------------------

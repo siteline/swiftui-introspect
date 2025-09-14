@@ -11,12 +11,12 @@ struct UIViewRepresentableShowcase: View {
                     #if os(iOS) || os(tvOS) || os(visionOS)
                     .introspect(
                         .view,
-                        on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+                        on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
                     ) { view in
                         view.backgroundColor = UIColor(color)
                     }
                     #elseif os(macOS)
-                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
+                    .introspect(.view, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { view in
                         view.layer?.backgroundColor = NSColor(color).cgColor
                     }
                     #endif
@@ -26,12 +26,12 @@ struct UIViewRepresentableShowcase: View {
         #if os(iOS) || os(tvOS) || os(visionOS)
         .introspect(
             .view,
-            on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+            on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
         ) { view in
             view.backgroundColor = .red
         }
         #elseif os(macOS)
-        .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { view in
+        .introspect(.view, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { view in
             view.layer?.backgroundColor = NSColor.red.cgColor
         }
         #endif

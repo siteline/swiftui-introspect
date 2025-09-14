@@ -73,19 +73,19 @@ import SwiftUI
 public struct SignInWithAppleButtonType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SignInWithAppleButtonType {
-    @available(
-        *,
-        unavailable,
-        message: """
-        Due to a mysterious bug on Apple's part that may cause a complete
-        app hang, the unfortunate decision has been made to remove support
-        for `SignInWithAppleButton` introspection.
-        
-        We apologize for this inconvenience.
+	@available(
+		*,
+		unavailable,
+		message: """
+		Due to a mysterious bug on Apple's part that may cause a complete
+		app hang, the unfortunate decision has been made to remove support
+		for `SignInWithAppleButton` introspection.
 
-        More details can be found at https://github.com/siteline/swiftui-introspect/issues/400
-        """
-    )
-    public static var signInWithAppleButton: Self { .init() }
+		We apologize for this inconvenience.
+
+		More details can be found at https://github.com/siteline/swiftui-introspect/issues/400
+		"""
+	)
+	public static var signInWithAppleButton: Self { .init() }
 }
 #endif

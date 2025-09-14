@@ -107,7 +107,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 }
 
 @MainActor
-public protocol PlatformEntity: AnyObject, Sendable {
+public protocol PlatformEntity: AnyObject {
     associatedtype Base: PlatformEntity
 
     @_spi(Internals)

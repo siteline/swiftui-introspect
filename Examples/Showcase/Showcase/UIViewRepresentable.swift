@@ -1,35 +1,45 @@
 import SwiftUI
 @_spi(Internals) import SwiftUIIntrospect
-import Testing
 
-@MainActor
-@Suite
-struct ViewTests {
-    @Test func introspect() async throws {
-        let (entity1, entity2) = try await introspection(of: PlatformView.self) { spy1, spy2 in
-            VStack(spacing: 10) {
-                SUTView().frame(height: 30)
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
-                    #endif
+struct UIViewRepresentableShowcase: View {
+    let colors: [Color] = [.red, .green, .blue]
 
-                SUTView().frame(height: 40)
+    var body: some View {
+        VStack(spacing: 10) {
+            ForEach(colors, id: \.self) { color in
+                GenericViewRepresentable()
                     #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+                    .introspect(
+                        .view,
+                        on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+                    ) { view in
+                        view.backgroundColor = UIColor(color)
+                    }
                     #elseif os(macOS)
-                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+                    .introspect(.view, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { view in
+                        view.layer?.backgroundColor = NSColor(color).cgColor
+                    }
                     #endif
             }
-            .padding(10)
         }
-        #expect(entity1.frame.height == 30)
-        #expect(entity2.frame.height == 40)
+        .padding()
+        #if os(iOS) || os(tvOS) || os(visionOS)
+        .introspect(
+            .view,
+            on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+        ) { view in
+            view.backgroundColor = .red
+        }
+        #elseif os(macOS)
+        .introspect(.view, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { view in
+            view.layer?.backgroundColor = NSColor.red.cgColor
+        }
+        #endif
     }
 }
 
-struct SUTView: PlatformViewControllerRepresentable {
+@MainActor
+struct GenericViewRepresentable: PlatformViewControllerRepresentable {
     #if canImport(UIKit)
     typealias UIViewControllerType = PlatformViewController
     #elseif canImport(AppKit)

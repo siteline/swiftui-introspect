@@ -33,7 +33,7 @@
 /// }
 /// ```
 ///
-/// ### macOS
+/// ### macOS 10.15 - 14
 ///
 /// ```swift
 /// struct ContentView: View {

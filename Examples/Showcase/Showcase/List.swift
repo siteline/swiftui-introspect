@@ -43,7 +43,7 @@ struct ListShowcase: View {
                     }
                 }
                 #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tableView in
+                .introspect(.list, on: .iOS(.v15), .tvOS(.v15, .v16, .v17, .v18, .v26)) { tableView in
                     tableView.backgroundView = UIView()
                     tableView.backgroundColor = .cyan
                 }
@@ -53,7 +53,7 @@ struct ListShowcase: View {
                     }
                 }
                 #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { tableView in
+                .introspect(.list, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { tableView in
                     DispatchQueue.main.async {
                         receiverListFound = true
                     }
@@ -71,7 +71,7 @@ struct ListShowcase: View {
                     Text("Item 1")
                     Text("Item 2")
                         #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { tableView in
+                        .introspect(.list, on: .iOS(.v15), .tvOS(.v15, .v16, .v17, .v18, .v26), scope: .ancestor) { tableView in
                             tableView.backgroundView = UIView()
                             tableView.backgroundColor = .cyan
                         }
@@ -81,7 +81,7 @@ struct ListShowcase: View {
                             }
                         }
                         #elseif os(macOS)
-                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), scope: .ancestor) { tableView in
+                        .introspect(.list, on: .macOS(.v12, .v13, .v14, .v15, .v26), scope: .ancestor) { tableView in
                             DispatchQueue.main.async {
                                 ancestorListFound = true
                             }

@@ -7,12 +7,12 @@ struct AppView: View {
             #if os(iOS) || os(tvOS) || os(visionOS)
             .introspect(
                 .window,
-                on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+                on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
             ) { window in
                 window.backgroundColor = .brown
             }
             #elseif os(macOS)
-            .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) { window in
+            .introspect(.window, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { window in
                 window.backgroundColor = .lightGray
             }
             #endif
@@ -46,7 +46,7 @@ struct ContentView: View {
                 .tag(5)
         }
         #if os(iOS) || os(tvOS)
-        .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { tabBarController in
+        .introspect(.tabView, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26)) { tabBarController in
             if #available(iOS 26, macOS 26, tvOS 26, *) {
                 tabBarController.tabBar.backgroundColor = .green
             } else {
@@ -58,7 +58,7 @@ struct ContentView: View {
             }
         }
         #elseif os(macOS)
-        .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { splitView in
+        .introspect(.tabView, on: .macOS(.v12, .v13, .v14)) { splitView in
             splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
         }
         #endif

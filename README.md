@@ -343,7 +343,7 @@ struct ContentView: View {
 Note for library authors
 ------------------------
 
-If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly or through multiple dependencies. For example:
+If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
 
 ```swift
 .package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),

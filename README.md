@@ -5,14 +5,26 @@ SwiftUI Introspect
 [![Swift Version Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 [![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 
-SwiftUI Introspect allows you to get the underlying UIKit or AppKit element of a SwiftUI view.
+SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a SwiftUI view.
 
-For instance, with SwiftUI Introspect you can access `UITableView` to modify separators, or `UINavigationController` to customize the tab bar.
+- [How it works](#how-it-works)
+- [Install](#install)
+    - [Swift Package Manager](#swift-package-manager)
+    - [CocoaPods](#cocoapods)
+- [View Types](#view-types)
+- [Examples](#examples)
+- [General Guidelines](#general-guidelines)
+- [Advanced usage](#advanced-usage)
+    - [Implement your own introspectable type](#implement-your-own-introspectable-type)
+    - [Introspect on future platform versions](#introspect-on-future-platform-versions)
+    - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
+- [Note for library authors](#note-for-library-authors)
+- [Community projects](#community-projects)
 
 How it works
 ------------
 
-SwiftUI Introspect works by adding an invisible `IntrospectionView` on top of the selected view, and an invisible "anchor" view underneath it, then looking through the UIKit/AppKit view hierarchy between the two to find the relevant view.
+SwiftUI Introspect adds an invisible `IntrospectionView` above the selected view and an invisible anchor below it, then searches the UIKit/AppKit view hierarchy between them to find the relevant view.
 
 For instance, when introspecting a `ScrollView`...
 
@@ -27,13 +39,13 @@ ScrollView {
 
 ... it will:
 
-1. Add marker views in front and behind `ScrollView`.
+1. Add marker views before and after `ScrollView`.
 2. Traverse through all subviews between both marker views until a `UIScrollView` instance (if any) is found.
 
 > [!IMPORTANT]
-> Although this introspection method is very solid and unlikely to break in itself, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`), given potential differences in underlying UIKit/AppKit view types between major OS versions.
+> Although this method is solid and unlikely to break on its own, future OS releases require explicit opt in for introspection (`.iOS(.vXYZ)`) because underlying UIKit/AppKit types can change between major versions.
 
-By default, the `.introspect` modifier acts directly on its _receiver_. This means calling `.introspect` from inside the view you're trying to introspect won't have any effect. However, there are times when this is not possible or simply too inflexible, in which case you **can** introspect an _ancestor_, but you must opt into this explicitly by overriding the introspection `scope`:
+By default, `.introspect` acts on its receiver. Calling `.introspect` from inside the view you want to introspect has no effect. If you need to introspect an ancestor instead, set `scope: .ancestor`:
 
 ```swift
 ScrollView {
@@ -46,7 +58,7 @@ ScrollView {
 
 ### Usage in production
 
-SwiftUI Introspect is meant to be used in production. It does not use any private API. It only inspects the view hierarchy using publicly available methods. The library takes a defensive approach to inspecting the view hierarchy: there is no hard assumption that elements are laid out a certain way, there is no force-cast to UIKit/AppKit classes, and the `.introspect` modifier is simply ignored if UIKit/AppKit views cannot be found.
+SwiftUI Introspect is suitable for production. It does not use private APIs. It inspects the view hierarchy using public methods and takes a defensive approach: it makes no hard layout assumptions, performs no forced casts to UIKit/AppKit classes, and ignores `.introspect` when the expected UIKit/AppKit view cannot be found.
 
 Install
 -------
@@ -55,14 +67,14 @@ Install
 
 #### Xcode
 
-<img width="656" src="https://github.com/siteline/swiftui-introspect/assets/2538074/d19c1dd3-9aa4-4e4f-a5a5-b2d6a5b9b927">
+<img width="660" height="300" src="https://github.com/user-attachments/assets/ab1c1a62-96d9-417d-ad2b-43012a69cae8" />
 
 #### Package.swift
 
 ```swift
 let package = Package(
 	dependencies: [
-		.package(url: "https://github.com/siteline/swiftui-introspect", from: "1.0.0"),
+		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
 	],
 	targets: [
 		.target(name: <#Target Name#>, dependencies: [
@@ -75,11 +87,11 @@ let package = Package(
 ### CocoaPods
 
 ```ruby
-pod 'SwiftUIIntrospect', '~> 1.0'
+pod 'SwiftUIIntrospect', '~> 26.0.0'
 ```
 
-Introspection
--------------
+View Types
+----------
 
 ### Implemented
 
@@ -132,6 +144,7 @@ Introspection
 - [`VideoPlayer`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/videoplayertype)
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewtype)
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewcontrollertype)
+- [`WebView`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/webviewtype)
 - [`Window`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/windowtype)
 
 **Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas). As a temporary solution, you can [implement your own introspectable view type](#implement-your-own-introspectable-type).
@@ -143,6 +156,18 @@ SwiftUI | Affected Frameworks | Why
 Text | UIKit, AppKit | Not a UILabel / NSLabel
 Image | UIKit, AppKit | Not a UIImageView / NSImageView
 Button | UIKit | Not a UIButton
+Link | UIKit, AppKit | Not a UIButton / NSButton
+NavigationLink | UIKit | Not a UIButton
+GroupBox | AppKit | No underlying view
+Menu | UIKit, AppKit | No underlying view
+Spacer | UIKit, AppKit | No underlying view
+Divider | UIKit, AppKit | No underlying view
+HStack, VStack, ZStack | UIKit, AppKit | No underlying view
+LazyVStack, LazyHStack, LazyVGrid, LazyHGrid | UIKit, AppKit | No underlying view
+Color | UIKit, AppKit | No underlying view
+ForEach | UIKit, AppKit | No underlying view
+GeometryReader | UIKit, AppKit | No underlying view
+Chart | UIKit, AppKit | Native SwiftUI framework
 
 Examples
 --------
@@ -154,12 +179,10 @@ List {
 	Text("Item")
 }
 .introspect(.list, on: .iOS(.v13, .v14, .v15)) { tableView in
-	tableView.backgroundView = UIView()
-	tableView.backgroundColor = .cyan
+	tableView.bounces = false
 }
 .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26)) { collectionView in
-	collectionView.backgroundView = UIView()
-	collectionView.subviews.dropFirst(1).first?.backgroundColor = .cyan
+	collectionView.bounces = false
 }
 ```
 
@@ -170,7 +193,7 @@ ScrollView {
 	Text("Item")
 }
 .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-	scrollView.backgroundColor = .red
+	scrollView.bounces = false
 }
 ```
 
@@ -195,14 +218,32 @@ TextField("Text Field", text: <#Binding<String>#>)
 	}
 ```
 
+General Guidelines
+------------------
+
+Here are some guidelines to keep in mind when using SwiftUI Introspect:
+
+- **Use sparingly**: prefer native SwiftUI modifiers when available. Use introspection only when you need underlying UIKit/AppKit APIs that SwiftUI does not expose.
+- **Program defensively**: the introspection closure may be called multiple times during the view's lifecycle, such as during view updates or re-renders. Ensure that your customization code can handle being executed multiple times without causing unintended side effects.
+- **Avoid direct state changes**: do not change SwiftUI state from inside the introspection closure. If you must update state, wrap it in `DispatchQueue.main.async`.
+- **Test across OS versions**: underlying implementations can differ by OS, which can affect customization.
+- **Avoid retain cycles**: be cautious about capturing `self` or other strong references within the introspection closure, as this can lead to memory leaks. Use `[weak self]` or `[unowned self]` capture lists as appropriate.
+- **Scope**: `.introspect` targets its receiver by default. Use `scope: .ancestor` only when you need to introspect an ancestor. In general, you shouldn't worry about this as each view type has sensible, predictable default scopes.
+
 Advanced usage
 --------------
+
+> [!NOTE]
+> These features are advanced and unnecessary for most use cases. Use them when you need extra control or flexibility.
+
+> [!IMPORTANT]
+> To access these features, import SwiftUI Introspect using `@_spi(Advanced)` (see examples below).
 
 ### Implement your own introspectable type
 
 **Missing an element?** Please [start a discussion](https://github.com/siteline/swiftui-introspect/discussions/new?category=ideas).
 
-In case SwiftUI Introspect (unlikely) doesn't support the SwiftUI element that you're looking for, you can implement your own introspectable type.
+In the unlikely event SwiftUI Introspect does not support the element you need, you can implement your own introspectable type.
 
 For example, here's how the library implements the introspectable `TextField` type:
 
@@ -257,9 +298,7 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 
 ### Introspect on future platform versions
 
-By default, introspection applies per specific platform version. This is a sensible default for maximum predictability in regularly maintained codebases, but it's not always a good fit for e.g. library developers who may want to cover as many future platform versions as possible in order to provide the best chance for long-term future functionality of their library without regular maintenance.
-
-For such cases, SwiftUI Introspect offers range-based platform version predicates behind the Advanced SPI:
+By default, introspection targets specific platform versions. This is an intentional design decision to maintain maximum predictability in actively maintained apps. However library authors may prefer to cover future versions to limit their commitment to regular maintenance without breaking client apps. For that, SwiftUI Introspect provides range-based version predicates via the Advanced SPI:
 
 ```swift
 import SwiftUI
@@ -277,11 +316,11 @@ struct ContentView: View {
 }
 ```
 
-Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 19 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
+Use this cautiously. Future OS versions may change underlying types, in which case the customization closure will not run unless support is explicitly declared.
 
 ### Keep instances outside the customize closure
 
-Sometimes, you might need to keep your introspected instance around for longer than the customization closure lifetime. In such cases, `@State` is not a good option because it produces retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
+Sometimes you need to keep an introspected instance beyond the customization closure. `@State` is not appropriate for this, as it can create retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
 
 ```swift
 import SwiftUI
@@ -301,10 +340,21 @@ struct ContentView: View {
 }
 ```
 
+Note for library authors
+------------------------
+
+If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
+
+```swift
+.package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
+```
+
+A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.
+
 Community projects
 ------------------
 
-Here's a list of open source libraries powered by the SwiftUI Introspect library:
+Here are some open source libraries powered by SwiftUI Introspect:
 
 <a href="https://github.com/paescebu/CustomKeyboardKit">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=paescebu&repo=CustomKeyboardKit" />

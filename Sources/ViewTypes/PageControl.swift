@@ -58,38 +58,38 @@
 public struct PageControlType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == PageControlType {
-    public static var pageControl: Self { .init() }
+	public static var pageControl: Self { .init() }
 }
 
 #if canImport(UIKit)
 public import UIKit
 
 extension iOSViewVersion<PageControlType, UIPageControl> {
-    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	@available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<PageControlType, UIPageControl> {
-    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	@available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<PageControlType, UIPageControl> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
-    public static let v26 = Self(for: .v26)
+	public static let v1 = Self(for: .v1)
+	public static let v2 = Self(for: .v2)
+	public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

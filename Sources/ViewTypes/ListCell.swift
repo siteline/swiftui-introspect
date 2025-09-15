@@ -72,55 +72,55 @@
 /// }
 /// ```
 public struct ListCellType: IntrospectableViewType {
-    public var scope: IntrospectionScope { .ancestor }
+	public var scope: IntrospectionScope { .ancestor }
 }
 
 extension IntrospectableViewType where Self == ListCellType {
-    public static var listCell: Self { .init() }
+	public static var listCell: Self { .init() }
 }
 
 #if canImport(UIKit)
 public import UIKit
 
 extension iOSViewVersion<ListCellType, UITableViewCell> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
 }
 
 extension iOSViewVersion<ListCellType, UICollectionViewCell> {
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<ListCellType, UITableViewCell> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<ListCellType, UICollectionViewCell> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
-    public static let v26 = Self(for: .v26)
+	public static let v1 = Self(for: .v1)
+	public static let v2 = Self(for: .v2)
+	public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 public import AppKit
 
 extension macOSViewVersion<ListCellType, NSTableCellView> {
-    public static let v10_15 = Self(for: .v10_15)
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v26 = Self(for: .v26)
+	public static let v10_15 = Self(for: .v10_15)
+	public static let v11 = Self(for: .v11)
+	public static let v12 = Self(for: .v12)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

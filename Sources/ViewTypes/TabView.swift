@@ -74,52 +74,52 @@ public struct TabViewType: IntrospectableViewType {}
 
 #if !os(visionOS)
 extension IntrospectableViewType where Self == TabViewType {
-    public static var tabView: Self { .init() }
+	public static var tabView: Self { .init() }
 }
 
 #if canImport(UIKit)
 public import UIKit
 
 extension iOSViewVersion<TabViewType, UITabBarController> {
-    public static let v13 = Self(for: .v13, selector: selector)
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
-    public static let v26 = Self(for: .v26, selector: selector)
+	public static let v13 = Self(for: .v13, selector: selector)
+	public static let v14 = Self(for: .v14, selector: selector)
+	public static let v15 = Self(for: .v15, selector: selector)
+	public static let v16 = Self(for: .v16, selector: selector)
+	public static let v17 = Self(for: .v17, selector: selector)
+	public static let v18 = Self(for: .v18, selector: selector)
+	public static let v26 = Self(for: .v26, selector: selector)
 
-    @MainActor
-    private static var selector: IntrospectionSelector<UITabBarController> {
-        .default.withAncestorSelector { $0.tabBarController }
-    }
+	@MainActor
+	private static var selector: IntrospectionSelector<UITabBarController> {
+		.default.withAncestorSelector { $0.tabBarController }
+	}
 }
 
 extension tvOSViewVersion<TabViewType, UITabBarController> {
-    public static let v13 = Self(for: .v13, selector: selector)
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
-    public static let v26 = Self(for: .v26, selector: selector)
+	public static let v13 = Self(for: .v13, selector: selector)
+	public static let v14 = Self(for: .v14, selector: selector)
+	public static let v15 = Self(for: .v15, selector: selector)
+	public static let v16 = Self(for: .v16, selector: selector)
+	public static let v17 = Self(for: .v17, selector: selector)
+	public static let v18 = Self(for: .v18, selector: selector)
+	public static let v26 = Self(for: .v26, selector: selector)
 
-    @MainActor
-    private static var selector: IntrospectionSelector<UITabBarController> {
-        .default.withAncestorSelector { $0.tabBarController }
-    }
+	@MainActor
+	private static var selector: IntrospectionSelector<UITabBarController> {
+		.default.withAncestorSelector { $0.tabBarController }
+	}
 }
 #elseif canImport(AppKit)
 public import AppKit
 
 extension macOSViewVersion<TabViewType, NSTabView> {
-    public static let v10_15 = Self(for: .v10_15)
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v26 = Self(for: .v26)
+	public static let v10_15 = Self(for: .v10_15)
+	public static let v11 = Self(for: .v11)
+	public static let v12 = Self(for: .v12)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

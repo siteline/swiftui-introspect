@@ -32,10 +32,10 @@ For instance, when introspecting a `ScrollView`...
 
 ```swift
 ScrollView {
-    Text("Item 1")
+	Text("Item 1")
 }
 .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-    // do something with UIScrollView
+	// do something with UIScrollView
 }
 ```
 
@@ -51,10 +51,10 @@ By default, the `.introspect` modifier acts directly on its _receiver_. This mea
 
 ```swift
 ScrollView {
-    Text("Item 1")
-        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { scrollView in
-            // do something with UIScrollView
-        }
+	Text("Item 1")
+		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { scrollView in
+			// do something with UIScrollView
+		}
 }
 ```
 
@@ -75,14 +75,14 @@ Install
 
 ```swift
 let package = Package(
-    dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
-    ],
-    targets: [
-        .target(name: <#Target Name#>, dependencies: [
-            .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
-        ]),
-    ]
+	dependencies: [
+		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
+	],
+	targets: [
+		.target(name: <#Target Name#>, dependencies: [
+			.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
+		]),
+	]
 )
 ```
 
@@ -178,13 +178,13 @@ Examples
 
 ```swift
 List {
-    Text("Item")
+	Text("Item")
 }
 .introspect(.list, on: .iOS(.v13, .v14, .v15)) { tableView in
-    tableView.bounces = false
+	tableView.bounces = false
 }
 .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26)) { collectionView in
-    collectionView.bounces = false
+	collectionView.bounces = false
 }
 ```
 
@@ -192,10 +192,10 @@ List {
 
 ```swift
 ScrollView {
-    Text("Item")
+	Text("Item")
 }
 .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-    scrollView.bounces = false
+	scrollView.bounces = false
 }
 ```
 
@@ -203,11 +203,11 @@ ScrollView {
 
 ```swift
 NavigationView {
-    Text("Item")
+	Text("Item")
 }
 .navigationViewStyle(.stack)
 .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { navigationController in
-    navigationController.navigationBar.backgroundColor = .cyan
+	navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
 
@@ -215,9 +215,9 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: <#Binding<String>#>)
-    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
-        textField.backgroundColor = .red
-    }
+	.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
+		textField.backgroundColor = .red
+	}
 ```
 
 General Guidelines
@@ -256,44 +256,44 @@ import SwiftUI
 public struct TextFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == TextFieldType {
-    public static var textField: Self { .init() }
+	public static var textField: Self { .init() }
 }
 
 #if canImport(UIKit)
 extension iOSViewVersion<TextFieldType, UITextField> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<TextFieldType, UITextField> {
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<TextFieldType, UITextField> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
-    public static let v26 = Self(for: .v26)
+	public static let v1 = Self(for: .v1)
+	public static let v2 = Self(for: .v2)
+	public static let v26 = Self(for: .v26)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldType, NSTextField> {
-    public static let v10_15 = Self(for: .v10_15)
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v26 = Self(for: .v26)
+	public static let v10_15 = Self(for: .v10_15)
+	public static let v11 = Self(for: .v11)
+	public static let v12 = Self(for: .v12)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v26 = Self(for: .v26)
 }
 #endif
 ```
@@ -309,14 +309,14 @@ import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 
 struct ContentView: View {
-    var body: some View {
-        ScrollView {
-            // ...
-        }
-        .introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
-            // ...
-        }
-    }
+	var body: some View {
+		ScrollView {
+			// ...
+		}
+		.introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
+			// ...
+		}
+	}
 }
 ```
 
@@ -331,16 +331,16 @@ import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 
 struct ContentView: View {
-    @Weak var scrollView: UIScrollView?
+	@Weak var scrollView: UIScrollView?
 
-    var body: some View {
-        ScrollView {
-            // ...
-        }
-        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
-            self.scrollView = scrollView
-        }
-    }
+	var body: some View {
+		ScrollView {
+			// ...
+		}
+		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+			self.scrollView = scrollView
+		}
+	}
 }
 ```
 

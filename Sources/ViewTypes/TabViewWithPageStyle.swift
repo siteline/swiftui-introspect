@@ -56,45 +56,45 @@
 /// }
 /// ```
 public struct TabViewWithPageStyleType: IntrospectableViewType {
-    public enum Style: Sendable {
-        case page
-    }
+	public enum Style: Sendable {
+		case page
+	}
 }
 
 #if !os(macOS)
 extension IntrospectableViewType where Self == TabViewWithPageStyleType {
-    public static func tabView(style: Self.Style) -> Self { .init() }
+	public static func tabView(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(UIKit)
 public import UIKit
 
 extension iOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
-    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	@available(*, unavailable, message: ".tabViewStyle(.page) isn't available on iOS 13")
+	public static let v13 = Self.unavailable()
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension tvOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
-    @available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
-    public static let v26 = Self(for: .v26)
+	@available(*, unavailable, message: ".tabViewStyle(.page) isn't available on tvOS 13")
+	public static let v13 = Self.unavailable()
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
+	public static let v26 = Self(for: .v26)
 }
 
 extension visionOSViewVersion<TabViewWithPageStyleType, UICollectionView> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
-    public static let v26 = Self(for: .v26)
+	public static let v1 = Self(for: .v1)
+	public static let v2 = Self(for: .v2)
+	public static let v26 = Self(for: .v26)
 }
 #endif
 #endif

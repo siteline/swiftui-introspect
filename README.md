@@ -18,7 +18,7 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
     - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
-- [Note for library maintainers](#note-for-library-maintainers)
+- [Note for library authors](#note-for-library-authors)
 - [Community projects](#community-projects)
 
 How it works
@@ -340,8 +340,8 @@ struct ContentView: View {
 }
 ```
 
-Note for library maintainers
-----------------------------
+Note for library authors
+------------------------
 
 If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly or through multiple dependencies. For example:
 

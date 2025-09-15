@@ -11,8 +11,8 @@
 ///
 /// ### macOS 10.15 - 15
 ///
-/// Note: toggles with button style on macOS 26+ and later no longer use `NSButton` under the hood, so introspection
-/// is not possible.
+/// Note: On macOS 26 and later, toggles with button style are no longer backed by `NSButton`, so introspection is
+/// not possible.
 ///
 /// ```swift
 /// struct ContentView: View {

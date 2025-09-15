@@ -9,15 +9,60 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 – 15
 ///
 /// ```swift
 /// struct ContentView: View {
 ///     var body: some View {
-///         Button("Action", action: {})
-///             .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
-///                 print(type(of: $0)) // NSButton
-///             }
+///         VStack {
+///             Button("Plain Button", action: {})
+///                 .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///
+///             Button("Bordered Button", action: {})
+///                 .buttonStyle(.bordered)
+///                 .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///
+///             Button("Borderless Button", action: {})
+///                 .buttonStyle(.borderless)
+///                 .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///
+///             Button("Link Button", action: {})
+///                 .buttonStyle(.link)
+///                 .introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///         }
+///     }
+/// }
+/// ```
+///
+/// ### macOS 26
+///
+/// On macOS 26, only the `.borderless` and `.link` button styles are supported for introspection.
+/// Other styles (e.g., plain or bordered) are not supported on macOS 26.
+///
+/// ```swift
+/// struct ContentView: View {
+///     var body: some View {
+///         VStack {
+///             Button("Borderless Button", action: {})
+///                 .buttonStyle(.borderless)
+///                 .introspect(.button, on: .macOS(.v26)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///
+///             Button("Link Button", action: {})
+///                 .buttonStyle(.link)
+///                 .introspect(.button, on: .macOS(.v26)) {
+///                     print(type(of: $0)) // NSButton
+///                 }
+///         }
 ///     }
 /// }
 /// ```

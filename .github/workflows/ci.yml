@@ -137,10 +137,7 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Set environment variables
-        run: echo "SKIP_SLOW_FASTLANE_WARNING=1" >> $GITHUB_ENV
-
-      - if: ${{ matrix.platform[0] != 'macOS' }}
+      - if: matrix.platform != 'macOS'
         name: Check for ${{ matrix.runtime }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "${{ matrix.runtime }}"; then
@@ -150,10 +147,15 @@ jobs:
           fi
 
       - name: Select Xcode ${{ matrix.xcode }}
-        run: sudo xcodes select ${{ matrix.xcode }}
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          xcode: ${{ matrix.xcode }}
+          action: none
+          verbosity: xcbeautify
 
-      - if: ${{ matrix.xcode == '26.0' && matrix.platform[0] != 'macOS' }}
-        name: Install 2026 Runtime
+      - if: matrix.platform != 'macOS'
+        name: Download Required Runtime
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15
@@ -161,7 +163,7 @@ jobs:
           command: xcodebuild -downloadPlatform ${{ matrix.platform[0] }}
 
       - if: env.has_runtime == 'false'
-        name: "List Downloadable Runtimes"
+        name: List Downloadable Runtimes
         run: xcodes runtimes --include-betas
 
       - if: env.has_runtime == 'false'
@@ -219,7 +221,7 @@ jobs:
             destination: "platform=macOS,variant=Mac Catalyst"
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Select Xcode version
         run: sudo xcodes select 16.4

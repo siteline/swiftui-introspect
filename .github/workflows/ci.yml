@@ -44,95 +44,55 @@ jobs:
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
         include:
           - platform: [iOS, 15]
             runtime: iOS 15.5
-            os: macos-15
-            xcode: 26.0
           - platform: [iOS, 16]
             runtime: iOS 16.4
-            os: macos-15
-            xcode: 26.0
           - platform: [iOS, 17]
             runtime: iOS 17.5
-            os: macos-15
-            xcode: 26.0
           - platform: [iOS, 18]
             runtime: iOS 18.6
-            os: macos-15
-            xcode: 26.0
           - platform: [iOS, 26]
             runtime: iOS 26.0
-            os: macos-15
-            xcode: 26.0
 
           - platform: [tvOS, 15]
             runtime: tvOS 15.4
-            os: macos-15
-            xcode: 26.0
           - platform: [tvOS, 16]
             runtime: tvOS 16.4
-            os: macos-15
-            xcode: 26.0
           - platform: [tvOS, 17]
             runtime: tvOS 17.5
-            os: macos-15
-            xcode: 26.0
           - platform: [tvOS, 18]
             runtime: tvOS 18.5
-            os: macos-15
-            xcode: 26.0
           - platform: [tvOS, 26]
             runtime: tvOS 26.0
-            os: macos-15
-            xcode: 26.0
 
           - platform: [watchOS, 8]
             runtime: watchOS 8.5
-            os: macos-15
-            xcode: 26.0
           - platform: [watchOS, 9]
             runtime: watchOS 9.4
-            os: macos-15
-            xcode: 26.0
           - platform: [watchOS, 10]
             runtime: watchOS 10.5
-            os: macos-15
-            xcode: 26.0
           - platform: [watchOS, 11]
             runtime: watchOS 11.5
-            os: macos-15
-            xcode: 26.0
           - platform: [watchOS, 26]
             runtime: watchOS 26.0
-            os: macos-15
-            xcode: 26.0
 
           - platform: [macOS, 15]
             runtime: macOS 15
-            os: macos-15
-            xcode: 26.0
           # - platform: [macOS, 26]
           #   runtime: macOS 26.0
-          #   os: macos-26
-          #   xcode: 26.0
 
           - platform: [visionOS, 1]
             runtime: visionOS 1.2
-            os: macos-15
-            xcode: 26.0
           - platform: [visionOS, 2]
             runtime: visionOS 2.5
-            os: macos-15
-            xcode: 26.0
           - platform: [visionOS, 26]
             runtime: visionOS 26.0
-            os: macos-15
-            xcode: 26.0
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -146,11 +106,10 @@ jobs:
             echo "has_runtime=false" >> "$GITHUB_ENV"
           fi
 
-      - name: Select Xcode ${{ matrix.xcode }}
+      - name: Select Xcode 26.0
         uses: mxcl/xcodebuild@v3
         with:
-          swift: ~${{ matrix.swift }}
-          xcode: ${{ matrix.xcode }}
+          xcode: ~26.0
           action: none
           verbosity: xcbeautify
 
@@ -188,15 +147,39 @@ jobs:
 
       - if: ${{ matrix.platform[0] != 'watchOS' }}
         name: Build Showcase
-        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:Showcase
+        uses: mxcl/xcodebuild@v3
+        with:
+          xcode: ~26.0
+          platform: ${{ matrix.platform[0] }}
+          platform-version: ~${{ matrix.platform[1] }}
+          action: build
+          scheme: Showcase
+          configuration: Debug
+          verbosity: xcbeautify
 
       - if: ${{ matrix.platform[0] == 'watchOS' }}
         name: Build Library
-        run: fastlane build platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospect
+        uses: mxcl/xcodebuild@v3
+        with:
+          xcode: ~26.0
+          platform: ${{ matrix.platform[0] }}
+          platform-version: ~${{ matrix.platform[1] }}
+          action: build
+          scheme: SwiftUIIntrospect
+          configuration: Debug
+          verbosity: xcbeautify
 
       - if: ${{ matrix.platform[0] != 'watchOS' }}
         name: Run Tests
-        run: fastlane test platform:${{ matrix.platform[0] }} version:${{ matrix.platform[1] }} scheme:SwiftUIIntrospectTests configuration:Debug
+        uses: mxcl/xcodebuild@v3
+        with:
+          xcode: ~26.0
+          platform: ${{ matrix.platform[0] }}
+          platform-version: ~${{ matrix.platform[1] }}
+          action: test
+          scheme: SwiftUIIntrospectTests
+          configuration: Debug
+          verbosity: xcbeautify
 
   framework-archiving:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')

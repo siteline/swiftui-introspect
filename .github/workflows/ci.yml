@@ -97,7 +97,7 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - if: matrix.platform != 'macOS'
+      - if: ${{ matrix.platform[0] != 'macOS' }}
         name: Check for ${{ matrix.runtime }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "${{ matrix.runtime }}"; then
@@ -113,7 +113,7 @@ jobs:
           action: none
           verbosity: xcbeautify
 
-      - if: matrix.platform != 'macOS'
+      - if: ${{ matrix.platform[0] != 'macOS' }}
         name: Download Required Runtime
         uses: nick-fields/retry@v3
         with:

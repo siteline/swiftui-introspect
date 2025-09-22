@@ -2,44 +2,39 @@ skip_docs
 
 devices = {
 	"ios" => {
-		15 => ["iPhone 13 Pro (15.5)"],
-		16 => ["iPhone 14 Pro (16.4)"],
-		17 => ["iPhone 15 Pro (17.5)"],
-		18 => ["iPhone 16 Pro (18.6)"],
-		26 => ["iPhone 17 Pro (26.0)"],
+		15 => "iPhone 13 Pro (15.5)",
+		16 => "iPhone 14 Pro (16.4)",
+		17 => "iPhone 15 Pro (17.5)",
+		18 => "iPhone 16 Pro (18.6)",
+		26 => "iPhone 17 Pro (26.0)",
 	},
 	"ipados" => {
-		15 => ["iPad Pro (11-inch) (3rd generation) (15.5)"],
-		16 => ["iPad Pro (11-inch) (4th generation) (16.4)"],
-		17 => ["iPad Pro 11-inch (M4) (17.5)"],
-		18 => ["iPad Pro 11-inch (M4) (18.6)"],
-		26 => ["iPad Pro 11-inch (M4) (26.0)"],
+		15 => "iPad Pro (11-inch) (3rd generation) (15.5)",
+		16 => "iPad Pro (11-inch) (4th generation) (16.4)",
+		17 => "iPad Pro 11-inch (M4) (17.5)",
+		18 => "iPad Pro 11-inch (M4) (18.6)",
+		26 => "iPad Pro 11-inch (M4) (26.0)",
 	},
 	"tvos" => {
-		15 => ["Apple TV (15.4)"],
-		16 => ["Apple TV (16.4)"],
-		17 => ["Apple TV (17.5)"],
-		18 => ["Apple TV (18.5)"],
-		26 => ["Apple TV (26.0)"],
+		15 => "Apple TV (15.4)",
+		16 => "Apple TV (16.4)",
+		17 => "Apple TV (17.5)",
+		18 => "Apple TV (18.5)",
+		26 => "Apple TV (26.0)",
 	},
 	"watchos" => {
-		8 => ["Apple Watch Series 7 (45mm) (8.5)"],
-		9 => ["Apple Watch Series 8 (45mm) (9.4)"],
-		10 => ["Apple Watch Series 9 (45mm) (10.5)"],
-		11 => ["Apple Watch Series 10 (42mm) (11.5)"],
-		26 => ["Apple Watch Series 11 (42mm) (26.0)"],
+		8 => "Apple Watch Series 7 (45mm) (8.5)",
+		9 => "Apple Watch Series 8 (45mm) (9.4)",
+		10 => "Apple Watch Series 9 (45mm) (10.5)",
+		11 => "Apple Watch Series 10 (42mm) (11.5)",
+		26 => "Apple Watch Series 11 (42mm) (26.0)",
 	},
 	"visionos" => {
-		1 => ["Apple Vision Pro (at 2732x2048) (1.2)"],
-		2 => ["Apple Vision Pro (at 2732x2048) (2.5)"],
-		26 => ["Apple Vision Pro (26.0)"],
+		1 => "Apple Vision Pro (at 2732x2048) (1.2)",
+		2 => "Apple Vision Pro (at 2732x2048) (2.5)",
+		26 => "Apple Vision Pro (26.0)",
 	},
 }
-
-before_all do |lane, options|
-	next if lane == :create_simulators
-	create_simulators(platform: options[:platform], version: options[:version])
-end
 
 lane :create_simulators do |options|
 	require 'json'
@@ -48,6 +43,7 @@ lane :create_simulators do |options|
 	# map Fastfile platform keys to display names used by CoreSimulator runtimes
 	platforms_to_os = {
 		"ios" => "iOS",
+		"ipados" => "iOS",
 		"tvos" => "tvOS",
 		"watchos" => "watchOS",
 		"visionos" => "visionOS",
@@ -117,11 +113,8 @@ lane :create_simulators do |options|
 		os_name = platforms_to_os[platform]
 		next if os_name.nil?
 
-		versions.values.flatten.each do |descriptor|
-			# descriptor examples:
-			#   "iPhone 14 Pro (16.4)"
-			#   "iPad Pro (11-inch) (4th generation) (16.4)"
-			#   "Apple Vision Pro (2.5)"
+		versions.values.each do |descriptor|
+			# descriptor is a single string like "iPhone 14 Pro (16.4)" or "iPad Pro 11-inch (M4) (18.6)"
 			begin
 				# Parse trailing "(x.y)" and derive device name
 				if descriptor =~ /\s*\(([^()]+)\)\s*\z/
@@ -152,77 +145,5 @@ lane :create_simulators do |options|
 				UI.message("Skipping #{descriptor}: #{e}")
 			end
 		end
-	end
-end
-
-lane :build do |options|
-	platform = options[:platform].to_s.downcase
-	version = options[:version].to_i
-	scheme = options[:scheme].to_s
-
-	unless scheme == "Showcase" || scheme == "SwiftUIIntrospect"
-		raise "Unsupported scheme: #{scheme}"
-		next
-	end
-
-	if platform == "macos"
-		for destination in ["platform=macOS", "platform=macOS,variant=Mac Catalyst"]
-			build_app(
-				scheme: scheme,
-				destination: destination,
-				skip_archive: true,
-				skip_codesigning: true,
-				skip_package_ipa: true,
-				skip_profile_detection: true,
-			)
-		end
-	else
-		run_tests(
-			configuration: "Debug",
-			build_for_testing: true,
-			scheme: scheme,
-			devices: devices[platform][version],
-			prelaunch_simulator: false,
-			ensure_devices_found: true,
-			force_quit_simulator: true,
-			disable_concurrent_testing: true,
-		)
-	end
-end
-
-lane :test do |options|
-	configuration = (options[:configuration] || "Debug").to_s
-	platform = options[:platform].to_s.downcase
-	version = options[:version].to_i
-	scheme = options[:scheme].to_s
-
-	if platform == "macos"
-		run_tests(
-			configuration: configuration,
-			scheme: scheme,
-			destination: "platform=macOS",
-			catalyst_platform: "macos",
-			disable_slide_to_type: false,
-			prelaunch_simulator: false,
-			ensure_devices_found: true,
-			force_quit_simulator: false,
-			disable_concurrent_testing: true,
-		)
-	else
-		unless ["SwiftUIIntrospectTests"].include?(scheme)
-			raise "Unsupported scheme: #{scheme}"
-		end
-		run_tests(
-			configuration: configuration,
-			scheme: scheme,
-			devices: devices[platform][version],
-			prelaunch_simulator: false,
-			ensure_devices_found: true,
-			force_quit_simulator: true,
-			reset_simulator: false,
-			disable_concurrent_testing: true,
-			result_bundle: true,
-			output_directory: Dir.pwd + "/test_output",
-		)
 	end
 end

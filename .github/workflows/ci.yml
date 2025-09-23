@@ -90,7 +90,6 @@ jobs:
           PLATFORM="${{ matrix.runtime[0] }}"
           MAJOR="${{ matrix.runtime[1] }}"
           MINOR="${{ matrix.runtime[2] }}"
-          RUNTIME="$PLATFORM $MAJOR.$MINOR"
 
           if [ "$PLATFORM" = "iPadOS" ]; then
             PLATFORM=iOS
@@ -104,6 +103,8 @@ jobs:
               macOS) FASTLANE_PLATFORM=macos ;;
             esac
           fi
+
+          RUNTIME="$PLATFORM $MAJOR.$MINOR"
 
           echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
           echo "MAJOR=$MAJOR" >> $GITHUB_ENV

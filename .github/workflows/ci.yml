@@ -129,7 +129,7 @@ jobs:
           verbosity: xcbeautify
 
       - if: ${{ env.PLATFORM != 'macOS' }}
-        name: Download Required Runtime
+        name: Download Default Runtime
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15
@@ -141,7 +141,7 @@ jobs:
         run: xcodes runtimes --include-betas
 
       - if: env.has_runtime == 'false'
-        name: Install Required Runtime (${{ env.RUNTIME }})
+        name: Download Required Runtime (${{ env.RUNTIME }})
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15

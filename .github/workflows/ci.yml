@@ -93,14 +93,14 @@ jobs:
 
           if [ "$PLATFORM" = "iPadOS" ]; then
             PLATFORM=iOS
-            FASTLANE_PLATFORM=ipados
+            SCRIPT_PLATFORM=ipados
           else
             case "$PLATFORM" in
-              iOS) FASTLANE_PLATFORM=ios ;;
-              tvOS) FASTLANE_PLATFORM=tvos ;;
-              watchOS) FASTLANE_PLATFORM=watchos ;;
-              visionOS) FASTLANE_PLATFORM=visionos ;;
-              macOS) FASTLANE_PLATFORM=macos ;;
+              iOS) SCRIPT_PLATFORM=ios ;;
+              tvOS) SCRIPT_PLATFORM=tvos ;;
+              watchOS) SCRIPT_PLATFORM=watchos ;;
+              visionOS) SCRIPT_PLATFORM=visionos ;;
+              macOS) SCRIPT_PLATFORM=macos ;;
             esac
           fi
 
@@ -110,7 +110,7 @@ jobs:
           echo "MAJOR=$MAJOR" >> $GITHUB_ENV
           echo "MINOR=$MINOR" >> $GITHUB_ENV
           echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
-          echo "FASTLANE_PLATFORM=$FASTLANE_PLATFORM" >> $GITHUB_ENV
+          echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
 
       - if: ${{ env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} runtime
@@ -153,7 +153,7 @@ jobs:
         run: |
           set -eo pipefail
           xcrun simctl delete all
-          fastlane create_simulators platform:${{ env.FASTLANE_PLATFORM }} version:${{ env.MAJOR }}
+          script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }}
 
       - name: List Available Runtimes, Simulators, and Destinations
         run: |

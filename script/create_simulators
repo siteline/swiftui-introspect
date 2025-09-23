@@ -1,5 +1,13 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
+require 'json'
+require 'set'
+require 'optparse'
+require 'open3'
+
+# Mapping of desired simulators per OS major to a human-friendly descriptor.
+# Keep the descriptor's trailing (version) so we can parse the runtime.
 devices = {
 	"ios" => {
 		15 => "iPhone 13 Pro (15.5)",
@@ -23,38 +31,58 @@ devices = {
 		26 => "Apple TV (26.0)",
 	},
 	"watchos" => {
-		8 => "Apple Watch Series 7 (45mm) (8.5)",
-		9 => "Apple Watch Series 8 (45mm) (9.4)",
+		8  => "Apple Watch Series 7 (45mm) (8.5)",
+		9  => "Apple Watch Series 8 (45mm) (9.4)",
 		10 => "Apple Watch Series 9 (45mm) (10.5)",
 		11 => "Apple Watch Series 10 (42mm) (11.5)",
 		26 => "Apple Watch Series 11 (42mm) (26.0)",
 	},
 	"visionos" => {
-		1 => "Apple Vision Pro (at 2732x2048) (1.2)",
-		2 => "Apple Vision Pro (at 2732x2048) (2.5)",
+		1  => "Apple Vision Pro (at 2732x2048) (1.2)",
+		2  => "Apple Vision Pro (at 2732x2048) (2.5)",
 		26 => "Apple Vision Pro (26.0)",
 	},
 }
 
-lane :create_simulators do |options|
-	require 'json'
-	require 'set'
+# Map script platform keys to CoreSimulator OS display names
+PLATFORMS_TO_OS = {
+	"ios" => "iOS",
+	"ipados" => "iOS",
+	"tvos" => "tvOS",
+	"watchos" => "watchOS",
+	"visionos" => "visionOS",
+}
 
-	# map Fastfile platform keys to display names used by CoreSimulator runtimes
-	platforms_to_os = {
-		"ios" => "iOS",
-		"ipados" => "iOS",
-		"tvos" => "tvOS",
-		"watchos" => "watchOS",
-		"visionos" => "visionOS",
-	}
+options = {
+	platform: nil,
+	version: nil,
+}
 
-	# Build lookup tables from CoreSimulator for robust name→identifier mapping
-	begin
-		# Build a set of existing simulator name+runtime pairs to prevent duplicates across OS versions
-		devices_json = sh("xcrun simctl list -j devices", log: false)
+OptionParser.new do |opts|
+	opts.banner = "Usage: create_simulators [--platform ios|ipados|tvos|watchos|visionos] [--version N]"
+	opts.on("--platform PLATFORM", String, "Limit to a single platform key") { |v| options[:platform] = v.downcase }
+	opts.on("--version N", Integer, "Limit to a single major version key under the chosen platform") { |v| options[:version] = v }
+	opts.on("-h", "--help", "Show help") { puts opts; exit 0 }
+end.parse!(ARGV)
+
+# Helper to run a shell command and capture stdout. Returns "" on error.
+def run(cmd)
+	stdout, status = Open3.capture2e(cmd)
+	unless status.success?
+		warn "Command failed (#{status.exitstatus}): #{cmd}\n#{stdout}"
+	end
+	stdout
+rescue => e
+	warn "Failed to run: #{cmd} (#{e})"
+	""
+end
+
+# Build a set of existing simulator name+runtime pairs to prevent duplicates across OS versions
+existing_pairs = Set.new
+begin
+	devices_json = run("xcrun simctl list -j devices")
+	if !devices_json.empty?
 		devices_list = JSON.parse(devices_json)
-		existing_pairs = Set.new
 		(devices_list["devices"] || {}).each do |runtime_key, arr|
 			Array(arr).each do |d|
 				name = d["name"]
@@ -62,88 +90,106 @@ lane :create_simulators do |options|
 				existing_pairs.add("#{name}||#{runtime_key}")
 			end
 		end
-
-		list_json = sh("xcrun simctl list -j", log: false)
-		list = JSON.parse(list_json)
-		devtypes = list["devicetypes"] || []
-		runtimes = list["runtimes"] || []
-	rescue => e
-		UI.message("Failed to read simctl lists: #{e}")
-		devtypes = []
-		runtimes = []
-		existing_pairs = Set.new
 	end
+rescue => e
+	warn "Failed to read existing devices: #{e}"
+end
 
-	device_name_to_id = devtypes.each_with_object({}) do |dt, h|
-		name = dt["name"]; id = dt["identifier"]
-		h[name] = id if name && id
-	end
+# Build lookup tables for device types and runtimes
+begin
+	list_json = run("xcrun simctl list -j")
+	list = list_json.empty? ? {} : JSON.parse(list_json)
+	devtypes = list["devicetypes"] || []
+	runtimes = list["runtimes"] || []
+rescue => e
+	warn "Failed to read simctl lists: #{e}"
+	devtypes = []
+	runtimes = []
+end
 
-	runtime_name_to_id = runtimes.each_with_object({}) do |rt, h|
-		next unless rt["isAvailable"]
-		name = rt["name"]; id = rt["identifier"]
-		h[name] = id if name && id
-	end
+device_name_to_id = devtypes.each_with_object({}) do |dt, h|
+	name = dt["name"]; id = dt["identifier"]
+	h[name] = id if name && id
+end
 
-	# Fallback builders when exact matches are not present in the lookup tables
-	build_device_type_id = proc do |device_name|
-		s = device_name.gsub(/[()]/, '').gsub(/\s+/, '-').gsub(/[^A-Za-z0-9-]/, '')
-		"com.apple.CoreSimulator.SimDeviceType.#{s}"
-	end
+runtime_name_to_id = runtimes.each_with_object({}) do |rt, h|
+	next unless rt["isAvailable"]
+	name = rt["name"]; id = rt["identifier"]
+	h[name] = id if name && id
+end
 
-	build_runtime_id = proc do |os_name, version|
-		"com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
-	end
+# Fallback builders when exact matches are not present in the lookup tables
+build_device_type_id = proc do |device_name|
+	s = device_name.gsub(/[()]/, '').gsub(/\s+/, '-').gsub(/[^A-Za-z0-9-]/, '')
+	"com.apple.CoreSimulator.SimDeviceType.#{s}"
+end
 
-	platform_opt = options && options[:platform] ? options[:platform].to_s.downcase : nil
-	version_opt  = options && options[:version] ? options[:version].to_i : nil
+build_runtime_id = proc do |os_name, version|
+	"com.apple.CoreSimulator.SimRuntime.#{os_name}-#{version.tr('.', '-')}"
+end
 
-	local_devices = if platform_opt && devices.key?(platform_opt)
-		subset_versions = devices[platform_opt]
-		if version_opt && subset_versions.key?(version_opt)
-			{ platform_opt => { version_opt => subset_versions[version_opt] } }
-		else
-			{ platform_opt => subset_versions }
-		end
+# Filter the devices hash according to CLI options
+local_devices = if options[:platform] && devices.key?(options[:platform])
+	subset_versions = devices[options[:platform]]
+	if options[:version] && subset_versions.key?(options[:version])
+		{ options[:platform] => { options[:version] => subset_versions[options[:version]] } }
 	else
-		devices
+		{ options[:platform] => subset_versions }
 	end
+else
+	devices
+end
 
-	local_devices.each do |platform, versions|
-		os_name = platforms_to_os[platform]
-		next if os_name.nil?
+created = 0
+skipped = 0
 
-		versions.values.each do |descriptor|
-			# descriptor is a single string like "iPhone 14 Pro (16.4)" or "iPad Pro 11-inch (M4) (18.6)"
-			begin
-				# Parse trailing "(x.y)" and derive device name
-				if descriptor =~ /\s*\(([^()]+)\)\s*\z/
-					runtime_version = $1
-					device_name = descriptor.sub(/\s*\([^()]+\)\s*\z/, '')
-				else
-					UI.message("Could not parse runtime version from '#{descriptor}', skipping")
-					next
-				end
+local_devices.each do |platform, versions|
+	os_name = PLATFORMS_TO_OS[platform]
+	next if os_name.nil?
 
-				runtime_name = "#{os_name} #{runtime_version}"
-
-				device_type_id = device_name_to_id[device_name] || build_device_type_id.call(device_name)
-				runtime_id = runtime_name_to_id[runtime_name] || build_runtime_id.call(os_name, runtime_version)
-
-				# Use the device name without the version suffix as the simulator name
-				sim_name = device_name
-
-				pair_key = "#{sim_name}||#{runtime_id}"
-				if existing_pairs.include?(pair_key)
-					UI.message("Already exists: #{sim_name} (#{runtime_version}), skipping")
-					next
-				end
-
-				sh(%(xcrun simctl create "#{sim_name}" "#{device_type_id}" "#{runtime_id}" || true))
-				existing_pairs.add(pair_key)
-			rescue => e
-				UI.message("Skipping #{descriptor}: #{e}")
+	versions.values.each do |descriptor|
+		begin
+			# Parse trailing "(x.y)" and derive device name
+			if descriptor =~ /\s*\(([^()]+)\)\s*\z/
+				runtime_version = $1
+				device_name = descriptor.sub(/\s*\([^()]+\)\s*\z/, '')
+			else
+				warn "Could not parse runtime version from '#{descriptor}', skipping"
+				skipped += 1
+				next
 			end
+
+			runtime_name = "#{os_name} #{runtime_version}"
+
+			device_type_id = device_name_to_id[device_name] || build_device_type_id.call(device_name)
+			runtime_id = runtime_name_to_id[runtime_name] || build_runtime_id.call(os_name, runtime_version)
+
+			# Use the device name without the version suffix as the simulator name
+			sim_name = device_name
+
+			pair_key = "#{sim_name}||#{runtime_id}"
+			if existing_pairs.include?(pair_key)
+				puts "Already exists: #{sim_name} (#{runtime_version}), skipping"
+				skipped += 1
+				next
+			end
+
+			cmd = %(xcrun simctl create "#{sim_name}" "#{device_type_id}" "#{runtime_id}")
+			out = run(cmd)
+			if out.strip.empty?
+				# simctl returns the new UUID on success; if empty we assume failure was already reported
+				warn "Failed to create: #{sim_name} (#{runtime_version})"
+				skipped += 1
+			else
+				puts "Created: #{sim_name} (#{runtime_version}) -> #{out.strip}"
+				created += 1
+				existing_pairs.add(pair_key)
+			end
+		rescue => e
+			warn "Skipping #{descriptor}: #{e}"
+			skipped += 1
 		end
 	end
 end
+
+puts "Summary: created=#{created}, skipped=#{skipped}"

@@ -153,7 +153,12 @@ jobs:
         run: |
           set -eo pipefail
           xcrun simctl delete all
-          script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }}
+          OUTPUT=$(script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }} | tee /dev/stderr)
+          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^Created: /{print $NF}' | head -n1)
+          if [ -n "$FIRST_UDID" ]; then
+            echo "SIM_UDID=$FIRST_UDID" >> "$GITHUB_ENV"
+            echo "Captured SIM_UDID=$FIRST_UDID"
+          fi
 
       - name: List Available Runtimes, Simulators, and Destinations
         run: |
@@ -186,11 +191,12 @@ jobs:
 
       - if: ${{ env.PLATFORM != 'watchOS' }}
         name: Run Tests
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: test
           scheme: SwiftUIIntrospectTests
           configuration: Debug

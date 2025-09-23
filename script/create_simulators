@@ -1,4 +1,4 @@
-skip_docs
+#!/usr/bin/env ruby
 
 devices = {
 	"ios" => {

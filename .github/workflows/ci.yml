@@ -87,10 +87,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          RUNTIME="$PLATFORM $MAJOR.$MINOR"
           PLATFORM="${{ matrix.runtime[0] }}"
           MAJOR="${{ matrix.runtime[1] }}"
           MINOR="${{ matrix.runtime[2] }}"
+          RUNTIME="$PLATFORM $MAJOR.$MINOR"
 
           if [ "$PLATFORM" = "iPadOS" ]; then
             PLATFORM=iOS
@@ -105,10 +105,10 @@ jobs:
             esac
           fi
 
-          echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
           echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
           echo "MAJOR=$MAJOR" >> $GITHUB_ENV
           echo "MINOR=$MINOR" >> $GITHUB_ENV
+          echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
           echo "FASTLANE_PLATFORM=$FASTLANE_PLATFORM" >> $GITHUB_ENV
 
       - if: ${{ env.PLATFORM != 'macOS' }}

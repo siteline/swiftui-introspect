@@ -93,14 +93,14 @@ jobs:
 
           if [ "$PLATFORM" = "iPadOS" ]; then
             PLATFORM=iOS
-            FASTLANE_PLATFORM=ipados
+            SCRIPT_PLATFORM=ipados
           else
             case "$PLATFORM" in
-              iOS) FASTLANE_PLATFORM=ios ;;
-              tvOS) FASTLANE_PLATFORM=tvos ;;
-              watchOS) FASTLANE_PLATFORM=watchos ;;
-              visionOS) FASTLANE_PLATFORM=visionos ;;
-              macOS) FASTLANE_PLATFORM=macos ;;
+              iOS) SCRIPT_PLATFORM=ios ;;
+              tvOS) SCRIPT_PLATFORM=tvos ;;
+              watchOS) SCRIPT_PLATFORM=watchos ;;
+              visionOS) SCRIPT_PLATFORM=visionos ;;
+              macOS) SCRIPT_PLATFORM=macos ;;
             esac
           fi
 
@@ -110,7 +110,7 @@ jobs:
           echo "MAJOR=$MAJOR" >> $GITHUB_ENV
           echo "MINOR=$MINOR" >> $GITHUB_ENV
           echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
-          echo "FASTLANE_PLATFORM=$FASTLANE_PLATFORM" >> $GITHUB_ENV
+          echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
 
       - if: ${{ env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} runtime
@@ -128,20 +128,12 @@ jobs:
           action: none
           verbosity: xcbeautify
 
-      - if: ${{ env.PLATFORM != 'macOS' }}
-        name: Download Required Runtime
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 15
-          max_attempts: 3
-          command: xcodebuild -downloadPlatform ${{ env.PLATFORM }}
-
       - if: env.has_runtime == 'false'
         name: List Downloadable Runtimes
         run: xcodes runtimes --include-betas
 
       - if: env.has_runtime == 'false'
-        name: Install Required Runtime (${{ env.RUNTIME }})
+        name: Download Required Runtime (${{ env.RUNTIME }})
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15
@@ -153,7 +145,12 @@ jobs:
         run: |
           set -eo pipefail
           xcrun simctl delete all
-          fastlane create_simulators platform:${{ env.FASTLANE_PLATFORM }} version:${{ env.MAJOR }}
+          OUTPUT=$(script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }} | tee /dev/stderr)
+          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^(Created:|Already exists:)/{print $NF}' | head -n1)
+          if [ -n "$FIRST_UDID" ]; then
+            echo "SIM_UDID=$FIRST_UDID" >> "$GITHUB_ENV"
+            echo "Captured SIM_UDID=$FIRST_UDID"
+          fi
 
       - name: List Available Runtimes, Simulators, and Destinations
         run: |
@@ -162,11 +159,12 @@ jobs:
 
       - if: ${{ env.PLATFORM != 'watchOS' }}
         name: Build Showcase
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: build
           scheme: Showcase
           configuration: Debug
@@ -174,11 +172,12 @@ jobs:
 
       - if: ${{ env.PLATFORM == 'watchOS' }}
         name: Build Library
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: build
           scheme: SwiftUIIntrospect
           configuration: Debug
@@ -186,11 +185,12 @@ jobs:
 
       - if: ${{ env.PLATFORM != 'watchOS' }}
         name: Run Tests
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: test
           scheme: SwiftUIIntrospectTests
           configuration: Debug

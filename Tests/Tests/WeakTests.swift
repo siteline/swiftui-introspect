@@ -7,49 +7,49 @@ struct WeakTests {
 
 	var strongFoo: Foo? = Foo()
 
-	@Test func Init_nil() {
+	@Test func init_nil() {
 		@Weak var weakFoo: Foo?
 		#expect(weakFoo == nil)
 	}
 
-	@Test func Init_nonNil() {
+	@Test func init_nonNil() {
 		@Weak var weakFoo: Foo? = strongFoo
 		#expect(weakFoo === strongFoo)
 	}
 
-	@Test func Assignment_nilToNil() {
+	@Test func assignment_nilToNil() {
 		@Weak var weakFoo: Foo?
 		weakFoo = nil
 		#expect(weakFoo == nil)
 	}
 
-	@Test func Assignment_nilToNonNil() {
+	@Test func assignment_nilToNonNil() {
 		@Weak var weakFoo: Foo?
 		let otherFoo = Foo()
 		weakFoo = otherFoo
 		#expect(weakFoo === otherFoo)
 	}
 
-	@Test func Assignment_nonNilToNil() {
+	@Test func assignment_nonNilToNil() {
 		@Weak var weakFoo: Foo? = strongFoo
 		weakFoo = nil
 		#expect(weakFoo == nil)
 	}
 
-	@Test func Assignment_nonNilToNonNil() {
+	@Test func assignment_nonNilToNonNil() {
 		@Weak var weakFoo: Foo? = strongFoo
 		let otherFoo = Foo()
 		weakFoo = otherFoo
 		#expect(weakFoo === otherFoo)
 	}
 
-	@Test mutating func IndirectAssignment_nonNilToNil() {
+	@Test mutating func indirectAssignment_nonNilToNil() {
 		@Weak var weakFoo: Foo? = strongFoo
 		strongFoo = nil
 		#expect(weakFoo == nil)
 	}
 
-	@Test mutating func IndirectAssignment_nonNilToNonNil() {
+	@Test mutating func indirectAssignment_nonNilToNonNil() {
 		@Weak var weakFoo: Foo? = strongFoo
 		strongFoo = Foo()
 		#expect(weakFoo == nil)

@@ -159,11 +159,12 @@ jobs:
 
       - if: ${{ env.PLATFORM != 'watchOS' }}
         name: Build Showcase
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: build
           scheme: Showcase
           configuration: Debug
@@ -171,11 +172,12 @@ jobs:
 
       - if: ${{ env.PLATFORM == 'watchOS' }}
         name: Build Library
-        uses: mxcl/xcodebuild@v3
+        uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
           platform: ${{ env.PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
+          destination: ${{ env.SIM_UDID }}
           action: build
           scheme: SwiftUIIntrospect
           configuration: Debug

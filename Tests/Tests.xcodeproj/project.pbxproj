@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D5CEB5582E84304900A88BA3 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5CEB5572E84304900A88BA3 /* SwiftUIIntrospect */; };
+		D5CEB6452E8431FB00A88BA3 /* Tests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D5CEB6442E8431FB00A88BA3 /* Tests.xctestplan */; };
 		D5E04C312E842584006739F9 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E04C302E842584006739F9 /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		D5CEB5502E84303E00A88BA3 /* TestFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5CEB6442E8431FB00A88BA3 /* Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tests.xctestplan; sourceTree = "<group>"; };
 		D5E04C162E8424CD006739F9 /* TestsHostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestsHostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5E04C262E84254D006739F9 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 			children = (
 				D5E04C182E8424CD006739F9 /* TestsHostApp */,
 				D5E04C272E84254D006739F9 /* Tests */,
+				D5CEB6442E8431FB00A88BA3 /* Tests.xctestplan */,
 				D5CEB5512E84303E00A88BA3 /* TestFramework */,
 				D5E04C2F2E842584006739F9 /* Frameworks */,
 				D5E04C172E8424CD006739F9 /* Products */,
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5CEB6452E8431FB00A88BA3 /* Tests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

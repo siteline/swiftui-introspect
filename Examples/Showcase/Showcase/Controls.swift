@@ -74,6 +74,7 @@ struct ControlsShowcase: View {
 					#endif
 			}
 
+			#if !targetEnvironment(macCatalyst)
 			HStack {
 				Slider(value: $sliderValue, in: 0...100)
 					#if os(iOS)
@@ -97,6 +98,7 @@ struct ControlsShowcase: View {
 					}
 					#endif
 			}
+			#endif
 
 			HStack {
 				Stepper(onIncrement: {}, onDecrement: {}) {

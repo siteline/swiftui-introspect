@@ -119,7 +119,7 @@ jobs:
           echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
           echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
 
-      - if: ${{ env.PLATFORM != 'macOS' }}
+      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "$RUNTIME"; then

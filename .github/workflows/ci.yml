@@ -121,7 +121,7 @@ jobs:
 
       - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Download Default ${{ env.PLATFORM }} Runtime
-        run: xcodebuild -downloadPlatform ${{ env.PLATFORM }}
+        run: xcodebuild -downloadPlatform ${{ env.PLATFORM }} || true
 
       - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} Runtime

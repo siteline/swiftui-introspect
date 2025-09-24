@@ -1,4 +1,4 @@
-#if !os(tvOS) && !os(visionOS)
+#if !os(tvOS) && !os(visionOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
 import Testing

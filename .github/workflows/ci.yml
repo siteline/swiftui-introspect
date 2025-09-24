@@ -61,24 +61,24 @@ jobs:
           - [iPadOS, 18, 6]
           - [iPadOS, 26, 0]
 
+          - [macCatalyst, 15, 0]
+          - [macOS, 15, 0]
+
           - [tvOS, 15, 4]
           - [tvOS, 16, 4]
           - [tvOS, 17, 5]
           - [tvOS, 18, 5]
           - [tvOS, 26, 0]
 
+          - [visionOS, 1, 2]
+          - [visionOS, 2, 5]
+          - [visionOS, 26, 0]
+
           - [watchOS, 8, 5]
           - [watchOS, 9, 4]
           - [watchOS, 10, 5]
           - [watchOS, 11, 5]
           - [watchOS, 26, 0]
-
-          - [macOS, 15, 0]
-          # - [macOS, 26, 0]
-
-          - [visionOS, 1, 2]
-          - [visionOS, 2, 5]
-          - [visionOS, 26, 0]
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -97,11 +97,18 @@ jobs:
           else
             case "$PLATFORM" in
               iOS) SCRIPT_PLATFORM=ios ;;
-              tvOS) SCRIPT_PLATFORM=tvos ;;
-              watchOS) SCRIPT_PLATFORM=watchos ;;
-              visionOS) SCRIPT_PLATFORM=visionos ;;
               macOS) SCRIPT_PLATFORM=macos ;;
+              macCatalyst) SCRIPT_PLATFORM=mac-catalyst ;;
+              tvOS) SCRIPT_PLATFORM=tvos ;;
+              visionOS) SCRIPT_PLATFORM=visionos ;;
+              watchOS) SCRIPT_PLATFORM=watchos ;;
             esac
+          fi
+
+          if [ "$PLATFORM" = "macCatalyst" ]; then
+            XCB_PLATFORM="mac-catalyst"
+          else
+            XCB_PLATFORM="$PLATFORM"
           fi
 
           RUNTIME="$PLATFORM $MAJOR.$MINOR"
@@ -112,7 +119,7 @@ jobs:
           echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
           echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
 
-      - if: ${{ env.PLATFORM != 'macOS' }}
+      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "$RUNTIME"; then
@@ -140,7 +147,7 @@ jobs:
           max_attempts: 3
           command: sudo xcodes runtimes install "$RUNTIME"
 
-      - if: ${{ env.PLATFORM != 'macOS' }}
+      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Create Required Simulators
         run: |
           set -eo pipefail
@@ -162,7 +169,7 @@ jobs:
         uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
-          platform: ${{ env.PLATFORM }}
+          platform: ${{ env.XCB_PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
           destination: ${{ env.SIM_UDID }}
           action: build
@@ -175,7 +182,7 @@ jobs:
         uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
-          platform: ${{ env.PLATFORM }}
+          platform: ${{ env.XCB_PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
           destination: ${{ env.SIM_UDID }}
           action: build
@@ -188,7 +195,7 @@ jobs:
         uses: davdroman/xcodebuild@destination
         with:
           xcode: ~26.0
-          platform: ${{ env.PLATFORM }}
+          platform: ${{ env.XCB_PLATFORM }}
           platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
           destination: ${{ env.SIM_UDID }}
           action: test
@@ -203,20 +210,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [iOS, macOS, tvOS, watchOS, visionOS, macCatalyst]
+        platform: [iOS, macCatalyst, macOS, tvOS, visionOS, watchOS]
         include:
           - platform: iOS
             destination: "generic/platform=iOS"
+          - platform: macCatalyst
+            destination: "platform=macOS,variant=Mac Catalyst"
           - platform: macOS
             destination: "generic/platform=macOS"
           - platform: tvOS
             destination: "generic/platform=tvOS"
-          - platform: watchOS
-            destination: "generic/platform=watchOS"
           - platform: visionOS
             destination: "generic/platform=visionOS"
-          - platform: macCatalyst
-            destination: "platform=macOS,variant=Mac Catalyst"
+          - platform: watchOS
+            destination: "generic/platform=watchOS"
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5

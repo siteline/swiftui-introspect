@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D505564A2E3A6F2700312263"
+               BlueprintIdentifier = "D5CEB54F2E84303E00A88BA3"
                BuildableName = "TestFramework.framework"
                BlueprintName = "TestFramework"
                ReferencedContainer = "container:Tests.xcodeproj">
@@ -50,7 +50,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D505564A2E3A6F2700312263"
+            BlueprintIdentifier = "D5CEB54F2E84303E00A88BA3"
             BuildableName = "TestFramework.framework"
             BlueprintName = "TestFramework"
             ReferencedContainer = "container:Tests.xcodeproj">

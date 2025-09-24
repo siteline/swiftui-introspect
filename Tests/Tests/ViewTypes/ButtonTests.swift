@@ -6,9 +6,7 @@ import Testing
 @MainActor
 @Suite
 struct ButtonTests {
-	#if canImport(AppKit)
 	typealias PlatformButton = NSButton
-	#endif
 
 	@available(macOS, introduced: 10.15, obsoleted: 26.0)
 	@Test func introspectButtonsBeforeMacOS26() async throws {

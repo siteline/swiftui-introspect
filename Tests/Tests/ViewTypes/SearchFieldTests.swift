@@ -6,9 +6,7 @@ import Testing
 @MainActor
 @Suite
 struct SearchFieldTests {
-	#if canImport(UIKit)
 	typealias PlatformSearchField = UISearchBar
-	#endif
 
 	@available(iOS 15, tvOS 15, *)
 	@Test(.`disabled on iOS 26+ except for iPad`())
@@ -19,9 +17,7 @@ struct SearchFieldTests {
 					.searchable(text: .constant(""))
 			}
 			.navigationViewStyle(.stack)
-			#if os(iOS) || os(tvOS) || os(visionOS)
 			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
-			#endif
 		}
 	}
 
@@ -35,9 +31,7 @@ struct SearchFieldTests {
 				}
 				.navigationViewStyle(.stack)
 			}
-			#if os(iOS) || os(tvOS) || os(visionOS)
 			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
-			#endif
 		}
 	}
 
@@ -48,9 +42,7 @@ struct SearchFieldTests {
 			NavigationView {
 				Text("Customized")
 					.searchable(text: .constant(""))
-					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
-					#endif
 			}
 			.navigationViewStyle(.stack)
 		}
@@ -63,9 +55,7 @@ struct SearchFieldTests {
 				NavigationView {
 					Text("Customized")
 						.searchable(text: .constant(""))
-						#if os(iOS) || os(tvOS) || os(visionOS)
 						.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
-						#endif
 				}
 				.navigationViewStyle(.stack)
 			}
@@ -81,9 +71,7 @@ struct SearchFieldTests {
 					.searchable(text: .constant(""))
 			}
 			.navigationViewStyle(DoubleColumnNavigationViewStyle())
-			#if os(iOS) || os(tvOS) || os(visionOS)
 			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
-			#endif
 			#if os(iOS)
 			// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 			.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
@@ -102,9 +90,7 @@ struct SearchFieldTests {
 						.searchable(text: .constant(""))
 				}
 				.navigationViewStyle(DoubleColumnNavigationViewStyle())
-				#if os(iOS) || os(tvOS) || os(visionOS)
 				.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
-				#endif
 				#if os(iOS)
 				// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 				.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
@@ -122,9 +108,7 @@ struct SearchFieldTests {
 			NavigationView {
 				Text("Customized")
 					.searchable(text: .constant(""))
-					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
-					#endif
 			}
 			.navigationViewStyle(DoubleColumnNavigationViewStyle())
 			#if os(iOS)
@@ -143,9 +127,7 @@ struct SearchFieldTests {
 				NavigationView {
 					Text("Customized")
 						.searchable(text: .constant(""))
-						#if os(iOS) || os(tvOS) || os(visionOS)
 						.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
-						#endif
 				}
 				.navigationViewStyle(DoubleColumnNavigationViewStyle())
 				#if os(iOS)

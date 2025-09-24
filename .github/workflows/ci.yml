@@ -124,7 +124,7 @@ jobs:
         run: xcodebuild -downloadPlatform ${{ env.PLATFORM }}
 
       - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
-        name: Check for ${{ env.RUNTIME }} runtime
+        name: Check for ${{ env.RUNTIME }} Runtime
         run: |
           if xcrun simctl list runtimes | grep -q "$RUNTIME"; then
             echo "has_runtime=true" >> "$GITHUB_ENV"

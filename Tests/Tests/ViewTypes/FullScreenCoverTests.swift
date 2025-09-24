@@ -11,13 +11,11 @@ struct FullScreenCoverTests {
 			Text("Root")
 				.fullScreenCover(isPresented: .constant(true)) {
 					Text("Content")
-						#if os(iOS) || os(tvOS) || os(visionOS)
 						.introspect(
 							.fullScreenCover,
 							on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26),
 							customize: spy
 						)
-						#endif
 				}
 		}
 	}

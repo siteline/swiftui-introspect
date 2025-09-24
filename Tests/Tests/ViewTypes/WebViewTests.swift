@@ -1,4 +1,4 @@
-#if compiler(>=6.2) && canImport(WebKit)
+#if canImport(WebKit)
 import SwiftUI
 import SwiftUIIntrospect
 import Testing

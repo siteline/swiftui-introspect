@@ -79,6 +79,7 @@ end
 
 # Build a set of existing simulator name+runtime pairs to prevent duplicates across OS versions
 existing_pairs = Set.new
+existing_index = {}
 begin
 	devices_json = run("xcrun simctl list -j devices")
 	if !devices_json.empty?
@@ -88,6 +89,7 @@ begin
 				name = d["name"]
 				next unless name && runtime_key
 				existing_pairs.add("#{name}||#{runtime_key}")
+				existing_index["#{name}||#{runtime_key}"] = d["udid"] if d["udid"]
 			end
 		end
 	end
@@ -169,7 +171,7 @@ local_devices.each do |platform, versions|
 
 			pair_key = "#{sim_name}||#{runtime_id}"
 			if existing_pairs.include?(pair_key)
-				puts "Already exists: #{sim_name} (#{runtime_version}), skipping"
+				puts "Already exists: #{sim_name} (#{runtime_version}) -> #{existing_index[pair_key]}"
 				skipped += 1
 				next
 			end

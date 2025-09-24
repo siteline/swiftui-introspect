@@ -146,7 +146,7 @@ jobs:
           set -eo pipefail
           # xcrun simctl delete all
           OUTPUT=$(script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }} | tee /dev/stderr)
-          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^Created: /{print $NF}' | head -n1)
+          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^(Created:|Already exists:)/{print $NF}' | head -n1)
           if [ -n "$FIRST_UDID" ]; then
             echo "SIM_UDID=$FIRST_UDID" >> "$GITHUB_ENV"
             echo "Captured SIM_UDID=$FIRST_UDID"

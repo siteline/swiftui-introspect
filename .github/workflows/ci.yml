@@ -97,10 +97,11 @@ jobs:
           else
             case "$PLATFORM" in
               iOS) SCRIPT_PLATFORM=ios ;;
-              tvOS) SCRIPT_PLATFORM=tvos ;;
-              watchOS) SCRIPT_PLATFORM=watchos ;;
-              visionOS) SCRIPT_PLATFORM=visionos ;;
               macOS) SCRIPT_PLATFORM=macos ;;
+              macCatalyst) SCRIPT_PLATFORM=mac-catalyst ;;
+              tvOS) SCRIPT_PLATFORM=tvos ;;
+              visionOS) SCRIPT_PLATFORM=visionos ;;
+              watchOS) SCRIPT_PLATFORM=watchos ;;
             esac
           fi
 

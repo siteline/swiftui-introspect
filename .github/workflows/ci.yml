@@ -120,6 +120,10 @@ jobs:
           echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
 
       - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
+        name: Download Default ${{ env.PLATFORM }} Runtime
+        run: xcodebuild -downloadPlatform ${{ env.PLATFORM }}
+
+      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
         name: Check for ${{ env.RUNTIME }} runtime
         run: |
           if xcrun simctl list runtimes | grep -q "$RUNTIME"; then
@@ -140,7 +144,7 @@ jobs:
         run: xcodes runtimes --include-betas
 
       - if: env.has_runtime == 'false'
-        name: Download Required Runtime (${{ env.RUNTIME }})
+        name: Download Required ${{ env.RUNTIME }} Runtime
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 15

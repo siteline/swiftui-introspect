@@ -49,11 +49,11 @@ jobs:
       fail-fast: false
       matrix:
         runtime:
-          # - [iOS, 15, 5]
-          # - [iOS, 16, 4]
-          # - [iOS, 17, 5]
-          # - [iOS, 18, 6]
-          # - [iOS, 26, 0]
+          - [iOS, 15, 5]
+          - [iOS, 16, 4]
+          - [iOS, 17, 5]
+          - [iOS, 18, 6]
+          - [iOS, 26, 0]
 
           - [iPadOS, 15, 5]
           - [iPadOS, 16, 4]
@@ -61,24 +61,24 @@ jobs:
           - [iPadOS, 18, 6]
           - [iPadOS, 26, 0]
 
-          # - [tvOS, 15, 4]
-          # - [tvOS, 16, 4]
-          # - [tvOS, 17, 5]
-          # - [tvOS, 18, 5]
-          # - [tvOS, 26, 0]
+          - [tvOS, 15, 4]
+          - [tvOS, 16, 4]
+          - [tvOS, 17, 5]
+          - [tvOS, 18, 5]
+          - [tvOS, 26, 0]
 
-          # - [watchOS, 8, 5]
-          # - [watchOS, 9, 4]
-          # - [watchOS, 10, 5]
-          # - [watchOS, 11, 5]
-          # - [watchOS, 26, 0]
+          - [watchOS, 8, 5]
+          - [watchOS, 9, 4]
+          - [watchOS, 10, 5]
+          - [watchOS, 11, 5]
+          - [watchOS, 26, 0]
 
-          # - [macOS, 15, 0]
-          # # - [macOS, 26, 0]
+          - [macOS, 15, 0]
+          # - [macOS, 26, 0]
 
-          # - [visionOS, 1, 2]
-          # - [visionOS, 2, 5]
-          # - [visionOS, 26, 0]
+          - [visionOS, 1, 2]
+          - [visionOS, 2, 5]
+          - [visionOS, 26, 0]
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -144,7 +144,7 @@ jobs:
         name: Create Required Simulators
         run: |
           set -eo pipefail
-          # xcrun simctl delete all
+          xcrun simctl delete all
           OUTPUT=$(script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }} | tee /dev/stderr)
           FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^(Created:|Already exists:)/{print $NF}' | head -n1)
           if [ -n "$FIRST_UDID" ]; then

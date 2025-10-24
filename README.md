@@ -354,7 +354,7 @@ A wider range is safe because SwiftUI Introspect is essentially “finished”: 
 Community projects
 ------------------
 
-Here are some open source libraries powered by SwiftUI Introspect:
+Here are some popular open source libraries powered by SwiftUI Introspect:
 
 <a href="https://github.com/paescebu/CustomKeyboardKit">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=paescebu&repo=CustomKeyboardKit" />
@@ -362,6 +362,10 @@ Here are some open source libraries powered by SwiftUI Introspect:
 
 <a href="https://github.com/davdroman/swiftui-navigation-transitions">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=davdroman&repo=swiftui-navigation-transitions" />
+</a>
+
+<a href="https://github.com/exyte/PopupView">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=exyte&repo=PopupView" />
 </a>
 
 If you're working on a library built on SwiftUI Introspect or know of one, feel free to submit a PR adding it to the list.

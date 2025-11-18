@@ -16,7 +16,7 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		}
 	}
 
-	public static func iOS(_ versions: (iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+	public static func iOS(_ versions: iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
 		Self(versions, matches: \.isCurrent)
 	}
 
@@ -25,7 +25,7 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
-	public static func tvOS(_ versions: (tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+	public static func tvOS(_ versions: tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
 		Self(versions, matches: \.isCurrent)
 	}
 
@@ -34,7 +34,7 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
-	public static func macOS(_ versions: (macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+	public static func macOS(_ versions: macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
 		Self(versions, matches: \.isCurrent)
 	}
 
@@ -43,7 +43,7 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
-	public static func visionOS(_ versions: (visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>)...) -> Self {
+	public static func visionOS(_ versions: visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
 		Self(versions, matches: \.isCurrent)
 	}
 
@@ -89,19 +89,19 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 	}
 
 	private var version: Version? {
-		if case .available(let version, _) = self {
-			return version
+		if case let .available(version, _) = self {
+			version
 		} else {
-			return nil
+			nil
 		}
 	}
 
 	@MainActor
 	fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
-		if case .available(_, let selector) = self {
-			return selector
+		if case let .available(_, selector) = self {
+			selector
 		} else {
-			return nil
+			nil
 		}
 	}
 
@@ -117,11 +117,11 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 // This conformance isn't meant to be used directly by the user,
 // it's only to satisfy requirements for forming ranges (e.g. `.v15...`).
 extension PlatformViewVersion: Comparable {
-	nonisolated public static func == (lhs: Self, rhs: Self) -> Bool {
+	public nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
 		true
 	}
 
-	nonisolated public static func < (lhs: Self, rhs: Self) -> Bool {
+	public nonisolated static func < (lhs: Self, rhs: Self) -> Bool {
 		true
 	}
 }

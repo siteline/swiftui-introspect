@@ -36,25 +36,25 @@ public protocol PlatformViewControllerRepresentable: _PlatformViewControllerRepr
 }
 
 @_spi(Internals)
-public extension PlatformViewControllerRepresentable {
+extension PlatformViewControllerRepresentable {
 	#if canImport(UIKit)
-	func makeUIViewController(context: Context) -> ViewController {
+	public func makeUIViewController(context: Context) -> ViewController {
 		makePlatformViewController(context: context)
 	}
-	func updateUIViewController(_ controller: ViewController, context: Context) {
+	public func updateUIViewController(_ controller: ViewController, context: Context) {
 		updatePlatformViewController(controller, context: context)
 	}
-	static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
+	public static func dismantleUIViewController(_ controller: ViewController, coordinator: Coordinator) {
 		dismantlePlatformViewController(controller, coordinator: coordinator)
 	}
 	#elseif canImport(AppKit)
-	func makeNSViewController(context: Context) -> ViewController {
+	public func makeNSViewController(context: Context) -> ViewController {
 		makePlatformViewController(context: context)
 	}
-	func updateNSViewController(_ controller: ViewController, context: Context) {
+	public func updateNSViewController(_ controller: ViewController, context: Context) {
 		updatePlatformViewController(controller, context: context)
 	}
-	static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
+	public static func dismantleNSViewController(_ controller: ViewController, coordinator: Coordinator) {
 		dismantlePlatformViewController(controller, coordinator: coordinator)
 	}
 	#endif

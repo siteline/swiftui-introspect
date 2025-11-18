@@ -50,10 +50,10 @@ extension View {
 	/// ```
 	@MainActor
 	public func introspect<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>(
-	    _ viewType: SwiftUIViewType,
-	    on platforms: (PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>)...,
-	    scope: IntrospectionScope? = nil,
-	    customize: @escaping (PlatformSpecificEntity) -> Void
+		_ viewType: SwiftUIViewType,
+		on platforms: PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>...,
+		scope: IntrospectionScope? = nil,
+		customize: @escaping (PlatformSpecificEntity) -> Void
 	) -> some View {
 	    self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
 	}

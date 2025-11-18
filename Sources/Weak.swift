@@ -1,7 +1,7 @@
 @_spi(Advanced)
 @propertyWrapper
 public final class Weak<T: AnyObject> {
-	private weak var _wrappedValue: T?
+	private weak var _wrappedValue: T? = nil
 
 	public var wrappedValue: T? {
 		get { _wrappedValue }

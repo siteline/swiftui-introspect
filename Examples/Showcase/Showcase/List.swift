@@ -31,13 +31,13 @@ struct ListShowcase: View {
 				.modifier { list in
 					if #available(iOS 16, macOS 13, *) {
 						list.background {
-								if receiverListFound {
-									Color(.cyan)
-								}
+							if receiverListFound {
+								Color(.cyan)
 							}
-							#if !os(tvOS)
-							.scrollContentBackground(.hidden)
-							#endif
+						}
+						#if !os(tvOS)
+						.scrollContentBackground(.hidden)
+						#endif
 					} else {
 						list
 					}
@@ -104,6 +104,5 @@ struct ListShowcase: View {
 				}
 			}
 		}
-
 	}
 }

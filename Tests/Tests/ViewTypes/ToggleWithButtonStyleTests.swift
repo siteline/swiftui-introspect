@@ -15,11 +15,11 @@ struct ToggleWithButtonStyleTests {
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.button)
 					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy1)
-				
+
 				Toggle("", isOn: .constant(false))
 					.toggleStyle(.button)
 					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy2)
-				
+
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.button)
 					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy3)

@@ -58,7 +58,7 @@ func introspection<Entity: AnyObject & Sendable>(
 			{
 				confirmation1()
 				entity1 = $0
-			},
+			}
 		)
 
 		TestUtils.present(view: view)
@@ -98,7 +98,7 @@ func introspection<Entity: AnyObject & Sendable>(
 				{
 					confirmation2()
 					entity2 = $0
-				},
+				}
 			)
 
 			TestUtils.present(view: view)
@@ -114,7 +114,7 @@ func introspection<Entity: AnyObject & Sendable>(
 
 			return try (
 				#require(entity1, sourceLocation: sourceLocation),
-				#require(entity2, sourceLocation: sourceLocation),
+				#require(entity2, sourceLocation: sourceLocation)
 			)
 		}
 	}
@@ -150,7 +150,7 @@ func introspection<Entity: AnyObject & Sendable>(
 					{
 						confirmation3()
 						entity3 = $0
-					},
+					}
 				)
 
 				TestUtils.present(view: view)
@@ -168,7 +168,7 @@ func introspection<Entity: AnyObject & Sendable>(
 				return try (
 					#require(entity1, sourceLocation: sourceLocation),
 					#require(entity2, sourceLocation: sourceLocation),
-					#require(entity3, sourceLocation: sourceLocation),
+					#require(entity3, sourceLocation: sourceLocation)
 				)
 			}
 		}
@@ -212,7 +212,7 @@ func introspection<Entity: AnyObject & Sendable>(
 						{
 							confirmation4()
 							entity4 = $0
-						},
+						}
 					)
 
 					TestUtils.present(view: view)
@@ -232,7 +232,7 @@ func introspection<Entity: AnyObject & Sendable>(
 						#require(entity1, sourceLocation: sourceLocation),
 						#require(entity2, sourceLocation: sourceLocation),
 						#require(entity3, sourceLocation: sourceLocation),
-						#require(entity4, sourceLocation: sourceLocation),
+						#require(entity4, sourceLocation: sourceLocation)
 					)
 				}
 			}

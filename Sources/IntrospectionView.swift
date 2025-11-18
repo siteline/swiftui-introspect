@@ -8,8 +8,8 @@ fileprivate enum IntrospectionStore {
 	static var shared: [IntrospectionViewID: Pair] = [:]
 
 	struct Pair {
-		weak var controller: IntrospectionPlatformViewController?
-		weak var anchor: IntrospectionAnchorPlatformViewController?
+		weak var controller: IntrospectionPlatformViewController? = nil
+		weak var anchor: IntrospectionAnchorPlatformViewController? = nil
 	}
 }
 
@@ -88,7 +88,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 	#endif
 
 	final class TargetCache {
-		weak var target: Target?
+		weak var target: Target? = nil
 	}
 
 	@Binding
@@ -113,7 +113,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 	}
 
 	func makePlatformViewController(context: Context) -> IntrospectionPlatformViewController {
-		let controller = IntrospectionPlatformViewController(id: id) { controller in
+		IntrospectionPlatformViewController(id: id) { controller in
 			guard let target = selector(controller) else {
 				return
 			}
@@ -121,7 +121,6 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 			customize(target)
 			controller.handler = nil
 		}
-		return controller
 	}
 
 	func updatePlatformViewController(_ controller: IntrospectionPlatformViewController, context: Context) {

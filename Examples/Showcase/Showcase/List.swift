@@ -104,6 +104,5 @@ struct ListShowcase: View {
 				}
 			}
 		}
-
 	}
 }

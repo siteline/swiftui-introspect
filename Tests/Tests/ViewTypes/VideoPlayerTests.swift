@@ -14,9 +14,9 @@ struct VideoPlayerTests {
 	#endif
 
 	@Test func introspect() async throws {
-		let videoURL1 = URL(string: "https://bit.ly/swswift#1")!
-		let videoURL2 = URL(string: "https://bit.ly/swswift#2")!
-		let videoURL3 = URL(string: "https://bit.ly/swswift#3")!
+		let videoURL1 = try #require(URL(string: "https://bit.ly/swswift#1"))
+		let videoURL2 = try #require(URL(string: "https://bit.ly/swswift#2"))
+		let videoURL3 = try #require(URL(string: "https://bit.ly/swswift#3"))
 
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformVideoPlayer.self) { spy1, spy2, spy3 in
 			VStack {

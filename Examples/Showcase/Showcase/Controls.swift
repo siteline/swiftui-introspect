@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct ControlsShowcase: View {
-
 	@State private var textFieldValue = ""
 	@State private var toggleValue = false
 	@State private var sliderValue = 0.0
@@ -166,6 +165,5 @@ struct ControlsShowcase: View {
 				#endif
 			}
 		}
-
 	}
 }

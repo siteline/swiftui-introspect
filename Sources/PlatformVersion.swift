@@ -23,7 +23,7 @@ extension PlatformVersion {
 	public var isCurrentOrPast: Bool {
 		condition == .current || condition == .past
 	}
-  
+
 	@_spi(Internals)
 	public var condition: PlatformVersionCondition? { nil }
 }
@@ -206,7 +206,7 @@ extension tvOSVersion {
 		return nil
 		#endif
 	}
-	
+
 	public static let v17 = tvOSVersion {
 		#if os(tvOS)
 		if #available(tvOS 18, *) {

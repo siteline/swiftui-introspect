@@ -23,8 +23,8 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 		)
 	}
 
-	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target? = nil
-	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target? = nil
+	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
+	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 
 	private init(
 		receiverSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?,

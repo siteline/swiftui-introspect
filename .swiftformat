@@ -21,4 +21,5 @@
 --disable redundantType
 --disable redundantTypedThrows
 --disable unusedArguments
---disable wrapSingleLineBodies
+--disable wrapFunctionBodies
+--disable wrapPropertyBodies

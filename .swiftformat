@@ -21,3 +21,4 @@
 --disable redundantType
 --disable redundantTypedThrows
 --disable unusedArguments
+--disable wrapSingleLineBodies

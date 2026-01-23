@@ -3,7 +3,7 @@
 
 --header ignore
 --indent tab
---ifdef preserve
+--ifdef no-indent
 --ranges preserve
 --extensionacl on-declarations
 --trailing-commas always

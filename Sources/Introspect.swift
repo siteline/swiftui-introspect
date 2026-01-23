@@ -13,7 +13,7 @@ public struct IntrospectionScope: OptionSet, Sendable {
 	@_spi(Internals) public let rawValue: UInt
 
 	@_spi(Internals) public init(rawValue: UInt) {
-	    self.rawValue = rawValue
+		self.rawValue = rawValue
 	}
 }
 
@@ -55,7 +55,7 @@ extension View {
 		scope: IntrospectionScope? = nil,
 		customize: @escaping (PlatformSpecificEntity) -> Void
 	) -> some View {
-	    self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
+		self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
 	}
 }
 

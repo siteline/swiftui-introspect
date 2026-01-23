@@ -13,8 +13,8 @@ enum TestUtils {
 	static func present(view: some View, file: StaticString = #file, line: UInt = #line) {
 		if let window =
 			UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first
-			??
-			UIApplication.shared.windows.first
+				??
+				UIApplication.shared.windows.first
 		{
 			window.rootViewController = UIHostingController(rootView: view)
 		} else {

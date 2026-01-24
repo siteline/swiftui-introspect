@@ -15,6 +15,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install SwiftFormat
+        run: |
+          brew unlink swiftformat
+          brew install swiftformat --HEAD
+
+      - name: SwiftFormat Lint
+        run: swiftformat --lint . --reporter github-actions-log
+
   lint-podspec:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Lint Podspec

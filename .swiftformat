@@ -23,6 +23,7 @@
 --disable redundantStaticSelf
 --disable redundantType
 --disable redundantTypedThrows
+--disable redundantViewBuilder
 --disable unusedArguments
 --disable wrapFunctionBodies
 --disable wrapPropertyBodies

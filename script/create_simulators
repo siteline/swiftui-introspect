@@ -13,14 +13,14 @@ devices = {
 		15 => "iPhone 13 Pro (15.5)",
 		16 => "iPhone 14 Pro (16.4)",
 		17 => "iPhone 15 Pro (17.5)",
-		18 => "iPhone 16 Pro (18.6)",
+		18 => "iPhone 16 Pro (18.5)",
 		26 => "iPhone 17 Pro (26.0)",
 	},
 	"ipados" => {
 		15 => "iPad Pro (11-inch) (3rd generation) (15.5)",
 		16 => "iPad Pro (11-inch) (4th generation) (16.4)",
 		17 => "iPad Pro 11-inch (M4) (17.5)",
-		18 => "iPad Pro 11-inch (M4) (18.6)",
+		18 => "iPad Pro 11-inch (M4) (18.5)",
 		26 => "iPad Pro 11-inch (M4) (26.0)",
 	},
 	"tvos" => {

@@ -70,6 +70,7 @@ def run(cmd)
 	stdout, status = Open3.capture2e(cmd)
 	unless status.success?
 		warn "Command failed (#{status.exitstatus}): #{cmd}\n#{stdout}"
+		return ""
 	end
 	stdout
 rescue => e

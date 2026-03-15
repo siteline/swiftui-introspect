@@ -109,7 +109,7 @@ jobs:
           command: |
             PLATFORM="${{ matrix.runtime }}"
             xcodebuild -downloadPlatform "${PLATFORM%% *}" || true
-            if ! xcrun simctl list runtimes | grep -q "${{ matrix.runtime }}"; then
+            if ! xcrun simctl list runtimes -j | jq -e --arg name "${{ matrix.runtime }}" '.runtimes[] | select(.isAvailable) | select(.name == $name)' > /dev/null 2>&1; then
               xcodes runtimes --include-betas
               sudo xcodes runtimes install "${{ matrix.runtime }}"
             fi

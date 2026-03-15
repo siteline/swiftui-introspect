@@ -68,13 +68,13 @@ jobs:
           - { name: "iOS 15.5",         runtime: "iOS 15.5",       device: "iPhone 13 Pro" }
           - { name: "iOS 16.4",         runtime: "iOS 16.4",       device: "iPhone 14 Pro" }
           - { name: "iOS 17.5",         runtime: "iOS 17.5",       device: "iPhone 15 Pro" }
-          - { name: "iOS 18.6",         runtime: "iOS 18.6",       device: "iPhone 16 Pro" }
+          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro" }
           - { name: "iOS 26.0",         runtime: "iOS 26.0",       device: "iPhone 17 Pro" }
           # iPadOS
           - { name: "iPadOS 15.5",      runtime: "iOS 15.5",       device: "iPad Pro (11-inch) (3rd generation)" }
           - { name: "iPadOS 16.4",      runtime: "iOS 16.4",       device: "iPad Pro (11-inch) (4th generation)" }
           - { name: "iPadOS 17.5",      runtime: "iOS 17.5",       device: "iPad Pro 11-inch (M4)" }
-          - { name: "iPadOS 18.6",      runtime: "iOS 18.6",       device: "iPad Pro 11-inch (M4)" }
+          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)" }
           - { name: "iPadOS 26.0",      runtime: "iOS 26.0",       device: "iPad Pro 11-inch (M4)" }
           # macOS / macCatalyst
           - { name: "macCatalyst 15.0", destination: "platform=macOS,variant=Mac Catalyst" }
@@ -83,17 +83,17 @@ jobs:
           - { name: "tvOS 15.4",        runtime: "tvOS 15.4",      device: "Apple TV" }
           - { name: "tvOS 16.4",        runtime: "tvOS 16.4",      device: "Apple TV" }
           - { name: "tvOS 17.5",        runtime: "tvOS 17.5",      device: "Apple TV" }
-          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV" }
+          - { name: "tvOS 18.4",        runtime: "tvOS 18.4",      device: "Apple TV" }
           - { name: "tvOS 26.0",        runtime: "tvOS 26.0",      device: "Apple TV" }
           # visionOS
           - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
-          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)" }
+          - { name: "visionOS 2.4",     runtime: "visionOS 2.4",   device: "Apple Vision Pro (at 2732x2048)" }
           - { name: "visionOS 26.0",    runtime: "visionOS 26.0",  device: "Apple Vision Pro" }
           # watchOS (build-only, no test support)
           - { name: "watchOS 8.5",      runtime: "watchOS 8.5",    device: "Apple Watch Series 7 (45mm)",  build_only: true }
           - { name: "watchOS 9.4",      runtime: "watchOS 9.4",    device: "Apple Watch Series 8 (45mm)",  build_only: true }
           - { name: "watchOS 10.5",     runtime: "watchOS 10.5",   device: "Apple Watch Series 9 (45mm)",  build_only: true }
-          - { name: "watchOS 11.5",     runtime: "watchOS 11.5",   device: "Apple Watch Series 10 (42mm)", build_only: true }
+          - { name: "watchOS 11.4",     runtime: "watchOS 11.4",   device: "Apple Watch Series 10 (42mm)", build_only: true }
           - { name: "watchOS 26.0",     runtime: "watchOS 26.0",   device: "Apple Watch Series 11 (42mm)", build_only: true }
     steps:
       - uses: actions/checkout@v5
@@ -108,25 +108,9 @@ jobs:
           max_attempts: 3
           command: |
             RUNTIME="${{ matrix.runtime }}"
-            PLATFORM="${RUNTIME%% *}"
-            xcodebuild -downloadPlatform "$PLATFORM" || true
-            if xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
-              echo "$RUNTIME already installed"
-              exit 0
-            fi
-            sudo xcodes runtimes install "$RUNTIME" 2>&1 || true
-            if xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
-              echo "$RUNTIME installed successfully"
-              exit 0
-            fi
-            # Exact version not installable; install the latest available for this major release
-            MAJOR=$(echo "$RUNTIME" | grep -oE '^[^ ]+ [0-9]+')
-            LATEST=$(xcodes runtimes 2>/dev/null | grep -v beta | grep "$MAJOR" | grep -v "(Installed)" | tail -1 | xargs)
-            if [ -n "$LATEST" ]; then
-              echo "$RUNTIME not installable, falling back to: $LATEST"
-              sudo xcodes runtimes install "$LATEST"
-            else
-              echo "::warning::No installable runtime found for $MAJOR"
+            xcodebuild -downloadPlatform "${RUNTIME%% *}" || true
+            if ! xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
+              sudo xcodes runtimes install "$RUNTIME"
             fi
 
       - if: matrix.device
@@ -135,17 +119,11 @@ jobs:
           set -eo pipefail
           xcrun simctl delete all
 
-          # Look up runtime: try exact name first, then latest available for the same major version
+          # Look up runtime identifier by display name (handles internal names like xrOS for visionOS)
           RUNTIME="${{ matrix.runtime }}"
           RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r --arg name "$RUNTIME" '.runtimes[] | select(.isAvailable) | select(.name == $name) | .identifier')
           if [ -z "$RUNTIME_ID" ] || [ "$RUNTIME_ID" = "null" ]; then
-            MAJOR=$(echo "$RUNTIME" | grep -oE '^[^ ]+ [0-9]+')
-            echo "Runtime '$RUNTIME' not available, looking for latest $MAJOR..."
-            RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r --arg prefix "$MAJOR" \
-              '[.runtimes[] | select(.isAvailable) | select(.name | startswith($prefix))] | sort_by(.version) | last | .identifier')
-          fi
-          if [ -z "$RUNTIME_ID" ] || [ "$RUNTIME_ID" = "null" ]; then
-            echo "::error::No runtime found for $RUNTIME. Available:"
+            echo "::error::Runtime '$RUNTIME' not found. Available:"
             xcrun simctl list runtimes
             exit 1
           fi

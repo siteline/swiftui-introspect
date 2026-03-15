@@ -14,6 +14,10 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  RUNTIME_CI_XCODE: "26.0.1"
+  TOOLING_XCODE: "26.2"
+
 jobs:
   # TODO: Re-enable when --ifdef no-indent works as intended
   # lint:
@@ -35,228 +39,298 @@ jobs:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Lint Podspec
     runs-on: macos-26
+    timeout-minutes: 30
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # required to be able to find Git tags
 
-      - name: Select Xcode version
-        run: sudo xcodes select 26.2
-
-      - name: Install Runtimes
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 15
-          max_attempts: 3
-          command: xcodebuild -downloadAllPlatforms
+      - name: Select Xcode ${{ env.TOOLING_XCODE }}
+        run: sudo xcodes select ${{ env.TOOLING_XCODE }}
 
       - name: Lint Podspec
         run: |
           set -eo pipefail
-          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          LIB_VERSION=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+          export LIB_VERSION
           pod lib lint SwiftUIIntrospect.podspec --allow-warnings
 
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
-    name: ${{ matrix.runtime[0] }} ${{ matrix.runtime[1] }}
+    name: ${{ matrix.name }}
     runs-on: macos-26
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        runtime:
-          - [iOS, 15, 5]
-          - [iOS, 16, 4]
-          - [iOS, 17, 5]
-          - [iOS, 18, 6]
-          - [iOS, 26, 0]
+        include:
+          - name: iOS 15.5
+            runtime: iOS 15.5
+            simulator_platform: ios
+            major: 15
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iOS 16.4
+            runtime: iOS 16.4
+            simulator_platform: ios
+            major: 16
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iOS 17.5
+            runtime: iOS 17.5
+            simulator_platform: ios
+            major: 17
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iOS 18.6
+            runtime: iOS 18.6
+            simulator_platform: ios
+            major: 18
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iOS 26.0
+            runtime: iOS 26.0
+            simulator_platform: ios
+            major: 26
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
 
-          - [iPadOS, 15, 5]
-          - [iPadOS, 16, 4]
-          - [iPadOS, 17, 5]
-          - [iPadOS, 18, 6]
-          - [iPadOS, 26, 0]
+          - name: iPadOS 15.5
+            runtime: iOS 15.5
+            simulator_platform: ipados
+            major: 15
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iPadOS 16.4
+            runtime: iOS 16.4
+            simulator_platform: ipados
+            major: 16
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iPadOS 17.5
+            runtime: iOS 17.5
+            simulator_platform: ipados
+            major: 17
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iPadOS 18.6
+            runtime: iOS 18.6
+            simulator_platform: ipados
+            major: 18
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: iPadOS 26.0
+            runtime: iOS 26.0
+            simulator_platform: ipados
+            major: 26
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
 
-          - [macCatalyst, 15, 0]
-          - [macOS, 15, 0]
+          - name: macCatalyst 15.0
+            runtime: ""
+            simulator_platform: ""
+            major: 0
+            destination: "platform=macOS,variant=Mac Catalyst"
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: macOS 15.0
+            runtime: ""
+            simulator_platform: ""
+            major: 0
+            destination: "platform=macOS"
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
 
-          - [tvOS, 15, 4]
-          - [tvOS, 16, 4]
-          - [tvOS, 17, 5]
-          - [tvOS, 18, 5]
-          - [tvOS, 26, 0]
+          - name: tvOS 15.4
+            runtime: tvOS 15.4
+            simulator_platform: tvos
+            major: 15
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: tvOS 16.4
+            runtime: tvOS 16.4
+            simulator_platform: tvos
+            major: 16
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: tvOS 17.5
+            runtime: tvOS 17.5
+            simulator_platform: tvos
+            major: 17
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: tvOS 18.5
+            runtime: tvOS 18.5
+            simulator_platform: tvos
+            major: 18
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: tvOS 26.0
+            runtime: tvOS 26.0
+            simulator_platform: tvos
+            major: 26
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
 
-          - [visionOS, 1, 2]
-          - [visionOS, 2, 5]
-          - [visionOS, 26, 0]
+          - name: visionOS 1.2
+            runtime: visionOS 1.2
+            simulator_platform: visionos
+            major: 1
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: visionOS 2.5
+            runtime: visionOS 2.5
+            simulator_platform: visionos
+            major: 2
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
+          - name: visionOS 26.0
+            runtime: visionOS 26.0
+            simulator_platform: visionos
+            major: 26
+            destination: ""
+            build_scheme: Showcase
+            test_scheme: SwiftUIIntrospectTests
 
-          - [watchOS, 8, 5]
-          - [watchOS, 9, 4]
-          - [watchOS, 10, 5]
-          - [watchOS, 11, 5]
-          - [watchOS, 26, 0]
+          - name: watchOS 8.5
+            runtime: watchOS 8.5
+            simulator_platform: watchos
+            major: 8
+            destination: ""
+            build_scheme: SwiftUIIntrospect
+            test_scheme: ""
+          - name: watchOS 9.4
+            runtime: watchOS 9.4
+            simulator_platform: watchos
+            major: 9
+            destination: ""
+            build_scheme: SwiftUIIntrospect
+            test_scheme: ""
+          - name: watchOS 10.5
+            runtime: watchOS 10.5
+            simulator_platform: watchos
+            major: 10
+            destination: ""
+            build_scheme: SwiftUIIntrospect
+            test_scheme: ""
+          - name: watchOS 11.5
+            runtime: watchOS 11.5
+            simulator_platform: watchos
+            major: 11
+            destination: ""
+            build_scheme: SwiftUIIntrospect
+            test_scheme: ""
+          - name: watchOS 26.0
+            runtime: watchOS 26.0
+            simulator_platform: watchos
+            major: 26
+            destination: ""
+            build_scheme: SwiftUIIntrospect
+            test_scheme: ""
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Set Environment Variables
+      - name: Select Xcode ${{ env.RUNTIME_CI_XCODE }}
+        run: sudo xcodes select ${{ env.RUNTIME_CI_XCODE }}
+
+      - if: ${{ matrix.runtime != '' }}
+        name: Ensure ${{ matrix.runtime }} Runtime
+        run: script/install_runtime --runtime "${{ matrix.runtime }}"
+
+      - if: ${{ matrix.simulator_platform != '' }}
+        name: Create ${{ matrix.name }} Simulator
         run: |
           set -euo pipefail
-
-          PLATFORM="${{ matrix.runtime[0] }}"
-          MAJOR="${{ matrix.runtime[1] }}"
-          MINOR="${{ matrix.runtime[2] }}"
-
-          if [ "$PLATFORM" = "iPadOS" ]; then
-            PLATFORM=iOS
-            SCRIPT_PLATFORM=ipados
-          else
-            case "$PLATFORM" in
-              iOS) SCRIPT_PLATFORM=ios ;;
-              macOS) SCRIPT_PLATFORM=macos ;;
-              macCatalyst) SCRIPT_PLATFORM=mac-catalyst ;;
-              tvOS) SCRIPT_PLATFORM=tvos ;;
-              visionOS) SCRIPT_PLATFORM=visionos ;;
-              watchOS) SCRIPT_PLATFORM=watchos ;;
-            esac
-          fi
-
-          if [ "$PLATFORM" = "macCatalyst" ]; then
-            XCB_PLATFORM="mac-catalyst"
-          else
-            XCB_PLATFORM="$PLATFORM"
-          fi
-
-          RUNTIME="$PLATFORM $MAJOR.$MINOR"
-
-          echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
-          echo "MAJOR=$MAJOR" >> $GITHUB_ENV
-          echo "MINOR=$MINOR" >> $GITHUB_ENV
-          echo "RUNTIME=$RUNTIME" >> $GITHUB_ENV
-          echo "SCRIPT_PLATFORM=$SCRIPT_PLATFORM" >> $GITHUB_ENV
-
-      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
-        name: Download Default ${{ env.PLATFORM }} Runtime
-        run: xcodebuild -downloadPlatform ${{ env.PLATFORM }}
-        continue-on-error: true
-
-      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
-        name: Check for ${{ env.RUNTIME }} Runtime
-        run: |
-          if xcrun simctl list runtimes | grep -q "$RUNTIME"; then
-            echo "has_runtime=true" >> "$GITHUB_ENV"
-          else
-            echo "has_runtime=false" >> "$GITHUB_ENV"
-          fi
-
-      - name: Select Xcode 26.0
-        uses: mxcl/xcodebuild@v3
-        with:
-          xcode: ~26.0
-          action: none
-          verbosity: xcbeautify
-
-      - if: env.has_runtime == 'false'
-        name: List Downloadable Runtimes
-        run: xcodes runtimes --include-betas
-
-      - if: env.has_runtime == 'false'
-        name: Download Required ${{ env.RUNTIME }} Runtime
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 15
-          max_attempts: 3
-          command: sudo xcodes runtimes install "$RUNTIME"
-
-      - if: ${{ env.PLATFORM != 'macCatalyst' && env.PLATFORM != 'macOS' }}
-        name: Create Required Simulators
-        run: |
-          set -eo pipefail
-          xcrun simctl delete all
-          OUTPUT=$(script/create_simulators --platform ${{ env.SCRIPT_PLATFORM }} --version ${{ env.MAJOR }} | tee /dev/stderr)
-          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^(Created:|Already exists:)/{print $NF}' | head -n1)
+          OUTPUT=$(script/create_simulators --platform ${{ matrix.simulator_platform }} --version ${{ matrix.major }} | tee /dev/stderr)
+          FIRST_UDID=$(printf "%s\n" "$OUTPUT" | awk '/^(Created:|Already exists:)/{print $NF; exit}')
           if [ -n "$FIRST_UDID" ]; then
-            echo "SIM_UDID=$FIRST_UDID" >> "$GITHUB_ENV"
-            echo "Captured SIM_UDID=$FIRST_UDID"
+            echo "DESTINATION=id=$FIRST_UDID" >> "$GITHUB_ENV"
+            echo "Captured DESTINATION=id=$FIRST_UDID"
+          else
+            echo "Failed to capture simulator UDID" >&2
+            exit 1
           fi
+
+      - if: ${{ matrix.destination != '' }}
+        name: Set Host Destination
+        run: echo "DESTINATION=${{ matrix.destination }}" >> "$GITHUB_ENV"
 
       - name: List Available Runtimes, Simulators, and Destinations
         run: |
           xcrun simctl list
-          xcodebuild -scheme "SwiftUIIntrospect" -showdestinations
+          xcodebuild -scheme "${{ matrix.build_scheme }}" -showdestinations
 
-      - if: ${{ env.PLATFORM != 'watchOS' }}
-        name: Build Showcase
-        uses: davdroman/xcodebuild@destination
-        with:
-          xcode: ~26.0
-          platform: ${{ env.XCB_PLATFORM }}
-          platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
-          destination: ${{ env.SIM_UDID }}
-          action: build
-          scheme: Showcase
-          configuration: Debug
-          verbosity: xcbeautify
+      - name: Build ${{ matrix.build_scheme }}
+        run: |
+          script/run_xcodebuild \
+            --action build \
+            --scheme "${{ matrix.build_scheme }}" \
+            --destination "$DESTINATION" \
+            --configuration Debug
 
-      - if: ${{ env.PLATFORM == 'watchOS' }}
-        name: Build Library
-        uses: davdroman/xcodebuild@destination
-        with:
-          xcode: ~26.0
-          platform: ${{ env.XCB_PLATFORM }}
-          platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
-          destination: ${{ env.SIM_UDID }}
-          action: build
-          scheme: SwiftUIIntrospect
-          configuration: Debug
-          verbosity: xcbeautify
-
-      - if: ${{ env.PLATFORM != 'watchOS' }}
+      - if: ${{ matrix.test_scheme != '' }}
         name: Run Tests
-        uses: davdroman/xcodebuild@destination
-        with:
-          xcode: ~26.0
-          platform: ${{ env.XCB_PLATFORM }}
-          platform-version: ~${{ env.MAJOR }}.${{ env.MINOR }}
-          destination: ${{ env.SIM_UDID }}
-          action: test
-          scheme: SwiftUIIntrospectTests
-          configuration: Debug
-          verbosity: xcbeautify
+        run: |
+          script/run_xcodebuild \
+            --action test \
+            --scheme "${{ matrix.test_scheme }}" \
+            --destination "$DESTINATION" \
+            --configuration Debug
 
   framework-archiving:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
-    name: Archive Framework (${{ matrix.platform }})
+    name: Archive Framework (${{ matrix.name }})
     runs-on: macos-26
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        platform: [iOS, macCatalyst, macOS, tvOS, visionOS, watchOS]
         include:
-          - platform: iOS
+          - name: iOS
             destination: "generic/platform=iOS"
-          - platform: macCatalyst
+          - name: macCatalyst
             destination: "platform=macOS,variant=Mac Catalyst"
-          - platform: macOS
+          - name: macOS
             destination: "generic/platform=macOS"
-          - platform: tvOS
+          - name: tvOS
             destination: "generic/platform=tvOS"
-          - platform: visionOS
+          - name: visionOS
             destination: "generic/platform=visionOS"
-          - platform: watchOS
+          - name: watchOS
             destination: "generic/platform=watchOS"
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Select Xcode version
-        run: sudo xcodes select 26.2
+      - name: Select Xcode ${{ env.TOOLING_XCODE }}
+        run: sudo xcodes select ${{ env.TOOLING_XCODE }}
 
       - name: Archive Framework
         run: |
-          xcodebuild archive \
-            -scheme "SwiftUIIntrospectTestFramework" \
-            -destination "${{ matrix.destination }}" \
-            -archivePath .build/archiving/${{ matrix.platform }} \
+          script/run_xcodebuild \
+            --action archive \
+            --scheme "SwiftUIIntrospectTestFramework" \
+            --destination "${{ matrix.destination }}" \
+            -- \
+            -archivePath ".build/archiving/${{ matrix.name }}" \
             SKIP_INSTALL=NO \
             BUILD_LIBRARY_FOR_DISTRIBUTION=YES

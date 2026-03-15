@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+	cat <<'EOF'
+Usage: run_xcodebuild --action build|test|archive --scheme NAME --destination DESTINATION [--configuration CONFIGURATION] [-- EXTRA_XCODEBUILD_ARGS...]
+EOF
+}
+
+action=""
+scheme=""
+destination=""
+configuration=""
+extra_args=()
+
+while (($# > 0)); do
+	case "$1" in
+		--action)
+			action="$2"
+			shift 2
+			;;
+		--scheme)
+			scheme="$2"
+			shift 2
+			;;
+		--destination)
+			destination="$2"
+			shift 2
+			;;
+		--configuration)
+			configuration="$2"
+			shift 2
+			;;
+		--)
+			shift
+			extra_args=("$@")
+			break
+			;;
+		-h|--help)
+			usage
+			exit 0
+			;;
+		*)
+			echo "Unknown argument: $1" >&2
+			usage >&2
+			exit 1
+			;;
+	esac
+done
+
+if [[ -z "$action" || -z "$scheme" || -z "$destination" ]]; then
+	usage >&2
+	exit 1
+fi
+
+command=(xcodebuild -scheme "$scheme" -destination "$destination")
+
+if [[ -n "$configuration" ]]; then
+	command+=(-configuration "$configuration")
+fi
+
+command+=("$action")
+
+if ((${#extra_args[@]} > 0)); then
+	command+=("${extra_args[@]}")
+fi
+
+"${command[@]}" 2>&1 | xcbeautify

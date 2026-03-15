@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+require 'open3'
+require 'optparse'
+
+options = {
+	runtime: nil,
+	attempts: 3,
+	retry_delay: 30,
+}
+
+OptionParser.new do |opts|
+	opts.banner = 'Usage: install_runtime --runtime "iOS 15.5" [--attempts N] [--retry-delay SECONDS]'
+	opts.on('--runtime RUNTIME', String, 'Install the named simulator runtime if missing') { |v| options[:runtime] = v }
+	opts.on('--attempts N', Integer, 'Number of install attempts (default: 3)') { |v| options[:attempts] = v }
+	opts.on('--retry-delay SECONDS', Integer, 'Delay between retries (default: 30)') { |v| options[:retry_delay] = v }
+	opts.on('-h', '--help', 'Show help') { puts opts; exit 0 }
+end.parse!(ARGV)
+
+abort 'Missing required --runtime option' if options[:runtime].nil? || options[:runtime].empty?
+
+def command_exists?(command)
+	system('which', command, out: File::NULL, err: File::NULL)
+end
+
+def runtime_installed?(runtime_name)
+	stdout, status = Open3.capture2e('xcrun', 'simctl', 'list', '-j', 'runtimes')
+	unless status.success?
+		warn stdout
+		abort 'Failed to inspect installed runtimes'
+	end
+
+	runtimes = JSON.parse(stdout).fetch('runtimes', [])
+	runtimes.any? { |runtime| runtime['isAvailable'] && runtime['name'] == runtime_name }
+rescue JSON::ParserError => error
+	warn error.message
+	abort 'Failed to parse installed runtimes JSON'
+end
+
+abort 'The `xcodes` CLI is required on the runner' unless command_exists?('xcodes')
+
+runtime_name = options[:runtime]
+
+if runtime_installed?(runtime_name)
+	puts "Runtime already installed: #{runtime_name}"
+	exit 0
+end
+
+puts "Runtime missing: #{runtime_name}"
+
+system('xcodes', 'runtimes', '--include-betas')
+
+
+1.upto(options[:attempts]) do |attempt|
+	puts "Installing #{runtime_name} (attempt #{attempt}/#{options[:attempts]})"
+
+	if system('sudo', 'xcodes', 'runtimes', 'install', runtime_name) && runtime_installed?(runtime_name)
+		puts "Installed runtime: #{runtime_name}"
+		exit 0
+	end
+
+	break if attempt == options[:attempts]
+
+	puts "Retrying in #{options[:retry_delay]} seconds..."
+	sleep options[:retry_delay]
+end
+
+abort "Failed to install runtime: #{runtime_name}"

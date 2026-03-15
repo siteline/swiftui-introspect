@@ -107,11 +107,26 @@ jobs:
           timeout_minutes: 15
           max_attempts: 3
           command: |
-            PLATFORM="${{ matrix.runtime }}"
-            xcodebuild -downloadPlatform "${PLATFORM%% *}" || true
-            if ! xcodes runtimes 2>/dev/null | grep -qF "${{ matrix.runtime }} (Installed)"; then
-              xcodes runtimes --include-betas
-              sudo xcodes runtimes install "${{ matrix.runtime }}"
+            RUNTIME="${{ matrix.runtime }}"
+            PLATFORM="${RUNTIME%% *}"
+            xcodebuild -downloadPlatform "$PLATFORM" || true
+            if xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
+              echo "$RUNTIME already installed"
+              exit 0
+            fi
+            sudo xcodes runtimes install "$RUNTIME" 2>&1 || true
+            if xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
+              echo "$RUNTIME installed successfully"
+              exit 0
+            fi
+            # Exact version not installable; install the latest available for this major release
+            MAJOR=$(echo "$RUNTIME" | grep -oE '^[^ ]+ [0-9]+')
+            LATEST=$(xcodes runtimes 2>/dev/null | grep -v beta | grep "$MAJOR" | grep -v "(Installed)" | tail -1 | xargs)
+            if [ -n "$LATEST" ]; then
+              echo "$RUNTIME not installable, falling back to: $LATEST"
+              sudo xcodes runtimes install "$LATEST"
+            else
+              echo "::warning::No installable runtime found for $MAJOR"
             fi
 
       - if: matrix.device
@@ -120,17 +135,23 @@ jobs:
           set -eo pipefail
           xcrun simctl delete all
 
-          # Look up runtime identifier by display name (handles internal names like xrOS for visionOS)
+          # Look up runtime: try exact name first, then latest available for the same major version
           RUNTIME="${{ matrix.runtime }}"
           RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r --arg name "$RUNTIME" '.runtimes[] | select(.isAvailable) | select(.name == $name) | .identifier')
           if [ -z "$RUNTIME_ID" ] || [ "$RUNTIME_ID" = "null" ]; then
-            echo "::error::Runtime '$RUNTIME' not found. Available runtimes:"
+            MAJOR=$(echo "$RUNTIME" | grep -oE '^[^ ]+ [0-9]+')
+            echo "Runtime '$RUNTIME' not available, looking for latest $MAJOR..."
+            RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r --arg prefix "$MAJOR" \
+              '[.runtimes[] | select(.isAvailable) | select(.name | startswith($prefix))] | sort_by(.version) | last | .identifier')
+          fi
+          if [ -z "$RUNTIME_ID" ] || [ "$RUNTIME_ID" = "null" ]; then
+            echo "::error::No runtime found for $RUNTIME. Available:"
             xcrun simctl list runtimes
             exit 1
           fi
           echo "Runtime: $RUNTIME_ID"
 
-          # Look up device type identifier by display name, with fallback construction
+          # Look up device type by display name, with fallback identifier construction
           DEVICE_TYPE=$(xcrun simctl list devicetypes -j | jq -r --arg name "${{ matrix.device }}" '.devicetypes[] | select(.name == $name) | .identifier')
           if [ -z "$DEVICE_TYPE" ] || [ "$DEVICE_TYPE" = "null" ]; then
             DEVICE_TYPE="com.apple.CoreSimulator.SimDeviceType.$(echo "${{ matrix.device }}" | sed 's/[()]//g; s/  */-/g; s/[^A-Za-z0-9-]//g')"
@@ -139,7 +160,7 @@ jobs:
 
           UDID=$(xcrun simctl create "${{ matrix.device }}" "$DEVICE_TYPE" "$RUNTIME_ID")
           echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
-          echo "Created simulator: ${{ matrix.device }} ($RUNTIME) -> $UDID"
+          echo "Created simulator: ${{ matrix.device }} -> $UDID"
 
       - if: ${{ !matrix.build_only }}
         name: Build Showcase

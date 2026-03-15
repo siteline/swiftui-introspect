@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - "**"
+  workflow_dispatch:
   schedule:
     - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
 

@@ -125,8 +125,11 @@ jobs:
           RUNTIME_ID="com.apple.CoreSimulator.SimRuntime.${OS}-${VERSION//./-}"
           DEVICE_TYPE=$(xcrun simctl list devicetypes -j | jq -r --arg name "${{ matrix.device }}" '.devicetypes[] | select(.name == $name) | .identifier')
           if [ -z "$DEVICE_TYPE" ]; then
-            echo "::error::Device type '${{ matrix.device }}' not found"
-            exit 1
+            echo "Device type '${{ matrix.device }}' not found by name lookup. Available device types:"
+            xcrun simctl list devicetypes
+            # Fallback: construct identifier from device name (e.g. "iPhone 16 Pro" -> "com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro")
+            DEVICE_TYPE="com.apple.CoreSimulator.SimDeviceType.$(echo "${{ matrix.device }}" | sed 's/[()]//g; s/  */-/g; s/[^A-Za-z0-9-]//g')"
+            echo "Using fallback device type ID: $DEVICE_TYPE"
           fi
           UDID=$(xcrun simctl create "${{ matrix.device }}" "$DEVICE_TYPE" "$RUNTIME_ID")
           echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"

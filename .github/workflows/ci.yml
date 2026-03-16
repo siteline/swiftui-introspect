@@ -113,7 +113,6 @@ jobs:
           max_attempts: 3
           command: |
             RUNTIME="${{ matrix.runtime }}"
-            xcodebuild -downloadPlatform "${RUNTIME%% *}" || true
             if ! xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
               sudo xcodes runtimes install "$RUNTIME" --use-aria2
             fi

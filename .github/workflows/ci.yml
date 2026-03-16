@@ -78,10 +78,10 @@ jobs:
           - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)",        runner: macos-15 }
           - { name: "iPadOS 26.2",      runtime: "iOS 26.2",       device: "iPad Pro 11-inch (M4)" }
           # macOS / macCatalyst
-          - { name: "macCatalyst 15.0", destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15 }
-          - { name: "macCatalyst 26.0", destination: "platform=macOS,variant=Mac Catalyst" }
-          - { name: "macOS 15.0",       destination: "platform=macOS",                       runner: macos-15 }
-          - { name: "macOS 26.0",       destination: "platform=macOS" }
+          - { name: "macCatalyst 15",  destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15 }
+          - { name: "macCatalyst 26",  destination: "platform=macOS,variant=Mac Catalyst" }
+          - { name: "macOS 15",        destination: "platform=macOS",                       runner: macos-15 }
+          - { name: "macOS 26",        destination: "platform=macOS" }
           # tvOS
           - { name: "tvOS 15.4",        runtime: "tvOS 15.4",      device: "Apple TV" }
           - { name: "tvOS 16.4",        runtime: "tvOS 16.4",      device: "Apple TV" }

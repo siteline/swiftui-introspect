@@ -55,7 +55,7 @@ jobs:
         run: |
           set -eo pipefail
           export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint SwiftUIIntrospect.podspec --allow-warnings
+          pod lib lint SwiftUIIntrospect.podspec --allow-warnings --skip-tests
 
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')

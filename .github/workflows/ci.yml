@@ -114,7 +114,7 @@ jobs:
           command: |
             RUNTIME="${{ matrix.runtime }}"
             if ! xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
-              sudo xcodes runtimes install "$RUNTIME" --use-aria2
+              sudo xcodes runtimes install "$RUNTIME" --aria2 $(which aria2c)
             fi
 
       - name: Create Simulator

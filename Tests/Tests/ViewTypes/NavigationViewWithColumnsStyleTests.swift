@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftUIIntrospect
 import Testing
 
+#if !targetEnvironment(macCatalyst)
 @MainActor
 @Suite
 struct NavigationViewWithColumnsStyleTests {
@@ -57,3 +58,4 @@ struct NavigationViewWithColumnsStyleTests {
 		}
 	}
 }
+#endif

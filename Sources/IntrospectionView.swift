@@ -132,6 +132,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 
 	static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
 		controller.handler = nil
+		IntrospectionStore.shared.removeValue(forKey: controller.id)
 	}
 }
 
@@ -211,11 +212,11 @@ extension PlatformView {
 	fileprivate var introspectionController: IntrospectionPlatformViewController? {
 		get {
 			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			return objc_getAssociatedObject(self, key) as? IntrospectionPlatformViewController
+			return (objc_getAssociatedObject(self, key) as? Weak<IntrospectionPlatformViewController>)?.wrappedValue
 		}
 		set {
 			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_ASSIGN)
+			objc_setAssociatedObject(self, key, Weak(wrappedValue: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 		}
 	}
 }

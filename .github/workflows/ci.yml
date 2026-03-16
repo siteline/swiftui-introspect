@@ -60,7 +60,7 @@ jobs:
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.name }}
-    runs-on: ${{ matrix.runner || 'macos-26' }}
+    runs-on: macos-26
     strategy:
       fail-fast: false
       matrix:
@@ -69,34 +69,32 @@ jobs:
           - { name: "iOS 15.5",         runtime: "iOS 15.5",       device: "iPhone 13 Pro" }
           - { name: "iOS 16.4",         runtime: "iOS 16.4",       device: "iPhone 14 Pro" }
           - { name: "iOS 17.5",         runtime: "iOS 17.5",       device: "iPhone 15 Pro" }
-          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro",                runner: macos-15 }
+          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro" }
           - { name: "iOS 26.2",         runtime: "iOS 26.2",       device: "iPhone 17 Pro" }
           # iPadOS
           - { name: "iPadOS 15.5",      runtime: "iOS 15.5",       device: "iPad Pro (11-inch) (3rd generation)" }
           - { name: "iPadOS 16.4",      runtime: "iOS 16.4",       device: "iPad Pro (11-inch) (4th generation)" }
           - { name: "iPadOS 17.5",      runtime: "iOS 17.5",       device: "iPad Pro 11-inch (M4)" }
-          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)",        runner: macos-15 }
+          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)" }
           - { name: "iPadOS 26.0",      runtime: "iOS 26.0",       device: "iPad Pro 11-inch (M4)" }
           # macOS / macCatalyst
-          - { name: "macCatalyst 15",  destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15 }
           - { name: "macCatalyst 26",  destination: "platform=macOS,variant=Mac Catalyst" }
-          - { name: "macOS 15",        destination: "platform=macOS",                       runner: macos-15 }
           - { name: "macOS 26",        destination: "platform=macOS" }
           # tvOS
           - { name: "tvOS 15.4",        runtime: "tvOS 15.4",      device: "Apple TV" }
           - { name: "tvOS 16.4",        runtime: "tvOS 16.4",      device: "Apple TV" }
           - { name: "tvOS 17.5",        runtime: "tvOS 17.5",      device: "Apple TV" }
-          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV",                     runner: macos-15 }
+          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV" }
           - { name: "tvOS 26.2",        runtime: "tvOS 26.2",      device: "Apple TV" }
           # visionOS
           - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
-          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)", runner: macos-15 }
+          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)" }
           - { name: "visionOS 26.2",    runtime: "visionOS 26.2",  device: "Apple Vision Pro" }
           # watchOS (build-only, no test support)
           - { name: "watchOS 8.5",      runtime: "watchOS 8.5",    device: "Apple Watch Series 7 (45mm)",  build_only: true }
           - { name: "watchOS 9.4",      runtime: "watchOS 9.4",    device: "Apple Watch Series 8 (45mm)",  build_only: true }
           - { name: "watchOS 10.5",     runtime: "watchOS 10.5",   device: "Apple Watch Series 9 (45mm)",  build_only: true }
-          - { name: "watchOS 11.5",     runtime: "watchOS 11.5",   device: "Apple Watch Series 10 (42mm)", build_only: true, runner: macos-15 }
+          - { name: "watchOS 11.5",     runtime: "watchOS 11.5",   device: "Apple Watch Series 10 (42mm)", build_only: true }
           - { name: "watchOS 26.2",     runtime: "watchOS 26.2",   device: "Apple Watch Series 11 (42mm)", build_only: true }
     steps:
       - name: Git Checkout

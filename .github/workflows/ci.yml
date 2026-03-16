@@ -98,8 +98,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - if: ${{ !matrix.runner }}
-        run: sudo xcodes select 26.2
+      - run: sudo xcodes select 26.2
 
       - if: matrix.runtime
         name: Install ${{ matrix.runtime }} Runtime

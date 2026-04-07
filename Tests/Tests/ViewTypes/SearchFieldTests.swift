@@ -75,7 +75,7 @@ struct SearchFieldTests {
 			#if os(iOS)
 			// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 			.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-				$0.preferredDisplayMode = .oneOverSecondary
+				$0.preferredDisplayMode = .oneBesideSecondary
 			}
 			#endif
 		}
@@ -94,7 +94,7 @@ struct SearchFieldTests {
 				#if os(iOS)
 				// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 				.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-					$0.preferredDisplayMode = .oneOverSecondary
+					$0.preferredDisplayMode = .oneBesideSecondary
 				}
 				#endif
 			}
@@ -114,7 +114,7 @@ struct SearchFieldTests {
 			#if os(iOS)
 			// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 			.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-				$0.preferredDisplayMode = .oneOverSecondary
+				$0.preferredDisplayMode = .oneBesideSecondary
 			}
 			#endif
 		}
@@ -133,7 +133,7 @@ struct SearchFieldTests {
 				#if os(iOS)
 				// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 				.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-					$0.preferredDisplayMode = .oneOverSecondary
+					$0.preferredDisplayMode = .oneBesideSecondary
 				}
 				#endif
 			}

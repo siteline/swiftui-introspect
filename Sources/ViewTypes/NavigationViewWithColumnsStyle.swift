@@ -10,7 +10,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UISplitViewController
 ///         }
 ///     }
@@ -26,7 +26,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -42,7 +42,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
+///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
 ///             print(type(of: $0)) // NSSplitView
 ///         }
 ///     }
@@ -58,7 +58,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2, .v26)) {
+///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///             print(type(of: $0)) // UISplitViewController
 ///         }
 ///     }
@@ -85,6 +85,7 @@ extension iOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewControll
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISplitViewController> {
 		.default.withAncestorSelector { $0.splitViewController }
@@ -99,6 +100,7 @@ extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationContro
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }
@@ -109,6 +111,7 @@ extension visionOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewCon
 	public static let v1 = Self(for: .v1, selector: selector)
 	public static let v2 = Self(for: .v2, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISplitViewController> {
 		.default.withAncestorSelector { $0.splitViewController }
@@ -125,6 +128,7 @@ extension macOSViewVersion<NavigationViewWithColumnsStyleType, NSSplitView> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

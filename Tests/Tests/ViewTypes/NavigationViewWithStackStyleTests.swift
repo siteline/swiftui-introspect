@@ -17,7 +17,7 @@ struct NavigationViewWithStackStyleTests {
 				}
 			}
 			.navigationViewStyle(.stack)
-			.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
+			.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
 		}
 	}
 
@@ -27,7 +27,7 @@ struct NavigationViewWithStackStyleTests {
 				ZStack {
 					Color.red
 					Text("Something")
-						.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
+						.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
 				}
 			}
 			.navigationViewStyle(.stack)

@@ -18,23 +18,23 @@ struct TableTests {
 			VStack {
 				TipTable()
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 
 				TipTable()
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 
 				TipTable()
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}
@@ -47,25 +47,25 @@ struct TableTests {
 				TipTable()
 					.tableStyle(.inset)
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 
 				TipTable()
 					.tableStyle(.inset)
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 
 				TipTable()
 					.tableStyle(.inset)
 					#if os(iOS) || os(visionOS)
-					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(.table, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}
@@ -79,19 +79,19 @@ struct TableTests {
 				TipTable()
 					.tableStyle(.bordered)
 					#if os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 
 				TipTable()
 					.tableStyle(.bordered)
 					#if os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 
 				TipTable()
 					.tableStyle(.bordered)
 					#if os(macOS)
-					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}

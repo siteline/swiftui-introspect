@@ -17,25 +17,25 @@ struct StepperTests {
 			VStack {
 				Stepper("", value: .constant(0), in: 0...10)
 					#if os(iOS)
-					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), customize: spy1)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 					.cornerRadius(8)
 
 				Stepper("", value: .constant(0), in: 0...10)
 					#if os(iOS)
-					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), customize: spy2)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 					.cornerRadius(8)
 
 				Stepper("", value: .constant(0), in: 0...10)
 					#if os(iOS)
-					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), customize: spy3)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}

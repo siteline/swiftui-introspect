@@ -11,7 +11,7 @@
 ///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
+///                     .introspect(.fullScreenCover, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -29,7 +29,7 @@
 ///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
+///                     .introspect(.fullScreenCover, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -51,7 +51,7 @@
 ///         Button("Present", action: { isPresented = true })
 ///             .fullScreenCover(isPresented: $isPresented) {
 ///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .visionOS(.v1, .v2, .v26)) {
+///                     .introspect(.fullScreenCover, on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///                         print(type(of: $0)) // UIPresentationController
 ///                     }
 ///             }
@@ -79,6 +79,7 @@ extension iOSViewVersion<FullScreenCoverType, UIPresentationController> {
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UIPresentationController> {
 		.from(UIViewController.self, selector: { $0.presentationController })
@@ -94,6 +95,7 @@ extension tvOSViewVersion<FullScreenCoverType, UIPresentationController> {
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UIPresentationController> {
 		.from(UIViewController.self, selector: { $0.presentationController })
@@ -104,6 +106,7 @@ extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
 	public static let v1 = Self(for: .v1, selector: selector)
 	public static let v2 = Self(for: .v2, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UIPresentationController> {
 		.from(UIViewController.self, selector: { $0.presentationController })

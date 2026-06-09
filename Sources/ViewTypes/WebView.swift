@@ -9,7 +9,7 @@
 ///
 ///     var body: some View {
 ///         WebView(url: url)
-///             .introspect(.webView, on: .iOS(.v26)) {
+///             .introspect(.webView, on: .iOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
 ///         }
@@ -25,7 +25,7 @@
 ///
 ///     var body: some View {
 ///         WebView(url: url)
-///             .introspect(.webView, on: .tvOS(.v26)) {
+///             .introspect(.webView, on: .tvOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
 ///         }
@@ -41,7 +41,7 @@
 ///
 ///     var body: some View {
 ///         WebView(url: url)
-///             .introspect(.webView, on: .macOS(.v26)) {
+///             .introspect(.webView, on: .macOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
 ///         }
@@ -57,7 +57,7 @@
 ///
 ///     var body: some View {
 ///         WebView(url: url)
-///             .introspect(.webView, on: .visionOS(.v26)) {
+///             .introspect(.webView, on: .visionOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
 ///         }
@@ -88,6 +88,7 @@ extension iOSViewVersion<WebViewType, WKWebView> {
 	public static let v18 = Self.unavailable()
 
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension tvOSViewVersion<WebViewType, WKWebView> {
@@ -105,6 +106,7 @@ extension tvOSViewVersion<WebViewType, WKWebView> {
 	public static let v18 = Self.unavailable()
 
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension macOSViewVersion<WebViewType, WKWebView> {
@@ -122,6 +124,7 @@ extension macOSViewVersion<WebViewType, WKWebView> {
 	public static let v15 = Self.unavailable()
 
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension visionOSViewVersion<WebViewType, WKWebView> {
@@ -131,6 +134,7 @@ extension visionOSViewVersion<WebViewType, WKWebView> {
 	public static let v2 = Self.unavailable()
 
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

@@ -17,7 +17,7 @@ struct NavigationStackTests {
 					Text("Something")
 				}
 			}
-			.introspect(.navigationStack, on: .iOS(.v16, .v17, .v18, .v26), .tvOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy)
+			.introspect(.navigationStack, on: .iOS(.v16, .v17, .v18, .v26, .v27), .tvOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
 		}
 	}
 
@@ -28,7 +28,7 @@ struct NavigationStackTests {
 				ZStack {
 					Color.red
 					Text("Something")
-						.introspect(.navigationStack, on: .iOS(.v16, .v17, .v18, .v26), .tvOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), scope: .ancestor, customize: spy)
+						.introspect(.navigationStack, on: .iOS(.v16, .v17, .v18, .v26, .v27), .tvOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
 				}
 			}
 		}

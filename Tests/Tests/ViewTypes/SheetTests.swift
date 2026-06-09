@@ -14,7 +14,7 @@ struct SheetTests {
 					Text("Sheet")
 						.introspect(
 							.sheet,
-							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
 							customize: spy
 						)
 				}
@@ -29,7 +29,7 @@ struct SheetTests {
 					Text("Sheet")
 						.introspect(
 							.sheet,
-							on: .iOS(.v15, .v16, .v17, .v18, .v26),
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 							customize: spy
 						)
 				}
@@ -43,7 +43,7 @@ struct SheetTests {
 					Text("Content")
 						.introspect(
 							.sheet,
-							on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+							on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
 							customize: spy
 						)
 				}
@@ -57,7 +57,7 @@ struct SheetTests {
 					Text("Sheet")
 						.introspect(
 							.sheet,
-							on: .visionOS(.v1, .v2, .v26),
+							on: .visionOS(.v1, .v2, .v26, .v27),
 							customize: spy
 						)
 				}

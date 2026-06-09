@@ -20,7 +20,7 @@
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.bordered)
-///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26)) {
+///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) {
 ///             print(type(of: $0)) // NSTableView
 ///         }
 ///     }
@@ -54,6 +54,7 @@ extension macOSViewVersion<ListWithBorderedStyleType, NSTableView> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

@@ -30,7 +30,7 @@ For instance, when introspecting a `ScrollView`...
 ScrollView {
 	Text("Item 1")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
 	// do something with UIScrollView
 }
 ```
@@ -48,7 +48,7 @@ By default, `.introspect` acts on its receiver. Calling `.introspect` from insid
 ```swift
 ScrollView {
 	Text("Item 1")
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor) { scrollView in
 			// do something with UIScrollView
 		}
 }
@@ -64,7 +64,7 @@ Install
 Add `SwiftUIIntrospect` to your Swift Package Manager dependencies:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
+.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0-beta"),
 ```
 
 Then, add the dependency to your target:
@@ -164,7 +164,7 @@ List {
 .introspect(.list, on: .iOS(.v13, .v14, .v15)) { tableView in
 	tableView.bounces = false
 }
-.introspect(.list, on: .iOS(.v16, .v17, .v18, .v26)) { collectionView in
+.introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27)) { collectionView in
 	collectionView.bounces = false
 }
 ```
@@ -175,7 +175,7 @@ List {
 ScrollView {
 	Text("Item")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
 	scrollView.bounces = false
 }
 ```
@@ -187,7 +187,7 @@ NavigationView {
 	Text("Item")
 }
 .navigationViewStyle(.stack)
-.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { navigationController in
+.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { navigationController in
 	navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
@@ -196,7 +196,7 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: <#Binding<String>#>)
-	.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
+	.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { textField in
 		textField.backgroundColor = .red
 	}
 ```
@@ -249,6 +249,7 @@ extension iOSViewVersion<TextFieldType, UITextField> {
 	public static let v17 = Self(for: .v17)
 	public static let v18 = Self(for: .v18)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension tvOSViewVersion<TextFieldType, UITextField> {
@@ -259,12 +260,14 @@ extension tvOSViewVersion<TextFieldType, UITextField> {
 	public static let v17 = Self(for: .v17)
 	public static let v18 = Self(for: .v18)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension visionOSViewVersion<TextFieldType, UITextField> {
 	public static let v1 = Self(for: .v1)
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #elseif canImport(AppKit)
 extension macOSViewVersion<TextFieldType, NSTextField> {
@@ -275,6 +278,7 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 ```
@@ -316,7 +320,7 @@ struct ContentView: View {
 		ScrollView {
 			// ...
 		}
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
 			self.scrollView = scrollView
 		}
 	}
@@ -329,7 +333,7 @@ Note for library authors
 If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
+.package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"28.0.0-beta"),
 ```
 
 A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.

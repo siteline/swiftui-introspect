@@ -10,7 +10,7 @@
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.wheel)
-///             .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///             .introspect(.datePicker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
 ///     }
@@ -34,7 +34,7 @@
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.wheel)
-///             .introspect(.datePicker(style: .wheel), on: .visionOS(.v1, .v2, .v26)) {
+///             .introspect(.datePicker(style: .wheel), on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///                 print(type(of: $0)) // UIDatePicker
 ///             }
 ///     }
@@ -62,12 +62,14 @@ extension iOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
 	public static let v17 = Self(for: .v17)
 	public static let v18 = Self(for: .v18)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension visionOSViewVersion<DatePickerWithWheelStyleType, UIDatePicker> {
 	public static let v1 = Self(for: .v1)
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

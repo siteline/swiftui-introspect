@@ -46,7 +46,7 @@
 ///                 Label("Home", systemImage: "house")
 ///             }
 ///         }
-///         .introspect(.searchField, on: .iOS(.v26)) {
+///         .introspect(.searchField, on: .iOS(.v26, .v27)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -65,7 +65,7 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -88,7 +88,7 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .visionOS(.v1, .v2, .v26)) {
+///         .introspect(.searchField, on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -113,6 +113,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {
@@ -131,6 +132,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {
@@ -143,6 +145,7 @@ extension visionOSViewVersion<SearchFieldType, UISearchBar> {
 	public static let v1 = Self(for: .v1, selector: selector)
 	public static let v2 = Self(for: .v2, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {

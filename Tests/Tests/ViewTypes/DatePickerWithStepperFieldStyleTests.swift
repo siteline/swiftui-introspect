@@ -16,17 +16,17 @@ import Testing
 			VStack {
 				DatePicker("", selection: .constant(date1))
 					.datePickerStyle(.stepperField)
-					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					.cornerRadius(8)
 
 				DatePicker("", selection: .constant(date2))
 					.datePickerStyle(.stepperField)
-					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					.cornerRadius(8)
 
 				DatePicker("", selection: .constant(date3))
 					.datePickerStyle(.stepperField)
-					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 			}
 		}
 		#expect(entity1.dateValue == date1)

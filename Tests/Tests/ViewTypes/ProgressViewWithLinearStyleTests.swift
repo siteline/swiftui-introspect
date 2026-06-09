@@ -17,25 +17,25 @@ struct ProgressViewWithLinearStyleTests {
 				ProgressView(value: 0.25)
 					.progressViewStyle(.linear)
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 
 				ProgressView(value: 0.5)
 					.progressViewStyle(.linear)
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 
 				ProgressView(value: 0.75)
 					.progressViewStyle(.linear)
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}

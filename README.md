@@ -9,8 +9,6 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
 
 - [How it works](#how-it-works)
 - [Install](#install)
-    - [Swift Package Manager](#swift-package-manager)
-    - [CocoaPods](#cocoapods)
 - [View Types](#view-types)
 - [Examples](#examples)
 - [General Guidelines](#general-guidelines)
@@ -63,31 +61,16 @@ SwiftUI Introspect is suitable for production. It does not use private APIs. It 
 Install
 -------
 
-### Swift Package Manager
-
-#### Xcode
-
-<img width="660" height="300" src="https://github.com/user-attachments/assets/ab1c1a62-96d9-417d-ad2b-43012a69cae8" />
-
-#### Package.swift
+Add `SwiftUIIntrospect` to your Swift Package Manager dependencies:
 
 ```swift
-let package = Package(
-	dependencies: [
-		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
-	],
-	targets: [
-		.target(name: <#Target Name#>, dependencies: [
-			.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
-		]),
-	]
-)
+.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0"),
 ```
 
-### CocoaPods
+Then, add the dependency to your target:
 
-```ruby
-pod 'SwiftUIIntrospect', '~> 26.0.0'
+```swift
+.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
 ```
 
 View Types

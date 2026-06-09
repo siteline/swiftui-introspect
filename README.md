@@ -64,7 +64,7 @@ Install
 Add `SwiftUIIntrospect` to your Swift Package Manager dependencies:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0"),
+.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
 ```
 
 Then, add the dependency to your target:

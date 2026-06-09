@@ -54,12 +54,12 @@ body:
   attributes:
     label: Version information
     description: The version of SwiftUIIntrospect used to reproduce this issue.
-    placeholder: "'0.11.0' for example, or a commit hash"
+    placeholder: "'26.0.0' for example, or a commit hash"
 - type: input
   attributes:
     label: Destination operating system
     description: The OS running the SwiftUIIntrospect module.
-    placeholder: "'iOS 17' for example"
+    placeholder: "'iOS 18' or 'macOS 15' for example"
 - type: input
   attributes:
     label: Xcode version information

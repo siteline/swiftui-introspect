@@ -1,4 +1,3 @@
-#if !os(watchOS)
 public import SwiftUI
 
 /// The scope of introspection i.e. where introspect should look to find
@@ -225,5 +224,4 @@ extension UIPresentationController: PlatformEntity {
 extension NSWindow: PlatformEntity {
 	public typealias Base = NSWindow
 }
-#endif
 #endif

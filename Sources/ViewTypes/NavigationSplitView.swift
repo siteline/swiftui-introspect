@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `NavigationSplitView` type in SwiftUI.
 ///
 /// ### iOS
@@ -143,5 +142,4 @@ extension macOSViewVersion<NavigationSplitViewType, NSSplitView> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

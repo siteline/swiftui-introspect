@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Picker` type in SwiftUI, with `.segmented` style.
 ///
 /// ### iOS
@@ -134,5 +133,4 @@ extension macOSViewVersion<PickerWithSegmentedStyleType, NSSegmentedControl> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import Foundation
 
 @_spi(Internals)
@@ -489,4 +488,3 @@ extension visionOSVersion {
 		#endif
 	}
 }
-#endif

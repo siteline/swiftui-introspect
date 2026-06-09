@@ -50,11 +50,6 @@ jobs:
           - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
           - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)", runner: macos-15 }
           - { name: "visionOS 26.2",    runtime: "visionOS 26.2",  device: "Apple Vision Pro" }
-          # watchOS (build-only, no test support)
-          - { name: "watchOS 9.4",      runtime: "watchOS 9.4",    device: "Apple Watch Series 8 (45mm)",  build_only: true }
-          - { name: "watchOS 10.5",     runtime: "watchOS 10.5",   device: "Apple Watch Series 9 (45mm)",  build_only: true }
-          - { name: "watchOS 11.5",     runtime: "watchOS 11.5",   device: "Apple Watch Series 10 (42mm)", build_only: true, runner: macos-15 }
-          - { name: "watchOS 26.2",     runtime: "watchOS 26.2",   device: "Apple Watch Series 11 (42mm)", build_only: true }
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -102,7 +97,6 @@ jobs:
           echo "Created simulator: ${{ matrix.device }} -> $UDID"
 
       - name: Build Showcase
-        if: ${{ !matrix.build_only }}
         run: |
           set -eo pipefail
           xcodebuild build \
@@ -111,18 +105,7 @@ jobs:
             -configuration Debug \
             | xcbeautify
 
-      - name: Build Library
-        if: ${{ matrix.build_only == true }}
-        run: |
-          set -eo pipefail
-          xcodebuild build \
-            -scheme SwiftUIIntrospect \
-            -destination "id=${{ env.SIM_UDID }}" \
-            -configuration Debug \
-            | xcbeautify
-
       - name: Run Tests
-        if: ${{ !matrix.build_only }}
         run: |
           set -eo pipefail
           xcodebuild test \
@@ -144,7 +127,6 @@ jobs:
           - { platform: macOS,       destination: "generic/platform=macOS" }
           - { platform: tvOS,        destination: "generic/platform=tvOS" }
           - { platform: visionOS,    destination: "generic/platform=visionOS" }
-          - { platform: watchOS,     destination: "generic/platform=watchOS" }
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5

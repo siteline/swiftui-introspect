@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `DatePicker` type in SwiftUI.
 ///
 /// ### iOS
@@ -87,6 +86,5 @@ extension macOSViewVersion<DatePickerType, NSDatePicker> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif
 #endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of `.fullScreenCover` in SwiftUI.
 ///
 /// ### iOS
@@ -112,6 +111,5 @@ extension visionOSViewVersion<FullScreenCoverType, UIPresentationController> {
 		.from(UIViewController.self, selector: { $0.presentationController })
 	}
 }
-#endif
 #endif
 #endif

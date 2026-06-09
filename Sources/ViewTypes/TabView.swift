@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `TabView` type in SwiftUI.
 ///
 /// ### iOS
@@ -124,6 +123,5 @@ extension macOSViewVersion<TabViewType, NSTabView> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif
 #endif

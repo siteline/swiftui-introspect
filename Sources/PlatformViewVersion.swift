@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import SwiftUI
 
 @MainActor
@@ -125,4 +124,3 @@ extension PlatformViewVersion: Comparable {
 		true
 	}
 }
-#endif

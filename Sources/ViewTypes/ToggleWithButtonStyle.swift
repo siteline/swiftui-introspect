@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.button` style.
 ///
 /// ### iOS
@@ -57,6 +56,5 @@ extension macOSViewVersion<ToggleWithButtonStyleType, NSButton> {
 	@available(*, unavailable, message: ".toggleStyle(.button) isn't available on macOS 26")
 	public static let v26 = Self.unavailable
 }
-#endif
 #endif
 #endif

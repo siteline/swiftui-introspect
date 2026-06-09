@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.checkbox` style.
 ///
 /// ### iOS
@@ -52,6 +51,5 @@ extension macOSViewVersion<ToggleWithCheckboxStyleType, NSButton> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif
 #endif

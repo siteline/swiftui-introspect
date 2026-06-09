@@ -10,7 +10,6 @@ let package = Package(
 		.macOS(.v10_15),
 		.tvOS(.v13),
 		.visionOS(.v1),
-		.watchOS(.v9),
 	],
 	products: [
 		.library(name: "SwiftUIIntrospect", targets: ["SwiftUIIntrospect"]),

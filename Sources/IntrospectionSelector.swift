@@ -1,4 +1,3 @@
-#if !os(watchOS)
 #if os(iOS) || os(tvOS) || os(visionOS)
 public import UIKit
 #elseif os(macOS)
@@ -79,4 +78,3 @@ extension PlatformViewController {
 		return nil
 	}
 }
-#endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of a generic SwiftUI view type.
 ///
 /// Note: prior to iOS 26, primitive views like `Text`, `Image`, `Button`, and layout
@@ -116,5 +115,4 @@ extension macOSViewVersion<ViewType, NSView> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

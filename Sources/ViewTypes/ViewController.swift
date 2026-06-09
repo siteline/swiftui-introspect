@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the receiving SwiftUI view's view controller,
 /// or the closest ancestor view controller if missing.
 ///
@@ -101,5 +100,4 @@ extension visionOSViewVersion<ViewControllerType, UIViewController> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

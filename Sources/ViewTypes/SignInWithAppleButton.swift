@@ -1,4 +1,3 @@
-#if !os(watchOS)
 import SwiftUI
 
 /// An abstract representation of the `SignInWithAppleButton` type in SwiftUI.
@@ -88,4 +87,3 @@ extension IntrospectableViewType where Self == SignInWithAppleButtonType {
 	)
 	public static var signInWithAppleButton: Self { .init() }
 }
-#endif

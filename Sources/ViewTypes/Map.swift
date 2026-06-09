@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Map` type in SwiftUI.
 ///
 /// ### iOS
@@ -111,5 +110,4 @@ extension visionOSViewVersion<MapType, MKMapView> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

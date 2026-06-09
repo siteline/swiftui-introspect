@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `ScrollView` type in SwiftUI.
 ///
 /// ### iOS
@@ -110,5 +109,4 @@ extension macOSViewVersion<ScrollViewType, NSScrollView> {
 	public static let v26 = Self(for: .v26)
 	public static let v27 = Self(for: .v27)
 }
-#endif
 #endif

@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.2
 
 import PackageDescription
 
@@ -26,6 +26,10 @@ for target in package.targets {
 	target.swiftSettings = target.swiftSettings ?? []
 	target.swiftSettings? += [
 		.enableUpcomingFeature("ExistentialAny"),
+		.enableUpcomingFeature("ImmutableWeakCaptures"),
+		.enableUpcomingFeature("InferIsolatedConformances"),
 		.enableUpcomingFeature("InternalImportsByDefault"),
+		.enableUpcomingFeature("MemberImportVisibility"),
+		.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
 	]
 }

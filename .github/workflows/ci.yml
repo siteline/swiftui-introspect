@@ -51,7 +51,6 @@ jobs:
           - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)", runner: macos-15 }
           - { name: "visionOS 26.2",    runtime: "visionOS 26.2",  device: "Apple Vision Pro" }
           # watchOS (build-only, no test support)
-          - { name: "watchOS 8.5",      runtime: "watchOS 8.5",    device: "Apple Watch Series 7 (45mm)",  build_only: true }
           - { name: "watchOS 9.4",      runtime: "watchOS 9.4",    device: "Apple Watch Series 8 (45mm)",  build_only: true }
           - { name: "watchOS 10.5",     runtime: "watchOS 10.5",   device: "Apple Watch Series 9 (45mm)",  build_only: true }
           - { name: "watchOS 11.5",     runtime: "watchOS 11.5",   device: "Apple Watch Series 10 (42mm)", build_only: true, runner: macos-15 }

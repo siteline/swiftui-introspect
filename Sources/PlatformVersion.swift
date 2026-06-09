@@ -138,6 +138,20 @@ extension iOSVersion {
 		return nil
 		#endif
 	}
+
+	public static let v27 = iOSVersion {
+		#if os(iOS)
+		if #available(iOS 28, *) {
+			return .past
+		}
+		if #available(iOS 27, *) {
+			return .current
+		}
+		return .future
+		#else
+		return nil
+		#endif
+	}
 }
 
 public struct tvOSVersion: PlatformVersion {
@@ -243,6 +257,20 @@ extension tvOSVersion {
 		// Apps built before the tvOS 26 SDK get "19.0" as the system version from ProcessInfo.
 		// Once built with the tvOS 26 SDK, the version then becomes "26.0".
 		if #available(tvOS 19, *) {
+			return .current
+		}
+		return .future
+		#else
+		return nil
+		#endif
+	}
+
+	public static let v27 = tvOSVersion {
+		#if os(tvOS)
+		if #available(tvOS 28, *) {
+			return .past
+		}
+		if #available(tvOS 27, *) {
 			return .current
 		}
 		return .future
@@ -376,6 +404,20 @@ extension macOSVersion {
 		return nil
 		#endif
 	}
+
+	public static let v27 = macOSVersion {
+		#if os(macOS)
+		if #available(macOS 28, *) {
+			return .past
+		}
+		if #available(macOS 27, *) {
+			return .current
+		}
+		return .future
+		#else
+		return nil
+		#endif
+	}
 }
 
 public struct visionOSVersion: PlatformVersion {
@@ -425,6 +467,20 @@ extension visionOSVersion {
 		// Apps built before the visionOS 26 SDK get "3.0" as the system version from ProcessInfo.
 		// Once built with the visionOS 26 SDK, the version then becomes "26.0".
 		if #available(visionOS 3, *) {
+			return .current
+		}
+		return .future
+		#else
+		return nil
+		#endif
+	}
+
+	public static let v27 = visionOSVersion {
+		#if os(visionOS)
+		if #available(visionOS 28, *) {
+			return .past
+		}
+		if #available(visionOS 27, *) {
 			return .current
 		}
 		return .future

@@ -15,12 +15,12 @@ struct PresentationShowcase: View {
 						#if os(iOS) || os(tvOS)
 						.introspect(
 							.sheet,
-							on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26)
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)
 						) { presentationController in
 							presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
 						}
 						#elseif os(visionOS)
-						.introspect(.sheet, on: .visionOS(.v1, .v2, .v26)) { sheetPresentationController in
+						.introspect(.sheet, on: .visionOS(.v1, .v2, .v26, .v27)) { sheetPresentationController in
 							sheetPresentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
 						}
 						#endif
@@ -32,7 +32,7 @@ struct PresentationShowcase: View {
 						#if os(iOS) || os(tvOS) || os(visionOS)
 						.introspect(
 							.fullScreenCover,
-							on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
 						) { presentationController in
 							presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
 						}
@@ -46,7 +46,7 @@ struct PresentationShowcase: View {
 						.padding()
 						.introspect(
 							.popover,
-							on: .iOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
 						) { presentationController in
 							presentationController.containerView?.backgroundColor = .red.withAlphaComponent(0.75)
 						}

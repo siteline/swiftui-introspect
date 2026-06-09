@@ -53,13 +53,13 @@
 ///         VStack {
 ///             Button("Borderless Button", action: {})
 ///                 .buttonStyle(.borderless)
-///                 .introspect(.button, on: .macOS(.v26)) {
+///                 .introspect(.button, on: .macOS(.v26, .v27)) {
 ///                     print(type(of: $0)) // NSButton
 ///                 }
 ///
 ///             Button("Link Button", action: {})
 ///                 .buttonStyle(.link)
-///                 .introspect(.button, on: .macOS(.v26)) {
+///                 .introspect(.button, on: .macOS(.v26, .v27)) {
 ///                     print(type(of: $0)) // NSButton
 ///                 }
 ///         }
@@ -88,6 +88,7 @@ extension macOSViewVersion<ButtonType, NSButton> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

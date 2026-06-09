@@ -16,11 +16,11 @@ struct ListWithBorderedStyleTests {
 					Text("Item 1")
 				}
 				.listStyle(.bordered)
-				.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), customize: spy1)
+				.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 
 				List {
 					Text("Item 1")
-						.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), scope: .ancestor, customize: spy2)
+						.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)
 				}
 				.listStyle(.bordered)
 			}

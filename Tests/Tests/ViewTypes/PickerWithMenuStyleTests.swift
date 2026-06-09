@@ -15,7 +15,7 @@ struct PickerWithMenuStyleTests {
 					Text("1").tag("1")
 				}
 				.pickerStyle(.menu)
-				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 				.cornerRadius(8)
 
 				Picker("Pick", selection: .constant("1")) {
@@ -23,7 +23,7 @@ struct PickerWithMenuStyleTests {
 					Text("2").tag("2")
 				}
 				.pickerStyle(.menu)
-				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 				.cornerRadius(8)
 
 				Picker("Pick", selection: .constant("1")) {
@@ -32,7 +32,7 @@ struct PickerWithMenuStyleTests {
 					Text("3").tag("3")
 				}
 				.pickerStyle(.menu)
-				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+				.introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 			}
 		}
 		#expect(entity1.numberOfItems == 1)

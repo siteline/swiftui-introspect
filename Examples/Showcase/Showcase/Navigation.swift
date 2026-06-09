@@ -15,22 +15,22 @@ struct NavigationShowcase: View {
 		#if os(iOS) || os(tvOS) || os(visionOS)
 		.introspect(
 			.navigationView(style: .stack),
-			on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+			on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
 		) { navigationController in
 			navigationController.navigationBar.backgroundColor = .cyan
 		}
 		.introspect(
 			.navigationView(style: .columns),
-			on: .iOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+			on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
 		) { splitViewController in
 			splitViewController.preferredDisplayMode = .oneBesideSecondary
 		}
-		.introspect(.navigationView(style: .columns), on: .tvOS(.v15, .v16, .v17, .v18, .v26)) { navigationController in
+		.introspect(.navigationView(style: .columns), on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) { navigationController in
 			navigationController.navigationBar.backgroundColor = .cyan
 		}
 		.introspect(
 			.searchField,
-			on: .iOS(.v15, .v16, .v17, .v18, .v26), .tvOS(.v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26)
+			on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
 		) { searchBar in
 			searchBar.backgroundColor = .red
 			#if os(iOS)

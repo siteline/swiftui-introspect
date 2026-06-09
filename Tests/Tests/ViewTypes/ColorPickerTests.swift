@@ -19,23 +19,23 @@ struct ColorPickerTests {
 			VStack {
 				ColorPicker("", selection: .constant(PlatformColor.red.cgColor))
 					#if os(iOS) || os(visionOS)
-					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 
 				ColorPicker("", selection: .constant(PlatformColor.green.cgColor))
 					#if os(iOS) || os(visionOS)
-					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 
 				ColorPicker("", selection: .constant(PlatformColor.blue.cgColor))
 					#if os(iOS) || os(visionOS)
-					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}

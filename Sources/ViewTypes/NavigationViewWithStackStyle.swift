@@ -10,7 +10,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -26,7 +26,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.navigationView(style: .stack), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.navigationView(style: .stack), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -46,7 +46,7 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.navigationView(style: .stack), on: .visionOS(.v1, .v2, .v26)) {
+///         .introspect(.navigationView(style: .stack), on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///             print(type(of: $0)) // UINavigationController
 ///         }
 ///     }
@@ -73,6 +73,7 @@ extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationControlle
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }
@@ -87,6 +88,7 @@ extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationControll
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }
@@ -97,6 +99,7 @@ extension visionOSViewVersion<NavigationViewWithStackStyleType, UINavigationCont
 	public static let v1 = Self(for: .v1, selector: selector)
 	public static let v2 = Self(for: .v2, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
+	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }

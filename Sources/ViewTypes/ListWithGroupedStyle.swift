@@ -15,7 +15,7 @@
 ///         .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
-///         .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18, .v26)) {
+///         .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -33,7 +33,7 @@
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.grouped)
-///         .introspect(.list(style: .grouped), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///         .introspect(.list(style: .grouped), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
 ///             print(type(of: $0)) // UITableView
 ///         }
 ///     }
@@ -55,7 +55,7 @@
 ///             Text("Item 3")
 ///         }
 ///         .listStyle(.grouped)
-///         .introspect(.list(style: .grouped), on: .visionOS(.v1, .v2, .v26)) {
+///         .introspect(.list(style: .grouped), on: .visionOS(.v1, .v2, .v26, .v27)) {
 ///             print(type(of: $0)) // UICollectionView
 ///         }
 ///     }
@@ -86,6 +86,7 @@ extension iOSViewVersion<ListWithGroupedStyleType, UICollectionView> {
 	public static let v17 = Self(for: .v17)
 	public static let v18 = Self(for: .v18)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension tvOSViewVersion<ListWithGroupedStyleType, UITableView> {
@@ -96,12 +97,14 @@ extension tvOSViewVersion<ListWithGroupedStyleType, UITableView> {
 	public static let v17 = Self(for: .v17)
 	public static let v18 = Self(for: .v18)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 
 extension visionOSViewVersion<ListWithGroupedStyleType, UICollectionView> {
 	public static let v1 = Self(for: .v1)
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
+	public static let v27 = Self(for: .v27)
 }
 #endif
 #endif

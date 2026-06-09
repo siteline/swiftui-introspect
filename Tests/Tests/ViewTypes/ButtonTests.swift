@@ -37,11 +37,11 @@ struct ButtonTests {
 			VStack {
 				Button("Borderless Button", action: {})
 					.buttonStyle(.borderless)
-					.introspect(.button, on: .macOS(.v26), customize: spy1)
+					.introspect(.button, on: .macOS(.v26, .v27), customize: spy1)
 
 				Button("Link Button", action: {})
 					.buttonStyle(.link)
-					.introspect(.button, on: .macOS(.v26), customize: spy2)
+					.introspect(.button, on: .macOS(.v26, .v27), customize: spy2)
 			}
 		}
 		#expect(Set([entity1, entity2].map(ObjectIdentifier.init)).count == 2)

@@ -19,31 +19,31 @@ struct TextFieldWithVerticalAxisTests {
 			VStack {
 				TextField("", text: .constant("Text Field 1"), axis: .vertical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
 					#elseif os(tvOS)
-					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26), customize: spy1)
+					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26), customize: spy1)
+					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26, .v27), customize: spy1)
 					#endif
 					.cornerRadius(8)
 
 				TextField("", text: .constant("Text Field 2"), axis: .vertical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
 					#elseif os(tvOS)
-					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26), customize: spy2)
+					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26), customize: spy2)
+					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26, .v27), customize: spy2)
 					#endif
 					.cornerRadius(8)
 
 				TextField("", text: .constant("Text Field 3"), axis: .vertical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
 					#elseif os(tvOS)
-					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26), customize: spy3)
+					.introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26), customize: spy3)
+					.introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26, .v27), customize: spy3)
 					#endif
 			}
 		}

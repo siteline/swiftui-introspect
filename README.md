@@ -43,15 +43,20 @@ ScrollView {
 2. Traverse through all subviews between both marker views until a `UIScrollView` instance (if any) is found.
 
 > [!IMPORTANT]
-> Although this method is solid and unlikely to break on its own, future OS releases require explicit opt in for introspection (`.iOS(.vXYZ)`) because underlying UIKit/AppKit types can change between major versions.
+> Although this method is solid and unlikely to break on its own, future OS releases require explicit opt-in for introspection (`.iOS(.vXYZ)`) because underlying UIKit/AppKit types can change between major versions.
 
-By default, `.introspect` acts on its receiver. Calling `.introspect` from inside the view you want to introspect has no effect. If you need to introspect an ancestor instead, set `scope: .ancestor`:
+> [!NOTE]
+> Version `.v26` represents Apple's unified versioning system introduced in 2025, where iOS, macOS, tvOS, and visionOS all align to version 26. This explains the version jump from `.v18` to `.v26` in the examples.
+
+By default, `.introspect` acts on its receiver. Calling `.introspect` from inside the view you want to introspect has no effect.
+
+**When to use `scope: .ancestor`:** If you need to introspect an ancestor view from within its child, set `scope: .ancestor`:
 
 ```swift
 ScrollView {
 	Text("Item 1")
 		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { scrollView in
-			// do something with UIScrollView
+			// This introspects the parent ScrollView, not the Text view
 		}
 }
 ```
@@ -343,13 +348,15 @@ struct ContentView: View {
 Note for library authors
 ------------------------
 
-If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
+If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies.
+
+For example, if the current version is 26.0.0:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
+.package(url: "https://github.com/siteline/swiftui-introspect", "25.0.0"..<"27.0.0"),
 ```
 
-A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.
+A wider range is safe because SwiftUI Introspect is essentially "finished": no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future-proof without frequent version bumps.
 
 Community projects
 ------------------

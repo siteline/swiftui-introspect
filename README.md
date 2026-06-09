@@ -30,7 +30,7 @@ For instance, when introspecting a `ScrollView`...
 ScrollView {
 	Text("Item 1")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v17, .v18, .v26, .v27)) { scrollView in
 	// do something with UIScrollView
 }
 ```
@@ -48,7 +48,7 @@ By default, `.introspect` acts on its receiver. Calling `.introspect` from insid
 ```swift
 ScrollView {
 	Text("Item 1")
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v17, .v18, .v26, .v27), scope: .ancestor) { scrollView in
 			// do something with UIScrollView
 		}
 }
@@ -175,7 +175,7 @@ List {
 ScrollView {
 	Text("Item")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v17, .v18, .v26, .v27)) { scrollView in
 	scrollView.bounces = false
 }
 ```
@@ -187,7 +187,7 @@ NavigationView {
 	Text("Item")
 }
 .navigationViewStyle(.stack)
-.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { navigationController in
+.introspect(.navigationView(style: .stack), on: .iOS(.v17, .v18, .v26, .v27)) { navigationController in
 	navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
@@ -196,7 +196,7 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: <#Binding<String>#>)
-	.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { textField in
+	.introspect(.textField, on: .iOS(.v17, .v18, .v26, .v27)) { textField in
 		textField.backgroundColor = .red
 	}
 ```
@@ -320,7 +320,7 @@ struct ContentView: View {
 		ScrollView {
 			// ...
 		}
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v17, .v18, .v26, .v27)) { scrollView in
 			self.scrollView = scrollView
 		}
 	}

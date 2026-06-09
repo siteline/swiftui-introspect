@@ -151,6 +151,8 @@ View Types
 
 ### Cannot implement
 
+The following SwiftUI views cannot be introspected because they either don't have a corresponding UIKit/AppKit backing view, or their backing type differs from what might be expected:
+
 SwiftUI | Affected Frameworks | Why
 --- | --- | ---
 Text | UIKit, AppKit | Not a UILabel / NSLabel

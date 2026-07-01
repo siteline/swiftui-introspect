@@ -65,8 +65,10 @@ jobs:
           max_attempts: 3
           command: |
             RUNTIME="${{ matrix.runtime }}"
-            if ! xcodes runtimes 2>/dev/null | grep -qF "$RUNTIME (Installed)"; then
-              sudo xcodes runtimes install "$RUNTIME" --aria2 $(which aria2c)
+            if xcrun simctl list runtimes -j | jq -e --arg name "$RUNTIME" '.runtimes[] | select(.isAvailable) | select(.name == $name)' >/dev/null; then
+              echo "Runtime '$RUNTIME' is already installed."
+            else
+              sudo xcodes runtimes install "$RUNTIME" --aria2 "$(which aria2c)"
             fi
 
       - name: Create Simulator

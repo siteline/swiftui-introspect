@@ -49,7 +49,7 @@ jobs:
           # visionOS
           - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
           - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)" }
-          - { name: "visionOS 26.5",    runtime: "visionOS 26.5",  device: "Apple Vision Pro" }
+          - { name: "visionOS 26.4",    runtime: "visionOS 26.4",  device: "Apple Vision Pro" }
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5

@@ -27,35 +27,35 @@ jobs:
           - { name: "iOS 15.5",         runtime: "iOS 15.5",       device: "iPhone 13 Pro" }
           - { name: "iOS 16.4",         runtime: "iOS 16.4",       device: "iPhone 14 Pro" }
           - { name: "iOS 17.5",         runtime: "iOS 17.5",       device: "iPhone 15 Pro" }
-          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro",                runner: macos-15 }
+          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro" }
           - { name: "iOS 26.5",         runtime: "iOS 26.5",       device: "iPhone 17 Pro" }
           # iPadOS
           - { name: "iPadOS 15.5",      runtime: "iOS 15.5",       device: "iPad Pro (11-inch) (3rd generation)" }
           - { name: "iPadOS 16.4",      runtime: "iOS 16.4",       device: "iPad Pro (11-inch) (4th generation)" }
           - { name: "iPadOS 17.5",      runtime: "iOS 17.5",       device: "iPad Pro 11-inch (M4)" }
-          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)",        runner: macos-15 }
+          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)" }
           - { name: "iPadOS 26.5",      runtime: "iOS 26.5",       device: "iPad Pro 11-inch (M5)" }
           # macOS / macCatalyst
-          - { name: "macCatalyst 15",  destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15 }
+          - { name: "macCatalyst 15",  destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15, xcode: "26.3" }
           - { name: "macCatalyst 26",  destination: "platform=macOS,variant=Mac Catalyst" }
-          - { name: "macOS 15",        destination: "platform=macOS",                       runner: macos-15 }
+          - { name: "macOS 15",        destination: "platform=macOS",                       runner: macos-15, xcode: "26.3" }
           - { name: "macOS 26",        destination: "platform=macOS" }
           # tvOS
           - { name: "tvOS 15.4",        runtime: "tvOS 15.4",      device: "Apple TV" }
           - { name: "tvOS 16.4",        runtime: "tvOS 16.4",      device: "Apple TV" }
           - { name: "tvOS 17.5",        runtime: "tvOS 17.5",      device: "Apple TV" }
-          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV",                     runner: macos-15 }
+          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV" }
           - { name: "tvOS 26.5",        runtime: "tvOS 26.5",      device: "Apple TV" }
           # visionOS
           - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
-          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)", runner: macos-15 }
+          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)" }
           - { name: "visionOS 26.5",    runtime: "visionOS 26.5",  device: "Apple Vision Pro" }
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
 
       - name: Select Xcode
-        run: sudo xcodes select 26.6
+        run: sudo xcodes select ${{ matrix.xcode || '26.6' }}
 
       - name: Install ${{ matrix.runtime }} Runtime
         if: matrix.runtime

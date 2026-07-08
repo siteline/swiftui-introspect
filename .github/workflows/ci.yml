@@ -55,7 +55,9 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install xcodes
-        run: brew install xcodesorg/made/xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
 
       - name: Select Xcode
         run: sudo xcodes select ${{ matrix.xcode || '26.6' }}
@@ -137,7 +139,9 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install xcodes
-        run: brew install xcodesorg/made/xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
 
       - name: Select Xcode
         run: sudo xcodes select 26.6

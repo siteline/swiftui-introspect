@@ -54,6 +54,9 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
+      - name: Upgrade xcodes
+        run: brew upgrade xcodesorg/made/xcodes
+
       - name: Select Xcode
         run: sudo xcodes select ${{ matrix.xcode || '26.6' }}
 
@@ -132,6 +135,9 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
+
+      - name: Upgrade xcodes
+        run: brew upgrade xcodesorg/made/xcodes
 
       - name: Select Xcode
         run: sudo xcodes select 26.6

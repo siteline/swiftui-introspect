@@ -4,6 +4,7 @@ SwiftUI Introspect
 [![CI Status Badge](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml)
 [![Swift Version Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 [![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/swiftui-introspect)
+[![](https://img.shields.io/badge/Documentation-gray?logo=swift&logoColor=white)](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect)
 
 SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a SwiftUI view.
 

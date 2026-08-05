@@ -116,7 +116,7 @@ extension iOSViewVersion<SearchFieldType, UISearchBar> {
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+			$0.viewIfLoaded?.allDescendants.first(where: { $0 is UISearchBar }) as? UISearchBar
 		}
 	}
 }
@@ -135,7 +135,7 @@ extension tvOSViewVersion<SearchFieldType, UISearchBar> {
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+			$0.viewIfLoaded?.allDescendants.first(where: { $0 is UISearchBar }) as? UISearchBar
 		}
 	}
 }
@@ -148,7 +148,7 @@ extension visionOSViewVersion<SearchFieldType, UISearchBar> {
 
 	private static var selector: IntrospectionSelector<UISearchBar> {
 		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+			$0.viewIfLoaded?.allDescendants.first(where: { $0 is UISearchBar }) as? UISearchBar
 		}
 	}
 }

@@ -171,19 +171,18 @@ extension PlatformEntity {
 
 		return commonAncestor
 			.allDescendants(between: backEntity~, and: frontEntity~)
-			.filter { !$0.isIntrospectionPlatformEntity }
-			.compactMap { $0 as? PlatformSpecificEntity }
-			.first
+			.first {
+				!$0.isIntrospectionPlatformEntity && $0 is PlatformSpecificEntity
+			} as? PlatformSpecificEntity
 	}
 
 	func ancestor<PlatformSpecificEntity: PlatformEntity>(
 		ofType type: PlatformSpecificEntity.Type
 	) -> PlatformSpecificEntity? {
 		self.ancestors
-			.lazy
-			.filter { !$0.isIntrospectionPlatformEntity }
-			.compactMap { $0 as? PlatformSpecificEntity }
-			.first
+			.first {
+				!$0.isIntrospectionPlatformEntity && $0 is PlatformSpecificEntity
+			} as? PlatformSpecificEntity
 	}
 }
 

@@ -1,4 +1,7 @@
 version: 1
 builder:
   configs:
-    - documentation_targets: [SwiftUIIntrospect]
+  - documentation_targets:
+    - SwiftUIIntrospect
+    platform: ios
+    swift_version: 6.0

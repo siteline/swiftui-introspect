@@ -4,4 +4,3 @@ builder:
   - documentation_targets:
     - SwiftUIIntrospect
     platform: ios
-    swift_version: 6.0

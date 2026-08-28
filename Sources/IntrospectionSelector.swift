@@ -1,4 +1,10 @@
 #if !os(watchOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 @_spi(Advanced)
 
 @MainActor

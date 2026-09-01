@@ -1,0 +1,29 @@
+# SwiftFormat Configuration File
+# For documentation, see: https://github.com/nicklockwood/SwiftFormat/blob/main/Rules.md
+
+--header ignore
+--indent tab
+--ifdef no-indent
+--ranges preserve
+--extensionacl on-declarations
+--trailing-commas always
+--nil-init insert
+--import-grouping testable-last
+--wrap-conditions before-first
+--guard-else next-line
+
+# Disabled rules
+--disable blankLinesAroundMark
+--disable blankLinesBetweenScopes
+--disable docComments
+--disable redundantBackticks
+--disable redundantLetError
+--disable redundantRawValues
+--disable redundantSelf
+--disable redundantStaticSelf
+--disable redundantType
+--disable redundantTypedThrows
+--disable redundantViewBuilder
+--disable unusedArguments
+--disable wrapFunctionBodies
+--disable wrapPropertyBodies

@@ -17,10 +17,14 @@ concurrency:
 jobs:
   lint:
     name: Lint
+    permissions:
+      contents: read
     runs-on: macos-latest
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Install Mise tools
         uses: jdx/mise-action@v3

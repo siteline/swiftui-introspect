@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct PickerWithWheelStyleTests {
 	#if canImport(UIKit)
 	typealias PlatformPickerWithWheelStyle = UIPickerView

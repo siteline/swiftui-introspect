@@ -10,7 +10,7 @@ extension View {
 	/// - Note: Useful only when you don't need to reuse the closure.
 	/// If you do, turn the closure into a proper modifier.
 	public func modifier<ModifiedContent: View>(
-		@ViewBuilder _ modifier: (Self) -> ModifiedContent
+		@ViewBuilder _ modifier: (Self) -> ModifiedContent,
 	) -> ModifiedContent {
 		modifier(self)
 	}

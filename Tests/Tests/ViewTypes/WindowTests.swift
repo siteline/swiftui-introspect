@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct WindowTests {
 	#if canImport(UIKit)
 	typealias PlatformWindow = UIWindow

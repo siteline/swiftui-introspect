@@ -17,9 +17,9 @@ let package = Package(
 	targets: [
 		.target(
 			name: "SwiftUIIntrospect",
-			path: "Sources"
+			path: "Sources",
 		),
-	]
+	],
 )
 
 for target in package.targets {

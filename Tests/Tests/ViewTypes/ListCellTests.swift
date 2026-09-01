@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ListCellTests {
 	#if canImport(UIKit)
 	typealias PlatformListCell = UIView // covers both UITableViewCell and UICollectionViewCell
@@ -25,7 +24,7 @@ struct ListCellTests {
 		}
 	}
 
-	@Test func introspectMasked() async throws {
+	@Test func `introspect masked`() async throws {
 		try await introspection(of: PlatformListCell.self) { spy in
 			List {
 				Text("Item 1")

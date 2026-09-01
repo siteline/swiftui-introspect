@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ViewControllerTests {
 	@Test func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformViewController.self) { spy1, spy2, spy3 in
@@ -14,7 +13,7 @@ struct ViewControllerTests {
 						.introspect(
 							.viewController,
 							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
-							customize: spy3
+							customize: spy3,
 						)
 				}
 				.navigationViewStyle(.stack)
@@ -25,13 +24,13 @@ struct ViewControllerTests {
 				.introspect(
 					.viewController,
 					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
-					customize: spy2
+					customize: spy2,
 				)
 			}
 			.introspect(
 				.viewController,
 				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
-				customize: spy1
+				customize: spy1,
 			)
 		}
 		#if !os(visionOS)

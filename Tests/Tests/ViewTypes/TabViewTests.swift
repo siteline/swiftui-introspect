@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct TabViewTests {
 	#if canImport(UIKit)
 	typealias PlatformTabView = UITabBarController
@@ -30,7 +29,7 @@ struct TabViewTests {
 	}
 
 	@available(macOS, introduced: 10.15, obsoleted: 15)
-	@Test func introspectAsAncestor() async throws {
+	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformTabView.self) { spy in
 			TabView {
 				ZStack {
@@ -47,7 +46,7 @@ struct TabViewTests {
 	}
 
 	@available(tvOS, unavailable)
-	@Test func introspectWithNonRootPlacement() async throws {
+	@Test func `introspect with non-root placement`() async throws {
 		try await introspection(of: PlatformTabView.self) { spy in
 			GroupBox {
 				TabView {
@@ -66,7 +65,7 @@ struct TabViewTests {
 	}
 
 	@available(tvOS, unavailable)
-	@Test func introspectWithNonRootPlacementAsAncestor() async throws {
+	@Test func `introspect with non-root placement as ancestor`() async throws {
 		try await introspection(of: PlatformTabView.self) { spy in
 			GroupBox {
 				TabView {

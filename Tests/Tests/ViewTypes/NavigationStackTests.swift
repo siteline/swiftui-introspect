@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct NavigationStackTests {
 	typealias PlatformNavigationStack = UINavigationController
 
@@ -22,7 +21,7 @@ struct NavigationStackTests {
 	}
 
 	@available(iOS 16, tvOS 16, *)
-	@Test func introspectAsAncestor() async throws {
+	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformNavigationStack.self) { spy in
 			NavigationStack {
 				ZStack {

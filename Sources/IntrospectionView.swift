@@ -3,7 +3,7 @@ import SwiftUI
 typealias IntrospectionViewID = UUID
 
 @MainActor
-fileprivate enum IntrospectionStore {
+private enum IntrospectionStore {
 	static var shared: [IntrospectionViewID: Pair] = [:]
 
 	struct Pair {
@@ -99,7 +99,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 	init(
 		id: IntrospectionViewID,
 		selector: @escaping (IntrospectionPlatformViewController) -> Target?,
-		customize: @escaping (Target) -> Void
+		customize: @escaping (Target) -> Void,
 	) {
 		self._observed = .constant(())
 		self.id = id
@@ -141,7 +141,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
 
 	fileprivate init(
 		id: IntrospectionViewID,
-		handler: ((IntrospectionPlatformViewController) -> Void)?
+		handler: ((IntrospectionPlatformViewController) -> Void)?,
 	) {
 		self.id = id
 		super.init(nibName: nil, bundle: nil)

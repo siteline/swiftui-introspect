@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct PickerWithMenuStyleTests {
 	typealias PlatformPickerWithMenuStyle = NSPopUpButton
 

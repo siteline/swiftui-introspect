@@ -15,7 +15,7 @@ struct ControlsShowcase: View {
 					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(
 						.textField,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
 					) { textField in
 						textField.backgroundColor = .red
 					}
@@ -30,7 +30,7 @@ struct ControlsShowcase: View {
 					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(
 						.textField,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
 					) { textField in
 						textField.backgroundColor = .green
 					}
@@ -48,7 +48,7 @@ struct ControlsShowcase: View {
 					#if os(iOS)
 					.introspect(
 						.toggle,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27)
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 					) { toggle in
 						toggle.backgroundColor = .red
 					}
@@ -62,7 +62,7 @@ struct ControlsShowcase: View {
 					#if os(iOS)
 					.introspect(
 						.toggle,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27)
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 					) { toggle in
 						toggle.backgroundColor = .green
 					}
@@ -154,7 +154,7 @@ struct ControlsShowcase: View {
 				#if os(iOS) || os(tvOS) || os(visionOS)
 				.introspect(
 					.picker(style: .segmented),
-					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
+					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
 				) { datePicker in
 					datePicker.backgroundColor = .red
 				}

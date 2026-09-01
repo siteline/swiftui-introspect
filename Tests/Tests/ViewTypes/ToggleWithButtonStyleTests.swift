@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ToggleWithButtonStyleTests {
 	typealias PlatformToggleWithButtonStyle = NSButton
 

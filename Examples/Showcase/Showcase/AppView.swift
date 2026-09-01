@@ -7,7 +7,7 @@ struct AppView: View {
 			#if os(iOS) || os(tvOS) || os(visionOS)
 			.introspect(
 				.window,
-				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)
+				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
 			) { window in
 				window.backgroundColor = .brown
 			}

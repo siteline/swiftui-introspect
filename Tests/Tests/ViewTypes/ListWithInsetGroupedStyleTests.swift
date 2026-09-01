@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ListWithInsetGroupedStyleTests {
 	typealias PlatformListWithInsetGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
 

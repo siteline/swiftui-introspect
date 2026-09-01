@@ -4,12 +4,11 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ButtonTests {
 	typealias PlatformButton = NSButton
 
 	@available(macOS, introduced: 10.15, obsoleted: 26.0)
-	@Test func introspectButtonsBeforeMacOS26() async throws {
+	@Test func `introspect buttons before macOS 26`() async throws {
 		let (entity1, entity2, entity3, entity4) = try await introspection(of: PlatformButton.self) { spy1, spy2, spy3, spy4 in
 			VStack {
 				Button("Plain Button", action: {})
@@ -32,7 +31,7 @@ struct ButtonTests {
 	}
 
 	@available(macOS 26, *)
-	@Test func introspectButtonsOnMacOS26() async throws {
+	@Test func `introspect buttons on macOS 26`() async throws {
 		let (entity1, entity2) = try await introspection(of: NSButton.self) { spy1, spy2 in
 			VStack {
 				Button("Borderless Button", action: {})

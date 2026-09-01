@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct PopoverTests {
 	@Test func introspect() async throws {
 		try await introspection(of: UIPopoverPresentationController.self) { spy in
@@ -14,7 +13,7 @@ struct PopoverTests {
 						.introspect(
 							.popover,
 							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
-							customize: spy
+							customize: spy,
 						)
 				}
 		}

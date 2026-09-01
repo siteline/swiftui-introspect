@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct TabViewWithPageStyleTests {
 	typealias PlatformTabViewWithPageStyle = UICollectionView
 
@@ -19,7 +18,7 @@ struct TabViewWithPageStyleTests {
 		}
 	}
 
-	@Test func introspectAsAncestor() async throws {
+	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformTabViewWithPageStyle.self) { spy in
 			TabView {
 				Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)

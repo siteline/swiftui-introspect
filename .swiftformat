@@ -26,4 +26,5 @@
 --disable redundantViewBuilder
 --disable unusedArguments
 --disable wrapFunctionBodies
+--disable wrapIfStatementBodies
 --disable wrapPropertyBodies

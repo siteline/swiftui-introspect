@@ -1,9 +1,8 @@
 @_spi(Internals) import SwiftUIIntrospect
 import Testing
 
-@Suite
 struct PlatformVersionTests {
-	@Test func iOS_isCurrent() {
+	@Test func `iOS is current`() {
 		#if os(iOS)
 		if #available(iOS 27, *) {
 			#expect(iOSVersion.v27.isCurrent == true)
@@ -84,7 +83,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func iOS_isCurrentOrPast() {
+	@Test func `iOS is current or past`() {
 		#if os(iOS)
 		if #available(iOS 27, *) {
 			#expect(iOSVersion.v27.isCurrentOrPast == true)
@@ -165,7 +164,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func macOS_isCurrent() {
+	@Test func `macOS is current`() {
 		#if os(macOS)
 		if #available(macOS 27, *) {
 			#expect(macOSVersion.v27.isCurrent == true)
@@ -246,7 +245,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func macOS_isCurrentOrPast() {
+	@Test func `macOS is current or past`() {
 		#if os(macOS)
 		if #available(macOS 27, *) {
 			#expect(macOSVersion.v27.isCurrentOrPast == true)
@@ -327,7 +326,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func tvOS_isCurrent() {
+	@Test func `tvOS is current`() {
 		#if os(tvOS)
 		if #available(tvOS 27, *) {
 			#expect(tvOSVersion.v27.isCurrent == true)
@@ -409,7 +408,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func tvOS_isCurrentOrPast() {
+	@Test func `tvOS is current or past`() {
 		#if os(tvOS)
 		if #available(tvOS 27, *) {
 			#expect(tvOSVersion.v27.isCurrentOrPast == true)
@@ -490,7 +489,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func visionOS_isCurrent() {
+	@Test func `visionOS is current`() {
 		#if os(visionOS)
 		if #available(visionOS 27, *) {
 			#expect(visionOSVersion.v27.isCurrent == true)
@@ -521,7 +520,7 @@ struct PlatformVersionTests {
 		#endif
 	}
 
-	@Test func visionOS_isCurrentOrPast() {
+	@Test func `visionOS is current or past`() {
 		#if os(visionOS)
 		if #available(visionOS 27, *) {
 			#expect(visionOSVersion.v27.isCurrentOrPast == true)

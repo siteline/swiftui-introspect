@@ -3,7 +3,6 @@ import SwiftUI
 import Testing
 
 @MainActor
-@Suite
 struct ViewTests {
 	@Test func introspect() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformView.self) { spy1, spy2 in

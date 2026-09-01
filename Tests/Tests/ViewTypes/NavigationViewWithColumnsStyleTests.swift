@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct NavigationViewWithColumnsStyleTests {
 	#if canImport(UIKit) && (os(iOS) || os(visionOS))
 	typealias PlatformNavigationViewWithColumnsStyle = UISplitViewController
@@ -33,7 +32,7 @@ struct NavigationViewWithColumnsStyleTests {
 	}
 
 	#if !targetEnvironment(macCatalyst)
-	@Test func introspectAsAncestor() async throws {
+	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformNavigationViewWithColumnsStyle.self) { spy in
 			NavigationView {
 				ZStack {

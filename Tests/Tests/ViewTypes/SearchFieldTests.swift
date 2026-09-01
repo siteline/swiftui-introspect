@@ -4,13 +4,12 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct SearchFieldTests {
 	typealias PlatformSearchField = UISearchBar
 
 	@available(iOS 15, tvOS 15, *)
 	@Test(.`disabled on iOS 26+ except for iPad`())
-	func introspectInNavigationStack() async throws {
+	func `introspect in navigation stack`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			NavigationView {
 				Text("Customized")
@@ -22,7 +21,7 @@ struct SearchFieldTests {
 	}
 
 	@available(iOS 26, tvOS 15, *)
-	@Test func introspectInNavigationStackInTabView() async throws {
+	@Test func `introspect in navigation stack in tab view`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			TabView {
 				NavigationView {
@@ -37,7 +36,7 @@ struct SearchFieldTests {
 
 	@available(iOS 15, tvOS 15, *)
 	@Test(.`disabled on iOS 26+ except for iPad`())
-	func introspectInNavigationStackAsAncestor() async throws {
+	func `introspect in navigation stack as ancestor`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			NavigationView {
 				Text("Customized")
@@ -49,7 +48,7 @@ struct SearchFieldTests {
 	}
 
 	@available(iOS 26, tvOS 15, *)
-	@Test func introspectInNavigationStackInTabViewAsAncestor() async throws {
+	@Test func `introspect in navigation stack in tab view as ancestor`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			TabView {
 				NavigationView {
@@ -64,7 +63,7 @@ struct SearchFieldTests {
 
 	@available(iOS 15, tvOS 15, *)
 	@Test(.`disabled on iOS 26+ except for iPad`())
-	func introspectInNavigationSplitView() async throws {
+	func `introspect in navigation split view`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			NavigationView {
 				Text("Customized")
@@ -82,7 +81,7 @@ struct SearchFieldTests {
 	}
 
 	@available(iOS 26, tvOS 15, *)
-	@Test func introspectInNavigationSplitViewInTabView() async throws {
+	@Test func `introspect in navigation split view in tab view`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			TabView {
 				NavigationView {
@@ -103,7 +102,7 @@ struct SearchFieldTests {
 
 	@available(iOS 15, tvOS 15, *)
 	@Test(.`disabled on iOS 26+ except for iPad`())
-	func introspectInNavigationSplitViewAsAncestor() async throws {
+	func `introspect in navigation split view as ancestor`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			NavigationView {
 				Text("Customized")
@@ -121,7 +120,7 @@ struct SearchFieldTests {
 	}
 
 	@available(iOS 26, tvOS 15, *)
-	@Test func introspectInNavigationSplitViewInTabViewAsAncestor() async throws {
+	@Test func `introspect in navigation split view in tab view as ancestor`() async throws {
 		try await introspection(of: PlatformSearchField.self) { spy in
 			TabView {
 				NavigationView {

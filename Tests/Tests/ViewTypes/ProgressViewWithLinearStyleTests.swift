@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ProgressViewWithLinearStyleTests {
 	#if canImport(UIKit)
 	typealias PlatformProgressViewWithLinearStyle = UIProgressView

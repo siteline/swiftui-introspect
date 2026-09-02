@@ -14,11 +14,12 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Lint
-    permissions:
-      contents: read
     runs-on: macos-latest
     steps:
       - name: Git Checkout

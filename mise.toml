@@ -1,4 +1,6 @@
-[settings]
+min_version = "2026.8.6"
+
+[tool_config]
 locked = true
 
 [tools]

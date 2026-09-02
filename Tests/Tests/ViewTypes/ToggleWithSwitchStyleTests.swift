@@ -18,7 +18,11 @@ struct ToggleWithSwitchStyleTests {
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.switch)
 					#if os(iOS)
-					.introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy1)
+					.introspect(
+						.toggle(style: .switch),
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						customize: spy1,
+					)
 					#elseif os(macOS)
 					.introspect(
 						.toggle(style: .switch),
@@ -30,7 +34,11 @@ struct ToggleWithSwitchStyleTests {
 				Toggle("", isOn: .constant(false))
 					.toggleStyle(.switch)
 					#if os(iOS)
-					.introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy2)
+					.introspect(
+						.toggle(style: .switch),
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						customize: spy2,
+					)
 					#elseif os(macOS)
 					.introspect(
 						.toggle(style: .switch),
@@ -42,7 +50,11 @@ struct ToggleWithSwitchStyleTests {
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.switch)
 					#if os(iOS)
-					.introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy3)
+					.introspect(
+						.toggle(style: .switch),
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						customize: spy3,
+					)
 					#elseif os(macOS)
 					.introspect(
 						.toggle(style: .switch),

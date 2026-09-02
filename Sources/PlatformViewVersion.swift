@@ -23,7 +23,9 @@ public struct PlatformViewVersionPredicate<
 	}
 
 	@_spi(Advanced)
-	public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>)
+		-> Self
+	{
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 

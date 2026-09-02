@@ -71,13 +71,21 @@ struct ListShowcase: View {
 					Text("Item 1")
 					Text("Item 2")
 						#if os(iOS) || os(tvOS) || os(visionOS)
-						.introspect(.list, on: .iOS(.v15), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor) { tableView in
+						.introspect(
+							.list,
+							on: .iOS(.v15),
+							.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+							scope: .ancestor,
+						) { tableView in
 							tableView.backgroundView = UIView()
 							tableView.backgroundColor = .cyan
 						}
-						.introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
-						            scope: .ancestor)
-						{ collectionView in
+						.introspect(
+							.list,
+							on: .iOS(.v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+						) { collectionView in
 							DispatchQueue.main.async {
 								ancestorListFound = true
 							}

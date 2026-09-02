@@ -54,7 +54,8 @@ struct SUTView: PlatformViewControllerRepresentable {
 		let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		widthConstraint.priority = .defaultLow
 
-		let heightConstraint = controller.view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+		let heightConstraint = controller.view.heightAnchor
+			.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		heightConstraint.priority = .defaultLow
 
 		NSLayoutConstraint.activate([widthConstraint, heightConstraint])

@@ -27,7 +27,11 @@ struct ListWithSidebarStyleTests {
 					customize: spy1,
 				)
 				#elseif os(macOS)
-				.introspect(.list(style: .sidebar), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
+				.introspect(
+					.list(style: .sidebar),
+					on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+					customize: spy1,
+				)
 				#endif
 
 				List {

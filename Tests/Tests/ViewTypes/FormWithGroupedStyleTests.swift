@@ -40,9 +40,19 @@ struct FormWithGroupedStyleTests {
 							scope: .ancestor,
 							customize: spy2,
 						)
-						.introspect(.form(style: .grouped), on: .tvOS(.v16, .v17, .v18, .v26, .v27), scope: .ancestor, customize: spy2)
+						.introspect(
+							.form(style: .grouped),
+							on: .tvOS(.v16, .v17, .v18, .v26, .v27),
+							scope: .ancestor,
+							customize: spy2,
+						)
 						#elseif os(macOS)
-						.introspect(.form(style: .grouped), on: .macOS(.v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)
+						.introspect(
+							.form(style: .grouped),
+							on: .macOS(.v13, .v14, .v15, .v26, .v27),
+							scope: .ancestor,
+							customize: spy2,
+						)
 						#endif
 				}
 				.formStyle(.grouped)

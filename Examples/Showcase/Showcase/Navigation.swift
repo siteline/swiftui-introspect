@@ -30,7 +30,14 @@ struct NavigationShowcase: View {
 		) { splitViewController in
 			splitViewController.preferredDisplayMode = .oneBesideSecondary
 		}
-		.introspect(.navigationView(style: .columns), on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) { navigationController in
+		.introspect(.navigationView(style: .columns), on: .tvOS(
+			.v15,
+			.v16,
+			.v17,
+			.v18,
+			.v26,
+			.v27,
+		)) { navigationController in
 			navigationController.navigationBar.backgroundColor = .cyan
 		}
 		.introspect(

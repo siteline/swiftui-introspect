@@ -62,7 +62,12 @@ struct NavigationSplitViewTests {
 						#elseif os(tvOS)
 						.introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
 						#elseif os(macOS)
-						.introspect(.navigationSplitView, on: .macOS(.v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.navigationSplitView,
+							on: .macOS(.v13, .v14, .v15, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#endif
 				}
 			} detail: {

@@ -4,6 +4,7 @@
 --header ignore
 --indent tab
 --maxwidth 120
+--tabwidth 2
 --ifdef no-indent
 --ranges preserve
 --extensionacl on-declarations

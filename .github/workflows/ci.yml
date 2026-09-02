@@ -31,7 +31,7 @@ jobs:
         uses: jdx/mise-action@v3
 
       - name: SwiftFormat Lint
-        run: mise exec --locked -- hk check --all
+        run: hk check --all
 
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')

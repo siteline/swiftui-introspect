@@ -41,7 +41,8 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27))
+/// {
 ///             print(type(of: $0)) // NSSplitView
 ///         }
 ///     }

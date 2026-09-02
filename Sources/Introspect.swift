@@ -58,7 +58,10 @@ extension View {
 	}
 }
 
-struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: ViewModifier {
+struct IntrospectModifier<
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+>: ViewModifier {
 	let id = IntrospectionViewID()
 	let scope: IntrospectionScope
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?

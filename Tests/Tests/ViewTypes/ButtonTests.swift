@@ -9,7 +9,8 @@ struct ButtonTests {
 
 	@available(macOS, introduced: 10.15, obsoleted: 26.0)
 	@Test func `introspect buttons before macOS 26`() async throws {
-		let (entity1, entity2, entity3, entity4) = try await introspection(of: PlatformButton.self) { spy1, spy2, spy3, spy4 in
+		let (entity1, entity2, entity3,
+		     entity4) = try await introspection(of: PlatformButton.self) { spy1, spy2, spy3, spy4 in
 			VStack {
 				Button("Plain Button", action: {})
 					.introspect(.button, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)

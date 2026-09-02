@@ -19,7 +19,12 @@ struct FormWithGroupedStyleTests {
 				}
 				.formStyle(.grouped)
 				#if os(iOS) || os(tvOS) || os(visionOS)
-				.introspect(.form(style: .grouped), on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
+				.introspect(
+					.form(style: .grouped),
+					on: .iOS(.v16, .v17, .v18, .v26, .v27),
+					.visionOS(.v1, .v2, .v26, .v27),
+					customize: spy1,
+				)
 				.introspect(.form(style: .grouped), on: .tvOS(.v16, .v17, .v18, .v26, .v27), customize: spy1)
 				#elseif os(macOS)
 				.introspect(.form(style: .grouped), on: .macOS(.v13, .v14, .v15, .v26, .v27), customize: spy1)
@@ -28,7 +33,13 @@ struct FormWithGroupedStyleTests {
 				Form {
 					Text("Item 1")
 						#if os(iOS) || os(tvOS) || os(visionOS)
-						.introspect(.form(style: .grouped), on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy2)
+						.introspect(
+							.form(style: .grouped),
+							on: .iOS(.v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+							customize: spy2,
+						)
 						.introspect(.form(style: .grouped), on: .tvOS(.v16, .v17, .v18, .v26, .v27), scope: .ancestor, customize: spy2)
 						#elseif os(macOS)
 						.introspect(.form(style: .grouped), on: .macOS(.v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)

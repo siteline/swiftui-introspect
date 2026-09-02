@@ -17,7 +17,12 @@ struct PickerWithWheelStyleTests {
 				}
 				.pickerStyle(.wheel)
 				#if os(iOS) || os(visionOS)
-				.introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+					.visionOS(.v1, .v2, .v26, .v27),
+					customize: spy1,
+				)
 				#endif
 				.cornerRadius(8)
 
@@ -27,7 +32,12 @@ struct PickerWithWheelStyleTests {
 				}
 				.pickerStyle(.wheel)
 				#if os(iOS) || os(visionOS)
-				.introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+					.visionOS(.v1, .v2, .v26, .v27),
+					customize: spy2,
+				)
 				#endif
 				.cornerRadius(8)
 
@@ -38,7 +48,12 @@ struct PickerWithWheelStyleTests {
 				}
 				.pickerStyle(.wheel)
 				#if os(iOS) || os(visionOS)
-				.introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+					.visionOS(.v1, .v2, .v26, .v27),
+					customize: spy3,
+				)
 				#endif
 			}
 		}

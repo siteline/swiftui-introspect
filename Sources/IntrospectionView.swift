@@ -51,7 +51,10 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
 
 	func updatePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, context: Context) {}
 
-	static func dismantlePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, coordinator: Coordinator) {}
+	static func dismantlePlatformViewController(
+		_ controller: IntrospectionAnchorPlatformViewController,
+		coordinator: Coordinator,
+	) {}
 }
 
 final class IntrospectionAnchorPlatformViewController: PlatformViewController {
@@ -129,7 +132,10 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 		customize(target)
 	}
 
-	static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
+	static func dismantlePlatformViewController(
+		_ controller: IntrospectionPlatformViewController,
+		coordinator: Coordinator,
+	) {
 		controller.handler = nil
 		IntrospectionStore.shared.removeValue(forKey: controller.id)
 	}

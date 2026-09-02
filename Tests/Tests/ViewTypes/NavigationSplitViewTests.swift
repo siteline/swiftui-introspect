@@ -28,7 +28,12 @@ struct NavigationSplitViewTests {
 				}
 			}
 			#if os(iOS) || os(visionOS)
-			.introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+			.introspect(
+				.navigationSplitView,
+				on: .iOS(.v16, .v17, .v18, .v26, .v27),
+				.visionOS(.v1, .v2, .v26, .v27),
+				customize: spy,
+			)
 			#elseif os(tvOS)
 			.introspect(.navigationSplitView, on: .tvOS(.v16, .v17), customize: spy)
 			#elseif os(macOS)
@@ -47,7 +52,13 @@ struct NavigationSplitViewTests {
 					Color.red
 					Text("Sidebar")
 						#if os(iOS) || os(visionOS)
-						.introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.navigationSplitView,
+							on: .iOS(.v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#elseif os(tvOS)
 						.introspect(.navigationSplitView, on: .tvOS(.v16, .v17), scope: .ancestor, customize: spy)
 						#elseif os(macOS)

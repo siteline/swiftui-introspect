@@ -16,32 +16,60 @@ struct DatePickerWithGraphicalStyleTests {
 		let date2 = Date(timeIntervalSince1970: 3600 * 24 * 1)
 		let date3 = Date(timeIntervalSince1970: 3600 * 24 * 2)
 
-		let (entity1, entity2, entity3) = try await introspection(of: PlatformDatePickerWithGraphicalStyle.self) { spy1, spy2, spy3 in
+		let (entity1, entity2,
+		     entity3) = try await introspection(of: PlatformDatePickerWithGraphicalStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				DatePicker("", selection: .constant(date1))
 					.datePickerStyle(.graphical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy1)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
+						customize: spy1,
+					)
 					#elseif os(macOS)
-					.introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						customize: spy1,
+					)
 					#endif
 					.cornerRadius(8)
 
 				DatePicker("", selection: .constant(date2))
 					.datePickerStyle(.graphical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy2)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
+						customize: spy2,
+					)
 					#elseif os(macOS)
-					.introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						customize: spy2,
+					)
 					#endif
 					.cornerRadius(8)
 
 				DatePicker("", selection: .constant(date3))
 					.datePickerStyle(.graphical)
 					#if os(iOS) || os(visionOS)
-					.introspect(.datePicker(style: .graphical), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy3)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
+						customize: spy3,
+					)
 					#elseif os(macOS)
-					.introspect(.datePicker(style: .graphical), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
+					.introspect(
+						.datePicker(style: .graphical),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						customize: spy3,
+					)
 					#endif
 			}
 		}

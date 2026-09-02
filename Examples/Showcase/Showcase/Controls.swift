@@ -15,7 +15,12 @@ struct ControlsShowcase: View {
 					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(
 						.textField,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(
+							.v1,
+							.v2,
+							.v26,
+							.v27,
+						),
 					) { textField in
 						textField.backgroundColor = .red
 					}
@@ -30,7 +35,12 @@ struct ControlsShowcase: View {
 					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(
 						.textField,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(
+							.v1,
+							.v2,
+							.v26,
+							.v27,
+						),
 					) { textField in
 						textField.backgroundColor = .green
 					}
@@ -133,7 +143,12 @@ struct ControlsShowcase: View {
 					Text("DatePicker Red")
 				}
 				#if os(iOS) || os(visionOS)
-				.introspect(.datePicker, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27)) { datePicker in
+				.introspect(.datePicker, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(
+					.v1,
+					.v2,
+					.v26,
+					.v27,
+				)) { datePicker in
 					datePicker.backgroundColor = .red
 				}
 				#elseif os(macOS)
@@ -154,7 +169,12 @@ struct ControlsShowcase: View {
 				#if os(iOS) || os(tvOS) || os(visionOS)
 				.introspect(
 					.picker(style: .segmented),
-					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(
+						.v1,
+						.v2,
+						.v26,
+						.v27,
+					),
 				) { datePicker in
 					datePicker.backgroundColor = .red
 				}

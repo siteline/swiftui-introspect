@@ -1,7 +1,10 @@
 import SwiftUI
 
 @MainActor
-public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+public struct PlatformViewVersionPredicate<
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+> {
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
 	private init<Version: PlatformVersion>(
@@ -29,7 +32,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 	}
 
 	@_spi(Advanced)
-	public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>)
+		-> Self
+	{
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
@@ -38,7 +43,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 	}
 
 	@_spi(Advanced)
-	public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>)
+		-> Self
+	{
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
@@ -47,7 +54,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 	}
 
 	@_spi(Advanced)
-	public static func visionOS(_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func visionOS(_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType,
+		PlatformSpecificEntity>>) -> Self
+	{
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 }
@@ -62,7 +71,11 @@ public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, Pl
 	PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
 @MainActor
-public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: Sendable {
+public enum PlatformViewVersion<
+	Version: PlatformVersion,
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+>: Sendable {
 	@_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
 	@_spi(Internals) case unavailable
 

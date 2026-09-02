@@ -7,7 +7,12 @@ struct AppView: View {
 			#if os(iOS) || os(tvOS) || os(visionOS)
 			.introspect(
 				.window,
-				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(
+					.v1,
+					.v2,
+					.v26,
+					.v27,
+				),
 			) { window in
 				window.backgroundColor = .brown
 			}
@@ -46,7 +51,14 @@ struct ContentView: View {
 				.tag(5)
 		}
 		#if os(iOS) || os(tvOS)
-		.introspect(.tabView, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) { tabBarController in
+		.introspect(.tabView, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(
+			.v15,
+			.v16,
+			.v17,
+			.v18,
+			.v26,
+			.v27,
+		)) { tabBarController in
 			if #available(iOS 26, macOS 26, tvOS 26, *) {
 				tabBarController.tabBar.backgroundColor = .green
 			} else {

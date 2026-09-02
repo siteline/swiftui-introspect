@@ -21,7 +21,12 @@ struct TabViewTests {
 				}
 			}
 			#if os(iOS) || os(tvOS)
-			.introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy)
+			.introspect(
+				.tabView,
+				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+				.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+				customize: spy,
+			)
 			#elseif os(macOS)
 			.introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy)
 			#endif
@@ -36,7 +41,13 @@ struct TabViewTests {
 					Color.red
 					Text("Something")
 						#if os(iOS) || os(tvOS)
-						.introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.tabView,
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#elseif os(macOS)
 						.introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy)
 						#endif
@@ -56,7 +67,12 @@ struct TabViewTests {
 					}
 				}
 				#if os(iOS) || os(tvOS)
-				.introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy)
+				.introspect(
+					.tabView,
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+					customize: spy,
+				)
 				#elseif os(macOS)
 				.introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy)
 				#endif
@@ -73,9 +89,20 @@ struct TabViewTests {
 						Color.red
 						Text("Something")
 							#if os(iOS) || os(tvOS)
-							.introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor, customize: spy)
+							.introspect(
+								.tabView,
+								on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+								.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+								scope: .ancestor,
+								customize: spy,
+							)
 							#elseif os(macOS)
-							.introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy)
+							.introspect(
+								.tabView,
+								on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+								scope: .ancestor,
+								customize: spy,
+							)
 							#endif
 					}
 				}

@@ -52,7 +52,7 @@ extension View {
 		_ viewType: SwiftUIViewType,
 		on platforms: PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>...,
 		scope: IntrospectionScope? = nil,
-		customize: @escaping (PlatformSpecificEntity) -> Void
+		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) -> some View {
 		self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
 	}
@@ -69,7 +69,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 		_ viewType: SwiftUIViewType,
 		platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],
 		scope: IntrospectionScope?,
-		customize: @escaping (PlatformSpecificEntity) -> Void
+		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) {
 		self.scope = scope ?? viewType.scope
 		self.selector = platforms.lazy.compactMap(\.selector).first
@@ -87,17 +87,17 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 								.opacity(0)
 								.accessibility(hidden: true)
 						}
-					}
+					},
 				)
 				.background(
 					IntrospectionAnchorView(id: id)
 						.frame(width: 0, height: 0)
-						.accessibility(hidden: true)
+						.accessibility(hidden: true),
 				)
 				.overlay(
 					IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
 						.frame(width: 0, height: 0)
-						.accessibility(hidden: true)
+						.accessibility(hidden: true),
 				)
 		} else {
 			content
@@ -159,7 +159,7 @@ extension PlatformEntity {
 	}
 
 	func receiver<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		let frontEntity = self
 		guard
@@ -175,7 +175,7 @@ extension PlatformEntity {
 	}
 
 	func ancestor<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		self.ancestors
 			.firstPlatformEntity(ofType: PlatformSpecificEntity.self)
@@ -185,7 +185,7 @@ extension PlatformEntity {
 extension Sequence where Element: PlatformEntity {
 	@MainActor
 	func firstPlatformEntity<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		self.first {
 			$0 is PlatformSpecificEntity && !$0.isIntrospectionPlatformEntity

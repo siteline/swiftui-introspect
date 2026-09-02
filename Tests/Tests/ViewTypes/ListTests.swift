@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ListTests {
 	#if canImport(UIKit)
 	typealias PlatformList = UIScrollView // covers both UITableView and UICollectionView
@@ -39,7 +38,7 @@ struct ListTests {
 	}
 
 	#if !os(macOS)
-	@Test func introspectNested() async throws {
+	@Test func `introspect nested`() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformList.self) { spy1, spy2 in
 			List {
 				Text("Item 1")
@@ -61,7 +60,7 @@ struct ListTests {
 	}
 	#endif
 
-	@Test func introspectMasked() async throws {
+	@Test func `introspect masked`() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformList.self) { spy1, spy2 in
 			HStack {
 				List {

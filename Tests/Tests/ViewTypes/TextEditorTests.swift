@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct TextEditorTests {
 	#if canImport(UIKit)
 	typealias PlatformTextEditor = UITextView

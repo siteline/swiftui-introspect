@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ScrollViewTests {
 	#if canImport(UIKit)
 	typealias PlatformScrollView = UIScrollView
@@ -25,11 +24,11 @@ struct ScrollViewTests {
 
 				ScrollView(showsIndicators: true) {
 					Text("Item 1")
-					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy2)
-					#elseif os(macOS)
-					.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)
-					#endif
+						#if os(iOS) || os(tvOS) || os(visionOS)
+						.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy2)
+						#elseif os(macOS)
+						.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)
+						#endif
 				}
 			}
 		}
@@ -44,7 +43,7 @@ struct ScrollViewTests {
 		#expect(entity1 !== entity2)
 	}
 
-	@Test func introspectNested() async throws {
+	@Test func `introspect nested`() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
 			ScrollView(showsIndicators: true) {
 				Text("Item 1")
@@ -75,7 +74,7 @@ struct ScrollViewTests {
 		#expect(entity1 !== entity2)
 	}
 
-	@Test func introspectMasked() async throws {
+	@Test func `introspect masked`() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
 			HStack {
 				ScrollView(showsIndicators: false) {

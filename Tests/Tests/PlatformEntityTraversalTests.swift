@@ -1,10 +1,9 @@
-@_spi(Internals) @testable import SwiftUIIntrospect
 import Testing
+@_spi(Internals) @testable import SwiftUIIntrospect
 
 @MainActor
-@Suite
 struct PlatformEntityTraversalTests {
-	@Test func ancestorLookupStopsAfterFirstMatch() {
+	@Test func `ancestor lookup stops after first match`() {
 		let match = MatchingEntity(ancestor: Entity())
 		let entity = Entity(ancestor: match)
 
@@ -12,7 +11,7 @@ struct PlatformEntityTraversalTests {
 		#expect(match.ancestorAccessCount == 0)
 	}
 
-	@Test func boundedDescendantLookupStopsAfterFirstMatch() {
+	@Test func `bounded descendant lookup stops after first match`() {
 		let back = Entity()
 		let match = MatchingEntity()
 		let tail = Entity()
@@ -27,7 +26,7 @@ struct PlatformEntityTraversalTests {
 		#expect(tail.descendantsAccessCount == 0)
 	}
 
-	@Test func descendantLookupStopsAfterFirstMatch() {
+	@Test func `descendant lookup stops after first match`() {
 		let match = MatchingEntity()
 		let tail = Entity()
 		let root = Entity(descendants: [Entity(), match, tail])
@@ -37,7 +36,7 @@ struct PlatformEntityTraversalTests {
 		#expect(tail.descendantsAccessCount == 0)
 	}
 
-	@Test func lookupSkipsIntrospectionEntities() {
+	@Test func `lookup skips introspection entities`() {
 		let marker = MatchingEntity()
 		let match = MatchingEntity()
 		let entities: [Entity] = [marker, match]

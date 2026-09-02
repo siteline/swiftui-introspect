@@ -18,20 +18,12 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 			},
 			ancestorSelector: { controller in
 				controller.as(Entry.Base.self)?.ancestor(ofType: Entry.self).flatMap(selector)
-			}
+			},
 		)
 	}
 
 	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
-
-	private init(
-		receiverSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?,
-		ancestorSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?
-	) {
-		self.receiverSelector = receiverSelector
-		self.ancestorSelector = ancestorSelector
-	}
 
 	@_spi(Advanced)
 	public func withReceiverSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {

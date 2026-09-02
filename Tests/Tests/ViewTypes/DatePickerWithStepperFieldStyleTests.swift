@@ -4,7 +4,7 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite struct DatePickerWithStepperFieldStyleTests {
+struct DatePickerWithStepperFieldStyleTests {
 	typealias PlatformDatePickerWithStepperFieldStyle = NSDatePicker
 
 	@Test func introspect() async throws {

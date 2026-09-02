@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct FormTests {
 	#if canImport(UIKit)
 	typealias PlatformForm = UIScrollView // covers both UITableView and UICollectionView

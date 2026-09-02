@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct SecureFieldTests {
 	#if canImport(UIKit)
 	typealias PlatformSecureField = UITextField
@@ -49,7 +48,7 @@ struct SecureFieldTests {
 		#endif
 	}
 
-	@Test func introspectEmbeddedInList() async throws {
+	@Test func `introspect embedded in list`() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformSecureField.self) { spy1, spy2, spy3 in
 			List {
 				SecureField("", text: .constant("Secure Field 1"))

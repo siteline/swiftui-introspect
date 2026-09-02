@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct NavigationViewWithStackStyleTests {
 	typealias PlatformNavigationViewWithStackStyle = UINavigationController
 
@@ -21,7 +20,7 @@ struct NavigationViewWithStackStyleTests {
 		}
 	}
 
-	@Test func introspectAsAncestor() async throws {
+	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformNavigationViewWithStackStyle.self) { spy in
 			NavigationView {
 				ZStack {

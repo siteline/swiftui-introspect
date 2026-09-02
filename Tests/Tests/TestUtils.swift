@@ -31,7 +31,7 @@ enum TestUtils {
 		contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
 		styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
 		backing: .buffered,
-		defer: true
+		defer: true,
 	)
 
 	static func present(view: some View) {
@@ -49,8 +49,8 @@ func introspection<Entity: AnyObject & Sendable>(
 	timeout: TimeInterval = 3,
 	sourceLocation: SourceLocation = #_sourceLocation,
 	@ViewBuilder view: (
-		_ spy1: @escaping (Entity) -> Void
-	) -> some View
+		_ spy1: @escaping (Entity) -> Void,
+	) -> some View,
 ) async throws -> Entity {
 	var entity1: Entity?
 	return try await confirmation(expectedCount: 1..., sourceLocation: sourceLocation) { confirmation1 in
@@ -58,7 +58,7 @@ func introspection<Entity: AnyObject & Sendable>(
 			{
 				confirmation1()
 				entity1 = $0
-			}
+			},
 		)
 
 		TestUtils.present(view: view)
@@ -83,8 +83,8 @@ func introspection<Entity: AnyObject & Sendable>(
 	sourceLocation: SourceLocation = #_sourceLocation,
 	@ViewBuilder view: (
 		_ spy1: @escaping (Entity) -> Void,
-		_ spy2: @escaping (Entity) -> Void
-	) -> some View
+		_ spy2: @escaping (Entity) -> Void,
+	) -> some View,
 ) async throws -> (Entity, Entity) {
 	var entity1: Entity?
 	var entity2: Entity?
@@ -98,7 +98,7 @@ func introspection<Entity: AnyObject & Sendable>(
 				{
 					confirmation2()
 					entity2 = $0
-				}
+				},
 			)
 
 			TestUtils.present(view: view)
@@ -114,7 +114,7 @@ func introspection<Entity: AnyObject & Sendable>(
 
 			return try (
 				#require(entity1, sourceLocation: sourceLocation),
-				#require(entity2, sourceLocation: sourceLocation)
+				#require(entity2, sourceLocation: sourceLocation),
 			)
 		}
 	}
@@ -129,8 +129,8 @@ func introspection<Entity: AnyObject & Sendable>(
 	@ViewBuilder view: (
 		_ spy1: @escaping (Entity) -> Void,
 		_ spy2: @escaping (Entity) -> Void,
-		_ spy3: @escaping (Entity) -> Void
-	) -> some View
+		_ spy3: @escaping (Entity) -> Void,
+	) -> some View,
 ) async throws -> (Entity, Entity, Entity) {
 	var entity1: Entity?
 	var entity2: Entity?
@@ -150,7 +150,7 @@ func introspection<Entity: AnyObject & Sendable>(
 					{
 						confirmation3()
 						entity3 = $0
-					}
+					},
 				)
 
 				TestUtils.present(view: view)
@@ -168,7 +168,7 @@ func introspection<Entity: AnyObject & Sendable>(
 				return try (
 					#require(entity1, sourceLocation: sourceLocation),
 					#require(entity2, sourceLocation: sourceLocation),
-					#require(entity3, sourceLocation: sourceLocation)
+					#require(entity3, sourceLocation: sourceLocation),
 				)
 			}
 		}
@@ -185,8 +185,8 @@ func introspection<Entity: AnyObject & Sendable>(
 		_ spy1: @escaping (Entity) -> Void,
 		_ spy2: @escaping (Entity) -> Void,
 		_ spy3: @escaping (Entity) -> Void,
-		_ spy4: @escaping (Entity) -> Void
-	) -> some View
+		_ spy4: @escaping (Entity) -> Void,
+	) -> some View,
 ) async throws -> (Entity, Entity, Entity, Entity) {
 	var entity1: Entity?
 	var entity2: Entity?
@@ -212,7 +212,7 @@ func introspection<Entity: AnyObject & Sendable>(
 						{
 							confirmation4()
 							entity4 = $0
-						}
+						},
 					)
 
 					TestUtils.present(view: view)
@@ -232,7 +232,7 @@ func introspection<Entity: AnyObject & Sendable>(
 						#require(entity1, sourceLocation: sourceLocation),
 						#require(entity2, sourceLocation: sourceLocation),
 						#require(entity3, sourceLocation: sourceLocation),
-						#require(entity4, sourceLocation: sourceLocation)
+						#require(entity4, sourceLocation: sourceLocation),
 					)
 				}
 			}

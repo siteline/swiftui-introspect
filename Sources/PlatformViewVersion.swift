@@ -6,7 +6,7 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 
 	private init<Version: PlatformVersion>(
 		_ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>],
-		matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
+		matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool,
 	) {
 		if let matchingVersion = versions.first(where: matches) {
 			self.selector = matchingVersion.selector ?? .default
@@ -82,7 +82,7 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 			Please report it upstream so we can properly fix it by using the following link:
 
 			https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
-			"""
+			""",
 		)
 		return .unavailable
 	}

@@ -19,7 +19,12 @@ struct ListWithBorderedStyleTests {
 
 				List {
 					Text("Item 1")
-						.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy2)
+						.introspect(
+							.list(style: .bordered),
+							on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27),
+							scope: .ancestor,
+							customize: spy2,
+						)
 				}
 				.listStyle(.bordered)
 			}

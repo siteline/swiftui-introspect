@@ -22,11 +22,24 @@ struct NavigationViewWithColumnsStyleTests {
 			}
 			.navigationViewStyle(DoubleColumnNavigationViewStyle())
 			#if os(iOS) || os(visionOS)
-			.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+			.introspect(
+				.navigationView(style: .columns),
+				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+				.visionOS(.v1, .v2, .v26, .v27),
+				customize: spy,
+			)
 			#elseif os(tvOS)
-			.introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy)
+			.introspect(
+				.navigationView(style: .columns),
+				on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+				customize: spy,
+			)
 			#elseif os(macOS)
-			.introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy)
+			.introspect(
+				.navigationView(style: .columns),
+				on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+				customize: spy,
+			)
 			#endif
 		}
 	}
@@ -39,11 +52,27 @@ struct NavigationViewWithColumnsStyleTests {
 					Color.red
 					Text("Something")
 						#if os(iOS) || os(visionOS)
-						.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.navigationView(style: .columns),
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#elseif os(tvOS)
-						.introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.navigationView(style: .columns),
+							on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#elseif os(macOS)
-						.introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.navigationView(style: .columns),
+							on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 						#endif
 				}
 			}

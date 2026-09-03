@@ -16,7 +16,13 @@ struct SearchFieldTests {
 					.searchable(text: .constant(""))
 			}
 			.navigationViewStyle(.stack)
-			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+			.introspect(
+				.searchField,
+				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.visionOS(.v1, .v2, .v26, .v27),
+				customize: spy,
+			)
 		}
 	}
 
@@ -30,7 +36,13 @@ struct SearchFieldTests {
 				}
 				.navigationViewStyle(.stack)
 			}
-			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+			.introspect(
+				.searchField,
+				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.visionOS(.v1, .v2, .v26, .v27),
+				customize: spy,
+			)
 		}
 	}
 
@@ -41,7 +53,14 @@ struct SearchFieldTests {
 			NavigationView {
 				Text("Customized")
 					.searchable(text: .constant(""))
-					.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+					.introspect(
+						.searchField,
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
+						scope: .ancestor,
+						customize: spy,
+					)
 			}
 			.navigationViewStyle(.stack)
 		}
@@ -54,7 +73,14 @@ struct SearchFieldTests {
 				NavigationView {
 					Text("Customized")
 						.searchable(text: .constant(""))
-						.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.searchField,
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+							.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 				}
 				.navigationViewStyle(.stack)
 			}
@@ -70,7 +96,13 @@ struct SearchFieldTests {
 					.searchable(text: .constant(""))
 			}
 			.navigationViewStyle(DoubleColumnNavigationViewStyle())
-			.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+			.introspect(
+				.searchField,
+				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+				.visionOS(.v1, .v2, .v26, .v27),
+				customize: spy,
+			)
 			#if os(iOS)
 			// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 			.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
@@ -89,7 +121,13 @@ struct SearchFieldTests {
 						.searchable(text: .constant(""))
 				}
 				.navigationViewStyle(DoubleColumnNavigationViewStyle())
-				.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), customize: spy)
+				.introspect(
+					.searchField,
+					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+					.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+					.visionOS(.v1, .v2, .v26, .v27),
+					customize: spy,
+				)
 				#if os(iOS)
 				// NB: this is necessary for introspection to work, because on iPad the search field is in the sidebar, which is initially hidden.
 				.introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
@@ -107,7 +145,14 @@ struct SearchFieldTests {
 			NavigationView {
 				Text("Customized")
 					.searchable(text: .constant(""))
-					.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+					.introspect(
+						.searchField,
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
+						scope: .ancestor,
+						customize: spy,
+					)
 			}
 			.navigationViewStyle(DoubleColumnNavigationViewStyle())
 			#if os(iOS)
@@ -126,7 +171,14 @@ struct SearchFieldTests {
 				NavigationView {
 					Text("Customized")
 						.searchable(text: .constant(""))
-						.introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27), scope: .ancestor, customize: spy)
+						.introspect(
+							.searchField,
+							on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+							.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+							.visionOS(.v1, .v2, .v26, .v27),
+							scope: .ancestor,
+							customize: spy,
+						)
 				}
 				.navigationViewStyle(DoubleColumnNavigationViewStyle())
 				#if os(iOS)
@@ -143,11 +195,12 @@ struct SearchFieldTests {
 @MainActor
 extension Trait where Self == ConditionTrait {
 	static func `disabled on iOS 26+ except for iPad`(sourceLocation: SourceLocation = #_sourceLocation) -> Self {
-		let disabled = if #available(iOS 26, *) {
-			UIDevice.current.userInterfaceIdiom != .pad
-		} else {
-			false
-		}
+		let disabled =
+			if #available(iOS 26, *) {
+				UIDevice.current.userInterfaceIdiom != .pad
+			} else {
+				false
+			}
 		return .disabled(if: disabled, "Disabled on iOS 26+ except for iPad", sourceLocation: sourceLocation)
 	}
 }

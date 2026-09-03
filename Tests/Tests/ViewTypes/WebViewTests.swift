@@ -13,21 +13,30 @@ struct WebViewTests {
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26, .v27), .tvOS(.v26, .v27), .macOS(.v26, .v27), .visionOS(.v26, .v27),
+						on: .iOS(.v26, .v27),
+						.tvOS(.v26, .v27),
+						.macOS(.v26, .v27),
+						.visionOS(.v26, .v27),
 						customize: spy1,
 					)
 
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26, .v27), .tvOS(.v26, .v27), .macOS(.v26, .v27), .visionOS(.v26, .v27),
+						on: .iOS(.v26, .v27),
+						.tvOS(.v26, .v27),
+						.macOS(.v26, .v27),
+						.visionOS(.v26, .v27),
 						customize: spy2,
 					)
 
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26, .v27), .tvOS(.v26, .v27), .macOS(.v26, .v27), .visionOS(.v26, .v27),
+						on: .iOS(.v26, .v27),
+						.tvOS(.v26, .v27),
+						.macOS(.v26, .v27),
+						.visionOS(.v26, .v27),
 						customize: spy3,
 					)
 			}

@@ -11,7 +11,9 @@ struct UIViewRepresentableShowcase: View {
 					#if os(iOS) || os(tvOS) || os(visionOS)
 					.introspect(
 						.view,
-						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
 					) { view in
 						view.backgroundColor = UIColor(color)
 					}
@@ -26,7 +28,9 @@ struct UIViewRepresentableShowcase: View {
 		#if os(iOS) || os(tvOS) || os(visionOS)
 		.introspect(
 			.view,
-			on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v15, .v16, .v17, .v18, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+			on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
+			.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
+			.visionOS(.v1, .v2, .v26, .v27),
 		) { view in
 			view.backgroundColor = .red
 		}
@@ -53,7 +57,9 @@ struct GenericViewRepresentable: PlatformViewControllerRepresentable {
 		let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		widthConstraint.priority = .defaultLow
 
-		let heightConstraint = controller.view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+		let heightConstraint = controller.view
+			.heightAnchor
+			.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		heightConstraint.priority = .defaultLow
 
 		NSLayoutConstraint.activate([widthConstraint, heightConstraint])

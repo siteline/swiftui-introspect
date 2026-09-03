@@ -3,14 +3,24 @@
 
 --header ignore
 --indent tab
+--tabwidth 2
+--maxwidth 120
 --ifdef no-indent
 --ranges preserve
 --extensionacl on-declarations
 --trailing-commas always
 --nil-init insert
---import-grouping testable-last
+--import-grouping alpha
+--wrap-arguments before-first
 --wrap-conditions before-first
+--wrap-parameters before-first
+--wrap-return-type never
 --guard-else next-line
+
+# Opt-in rules
+--enable blockComments
+--enable wrapMultilineConditionalAssignment
+--enable wrapMultilineFunctionChains
 
 # Disabled rules
 --disable blankLinesAroundMark

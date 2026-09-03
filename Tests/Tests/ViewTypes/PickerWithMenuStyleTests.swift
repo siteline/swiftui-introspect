@@ -8,7 +8,11 @@ struct PickerWithMenuStyleTests {
 	typealias PlatformPickerWithMenuStyle = NSPopUpButton
 
 	@Test func introspect() async throws {
-		let (entity1, entity2, entity3) = try await introspection(of: PlatformPickerWithMenuStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformPickerWithMenuStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				Picker("Pick", selection: .constant("1")) {
 					Text("1").tag("1")

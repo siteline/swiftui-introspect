@@ -10,27 +10,39 @@ struct MapTests {
 
 	@Test func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformMap.self) { spy1, spy2, spy3 in
-			let region = Binding.constant(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
+			let region = Binding.constant(MKCoordinateRegion(
+				center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+				span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+			))
 
 			VStack {
 				Map(coordinateRegion: region)
 					.introspect(
 						.map,
-						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
 						customize: spy1,
 					)
 
 				Map(coordinateRegion: region)
 					.introspect(
 						.map,
-						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
 						customize: spy2,
 					)
 
 				Map(coordinateRegion: region)
 					.introspect(
 						.map,
-						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27), .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27), .visionOS(.v1, .v2, .v26, .v27),
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),
+						.macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						.visionOS(.v1, .v2, .v26, .v27),
 						customize: spy3,
 					)
 			}

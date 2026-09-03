@@ -17,6 +17,7 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
     - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
+- [Development](#development)
 - [Note for library authors](#note-for-library-authors)
 - [Community projects](#community-projects)
 
@@ -326,6 +327,16 @@ struct ContentView: View {
 		}
 	}
 }
+```
+
+Development
+-----------
+
+Install [Mise](https://mise.jdx.dev/), then install the project tools and Git hooks:
+
+```sh
+mise install
+mise exec -- hk install --mise
 ```
 
 Note for library authors

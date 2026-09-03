@@ -29,8 +29,10 @@
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.compact)
-///             .introspect(.datePicker(style: .compact), on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14, .v15, .v26,
-/// .v27)) {
+///             .introspect(
+///                 .datePicker(style: .compact),
+///                 on: .macOS(.v10_15_4, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+///             ) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
 ///     }

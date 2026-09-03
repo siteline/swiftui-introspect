@@ -5,14 +5,24 @@
 --indent tab
 --tabwidth 2
 --maxwidth 120
+--allow-partial-wrapping false
 --ifdef no-indent
 --ranges preserve
 --extensionacl on-declarations
 --trailing-commas always
 --nil-init insert
---import-grouping testable-last
+--import-grouping alpha
+--wrap-arguments before-first
 --wrap-conditions before-first
+--wrap-parameters before-first
+--wrap-return-type never
+--wrap-string-interpolation true
 --guard-else next-line
+
+# Opt-in rules
+--enable blockComments
+--enable wrapMultilineConditionalAssignment
+--enable wrapMultilineFunctionChains
 
 # Disabled rules
 --disable blankLinesAroundMark

@@ -11,8 +11,11 @@ struct ProgressViewWithCircularStyleTests {
 	#endif
 
 	@Test func introspect() async throws {
-		let (entity1, entity2,
-		     entity3) = try await introspection(of: PlatformProgressViewWithCircularStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformProgressViewWithCircularStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				ProgressView(value: 0.25)
 					.progressViewStyle(.circular)

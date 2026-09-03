@@ -12,8 +12,11 @@ struct DatePickerWithWheelStyleTests {
 		let date2 = Date(timeIntervalSince1970: 5)
 		let date3 = Date(timeIntervalSince1970: 10)
 
-		let (entity1, entity2,
-		     entity3) = try await introspection(of: PlatformDatePickerWithWheelStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformDatePickerWithWheelStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				DatePicker("", selection: .constant(date1))
 					.datePickerStyle(.wheel)

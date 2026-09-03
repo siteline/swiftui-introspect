@@ -16,8 +16,11 @@ struct DatePickerWithGraphicalStyleTests {
 		let date2 = Date(timeIntervalSince1970: 3600 * 24 * 1)
 		let date3 = Date(timeIntervalSince1970: 3600 * 24 * 2)
 
-		let (entity1, entity2,
-		     entity3) = try await introspection(of: PlatformDatePickerWithGraphicalStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformDatePickerWithGraphicalStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				DatePicker("", selection: .constant(date1))
 					.datePickerStyle(.graphical)

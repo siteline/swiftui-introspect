@@ -4,8 +4,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
-/// span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -20,8 +22,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
-/// span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -36,8 +40,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
-/// span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -52,8 +58,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
-/// span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)

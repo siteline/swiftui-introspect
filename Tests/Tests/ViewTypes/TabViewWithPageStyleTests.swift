@@ -27,7 +27,9 @@ struct TabViewWithPageStyleTests {
 	@Test func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformTabViewWithPageStyle.self) { spy in
 			TabView {
-				Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+				Text("Page 1")
+					.frame(maxWidth: .infinity, maxHeight: .infinity)
+					.background(Color.red)
 					.introspect(
 						.tabView(style: .page),
 						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27),

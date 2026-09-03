@@ -12,8 +12,11 @@ struct ToggleWithSwitchStyleTests {
 	#endif
 
 	@Test func introspect() async throws {
-		let (entity1, entity2,
-		     entity3) = try await introspection(of: PlatformToggleWithSwitchStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformToggleWithSwitchStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.switch)

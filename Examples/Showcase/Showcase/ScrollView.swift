@@ -33,12 +33,7 @@ struct ScrollViewShowcase: View {
 				.scrollView,
 				on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 				.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
-				.visionOS(
-					.v1,
-					.v2,
-					.v26,
-					.v27,
-				),
+				.visionOS(.v1, .v2, .v26, .v27),
 			) { _ in
 				DispatchQueue.main.async {
 					receiverScrollViewFound = true
@@ -64,12 +59,7 @@ struct ScrollViewShowcase: View {
 						.scrollView,
 						on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 						.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
-						.visionOS(
-							.v1,
-							.v2,
-							.v26,
-							.v27,
-						),
+						.visionOS(.v1, .v2, .v26, .v27),
 						scope: .ancestor,
 					) { _ in
 						DispatchQueue.main.async {

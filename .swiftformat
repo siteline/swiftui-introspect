@@ -5,7 +5,6 @@
 --indent tab
 --tabwidth 2
 --maxwidth 120
---allow-partial-wrapping false
 --ifdef no-indent
 --ranges preserve
 --extensionacl on-declarations
@@ -16,7 +15,6 @@
 --wrap-conditions before-first
 --wrap-parameters before-first
 --wrap-return-type never
---wrap-string-interpolation true
 --guard-else next-line
 
 # Opt-in rules

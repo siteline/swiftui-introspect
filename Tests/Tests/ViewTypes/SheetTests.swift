@@ -14,16 +14,7 @@ struct SheetTests {
 						.introspect(
 							.sheet,
 							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
-							.tvOS(
-								.v13,
-								.v14,
-								.v15,
-								.v16,
-								.v17,
-								.v18,
-								.v26,
-								.v27,
-							),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
 							customize: spy,
 						)
 				}

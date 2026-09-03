@@ -1,0 +1,38 @@
+amends "package://github.com/jdx/hk/releases/download/v1.57.0/hk@1.57.0#/Config.pkl"
+
+local linters = new Mapping<String, Step> {
+  ["swiftformat"] {
+    glob = "**/*.swift"
+
+    check = new CommandSpec {
+      command = new Command {
+        argv = List("swiftformat", "--lint", "--reporter", "github-actions-log", "{{files}}")
+      }
+      effect = "read"
+    }
+
+    fix = new CommandSpec {
+      command = new Command {
+        argv = List("swiftformat", "{{files}}")
+      }
+      effect = "write"
+    }
+  }
+}
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = linters
+  }
+
+  ["check"] {
+    steps = linters
+  }
+
+  ["fix"] {
+    fix = true
+    steps = linters
+  }
+}

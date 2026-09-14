@@ -66,7 +66,7 @@ Install
 Add `SwiftUIIntrospect` to your Swift Package Manager dependencies:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0-beta"),
+.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0"),
 ```
 
 Then, add the dependency to your target:
@@ -345,7 +345,7 @@ Note for library authors
 If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"28.0.0-beta"),
+.package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"28.0.0"),
 ```
 
 A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.

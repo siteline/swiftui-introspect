@@ -22,7 +22,6 @@ public struct PlatformViewVersionPredicate<
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func iOS(
 		_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
@@ -33,7 +32,6 @@ public struct PlatformViewVersionPredicate<
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func tvOS(
 		_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
@@ -44,7 +42,6 @@ public struct PlatformViewVersionPredicate<
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func macOS(
 		_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
@@ -55,7 +52,6 @@ public struct PlatformViewVersionPredicate<
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func visionOS(
 		_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {

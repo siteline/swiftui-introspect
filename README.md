@@ -13,9 +13,9 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
 - [View Types](#view-types)
 - [Examples](#examples)
 - [General Guidelines](#general-guidelines)
+- [Introspect on future platform versions](#introspect-on-future-platform-versions)
 - [Advanced usage](#advanced-usage)
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
-    - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
 - [Development](#development)
 - [Note for library authors](#note-for-library-authors)
@@ -215,6 +215,29 @@ Here are some guidelines to keep in mind when using SwiftUI Introspect:
 - **Avoid retain cycles**: be cautious about capturing `self` or other strong references within the introspection closure, as this can lead to memory leaks. Use `[weak self]` or `[unowned self]` capture lists as appropriate.
 - **Scope**: `.introspect` targets its receiver by default. Use `scope: .ancestor` only when you need to introspect an ancestor. In general, you shouldn't worry about this as each view type has sensible, predictable default scopes.
 
+Introspect on future platform versions
+-------------------------------------
+
+By default, introspection targets specific platform versions. This is an intentional design decision to maintain maximum predictability in actively maintained apps. However library authors may prefer to cover future versions to limit their commitment to regular maintenance without breaking client apps. For that, SwiftUI Introspect provides range-based version predicates:
+
+```swift
+import SwiftUI
+import SwiftUIIntrospect
+
+struct ContentView: View {
+	var body: some View {
+		ScrollView {
+			// ...
+		}
+		.introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
+			// ...
+		}
+	}
+}
+```
+
+Use this cautiously. A range reuses its lower bound's selector on later OS versions. If the underlying view type changes, the customization closure may not run.
+
 Advanced usage
 --------------
 
@@ -285,28 +308,6 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 #endif
 ```
 
-### Introspect on future platform versions
-
-By default, introspection targets specific platform versions. This is an intentional design decision to maintain maximum predictability in actively maintained apps. However library authors may prefer to cover future versions to limit their commitment to regular maintenance without breaking client apps. For that, SwiftUI Introspect provides range-based version predicates via the Advanced SPI:
-
-```swift
-import SwiftUI
-@_spi(Advanced) import SwiftUIIntrospect
-
-struct ContentView: View {
-	var body: some View {
-		ScrollView {
-			// ...
-		}
-		.introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
-			// ...
-		}
-	}
-}
-```
-
-Use this cautiously. Future OS versions may change underlying types, in which case the customization closure will not run unless support is explicitly declared.
-
 ### Keep instances outside the customize closure
 
 Sometimes you need to keep an introspected instance beyond the customization closure. `@State` is not appropriate for this, as it can create retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
@@ -348,7 +349,9 @@ If your library depends on SwiftUI Introspect, declare a version range that span
 .package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"28.0.0"),
 ```
 
-A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.
+For public range-based predicates, use `"26.1.0"..<"28.0.0"`.
+
+A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. [Range-based version predicates](#introspect-on-future-platform-versions) let you opt into future platform versions without frequent version bumps, provided the underlying UIKit/AppKit types remain compatible.
 
 Community projects
 ------------------

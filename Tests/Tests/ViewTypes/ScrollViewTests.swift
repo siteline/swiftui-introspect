@@ -50,6 +50,30 @@ final class ScrollViewTests: XCTestCase {
         }
     }
 
+    func testScrollViewOnFuturePlatformVersions() {
+        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
+            let spy0 = spies[0]
+
+            ScrollView(showsIndicators: false) {
+                Text("Item 1")
+            }
+            #if os(iOS) || os(tvOS) || os(visionOS)
+            .introspect(.scrollView, on: .iOS(.v13...), .tvOS(.v13...), .visionOS(.v1...), customize: spy0)
+            #elseif os(macOS)
+            .introspect(.scrollView, on: .macOS(.v10_15...), customize: spy0)
+            #endif
+        } extraAssertions: {
+            #if canImport(UIKit)
+            XCTAssertEqual($0[safe: 0]?.showsVerticalScrollIndicator, false)
+            #elseif canImport(AppKit)
+            // FIXME: these assertions don't pass on macOS 12, not sure why... maybe callback is too premature in relation to view lifecycle?
+            if #available(macOS 13, *) {
+                XCTAssert($0[safe: 0]?.verticalScroller == nil)
+            }
+            #endif
+        }
+    }
+
     func testNestedScrollView() {
         XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
             let spy0 = spies[0]

@@ -62,7 +62,7 @@ Install
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.0.0"),
+        .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.4.0"),
     ],
     targets: [
         .target(name: <#Target Name#>, dependencies: [
@@ -70,12 +70,6 @@ let package = Package(
         ]),
     ]
 )
-```
-
-### CocoaPods
-
-```ruby
-pod 'SwiftUIIntrospect', '~> 1.0'
 ```
 
 Introspection
@@ -195,6 +189,31 @@ TextField("Text Field", text: <#Binding<String>#>)
     }
 ```
 
+Introspect on future platform versions
+-------------------------------------
+
+By default, introspection applies per specific platform version. Library developers can use range-based platform version predicates to opt into later OS versions, provided the underlying UIKit or AppKit type remains compatible.
+
+SwiftUI Introspect offers range-based platform version predicates:
+
+```swift
+import SwiftUI
+import SwiftUIIntrospect
+
+struct ContentView: View {
+    var body: some View {
+        ScrollView {
+            // ...
+        }
+        .introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
+            // ...
+        }
+    }
+}
+```
+
+The range reuses its lower bound's selector on every later OS version. If SwiftUI changes the underlying UIKit or AppKit type, the customization closure may stop being called. For example, `.iOS(.v13...)` cannot find the expected view if a later OS version stops using `UIScrollView` for `ScrollView`. Test your customizations on each OS version you support.
+
 Advanced usage
 --------------
 
@@ -250,30 +269,6 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 }
 #endif
 ```
-
-### Introspect on future platform versions
-
-By default, introspection applies per specific platform version. This is a sensible default for maximum predictability in regularly maintained codebases, but it's not always a good fit for e.g. library developers who may want to cover as many future platform versions as possible in order to provide the best chance for long-term future functionality of their library without regular maintenance.
-
-For such cases, SwiftUI Introspect offers range-based platform version predicates behind the Advanced SPI:
-
-```swift
-import SwiftUI
-@_spi(Advanced) import SwiftUIIntrospect
-
-struct ContentView: View {
-    var body: some View {
-        ScrollView {
-            // ...
-        }
-        .introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
-            // ...
-        }
-    }
-}
-```
-
-Bear in mind this should be used cautiously, and with full knowledge that any future OS version might break the expected introspection types unless explicitly available. For instance, if in the example above hypothetically iOS 19 stops using UIScrollView under the hood, the customization closure will never be called on said platform.
 
 ### Keep instances outside the customize closure
 

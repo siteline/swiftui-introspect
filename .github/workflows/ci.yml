@@ -15,29 +15,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-podspec:
-    name: Lint Podspec
-    runs-on: macos-14
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # required to be able to find Git tags
-
-      - name: Set up pkgx environment
-        uses: pkgxdev/setup@v1
-        with:
-          +: pod xcodes
-
-      - name: Select Xcode version
-        run: sudo xcodes select 15.4
-
-      - name: Lint Podspec
-        run: |
-          set -eo pipefail
-          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint SwiftUIIntrospect.podspec --allow-warnings
-
   ci:
     name: ${{ matrix.platform[0] }} ${{ matrix.platform[1] }}
     runs-on: ${{ matrix.os }}

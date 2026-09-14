@@ -7,6 +7,7 @@ import Testing
 struct ToggleWithCheckboxStyleTests {
 	typealias PlatformToggleWithCheckboxStyle = NSButton
 
+	@available(macOS, introduced: 10.15, obsoleted: 27)
 	@Test func introspect() async throws {
 		let (
 			entity1,
@@ -18,7 +19,7 @@ struct ToggleWithCheckboxStyleTests {
 					.toggleStyle(.checkbox)
 					.introspect(
 						.toggle(style: .checkbox),
-						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
 						customize: spy1,
 					)
 
@@ -26,7 +27,7 @@ struct ToggleWithCheckboxStyleTests {
 					.toggleStyle(.checkbox)
 					.introspect(
 						.toggle(style: .checkbox),
-						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
 						customize: spy2,
 					)
 
@@ -34,7 +35,7 @@ struct ToggleWithCheckboxStyleTests {
 					.toggleStyle(.checkbox)
 					.introspect(
 						.toggle(style: .checkbox),
-						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27),
+						on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
 						customize: spy3,
 					)
 			}

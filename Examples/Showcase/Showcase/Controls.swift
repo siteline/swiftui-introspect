@@ -57,7 +57,7 @@ struct ControlsShowcase: View {
 						toggle.backgroundColor = .red
 					}
 					#elseif os(macOS)
-					.introspect(.toggle, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { toggle in
+					.introspect(.toggle, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { toggle in
 						toggle.layer?.backgroundColor = NSColor.red.cgColor
 					}
 					#endif
@@ -71,7 +71,7 @@ struct ControlsShowcase: View {
 						toggle.backgroundColor = .green
 					}
 					#elseif os(macOS)
-					.introspect(.toggle, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { toggle in
+					.introspect(.toggle, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { toggle in
 						toggle.layer?.backgroundColor = NSColor.green.cgColor
 					}
 					#endif
@@ -85,7 +85,7 @@ struct ControlsShowcase: View {
 						slider.backgroundColor = .red
 					}
 					#elseif os(macOS)
-					.introspect(.slider, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { slider in
+					.introspect(.slider, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { slider in
 						slider.layer?.backgroundColor = NSColor.red.cgColor
 					}
 					#endif
@@ -96,7 +96,7 @@ struct ControlsShowcase: View {
 						slider.backgroundColor = .green
 					}
 					#elseif os(macOS)
-					.introspect(.slider, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { slider in
+					.introspect(.slider, on: .macOS(.v12, .v13, .v14, .v15, .v26)) { slider in
 						slider.layer?.backgroundColor = NSColor.green.cgColor
 					}
 					#endif

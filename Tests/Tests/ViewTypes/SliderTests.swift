@@ -11,6 +11,7 @@ struct SliderTests {
 	typealias PlatformSlider = NSSlider
 	#endif
 
+	@available(macOS, introduced: 10.15, obsoleted: 27)
 	@Test func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformSlider.self) { spy1, spy2, spy3 in
 			VStack {
@@ -18,7 +19,7 @@ struct SliderTests {
 					#if os(iOS)
 					.introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy1)
 					#elseif os(macOS)
-					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
+					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
 					#endif
 					.cornerRadius(8)
 
@@ -26,7 +27,7 @@ struct SliderTests {
 					#if os(iOS)
 					.introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy2)
 					#elseif os(macOS)
-					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
+					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
 					#endif
 					.cornerRadius(8)
 
@@ -34,7 +35,7 @@ struct SliderTests {
 					#if os(iOS)
 					.introspect(.slider, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27), customize: spy3)
 					#elseif os(macOS)
-					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
+					.introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
 					#endif
 			}
 		}

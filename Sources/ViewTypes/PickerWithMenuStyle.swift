@@ -8,7 +8,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 11 - 26
+///
+/// On macOS 27, pickers with menu style are not backed by `NSPopUpButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -21,7 +23,7 @@
 ///             Text("3").tag("3")
 ///         }
 ///         .pickerStyle(.menu)
-///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
 ///             print(type(of: $0)) // NSPopUpButton
 ///         }
 ///     }
@@ -54,7 +56,8 @@ extension macOSViewVersion<PickerWithMenuStyleType, NSPopUpButton> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
-	public static let v27 = Self(for: .v27)
+	@available(*, unavailable, message: "Picker with menu style isn't backed by NSPopUpButton on macOS 27")
+	public static let v27 = Self.unavailable
 }
 #endif
 #endif

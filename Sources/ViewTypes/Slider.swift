@@ -19,7 +19,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 - 26
+///
+/// On macOS 27, sliders are not backed by `NSSlider`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -27,7 +29,7 @@
 ///
 ///     var body: some View {
 ///         Slider(value: $selection, in: 0...1)
-///             .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///             .introspect(.slider, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
 ///                 print(type(of: $0)) // NSSlider
 ///             }
 ///     }
@@ -68,7 +70,8 @@ extension macOSViewVersion<SliderType, NSSlider> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
-	public static let v27 = Self(for: .v27)
+	@available(*, unavailable, message: "Slider isn't backed by NSSlider on macOS 27")
+	public static let v27 = Self.unavailable
 }
 #endif
 #endif

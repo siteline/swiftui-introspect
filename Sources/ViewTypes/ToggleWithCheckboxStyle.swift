@@ -8,7 +8,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 - 26
+///
+/// On macOS 27, toggles with checkbox style are not backed by `NSButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -17,7 +19,7 @@
 ///     var body: some View {
 ///         Toggle("Checkbox", isOn: $isOn)
 ///             .toggleStyle(.checkbox)
-///             .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///             .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
 ///                 print(type(of: $0)) // NSButton
 ///             }
 ///     }
@@ -49,7 +51,8 @@ extension macOSViewVersion<ToggleWithCheckboxStyleType, NSButton> {
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
-	public static let v27 = Self(for: .v27)
+	@available(*, unavailable, message: "Toggle with checkbox style isn't backed by NSButton on macOS 27")
+	public static let v27 = Self.unavailable
 }
 #endif
 #endif

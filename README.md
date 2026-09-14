@@ -10,13 +10,12 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
 - [How it works](#how-it-works)
 - [Install](#install)
     - [Swift Package Manager](#swift-package-manager)
-    - [CocoaPods](#cocoapods)
 - [View Types](#view-types)
 - [Examples](#examples)
 - [General Guidelines](#general-guidelines)
+- [Introspect on future platform versions](#introspect-on-future-platform-versions)
 - [Advanced usage](#advanced-usage)
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
-    - [Introspect on future platform versions](#introspect-on-future-platform-versions)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
 - [Note for library authors](#note-for-library-authors)
 - [Community projects](#community-projects)
@@ -74,7 +73,7 @@ Install
 ```swift
 let package = Package(
 	dependencies: [
-		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.0.0"),
+		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.1.0"),
 	],
 	targets: [
 		.target(name: <#Target Name#>, dependencies: [
@@ -82,12 +81,6 @@ let package = Package(
 		]),
 	]
 )
-```
-
-### CocoaPods
-
-```ruby
-pod 'SwiftUIIntrospect', '~> 26.0.0'
 ```
 
 View Types
@@ -230,6 +223,29 @@ Here are some guidelines to keep in mind when using SwiftUI Introspect:
 - **Avoid retain cycles**: be cautious about capturing `self` or other strong references within the introspection closure, as this can lead to memory leaks. Use `[weak self]` or `[unowned self]` capture lists as appropriate.
 - **Scope**: `.introspect` targets its receiver by default. Use `scope: .ancestor` only when you need to introspect an ancestor. In general, you shouldn't worry about this as each view type has sensible, predictable default scopes.
 
+Introspect on future platform versions
+-------------------------------------
+
+By default, introspection targets specific platform versions. To opt in to the lower-bound version and all later versions, use range-based version predicates:
+
+```swift
+import SwiftUI
+import SwiftUIIntrospect
+
+struct ContentView: View {
+	var body: some View {
+		ScrollView {
+			// ...
+		}
+		.introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
+			// ...
+		}
+	}
+}
+```
+
+The range reuses the lower-bound version's selector on later OS versions. If the underlying UIKit/AppKit type changes, the customization closure may stop being called. Test your customizations on each OS version you support.
+
 Advanced usage
 --------------
 
@@ -296,28 +312,6 @@ extension macOSViewVersion<TextFieldType, NSTextField> {
 #endif
 ```
 
-### Introspect on future platform versions
-
-By default, introspection targets specific platform versions. This is an intentional design decision to maintain maximum predictability in actively maintained apps. However library authors may prefer to cover future versions to limit their commitment to regular maintenance without breaking client apps. For that, SwiftUI Introspect provides range-based version predicates via the Advanced SPI:
-
-```swift
-import SwiftUI
-@_spi(Advanced) import SwiftUIIntrospect
-
-struct ContentView: View {
-	var body: some View {
-		ScrollView {
-			// ...
-		}
-		.introspect(.scrollView, on: .iOS(.v13...)) { scrollView in
-			// ...
-		}
-	}
-}
-```
-
-Use this cautiously. Future OS versions may change underlying types, in which case the customization closure will not run unless support is explicitly declared.
-
 ### Keep instances outside the customize closure
 
 Sometimes you need to keep an introspected instance beyond the customization closure. `@State` is not appropriate for this, as it can create retain cycles. Instead, SwiftUI Introspect offers a `@Weak` property wrapper behind the Advanced SPI:
@@ -349,7 +343,9 @@ If your library depends on SwiftUI Introspect, declare a version range that span
 .package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
 ```
 
-A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. Thanks to [`@_spi(Advanced)` imports](https://github.com/siteline/swiftui-introspect#introspect-on-future-platform-versions), it is already future proof without frequent version bumps.
+For public range-based predicates, use `"1.4.0"..<"2.0.0"` or `"26.1.0"..<"27.0.0"`.
+
+[Range-based version predicates](#introspect-on-future-platform-versions) let your library opt in to future OS versions without requiring a new SwiftUI Introspect release for each one, provided the underlying UIKit/AppKit types and the lower-bound selector remain compatible. Test your customizations on each OS version you support.
 
 Community projects
 ------------------

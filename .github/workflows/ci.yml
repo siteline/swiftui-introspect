@@ -31,32 +31,6 @@ jobs:
   #     - name: SwiftFormat Lint
   #       run: swiftformat --lint . --reporter github-actions-log
 
-  lint-podspec:
-    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
-    name: Lint Podspec
-    runs-on: macos-26
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0 # required to be able to find Git tags
-
-      - name: Select Xcode
-        run: sudo xcodes select 26.3
-
-      - name: Install Runtimes
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 15
-          max_attempts: 3
-          command: xcodebuild -downloadAllPlatforms
-
-      - name: Lint Podspec
-        run: |
-          set -eo pipefail
-          export LIB_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
-          pod lib lint SwiftUIIntrospect.podspec --allow-warnings --skip-tests
-
   ci:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.name }}

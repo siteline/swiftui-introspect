@@ -20,7 +20,6 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
@@ -29,7 +28,6 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
@@ -38,7 +36,6 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
@@ -47,7 +44,6 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	@_spi(Advanced)
 	public static func visionOS(_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}

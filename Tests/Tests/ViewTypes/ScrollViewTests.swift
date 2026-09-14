@@ -44,6 +44,26 @@ struct ScrollViewTests {
 		#expect(entity1 !== entity2)
 	}
 
+	@Test func introspectOnFuturePlatformVersions() async throws {
+		let entity = try await introspection(of: PlatformScrollView.self) { spy in
+			ScrollView(showsIndicators: false) {
+				Text("Item 1")
+			}
+			#if canImport(UIKit)
+			.introspect(.scrollView, on: .iOS(.v13...), .tvOS(.v13...), .visionOS(.v1...), customize: spy)
+			#elseif canImport(AppKit)
+			.introspect(.scrollView, on: .macOS(.v10_15...), customize: spy)
+			#endif
+		}
+		#if canImport(UIKit)
+		#expect(entity.showsVerticalScrollIndicator == false)
+		#expect(entity.showsHorizontalScrollIndicator == false)
+		#elseif canImport(AppKit)
+		#expect(entity.verticalScroller == nil)
+		#expect(entity.horizontalScroller == nil)
+		#endif
+	}
+
 	@Test func introspectNested() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
 			ScrollView(showsIndicators: true) {

@@ -144,11 +144,15 @@ struct SearchFieldTests {
 @MainActor
 extension Trait where Self == ConditionTrait {
 	static func `disabled on iOS 26+ except for iPad`(sourceLocation: SourceLocation = #_sourceLocation) -> Self {
+		#if os(iOS)
 		let disabled = if #available(iOS 26, *) {
 			UIDevice.current.userInterfaceIdiom != .pad
 		} else {
 			false
 		}
+		#else
+		let disabled = false
+		#endif
 		return .disabled(if: disabled, "Disabled on iOS 26+ except for iPad", sourceLocation: sourceLocation)
 	}
 }

@@ -12,8 +12,8 @@ struct TabViewTests {
 	typealias PlatformTabView = NSTabView
 	#endif
 
-	@available(macOS, introduced: 10.15, obsoleted: 15)
-	@Test func introspect() async throws {
+	@Test(.obsoleted(macOS: 15))
+	func introspect() async throws {
 		try await introspection(of: PlatformTabView.self) { spy in
 			TabView {
 				ZStack {
@@ -29,8 +29,8 @@ struct TabViewTests {
 		}
 	}
 
-	@available(macOS, introduced: 10.15, obsoleted: 15)
-	@Test func introspectAsAncestor() async throws {
+	@Test(.obsoleted(macOS: 15))
+	func introspectAsAncestor() async throws {
 		try await introspection(of: PlatformTabView.self) { spy in
 			TabView {
 				ZStack {

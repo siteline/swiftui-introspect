@@ -12,7 +12,7 @@ struct DatePickerWithCompactStyleTests {
 	typealias PlatformDatePickerWithCompactStyle = NSDatePicker
 	#endif
 
-	func introspect() async throws {
+	@Test func introspect() async throws {
 		let date1 = Date(timeIntervalSince1970: 0)
 		let date2 = Date(timeIntervalSince1970: 5)
 		let date3 = Date(timeIntervalSince1970: 10)

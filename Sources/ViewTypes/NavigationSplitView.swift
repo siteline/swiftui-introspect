@@ -17,7 +17,9 @@
 /// }
 /// ```
 ///
-/// ### tvOS
+/// ### tvOS 16 - 17
+///
+/// From tvOS 18 onward, `NavigationSplitView` is not backed by UIKit, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -109,6 +111,8 @@ extension tvOSViewVersion<NavigationSplitViewType, UINavigationController> {
 	public static let v18 = Self.unavailable()
 	@available(*, unavailable, message: "NavigationSplitView isn't backed by UIKit since tvOS 18")
 	public static let v26 = Self.unavailable()
+	@available(*, unavailable, message: "NavigationSplitView isn't backed by UIKit since tvOS 18")
+	public static let v27 = Self.unavailable()
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }

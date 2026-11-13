@@ -97,6 +97,7 @@ extension iOSViewVersion<SheetType, UISheetPresentationController> {
 	public static let v18 = Self(for: .v18, selector: selector)
 	@_disfavoredOverload
 	public static let v26 = Self(for: .v26, selector: selector)
+	@_disfavoredOverload
 	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISheetPresentationController> {

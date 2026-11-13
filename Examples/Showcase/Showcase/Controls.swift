@@ -165,12 +165,12 @@ struct ControlsShowcase: View {
 					on: .iOS(.v15, .v16, .v17, .v18, .v26, .v27),
 					.tvOS(.v15, .v16, .v17, .v18, .v26, .v27),
 					.visionOS(.v1, .v2, .v26, .v27),
-				) { datePicker in
-					datePicker.backgroundColor = .red
+				) { segmentedControl in
+					segmentedControl.backgroundColor = .red
 				}
 				#elseif os(macOS)
-				.introspect(.picker(style: .segmented), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { datePicker in
-					datePicker.layer?.backgroundColor = NSColor.red.cgColor
+				.introspect(.picker(style: .segmented), on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27)) { segmentedControl in
+					segmentedControl.layer?.backgroundColor = NSColor.red.cgColor
 				}
 				#endif
 			}

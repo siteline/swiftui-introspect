@@ -11,7 +11,6 @@
 ///             .introspect(.webView, on: .iOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -27,7 +26,6 @@
 ///             .introspect(.webView, on: .tvOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -43,7 +41,6 @@
 ///             .introspect(.webView, on: .macOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -59,7 +56,6 @@
 ///             .introspect(.webView, on: .visionOS(.v26, .v27)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```

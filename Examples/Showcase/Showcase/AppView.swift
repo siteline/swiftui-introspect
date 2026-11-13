@@ -64,8 +64,8 @@ struct ContentView: View {
 			}
 		}
 		#elseif os(macOS)
-		.introspect(.tabView, on: .macOS(.v12, .v13, .v14)) { splitView in
-			splitView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
+		.introspect(.tabView, on: .macOS(.v12, .v13, .v14)) { tabView in
+			tabView.subviews.first?.layer?.backgroundColor = NSColor.green.cgColor
 		}
 		#endif
 	}

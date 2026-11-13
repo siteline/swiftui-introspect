@@ -106,7 +106,6 @@ public enum PlatformViewVersion<
 		}
 	}
 
-	@MainActor
 	fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
 		if case let .available(_, selector) = self {
 			selector

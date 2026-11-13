@@ -1,5 +1,3 @@
-import SwiftUI
-
 /// An abstract representation of the `SignInWithAppleButton` type in SwiftUI.
 ///
 /// ### iOS
@@ -46,7 +44,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27),) {
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }

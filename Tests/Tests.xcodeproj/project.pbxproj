@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D5CEB5582E84304900A88BA3 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5CEB5572E84304900A88BA3 /* SwiftUIIntrospect */; };
-		D5CEB6452E8431FB00A88BA3 /* Tests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D5CEB6442E8431FB00A88BA3 /* Tests.xctestplan */; };
 		D5E04C312E842584006739F9 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5E04C302E842584006739F9 /* SwiftUIIntrospect */; };
 /* End PBXBuildFile section */
 
@@ -234,7 +233,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5CEB6452E8431FB00A88BA3 /* Tests.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 ///
 /// Not available.
 ///
-/// ### macOS 10.15 - 15
+/// ### macOS 12 - 15
 ///
 /// Note: On macOS 26 and later, toggles with button style are no longer backed by `NSButton`, so introspection is
 /// not possible.
@@ -53,8 +53,10 @@ extension macOSViewVersion<ToggleWithButtonStyleType, NSButton> {
 	public static let v13 = Self(for: .v13)
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
-	@available(*, unavailable, message: ".toggleStyle(.button) isn't available on macOS 26")
-	public static let v26 = Self.unavailable
+	@available(*, unavailable, message: "Toggle with button style isn't backed by NSButton on macOS 26")
+	public static let v26 = Self.unavailable()
+	@available(*, unavailable, message: "Toggle with button style isn't backed by NSButton on macOS 27")
+	public static let v27 = Self.unavailable()
 }
 #endif
 #endif

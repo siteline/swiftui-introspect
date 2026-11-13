@@ -12,9 +12,9 @@ struct NavigationSplitViewTests {
 	typealias PlatformNavigationSplitView = NSSplitView
 	#endif
 
-	@available(iOS 16, macOS 13, *)
-	@available(tvOS, introduced: 16, obsoleted: 18)
-	@Test func introspect() async throws {
+	@available(iOS 16, macOS 13, tvOS 16, *)
+	@Test(.obsoleted(tvOS: 18))
+	func introspect() async throws {
 		try await introspection(of: PlatformNavigationSplitView.self) { spy in
 			NavigationSplitView {
 				ZStack {
@@ -42,9 +42,9 @@ struct NavigationSplitViewTests {
 		}
 	}
 
-	@available(iOS 16, macOS 13, *)
-	@available(tvOS, introduced: 16, obsoleted: 18)
-	@Test func `introspect as ancestor`() async throws {
+	@available(iOS 16, macOS 13, tvOS 16, *)
+	@Test(.obsoleted(tvOS: 18))
+	func `introspect as ancestor`() async throws {
 		try await introspection(of: PlatformNavigationSplitView.self) { spy in
 			// NB: columnVisibility is explicitly set here for ancestor introspection to work, because initially on iPad the sidebar is hidden, so the introspection modifier isn't triggered until the user makes the sidebar appear. This is why ancestor introspection is discouraged for most situations and it's opt-in.
 			NavigationSplitView(columnVisibility: .constant(.all)) {

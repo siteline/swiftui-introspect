@@ -77,21 +77,15 @@ struct TableTests {
 			VStack {
 				TipTable()
 					.tableStyle(.bordered)
-					#if os(macOS)
 					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy1)
-					#endif
 
 				TipTable()
 					.tableStyle(.bordered)
-					#if os(macOS)
 					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy2)
-					#endif
 
 				TipTable()
 					.tableStyle(.bordered)
-					#if os(macOS)
 					.introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26, .v27), customize: spy3)
-					#endif
 			}
 		}
 	}

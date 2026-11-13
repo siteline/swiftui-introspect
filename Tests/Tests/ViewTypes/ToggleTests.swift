@@ -11,8 +11,8 @@ struct ToggleTests {
 	typealias PlatformToggle = NSButton
 	#endif
 
-	@available(macOS, introduced: 10.15, obsoleted: 27)
-	@Test func introspect() async throws {
+	@Test(.obsoleted(macOS: 27))
+	func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformToggle.self) { spy1, spy2, spy3 in
 			VStack {
 				Toggle("", isOn: .constant(true))

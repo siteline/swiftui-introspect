@@ -10,7 +10,7 @@ enum TestUtils {
 	static let window = UIWindow(frame: UIScreen.main.bounds)
 	#endif
 
-	static func present(view: some View, file: StaticString = #file, line: UInt = #line) {
+	static func present(view: some View) {
 		if
 			let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first
 			??
@@ -41,6 +41,38 @@ enum TestUtils {
 	}
 }
 #endif
+
+extension Trait where Self == ConditionTrait {
+	/// Disables a test from the given major version of macOS or tvOS onward.
+	///
+	/// Use this instead of `@available(<platform>, obsoleted:)` in tests that also run on other platforms. Swift Testing
+	/// treats that attribute as obsolete on every other platform, where it silently skips the test.
+	static func obsoleted(
+		macOS: Int? = nil,
+		tvOS: Int? = nil,
+		sourceLocation: SourceLocation = #_sourceLocation,
+	) -> Self {
+		#if os(macOS)
+		let platform = "macOS"
+		let obsoletedVersion = macOS
+		#elseif os(tvOS)
+		let platform = "tvOS"
+		let obsoletedVersion = tvOS
+		#else
+		let platform = ""
+		let obsoletedVersion: Int? = nil
+		#endif
+		guard let obsoletedVersion else {
+			return .disabled(if: false, sourceLocation: sourceLocation)
+		}
+		let currentVersion = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
+		return .disabled(
+			if: currentVersion >= obsoletedVersion,
+			"Obsolete as of \(platform) \(obsoletedVersion)",
+			sourceLocation: sourceLocation,
+		)
+	}
+}
 
 @MainActor
 @discardableResult

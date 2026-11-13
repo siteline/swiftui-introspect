@@ -11,8 +11,8 @@ struct SliderTests {
 	typealias PlatformSlider = NSSlider
 	#endif
 
-	@available(macOS, introduced: 10.15, obsoleted: 27)
-	@Test func introspect() async throws {
+	@Test(.obsoleted(macOS: 27))
+	func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformSlider.self) { spy1, spy2, spy3 in
 			VStack {
 				Slider(value: .constant(0.2), in: 0...1)

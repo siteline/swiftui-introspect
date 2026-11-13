@@ -14,14 +14,13 @@ struct SheetTests {
 						.introspect(
 							.sheet,
 							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
-							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
 							customize: spy,
 						)
 				}
 		}
 	}
 
-	@available(iOS 15, tvOS 15, *)
+	@available(iOS 15, *)
 	@Test func `introspect as sheet presentation controller`() async throws {
 		try await introspection(of: UISheetPresentationController.self) { spy in
 			Text("Root")

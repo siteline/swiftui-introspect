@@ -28,10 +28,23 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 
+	#if os(iOS)
+	private(set) var viewReceiverSelector: (@MainActor (UIView, UIView) -> Target?)? = nil
+
+	func withViewReceiverSelector(_ selector: @MainActor @escaping (UIView, UIView) -> Target?) -> Self {
+		var copy = self
+		copy.viewReceiverSelector = selector
+		return copy
+	}
+	#endif
+
 	@_spi(Advanced)
 	public func withReceiverSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
 		copy.receiverSelector = selector
+		#if os(iOS)
+		copy.viewReceiverSelector = nil
+		#endif
 		return copy
 	}
 
@@ -39,6 +52,9 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 	public func withAncestorSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
 		copy.ancestorSelector = selector
+		#if os(iOS)
+		copy.viewReceiverSelector = nil
+		#endif
 		return copy
 	}
 

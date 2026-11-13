@@ -68,11 +68,36 @@ extension iOSViewVersion<NavigationStackType, UINavigationController> {
 	public static let v16 = Self(for: .v16, selector: selector)
 	public static let v17 = Self(for: .v17, selector: selector)
 	public static let v18 = Self(for: .v18, selector: selector)
-	public static let v26 = Self(for: .v26, selector: selector)
-	public static let v27 = Self(for: .v27, selector: selector)
+	public static let v26 = Self(for: .v26, selector: searchTabSelector)
+	public static let v27 = Self(for: .v27, selector: searchTabSelector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }
+	}
+
+	private static var searchTabSelector: IntrospectionSelector<UINavigationController> {
+		#if os(iOS) && !targetEnvironment(macCatalyst)
+		selector.withViewReceiverSelector { anchor, front in
+			guard let ancestor = anchor.nearestCommonAncestor(with: front) else {
+				return nil
+			}
+			var navigationController: UINavigationController?
+			for view in ancestor.allDescendants.drop(while: { $0 !== anchor }).dropFirst() {
+				// Require both markers, in order, before accepting a candidate.
+				if view === front { return navigationController }
+				if
+					navigationController == nil,
+					let controller = view.next as? UINavigationController,
+					controller.viewIfLoaded === view
+				{
+					navigationController = controller
+				}
+			}
+			return nil
+		}
+		#else
+		selector
+		#endif
 	}
 }
 

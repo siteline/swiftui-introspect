@@ -80,6 +80,19 @@ struct IntrospectModifier<
 	}
 
 	func body(content: Content) -> some View {
+		#if os(iOS) && !targetEnvironment(macCatalyst)
+		if #available(iOS 26, *), scope == .receiver, let viewSelector = selector?.viewReceiverSelector {
+			content.modifier(NavigationStackIntrospectionView(selector: viewSelector, customize: customize))
+		} else {
+			legacyBody(content: content)
+		}
+		#else
+		legacyBody(content: content)
+		#endif
+	}
+
+	@ViewBuilder
+	private func legacyBody(content: Content) -> some View {
 		if let selector {
 			content
 				.background(

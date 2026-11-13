@@ -54,8 +54,8 @@ extension macOSViewVersion<ToggleWithButtonStyleType, NSButton> {
 	public static let v13 = Self(for: .v13)
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
-	@available(*, unavailable, message: ".toggleStyle(.button) isn't available on macOS 26")
-	public static let v26 = Self.unavailable
+	@available(*, unavailable, message: "Toggle with button style isn't backed by NSButton on macOS 26")
+	public static let v26 = Self.unavailable()
 }
 #endif
 #endif

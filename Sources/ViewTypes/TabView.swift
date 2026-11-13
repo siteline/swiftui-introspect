@@ -89,7 +89,6 @@ extension iOSViewVersion<TabViewType, UITabBarController> {
 	public static let v26 = Self(for: .v26, selector: selector)
 	public static let v27 = Self(for: .v27, selector: selector)
 
-	@MainActor
 	private static var selector: IntrospectionSelector<UITabBarController> {
 		.default.withAncestorSelector { $0.tabBarController }
 	}
@@ -105,7 +104,6 @@ extension tvOSViewVersion<TabViewType, UITabBarController> {
 	public static let v26 = Self(for: .v26, selector: selector)
 	public static let v27 = Self(for: .v27, selector: selector)
 
-	@MainActor
 	private static var selector: IntrospectionSelector<UITabBarController> {
 		.default.withAncestorSelector { $0.tabBarController }
 	}

@@ -52,7 +52,7 @@ extension macOSViewVersion<ToggleWithCheckboxStyleType, NSButton> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 	@available(*, unavailable, message: "Toggle with checkbox style isn't backed by NSButton on macOS 27")
-	public static let v27 = Self.unavailable
+	public static let v27 = Self.unavailable()
 }
 #endif
 #endif

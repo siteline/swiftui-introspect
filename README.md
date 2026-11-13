@@ -90,7 +90,7 @@ View Types
 - [`DatePicker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/datepickerwithwheelstyletype)
 - [`Form`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/formtype)
 - [`Form` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/formwithgroupedstyletype)
-- [`.fullScreenCover`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/fullScreenCovertype)
+- [`.fullScreenCover`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/fullscreencovertype)
 - [`List`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listtype)
 - [`List` with `.bordered` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listwithborderedstyletype)
 - [`List` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listwithgroupedstyletype)
@@ -101,8 +101,8 @@ View Types
 - [`Map`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/maptype)
 - [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationsplitviewtype)
 - [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationstacktype)
-- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)
-- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/NavigationViewWithStackStyleType)
+- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationviewwithcolumnsstyletype)
+- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationviewwithstackstyletype)
 - [`PageControl`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pagecontroltype)
 - [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pickerwithmenustyletype)
 - [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
@@ -119,14 +119,14 @@ View Types
 - [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/steppertype)
 - [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabletype)
 - [`TabView`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabviewtype)
-- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/TabViewWithPageStyleType)
+- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabviewwithpagestyletype)
 - [`TextEditor`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/texteditortype)
 - [`TextField`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/textfieldtype)
-- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/TextFieldWithVerticalAxisType)
+- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/textfieldwithverticalaxistype)
 - [`Toggle`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/toggletype)
-- [`Toggle` with `button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithbuttonstyletype)
-- [`Toggle` with `checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
-- [`Toggle` with `switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithswitchstyletype)
+- [`Toggle` with `.button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithbuttonstyletype)
+- [`Toggle` with `.checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
+- [`Toggle` with `.switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithswitchstyletype)
 - [`VideoPlayer`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/videoplayertype)
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewtype)
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewcontrollertype)
@@ -139,7 +139,7 @@ View Types
 
 SwiftUI | Affected Frameworks | Why
 --- | --- | ---
-Text | UIKit, AppKit | Not a UILabel / NSLabel
+Text | UIKit, AppKit | Not a UILabel / NSTextField
 Image | UIKit, AppKit | Not a UIImageView / NSImageView
 Button | UIKit | Not a UIButton
 Link | UIKit, AppKit | Not a UIButton / NSButton

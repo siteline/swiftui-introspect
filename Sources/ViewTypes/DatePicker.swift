@@ -19,6 +19,8 @@
 ///
 /// Not available.
 ///
+/// ### macOS
+///
 /// ```swift
 /// struct ContentView: View {
 ///     @State var date = Date()

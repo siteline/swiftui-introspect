@@ -69,8 +69,6 @@ extension IntrospectableViewType where Self == TextFieldWithVerticalAxisType {
 	public static func textField(axis: Self.Axis) -> Self { .init() }
 }
 
-// MARK: SwiftUI.TextField(..., axis: .vertical) - iOS
-
 #if canImport(UIKit)
 public import UIKit
 

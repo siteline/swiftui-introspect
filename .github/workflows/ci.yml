@@ -148,11 +148,8 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Install xcodes
-        run: |
-          brew uninstall xcodes
-          brew install xcodesorg/made/xcodes
-
+      # The xcodesorg/made formula fails to build on macOS 27, so this uses the image's xcodes:
+      # https://github.com/XcodesOrg/homebrew-made/issues/4
       - name: Select Xcode
         run: sudo xcodes select 27.2
 

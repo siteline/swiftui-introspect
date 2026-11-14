@@ -80,19 +80,6 @@ struct IntrospectModifier<
 	}
 
 	func body(content: Content) -> some View {
-		#if os(iOS) && !targetEnvironment(macCatalyst)
-		if #available(iOS 26, *), scope == .receiver, let viewSelector = selector?.viewReceiverSelector {
-			content.modifier(NavigationStackIntrospectionView(selector: viewSelector, customize: customize))
-		} else {
-			legacyBody(content: content)
-		}
-		#else
-		legacyBody(content: content)
-		#endif
-	}
-
-	@ViewBuilder
-	private func legacyBody(content: Content) -> some View {
 		if let selector {
 			content
 				.background(
@@ -106,17 +93,37 @@ struct IntrospectModifier<
 					},
 				)
 				.background(
-					IntrospectionAnchorView(id: id)
+					anchor(probe: selector.probe)
 						.frame(width: 0, height: 0)
 						.accessibility(hidden: true),
 				)
 				.overlay(
-					IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
+					probe(selector)
 						.frame(width: 0, height: 0)
 						.accessibility(hidden: true),
 				)
 		} else {
 			content
+		}
+	}
+
+	@ViewBuilder
+	private func anchor(probe: IntrospectionProbeKind) -> some View {
+		switch probe {
+		case .viewController:
+			IntrospectionAnchorView(id: id)
+		case .view:
+			IntrospectionAnchorMarkerView(id: id)
+		}
+	}
+
+	@ViewBuilder
+	private func probe(_ selector: IntrospectionSelector<PlatformSpecificEntity>) -> some View {
+		switch selector.probe {
+		case .viewController:
+			IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
+		case .view:
+			IntrospectionMarkerView(id: id, selector: { selector($0, scope) }, customize: customize)
 		}
 	}
 }

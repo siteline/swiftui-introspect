@@ -58,3 +58,46 @@ extension PlatformViewControllerRepresentable {
 	}
 	#endif
 }
+
+#if canImport(UIKit)
+typealias _PlatformViewRepresentable = UIViewRepresentable
+#elseif canImport(AppKit)
+typealias _PlatformViewRepresentable = NSViewRepresentable
+#endif
+
+@MainActor
+protocol PlatformViewRepresentable: _PlatformViewRepresentable {
+	#if canImport(UIKit)
+	typealias RepresentedView = UIViewType
+	#elseif canImport(AppKit)
+	typealias RepresentedView = NSViewType
+	#endif
+
+	func makePlatformView(context: Context) -> RepresentedView
+	func updatePlatformView(_ view: RepresentedView, context: Context)
+	static func dismantlePlatformView(_ view: RepresentedView, coordinator: Coordinator)
+}
+
+extension PlatformViewRepresentable {
+	#if canImport(UIKit)
+	func makeUIView(context: Context) -> RepresentedView {
+		makePlatformView(context: context)
+	}
+	func updateUIView(_ view: RepresentedView, context: Context) {
+		updatePlatformView(view, context: context)
+	}
+	static func dismantleUIView(_ view: RepresentedView, coordinator: Coordinator) {
+		dismantlePlatformView(view, coordinator: coordinator)
+	}
+	#elseif canImport(AppKit)
+	func makeNSView(context: Context) -> RepresentedView {
+		makePlatformView(context: context)
+	}
+	func updateNSView(_ view: RepresentedView, context: Context) {
+		updatePlatformView(view, context: context)
+	}
+	static func dismantleNSView(_ view: RepresentedView, coordinator: Coordinator) {
+		dismantlePlatformView(view, coordinator: coordinator)
+	}
+	#endif
+}

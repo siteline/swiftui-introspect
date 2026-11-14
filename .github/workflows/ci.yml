@@ -121,21 +121,47 @@ jobs:
           echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
           echo "Created simulator: ${{ matrix.device }} -> $UDID"
 
-      - name: Build Showcase
-        run: |
-          set -eo pipefail
-          xcodebuild build \
-            -scheme Showcase \
-            -destination "${{ matrix.destination || format('id={0}', env.SIM_UDID) }}" \
-            -configuration Debug \
-            | xcbeautify
-
       - name: Run Tests
         run: |
           set -eo pipefail
           xcodebuild test \
             -scheme SwiftUIIntrospectTests \
             -destination "${{ matrix.destination || format('id={0}', env.SIM_UDID) }}" \
+            -configuration Debug \
+            | xcbeautify
+
+  showcase:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
+    name: Build Showcase (${{ matrix.platform }})
+    # The Showcase project uses the JSON project format, which requires Xcode 27.
+    runs-on: xcode-27
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { platform: iOS,         destination: "generic/platform=iOS Simulator" }
+          - { platform: macCatalyst, destination: "generic/platform=macOS,variant=Mac Catalyst" }
+          - { platform: macOS,       destination: "generic/platform=macOS" }
+          - { platform: tvOS,        destination: "generic/platform=tvOS Simulator" }
+          - { platform: visionOS,    destination: "generic/platform=visionOS Simulator" }
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
+
+      - name: Select Xcode
+        run: sudo xcodes select 27.2
+
+      - name: Build Showcase
+        run: |
+          set -eo pipefail
+          xcodebuild build \
+            -scheme Showcase \
+            -destination "${{ matrix.destination }}" \
             -configuration Debug \
             | xcbeautify
 

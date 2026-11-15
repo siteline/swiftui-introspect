@@ -5,7 +5,7 @@ import SwiftUIIntrospect
 import XCTest
 
 /// Measures the cost of presenting introspected views, from presentation until every introspection has customized its
-/// target. Comparisons rely on instructions retired, which stay stable on shared CI runners.
+/// target.
 @MainActor
 final class IntrospectionBenchmarks: XCTestCase {
 	fileprivate static let rowCount = 100

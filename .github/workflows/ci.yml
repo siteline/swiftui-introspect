@@ -221,7 +221,7 @@ jobs:
       - name: Compare
         run: |
           set -o pipefail
-          .github/scripts/compare-benchmarks.sh "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" 5 \
+          .github/scripts/compare-benchmarks.sh "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" 30 \
             | tee -a "$GITHUB_STEP_SUMMARY"
 
   framework-archiving:

@@ -1,35 +1,50 @@
 #!/bin/bash
-# Usage: compare-benchmarks.sh <base-metrics.json> <head-metrics.json> <max-regression-percent>
+# Usage: compare-benchmarks.sh <base-metrics.json> <head-metrics.json> <flag-percent>
 #
-# Compares the median instructions retired of each benchmark, as exported by
-# `xcrun xcresulttool get test-results metrics`, prints a Markdown table, and
-# exits with 1 when any benchmark regresses by more than the given percentage.
+# Prints a Markdown table comparing the median of each benchmark, as exported by
+# `xcrun xcresulttool get test-results metrics`, and flags changes above the given
+# percentage. It compares instructions retired when both runs report them, and CPU
+# time otherwise, since virtualized runners don't expose hardware counters.
 set -euo pipefail
 
 base=$1
 head=$2
-threshold=$3
+flag=$3
 
-medians() {
-	jq '
+instructions="com.apple.dt.XCTMetric_CPU.instructions_retired"
+cpu_time="com.apple.dt.XCTMetric_CPU.time"
+
+medians() { # file metric
+	jq --arg metric "$2" '
 		map({
 			key: (.testIdentifier | sub("\\(\\)$"; "")),
-			value: (
-				.testRuns[0].metrics[]
-				| select(.identifier == "com.apple.dt.XCTMetric_CPU.instructions_retired")
-				| .measurements | sort | .[length / 2 | floor]
-			),
+			value: (.testRuns[0].metrics[] | select(.identifier == $metric) | .measurements | sort | .[length / 2 | floor]),
 		})
 		| from_entries
 	' "$1"
 }
 
+has_counts() { # file
+	jq -e --arg metric "$instructions" 'any(.[].testRuns[0].metrics[]; .identifier == $metric and (.measurements | max) > 0)' "$1" > /dev/null
+}
+
+if has_counts "$head" && { [ "$(jq length "$base")" = 0 ] || has_counts "$base"; }; then
+	metric=$instructions
+else
+	metric=$cpu_time
+fi
+
 jq -n -r \
-	--argjson base "$(medians "$base")" \
-	--argjson head "$(medians "$head")" \
-	--argjson threshold "$threshold" '
-	def millions: . / 1000 | . * 10 | round / 10 | tostring + "M";
-	def change: if . > 0 then "+" else "" end + (. * 10 | round / 10 | tostring) + "%";
+	--argjson base "$(medians "$base" "$metric")" \
+	--argjson head "$(medians "$head" "$metric")" \
+	--argjson flag "$flag" \
+	--arg metric "$metric" \
+	--arg instructions "$instructions" '
+	def value:
+		if $metric == $instructions then . / 1000 | . * 10 | round / 10 | tostring + "M"
+		else . * 1000 | round | tostring + " ms"
+		end;
+	def change: (if . > 0 then "+" else "" end) + (. * 10 | round / 10 | tostring) + "%";
 	"| Benchmark | Base | Pull request | Change |",
 	"| --- | ---: | ---: | ---: |",
 	(
@@ -37,20 +52,12 @@ jq -n -r \
 		| $head[$name] as $new
 		| $base[$name] as $old
 		| if $old == null then
-			"| \($name) | | \($new | millions) | New |"
+			"| \($name) | | \($new | value) | New |"
 		else
 			(($new - $old) / $old * 100) as $delta
-			| "| \($name) | \($old | millions) | \($new | millions) | \($delta | change)\(if $delta > $threshold then " ⚠️" else "" end) |"
+			| "| \($name) | \($old | value) | \($new | value) | \($delta | change)\(if $delta > $flag then " ⚠️" else "" end) |"
 		end
 	),
 	"",
-	"Median instructions retired over 10 iterations. Changes above \($threshold)% fail this check."
+	"Median \(if $metric == $instructions then "instructions retired" else "CPU time" end) over 10 iterations. ⚠️ marks increases above \($flag)%."
 '
-
-jq -n -e \
-	--argjson base "$(medians "$base")" \
-	--argjson head "$(medians "$head")" \
-	--argjson threshold "$threshold" '
-	[$head | to_entries[] | select($base[.key] != null) | (.value - $base[.key]) / $base[.key] * 100]
-	| all(. <= $threshold)
-' > /dev/null

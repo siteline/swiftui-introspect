@@ -8,4 +8,5 @@ locked = true
 
 [tools]
 hk = "1"
+jq = "1"
 swiftformat = "0"

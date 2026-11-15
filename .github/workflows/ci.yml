@@ -160,6 +160,59 @@ jobs:
             -destination "${{ matrix.destination }}" \
             -configuration Debug
 
+  benchmarks:
+    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.title, '[skip ci]')
+    name: Benchmarks
+    runs-on: macos-26
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
+
+      - name: Select Xcode
+        run: sudo xcodes select 26.6
+
+      - name: Create Simulator
+        run: |
+          set -eo pipefail
+          RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.isAvailable) | select(.name == "iOS 26.5") | .identifier')
+          UDID=$(xcrun simctl create "Benchmarks" "iPhone 17 Pro" "$RUNTIME_ID")
+          echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
+
+      # Both revisions run on this runner and simulator, so their measurements are comparable.
+      - name: Benchmark Base
+        run: |
+          set -eo pipefail
+          git checkout --quiet "${{ github.event.pull_request.base.sha }}"
+          if xcodebuild -list -project Tests/Tests.xcodeproj | grep -q SwiftUIIntrospectBenchmarks; then
+            xcodebuild test \
+              -scheme SwiftUIIntrospectBenchmarks \
+              -destination "id=$SIM_UDID" \
+              -resultBundlePath "$RUNNER_TEMP/base.xcresult"
+            xcrun xcresulttool get test-results metrics --path "$RUNNER_TEMP/base.xcresult" > "$RUNNER_TEMP/base.json"
+          else
+            echo "[]" > "$RUNNER_TEMP/base.json"
+          fi
+          git checkout --quiet "${{ github.sha }}"
+
+      - name: Benchmark Pull Request
+        run: |
+          set -eo pipefail
+          xcodebuild test \
+            -scheme SwiftUIIntrospectBenchmarks \
+            -destination "id=$SIM_UDID" \
+            -resultBundlePath "$RUNNER_TEMP/head.xcresult"
+          xcrun xcresulttool get test-results metrics --path "$RUNNER_TEMP/head.xcresult" > "$RUNNER_TEMP/head.json"
+
+      - name: Compare
+        run: .github/scripts/compare-benchmarks.sh "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" 5 >> "$GITHUB_STEP_SUMMARY"
+
   framework-archiving:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Archive Framework (${{ matrix.platform }})

@@ -127,8 +127,7 @@ jobs:
           xcodebuild test \
             -scheme SwiftUIIntrospectTests \
             -destination "${{ matrix.destination || format('id={0}', env.SIM_UDID) }}" \
-            -configuration Debug \
-            | xcbeautify
+            -configuration Debug
 
   showcase:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
@@ -159,8 +158,7 @@ jobs:
           xcodebuild build \
             -scheme Showcase \
             -destination "${{ matrix.destination }}" \
-            -configuration Debug \
-            | xcbeautify
+            -configuration Debug
 
   framework-archiving:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')

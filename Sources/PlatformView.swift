@@ -60,43 +60,47 @@ extension PlatformViewControllerRepresentable {
 }
 
 #if canImport(UIKit)
-typealias _PlatformViewRepresentable = UIViewRepresentable
+@_spi(Internals)
+public typealias _PlatformViewRepresentable = UIViewRepresentable
 #elseif canImport(AppKit)
-typealias _PlatformViewRepresentable = NSViewRepresentable
+@_spi(Internals)
+public typealias _PlatformViewRepresentable = NSViewRepresentable
 #endif
 
 @MainActor
-protocol PlatformViewRepresentable: _PlatformViewRepresentable {
+@_spi(Internals)
+public protocol PlatformViewRepresentable: _PlatformViewRepresentable {
 	#if canImport(UIKit)
-	typealias RepresentedView = UIViewType
+	typealias View = UIViewType
 	#elseif canImport(AppKit)
-	typealias RepresentedView = NSViewType
+	typealias View = NSViewType
 	#endif
 
-	func makePlatformView(context: Context) -> RepresentedView
-	func updatePlatformView(_ view: RepresentedView, context: Context)
-	static func dismantlePlatformView(_ view: RepresentedView, coordinator: Coordinator)
+	func makePlatformView(context: Context) -> View
+	func updatePlatformView(_ view: View, context: Context)
+	static func dismantlePlatformView(_ view: View, coordinator: Coordinator)
 }
 
+@_spi(Internals)
 extension PlatformViewRepresentable {
 	#if canImport(UIKit)
-	func makeUIView(context: Context) -> RepresentedView {
+	public func makeUIView(context: Context) -> View {
 		makePlatformView(context: context)
 	}
-	func updateUIView(_ view: RepresentedView, context: Context) {
+	public func updateUIView(_ view: View, context: Context) {
 		updatePlatformView(view, context: context)
 	}
-	static func dismantleUIView(_ view: RepresentedView, coordinator: Coordinator) {
+	public static func dismantleUIView(_ view: View, coordinator: Coordinator) {
 		dismantlePlatformView(view, coordinator: coordinator)
 	}
 	#elseif canImport(AppKit)
-	func makeNSView(context: Context) -> RepresentedView {
+	public func makeNSView(context: Context) -> View {
 		makePlatformView(context: context)
 	}
-	func updateNSView(_ view: RepresentedView, context: Context) {
+	public func updateNSView(_ view: View, context: Context) {
 		updatePlatformView(view, context: context)
 	}
-	static func dismantleNSView(_ view: RepresentedView, coordinator: Coordinator) {
+	public static func dismantleNSView(_ view: View, coordinator: Coordinator) {
 		dismantlePlatformView(view, coordinator: coordinator)
 	}
 	#endif

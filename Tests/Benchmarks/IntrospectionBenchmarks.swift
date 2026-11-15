@@ -103,7 +103,7 @@ final class IntrospectionBenchmarks: XCTestCase {
 	}
 
 	private static var metrics: [XCTMetric] {
-		[XCTCPUMetric(limitingToCurrentThread: true), XCTClockMetric(), XCTMemoryMetric()]
+		[XCTCPUMetric(), XCTClockMetric(), XCTMemoryMetric()]
 	}
 
 	private static var options: XCTMeasureOptions {

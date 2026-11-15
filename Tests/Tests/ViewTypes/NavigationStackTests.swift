@@ -139,6 +139,24 @@ struct NavigationStackTests {
 				.flatMap { controllers(in: $0).lazy.compactMap { $0 as? UINavigationController }.first }
 				.flatMap { $0.viewControllers.count == 2 ? $0 : nil }
 		}
+		// TEMPORARY: diagnose how the selected tab's button is identified and triggered on each OS.
+		if let tabBar = hostController().flatMap({ controllers(in: $0).lazy.compactMap { $0 as? UITabBarController }.first })?.tabBar {
+			print("RESELECT-DIAG scope=\(String(describing: scope)) selectedItem=\(tabBar.selectedItem?.title ?? "nil")")
+			for control in views(in: tabBar).compactMap({ $0 as? UIControl }) {
+				let events: [(String, UIControl.Event)] = [
+					("touchDown", .touchDown), ("touchUpInside", .touchUpInside),
+					("primaryActionTriggered", .primaryActionTriggered), ("valueChanged", .valueChanged),
+				]
+				let actions = control.allTargets.flatMap { target in
+					events.flatMap { name, event in
+						(control.actions(forTarget: target, forControlEvent: event) ?? []).map { "\(name):\(type(of: target)).\($0)" }
+					}
+				}
+				print(
+					"RESELECT-DIAG \(type(of: control)) label=\(control.accessibilityLabel ?? "-") selected=\(control.isSelected) traitSelected=\(control.accessibilityTraits.contains(.selected)) events=\(control.allControlEvents.rawValue) actions=\(actions)",
+				)
+			}
+		}
 		let tabButton = try await waitForValue {
 			hostController()
 				.flatMap { controllers(in: $0).lazy.compactMap { $0 as? UITabBarController }.first }

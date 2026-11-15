@@ -131,7 +131,7 @@ struct NavigationStackTests {
 	/// Reselecting a tab pops its stack to the root view. The test reselects it by sending the tab button's action, and
 	/// also runs without introspection to show that this reselects the tab.
 	@available(iOS 18, *)
-	@Test(arguments: [nil, .receiver, .receiver.union(.ancestor)] as [IntrospectionScope?])
+	@Test(arguments: [nil, .receiver, [.receiver, .ancestor]] as [IntrospectionScope?])
 	func `reselecting a tab pops its stack to root`(scope: IntrospectionScope?) async throws {
 		TestUtils.present(view: ReselectTabs(scope: scope))
 		let navigationController = try await waitForValue {

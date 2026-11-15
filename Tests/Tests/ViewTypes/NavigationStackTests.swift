@@ -139,29 +139,27 @@ struct NavigationStackTests {
 				.flatMap { controllers(in: $0).lazy.compactMap { $0 as? UINavigationController }.first }
 				.flatMap { $0.viewControllers.count == 2 ? $0 : nil }
 		}
-		// TEMPORARY: diagnose how the selected tab's button is identified and triggered on each OS.
-		if let tabBar = hostController().flatMap({ controllers(in: $0).lazy.compactMap { $0 as? UITabBarController }.first })?.tabBar {
-			print("RESELECT-DIAG scope=\(String(describing: scope)) selectedItem=\(tabBar.selectedItem?.title ?? "nil")")
-			for control in views(in: tabBar).compactMap({ $0 as? UIControl }) {
-				let events: [(String, UIControl.Event)] = [
-					("touchDown", .touchDown), ("touchUpInside", .touchUpInside),
-					("primaryActionTriggered", .primaryActionTriggered), ("valueChanged", .valueChanged),
-				]
-				let actions = control.allTargets.flatMap { target in
-					events.flatMap { name, event in
-						(control.actions(forTarget: target, forControlEvent: event) ?? []).map { "\(name):\(type(of: target)).\($0)" }
-					}
-				}
-				print(
-					"RESELECT-DIAG \(type(of: control)) label=\(control.accessibilityLabel ?? "-") selected=\(control.isSelected) traitSelected=\(control.accessibilityTraits.contains(.selected)) events=\(control.allControlEvents.rawValue) actions=\(actions)",
-				)
+		let tabButton = try await waitForValue { () -> UIControl? in
+			guard
+				let tabBar = hostController()
+					.flatMap({ controllers(in: $0).lazy.compactMap { $0 as? UITabBarController }.first })?
+					.tabBar
+			else {
+				return nil
 			}
+			let buttons = views(in: tabBar).compactMap { $0 as? UIControl }
+			if let selected = buttons.first(where: \.isSelected) {
+				return selected
+			}
+			// Before iOS 26, tab buttons don't report their selection, and appear in the order of the tab bar's items.
+			guard let item = tabBar.selectedItem, let index = tabBar.items?.firstIndex(of: item) else {
+				return nil
+			}
+			let ordered = buttons.sorted { $0.convert($0.bounds, to: tabBar).minX < $1.convert($1.bounds, to: tabBar).minX }
+			return ordered.indices.contains(index) ? ordered[index] : nil
 		}
-		let tabButton = try await waitForValue {
-			hostController()
-				.flatMap { controllers(in: $0).lazy.compactMap { $0 as? UITabBarController }.first }
-				.flatMap { views(in: $0.tabBar).lazy.compactMap { $0 as? UIControl }.first { $0.isSelected } }
-		}
+		// A tap sends both events, and tab buttons before iOS 26 act on each of them.
+		tabButton.sendActions(for: .touchDown)
 		tabButton.sendActions(for: .touchUpInside)
 		_ = try await waitForValue { navigationController.viewControllers.count == 1 ? () : nil }
 	}

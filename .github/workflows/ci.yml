@@ -210,8 +210,19 @@ jobs:
             -resultBundlePath "$RUNNER_TEMP/head.xcresult"
           xcrun xcresulttool get test-results metrics --path "$RUNNER_TEMP/head.xcresult" > "$RUNNER_TEMP/head.json"
 
+      - name: Upload Metrics
+        uses: actions/upload-artifact@v5
+        with:
+          name: benchmark-metrics
+          path: |
+            ${{ runner.temp }}/base.json
+            ${{ runner.temp }}/head.json
+
       - name: Compare
-        run: .github/scripts/compare-benchmarks.sh "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" 5 >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          set -o pipefail
+          .github/scripts/compare-benchmarks.sh "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" 5 \
+            | tee -a "$GITHUB_STEP_SUMMARY"
 
   framework-archiving:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')

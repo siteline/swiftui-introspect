@@ -43,26 +43,26 @@ final class IntrospectionBenchmarks: XCTestCase {
 		}
 	}
 
-	func testTextFieldsWithoutIntrospection() throws {
+	func testTogglesWithoutIntrospection() throws {
 		try measurePresentation(introspections: 0) { _ in
-			TextFields(introspected: false, spy: { _ in })
+			Toggles(introspected: false, spy: { _ in })
 		}
 	}
 
-	func testTextFields() throws {
+	func testToggles() throws {
 		try measurePresentation(introspections: Self.rowCount) { spy in
-			TextFields(introspected: true, spy: spy)
+			Toggles(introspected: true, spy: spy)
 		}
 	}
 
-	func testTextFieldsUpdate() throws {
-		let model = TextFieldsModel()
+	func testTogglesUpdate() throws {
+		let model = TogglesModel()
 		var customized = 0
 		var target = Self.rowCount
 		let completion = Completion { customized >= target }
 		let window = try presentationWindow()
 		window.rootViewController = UIHostingController(
-			rootView: TextFields(introspected: true, model: model) { _ in
+			rootView: Toggles(introspected: true, model: model) { _ in
 				customized += 1
 				completion.update()
 			},
@@ -70,9 +70,12 @@ final class IntrospectionBenchmarks: XCTestCase {
 		completion.wait()
 
 		measure(metrics: Self.metrics, options: Self.options) {
-			target = customized + Self.rowCount
-			model.text += "a"
-			completion.wait()
+			// Toggling twice measures both directions in every iteration.
+			for _ in 0..<2 {
+				target = customized + Self.rowCount
+				model.isOn.toggle()
+				completion.wait()
+			}
 		}
 		window.rootViewController = nil
 	}
@@ -84,19 +87,22 @@ final class IntrospectionBenchmarks: XCTestCase {
 		@ViewBuilder _ content: @escaping (_ spy: @escaping (Int) -> Void) -> some View,
 	) throws {
 		let window = try presentationWindow()
+		// Each presentation drains its own pool, so presentations don't accumulate across iterations.
 		let present = {
-			var introspected = Set<Int>()
-			let completion = Completion { introspected.count >= introspections }
-			let controller = UIHostingController(
-				rootView: content {
-					introspected.insert($0)
-					completion.update()
-				},
-			)
-			window.rootViewController = controller
-			controller.view.layoutIfNeeded()
-			completion.wait()
-			window.rootViewController = nil
+			autoreleasepool {
+				var introspected = Set<Int>()
+				let completion = Completion { introspected.count >= introspections }
+				let controller = UIHostingController(
+					rootView: content {
+						introspected.insert($0)
+						completion.update()
+					},
+				)
+				window.rootViewController = controller
+				controller.view.layoutIfNeeded()
+				completion.wait()
+				window.rootViewController = nil
+			}
 		}
 		present()
 		measure(metrics: Self.metrics, options: Self.options, block: present)
@@ -148,13 +154,13 @@ private final class Completion {
 }
 
 @MainActor
-private final class TextFieldsModel: ObservableObject {
-	@Published var text = ""
+private final class TogglesModel: ObservableObject {
+	@Published var isOn = false
 }
 
-private struct TextFields: View {
+private struct Toggles: View {
 	let introspected: Bool
-	@ObservedObject var model = TextFieldsModel()
+	@ObservedObject var model = TogglesModel()
 	let spy: (Int) -> Void
 
 	var body: some View {
@@ -162,12 +168,12 @@ private struct TextFields: View {
 			VStack {
 				ForEach(0..<IntrospectionBenchmarks.rowCount, id: \.self) { index in
 					if introspected {
-						TextField("Row \(index)", text: $model.text)
-							.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { _ in
+						Toggle("Row \(index)", isOn: $model.isOn)
+							.introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) { _ in
 								spy(index)
 							}
 					} else {
-						TextField("Row \(index)", text: $model.text)
+						Toggle("Row \(index)", isOn: $model.isOn)
 					}
 				}
 			}

@@ -3,11 +3,12 @@ import SwiftUI
 /// The kind of entities introspection inserts around the receiver to find its target: an anchor behind it, and a probe
 /// in front of it.
 enum IntrospectionProbeKind {
-	/// Child view controllers, which find targets in both the view and view controller hierarchies.
+	/// Child view controllers, which find targets in both the view and view controller hierarchies. Custom selectors
+	/// receive the probe itself.
 	case viewController
 	/// Views, which leave the view controller hierarchy untouched and find view controllers through the views they own.
-	/// Use them for view controller targets whose behavior depends on their containment, such as a tab's navigation
-	/// controller.
+	/// On UIKit, a probe that hasn't found its target retries on later frames, for about a second after it last moved
+	/// or laid out.
 	///
 	/// Custom selectors receive the view controller enclosing the probe.
 	case view

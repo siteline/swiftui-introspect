@@ -25,19 +25,34 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 		)
 	}
 
-	private(set) var probe: IntrospectionProbeKind = .viewController
+	private var explicitProbe: IntrospectionProbeKind? = nil
+	private var hasCustomSelector = false
 	private var receiverSelector: @MainActor (any IntrospectionProbe) -> Target?
 	private var ancestorSelector: @MainActor (any IntrospectionProbe) -> Target?
 
+	/// The probe set with `withProbe(_:)`, or else views on UIKit and view controllers on AppKit. Custom selectors also
+	/// default to view controllers, since they receive the probe.
+	var probe: IntrospectionProbeKind {
+		if let explicitProbe {
+			return explicitProbe
+		}
+		#if canImport(UIKit)
+		return hasCustomSelector ? .viewController : .view
+		#elseif canImport(AppKit)
+		return .viewController
+		#endif
+	}
+
 	func withProbe(_ probe: IntrospectionProbeKind) -> Self {
 		var copy = self
-		copy.probe = probe
+		copy.explicitProbe = probe
 		return copy
 	}
 
 	@_spi(Advanced)
 	public func withReceiverSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
+		copy.hasCustomSelector = true
 		copy.receiverSelector = { $0.controller.flatMap(selector) }
 		return copy
 	}
@@ -45,6 +60,7 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 	@_spi(Advanced)
 	public func withAncestorSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
+		copy.hasCustomSelector = true
 		copy.ancestorSelector = { $0.controller.flatMap(selector) }
 		return copy
 	}

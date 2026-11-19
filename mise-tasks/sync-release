@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+#MISE description="Stage a maintenance branch's tree: a main revision without the platform versions of later yearly OS releases"
+#USAGE arg "<major>" help="Major version of the maintenance branch, such as 26 or 1"
+#USAGE arg "[revision]" default="origin/main" help="Revision of main to mirror"
+#
+# Run it on a clean checkout of the maintenance branch, then commit the staged
+# result. The tree matches the revision, except that it has no CI workflow and
+# leaves out yearly versions after the major version, along with view types that
+# have no version left.
+set -euo pipefail
+
+if ! git diff --quiet || ! git diff --cached --quiet; then
+	echo "error: the working tree has uncommitted changes" >&2
+	exit 1
+fi
+
+# Yearly versions, such as v26 and v27, start at 26.
+versions=$(git show "$usage_revision:Sources/PlatformVersion.swift" |
+	perl -ne 'print "$1\n" if /static let v(\d+) = iOSVersion/ && $1 >= 26 && $1 > '"$usage_major" |
+	paste -sd '|' -)
+
+git read-tree -u --reset "$usage_revision"
+git rm -qf .github/workflows/ci.yml
+
+if [ -n "$versions" ]; then
+	git ls-files -z '*.swift' '*.md' ':!AGENTS.md' | xargs -0 perl -e '
+		my $d = shift @ARGV;
+		my $v = qr/v(?:$d)\b(?!\.\.)/;
+		for my $file (@ARGV) {
+			open my $in, "<", $file or die "$file: $!";
+			local $/;
+			my $s = <$in>;
+			close $in;
+			my $original = $s;
+			# Version blocks, such as `public static let v27 = iOSVersion { ... }`.
+			$s =~ s/\n?^([ \t]*)(?:public )?static let $v = \w+ \{\n.*?^\1\}\n//msg;
+			# One-line version entries, with the attributes above them.
+			$s =~ s/(?:^[ \t]*@(?:available\(\*, unavailable[^\n]*\)|_disfavoredOverload)[ \t]*\n)*^[ \t]*(?:public )?static let $v = [^\n]*\n//mg;
+			# `if #available(iOS 27, *) { ... } else if ...` branches.
+			1 while $s =~ s/if #available\(\w+ (?:$d), \*\) \{\n.*?\n[ \t]*\} else (if )/$1/s;
+			# Documentation sections for a version onward, such as `/// ### macOS 26+`.
+			$s =~ s/^\/\/\/ ### \w+ (?:$d)\+\n.*?(?=^\/\/\/ ### )//msg;
+			# Tests that only run from a version onward.
+			$s =~ s/\n^([ \t]*)\@available\(\w+ (?:$d), \*\)\n\1\@Test[^\n]*\{\n.*?^\1\}\n/\n/msg;
+			# Expectations about a version.
+			$s =~ s/^[ \t]*#expect\(\w+Version\.$v[^\n]*\n//mg;
+			# Versions in predicate lists.
+			$s =~ s/, \.$v//g;
+			$s =~ s/\(\.$v, /(/g;
+			next if $s eq $original;
+			open my $out, ">", $file or die "$file: $!";
+			print $out $s;
+			close $out;
+		}
+	' "$versions"
+
+	for file in Sources/ViewTypes/*.swift; do
+		if grep -q 'static let v' "$file" && ! grep -q 'static let v[0-9_]* = Self(for:' "$file"; then
+			name=$(basename "$file" .swift)
+			git rm -qf "$file" "Tests/Tests/ViewTypes/${name}Tests.swift"
+			lowercased=$(echo "$name" | tr '[:upper:]' '[:lower:]')
+			perl -ni -e "print unless /\/${lowercased}type\)\$/" README.md
+		fi
+	done
+fi
+
+git add -A
+echo "Staged $usage_revision without versions ${versions:-(none)}. Review and commit the result."

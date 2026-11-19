@@ -9,7 +9,7 @@
 | `release/1.x` | Version 1 |
 
 - Each maintenance branch has the same tree as `main`, except that it has no CI workflow and leaves out the platform versions of later yearly OS releases: `release/26.x` has no `.v27`, and `release/1.x` has no `.v26`, `.v27`, or `WebView`, which requires OS 26.
-- Land features and fixes on `main` first. After they merge, bring each maintenance branch back to that tree, with one commit per feature or fix.
+- Land features and fixes on `main` first. After they merge, bring each maintenance branch back to that tree with `mise run sync-release <major> <revision>` on a checkout of the branch, with one commit per feature or fix.
 - Maintenance branches have no CI. Before pushing one, run its tests on a simulator of the newest OS version it supports, or build it for every platform when no such runtime is installed.
 - Create version 1 and version 26 releases from their maintenance branches. Use minor releases for additive features and patch releases for fixes.
 

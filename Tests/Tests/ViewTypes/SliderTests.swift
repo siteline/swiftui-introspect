@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct SliderTests {
 	#if canImport(UIKit)
 	typealias PlatformSlider = UISlider
@@ -12,7 +11,8 @@ struct SliderTests {
 	typealias PlatformSlider = NSSlider
 	#endif
 
-	@Test func introspect() async throws {
+	@Test(.obsoleted(macOS: 27))
+	func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformSlider.self) { spy1, spy2, spy3 in
 			VStack {
 				Slider(value: .constant(0.2), in: 0...1)

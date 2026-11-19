@@ -5,7 +5,6 @@ import Testing
 import WebKit
 
 @MainActor
-@Suite
 struct WebViewTests {
 	@available(iOS 26, tvOS 26, macOS 26, visionOS 26, *)
 	@Test func introspect() async throws {
@@ -14,22 +13,31 @@ struct WebViewTests {
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
-						customize: spy1
+						on: .iOS(.v26),
+						.tvOS(.v26),
+						.macOS(.v26),
+						.visionOS(.v26),
+						customize: spy1,
 					)
 
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
-						customize: spy2
+						on: .iOS(.v26),
+						.tvOS(.v26),
+						.macOS(.v26),
+						.visionOS(.v26),
+						customize: spy2,
 					)
 
 				WebView(url: nil)
 					.introspect(
 						.webView,
-						on: .iOS(.v26), .tvOS(.v26), .macOS(.v26), .visionOS(.v26),
-						customize: spy3
+						on: .iOS(.v26),
+						.tvOS(.v26),
+						.macOS(.v26),
+						.visionOS(.v26),
+						customize: spy3,
 					)
 			}
 		}

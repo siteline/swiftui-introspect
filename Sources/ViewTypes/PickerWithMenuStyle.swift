@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Picker` type in SwiftUI, with `.menu` style.
 ///
 /// ### iOS
@@ -9,7 +8,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 11 - 26
+///
+/// On macOS 27, pickers with menu style are not backed by `NSPopUpButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -56,6 +57,5 @@ extension macOSViewVersion<PickerWithMenuStyleType, NSPopUpButton> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `TextEditor` type in SwiftUI.
 ///
 /// ### iOS
@@ -88,6 +87,5 @@ extension macOSViewVersion<TextEditorType, NSTextView> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

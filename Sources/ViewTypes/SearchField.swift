@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
 ///
 /// ### iOS 15 - 18
@@ -150,5 +149,4 @@ extension visionOSViewVersion<SearchFieldType, UISearchBar> {
 		}
 	}
 }
-#endif
 #endif

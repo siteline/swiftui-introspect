@@ -1,6 +1,3 @@
-#if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `SignInWithAppleButton` type in SwiftUI.
 ///
 /// ### iOS
@@ -47,7 +44,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26),) {
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -88,4 +85,3 @@ extension IntrospectableViewType where Self == SignInWithAppleButtonType {
 	)
 	public static var signInWithAppleButton: Self { .init() }
 }
-#endif

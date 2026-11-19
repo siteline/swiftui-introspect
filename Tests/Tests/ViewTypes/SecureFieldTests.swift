@@ -3,7 +3,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct SecureFieldTests {
 	#if canImport(UIKit)
 	typealias PlatformSecureField = UITextField
@@ -16,7 +15,13 @@ struct SecureFieldTests {
 			VStack {
 				SecureField("", text: .constant("Secure Field 1"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy1,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
 					#endif
@@ -24,7 +29,13 @@ struct SecureFieldTests {
 
 				SecureField("", text: .constant("Secure Field 2"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy2,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
 					#endif
@@ -32,7 +43,13 @@ struct SecureFieldTests {
 
 				SecureField("", text: .constant("Secure Field 3"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy3,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
 					#endif
@@ -49,26 +66,44 @@ struct SecureFieldTests {
 		#endif
 	}
 
-	@Test func introspectEmbeddedInList() async throws {
+	@Test func `introspect embedded in list`() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformSecureField.self) { spy1, spy2, spy3 in
 			List {
 				SecureField("", text: .constant("Secure Field 1"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy1,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
 					#endif
 
 				SecureField("", text: .constant("Secure Field 2"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy2,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
 					#endif
 
 				SecureField("", text: .constant("Secure Field 3"))
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.secureField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(
+						.secureField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy3,
+					)
 					#elseif os(macOS)
 					.introspect(.secureField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
 					#endif

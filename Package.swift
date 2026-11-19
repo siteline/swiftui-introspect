@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.2
 
 import PackageDescription
 
@@ -7,7 +7,7 @@ let package = Package(
 	platforms: [
 		.iOS(.v13),
 		.macCatalyst(.v13),
-		.macOS(.v10_15),
+		.macOS(.v12),
 		.tvOS(.v13),
 		.visionOS(.v1),
 	],
@@ -17,15 +17,19 @@ let package = Package(
 	targets: [
 		.target(
 			name: "SwiftUIIntrospect",
-			path: "Sources"
+			path: "Sources",
 		),
-	]
+	],
 )
 
 for target in package.targets {
 	target.swiftSettings = target.swiftSettings ?? []
 	target.swiftSettings? += [
 		.enableUpcomingFeature("ExistentialAny"),
+		.enableUpcomingFeature("ImmutableWeakCaptures"),
+		.enableUpcomingFeature("InferIsolatedConformances"),
 		.enableUpcomingFeature("InternalImportsByDefault"),
+		.enableUpcomingFeature("MemberImportVisibility"),
+		.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
 	]
 }

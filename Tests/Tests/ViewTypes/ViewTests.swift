@@ -3,21 +3,32 @@ import SwiftUI
 import Testing
 
 @MainActor
-@Suite
 struct ViewTests {
 	@Test func introspect() async throws {
 		let (entity1, entity2) = try await introspection(of: PlatformView.self) { spy1, spy2 in
 			VStack(spacing: 10) {
 				SUTView().frame(height: 30)
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(
+						.view,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy1,
+					)
 					#elseif os(macOS)
 					.introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
 					#endif
 
 				SUTView().frame(height: 40)
 					#if os(iOS) || os(tvOS) || os(visionOS)
-					.introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(
+						.view,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy2,
+					)
 					#elseif os(macOS)
 					.introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
 					#endif
@@ -43,7 +54,9 @@ struct SUTView: PlatformViewControllerRepresentable {
 		let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		widthConstraint.priority = .defaultLow
 
-		let heightConstraint = controller.view.heightAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+		let heightConstraint = controller.view
+			.heightAnchor
+			.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
 		heightConstraint.priority = .defaultLow
 
 		NSLayoutConstraint.activate([widthConstraint, heightConstraint])

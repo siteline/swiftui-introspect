@@ -1,13 +1,15 @@
-#if !os(watchOS)
 import SwiftUI
 
 @MainActor
-public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity> {
+public struct PlatformViewVersionPredicate<
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+> {
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?
 
 	private init<Version: PlatformVersion>(
 		_ versions: [PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>],
-		matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool
+		matches: (PlatformViewVersion<Version, SwiftUIViewType, PlatformSpecificEntity>) -> Bool,
 	) {
 		if let matchingVersion = versions.first(where: matches) {
 			self.selector = matchingVersion.selector ?? .default
@@ -20,7 +22,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	public static func iOS(_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func iOS(
+		_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
+	) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
@@ -28,7 +32,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	public static func tvOS(_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func tvOS(
+		_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
+	) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
@@ -36,7 +42,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	public static func macOS(_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func macOS(
+		_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
+	) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 
@@ -44,7 +52,9 @@ public struct PlatformViewVersionPredicate<SwiftUIViewType: IntrospectableViewTy
 		Self(versions, matches: \.isCurrent)
 	}
 
-	public static func visionOS(_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>) -> Self {
+	public static func visionOS(
+		_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
+	) -> Self {
 		Self([versions.lowerBound], matches: \.isCurrentOrPast)
 	}
 }
@@ -59,7 +69,11 @@ public typealias visionOSViewVersion<SwiftUIViewType: IntrospectableViewType, Pl
 	PlatformViewVersion<visionOSVersion, SwiftUIViewType, PlatformSpecificEntity>
 
 @MainActor
-public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: Sendable {
+public enum PlatformViewVersion<
+	Version: PlatformVersion,
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+>: Sendable {
 	@_spi(Internals) case available(Version, IntrospectionSelector<PlatformSpecificEntity>?)
 	@_spi(Internals) case unavailable
 
@@ -79,7 +93,7 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 			Please report it upstream so we can properly fix it by using the following link:
 
 			https://github.com/siteline/swiftui-introspect/issues/new?title=`\(fileName):\(line)`+should+be+marked+unavailable
-			"""
+			""",
 		)
 		return .unavailable
 	}
@@ -92,7 +106,6 @@ public enum PlatformViewVersion<Version: PlatformVersion, SwiftUIViewType: Intro
 		}
 	}
 
-	@MainActor
 	fileprivate var selector: IntrospectionSelector<PlatformSpecificEntity>? {
 		if case let .available(_, selector) = self {
 			selector
@@ -121,4 +134,3 @@ extension PlatformViewVersion: Comparable {
 		true
 	}
 }
-#endif

@@ -1,10 +1,9 @@
-#if !os(watchOS)
 import SwiftUI
 
 typealias IntrospectionViewID = UUID
 
 @MainActor
-fileprivate enum IntrospectionStore {
+private enum IntrospectionStore {
 	static var shared: [IntrospectionViewID: Pair] = [:]
 
 	struct Pair {
@@ -52,7 +51,10 @@ struct IntrospectionAnchorView: PlatformViewControllerRepresentable {
 
 	func updatePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, context: Context) {}
 
-	static func dismantlePlatformViewController(_ controller: IntrospectionAnchorPlatformViewController, coordinator: Coordinator) {}
+	static func dismantlePlatformViewController(
+		_ controller: IntrospectionAnchorPlatformViewController,
+		coordinator: Coordinator,
+	) {}
 }
 
 final class IntrospectionAnchorPlatformViewController: PlatformViewController {
@@ -100,7 +102,7 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 	init(
 		id: IntrospectionViewID,
 		selector: @escaping (IntrospectionPlatformViewController) -> Target?,
-		customize: @escaping (Target) -> Void
+		customize: @escaping (Target) -> Void,
 	) {
 		self._observed = .constant(())
 		self.id = id
@@ -130,7 +132,10 @@ struct IntrospectionView<Target: PlatformEntity>: PlatformViewControllerRepresen
 		customize(target)
 	}
 
-	static func dismantlePlatformViewController(_ controller: IntrospectionPlatformViewController, coordinator: Coordinator) {
+	static func dismantlePlatformViewController(
+		_ controller: IntrospectionPlatformViewController,
+		coordinator: Coordinator,
+	) {
 		controller.handler = nil
 		IntrospectionStore.shared.removeValue(forKey: controller.id)
 	}
@@ -142,7 +147,7 @@ final class IntrospectionPlatformViewController: PlatformViewController {
 
 	fileprivate init(
 		id: IntrospectionViewID,
-		handler: ((IntrospectionPlatformViewController) -> Void)?
+		handler: ((IntrospectionPlatformViewController) -> Void)?,
 	) {
 		self.id = id
 		super.init(nibName: nil, bundle: nil)
@@ -233,4 +238,3 @@ extension PlatformEntity {
 		}
 	}
 }
-#endif

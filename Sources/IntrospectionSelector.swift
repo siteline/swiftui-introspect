@@ -1,4 +1,3 @@
-#if !os(watchOS)
 #if os(iOS) || os(tvOS) || os(visionOS)
 public import UIKit
 #elseif os(macOS)
@@ -12,27 +11,22 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 	public static var `default`: Self { .from(Target.self, selector: { $0 }) }
 
 	@_spi(Advanced)
-	public static func from<Entry: PlatformEntity>(_ entryType: Entry.Type, selector: @MainActor @escaping (Entry) -> Target?) -> Self {
+	public static func from<Entry: PlatformEntity>(
+		_ entryType: Entry.Type,
+		selector: @MainActor @escaping (Entry) -> Target?,
+	) -> Self {
 		.init(
 			receiverSelector: { controller in
 				controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)
 			},
 			ancestorSelector: { controller in
 				controller.as(Entry.Base.self)?.ancestor(ofType: Entry.self).flatMap(selector)
-			}
+			},
 		)
 	}
 
 	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
 	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
-
-	private init(
-		receiverSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?,
-		ancestorSelector: @MainActor @escaping (IntrospectionPlatformViewController) -> Target?
-	) {
-		self.receiverSelector = receiverSelector
-		self.ancestorSelector = ancestorSelector
-	}
 
 	@_spi(Advanced)
 	public func withReceiverSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
@@ -79,4 +73,3 @@ extension PlatformViewController {
 		return nil
 	}
 }
-#endif

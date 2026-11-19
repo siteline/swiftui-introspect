@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the indeterminate `ProgressView` type in SwiftUI, with the default style.
 ///
 /// This type supports `ProgressView()` and `ProgressView("Loading")` without an explicit style.
@@ -67,7 +66,7 @@ public import UIKit
 
 extension iOSViewVersion<ProgressViewType, UIActivityIndicatorView> {
 	@available(*, unavailable, message: "ProgressView isn't available on iOS 13")
-	public static let v13 = Self(for: .v13)
+	public static let v13 = Self.unavailable()
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v16 = Self(for: .v16)
@@ -78,7 +77,7 @@ extension iOSViewVersion<ProgressViewType, UIActivityIndicatorView> {
 
 extension tvOSViewVersion<ProgressViewType, UIActivityIndicatorView> {
 	@available(*, unavailable, message: "ProgressView isn't available on tvOS 13")
-	public static let v13 = Self(for: .v13)
+	public static let v13 = Self.unavailable()
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 	public static let v16 = Self(for: .v16)
@@ -97,7 +96,7 @@ public import AppKit
 
 extension macOSViewVersion<ProgressViewType, NSProgressIndicator> {
 	@available(*, unavailable, message: "ProgressView isn't available on macOS 10.15")
-	public static let v10_15 = Self(for: .v10_15)
+	public static let v10_15 = Self.unavailable()
 	public static let v11 = Self(for: .v11)
 	public static let v12 = Self(for: .v12)
 	public static let v13 = Self(for: .v13)
@@ -105,5 +104,4 @@ extension macOSViewVersion<ProgressViewType, NSProgressIndicator> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

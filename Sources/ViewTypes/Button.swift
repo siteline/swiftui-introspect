@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Button` type in SwiftUI.
 ///
 /// ### iOS
@@ -9,7 +8,7 @@
 ///
 /// Not available.
 ///
-/// ### macOS 10.15 – 15
+/// ### macOS 10.15 - 15
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -42,10 +41,10 @@
 /// }
 /// ```
 ///
-/// ### macOS 26
+/// ### macOS 26+
 ///
-/// On macOS 26, only the `.borderless` and `.link` button styles are supported for introspection.
-/// Other styles (e.g., plain or bordered) are not supported on macOS 26.
+/// From macOS 26 onward, only the `.borderless` and `.link` button styles are supported for introspection.
+/// Other styles (e.g., plain or bordered) are not supported.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -89,6 +88,5 @@ extension macOSViewVersion<ButtonType, NSButton> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `List` type in SwiftUI, with `.grouped` style.
 ///
 /// ### iOS
@@ -103,6 +102,5 @@ extension visionOSViewVersion<ListWithGroupedStyleType, UICollectionView> {
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

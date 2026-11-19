@@ -54,7 +54,7 @@ body:
   attributes:
     label: Version information
     description: The version of SwiftUIIntrospect used to reproduce this issue.
-    placeholder: "'0.11.0' for example, or a commit hash"
+    placeholder: "'27.0.0' for example, or a commit hash"
 - type: input
   attributes:
     label: Destination operating system

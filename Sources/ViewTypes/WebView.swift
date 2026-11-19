@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `WebView` type in SwiftUI.
 ///
 /// ### iOS
@@ -12,7 +11,6 @@
 ///             .introspect(.webView, on: .iOS(.v26)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -28,7 +26,6 @@
 ///             .introspect(.webView, on: .tvOS(.v26)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -44,7 +41,6 @@
 ///             .introspect(.webView, on: .macOS(.v26)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -60,7 +56,6 @@
 ///             .introspect(.webView, on: .visionOS(.v26)) {
 ///                 print(type(of: $0)) // WKWebView
 ///             }
-///         }
 ///     }
 /// }
 /// ```
@@ -132,5 +127,4 @@ extension visionOSViewVersion<WebViewType, WKWebView> {
 
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

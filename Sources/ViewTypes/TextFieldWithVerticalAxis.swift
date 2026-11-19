@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `TextField` type in SwiftUI, with `.vertical` axis.
 ///
 /// ### iOS
@@ -70,8 +69,6 @@ extension IntrospectableViewType where Self == TextFieldWithVerticalAxisType {
 	public static func textField(axis: Self.Axis) -> Self { .init() }
 }
 
-// MARK: SwiftUI.TextField(..., axis: .vertical) - iOS
-
 #if canImport(UIKit)
 public import UIKit
 
@@ -124,5 +121,4 @@ extension macOSViewVersion<TextFieldWithVerticalAxisType, NSTextField> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

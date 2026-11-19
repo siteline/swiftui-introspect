@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct StepperTests {
 	#if canImport(UIKit)
 	typealias PlatformStepper = UIStepper

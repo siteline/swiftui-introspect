@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ListWithBorderedStyleTests {
 	typealias PlatformListWithBorderedStyle = NSTableView
 
@@ -20,7 +19,12 @@ struct ListWithBorderedStyleTests {
 
 				List {
 					Text("Item 1")
-						.introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26), scope: .ancestor, customize: spy2)
+						.introspect(
+							.list(style: .bordered),
+							on: .macOS(.v12, .v13, .v14, .v15, .v26),
+							scope: .ancestor,
+							customize: spy2,
+						)
 				}
 				.listStyle(.bordered)
 			}

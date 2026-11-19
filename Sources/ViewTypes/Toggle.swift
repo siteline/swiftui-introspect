@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Toggle` type in SwiftUI.
 ///
 /// ### iOS
@@ -20,7 +19,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 - 26
+///
+/// On macOS 27, toggles with the default style are not backed by `NSButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -69,6 +70,5 @@ extension macOSViewVersion<ToggleType, NSButton> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

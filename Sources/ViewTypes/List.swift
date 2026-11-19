@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `List` type in SwiftUI.
 ///
 /// ### iOS
@@ -125,5 +124,4 @@ extension macOSViewVersion<ListType, NSTableView> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

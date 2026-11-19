@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `NavigationView` type in SwiftUI, with `.columns` style.
 ///
 /// ### iOS
@@ -42,7 +41,10 @@
 ///             Text("Root")
 ///         }
 ///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
+///         .introspect(
+///             .navigationView(style: .columns),
+///             on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
+///         ) {
 ///             print(type(of: $0)) // NSSplitView
 ///         }
 ///     }
@@ -126,5 +128,4 @@ extension macOSViewVersion<NavigationViewWithColumnsStyleType, NSSplitView> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

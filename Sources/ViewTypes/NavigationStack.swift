@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `NavigationStack` type in SwiftUI.
 ///
 /// ### iOS
@@ -103,5 +102,4 @@ extension visionOSViewVersion<NavigationStackType, UINavigationController> {
 		.default.withAncestorSelector { $0.navigationController }
 	}
 }
-#endif
 #endif

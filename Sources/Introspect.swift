@@ -1,4 +1,3 @@
-#if !os(watchOS)
 public import SwiftUI
 
 /// The scope of introspection i.e. where introspect should look to find
@@ -29,10 +28,10 @@ extension View {
 	///     Note there is no guarantee of one-time execution for this closure. As `customize` may fire multiple times,
 	///     make sure to guard against repeated or heavy work in your closure by keeping track of its completeness.
 	///
-	///     Additionally, note mutating SwiftUI state within `customize` will trigger runtime warnings unless that mutation
-	///     is wrapped in a `DispatchQueue.main.async { ... }` call. This is because introspect attempts to hand you
-	///     the requested view as soon as possible, and this might mean SwiftUI isn't ready for state mutations at that
-	///     particular moment.
+	///     Additionally, note that mutating SwiftUI state within `customize` will trigger runtime warnings unless that
+	///     mutation is wrapped in a `DispatchQueue.main.async { ... }` call. This is because introspect attempts to hand
+	///     you the requested view as soon as possible, and this might mean SwiftUI isn't ready for state mutations at
+	///     that particular moment.
 	///
 	/// Here's an example usage:
 	///
@@ -53,13 +52,16 @@ extension View {
 		_ viewType: SwiftUIViewType,
 		on platforms: PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>...,
 		scope: IntrospectionScope? = nil,
-		customize: @escaping (PlatformSpecificEntity) -> Void
+		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) -> some View {
 		self.modifier(IntrospectModifier(viewType, platforms: platforms, scope: scope, customize: customize))
 	}
 }
 
-struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpecificEntity: PlatformEntity>: ViewModifier {
+struct IntrospectModifier<
+	SwiftUIViewType: IntrospectableViewType,
+	PlatformSpecificEntity: PlatformEntity,
+>: ViewModifier {
 	let id = IntrospectionViewID()
 	let scope: IntrospectionScope
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?
@@ -70,7 +72,7 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 		_ viewType: SwiftUIViewType,
 		platforms: [PlatformViewVersionPredicate<SwiftUIViewType, PlatformSpecificEntity>],
 		scope: IntrospectionScope?,
-		customize: @escaping (PlatformSpecificEntity) -> Void
+		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) {
 		self.scope = scope ?? viewType.scope
 		self.selector = platforms.lazy.compactMap(\.selector).first
@@ -88,17 +90,17 @@ struct IntrospectModifier<SwiftUIViewType: IntrospectableViewType, PlatformSpeci
 								.opacity(0)
 								.accessibility(hidden: true)
 						}
-					}
+					},
 				)
 				.background(
 					IntrospectionAnchorView(id: id)
 						.frame(width: 0, height: 0)
-						.accessibility(hidden: true)
+						.accessibility(hidden: true),
 				)
 				.overlay(
 					IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
 						.frame(width: 0, height: 0)
-						.accessibility(hidden: true)
+						.accessibility(hidden: true),
 				)
 		} else {
 			content
@@ -160,7 +162,7 @@ extension PlatformEntity {
 	}
 
 	func receiver<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		let frontEntity = self
 		guard
@@ -176,7 +178,7 @@ extension PlatformEntity {
 	}
 
 	func ancestor<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		self.ancestors
 			.firstPlatformEntity(ofType: PlatformSpecificEntity.self)
@@ -186,7 +188,7 @@ extension PlatformEntity {
 extension Sequence where Element: PlatformEntity {
 	@MainActor
 	func firstPlatformEntity<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type
+		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
 		self.first {
 			$0 is PlatformSpecificEntity && !$0.isIntrospectionPlatformEntity
@@ -231,5 +233,4 @@ extension UIPresentationController: PlatformEntity {
 extension NSWindow: PlatformEntity {
 	public typealias Base = NSWindow
 }
-#endif
 #endif

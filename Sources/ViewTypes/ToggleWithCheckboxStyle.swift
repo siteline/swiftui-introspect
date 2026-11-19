@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Toggle` type in SwiftUI, with `.checkbox` style.
 ///
 /// ### iOS
@@ -9,7 +8,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 - 26
+///
+/// On macOS 27, toggles with checkbox style are not backed by `NSButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -51,6 +52,5 @@ extension macOSViewVersion<ToggleWithCheckboxStyleType, NSButton> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

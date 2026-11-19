@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Form` type in SwiftUI.
 ///
 /// ### iOS
@@ -96,6 +95,5 @@ extension visionOSViewVersion<FormType, UICollectionView> {
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

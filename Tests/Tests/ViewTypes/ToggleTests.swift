@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ToggleTests {
 	#if canImport(UIKit)
 	typealias PlatformToggle = UISwitch
@@ -12,7 +11,8 @@ struct ToggleTests {
 	typealias PlatformToggle = NSButton
 	#endif
 
-	@Test func introspect() async throws {
+	@Test(.obsoleted(macOS: 27))
+	func introspect() async throws {
 		let (entity1, entity2, entity3) = try await introspection(of: PlatformToggle.self) { spy1, spy2, spy3 in
 			VStack {
 				Toggle("", isOn: .constant(true))

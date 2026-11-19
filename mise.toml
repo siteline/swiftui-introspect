@@ -1,0 +1,12 @@
+min_version = "2026.8.6"
+
+[settings]
+not_found_system_fallback = false
+
+[tool_config]
+locked = true
+
+[tools]
+hk = "1"
+jq = "1"
+swiftformat = "0"

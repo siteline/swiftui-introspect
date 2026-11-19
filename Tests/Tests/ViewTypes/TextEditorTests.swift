@@ -4,7 +4,6 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct TextEditorTests {
 	#if canImport(UIKit)
 	typealias PlatformTextEditor = UITextView
@@ -17,7 +16,12 @@ struct TextEditorTests {
 			VStack {
 				TextEditor(text: .constant("Text Field 0"))
 					#if os(iOS) || os(visionOS)
-					.introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy1)
+					.introspect(
+						.textEditor,
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy1,
+					)
 					#elseif os(macOS)
 					.introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy1)
 					#endif
@@ -25,7 +29,12 @@ struct TextEditorTests {
 
 				TextEditor(text: .constant("Text Field 1"))
 					#if os(iOS) || os(visionOS)
-					.introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy2)
+					.introspect(
+						.textEditor,
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy2,
+					)
 					#elseif os(macOS)
 					.introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy2)
 					#endif
@@ -33,7 +42,12 @@ struct TextEditorTests {
 
 				TextEditor(text: .constant("Text Field 2"))
 					#if os(iOS) || os(visionOS)
-					.introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26), .visionOS(.v1, .v2, .v26), customize: spy3)
+					.introspect(
+						.textEditor,
+						on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26),
+						.visionOS(.v1, .v2, .v26),
+						customize: spy3,
+					)
 					#elseif os(macOS)
 					.introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26), customize: spy3)
 					#endif

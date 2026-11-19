@@ -4,13 +4,16 @@ import SwiftUIIntrospect
 import Testing
 
 @MainActor
-@Suite
 struct ToggleWithButtonStyleTests {
 	typealias PlatformToggleWithButtonStyle = NSButton
 
 	@available(macOS, introduced: 12, obsoleted: 26)
 	@Test func introspect() async throws {
-		let (entity1, entity2, entity3) = try await introspection(of: PlatformToggleWithButtonStyle.self) { spy1, spy2, spy3 in
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformToggleWithButtonStyle.self) { spy1, spy2, spy3 in
 			VStack {
 				Toggle("", isOn: .constant(true))
 					.toggleStyle(.button)

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `DatePicker` type in SwiftUI, with `.stepperField` style.
 ///
 /// ### iOS
@@ -18,7 +17,10 @@
 ///     var body: some View {
 ///         DatePicker("Pick a date", selection: $date)
 ///             .datePickerStyle(.stepperField)
-///             .introspect(.datePicker(style: .stepperField), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
+///             .introspect(
+///                 .datePicker(style: .stepperField),
+///                 on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
+///             ) {
 ///                 print(type(of: $0)) // NSDatePicker
 ///             }
 ///     }
@@ -51,6 +53,5 @@ extension macOSViewVersion<DatePickerWithStepperFieldStyleType, NSDatePicker> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

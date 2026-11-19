@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `Slider` type in SwiftUI.
 ///
 /// ### iOS
@@ -20,7 +19,9 @@
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 10.15 - 26
+///
+/// On macOS 27, sliders are not backed by `NSSlider`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -69,6 +70,5 @@ extension macOSViewVersion<SliderType, NSSlider> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

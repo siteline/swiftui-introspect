@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `List` type in SwiftUI, with `.insetGrouped` style.
 ///
 /// ### iOS
@@ -63,7 +62,7 @@ public import UIKit
 
 extension iOSViewVersion<ListWithInsetGroupedStyleType, UITableView> {
 	@available(*, unavailable, message: ".listStyle(.insetGrouped) isn't available on iOS 13")
-	public static let v13 = Self(for: .v13)
+	public static let v13 = Self.unavailable()
 	public static let v14 = Self(for: .v14)
 	public static let v15 = Self(for: .v15)
 }
@@ -80,6 +79,5 @@ extension visionOSViewVersion<ListWithInsetGroupedStyleType, UICollectionView> {
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

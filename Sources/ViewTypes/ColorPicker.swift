@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `ColorPicker` type in SwiftUI.
 ///
 /// ### iOS
@@ -10,7 +9,7 @@
 ///     var body: some View {
 ///         ColorPicker("Pick a color", selection: $color)
 ///             .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
-///                 print(type(of: $0)) // UIColorPicker
+///                 print(type(of: $0)) // UIColorWell
 ///             }
 ///     }
 /// }
@@ -29,7 +28,7 @@
 ///     var body: some View {
 ///         ColorPicker("Pick a color", selection: $color)
 ///             .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
-///                 print(type(of: $0)) // NSColorPicker
+///                 print(type(of: $0)) // NSColorWell
 ///             }
 ///     }
 /// }
@@ -44,7 +43,7 @@
 ///     var body: some View {
 ///         ColorPicker("Pick a color", selection: $color)
 ///             .introspect(.colorPicker, on: .visionOS(.v1, .v2, .v26)) {
-///                 print(type(of: $0)) // UIColorPicker
+///                 print(type(of: $0)) // UIColorWell
 ///             }
 ///     }
 /// }
@@ -91,6 +90,5 @@ extension macOSViewVersion<ColorPickerType, NSColorWell> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

@@ -1,11 +1,13 @@
-#if !os(watchOS)
 /// An abstract representation of the `Map` type in SwiftUI.
 ///
 /// ### iOS
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -20,7 +22,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -35,7 +40,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -50,7 +58,10 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -107,5 +118,4 @@ extension visionOSViewVersion<MapType, MKMapView> {
 	public static let v2 = Self(for: .v2)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif

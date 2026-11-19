@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of the `TabView` type in SwiftUI.
 ///
 /// ### iOS
@@ -89,7 +88,6 @@ extension iOSViewVersion<TabViewType, UITabBarController> {
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
 
-	@MainActor
 	private static var selector: IntrospectionSelector<UITabBarController> {
 		.default.withAncestorSelector { $0.tabBarController }
 	}
@@ -104,7 +102,6 @@ extension tvOSViewVersion<TabViewType, UITabBarController> {
 	public static let v18 = Self(for: .v18, selector: selector)
 	public static let v26 = Self(for: .v26, selector: selector)
 
-	@MainActor
 	private static var selector: IntrospectionSelector<UITabBarController> {
 		.default.withAncestorSelector { $0.tabBarController }
 	}
@@ -121,6 +118,5 @@ extension macOSViewVersion<TabViewType, NSTabView> {
 	public static let v15 = Self(for: .v15)
 	public static let v26 = Self(for: .v26)
 }
-#endif
 #endif
 #endif

@@ -4,12 +4,12 @@ SwiftUI Introspect
 [![CI Status Badge](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml/badge.svg)](https://github.com/siteline/swiftui-introspect/actions/workflows/ci.yml)
 [![Swift Version Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/siteline/swiftui-introspect)
 [![Platform Compatibility Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsiteline%2Fswiftui-introspect%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/siteline/swiftui-introspect)
+[![](https://img.shields.io/badge/Documentation-gray?logo=swift&logoColor=white)](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect)
 
 SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a SwiftUI view.
 
 - [How it works](#how-it-works)
 - [Install](#install)
-    - [Swift Package Manager](#swift-package-manager)
 - [View Types](#view-types)
 - [Examples](#examples)
 - [General Guidelines](#general-guidelines)
@@ -17,6 +17,7 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
 - [Advanced usage](#advanced-usage)
     - [Implement your own introspectable type](#implement-your-own-introspectable-type)
     - [Keep instances outside the customize closure](#keep-instances-outside-the-customize-closure)
+- [Development](#development)
 - [Note for library authors](#note-for-library-authors)
 - [Community projects](#community-projects)
 
@@ -31,7 +32,7 @@ For instance, when introspecting a `ScrollView`...
 ScrollView {
 	Text("Item 1")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
 	// do something with UIScrollView
 }
 ```
@@ -49,7 +50,7 @@ By default, `.introspect` acts on its receiver. Calling `.introspect` from insid
 ```swift
 ScrollView {
 	Text("Item 1")
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26), scope: .ancestor) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v17, .v18, .v26), scope: .ancestor) { scrollView in
 			// do something with UIScrollView
 		}
 }
@@ -62,25 +63,16 @@ SwiftUI Introspect is suitable for production. It does not use private APIs. It 
 Install
 -------
 
-### Swift Package Manager
-
-#### Xcode
-
-<img width="660" height="300" src="https://github.com/user-attachments/assets/ab1c1a62-96d9-417d-ad2b-43012a69cae8" />
-
-#### Package.swift
+Add `SwiftUIIntrospect` to your Swift Package Manager dependencies:
 
 ```swift
-let package = Package(
-	dependencies: [
-		.package(url: "https://github.com/siteline/swiftui-introspect", from: "26.1.0"),
-	],
-	targets: [
-		.target(name: <#Target Name#>, dependencies: [
-			.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
-		]),
-	]
-)
+.package(url: "https://github.com/siteline/swiftui-introspect", from: "27.0.0"),
+```
+
+Then, add the dependency to your target:
+
+```swift
+.product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
 ```
 
 View Types
@@ -98,7 +90,7 @@ View Types
 - [`DatePicker` with `.wheel` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/datepickerwithwheelstyletype)
 - [`Form`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/formtype)
 - [`Form` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/formwithgroupedstyletype)
-- [`.fullScreenCover`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/fullScreenCovertype)
+- [`.fullScreenCover`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/fullscreencovertype)
 - [`List`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listtype)
 - [`List` with `.bordered` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listwithborderedstyletype)
 - [`List` with `.grouped` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/listwithgroupedstyletype)
@@ -109,8 +101,8 @@ View Types
 - [`Map`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/maptype)
 - [`NavigationSplitView`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationsplitviewtype)
 - [`NavigationStack`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationstacktype)
-- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/NavigationViewWithColumnsStyleType)
-- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/NavigationViewWithStackStyleType)
+- [`NavigationView` with `.columns` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationviewwithcolumnsstyletype)
+- [`NavigationView` with `.stack` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/navigationviewwithstackstyletype)
 - [`PageControl`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pagecontroltype)
 - [`Picker` with `.menu` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pickerwithmenustyletype)
 - [`Picker` with `.segmented` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/pickerwithsegmentedstyletype)
@@ -127,14 +119,14 @@ View Types
 - [`Stepper`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/steppertype)
 - [`Table`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabletype)
 - [`TabView`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabviewtype)
-- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/TabViewWithPageStyleType)
+- [`TabView` with `.page` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/tabviewwithpagestyletype)
 - [`TextEditor`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/texteditortype)
 - [`TextField`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/textfieldtype)
-- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/TextFieldWithVerticalAxisType)
+- [`TextField` with `.vertical` axis](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/textfieldwithverticalaxistype)
 - [`Toggle`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/toggletype)
-- [`Toggle` with `button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithbuttonstyletype)
-- [`Toggle` with `checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
-- [`Toggle` with `switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithswitchstyletype)
+- [`Toggle` with `.button` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithbuttonstyletype)
+- [`Toggle` with `.checkbox` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithcheckboxstyletype)
+- [`Toggle` with `.switch` style](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/togglewithswitchstyletype)
 - [`VideoPlayer`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/videoplayertype)
 - [`View`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewtype)
 - [`ViewController`](https://swiftpackageindex.com/siteline/swiftui-introspect/main/documentation/swiftuiintrospect/viewcontrollertype)
@@ -147,7 +139,7 @@ View Types
 
 SwiftUI | Affected Frameworks | Why
 --- | --- | ---
-Text | UIKit, AppKit | Not a UILabel / NSLabel
+Text | UIKit, AppKit | Not a UILabel / NSTextField
 Image | UIKit, AppKit | Not a UIImageView / NSImageView
 Button | UIKit | Not a UIButton
 Link | UIKit, AppKit | Not a UIButton / NSButton
@@ -186,7 +178,7 @@ List {
 ScrollView {
 	Text("Item")
 }
-.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+.introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
 	scrollView.bounces = false
 }
 ```
@@ -198,7 +190,7 @@ NavigationView {
 	Text("Item")
 }
 .navigationViewStyle(.stack)
-.introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { navigationController in
+.introspect(.navigationView(style: .stack), on: .iOS(.v17, .v18, .v26)) { navigationController in
 	navigationController.navigationBar.backgroundColor = .cyan
 }
 ```
@@ -207,7 +199,7 @@ NavigationView {
 
 ```swift
 TextField("Text Field", text: <#Binding<String>#>)
-	.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { textField in
+	.introspect(.textField, on: .iOS(.v17, .v18, .v26)) { textField in
 		textField.backgroundColor = .red
 	}
 ```
@@ -227,7 +219,7 @@ Here are some guidelines to keep in mind when using SwiftUI Introspect:
 Introspect on future platform versions
 -------------------------------------
 
-By default, introspection targets specific platform versions. To opt in to the lower-bound version and all later versions, use range-based version predicates:
+By default, introspection targets specific platform versions. This is an intentional design decision to maintain maximum predictability in actively maintained apps. However library authors may prefer to cover future versions to limit their commitment to regular maintenance without breaking client apps. For that, SwiftUI Introspect provides range-based version predicates:
 
 ```swift
 import SwiftUI
@@ -245,7 +237,7 @@ struct ContentView: View {
 }
 ```
 
-The range reuses the lower-bound version's selector on later OS versions. If the underlying UIKit/AppKit type changes, the customization closure may stop being called. Test your customizations on each OS version you support.
+Use this cautiously. A range reuses its lower bound's selector on later OS versions. If the underlying view type changes, the customization closure may not run.
 
 Advanced usage
 --------------
@@ -328,11 +320,21 @@ struct ContentView: View {
 		ScrollView {
 			// ...
 		}
-		.introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) { scrollView in
+		.introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
 			self.scrollView = scrollView
 		}
 	}
 }
+```
+
+Development
+-----------
+
+Install [Mise](https://mise.jdx.dev/), then install the project tools and Git hooks:
+
+```sh
+mise install
+mise exec -- hk install --mise
 ```
 
 Note for library authors
@@ -341,12 +343,12 @@ Note for library authors
 If your library depends on SwiftUI Introspect, declare a version range that spans at least the **last two major versions** instead of jumping straight to the latest. This avoids conflicts when apps pull the library directly and through multiple dependencies. For example:
 
 ```swift
-.package(url: "https://github.com/siteline/swiftui-introspect", "1.3.0"..<"27.0.0"),
+.package(url: "https://github.com/siteline/swiftui-introspect", "26.0.0"..<"28.0.0"),
 ```
 
-For public range-based predicates, use `"1.4.0"..<"2.0.0"` or `"26.1.0"..<"27.0.0"`.
+For public range-based predicates, use `"26.1.0"..<"28.0.0"`.
 
-[Range-based version predicates](#introspect-on-future-platform-versions) let your library opt in to future OS versions without requiring a new SwiftUI Introspect release for each one, provided the underlying UIKit/AppKit types and the lower-bound selector remain compatible. Test your customizations on each OS version you support.
+A wider range is safe because SwiftUI Introspect is essentially “finished”: no new features will be added, only newer platform versions and view types. [Range-based version predicates](#introspect-on-future-platform-versions) let you opt into future platform versions without frequent version bumps, provided the underlying UIKit/AppKit types remain compatible.
 
 Community projects
 ------------------

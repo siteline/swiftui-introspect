@@ -1,4 +1,3 @@
-#if !os(watchOS)
 @MainActor
 public protocol IntrospectableViewType {
 	/// The scope of introspection for this particular view type, i.e. where introspect
@@ -17,4 +16,3 @@ public protocol IntrospectableViewType {
 extension IntrospectableViewType {
 	public var scope: IntrospectionScope { .receiver }
 }
-#endif

@@ -1,4 +1,3 @@
-#if !os(watchOS)
 /// An abstract representation of a view's window in SwiftUI.
 ///
 /// ### iOS
@@ -114,5 +113,4 @@ extension macOSViewVersion<WindowType, NSWindow> {
 		.from(NSView.self, selector: { $0.window })
 	}
 }
-#endif
 #endif

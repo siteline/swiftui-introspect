@@ -62,7 +62,7 @@ struct IntrospectModifier<
 	SwiftUIViewType: IntrospectableViewType,
 	PlatformSpecificEntity: PlatformEntity,
 >: ViewModifier {
-	let id = IntrospectionViewID()
+	@State private var anchorReference = IntrospectionAnchorReference()
 	let scope: IntrospectionScope
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?
 	let customize: (PlatformSpecificEntity) -> Void
@@ -81,30 +81,55 @@ struct IntrospectModifier<
 
 	func body(content: Content) -> some View {
 		if let selector {
-			content
-				.background(
-					Group {
-						// box up content for more accurate `.view` introspection
-						if SwiftUIViewType.self == ViewType.self {
-							Color.white
-								.opacity(0)
-								.accessibility(hidden: true)
-						}
-					},
+			switch selector.probe {
+			case .viewController:
+				introspect(
+					content,
+					anchor: IntrospectionAnchorControllerRepresentable(anchorReference: anchorReference),
+					probe: IntrospectionProbeControllerRepresentable(
+						anchorReference: anchorReference,
+						selector: { selector($0, scope) },
+						customize: customize,
+					),
 				)
-				.background(
-					IntrospectionAnchorView(id: id)
-						.frame(width: 0, height: 0)
-						.accessibility(hidden: true),
+			case .view:
+				introspect(
+					content,
+					anchor: IntrospectionAnchorViewRepresentable(anchorReference: anchorReference),
+					probe: IntrospectionProbeViewRepresentable(
+						anchorReference: anchorReference,
+						selector: { selector($0, scope) },
+						customize: customize,
+					),
 				)
-				.overlay(
-					IntrospectionView(id: id, selector: { selector($0, scope) }, customize: customize)
-						.frame(width: 0, height: 0)
-						.accessibility(hidden: true),
-				)
+			}
 		} else {
 			content
 		}
+	}
+
+	private func introspect(_ content: Content, anchor: some View, probe: some View) -> some View {
+		content
+			.background(
+				Group {
+					// box up content for more accurate `.view` introspection
+					if SwiftUIViewType.self == ViewType.self {
+						Color.white
+							.opacity(0)
+							.accessibility(hidden: true)
+					}
+				},
+			)
+			.background(
+				anchor
+					.frame(width: 0, height: 0)
+					.accessibility(hidden: true),
+			)
+			.overlay(
+				probe
+					.frame(width: 0, height: 0)
+					.accessibility(hidden: true),
+			)
 	}
 }
 

@@ -491,35 +491,29 @@ extension IntrospectionProbeView: IntrospectionProbe {
 		return nil
 	}
 
-	/// The first view controller of the given type whose view sits between the anchor and this probe.
+	/// The first view controller of the given type whose view sits between the anchor and this probe, in the view
+	/// controller hierarchy's order, as the view controller probe finds it.
 	private func receiverController<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
 		guard
 			let anchor = introspectionAnchorEntity,
-			let commonAncestor = anchor.nearestCommonAncestor(with: self),
-			let container = commonAncestor.enclosingController
+			let container = anchor.nearestCommonAncestor(with: self)?.enclosingController
 		else {
 			return nil
 		}
-		let candidatesByView = Dictionary(
-			container.allDescendants.compactMap { controller -> (ObjectIdentifier, Entry)? in
+		return container.allDescendants
+			.lazy
+			.compactMap { controller -> Entry? in
 				guard
 					let candidate = controller as? Entry,
 					!controller.isIntrospectionPlatformEntity,
-					let view = controller.loadedView
+					let view = controller.loadedView,
+					anchor.precedes(view),
+					view.precedes(self)
 				else {
 					return nil
 				}
-				return (ObjectIdentifier(view), candidate)
-			},
-			uniquingKeysWith: { first, _ in first },
-		)
-		guard !candidatesByView.isEmpty else {
-			return nil
-		}
-		return commonAncestor
-			.allDescendants(between: anchor, and: self)
-			.lazy
-			.compactMap { candidatesByView[ObjectIdentifier($0)] }
+				return candidate
+			}
 			.first
 	}
 }
@@ -556,6 +550,39 @@ extension PlatformView {
 
 	private func isEnclosed(by controller: PlatformViewController) -> Bool {
 		controller.loadedView.map(isDescendant(of:)) ?? false
+	}
+
+	/// Whether this view comes before the other in a depth-first traversal of the view hierarchy, which visits views
+	/// before their subviews.
+	fileprivate func precedes(_ other: PlatformView) -> Bool {
+		let otherAncestors = Array(sequence(first: other, next: \.superview))
+		let depths = Dictionary(
+			otherAncestors.enumerated().map { (ObjectIdentifier($1), $0) },
+			uniquingKeysWith: { first, _ in first },
+		)
+		var child: PlatformView? = nil
+		for view in sequence(first: self, next: \.superview) {
+			if let depth = depths[ObjectIdentifier(view)] {
+				guard let child else {
+					// This view is the other's ancestor, or the other itself.
+					return depth > 0
+				}
+				guard depth > 0 else {
+					// The other is this view's ancestor.
+					return false
+				}
+				let otherChild = otherAncestors[depth - 1]
+				guard
+					let index = view.subviews.firstIndex(where: { $0 === child }),
+					let otherIndex = view.subviews.firstIndex(where: { $0 === otherChild })
+				else {
+					return false
+				}
+				return index < otherIndex
+			}
+			child = view
+		}
+		return false
 	}
 }
 

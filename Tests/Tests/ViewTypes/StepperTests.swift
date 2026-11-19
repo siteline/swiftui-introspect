@@ -1,49 +1,44 @@
-#if !os(tvOS) && !os(visionOS)
+#if !os(tvOS) && !os(visionOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class StepperTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformStepper = UIStepper
-    #elseif canImport(AppKit)
-    typealias PlatformStepper = NSStepper
-    #endif
+struct StepperTests {
+	#if canImport(UIKit)
+	typealias PlatformStepper = UIStepper
+	#elseif canImport(AppKit)
+	typealias PlatformStepper = NSStepper
+	#endif
 
-    func testStepper() {
-        XCTAssertViewIntrospection(of: PlatformStepper.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+	@Test func introspect() async throws {
+		let (entity1, entity2, entity3) = try await introspection(of: PlatformStepper.self) { spy1, spy2, spy3 in
+			VStack {
+				Stepper("", value: .constant(0), in: 0...10)
+					#if os(iOS)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy1)
+					#elseif os(macOS)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+					#endif
+					.cornerRadius(8)
 
-            VStack {
-                Stepper("", value: .constant(0), in: 0...10)
-                    #if os(iOS)
-                    .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                    #endif
-                    .cornerRadius(8)
+				Stepper("", value: .constant(0), in: 0...10)
+					#if os(iOS)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy2)
+					#elseif os(macOS)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+					#endif
+					.cornerRadius(8)
 
-                Stepper("", value: .constant(0), in: 0...10)
-                    #if os(iOS)
-                    .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
-                    #endif
-                    .cornerRadius(8)
-
-                Stepper("", value: .constant(0), in: 0...10)
-                    #if os(iOS)
-                    .introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy2)
-                    #elseif os(macOS)
-                    .introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
-                    #endif
-            }
-        } extraAssertions: {
-            XCTAssert(Set($0.map(ObjectIdentifier.init)).count == 3)
-        }
-    }
+				Stepper("", value: .constant(0), in: 0...10)
+					#if os(iOS)
+					.introspect(.stepper, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), customize: spy3)
+					#elseif os(macOS)
+					.introspect(.stepper, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy3)
+					#endif
+			}
+		}
+		#expect(Set([entity1, entity2, entity3].map(ObjectIdentifier.init)).count == 3)
+	}
 }
 #endif

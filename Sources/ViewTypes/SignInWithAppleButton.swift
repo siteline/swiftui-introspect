@@ -1,6 +1,3 @@
-#if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `SignInWithAppleButton` type in SwiftUI.
 ///
 /// ### iOS
@@ -47,7 +44,7 @@ import SwiftUI
 ///         } onCompletion: { result in
 ///             // do something with result
 ///         }
-///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14),) {
+///         .introspect(.signInWithAppleButton, on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
 ///             print(type(of: $0)) // ASAuthorizationAppleIDButton
 ///         }
 ///     }
@@ -73,19 +70,18 @@ import SwiftUI
 public struct SignInWithAppleButtonType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SignInWithAppleButtonType {
-    @available(
-        *,
-        unavailable,
-        message: """
-        Due to a mysterious bug on Apple's part that may cause a complete
-        app hang, the unfortunate decision has been made to remove support
-        for `SignInWithAppleButton` introspection.
-        
-        We apologize for this inconvenience.
+	@available(
+		*,
+		unavailable,
+		message: """
+		Due to a mysterious bug on Apple's part that may cause a complete
+		app hang, the unfortunate decision has been made to remove support
+		for `SignInWithAppleButton` introspection.
 
-        More details can be found at https://github.com/siteline/swiftui-introspect/issues/400
-        """
-    )
-    public static var signInWithAppleButton: Self { .init() }
+		We apologize for this inconvenience.
+
+		More details can be found at https://github.com/siteline/swiftui-introspect/issues/400
+		"""
+	)
+	public static var signInWithAppleButton: Self { .init() }
 }
-#endif

@@ -1,40 +1,74 @@
 import SwiftUI
-import SwiftUIIntrospect
-import XCTest
+@_spi(Internals) import SwiftUIIntrospect
+import Testing
 
 @MainActor
-final class ViewTests: XCTestCase {
-    func testView() {
-        XCTAssertViewIntrospection(of: PlatformView.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+struct ViewTests {
+	@Test func introspect() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformView.self) { spy1, spy2 in
+			VStack(spacing: 10) {
+				SUTView().frame(height: 30)
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.view,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy1,
+					)
+					#elseif os(macOS)
+					.introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+					#endif
 
-            VStack(spacing: 10) {
-                Image(systemName: "scribble").resizable().frame(height: 30)
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                    #endif
+				SUTView().frame(height: 40)
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.view,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy2,
+					)
+					#elseif os(macOS)
+					.introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+					#endif
+			}
+			.padding(10)
+		}
+		#expect(entity1.frame.height == 30)
+		#expect(entity2.frame.height == 40)
+	}
+}
 
-                Text("Text").frame(height: 40)
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
-                    #endif
-            }
-            .padding(10)
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
-            #elseif os(macOS)
-            .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
-            #endif
-        } extraAssertions: {
-            XCTAssertEqual($0[safe: 0]?.frame.height, 30)
-            XCTAssertEqual($0[safe: 1]?.frame.height, 40)
-            XCTAssertEqual($0[safe: 2]?.frame.height, 100)
-        }
-    }
+struct SUTView: PlatformViewControllerRepresentable {
+	#if canImport(UIKit)
+	typealias UIViewControllerType = PlatformViewController
+	#elseif canImport(AppKit)
+	typealias NSViewControllerType = PlatformViewController
+	#endif
+
+	func makePlatformViewController(context: Context) -> PlatformViewController {
+		let controller = PlatformViewController(nibName: nil, bundle: nil)
+		controller.view.translatesAutoresizingMaskIntoConstraints = false
+
+		let widthConstraint = controller.view.widthAnchor.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+		widthConstraint.priority = .defaultLow
+
+		let heightConstraint = controller.view
+			.heightAnchor
+			.constraint(greaterThanOrEqualToConstant: .greatestFiniteMagnitude)
+		heightConstraint.priority = .defaultLow
+
+		NSLayoutConstraint.activate([widthConstraint, heightConstraint])
+
+		return controller
+	}
+
+	func updatePlatformViewController(_ controller: PlatformViewController, context: Context) {
+		// NO-OP
+	}
+
+	static func dismantlePlatformViewController(_ controller: PlatformViewController, coordinator: Coordinator) {
+		// NO-OP
+	}
 }

@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+#MISE description="Run the benchmarks, and compare them with a base revision when one is given"
+#USAGE arg "[base]" help="Git revision to compare the working copy against, benchmarked in a temporary export"
+#USAGE flag "--destination <destination>" default="platform=iOS Simulator,name=iPhone 17 Pro" help="xcodebuild destination for every run"
+#USAGE flag "--rounds <rounds>" default="2" help="Test runs per revision, alternating their order between rounds"
+#USAGE flag "--output <directory>" help="Directory for the result bundles and exported metrics, a temporary one by default"
+#USAGE flag "--flag-percent <percent>" default="5" help="Mark increases above this percentage"
+#
+# Prints a Markdown table of each benchmark's median instructions retired across
+# all rounds, which requires hardware counters, such as an Apple silicon Mac's.
+# Alternating the revisions' order keeps warm-up and drift from favoring either
+# one. xcodebuild output goes to stderr.
+set -euo pipefail
+
+output=${usage_output:-$(mktemp -d)}
+mkdir -p "$output"
+rm -f "$output"/*.json
+
+metric="com.apple.dt.XCTMetric_CPU.instructions_retired"
+checkouts=(head)
+base_checkout=
+
+if [ -n "${usage_base:-}" ]; then
+	base_checkout=$(mktemp -d)
+	trap 'rm -rf "$base_checkout"' EXIT
+	git archive "$usage_base" | tar -x -C "$base_checkout"
+	if xcodebuild -list -project "$base_checkout/Tests/Tests.xcodeproj" 2> /dev/null | grep -q SwiftUIIntrospectBenchmarks; then
+		checkouts=(base head)
+	fi
+fi
+
+xcodebuild_benchmarks() { # action name [arguments...]
+	local action=$1 directory=.
+	[ "$2" = base ] && directory=$base_checkout
+	shift 2
+	xcodebuild "$action" \
+		-workspace "$directory/SwiftUIIntrospect.xcworkspace" \
+		-scheme SwiftUIIntrospectBenchmarks \
+		-destination "$usage_destination" \
+		"$@" >&2
+}
+
+run() { # name round
+	local bundle="$output/$1-$2.xcresult"
+	rm -rf "$bundle"
+	xcodebuild_benchmarks test-without-building "$1" -resultBundlePath "$bundle"
+	xcrun xcresulttool get test-results metrics --path "$bundle" > "$output/$1-$2.json"
+	if ! jq -e --arg metric "$metric" 'all(.[].testRuns[0].metrics[]; .identifier != $metric or (.measurements | min) > 0)' \
+		"$output/$1-$2.json" > /dev/null; then
+		echo "error: $usage_destination reports no instructions retired, so its runs can't be compared" >&2
+		exit 1
+	fi
+}
+
+for name in "${checkouts[@]}"; do
+	xcodebuild_benchmarks build-for-testing "$name"
+done
+# The first run after the simulator boots pays for its cold start, so it isn't measured.
+rm -rf "$output/warm-up.xcresult"
+xcodebuild_benchmarks test-without-building head -resultBundlePath "$output/warm-up.xcresult"
+for round in $(seq 1 "$usage_rounds"); do
+	order=("${checkouts[@]}")
+	if ((round % 2 == 0)) && [ "${#checkouts[@]}" = 2 ]; then
+		order=(head base)
+	fi
+	for name in "${order[@]}"; do
+		run "$name" "$round"
+	done
+done
+
+medians() { # name
+	local files=("$output/$1"-*.json)
+	[ -e "${files[0]}" ] || { echo "{}"; return; }
+	jq -s --arg metric "$metric" '
+		map(.[] | {
+			key: (.testIdentifier | sub("\\(\\)$"; "")),
+			value: [.testRuns[0].metrics[] | select(.identifier == $metric) | .measurements[]],
+		})
+		| group_by(.key)
+		| map({key: .[0].key, value: (map(.value[]) | sort | .[length / 2 | floor])})
+		| from_entries
+	' "${files[@]}"
+}
+
+jq -n -r \
+	--argjson base "$(medians base)" \
+	--argjson head "$(medians head)" \
+	--argjson flag "$usage_flag_percent" \
+	--argjson rounds "$usage_rounds" '
+	def value: . / 1000 | . * 10 | round / 10 | tostring + "M";
+	def change: (if . > 0 then "+" else "" end) + (. * 10 | round / 10 | tostring) + "%";
+	"| Benchmark | Base | Head | Change |",
+	"| --- | ---: | ---: | ---: |",
+	(
+		$head | keys[] as $name
+		| $head[$name] as $new
+		| $base[$name] as $old
+		| if $old == null then
+			"| \($name) | | \($new | value) | New |"
+		else
+			(($new - $old) / $old * 100) as $delta
+			| "| \($name) | \($old | value) | \($new | value) | \($delta | change)\(if $delta > $flag then " ⚠️" else "" end) |"
+		end
+	),
+	"",
+	"Median instructions retired over \($rounds) rounds of 10 iterations. ⚠️ marks increases above \($flag)%."
+'

@@ -1,96 +1,122 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class TextFieldTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformTextField = UITextField
-    #elseif canImport(AppKit)
-    typealias PlatformTextField = NSTextField
-    #endif
+struct TextFieldTests {
+	#if canImport(UIKit)
+	typealias PlatformTextField = UITextField
+	#elseif canImport(AppKit)
+	typealias PlatformTextField = NSTextField
+	#endif
 
-    func testTextField() {
-        XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+	@Test func introspect() async throws {
+		let (entity1, entity2, entity3) = try await introspection(of: PlatformTextField.self) { spy1, spy2, spy3 in
+			VStack {
+				TextField("", text: .constant("Text Field 1"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy1,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+					#endif
+					.cornerRadius(8)
 
-            VStack {
-                TextField("", text: .constant("Text Field 0"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                    #endif
-                    .cornerRadius(8)
+				TextField("", text: .constant("Text Field 2"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy2,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+					#endif
+					.cornerRadius(8)
 
-                TextField("", text: .constant("Text Field 1"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
-                    #endif
-                    .cornerRadius(8)
+				TextField("", text: .constant("Text Field 3"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy3,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy3)
+					#endif
+			}
+		}
+		#if canImport(UIKit)
+		#expect(entity1.text == "Text Field 1")
+		#expect(entity2.text == "Text Field 2")
+		#expect(entity3.text == "Text Field 3")
+		#elseif canImport(AppKit)
+		#expect(entity1.stringValue == "Text Field 1")
+		#expect(entity2.stringValue == "Text Field 2")
+		#expect(entity3.stringValue == "Text Field 3")
+		#endif
+	}
 
-                TextField("", text: .constant("Text Field 2"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
-                    #endif
-            }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Text Field 2")
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 2")
-            #endif
-        }
-    }
+	@Test func `introspect embedded in list`() async throws {
+		let (entity1, entity2, entity3) = try await introspection(of: PlatformTextField.self) { spy1, spy2, spy3 in
+			List {
+				TextField("", text: .constant("Text Field 1"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy1,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+					#endif
 
-    func testTextFieldsEmbeddedInList() {
-        XCTAssertViewIntrospection(of: PlatformTextField.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+				TextField("", text: .constant("Text Field 2"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy2,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+					#endif
 
-            List {
-                TextField("", text: .constant("Text Field 0"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                    #endif
-
-                TextField("", text: .constant("Text Field 1"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
-                    #endif
-
-                TextField("", text: .constant("Text Field 2"))
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
-                    #elseif os(macOS)
-                    .introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy2)
-                    #endif
-            }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.text, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.text, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.text, "Text Field 2")
-            #elseif canImport(AppKit)
-            XCTAssertEqual($0[safe: 0]?.stringValue, "Text Field 0")
-            XCTAssertEqual($0[safe: 1]?.stringValue, "Text Field 1")
-            XCTAssertEqual($0[safe: 2]?.stringValue, "Text Field 2")
-            #endif
-        }
-    }
+				TextField("", text: .constant("Text Field 3"))
+					#if os(iOS) || os(tvOS) || os(visionOS)
+					.introspect(
+						.textField,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						.visionOS(.v1, .v2),
+						customize: spy3,
+					)
+					#elseif os(macOS)
+					.introspect(.textField, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy3)
+					#endif
+			}
+		}
+		#if canImport(UIKit)
+		#expect(entity1.text == "Text Field 1")
+		#expect(entity2.text == "Text Field 2")
+		#expect(entity3.text == "Text Field 3")
+		#elseif canImport(AppKit)
+		#expect(entity1.stringValue == "Text Field 1")
+		#expect(entity2.stringValue == "Text Field 2")
+		#expect(entity3.stringValue == "Text Field 3")
+		#endif
+	}
 }

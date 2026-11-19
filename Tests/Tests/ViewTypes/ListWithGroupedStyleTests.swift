@@ -1,41 +1,53 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ListWithGroupedStyleTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
-    #endif
+struct ListWithGroupedStyleTests {
+	typealias PlatformListWithGroupedStyle = UIScrollView // covers both UITableView and UICollectionView
 
-    func testListWithGroupedStyle() {
-        XCTAssertViewIntrospection(of: PlatformListWithGroupedStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
+	@Test func introspect() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformListWithGroupedStyle.self) { spy1, spy2 in
+			HStack {
+				List {
+					Text("Item 1")
+				}
+				.listStyle(.grouped)
+				.introspect(
+					.list(style: .grouped),
+					on: .iOS(.v13, .v14, .v15),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					customize: spy1,
+				)
+				.introspect(
+					.list(style: .grouped),
+					on: .iOS(.v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy1,
+				)
 
-            HStack {
-                List {
-                    Text("Item 1")
-                }
-                .listStyle(.grouped)
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
-                .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
-                #endif
-
-                List {
-                    Text("Item 1")
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.list(style: .grouped), on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
-                    .introspect(.list(style: .grouped), on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
-                    #endif
-                }
-                .listStyle(.grouped)
-            }
-        } extraAssertions: {
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
+				List {
+					Text("Item 1")
+						.introspect(
+							.list(style: .grouped),
+							on: .iOS(.v13, .v14, .v15),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						.introspect(
+							.list(style: .grouped),
+							on: .iOS(.v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy2,
+						)
+				}
+				.listStyle(.grouped)
+			}
+		}
+		#expect(entity1 !== entity2)
+	}
 }
 #endif

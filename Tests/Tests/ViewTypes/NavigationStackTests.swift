@@ -1,53 +1,49 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(iOS 16, tvOS 16, *)
 @MainActor
-final class NavigationStackTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformNavigationStack = UINavigationController
-    #endif
+struct NavigationStackTests {
+	typealias PlatformNavigationStack = UINavigationController
 
-    func testNavigationStack() throws {
-        guard #available(iOS 16, tvOS 16, *) else {
-            throw XCTSkip()
-        }
+	@available(iOS 16, tvOS 16, *)
+	@Test func introspect() async throws {
+		try await introspection(of: PlatformNavigationStack.self) { spy in
+			NavigationStack {
+				ZStack {
+					Color.red
+					Text("Something")
+				}
+			}
+			.introspect(
+				.navigationStack,
+				on: .iOS(.v16, .v17, .v18),
+				.tvOS(.v16, .v17, .v18),
+				.visionOS(.v1, .v2),
+				customize: spy,
+			)
+		}
+	}
 
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
-            let spy = spies[0]
-
-            NavigationStack {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                }
-            }
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18), .tvOS(.v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
-            #endif
-        }
-    }
-
-    func testNavigationStackAsAncestor() throws {
-        guard #available(iOS 16, tvOS 16, *) else {
-            throw XCTSkip()
-        }
-
-        XCTAssertViewIntrospection(of: PlatformNavigationStack.self) { spies in
-            let spy = spies[0]
-
-            NavigationStack {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                        #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18), .tvOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
-                        #endif
-                }
-            }
-        }
-    }
+	@available(iOS 16, tvOS 16, *)
+	@Test func `introspect as ancestor`() async throws {
+		try await introspection(of: PlatformNavigationStack.self) { spy in
+			NavigationStack {
+				ZStack {
+					Color.red
+					Text("Something")
+						.introspect(
+							.navigationStack,
+							on: .iOS(.v16, .v17, .v18),
+							.tvOS(.v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy,
+						)
+				}
+			}
+		}
+	}
 }
 #endif

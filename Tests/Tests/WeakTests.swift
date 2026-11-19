@@ -1,56 +1,56 @@
 @_spi(Advanced) import SwiftUIIntrospect
-import XCTest
+import Testing
 
-final class WeakTests: XCTestCase {
-    final class Foo {}
+struct WeakTests {
+	final class Foo {}
 
-    var strongFoo: Foo? = Foo()
+	var strongFoo: Foo? = Foo()
 
-    func testInit_nil() {
-        @Weak var weakFoo: Foo?
-        XCTAssertNil(weakFoo)
-    }
+	@Test func `init nil`() {
+		@Weak var weakFoo: Foo?
+		#expect(weakFoo == nil)
+	}
 
-    func testInit_nonNil() {
-        @Weak var weakFoo: Foo? = strongFoo
-        XCTAssertIdentical(weakFoo, strongFoo)
-    }
+	@Test func `init non-nil`() {
+		@Weak var weakFoo: Foo? = strongFoo
+		#expect(weakFoo === strongFoo)
+	}
 
-    func testAssignment_nilToNil() {
-        @Weak var weakFoo: Foo?
-        weakFoo = nil
-        XCTAssertNil(weakFoo)
-    }
+	@Test func `assignment nil to nil`() {
+		@Weak var weakFoo: Foo?
+		weakFoo = nil
+		#expect(weakFoo == nil)
+	}
 
-    func testAssignment_nilToNonNil() {
-        @Weak var weakFoo: Foo?
-        let otherFoo = Foo()
-        weakFoo = otherFoo
-        XCTAssertIdentical(weakFoo, otherFoo)
-    }
+	@Test func `assignment nil to non-nil`() {
+		@Weak var weakFoo: Foo?
+		let otherFoo = Foo()
+		weakFoo = otherFoo
+		#expect(weakFoo === otherFoo)
+	}
 
-    func testAssignment_nonNilToNil() {
-        @Weak var weakFoo: Foo? = strongFoo
-        weakFoo = nil
-        XCTAssertNil(weakFoo)
-    }
+	@Test func `assignment non-nil to nil`() {
+		@Weak var weakFoo: Foo? = strongFoo
+		weakFoo = nil
+		#expect(weakFoo == nil)
+	}
 
-    func testAssignment_nonNilToNonNil() {
-        @Weak var weakFoo: Foo? = strongFoo
-        let otherFoo = Foo()
-        weakFoo = otherFoo
-        XCTAssertIdentical(weakFoo, otherFoo)
-    }
+	@Test func `assignment non-nil to non-nil`() {
+		@Weak var weakFoo: Foo? = strongFoo
+		let otherFoo = Foo()
+		weakFoo = otherFoo
+		#expect(weakFoo === otherFoo)
+	}
 
-    func testIndirectAssignment_nonNilToNil() {
-        @Weak var weakFoo: Foo? = strongFoo
-        strongFoo = nil
-        XCTAssertNil(weakFoo)
-    }
+	@Test mutating func `indirect assignment non-nil to nil`() {
+		@Weak var weakFoo: Foo? = strongFoo
+		strongFoo = nil
+		#expect(weakFoo == nil)
+	}
 
-    func testIndirectAssignment_nonNilToNonNil() {
-        @Weak var weakFoo: Foo? = strongFoo
-        strongFoo = Foo()
-        XCTAssertNil(weakFoo)
-    }
+	@Test mutating func `indirect assignment non-nil to non-nil`() {
+		@Weak var weakFoo: Foo? = strongFoo
+		strongFoo = Foo()
+		#expect(weakFoo == nil)
+	}
 }

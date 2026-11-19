@@ -1,6 +1,3 @@
-#if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Picker` type in SwiftUI, with `.menu` style.
 ///
 /// ### iOS
@@ -11,7 +8,9 @@ import SwiftUI
 ///
 /// Not available.
 ///
-/// ### macOS
+/// ### macOS 11 - 26
+///
+/// On macOS 27, pickers with menu style are not backed by `NSPopUpButton`, so introspection is not possible.
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -35,26 +34,27 @@ import SwiftUI
 ///
 /// Not available.
 public struct PickerWithMenuStyleType: IntrospectableViewType {
-    public enum Style: Sendable {
-        case menu
-    }
+	public enum Style: Sendable {
+		case menu
+	}
 }
 
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 extension IntrospectableViewType where Self == PickerWithMenuStyleType {
-    public static func picker(style: Self.Style) -> Self { .init() }
+	public static func picker(style: Self.Style) -> Self { .init() }
 }
 
 #if canImport(AppKit) && !targetEnvironment(macCatalyst)
+public import AppKit
+
 extension macOSViewVersion<PickerWithMenuStyleType, NSPopUpButton> {
-    @available(*, unavailable, message: ".pickerStyle(.menu) isn't available on macOS 10.15")
-    public static let v10_15 = Self.unavailable()
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
+	@available(*, unavailable, message: ".pickerStyle(.menu) isn't available on macOS 10.15")
+	public static let v10_15 = Self.unavailable()
+	public static let v11 = Self(for: .v11)
+	public static let v12 = Self(for: .v12)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
 }
-#endif
 #endif
 #endif

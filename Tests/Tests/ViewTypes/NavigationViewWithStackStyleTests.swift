@@ -1,46 +1,49 @@
 #if !os(macOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class NavigationViewWithStackStyleTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformNavigationViewWithStackStyle = UINavigationController
-    #endif
+struct NavigationViewWithStackStyleTests {
+	typealias PlatformNavigationViewWithStackStyle = UINavigationController
 
-    func testNavigationViewWithStackStyle() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
-            let spy = spies[0]
+	@Test func introspect() async throws {
+		try await introspection(of: PlatformNavigationViewWithStackStyle.self) { spy in
+			NavigationView {
+				ZStack {
+					Color.red
+					Text("Something")
+				}
+			}
+			.navigationViewStyle(.stack)
+			.introspect(
+				.navigationView(style: .stack),
+				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+				.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+				.visionOS(.v1, .v2),
+				customize: spy,
+			)
+		}
+	}
 
-            NavigationView {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                }
-            }
-            .navigationViewStyle(.stack)
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy)
-            #endif
-        }
-    }
-
-    func testNavigationViewWithStackStyleAsAncestor() {
-        XCTAssertViewIntrospection(of: PlatformNavigationViewWithStackStyle.self) { spies in
-            let spy = spies[0]
-
-            NavigationView {
-                ZStack {
-                    Color.red
-                    Text("Something")
-                        #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.navigationView(style: .stack), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy)
-                        #endif
-                }
-            }
-            .navigationViewStyle(.stack)
-        }
-    }
+	@Test func `introspect as ancestor`() async throws {
+		try await introspection(of: PlatformNavigationViewWithStackStyle.self) { spy in
+			NavigationView {
+				ZStack {
+					Color.red
+					Text("Something")
+						.introspect(
+							.navigationView(style: .stack),
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy,
+						)
+				}
+			}
+			.navigationViewStyle(.stack)
+		}
+	}
 }
 #endif

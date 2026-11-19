@@ -1,9 +1,9 @@
-// swift-tools-version:5.4
+// swift-tools-version:6.2
 
 import PackageDescription
 
 let package = Package(
-    name: "Examples",
-    products: [],
-    targets: []
+	name: "Examples",
+	products: [],
+	targets: [],
 )

@@ -1,157 +1,178 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ScrollViewTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformScrollView = UIScrollView
-    #elseif canImport(AppKit)
-    typealias PlatformScrollView = NSScrollView
-    #endif
+struct ScrollViewTests {
+	#if canImport(UIKit)
+	typealias PlatformScrollView = UIScrollView
+	#elseif canImport(AppKit)
+	typealias PlatformScrollView = NSScrollView
+	#endif
 
-    func testScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
+	@Test func introspect() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
+			HStack {
+				ScrollView(showsIndicators: false) {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.scrollView,
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy1,
+				)
+				#elseif os(macOS)
+				.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+				#endif
 
-            HStack {
-                ScrollView(showsIndicators: false) {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                #endif
+				ScrollView(showsIndicators: true) {
+					Text("Item 1")
+						#if os(iOS) || os(tvOS) || os(visionOS)
+						.introspect(
+							.scrollView,
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#elseif os(macOS)
+						.introspect(
+							.scrollView,
+							on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#endif
+				}
+			}
+		}
+		#if canImport(UIKit)
+		#expect(entity1.showsVerticalScrollIndicator == false)
+		#expect(entity2.showsVerticalScrollIndicator == true)
+		#elseif canImport(AppKit)
+		#expect(entity1.verticalScroller == nil)
+		#expect(entity2.verticalScroller != nil)
+		#endif
 
-                ScrollView(showsIndicators: true) {
-                    Text("Item 1")
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy1)
-                    #elseif os(macOS)
-                    .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy1)
-                    #endif
-                }
-            }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.showsVerticalScrollIndicator, false)
-            XCTAssertEqual($0[safe: 1]?.showsVerticalScrollIndicator, true)
-            #elseif canImport(AppKit)
-            // FIXME: these assertions don't pass on macOS 12, not sure why... maybe callback is too premature in relation to view lifecycle?
-            if #available(macOS 13, *) {
-                XCTAssert($0[safe: 0]?.verticalScroller == nil)
-                XCTAssert($0[safe: 1]?.verticalScroller != nil)
-            }
-            #endif
+		#expect(entity1 !== entity2)
+	}
 
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
+	@Test func `introspect on future platform versions`() async throws {
+		let entity = try await introspection(of: PlatformScrollView.self) { spy in
+			ScrollView(showsIndicators: false) {
+				Text("Item 1")
+			}
+			#if os(iOS) || os(tvOS) || os(visionOS)
+			.introspect(.scrollView, on: .iOS(.v13...), .tvOS(.v13...), .visionOS(.v1...), customize: spy)
+			#elseif os(macOS)
+			.introspect(.scrollView, on: .macOS(.v10_15...), customize: spy)
+			#endif
+		}
+		#if canImport(UIKit)
+		#expect(entity.showsVerticalScrollIndicator == false)
+		#elseif canImport(AppKit)
+		#expect(entity.verticalScroller == nil)
+		#endif
+	}
 
-    func testScrollViewOnFuturePlatformVersions() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
-            let spy0 = spies[0]
+	@Test func `introspect nested`() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
+			ScrollView(showsIndicators: true) {
+				Text("Item 1")
 
-            ScrollView(showsIndicators: false) {
-                Text("Item 1")
-            }
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.scrollView, on: .iOS(.v13...), .tvOS(.v13...), .visionOS(.v1...), customize: spy0)
-            #elseif os(macOS)
-            .introspect(.scrollView, on: .macOS(.v10_15...), customize: spy0)
-            #endif
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.showsVerticalScrollIndicator, false)
-            #elseif canImport(AppKit)
-            // FIXME: these assertions don't pass on macOS 12, not sure why... maybe callback is too premature in relation to view lifecycle?
-            if #available(macOS 13, *) {
-                XCTAssert($0[safe: 0]?.verticalScroller == nil)
-            }
-            #endif
-        }
-    }
+				ScrollView(showsIndicators: false) {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.scrollView,
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy2,
+				)
+				#elseif os(macOS)
+				.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy2)
+				#endif
+			}
+			#if os(iOS) || os(tvOS) || os(visionOS)
+			.introspect(
+				.scrollView,
+				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+				.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+				.visionOS(.v1, .v2),
+				customize: spy1,
+			)
+			#elseif os(macOS)
+			.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+			#endif
+		}
+		#if canImport(UIKit)
+		#expect(entity1.showsVerticalScrollIndicator == true)
+		#expect(entity2.showsVerticalScrollIndicator == false)
+		#elseif canImport(AppKit)
+		#expect(entity1.verticalScroller != nil)
+		#expect(entity2.verticalScroller == nil)
+		#endif
 
-    func testNestedScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
+		#expect(entity1 !== entity2)
+	}
 
-            ScrollView(showsIndicators: true) {
-                Text("Item 1")
+	@Test func `introspect masked`() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformScrollView.self) { spy1, spy2 in
+			HStack {
+				ScrollView(showsIndicators: false) {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.scrollView,
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy1,
+				)
+				#elseif os(macOS)
+				.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+				#endif
+				.clipped()
+				.clipShape(RoundedRectangle(cornerRadius: 20.0))
+				.cornerRadius(2.0)
 
-                ScrollView(showsIndicators: false) {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
-                #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy1)
-                #endif
-            }
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-            #elseif os(macOS)
-            .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-            #endif
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.showsVerticalScrollIndicator, true)
-            XCTAssertEqual($0[safe: 1]?.showsVerticalScrollIndicator, false)
-            #elseif canImport(AppKit)
-            // FIXME: these assertions don't pass on macOS 12, not sure why... maybe callback is too premature in relation to view lifecycle?
-            if #available(macOS 13, *) {
-                XCTAssert($0[safe: 0]?.verticalScroller != nil)
-                XCTAssert($0[safe: 1]?.verticalScroller == nil)
-            }
-            #endif
+				ScrollView(showsIndicators: true) {
+					Text("Item 1")
+						#if os(iOS) || os(tvOS) || os(visionOS)
+						.introspect(
+							.scrollView,
+							on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#elseif os(macOS)
+						.introspect(
+							.scrollView,
+							on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#endif
+				}
+			}
+		}
+		#if canImport(UIKit)
+		#expect(entity1.showsVerticalScrollIndicator == false)
+		#expect(entity2.showsVerticalScrollIndicator == true)
+		#elseif canImport(AppKit)
+		#expect(entity1.verticalScroller == nil)
+		#expect(entity2.verticalScroller != nil)
+		#endif
 
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
-
-    func testMaskedScrollView() {
-        XCTAssertViewIntrospection(of: PlatformScrollView.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-
-            HStack {
-                ScrollView(showsIndicators: false) {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                #elseif os(macOS)
-                .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), customize: spy0)
-                #endif
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                .cornerRadius(2.0)
-
-                ScrollView(showsIndicators: true) {
-                    Text("Item 1")
-                        #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.scrollView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor, customize: spy1)
-                        #elseif os(macOS)
-                        .introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor, customize: spy1)
-                        #endif
-                }
-            }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.showsVerticalScrollIndicator, false)
-            XCTAssertEqual($0[safe: 1]?.showsVerticalScrollIndicator, true)
-            #elseif canImport(AppKit)
-            // FIXME: these assertions don't pass on macOS 12, not sure why... maybe callback is too premature in relation to view lifecycle?
-            if #available(macOS 13, *) {
-                XCTAssert($0[safe: 0]?.verticalScroller == nil)
-                XCTAssert($0[safe: 1]?.verticalScroller != nil)
-            }
-            #endif
-
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
+		#expect(entity1 !== entity2)
+	}
 }

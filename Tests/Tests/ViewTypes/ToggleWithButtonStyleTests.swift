@@ -1,51 +1,36 @@
 #if !os(iOS) && !os(tvOS) && !os(visionOS)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
-@available(macOS 12, *)
 @MainActor
-final class ToggleWithButtonStyleTests: XCTestCase {
-    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-    typealias PlatformToggleWithButtonStyle = NSButton
-    #endif
+struct ToggleWithButtonStyleTests {
+	typealias PlatformToggleWithButtonStyle = NSButton
 
-    func testToggleWithButtonStyle() throws {
-        guard #available(macOS 12, *) else {
-            throw XCTSkip()
-        }
+	@available(macOS, introduced: 12, obsoleted: 26)
+	@Test func introspect() async throws {
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformToggleWithButtonStyle.self) { spy1, spy2, spy3 in
+			VStack {
+				Toggle("", isOn: .constant(true))
+					.toggleStyle(.button)
+					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy1)
 
-        XCTAssertViewIntrospection(of: PlatformToggleWithButtonStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+				Toggle("", isOn: .constant(false))
+					.toggleStyle(.button)
+					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy2)
 
-            VStack {
-                Toggle("", isOn: .constant(true))
-                    .toggleStyle(.button)
-                    #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy0)
-                    #endif
-
-                Toggle("", isOn: .constant(false))
-                    .toggleStyle(.button)
-                    #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy1)
-                    #endif
-
-                Toggle("", isOn: .constant(true))
-                    .toggleStyle(.button)
-                    #if os(macOS)
-                    .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14), customize: spy2)
-                    #endif
-            }
-        } extraAssertions: {
-            #if canImport(AppKit) && !targetEnvironment(macCatalyst)
-            XCTAssertEqual($0[safe: 0]?.state, .on)
-            XCTAssertEqual($0[safe: 1]?.state, .off)
-            XCTAssertEqual($0[safe: 2]?.state, .on)
-            #endif
-        }
-    }
+				Toggle("", isOn: .constant(true))
+					.toggleStyle(.button)
+					.introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15), customize: spy3)
+			}
+		}
+		#expect(entity1.state == .on)
+		#expect(entity2.state == .off)
+		#expect(entity3.state == .on)
+	}
 }
 #endif

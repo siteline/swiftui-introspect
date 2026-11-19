@@ -1,6 +1,3 @@
-#if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of a view's window in SwiftUI.
 ///
 /// ### iOS
@@ -57,56 +54,59 @@ import SwiftUI
 public struct WindowType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == WindowType {
-    public static var window: Self { .init() }
+	public static var window: Self { .init() }
 }
 
 #if canImport(UIKit)
-extension iOSViewVersion<WindowType, UIWindow> {
-    public static let v13 = Self(for: .v13, selector: selector)
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+public import UIKit
 
-    private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: { $0.window })
-    }
+extension iOSViewVersion<WindowType, UIWindow> {
+	public static let v13 = Self(for: .v13, selector: selector)
+	public static let v14 = Self(for: .v14, selector: selector)
+	public static let v15 = Self(for: .v15, selector: selector)
+	public static let v16 = Self(for: .v16, selector: selector)
+	public static let v17 = Self(for: .v17, selector: selector)
+	public static let v18 = Self(for: .v18, selector: selector)
+
+	private static var selector: IntrospectionSelector<UIWindow> {
+		.from(UIView.self, selector: { $0.window })
+	}
 }
 
 extension tvOSViewVersion<WindowType, UIWindow> {
-    public static let v13 = Self(for: .v13, selector: selector)
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
-    public static let v16 = Self(for: .v16, selector: selector)
-    public static let v17 = Self(for: .v17, selector: selector)
-    public static let v18 = Self(for: .v18, selector: selector)
+	public static let v13 = Self(for: .v13, selector: selector)
+	public static let v14 = Self(for: .v14, selector: selector)
+	public static let v15 = Self(for: .v15, selector: selector)
+	public static let v16 = Self(for: .v16, selector: selector)
+	public static let v17 = Self(for: .v17, selector: selector)
+	public static let v18 = Self(for: .v18, selector: selector)
 
-    private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: { $0.window })
-    }
+	private static var selector: IntrospectionSelector<UIWindow> {
+		.from(UIView.self, selector: { $0.window })
+	}
 }
 
 extension visionOSViewVersion<WindowType, UIWindow> {
-    public static let v1 = Self(for: .v1, selector: selector)
-    public static let v2 = Self(for: .v2, selector: selector)
+	public static let v1 = Self(for: .v1, selector: selector)
+	public static let v2 = Self(for: .v2, selector: selector)
 
-    private static var selector: IntrospectionSelector<UIWindow> {
-        .from(UIView.self, selector: { $0.window })
-    }
+	private static var selector: IntrospectionSelector<UIWindow> {
+		.from(UIView.self, selector: { $0.window })
+	}
 }
 #elseif canImport(AppKit)
-extension macOSViewVersion<WindowType, NSWindow> {
-    public static let v10_15 = Self(for: .v10_15, selector: selector)
-    public static let v11 = Self(for: .v11, selector: selector)
-    public static let v12 = Self(for: .v12, selector: selector)
-    public static let v13 = Self(for: .v13, selector: selector)
-    public static let v14 = Self(for: .v14, selector: selector)
-    public static let v15 = Self(for: .v15, selector: selector)
+public import AppKit
 
-    private static var selector: IntrospectionSelector<NSWindow> {
-        .from(NSView.self, selector: { $0.window })
-    }
+extension macOSViewVersion<WindowType, NSWindow> {
+	public static let v10_15 = Self(for: .v10_15, selector: selector)
+	public static let v11 = Self(for: .v11, selector: selector)
+	public static let v12 = Self(for: .v12, selector: selector)
+	public static let v13 = Self(for: .v13, selector: selector)
+	public static let v14 = Self(for: .v14, selector: selector)
+	public static let v15 = Self(for: .v15, selector: selector)
+
+	private static var selector: IntrospectionSelector<NSWindow> {
+		.from(NSView.self, selector: { $0.window })
+	}
 }
-#endif
 #endif

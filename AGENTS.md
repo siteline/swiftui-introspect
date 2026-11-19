@@ -2,20 +2,22 @@
 
 ## Release Maintenance
 
-| Branch | Baseline | Purpose |
-| --- | --- | --- |
-| `main` | Current 27 beta | Development branch and first destination for bug fixes |
-| `release/26.x` | `26.0.1` | Maintenance branch for version 26 patch releases |
-| `release/1.x` | `1.3.0` | Maintenance branch for version 1 patch releases |
+| Branch | Releases |
+| --- | --- |
+| `main` | The current major version, and the first destination for features and fixes |
+| `release/26.x` | Version 26 |
+| `release/1.x` | Version 1 |
 
-Version 1 maintenance starts from `1.3.0`. The `1.4.0-beta` tags are not release baselines.
+- Each maintenance branch has the same tree as `main`, except that it has no CI workflow and leaves out the platform versions of later yearly OS releases: `release/26.x` has no `.v27`, and `release/1.x` has no `.v26`, `.v27`, or `WebView`, which requires OS 26.
+- Land features and fixes on `main` first. After they merge, bring each maintenance branch back to that tree, with one commit per feature or fix.
+- Maintenance branches have no CI. Before pushing one, run its tests on a simulator of the newest OS version it supports, or build it for every platform when no such runtime is installed.
+- Create version 1 and version 26 releases from their maintenance branches. Use minor releases for additive features and patch releases for fixes.
 
-### Bug Fixes
+## Benchmarks
 
-- Land bug fixes on `main` first.
-- Assess every bug fix merged into `main` for both maintenance branches. Backport it when the bug affects that branch and the fix preserves its public API and supported platforms.
-- Keep each backport focused on one fix. Cherry-pick the original commit when it applies cleanly; otherwise adapt only the required source and tests.
-- Preserve each maintenance branch's Swift tools version, language mode, deployment targets, package products, formatting, and test framework. Do not merge `main` wholesale into a maintenance branch.
-- Do not backport features, new view types, new platform versions, public API changes, toolchain updates, deployment-target changes, packaging changes, or unrelated CI and documentation work.
-- If a fix cannot be backported without one of those changes, explain the incompatibility and obtain maintainer approval before changing the maintenance branch.
-- Run the affected tests on every changed branch. Create version 1 and version 26 patch releases from their respective maintenance branches.
+- Before opening a pull request that changes how introspection finds or customizes its target, such as selectors, probes, or hierarchy traversal, run `mise run benchmarks <base>` against the pull request's base on an Apple silicon Mac. Investigate every ⚠️ increase before opening it.
+- Include the comparison table the task prints in the description of any pull request it was run for.
+
+## Tests
+
+- Spell out each platform version in test `.introspect(...)` predicates, such as `.iOS(.v16, .v17, .v18, .v26, .v27)`, rather than a range like `.iOS(.v16...)`. Use ranges only in tests of range predicates themselves.

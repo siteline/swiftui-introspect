@@ -1,13 +1,13 @@
-#if !os(watchOS)
-import SwiftUI
-
 /// An abstract representation of the `Map` type in SwiftUI.
 ///
 /// ### iOS
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -22,7 +22,10 @@ import SwiftUI
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -37,7 +40,10 @@ import SwiftUI
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -52,7 +58,10 @@ import SwiftUI
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+///     @State var region = MKCoordinateRegion(
+///         center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+///         span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5),
+///     )
 ///
 ///     var body: some View {
 ///         Map(coordinateRegion: $region)
@@ -65,45 +74,44 @@ import SwiftUI
 public struct MapType: IntrospectableViewType {}
 
 #if canImport(MapKit)
-import MapKit
+public import MapKit
 
 extension IntrospectableViewType where Self == MapType {
-    public static var map: Self { .init() }
+	public static var map: Self { .init() }
 }
 
 extension iOSViewVersion<MapType, MKMapView> {
-    @available(*, unavailable, message: "Map isn't available on iOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
+	@available(*, unavailable, message: "Map isn't available on iOS 13")
+	public static let v13 = Self.unavailable()
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
 }
 
 extension tvOSViewVersion<MapType, MKMapView> {
-    @available(*, unavailable, message: "Map isn't available on tvOS 13")
-    public static let v13 = Self.unavailable()
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
-    public static let v16 = Self(for: .v16)
-    public static let v17 = Self(for: .v17)
-    public static let v18 = Self(for: .v18)
+	@available(*, unavailable, message: "Map isn't available on tvOS 13")
+	public static let v13 = Self.unavailable()
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
+	public static let v16 = Self(for: .v16)
+	public static let v17 = Self(for: .v17)
+	public static let v18 = Self(for: .v18)
 }
 
 extension macOSViewVersion<MapType, MKMapView> {
-    @available(*, unavailable, message: "Map isn't available on macOS 10.15")
-    public static let v10_15 = Self.unavailable()
-    public static let v11 = Self(for: .v11)
-    public static let v12 = Self(for: .v12)
-    public static let v13 = Self(for: .v13)
-    public static let v14 = Self(for: .v14)
-    public static let v15 = Self(for: .v15)
+	@available(*, unavailable, message: "Map isn't available on macOS 10.15")
+	public static let v10_15 = Self.unavailable()
+	public static let v11 = Self(for: .v11)
+	public static let v12 = Self(for: .v12)
+	public static let v13 = Self(for: .v13)
+	public static let v14 = Self(for: .v14)
+	public static let v15 = Self(for: .v15)
 }
 
 extension visionOSViewVersion<MapType, MKMapView> {
-    public static let v1 = Self(for: .v1)
-    public static let v2 = Self(for: .v2)
+	public static let v1 = Self(for: .v1)
+	public static let v2 = Self(for: .v2)
 }
-#endif
 #endif

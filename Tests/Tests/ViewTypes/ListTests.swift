@@ -1,104 +1,146 @@
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class ListTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformList = UIScrollView // covers both UITableView and UICollectionView
-    #elseif canImport(AppKit)
-    typealias PlatformList = NSTableView
-    #endif
+struct ListTests {
+	#if canImport(UIKit)
+	typealias PlatformList = UIScrollView // covers both UITableView and UICollectionView
+	#elseif canImport(AppKit)
+	typealias PlatformList = NSTableView
+	#endif
 
-    func testList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
+	@Test func introspect() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformList.self) { spy1, spy2 in
+			HStack {
+				List {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.list,
+					on: .iOS(.v13, .v14, .v15),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					customize: spy1,
+				)
+				.introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+				#elseif os(macOS)
+				.introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+				#endif
 
-            HStack {
-                List {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
-                .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
-                #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
-                #endif
+				List {
+					Text("Item 1")
+						#if os(iOS) || os(tvOS) || os(visionOS)
+						.introspect(
+							.list,
+							on: .iOS(.v13, .v14, .v15),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						.introspect(
+							.list,
+							on: .iOS(.v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#elseif os(macOS)
+						.introspect(
+							.list,
+							on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#endif
+				}
+			}
+		}
+		#expect(entity1 !== entity2)
+	}
 
-                List {
-                    Text("Item 1")
-                    #if os(iOS) || os(tvOS) || os(visionOS)
-                    .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
-                    .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
-                    #elseif os(macOS)
-                    .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
-                    #endif
-                }
-            }
-        } extraAssertions: {
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
+	#if !os(macOS)
+	@Test func `introspect nested`() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformList.self) { spy1, spy2 in
+			List {
+				Text("Item 1")
 
-    #if !os(macOS)
-    func testNestedList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
+				List {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.list,
+					on: .iOS(.v13, .v14, .v15),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					customize: spy2,
+				)
+				.introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
+				#endif
+			}
+			#if os(iOS) || os(tvOS) || os(visionOS)
+			.introspect(
+				.list,
+				on: .iOS(.v13, .v14, .v15),
+				.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+				customize: spy1,
+			)
+			.introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+			#endif
+		}
+		#expect(entity1 !== entity2)
+	}
+	#endif
 
-            List {
-                Text("Item 1")
+	@Test func `introspect masked`() async throws {
+		let (entity1, entity2) = try await introspection(of: PlatformList.self) { spy1, spy2 in
+			HStack {
+				List {
+					Text("Item 1")
+				}
+				#if os(iOS) || os(tvOS) || os(visionOS)
+				.introspect(
+					.list,
+					on: .iOS(.v13, .v14, .v15),
+					.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					customize: spy1,
+				)
+				.introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
+				#elseif os(macOS)
+				.introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15), customize: spy1)
+				#endif
+				.clipped()
+				.clipShape(RoundedRectangle(cornerRadius: 20.0))
+				.cornerRadius(2.0)
 
-                List {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy1($0) }
-                .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy1($0) }
-                #endif
-            }
-            #if os(iOS) || os(tvOS) || os(visionOS)
-            .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
-            .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
-            #endif
-        } extraAssertions: {
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
-    #endif
-
-    func testMaskedList() {
-        XCTAssertViewIntrospection(of: PlatformList.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-
-            HStack {
-                List {
-                    Text("Item 1")
-                }
-                #if os(iOS) || os(tvOS) || os(visionOS)
-                .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) { spy0($0) }
-                .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2)) { spy0($0) }
-                #elseif os(macOS)
-                .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) { spy0($0) }
-                #endif
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 20.0))
-                .cornerRadius(2.0)
-
-                List {
-                    Text("Item 1")
-                        #if os(iOS) || os(tvOS) || os(visionOS)
-                        .introspect(.list, on: .iOS(.v13, .v14, .v15), .tvOS(.v13, .v14, .v15, .v16, .v17, .v18), scope: .ancestor) { spy1($0) }
-                        .introspect(.list, on: .iOS(.v16, .v17, .v18), .visionOS(.v1, .v2), scope: .ancestor) { spy1($0) }
-                        #elseif os(macOS)
-                        .introspect(.list, on: .macOS(.v10_15, .v11, .v12, .v13, .v14), scope: .ancestor) { spy1($0) }
-                        #endif
-                }
-            }
-        } extraAssertions: {
-            XCTAssert($0[safe: 0] !== $0[safe: 1])
-        }
-    }
+				List {
+					Text("Item 1")
+						#if os(iOS) || os(tvOS) || os(visionOS)
+						.introspect(
+							.list,
+							on: .iOS(.v13, .v14, .v15),
+							.tvOS(.v13, .v14, .v15, .v16, .v17, .v18),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						.introspect(
+							.list,
+							on: .iOS(.v16, .v17, .v18),
+							.visionOS(.v1, .v2),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#elseif os(macOS)
+						.introspect(
+							.list,
+							on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15),
+							scope: .ancestor,
+							customize: spy2,
+						)
+						#endif
+				}
+			}
+		}
+		#expect(entity1 !== entity2)
+	}
 }

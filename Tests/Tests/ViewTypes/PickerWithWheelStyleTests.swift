@@ -1,57 +1,61 @@
-#if !os(tvOS) && !os(macOS)
+#if !os(tvOS) && !os(macOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 import SwiftUIIntrospect
-import XCTest
+import Testing
 
 @MainActor
-final class PickerWithWheelStyleTests: XCTestCase {
-    #if canImport(UIKit)
-    typealias PlatformPickerWithWheelStyle = UIPickerView
-    #endif
+struct PickerWithWheelStyleTests {
+	typealias PlatformPickerWithWheelStyle = UIPickerView
 
-    func testPickerWithWheelStyle() {
-        XCTAssertViewIntrospection(of: PlatformPickerWithWheelStyle.self) { spies in
-            let spy0 = spies[0]
-            let spy1 = spies[1]
-            let spy2 = spies[2]
+	@Test func introspect() async throws {
+		let (
+			entity1,
+			entity2,
+			entity3,
+		) = try await introspection(of: PlatformPickerWithWheelStyle.self) { spy1, spy2, spy3 in
+			VStack {
+				Picker("Pick", selection: .constant("1")) {
+					Text("1").tag("1")
+				}
+				.pickerStyle(.wheel)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy1,
+				)
+				.cornerRadius(8)
 
-            VStack {
-                Picker("Pick", selection: .constant("1")) {
-                    Text("1").tag("1")
-                }
-                .pickerStyle(.wheel)
-                #if os(iOS) || os(visionOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy0)
-                #endif
-                .cornerRadius(8)
+				Picker("Pick", selection: .constant("1")) {
+					Text("1").tag("1")
+					Text("2").tag("2")
+				}
+				.pickerStyle(.wheel)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy2,
+				)
+				.cornerRadius(8)
 
-                Picker("Pick", selection: .constant("1")) {
-                    Text("1").tag("1")
-                    Text("2").tag("2")
-                }
-                .pickerStyle(.wheel)
-                #if os(iOS) || os(visionOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy1)
-                #endif
-                .cornerRadius(8)
-
-                Picker("Pick", selection: .constant("1")) {
-                    Text("1").tag("1")
-                    Text("2").tag("2")
-                    Text("3").tag("3")
-                }
-                .pickerStyle(.wheel)
-                #if os(iOS) || os(visionOS)
-                .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18), .visionOS(.v1, .v2), customize: spy2)
-                #endif
-            }
-        } extraAssertions: {
-            #if canImport(UIKit)
-            XCTAssertEqual($0[safe: 0]?.numberOfRows(inComponent: 0), 1)
-            XCTAssertEqual($0[safe: 1]?.numberOfRows(inComponent: 0), 2)
-            XCTAssertEqual($0[safe: 2]?.numberOfRows(inComponent: 0), 3)
-            #endif
-        }
-    }
+				Picker("Pick", selection: .constant("1")) {
+					Text("1").tag("1")
+					Text("2").tag("2")
+					Text("3").tag("3")
+				}
+				.pickerStyle(.wheel)
+				.introspect(
+					.picker(style: .wheel),
+					on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+					.visionOS(.v1, .v2),
+					customize: spy3,
+				)
+			}
+		}
+		#expect(entity1.numberOfRows(inComponent: 0) == 1)
+		#expect(entity2.numberOfRows(inComponent: 0) == 2)
+		#expect(entity3.numberOfRows(inComponent: 0) == 3)
+	}
 }
 #endif

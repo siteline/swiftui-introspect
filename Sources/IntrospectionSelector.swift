@@ -16,42 +16,49 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 		selector: @MainActor @escaping (Entry) -> Target?,
 	) -> Self {
 		.init(
-			receiverSelector: { controller in
-				controller.as(Entry.Base.self)?.receiver(ofType: Entry.self).flatMap(selector)
+			receiverSelector: { probe in
+				probe.receiverEntity(ofType: Entry.self).flatMap(selector)
 			},
-			ancestorSelector: { controller in
-				controller.as(Entry.Base.self)?.ancestor(ofType: Entry.self).flatMap(selector)
+			ancestorSelector: { probe in
+				probe.ancestorEntity(ofType: Entry.self).flatMap(selector)
 			},
 		)
 	}
 
-	private var receiverSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
-	private var ancestorSelector: @MainActor (IntrospectionPlatformViewController) -> Target?
+	private(set) var probe: IntrospectionProbeKind = .viewController
+	private var receiverSelector: @MainActor (any IntrospectionProbe) -> Target?
+	private var ancestorSelector: @MainActor (any IntrospectionProbe) -> Target?
+
+	func withProbe(_ probe: IntrospectionProbeKind) -> Self {
+		var copy = self
+		copy.probe = probe
+		return copy
+	}
 
 	@_spi(Advanced)
 	public func withReceiverSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
-		copy.receiverSelector = selector
+		copy.receiverSelector = { $0.controller.flatMap(selector) }
 		return copy
 	}
 
 	@_spi(Advanced)
 	public func withAncestorSelector(_ selector: @MainActor @escaping (PlatformViewController) -> Target?) -> Self {
 		var copy = self
-		copy.ancestorSelector = selector
+		copy.ancestorSelector = { $0.controller.flatMap(selector) }
 		return copy
 	}
 
-	func callAsFunction(_ controller: IntrospectionPlatformViewController, _ scope: IntrospectionScope) -> Target? {
+	func callAsFunction(_ probe: any IntrospectionProbe, _ scope: IntrospectionScope) -> Target? {
 		if
 			scope.contains(.receiver),
-			let target = receiverSelector(controller)
+			let target = receiverSelector(probe)
 		{
 			return target
 		}
 		if
 			scope.contains(.ancestor),
-			let target = ancestorSelector(controller)
+			let target = ancestorSelector(probe)
 		{
 			return target
 		}
@@ -62,11 +69,7 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 extension PlatformViewController {
 	func `as`<Base: PlatformEntity>(_ baseType: Base.Type) -> (any PlatformEntity)? {
 		if Base.self == PlatformView.self {
-			#if canImport(UIKit)
-			return viewIfLoaded
-			#elseif canImport(AppKit)
-			return isViewLoaded ? view : nil
-			#endif
+			return loadedView
 		} else if Base.self == PlatformViewController.self {
 			return self
 		}

@@ -24,3 +24,7 @@ Version 1 maintenance starts from `1.3.0`. The `1.4.0-beta` tags are not release
 
 - Before opening a pull request that changes how introspection finds or customizes its target, such as selectors, probes, or hierarchy traversal, run `mise run benchmarks <base>` against the pull request's base on an Apple silicon Mac. Investigate every ⚠️ increase before opening it.
 - Include the comparison table the task prints in the description of any pull request it was run for.
+
+## Tests
+
+- Spell out each platform version in test `.introspect(...)` predicates, such as `.iOS(.v16, .v17, .v18, .v26, .v27)`, rather than a range like `.iOS(.v16...)`. Use ranges only in tests of range predicates themselves.

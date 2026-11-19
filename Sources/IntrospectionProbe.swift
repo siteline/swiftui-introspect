@@ -378,12 +378,20 @@ final class IntrospectionProbeView: PlatformView {
 	#if canImport(UIKit)
 	override func didMoveToWindow() {
 		super.didMoveToWindow()
-		handler?()
+		select()
 	}
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		select()
+	}
+
+	/// Looks for the target, and keeps retrying on later frames while it isn't found.
+	private func select() {
 		handler?()
+		if handler != nil, window != nil {
+			IntrospectionRetryScheduler.shared.schedule(self)
+		}
 	}
 	#elseif canImport(AppKit)
 	override func viewDidMoveToWindow() {
@@ -397,6 +405,67 @@ final class IntrospectionProbeView: PlatformView {
 	}
 	#endif
 }
+
+#if canImport(UIKit)
+/// Retries view probes that haven't found their target, for targets that appear without a layout pass reaching the
+/// probe, such as a search bar SwiftUI adds after presentation.
+///
+/// After each attempt that finds nothing, a probe retries on the next frame, then after intervals that double from one
+/// frame, for about a second. Finding the target, or leaving the window, ends its retries.
+@MainActor
+final class IntrospectionRetryScheduler: NSObject {
+	static let shared = IntrospectionRetryScheduler()
+
+	private struct Retry {
+		static let limit = 7
+		static let firstInterval: CFTimeInterval = 1.0 / 60
+
+		weak var probe: IntrospectionProbeView?
+		let start: CFTimeInterval
+		var count = 0
+
+		var due: CFTimeInterval {
+			start + Self.firstInterval * CFTimeInterval((1 << count) - 1)
+		}
+	}
+
+	private var retries: [ObjectIdentifier: Retry] = [:]
+
+	/// Drives every probe's retries, and pauses while none are pending.
+	private lazy var displayLink: CADisplayLink = {
+		let displayLink = CADisplayLink(target: self, selector: #selector(retryDueProbes))
+		displayLink.add(to: .main, forMode: .common)
+		return displayLink
+	}()
+
+	/// Restarts the probe's retries from the next frame.
+	func schedule(_ probe: IntrospectionProbeView) {
+		retries[ObjectIdentifier(probe)] = Retry(probe: probe, start: CACurrentMediaTime())
+		displayLink.isPaused = false
+	}
+
+	@objc private func retryDueProbes() {
+		let now = CACurrentMediaTime()
+		for (id, retry) in retries where retry.due <= now {
+			guard let probe = retry.probe, probe.handler != nil, probe.window != nil else {
+				retries[id] = nil
+				continue
+			}
+			var next = retry
+			next.count += 1
+			// Set before the attempt, which can lay out the probe and so restart its retries.
+			retries[id] = next.count < Retry.limit ? next : nil
+			probe.handler?()
+			if probe.handler == nil {
+				retries[id] = nil
+			}
+		}
+		if retries.isEmpty {
+			displayLink.isPaused = true
+		}
+	}
+}
+#endif
 
 extension IntrospectionProbeView: IntrospectionProbe {
 	var controller: PlatformViewController? { enclosingController }

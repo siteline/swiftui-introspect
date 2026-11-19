@@ -19,3 +19,8 @@ Version 1 maintenance starts from `1.3.0`. The `1.4.0-beta` tags are not release
 - Do not backport breaking public API changes, new platform versions, toolchain updates, deployment-target changes, packaging changes, or unrelated CI and documentation work.
 - If a feature or fix cannot be backported while preserving those compatibility constraints, explain the incompatibility and obtain maintainer approval before changing the maintenance branch.
 - Run the affected tests on every changed branch. Create version 1 and version 26 releases from their respective maintenance branches. Use minor releases for additive features and patch releases for fixes.
+
+## Benchmarks
+
+- Before opening a pull request that changes how introspection finds or customizes its target, such as selectors, probes, or hierarchy traversal, run `mise run benchmarks <base>` against the pull request's base on an Apple silicon Mac. Investigate every ⚠️ increase before opening it.
+- Include the comparison table the task prints in the description of any pull request it was run for.

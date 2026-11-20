@@ -88,7 +88,9 @@ extension iOSViewVersion<TabViewType, UITabBarController> {
 	public static let v18 = Self(for: .v18, selector: selector)
 
 	private static var selector: IntrospectionSelector<UITabBarController> {
-		.default.withAncestorSelector { $0.tabBarController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.tabBarController }
 	}
 }
 
@@ -101,7 +103,9 @@ extension tvOSViewVersion<TabViewType, UITabBarController> {
 	public static let v18 = Self(for: .v18, selector: selector)
 
 	private static var selector: IntrospectionSelector<UITabBarController> {
-		.default.withAncestorSelector { $0.tabBarController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.tabBarController }
 	}
 }
 #elseif canImport(AppKit)

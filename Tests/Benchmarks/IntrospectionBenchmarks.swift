@@ -43,15 +43,48 @@ final class IntrospectionBenchmarks: XCTestCase {
 		}
 	}
 
+	func testTabViewReceiver() throws {
+		try measurePresentation(introspections: 1) { spy in
+			TabView {
+				Text("1").tabItem { Text("1") }
+				Text("2").tabItem { Text("2") }
+			}
+			.introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { _ in spy(0) }
+		}
+	}
+
+	func testTabViewAncestor() throws {
+		try measurePresentation(introspections: 1) { spy in
+			TabView {
+				Text("1")
+					.introspect(
+						.tabView,
+						on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18),
+						scope: .ancestor,
+					) { _ in spy(0) }
+					.tabItem { Text("1") }
+				Text("2").tabItem { Text("2") }
+			}
+		}
+	}
+
 	func testTogglesWithoutIntrospection() throws {
 		try measurePresentation(introspections: 0) { _ in
-			Toggles(introspected: false, spy: { _ in })
+			Toggles(introspection: .none, spy: { _ in })
 		}
 	}
 
 	func testToggles() throws {
 		try measurePresentation(introspections: Self.rowCount) { spy in
-			Toggles(introspected: true, spy: spy)
+			Toggles(introspection: .resolved, spy: spy)
+		}
+	}
+
+	/// Introspections that never find their target, such as a text field in a toggle, keep looking for it after
+	/// presentation, so this one measures until well after their last attempt.
+	func testTogglesUnresolved() throws {
+		try measurePresentation(introspections: 0, settling: 1) { _ in
+			Toggles(introspection: .unresolved, spy: { _ in })
 		}
 	}
 
@@ -62,7 +95,7 @@ final class IntrospectionBenchmarks: XCTestCase {
 		let completion = Completion { customized >= target }
 		let window = try presentationWindow()
 		window.rootViewController = UIHostingController(
-			rootView: Toggles(introspected: true, model: model) { _ in
+			rootView: Toggles(introspection: .resolved, model: model) { _ in
 				customized += 1
 				completion.update()
 			},
@@ -81,9 +114,11 @@ final class IntrospectionBenchmarks: XCTestCase {
 	}
 
 	/// Presents the view in each iteration and waits until the given number of distinct introspections customize their
-	/// targets. A warm-up presentation runs first, outside of the measurements.
+	/// targets, then runs the main run loop for `settling` seconds. A warm-up presentation runs first, outside of the
+	/// measurements.
 	private func measurePresentation(
 		introspections: Int,
+		settling: TimeInterval = 0,
 		@ViewBuilder _ content: @escaping (_ spy: @escaping (Int) -> Void) -> some View,
 	) throws {
 		let window = try presentationWindow()
@@ -101,6 +136,10 @@ final class IntrospectionBenchmarks: XCTestCase {
 				window.rootViewController = controller
 				controller.view.layoutIfNeeded()
 				completion.wait()
+				let settled = Date().addingTimeInterval(settling)
+				while Date() < settled {
+					CFRunLoopRunInMode(.defaultMode, settled.timeIntervalSinceNow, false)
+				}
 				window.rootViewController = nil
 			}
 		}
@@ -159,7 +198,14 @@ private final class TogglesModel: ObservableObject {
 }
 
 private struct Toggles: View {
-	let introspected: Bool
+	enum Introspection {
+		case none
+		case resolved
+		/// Introspects a text field, which a toggle doesn't have.
+		case unresolved
+	}
+
+	let introspection: Introspection
 	@ObservedObject var model = TogglesModel()
 	let spy: (Int) -> Void
 
@@ -167,13 +213,19 @@ private struct Toggles: View {
 		ScrollView {
 			VStack {
 				ForEach(0..<IntrospectionBenchmarks.rowCount, id: \.self) { index in
-					if introspected {
+					switch introspection {
+					case .none:
+						Toggle("Row \(index)", isOn: $model.isOn)
+					case .resolved:
 						Toggle("Row \(index)", isOn: $model.isOn)
 							.introspect(.toggle, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { _ in
 								spy(index)
 							}
-					} else {
+					case .unresolved:
 						Toggle("Row \(index)", isOn: $model.isOn)
+							.introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) { _ in
+								spy(index)
+							}
 					}
 				}
 			}

@@ -88,7 +88,9 @@ extension iOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewControll
 	public static let v18 = Self(for: .v18, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISplitViewController> {
-		.default.withAncestorSelector { $0.splitViewController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.splitViewController }
 	}
 }
 
@@ -101,7 +103,9 @@ extension tvOSViewVersion<NavigationViewWithColumnsStyleType, UINavigationContro
 	public static let v18 = Self(for: .v18, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
-		.default.withAncestorSelector { $0.navigationController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.navigationController }
 	}
 }
 
@@ -110,7 +114,9 @@ extension visionOSViewVersion<NavigationViewWithColumnsStyleType, UISplitViewCon
 	public static let v2 = Self(for: .v2, selector: selector)
 
 	private static var selector: IntrospectionSelector<UISplitViewController> {
-		.default.withAncestorSelector { $0.splitViewController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.splitViewController }
 	}
 }
 #elseif canImport(AppKit)

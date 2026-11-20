@@ -179,11 +179,30 @@ extension PlatformEntity {
 		return nearestAncestor
 	}
 
+	/// This entity's descendants from the bottom entity up to the top one, in depth-first order. The traversal starts at
+	/// the bottom entity, so it doesn't visit the descendants that come before it.
 	func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
-		self.allDescendants
+		recursiveSequence(subtrees(from: bottomEntity), children: { $0.descendants~ })
 			.lazy
-			.drop(while: { $0 !== bottomEntity })
 			.prefix(while: { $0 !== topEntity })
+	}
+
+	/// The given descendant, followed by the later siblings of it and of each of its ancestors below this entity: the
+	/// roots of the subtrees a depth-first traversal visits from the descendant on.
+	private func subtrees(from descendant: Base) -> [Base] {
+		var subtrees = [descendant]
+		var entity = descendant
+		while let parent: Base = entity.ancestor~ {
+			let siblings: [Base] = parent.descendants~
+			if let index = siblings.firstIndex(where: { $0 === entity }) {
+				subtrees += siblings[(index + 1)...]
+			}
+			if parent === self {
+				return subtrees
+			}
+			entity = parent
+		}
+		return []
 	}
 
 	func receiver<PlatformSpecificEntity: PlatformEntity>(

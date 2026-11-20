@@ -3,11 +3,12 @@ import SwiftUI
 /// The kind of entities introspection inserts around the receiver to find its target: an anchor behind it, and a probe
 /// in front of it.
 enum IntrospectionProbeKind {
-	/// Child view controllers, which find targets in both the view and view controller hierarchies.
+	/// Child view controllers, which find targets in both the view and view controller hierarchies. Custom selectors
+	/// receive the probe itself.
 	case viewController
 	/// Views, which leave the view controller hierarchy untouched and find view controllers through the views they own.
-	/// Use them for view controller targets whose behavior depends on their containment, such as a tab's navigation
-	/// controller.
+	/// On UIKit, a probe that hasn't found its target retries on later frames, for about a second after it last moved
+	/// or laid out.
 	///
 	/// Custom selectors receive the view controller enclosing the probe.
 	case view
@@ -378,12 +379,20 @@ final class IntrospectionProbeView: PlatformView {
 	#if canImport(UIKit)
 	override func didMoveToWindow() {
 		super.didMoveToWindow()
-		handler?()
+		select()
 	}
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
+		select()
+	}
+
+	/// Looks for the target, and keeps retrying on later frames while it isn't found.
+	private func select() {
 		handler?()
+		if handler != nil, window != nil {
+			IntrospectionRetryScheduler.shared.schedule(self)
+		}
 	}
 	#elseif canImport(AppKit)
 	override func viewDidMoveToWindow() {
@@ -397,6 +406,67 @@ final class IntrospectionProbeView: PlatformView {
 	}
 	#endif
 }
+
+#if canImport(UIKit)
+/// Retries view probes that haven't found their target, for targets that appear without a layout pass reaching the
+/// probe, such as a search bar SwiftUI adds after presentation.
+///
+/// After each attempt that finds nothing, a probe retries on the next frame, then after intervals that double from one
+/// frame, for about a second. Finding the target, or leaving the window, ends its retries.
+@MainActor
+final class IntrospectionRetryScheduler: NSObject {
+	static let shared = IntrospectionRetryScheduler()
+
+	private struct Retry {
+		static let limit = 7
+		static let firstInterval: CFTimeInterval = 1.0 / 60
+
+		weak var probe: IntrospectionProbeView?
+		let start: CFTimeInterval
+		var count = 0
+
+		var due: CFTimeInterval {
+			start + Self.firstInterval * CFTimeInterval((1 << count) - 1)
+		}
+	}
+
+	private var retries: [ObjectIdentifier: Retry] = [:]
+
+	/// Drives every probe's retries, and pauses while none are pending.
+	private lazy var displayLink: CADisplayLink = {
+		let displayLink = CADisplayLink(target: self, selector: #selector(retryDueProbes))
+		displayLink.add(to: .main, forMode: .common)
+		return displayLink
+	}()
+
+	/// Restarts the probe's retries from the next frame.
+	func schedule(_ probe: IntrospectionProbeView) {
+		retries[ObjectIdentifier(probe)] = Retry(probe: probe, start: CACurrentMediaTime())
+		displayLink.isPaused = false
+	}
+
+	@objc private func retryDueProbes() {
+		let now = CACurrentMediaTime()
+		for (id, retry) in retries where retry.due <= now {
+			guard let probe = retry.probe, probe.handler != nil, probe.window != nil else {
+				retries[id] = nil
+				continue
+			}
+			var next = retry
+			next.count += 1
+			// Set before the attempt, which can lay out the probe and so restart its retries.
+			retries[id] = next.count < Retry.limit ? next : nil
+			probe.handler?()
+			if probe.handler == nil {
+				retries[id] = nil
+			}
+		}
+		if retries.isEmpty {
+			displayLink.isPaused = true
+		}
+	}
+}
+#endif
 
 extension IntrospectionProbeView: IntrospectionProbe {
 	var controller: PlatformViewController? { enclosingController }
@@ -421,35 +491,29 @@ extension IntrospectionProbeView: IntrospectionProbe {
 		return nil
 	}
 
-	/// The first view controller of the given type whose view sits between the anchor and this probe.
+	/// The first view controller of the given type whose view sits between the anchor and this probe, in the view
+	/// controller hierarchy's order, as the view controller probe finds it.
 	private func receiverController<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
 		guard
 			let anchor = introspectionAnchorEntity,
-			let commonAncestor = anchor.nearestCommonAncestor(with: self),
-			let container = commonAncestor.enclosingController
+			let container = anchor.nearestCommonAncestor(with: self)?.enclosingController
 		else {
 			return nil
 		}
-		let candidatesByView = Dictionary(
-			container.allDescendants.compactMap { controller -> (ObjectIdentifier, Entry)? in
+		return container.allDescendants
+			.lazy
+			.compactMap { controller -> Entry? in
 				guard
 					let candidate = controller as? Entry,
 					!controller.isIntrospectionPlatformEntity,
-					let view = controller.loadedView
+					let view = controller.loadedView,
+					anchor.precedes(view),
+					view.precedes(self)
 				else {
 					return nil
 				}
-				return (ObjectIdentifier(view), candidate)
-			},
-			uniquingKeysWith: { first, _ in first },
-		)
-		guard !candidatesByView.isEmpty else {
-			return nil
-		}
-		return commonAncestor
-			.allDescendants(between: anchor, and: self)
-			.lazy
-			.compactMap { candidatesByView[ObjectIdentifier($0)] }
+				return candidate
+			}
 			.first
 	}
 }
@@ -486,6 +550,39 @@ extension PlatformView {
 
 	private func isEnclosed(by controller: PlatformViewController) -> Bool {
 		controller.loadedView.map(isDescendant(of:)) ?? false
+	}
+
+	/// Whether this view comes before the other in a depth-first traversal of the view hierarchy, which visits views
+	/// before their subviews.
+	fileprivate func precedes(_ other: PlatformView) -> Bool {
+		let otherAncestors = Array(sequence(first: other, next: \.superview))
+		let depths = Dictionary(
+			otherAncestors.enumerated().map { (ObjectIdentifier($1), $0) },
+			uniquingKeysWith: { first, _ in first },
+		)
+		var child: PlatformView? = nil
+		for view in sequence(first: self, next: \.superview) {
+			if let depth = depths[ObjectIdentifier(view)] {
+				guard let child else {
+					// This view is the other's ancestor, or the other itself.
+					return depth > 0
+				}
+				guard depth > 0 else {
+					// The other is this view's ancestor.
+					return false
+				}
+				let otherChild = otherAncestors[depth - 1]
+				guard
+					let index = view.subviews.firstIndex(where: { $0 === child }),
+					let otherIndex = view.subviews.firstIndex(where: { $0 === otherChild })
+				else {
+					return false
+				}
+				return index < otherIndex
+			}
+			child = view
+		}
+		return false
 	}
 }
 

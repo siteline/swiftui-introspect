@@ -81,14 +81,3 @@ public struct IntrospectionSelector<Target: PlatformEntity> {
 		return nil
 	}
 }
-
-extension PlatformViewController {
-	func `as`<Base: PlatformEntity>(_ baseType: Base.Type) -> (any PlatformEntity)? {
-		if Base.self == PlatformView.self {
-			return loadedView
-		} else if Base.self == PlatformViewController.self {
-			return self
-		}
-		return nil
-	}
-}

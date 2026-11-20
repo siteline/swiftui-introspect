@@ -63,6 +63,9 @@ struct IntrospectModifier<
 	PlatformSpecificEntity: PlatformEntity,
 >: ViewModifier {
 	@State private var anchorReference = IntrospectionAnchorReference()
+	/// Whether a view probe found its target, so its anchor leaves the hierarchy. UIKit looks for a view controller's
+	/// content scroll view along first subviews, and an anchor behind the receiver is its container's first subview.
+	@State private var isAnchorRetired = false
 	let scope: IntrospectionScope
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?
 	let customize: (PlatformSpecificEntity) -> Void
@@ -106,9 +109,10 @@ struct IntrospectModifier<
 					content,
 					anchor: IntrospectionAnchorViewRepresentable(anchorReference: anchorReference),
 					// only receiver searches start at a view anchor, and custom selectors never see one
-					needsAnchor: scope.contains(.receiver),
+					needsAnchor: scope.contains(.receiver) && !isAnchorRetired,
 					probe: IntrospectionProbeViewRepresentable(
 						anchorReference: anchorReference,
+						isAnchorRetired: $isAnchorRetired,
 						selector: { selector($0, scope) },
 						customize: customize,
 					),

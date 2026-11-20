@@ -1,6 +1,8 @@
+import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 import Testing
 
+@MainActor
 struct WeakTests {
 	final class Foo {}
 
@@ -52,5 +54,64 @@ struct WeakTests {
 		@Weak var weakFoo: Foo? = strongFoo
 		strongFoo = Foo()
 		#expect(weakFoo == nil)
+	}
+
+	#if canImport(UIKit)
+	typealias PlatformScrollView = UIScrollView
+	#elseif canImport(AppKit)
+	typealias PlatformScrollView = NSScrollView
+	#endif
+
+	@Test func `customize writes to the view re-created before its target is found`() async {
+		let recorder = Recorder()
+		TestUtils.present(view: Parent(recorder: recorder))
+
+		let start = Date()
+		while recorder.renderedScrollView?.wrappedValue == nil, Date().timeIntervalSince(start) < 3 {
+			await Task.yield()
+		}
+		#expect(recorder.renderedScrollView?.wrappedValue != nil)
+	}
+
+	@MainActor
+	private final class Recorder {
+		var renderedScrollView: Weak<PlatformScrollView>? = nil
+	}
+
+	private struct Parent: View {
+		@State var generation = 0
+		let recorder: Recorder
+
+		var body: some View {
+			Child(generation: generation, recorder: recorder)
+				.onAppear { generation += 1 }
+		}
+	}
+
+	private struct Child: View {
+		let generation: Int
+		let recorder: Recorder
+		@Weak var scrollView: PlatformScrollView?
+
+		var body: some View {
+			let _ = recorder.renderedScrollView = _scrollView
+			ScrollView {
+				Text("Generation \(generation)")
+			}
+			#if os(iOS) || os(tvOS) || os(visionOS)
+			.introspect(
+				.scrollView,
+				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+				.tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26),
+				.visionOS(.v1, .v2, .v26),
+			) {
+				scrollView = $0
+			}
+			#elseif os(macOS)
+			.introspect(.scrollView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
+				scrollView = $0
+			}
+			#endif
+		}
 	}
 }

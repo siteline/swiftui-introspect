@@ -75,7 +75,9 @@ extension iOSViewVersion<NavigationViewWithStackStyleType, UINavigationControlle
 	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
-		.default.withAncestorSelector { $0.navigationController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.navigationController }
 	}
 }
 
@@ -90,7 +92,9 @@ extension tvOSViewVersion<NavigationViewWithStackStyleType, UINavigationControll
 	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
-		.default.withAncestorSelector { $0.navigationController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.navigationController }
 	}
 }
 
@@ -101,7 +105,9 @@ extension visionOSViewVersion<NavigationViewWithStackStyleType, UINavigationCont
 	public static let v27 = Self(for: .v27, selector: selector)
 
 	private static var selector: IntrospectionSelector<UINavigationController> {
-		.default.withAncestorSelector { $0.navigationController }
+		.default
+			.withProbe(.view)
+			.withAncestorSelector { $0.navigationController }
 	}
 }
 #endif

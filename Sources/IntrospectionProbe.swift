@@ -29,6 +29,8 @@ protocol IntrospectionProbe: AnyObject {
 final class IntrospectionAnchorReference {
 	fileprivate weak var controller: IntrospectionAnchorController? = nil
 	fileprivate weak var view: IntrospectionAnchorView? = nil
+	/// Whether the probe found its target, so the anchor's view leaves the hierarchy.
+	fileprivate var isRetired = false
 }
 
 /// An entity introspection adds to the hierarchy, which selectors never return.
@@ -77,17 +79,20 @@ final class IntrospectionCoordinator<Target: PlatformEntity> {
 	}
 
 	/// Adopts the latest closures, then customizes the cached target, or the one the probe selects when none is cached.
+	/// Returns whether it found one.
+	@discardableResult
 	func update(
 		from probe: any IntrospectionProbe,
 		selector: @escaping (any IntrospectionProbe) -> Target?,
 		customize: @escaping (Target) -> Void,
-	) {
+	) -> Bool {
 		self.selector = selector
 		self.customize = customize
 		guard let target = target ?? selector(probe) else {
-			return
+			return false
 		}
 		customize(target)
+		return true
 	}
 }
 
@@ -299,7 +304,10 @@ struct IntrospectionAnchorViewRepresentable: PlatformViewRepresentable {
 }
 
 final class IntrospectionAnchorView: PlatformView, IntrospectionPlatformEntity {
+	private let anchorReference: IntrospectionAnchorReference
+
 	init(anchorReference: IntrospectionAnchorReference) {
+		self.anchorReference = anchorReference
 		super.init(frame: .zero)
 		anchorReference.view = self
 	}
@@ -308,6 +316,24 @@ final class IntrospectionAnchorView: PlatformView, IntrospectionPlatformEntity {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	#if canImport(UIKit)
+	override func willMove(toWindow newWindow: UIWindow?) {
+		super.willMove(toWindow: newWindow)
+		guard newWindow == nil, anchorReference.isRetired else {
+			return
+		}
+		// Navigation and tab bar controllers look for their content scroll view again only when they lay out, so they find
+		// the receiver this anchor stood in front of.
+		var controller = enclosingController
+		while let current = controller {
+			if current is UINavigationController || current is UITabBarController {
+				current.view.setNeedsLayout()
+			}
+			controller = current.parent
+		}
+	}
+	#endif
 }
 
 struct IntrospectionProbeViewRepresentable<Target: PlatformEntity>: PlatformViewRepresentable {
@@ -320,16 +346,19 @@ struct IntrospectionProbeViewRepresentable<Target: PlatformEntity>: PlatformView
 	@Binding
 	private var observed: Void // workaround for state changes not triggering view updates
 	private let anchorReference: IntrospectionAnchorReference
+	private let isAnchorRetired: Binding<Bool>
 	private let selector: (any IntrospectionProbe) -> Target?
 	private let customize: (Target) -> Void
 
 	init(
 		anchorReference: IntrospectionAnchorReference,
+		isAnchorRetired: Binding<Bool>,
 		selector: @escaping (any IntrospectionProbe) -> Target?,
 		customize: @escaping (Target) -> Void,
 	) {
 		self._observed = .constant(())
 		self.anchorReference = anchorReference
+		self.isAnchorRetired = isAnchorRetired
 		self.selector = selector
 		self.customize = customize
 	}
@@ -340,15 +369,32 @@ struct IntrospectionProbeViewRepresentable<Target: PlatformEntity>: PlatformView
 
 	func makePlatformView(context: Context) -> IntrospectionProbeView {
 		let coordinator = context.coordinator
+		let isAnchorRetired = isAnchorRetired
 		return IntrospectionProbeView(anchorReference: anchorReference) { view in
-			if coordinator.select(from: view) {
-				view.handler = nil
+			guard coordinator.select(from: view) else {
+				return
+			}
+			view.handler = nil
+			if view.anchorReference.view != nil {
+				view.anchorReference.isRetired = true
+				DispatchQueue.main.async {
+					isAnchorRetired.wrappedValue = true
+				}
 			}
 		}
 	}
 
 	func updatePlatformView(_ view: IntrospectionProbeView, context: Context) {
-		context.coordinator.update(from: view, selector: selector, customize: customize)
+		let found = context.coordinator.update(from: view, selector: selector, customize: customize)
+		// The target went away after the anchor left, so bring the anchor back and look for the target again.
+		if !found, isAnchorRetired.wrappedValue {
+			view.anchorReference.isRetired = false
+			let isAnchorRetired = isAnchorRetired
+			DispatchQueue.main.async {
+				isAnchorRetired.wrappedValue = false
+			}
+			view.rearm()
+		}
 	}
 
 	static func dismantlePlatformView(_ view: IntrospectionProbeView, coordinator: Coordinator) {
@@ -359,17 +405,29 @@ struct IntrospectionProbeViewRepresentable<Target: PlatformEntity>: PlatformView
 final class IntrospectionProbeView: PlatformView, IntrospectionPlatformEntity {
 	let anchorReference: IntrospectionAnchorReference
 	var handler: (() -> Void)? = nil
+	private let attempt: (IntrospectionProbeView) -> Void
 
 	fileprivate init(
 		anchorReference: IntrospectionAnchorReference,
-		handler: ((IntrospectionProbeView) -> Void)?,
+		handler: @escaping (IntrospectionProbeView) -> Void,
 	) {
 		self.anchorReference = anchorReference
+		self.attempt = handler
 		super.init(frame: .zero)
-		self.handler = { [weak self] in
+		rearm()
+	}
+
+	/// Looks for the target again, from the probe's next layout on.
+	func rearm() {
+		handler = { [weak self] in
 			guard let self else { return }
-			handler?(self)
+			attempt(self)
 		}
+		#if canImport(UIKit)
+		setNeedsLayout()
+		#elseif canImport(AppKit)
+		needsLayout = true
+		#endif
 	}
 
 	@available(*, unavailable)

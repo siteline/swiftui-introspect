@@ -26,26 +26,17 @@ struct Issue410DiagnosticTests {
 			.allSatisfy { $0.panGestureRecognizer.view == nil || !$0.isScrollEnabled })
 	}
 
-	@Test func `disabling nested scroll views after forcing layout on the first customize`() async throws {
+	@Test func `disabling nested scroll views on the next main-queue turn`() async throws {
 		var customized = false
 		let collectionView = try await introspection(of: UICollectionView.self) { spy in
 			pages.introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) { collectionView in
 				guard !customized else { return }
 				customized = true
-				print("[410] workaround customize: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize)")
-				collectionView.layoutIfNeeded()
-				print(
-					"[410] workaround customize after layout: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize) nested=\(collectionView.subviews.compactMap { $0 as? UIScrollView }.count)",
-				)
 				collectionView.isScrollEnabled = false
 				DispatchQueue.main.async {
-					print(
-						"[410] workaround async: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize) nested=\(collectionView.subviews.compactMap { $0 as? UIScrollView }.count)",
-					)
-					collectionView.layoutIfNeeded()
-					let nested = collectionView.subviews.compactMap { $0 as? UIScrollView }
-					print("[410] workaround async after layout: contentSize=\(collectionView.contentSize) nested=\(nested.count)")
-					nested.forEach { $0.isScrollEnabled = false }
+					for case let scrollView as UIScrollView in collectionView.subviews {
+						scrollView.isScrollEnabled = false
+					}
 					spy(collectionView)
 				}
 			}
@@ -53,6 +44,7 @@ struct Issue410DiagnosticTests {
 		try await Task.sleep(nanoseconds: 1_000_000_000)
 
 		log("workaround after 1s", collectionView)
+		#expect(!collectionView.isScrollEnabled)
 		#expect(Self.scrollViews(in: collectionView).allSatisfy { !$0.isScrollEnabled })
 	}
 

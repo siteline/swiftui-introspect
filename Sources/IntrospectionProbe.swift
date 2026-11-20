@@ -31,21 +31,23 @@ final class IntrospectionAnchorReference {
 	fileprivate weak var view: IntrospectionAnchorView? = nil
 }
 
+/// An entity introspection adds to the hierarchy, which selectors never return.
+protocol IntrospectionPlatformEntity: AnyObject {}
+
 extension PlatformEntity {
-	var introspectionAnchorEntity: Base? {
-		if let probeController = self as? IntrospectionProbeController {
-			return probeController.anchorReference.controller~
+	var isIntrospectionPlatformEntity: Bool {
+		if self is any IntrospectionPlatformEntity {
+			return true
 		}
-		if let probeView = self as? IntrospectionProbeView {
-			return probeView.anchorReference.view~
+		// The view of an anchor or probe view controller, which is that controller's next responder.
+		guard let view = self as? PlatformView else {
+			return false
 		}
-		if
-			let view = self as? PlatformView,
-			let probeController = view.introspectionProbeController
-		{
-			return probeController.anchorReference.controller?.view~
-		}
-		return nil
+		#if canImport(UIKit)
+		return view.next is any IntrospectionPlatformEntity
+		#elseif canImport(AppKit)
+		return view.nextResponder is any IntrospectionPlatformEntity
+		#endif
 	}
 }
 
@@ -116,10 +118,9 @@ struct IntrospectionAnchorControllerRepresentable: PlatformViewControllerReprese
 	static func dismantlePlatformViewController(_ controller: IntrospectionAnchorController, coordinator: Coordinator) {}
 }
 
-final class IntrospectionAnchorController: PlatformViewController {
+final class IntrospectionAnchorController: PlatformViewController, IntrospectionPlatformEntity {
 	init(anchorReference: IntrospectionAnchorReference) {
 		super.init(nibName: nil, bundle: nil)
-		self.isIntrospectionPlatformEntity = true
 		anchorReference.controller = self
 	}
 
@@ -128,15 +129,9 @@ final class IntrospectionAnchorController: PlatformViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	#if canImport(UIKit)
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		view.isIntrospectionPlatformEntity = true
-	}
-	#elseif canImport(AppKit)
+	#if canImport(AppKit)
 	override func loadView() {
 		view = NSView()
-		view.isIntrospectionPlatformEntity = true
 	}
 	#endif
 }
@@ -187,7 +182,7 @@ struct IntrospectionProbeControllerRepresentable<Target: PlatformEntity>: Platfo
 	}
 }
 
-final class IntrospectionProbeController: PlatformViewController {
+final class IntrospectionProbeController: PlatformViewController, IntrospectionPlatformEntity {
 	let anchorReference: IntrospectionAnchorReference
 	var handler: (() -> Void)? = nil
 
@@ -201,7 +196,6 @@ final class IntrospectionProbeController: PlatformViewController {
 			guard let self else { return }
 			handler?(self)
 		}
-		self.isIntrospectionPlatformEntity = true
 	}
 
 	@available(*, unavailable)
@@ -218,8 +212,6 @@ final class IntrospectionProbeController: PlatformViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.introspectionProbeController = self
-		view.isIntrospectionPlatformEntity = true
 		handler?()
 	}
 
@@ -240,8 +232,6 @@ final class IntrospectionProbeController: PlatformViewController {
 	#elseif canImport(AppKit)
 	override func loadView() {
 		view = NSView()
-		view.introspectionProbeController = self
-		view.isIntrospectionPlatformEntity = true
 	}
 
 	override func viewDidLoad() {
@@ -260,11 +250,24 @@ extension IntrospectionProbeController: IntrospectionProbe {
 	var controller: PlatformViewController? { self }
 
 	func receiverEntity<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
-		self.as(Entry.Base.self)?.receiver(ofType: Entry.self)
+		guard let anchor = anchorReference.controller else {
+			return nil
+		}
+		if Entry.Base.self == PlatformView.self {
+			return loadedView?.receiverCandidates(after: anchor.view).firstPlatformEntity(ofType: Entry.self)
+		} else if Entry.Base.self == PlatformViewController.self {
+			return (self as PlatformViewController).receiverCandidates(after: anchor).firstPlatformEntity(ofType: Entry.self)
+		}
+		return nil
 	}
 
 	func ancestorEntity<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
-		self.as(Entry.Base.self)?.ancestor(ofType: Entry.self)
+		if Entry.Base.self == PlatformView.self {
+			return loadedView?.ancestors.firstPlatformEntity(ofType: Entry.self)
+		} else if Entry.Base.self == PlatformViewController.self {
+			return (self as PlatformViewController).ancestors.firstPlatformEntity(ofType: Entry.self)
+		}
+		return nil
 	}
 }
 
@@ -295,10 +298,9 @@ struct IntrospectionAnchorViewRepresentable: PlatformViewRepresentable {
 	static func dismantlePlatformView(_ view: IntrospectionAnchorView, coordinator: Coordinator) {}
 }
 
-final class IntrospectionAnchorView: PlatformView {
+final class IntrospectionAnchorView: PlatformView, IntrospectionPlatformEntity {
 	init(anchorReference: IntrospectionAnchorReference) {
 		super.init(frame: .zero)
-		self.isIntrospectionPlatformEntity = true
 		anchorReference.view = self
 	}
 
@@ -354,7 +356,7 @@ struct IntrospectionProbeViewRepresentable<Target: PlatformEntity>: PlatformView
 	}
 }
 
-final class IntrospectionProbeView: PlatformView {
+final class IntrospectionProbeView: PlatformView, IntrospectionPlatformEntity {
 	let anchorReference: IntrospectionAnchorReference
 	var handler: (() -> Void)? = nil
 
@@ -368,7 +370,6 @@ final class IntrospectionProbeView: PlatformView {
 			guard let self else { return }
 			handler?(self)
 		}
-		self.isIntrospectionPlatformEntity = true
 	}
 
 	@available(*, unavailable)
@@ -472,17 +473,20 @@ extension IntrospectionProbeView: IntrospectionProbe {
 	var controller: PlatformViewController? { enclosingController }
 
 	func receiverEntity<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
+		guard let anchor = anchorReference.view else {
+			return nil
+		}
 		if Entry.Base.self == PlatformView.self {
-			return receiver(ofType: Entry.self)
+			return (self as PlatformView).receiverCandidates(after: anchor).firstPlatformEntity(ofType: Entry.self)
 		} else if Entry.Base.self == PlatformViewController.self {
-			return receiverController(ofType: Entry.self)
+			return firstReceiverController(after: anchor, where: { $0 is Entry }) as? Entry
 		}
 		return nil
 	}
 
 	func ancestorEntity<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
 		if Entry.Base.self == PlatformView.self {
-			return ancestor(ofType: Entry.self)
+			return (self as PlatformView).ancestors.firstPlatformEntity(ofType: Entry.self)
 		} else if Entry.Base.self == PlatformViewController.self {
 			return enclosingController.flatMap {
 				sequence(first: $0, next: \.parent).firstPlatformEntity(ofType: Entry.self)
@@ -491,30 +495,25 @@ extension IntrospectionProbeView: IntrospectionProbe {
 		return nil
 	}
 
-	/// The first view controller of the given type whose view sits between the anchor and this probe, in the view
+	/// The first view controller that matches and whose view sits between the anchor and this probe, in the view
 	/// controller hierarchy's order, as the view controller probe finds it.
-	private func receiverController<Entry: PlatformEntity>(ofType type: Entry.Type) -> Entry? {
-		guard
-			let anchor = introspectionAnchorEntity,
-			let container = anchor.nearestCommonAncestor(with: self)?.enclosingController
-		else {
+	private func firstReceiverController(
+		after anchor: PlatformView,
+		where matches: (PlatformViewController) -> Bool,
+	) -> PlatformViewController? {
+		guard let container = anchor.nearestCommonAncestor(with: self)?.enclosingController else {
 			return nil
 		}
-		return container.allDescendants
-			.lazy
-			.compactMap { controller -> Entry? in
-				guard
-					let candidate = controller as? Entry,
-					!controller.isIntrospectionPlatformEntity,
-					let view = controller.loadedView,
-					anchor.precedes(view),
-					view.precedes(self)
-				else {
-					return nil
-				}
-				return candidate
+		return container.allDescendants.first { controller in
+			guard
+				matches(controller),
+				!controller.isIntrospectionPlatformEntity,
+				let view = controller.loadedView
+			else {
+				return false
 			}
-			.first
+			return anchor.precedes(view) && view.precedes(self)
+		}
 	}
 }
 
@@ -583,33 +582,5 @@ extension PlatformView {
 			child = view
 		}
 		return false
-	}
-}
-
-import ObjectiveC
-
-extension PlatformView {
-	fileprivate var introspectionProbeController: IntrospectionProbeController? {
-		get {
-			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			return (objc_getAssociatedObject(self, key) as? Weak<IntrospectionProbeController>)?.wrappedValue
-		}
-		set {
-			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			objc_setAssociatedObject(self, key, Weak(wrappedValue: newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-		}
-	}
-}
-
-extension PlatformEntity {
-	var isIntrospectionPlatformEntity: Bool {
-		get {
-			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			return objc_getAssociatedObject(self, key) as? Bool ?? false
-		}
-		set {
-			let key = unsafeBitCast(Selector(#function), to: UnsafeRawPointer.self)
-			objc_setAssociatedObject(self, key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-		}
 	}
 }

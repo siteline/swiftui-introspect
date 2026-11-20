@@ -373,11 +373,11 @@ final class IntrospectionAnchorView: PlatformView, IntrospectionPlatformEntity {
 		guard newWindow == nil, case .retired = anchorReference.viewState else {
 			return
 		}
-		// Navigation and tab bar controllers look for their content scroll view again only when they lay out, so they find
-		// the receiver this anchor stood in front of.
+		// Navigation controllers look for their content scroll view again only when they lay out, so they find the
+		// receiver this anchor stood in front of.
 		var controller = enclosingController
 		while let current = controller {
-			if current is UINavigationController || current is UITabBarController {
+			if current is UINavigationController {
 				current.view.setNeedsLayout()
 			}
 			controller = current.parent

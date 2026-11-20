@@ -1,35 +1,23 @@
-// swift-tools-version:6.2
+// swift-tools-version:5.7
 
 import PackageDescription
 
 let package = Package(
-	name: "swiftui-introspect",
-	platforms: [
-		.iOS(.v13),
-		.macCatalyst(.v13),
-		.macOS(.v12),
-		.tvOS(.v13),
-		.visionOS(.v1),
-	],
-	products: [
-		.library(name: "SwiftUIIntrospect", targets: ["SwiftUIIntrospect"]),
-	],
-	targets: [
-		.target(
-			name: "SwiftUIIntrospect",
-			path: "Sources",
-		),
-	],
+    name: "swiftui-introspect",
+    platforms: [
+        .iOS(.v13),
+        .tvOS(.v13),
+        .macOS(.v10_15),
+    ],
+    products: [
+        .library(name: "SwiftUIIntrospect", targets: ["SwiftUIIntrospect"]),
+        .library(name: "SwiftUIIntrospect-Static", type: .static, targets: ["SwiftUIIntrospect"]),
+        .library(name: "SwiftUIIntrospect-Dynamic", type: .dynamic, targets: ["SwiftUIIntrospect"]),
+    ],
+    targets: [
+        .target(
+            name: "SwiftUIIntrospect",
+            path: "Sources"
+        ),
+    ]
 )
-
-for target in package.targets {
-	target.swiftSettings = target.swiftSettings ?? []
-	target.swiftSettings? += [
-		.enableUpcomingFeature("ExistentialAny"),
-		.enableUpcomingFeature("ImmutableWeakCaptures"),
-		.enableUpcomingFeature("InferIsolatedConformances"),
-		.enableUpcomingFeature("InternalImportsByDefault"),
-		.enableUpcomingFeature("MemberImportVisibility"),
-		.enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-	]
-}

@@ -1,6 +1,8 @@
+import SwiftUI
+
 /// An abstract representation of the search field displayed via the `.searchable` modifier in SwiftUI.
 ///
-/// ### iOS 15 - 18
+/// ### iOS
 ///
 /// ```swift
 /// struct ContentView: View {
@@ -12,40 +14,7 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
-///             print(type(of: $0)) // UISearchBar
-///         }
-///     }
-/// }
-/// ```
-///
-/// ### iOS 26+
-///
-/// From iOS 26 onward, search bar is only backed by UIKit when `.searchable` is used within a
-/// `NavigationView` or `NavigationStack` contained inside a `TabView`.
-///
-/// If `.searchable` is used outside of these containers, it is backed by SwiftUI's own implementation,
-/// and there is no UIKit view to introspect.
-///
-/// The only exception to this is on iPad, where double column `NavigationView` and `NavigationSplitView`
-/// still use `UISearchBar` even outside of a `TabView` (for now...).
-///
-/// ```swift
-/// struct ContentView: View {
-///     @State var searchTerm = ""
-///
-///     var body: some View {
-///         TabView {
-///             NavigationView {
-///                 Text("Root")
-///                     .searchable(text: $searchTerm)
-///             }
-///             .navigationViewStyle(.stack)
-///             .tabItem {
-///                 Label("Home", systemImage: "house")
-///             }
-///         }
-///         .introspect(.searchField, on: .iOS(.v26, .v27)) {
+///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -64,7 +33,7 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) {
+///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -87,7 +56,7 @@
 ///                 .searchable(text: $searchTerm)
 ///         }
 ///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///         .introspect(.searchField, on: .visionOS(.v1)) {
 ///             print(type(of: $0)) // UISearchBar
 ///         }
 ///     }
@@ -96,60 +65,49 @@
 public struct SearchFieldType: IntrospectableViewType {}
 
 extension IntrospectableViewType where Self == SearchFieldType {
-	public static var searchField: Self { .init() }
+    public static var searchField: Self { .init() }
 }
 
 #if canImport(UIKit)
-public import UIKit
-
 extension iOSViewVersion<SearchFieldType, UISearchBar> {
-	@available(*, unavailable, message: ".searchable isn't available on iOS 13")
-	public static let v13 = Self.unavailable()
-	@available(*, unavailable, message: ".searchable isn't available on iOS 14")
-	public static let v14 = Self.unavailable()
-	public static let v15 = Self(for: .v15, selector: selector)
-	public static let v16 = Self(for: .v16, selector: selector)
-	public static let v17 = Self(for: .v17, selector: selector)
-	public static let v18 = Self(for: .v18, selector: selector)
-	public static let v26 = Self(for: .v26, selector: selector)
-	public static let v27 = Self(for: .v27, selector: selector)
+    @available(*, unavailable, message: ".searchable isn't available on iOS 13")
+    public static let v13 = Self.unavailable()
+    @available(*, unavailable, message: ".searchable isn't available on iOS 14")
+    public static let v14 = Self.unavailable()
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
-	private static var selector: IntrospectionSelector<UISearchBar> {
-		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.firstPlatformEntity(ofType: UISearchBar.self)
-		}
-	}
+    private static var selector: IntrospectionSelector<UISearchBar> {
+        .from(UINavigationController.self) {
+            $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+        }
+    }
 }
 
 extension tvOSViewVersion<SearchFieldType, UISearchBar> {
-	@available(*, unavailable, message: ".searchable isn't available on tvOS 13")
-	public static let v13 = Self.unavailable()
-	@available(*, unavailable, message: ".searchable isn't available on tvOS 14")
-	public static let v14 = Self.unavailable()
-	public static let v15 = Self(for: .v15, selector: selector)
-	public static let v16 = Self(for: .v16, selector: selector)
-	public static let v17 = Self(for: .v17, selector: selector)
-	public static let v18 = Self(for: .v18, selector: selector)
-	public static let v26 = Self(for: .v26, selector: selector)
-	public static let v27 = Self(for: .v27, selector: selector)
+    @available(*, unavailable, message: ".searchable isn't available on tvOS 13")
+    public static let v13 = Self.unavailable()
+    @available(*, unavailable, message: ".searchable isn't available on tvOS 14")
+    public static let v14 = Self.unavailable()
+    public static let v15 = Self(for: .v15, selector: selector)
+    public static let v16 = Self(for: .v16, selector: selector)
+    public static let v17 = Self(for: .v17, selector: selector)
 
-	private static var selector: IntrospectionSelector<UISearchBar> {
-		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.firstPlatformEntity(ofType: UISearchBar.self)
-		}
-	}
+    private static var selector: IntrospectionSelector<UISearchBar> {
+        .from(UINavigationController.self) {
+            $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+        }
+    }
 }
 
 extension visionOSViewVersion<SearchFieldType, UISearchBar> {
-	public static let v1 = Self(for: .v1, selector: selector)
-	public static let v2 = Self(for: .v2, selector: selector)
-	public static let v26 = Self(for: .v26, selector: selector)
-	public static let v27 = Self(for: .v27, selector: selector)
+    public static let v1 = Self(for: .v1, selector: selector)
 
-	private static var selector: IntrospectionSelector<UISearchBar> {
-		.from(UINavigationController.self) {
-			$0.viewIfLoaded?.allDescendants.firstPlatformEntity(ofType: UISearchBar.self)
-		}
-	}
+    private static var selector: IntrospectionSelector<UISearchBar> {
+        .from(UINavigationController.self) {
+            $0.viewIfLoaded?.allDescendants.lazy.compactMap { $0 as? UISearchBar }.first
+        }
+    }
 }
 #endif

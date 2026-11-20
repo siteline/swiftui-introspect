@@ -24,7 +24,7 @@ SwiftUI Introspect lets you access the underlying UIKit or AppKit view for a Swi
 How it works
 ------------
 
-SwiftUI Introspect adds an invisible `IntrospectionView` above the selected view and an invisible anchor below it, then searches the UIKit/AppKit view hierarchy between them to find the relevant view.
+SwiftUI Introspect adds an invisible probe above the selected view and an invisible anchor below it, then searches the UIKit/AppKit view hierarchy between them to find the relevant view.
 
 For instance, when introspecting a `ScrollView`...
 

@@ -75,7 +75,15 @@ struct IntrospectModifier<
 		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) {
 		self.scope = scope ?? viewType.scope
-		self.selector = platforms.lazy.compactMap(\.selector).first
+		// A loop rather than `compactMap(\.selector)`, whose generic key path is instantiated on every call.
+		var selector: IntrospectionSelector<PlatformSpecificEntity>? = nil
+		for platform in platforms {
+			if let platformSelector = platform.selector {
+				selector = platformSelector
+				break
+			}
+		}
+		self.selector = selector
 		self.customize = customize
 	}
 

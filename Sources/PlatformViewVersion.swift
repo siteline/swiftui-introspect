@@ -19,43 +19,43 @@ public struct PlatformViewVersionPredicate<
 	}
 
 	public static func iOS(_ versions: iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
-		Self(versions, matches: \.isCurrent)
+		Self(versions, matches: { $0.isCurrent })
 	}
 
 	public static func iOS(
 		_ versions: PartialRangeFrom<iOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
-		Self([versions.lowerBound], matches: \.isCurrentOrPast)
+		Self([versions.lowerBound], matches: { $0.isCurrentOrPast })
 	}
 
 	public static func tvOS(_ versions: tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
-		Self(versions, matches: \.isCurrent)
+		Self(versions, matches: { $0.isCurrent })
 	}
 
 	public static func tvOS(
 		_ versions: PartialRangeFrom<tvOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
-		Self([versions.lowerBound], matches: \.isCurrentOrPast)
+		Self([versions.lowerBound], matches: { $0.isCurrentOrPast })
 	}
 
 	public static func macOS(_ versions: macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
-		Self(versions, matches: \.isCurrent)
+		Self(versions, matches: { $0.isCurrent })
 	}
 
 	public static func macOS(
 		_ versions: PartialRangeFrom<macOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
-		Self([versions.lowerBound], matches: \.isCurrentOrPast)
+		Self([versions.lowerBound], matches: { $0.isCurrentOrPast })
 	}
 
 	public static func visionOS(_ versions: visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>...) -> Self {
-		Self(versions, matches: \.isCurrent)
+		Self(versions, matches: { $0.isCurrent })
 	}
 
 	public static func visionOS(
 		_ versions: PartialRangeFrom<visionOSViewVersion<SwiftUIViewType, PlatformSpecificEntity>>,
 	) -> Self {
-		Self([versions.lowerBound], matches: \.isCurrentOrPast)
+		Self([versions.lowerBound], matches: { $0.isCurrentOrPast })
 	}
 }
 

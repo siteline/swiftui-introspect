@@ -1,3 +1,4 @@
+import SwiftUI
 import Testing
 @_spi(Internals) @testable import SwiftUIIntrospect
 
@@ -7,7 +8,7 @@ struct PlatformEntityTraversalTests {
 		let match = MatchingEntity(ancestor: Entity())
 		let entity = Entity(ancestor: match)
 
-		#expect(entity.ancestor(ofType: MatchingEntity.self) === match)
+		#expect(entity.ancestors.firstPlatformEntity(ofType: MatchingEntity.self) === match)
 		#expect(match.ancestorAccessCount == 0)
 	}
 
@@ -41,6 +42,19 @@ struct PlatformEntityTraversalTests {
 		#expect(head.descendantsAccessCount == 0)
 	}
 
+	@Test func `bounded descendant lookup stops at the front entity`() {
+		let back = Entity()
+		let front = Entity()
+		let root = Entity(descendants: [back, Entity(), front, MatchingEntity()])
+
+		let result = root
+			.allDescendants(between: back, and: front)
+			.firstPlatformEntity(ofType: MatchingEntity.self)
+
+		#expect(result == nil)
+		#expect(front.descendantsAccessCount == 0)
+	}
+
 	@Test func `descendant lookup stops after first match`() {
 		let match = MatchingEntity()
 		let tail = Entity()
@@ -52,12 +66,18 @@ struct PlatformEntityTraversalTests {
 	}
 
 	@Test func `lookup skips introspection entities`() {
-		let marker = MatchingEntity()
+		let marker = MarkerEntity()
 		let match = MatchingEntity()
 		let entities: [Entity] = [marker, match]
-		marker.isIntrospectionPlatformEntity = true
 
 		#expect(entities.firstPlatformEntity(ofType: MatchingEntity.self) === match)
+	}
+
+	@Test func `lookup skips the views of introspection view controllers`() {
+		let controller = IntrospectionAnchorController(anchorReference: IntrospectionAnchorReference())
+
+		#expect(controller.view.isIntrospectionPlatformEntity)
+		#expect(!PlatformView().isIntrospectionPlatformEntity)
 	}
 
 	private class Entity: PlatformEntity {
@@ -89,5 +109,7 @@ struct PlatformEntityTraversalTests {
 		func isDescendant(of other: Entity) -> Bool { false }
 	}
 
-	private final class MatchingEntity: Entity {}
+	private class MatchingEntity: Entity {}
+
+	private final class MarkerEntity: MatchingEntity, IntrospectionPlatformEntity {}
 }

@@ -1,0 +1,195 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+  schedule:
+    - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Install Mise tools
+        uses: jdx/mise-action@v3
+
+      - name: SwiftFormat Lint
+        run: hk check --all
+
+  ci:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner || 'macos-26' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # iOS (iPhone)
+          - { name: "iOS 15.5",         runtime: "iOS 15.5",       device: "iPhone 13 Pro" }
+          - { name: "iOS 16.4",         runtime: "iOS 16.4",       device: "iPhone 14 Pro" }
+          - { name: "iOS 17.5",         runtime: "iOS 17.5",       device: "iPhone 15 Pro" }
+          - { name: "iOS 18.5",         runtime: "iOS 18.5",       device: "iPhone 16 Pro" }
+          - { name: "iOS 26.5",         runtime: "iOS 26.5",       device: "iPhone 17 Pro" }
+          # iPadOS
+          - { name: "iPadOS 15.5",      runtime: "iOS 15.5",       device: "iPad Pro (11-inch) (3rd generation)" }
+          - { name: "iPadOS 16.4",      runtime: "iOS 16.4",       device: "iPad Pro (11-inch) (4th generation)" }
+          - { name: "iPadOS 17.5",      runtime: "iOS 17.5",       device: "iPad Pro 11-inch (M4)" }
+          - { name: "iPadOS 18.5",      runtime: "iOS 18.5",       device: "iPad Pro 11-inch (M4)" }
+          - { name: "iPadOS 26.5",      runtime: "iOS 26.5",       device: "iPad Pro 11-inch (M5)" }
+          # macOS / macCatalyst
+          - { name: "macCatalyst 15",  destination: "platform=macOS,variant=Mac Catalyst",  runner: macos-15, xcode: "26.3" }
+          - { name: "macCatalyst 26",  destination: "platform=macOS,variant=Mac Catalyst" }
+          - { name: "macOS 15",        destination: "platform=macOS",                       runner: macos-15, xcode: "26.3" }
+          - { name: "macOS 26",        destination: "platform=macOS" }
+          # tvOS
+          - { name: "tvOS 15.4",        runtime: "tvOS 15.4",      device: "Apple TV" }
+          - { name: "tvOS 16.4",        runtime: "tvOS 16.4",      device: "Apple TV" }
+          - { name: "tvOS 17.5",        runtime: "tvOS 17.5",      device: "Apple TV" }
+          - { name: "tvOS 18.5",        runtime: "tvOS 18.5",      device: "Apple TV" }
+          - { name: "tvOS 26.5",        runtime: "tvOS 26.5",      device: "Apple TV" }
+          # visionOS
+          - { name: "visionOS 1.2",     runtime: "visionOS 1.2",   device: "Apple Vision Pro (at 2732x2048)" }
+          - { name: "visionOS 2.5",     runtime: "visionOS 2.5",   device: "Apple Vision Pro (at 2732x2048)" }
+          - { name: "visionOS 26.4",    runtime: "visionOS 26.4",  device: "Apple Vision Pro" }
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
+
+      - name: Select Xcode
+        run: sudo xcodes select ${{ matrix.xcode || '26.6' }}
+
+      - name: Install ${{ matrix.runtime }} Runtime
+        if: matrix.runtime
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: |
+            RUNTIME="${{ matrix.runtime }}"
+            if xcrun simctl list runtimes -j | jq -e --arg name "$RUNTIME" '.runtimes[] | select(.isAvailable) | select(.name == $name)' >/dev/null; then
+              echo "Runtime '$RUNTIME' is already installed."
+            else
+              sudo xcodes runtimes install "$RUNTIME" --aria2 "$(which aria2c)"
+            fi
+
+      - name: Create Simulator
+        if: matrix.device
+        run: |
+          set -eo pipefail
+          xcrun simctl delete all
+
+          # Look up runtime identifier by display name (handles internal names like xrOS for visionOS)
+          RUNTIME="${{ matrix.runtime }}"
+          RUNTIME_ID=$(xcrun simctl list runtimes -j | jq -r --arg name "$RUNTIME" '.runtimes[] | select(.isAvailable) | select(.name == $name) | .identifier')
+          if [ -z "$RUNTIME_ID" ] || [ "$RUNTIME_ID" = "null" ]; then
+            echo "::error::Runtime '$RUNTIME' not found. Available:"
+            xcrun simctl list runtimes
+            exit 1
+          fi
+          echo "Runtime: $RUNTIME_ID"
+
+          # Look up device type by display name, with fallback identifier construction
+          DEVICE_TYPE=$(xcrun simctl list devicetypes -j | jq -r --arg name "${{ matrix.device }}" '.devicetypes[] | select(.name == $name) | .identifier')
+          if [ -z "$DEVICE_TYPE" ] || [ "$DEVICE_TYPE" = "null" ]; then
+            DEVICE_TYPE="com.apple.CoreSimulator.SimDeviceType.$(echo "${{ matrix.device }}" | sed 's/[()]//g; s/  */-/g; s/[^A-Za-z0-9-]//g')"
+            echo "Device type not found by name, using fallback: $DEVICE_TYPE"
+          fi
+
+          UDID=$(xcrun simctl create "${{ matrix.device }}" "$DEVICE_TYPE" "$RUNTIME_ID")
+          echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
+          echo "Created simulator: ${{ matrix.device }} -> $UDID"
+
+      - name: Run Tests
+        run: |
+          set -eo pipefail
+          xcodebuild test \
+            -scheme SwiftUIIntrospectTests \
+            -destination "${{ matrix.destination || format('id={0}', env.SIM_UDID) }}" \
+            -configuration Debug
+
+  showcase:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
+    name: Build Showcase (${{ matrix.platform }})
+    # The Showcase project uses the JSON project format, which requires Xcode 27.
+    runs-on: xcode-27
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { platform: iOS,         destination: "generic/platform=iOS Simulator" }
+          - { platform: macCatalyst, destination: "generic/platform=macOS,variant=Mac Catalyst" }
+          - { platform: macOS,       destination: "generic/platform=macOS" }
+          - { platform: tvOS,        destination: "generic/platform=tvOS Simulator" }
+          - { platform: visionOS,    destination: "generic/platform=visionOS Simulator" }
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      # The xcodesorg/made formula fails to build on macOS 27, so this uses the image's xcodes:
+      # https://github.com/XcodesOrg/homebrew-made/issues/4
+      - name: Select Xcode
+        run: sudo xcodes select 27.2
+
+      - name: Build Showcase
+        run: |
+          set -eo pipefail
+          xcodebuild build \
+            -scheme Showcase \
+            -destination "${{ matrix.destination }}" \
+            -configuration Debug
+
+  framework-archiving:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
+    name: Archive Framework (${{ matrix.platform }})
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { platform: iOS,         destination: "generic/platform=iOS" }
+          - { platform: macCatalyst, destination: "platform=macOS,variant=Mac Catalyst" }
+          - { platform: macOS,       destination: "generic/platform=macOS" }
+          - { platform: tvOS,        destination: "generic/platform=tvOS" }
+          - { platform: visionOS,    destination: "generic/platform=visionOS" }
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install xcodes
+        run: |
+          brew uninstall xcodes
+          brew install xcodesorg/made/xcodes
+
+      - name: Select Xcode
+        run: sudo xcodes select 26.6
+
+      - name: Archive Framework
+        run: |
+          xcodebuild archive \
+            -scheme SwiftUIIntrospectTestFramework \
+            -destination "${{ matrix.destination }}" \
+            -archivePath .build/archiving/${{ matrix.platform }} \
+            SKIP_INSTALL=NO \
+            BUILD_LIBRARY_FOR_DISTRIBUTION=YES

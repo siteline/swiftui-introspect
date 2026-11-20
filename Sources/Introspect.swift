@@ -86,6 +86,7 @@ struct IntrospectModifier<
 				introspect(
 					content,
 					anchor: IntrospectionAnchorControllerRepresentable(anchorReference: anchorReference),
+					needsAnchor: true,
 					probe: IntrospectionProbeControllerRepresentable(
 						anchorReference: anchorReference,
 						selector: { selector($0, scope) },
@@ -96,6 +97,8 @@ struct IntrospectModifier<
 				introspect(
 					content,
 					anchor: IntrospectionAnchorViewRepresentable(anchorReference: anchorReference),
+					// only receiver searches start at a view anchor, and custom selectors never see one
+					needsAnchor: scope.contains(.receiver),
 					probe: IntrospectionProbeViewRepresentable(
 						anchorReference: anchorReference,
 						selector: { selector($0, scope) },
@@ -108,7 +111,7 @@ struct IntrospectModifier<
 		}
 	}
 
-	private func introspect(_ content: Content, anchor: some View, probe: some View) -> some View {
+	private func introspect(_ content: Content, anchor: some View, needsAnchor: Bool, probe: some View) -> some View {
 		content
 			.background(
 				Group {
@@ -121,9 +124,13 @@ struct IntrospectModifier<
 				},
 			)
 			.background(
-				anchor
-					.frame(width: 0, height: 0)
-					.accessibility(hidden: true),
+				Group {
+					if needsAnchor {
+						anchor
+							.frame(width: 0, height: 0)
+							.accessibility(hidden: true)
+					}
+				},
 			)
 			.overlay(
 				probe

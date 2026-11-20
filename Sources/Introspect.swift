@@ -75,7 +75,15 @@ struct IntrospectModifier<
 		customize: @escaping (PlatformSpecificEntity) -> Void,
 	) {
 		self.scope = scope ?? viewType.scope
-		self.selector = platforms.lazy.compactMap(\.selector).first
+		// A loop rather than `compactMap(\.selector)`, whose generic key path is instantiated on every call.
+		var selector: IntrospectionSelector<PlatformSpecificEntity>? = nil
+		for platform in platforms {
+			if let platformSelector = platform.selector {
+				selector = platformSelector
+				break
+			}
+		}
+		self.selector = selector
 		self.customize = customize
 	}
 
@@ -86,6 +94,7 @@ struct IntrospectModifier<
 				introspect(
 					content,
 					anchor: IntrospectionAnchorControllerRepresentable(anchorReference: anchorReference),
+					needsAnchor: true,
 					probe: IntrospectionProbeControllerRepresentable(
 						anchorReference: anchorReference,
 						selector: { selector($0, scope) },
@@ -96,6 +105,8 @@ struct IntrospectModifier<
 				introspect(
 					content,
 					anchor: IntrospectionAnchorViewRepresentable(anchorReference: anchorReference),
+					// only receiver searches start at a view anchor, and custom selectors never see one
+					needsAnchor: scope.contains(.receiver),
 					probe: IntrospectionProbeViewRepresentable(
 						anchorReference: anchorReference,
 						selector: { selector($0, scope) },
@@ -108,7 +119,7 @@ struct IntrospectModifier<
 		}
 	}
 
-	private func introspect(_ content: Content, anchor: some View, probe: some View) -> some View {
+	private func introspect(_ content: Content, anchor: some View, needsAnchor: Bool, probe: some View) -> some View {
 		content
 			.background(
 				Group {
@@ -121,9 +132,13 @@ struct IntrospectModifier<
 				},
 			)
 			.background(
-				anchor
-					.frame(width: 0, height: 0)
-					.accessibility(hidden: true),
+				Group {
+					if needsAnchor {
+						anchor
+							.frame(width: 0, height: 0)
+							.accessibility(hidden: true)
+					}
+				},
 			)
 			.overlay(
 				probe
@@ -158,22 +173,27 @@ extension PlatformEntity {
 	public func isDescendant(of other: Base) -> Bool { false }
 }
 
-extension PlatformEntity {
+extension PlatformEntity where Base.Base == Base {
 	@_spi(Internals)
 	public var ancestors: some Sequence<Base> {
-		sequence(first: self~, next: { $0.ancestor~ }).dropFirst()
+		sequence(state: Base?.none) { [self] entity in
+			entity = entity == nil ? self.ancestor : entity?.ancestor
+			return entity
+		}
 	}
 
 	@_spi(Internals)
 	public var allDescendants: some Sequence<Base> {
-		recursiveSequence([self~], children: { $0.descendants~ }).dropFirst()
+		PlatformEntityDescendants(of: self.descendants)
 	}
+}
 
-	func nearestCommonAncestor(with other: Base) -> Base? {
-		var nearestAncestor: Base? = self~
+extension PlatformEntity where Base == Self {
+	func nearestCommonAncestor(with other: Self) -> Self? {
+		var nearestAncestor: Self? = self
 
-		while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity~) {
-			nearestAncestor = currentEntity.ancestor~
+		while let currentEntity = nearestAncestor, !other.isDescendant(of: currentEntity) {
+			nearestAncestor = currentEntity.ancestor
 		}
 
 		return nearestAncestor
@@ -181,62 +201,108 @@ extension PlatformEntity {
 
 	/// This entity's descendants from the bottom entity up to the top one, in depth-first order. The traversal starts at
 	/// the bottom entity, so it doesn't visit the descendants that come before it.
-	func allDescendants(between bottomEntity: Base, and topEntity: Base) -> some Sequence<Base> {
-		recursiveSequence(subtrees(from: bottomEntity), children: { $0.descendants~ })
-			.lazy
-			.prefix(while: { $0 !== topEntity })
+	func allDescendants(between bottomEntity: Self, and topEntity: Self) -> PlatformEntityDescendants<Self> {
+		PlatformEntityDescendants(from: bottomEntity, to: topEntity, within: self)
 	}
 
-	/// The given descendant, followed by the later siblings of it and of each of its ancestors below this entity: the
-	/// roots of the subtrees a depth-first traversal visits from the descendant on.
-	private func subtrees(from descendant: Base) -> [Base] {
-		var subtrees = [descendant]
+	/// The entities from the anchor up to this entity, in depth-first order, where receiver scope looks for its target.
+	func receiverCandidates(after anchor: Self) -> PlatformEntityDescendants<Self> {
+		guard let commonAncestor = anchor.nearestCommonAncestor(with: self) else {
+			return PlatformEntityDescendants(of: [])
+		}
+		return commonAncestor.allDescendants(between: anchor, and: self)
+	}
+}
+
+/// A depth-first traversal of entities, which reads an entity's descendants only once it moves past that entity.
+@MainActor
+struct PlatformEntityDescendants<Entity: PlatformEntity>: @MainActor Sequence, @MainActor IteratorProtocol
+	where Entity.Base == Entity
+{
+	/// The entities left to visit at each depth, outermost first, each with the index of the next one to visit.
+	private var levels: [(entities: [Entity], index: Int)]
+	/// The entity last visited, whose descendants come next.
+	private var lastVisited: Entity? = nil
+	/// The entity that ends the traversal, if any.
+	private let end: Entity?
+
+	/// The given entities and their descendants.
+	init(of entities: [Entity]) {
+		self.levels = [(entities, 0)]
+		self.end = nil
+	}
+
+	/// The given descendant of the root, its descendants, and the entities that follow them in the root's subtree, up to
+	/// the end entity.
+	init(from descendant: Entity, to end: Entity, within root: Entity) {
+		self.end = end
+		self.levels = []
+		guard descendant !== root else {
+			return
+		}
+		var levels = [(entities: [descendant], index: 0)]
 		var entity = descendant
-		while let parent: Base = entity.ancestor~ {
-			let siblings: [Base] = parent.descendants~
-			if let index = siblings.firstIndex(where: { $0 === entity }) {
-				subtrees += siblings[(index + 1)...]
+		while entity !== root {
+			guard let parent = entity.ancestor else {
+				return
 			}
-			if parent === self {
-				return subtrees
+			let siblings = parent.descendants
+			// A loop rather than `firstIndex(where:)`: every search runs this over all of a container's subviews, and the
+			// closure would check its actor isolation on every call.
+			var index = 0
+			while index < siblings.count, siblings[index] !== entity {
+				index += 1
+			}
+			if index < siblings.count {
+				levels.append((siblings, index + 1))
 			}
 			entity = parent
 		}
-		return []
+		self.levels = levels.reversed()
 	}
 
-	func receiver<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type,
-	) -> PlatformSpecificEntity? {
-		let frontEntity = self
-		guard
-			let backEntity = frontEntity.introspectionAnchorEntity,
-			let commonAncestor = backEntity.nearestCommonAncestor(with: frontEntity~)
-		else {
-			return nil
+	mutating func next() -> Entity? {
+		if let lastVisited {
+			self.lastVisited = nil
+			let descendants = lastVisited.descendants
+			if !descendants.isEmpty {
+				levels.append((descendants, 0))
+			}
 		}
-
-		return commonAncestor
-			.allDescendants(between: backEntity~, and: frontEntity~)
-			.firstPlatformEntity(ofType: PlatformSpecificEntity.self)
-	}
-
-	func ancestor<PlatformSpecificEntity: PlatformEntity>(
-		ofType type: PlatformSpecificEntity.Type,
-	) -> PlatformSpecificEntity? {
-		self.ancestors
-			.firstPlatformEntity(ofType: PlatformSpecificEntity.self)
+		while let depth = levels.indices.last {
+			let index = levels[depth].index
+			if index < levels[depth].entities.count {
+				let entity = levels[depth].entities[index]
+				if entity === end {
+					levels = []
+					return nil
+				}
+				levels[depth].index = index + 1
+				lastVisited = entity
+				return entity
+			}
+			levels.removeLast()
+		}
+		return nil
 	}
 }
 
 extension Sequence where Element: PlatformEntity {
+	/// The first entity of the given type that isn't introspection's own.
+	///
+	/// Always inlined, so that callers that are generic over the type still iterate a concrete sequence. Generic code
+	/// that isn't specialized for its element type is several times slower to traverse a hierarchy.
 	@MainActor
+	@inline(__always)
 	func firstPlatformEntity<PlatformSpecificEntity: PlatformEntity>(
 		ofType type: PlatformSpecificEntity.Type,
 	) -> PlatformSpecificEntity? {
-		self.first {
-			$0 is PlatformSpecificEntity && !$0.isIntrospectionPlatformEntity
-		} as? PlatformSpecificEntity
+		for entity in self {
+			if let match = entity as? PlatformSpecificEntity, !entity.isIntrospectionPlatformEntity {
+				return match
+			}
+		}
+		return nil
 	}
 }
 

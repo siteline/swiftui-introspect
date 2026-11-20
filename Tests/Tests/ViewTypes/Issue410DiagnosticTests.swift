@@ -32,12 +32,22 @@ struct Issue410DiagnosticTests {
 			pages.introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) { collectionView in
 				guard !customized else { return }
 				customized = true
+				print("[410] workaround customize: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize)")
 				collectionView.layoutIfNeeded()
-				let nested = collectionView.subviews.compactMap { $0 as? UIScrollView }
-				print("[410] workaround customize: nested scroll views present=\(nested.count)")
+				print(
+					"[410] workaround customize after layout: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize) nested=\(collectionView.subviews.compactMap { $0 as? UIScrollView }.count)",
+				)
 				collectionView.isScrollEnabled = false
-				nested.forEach { $0.isScrollEnabled = false }
-				spy(collectionView)
+				DispatchQueue.main.async {
+					print(
+						"[410] workaround async: bounds=\(collectionView.bounds) contentSize=\(collectionView.contentSize) nested=\(collectionView.subviews.compactMap { $0 as? UIScrollView }.count)",
+					)
+					collectionView.layoutIfNeeded()
+					let nested = collectionView.subviews.compactMap { $0 as? UIScrollView }
+					print("[410] workaround async after layout: contentSize=\(collectionView.contentSize) nested=\(nested.count)")
+					nested.forEach { $0.isScrollEnabled = false }
+					spy(collectionView)
+				}
 			}
 		}
 		try await Task.sleep(nanoseconds: 1_000_000_000)

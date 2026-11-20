@@ -28,6 +28,7 @@ struct AccessibilityTests {
 
 		let initial = try await identifiers(containing: "Bar")
 		#expect(initial.contains("Bar"), "\(initial)")
+		#expect(model.isCustomized == (introspection != .none))
 
 		model.isPushed = true
 		_ = try await identifiers(containing: "Detail")
@@ -112,6 +113,7 @@ private struct AccessibilityAutomation {
 
 private final class NavigationModel: ObservableObject {
 	@Published var isPushed = false
+	var isCustomized = false
 }
 
 /// The layout from #376: a navigation view whose root has a customized horizontal scroll view, with accessibility
@@ -135,7 +137,7 @@ private struct RootView: View {
 					}
 					.accessibilityIdentifier("Bar")
 				}
-				.modifier(ScrollViewIntrospection(introspection: introspection))
+				.modifier(ScrollViewIntrospection(model: model, introspection: introspection))
 				.accessibilityElement(children: .contain)
 				.accessibilityIdentifier("Foo")
 				Spacer()
@@ -146,6 +148,7 @@ private struct RootView: View {
 }
 
 private struct ScrollViewIntrospection: ViewModifier {
+	let model: NavigationModel
 	let introspection: AccessibilityTests.Introspection
 
 	func body(content: Content) -> some View {
@@ -156,13 +159,13 @@ private struct ScrollViewIntrospection: ViewModifier {
 			content.introspect(
 				.scrollView,
 				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
-				customize: Self.customize,
+				customize: customize,
 			)
 		case .viewControllerProbe:
 			content.introspect(
 				.scrollViewThroughController,
 				on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27),
-				customize: Self.customize,
+				customize: customize,
 			)
 		}
 	}
@@ -170,11 +173,12 @@ private struct ScrollViewIntrospection: ViewModifier {
 	private static let delegate = PagingDelegate()
 
 	/// The customization from #376.
-	private static func customize(_ scrollView: UIScrollView) {
+	private func customize(_ scrollView: UIScrollView) {
 		scrollView.decelerationRate = .fast
 		scrollView.clipsToBounds = false
 		scrollView.alwaysBounceVertical = false
-		scrollView.delegate = delegate
+		scrollView.delegate = Self.delegate
+		model.isCustomized = true
 	}
 }
 

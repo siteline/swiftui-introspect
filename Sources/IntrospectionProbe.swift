@@ -129,7 +129,7 @@ final class IntrospectionAnchorController: PlatformViewController, Introspection
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	#if canImport(AppKit)
+	#if !canImport(UIKit)
 	override func loadView() {
 		view = NSView()
 	}

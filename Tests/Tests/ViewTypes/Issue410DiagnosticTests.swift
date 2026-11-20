@@ -26,16 +26,18 @@ struct Issue410DiagnosticTests {
 			.allSatisfy { $0.panGestureRecognizer.view == nil || !$0.isScrollEnabled })
 	}
 
-	@Test func `disabling nested embedded scroll views in customize`() async throws {
+	@Test func `disabling nested scroll views after forcing layout on the first customize`() async throws {
+		var customized = false
 		let collectionView = try await introspection(of: UICollectionView.self) { spy in
-			pages.introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-				let embedded = $0.subviews
-					.compactMap { $0 as? UIScrollView }
-					.filter { NSStringFromClass(type(of: $0)).contains("EmbeddedScrollView") }
-				print("[410] workaround customize: embedded scroll views present=\(embedded.count)")
-				$0.isScrollEnabled = false
-				embedded.forEach { $0.isScrollEnabled = false }
-				spy($0)
+			pages.introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) { collectionView in
+				guard !customized else { return }
+				customized = true
+				collectionView.layoutIfNeeded()
+				let nested = collectionView.subviews.compactMap { $0 as? UIScrollView }
+				print("[410] workaround customize: nested scroll views present=\(nested.count)")
+				collectionView.isScrollEnabled = false
+				nested.forEach { $0.isScrollEnabled = false }
+				spy(collectionView)
 			}
 		}
 		try await Task.sleep(nanoseconds: 1_000_000_000)

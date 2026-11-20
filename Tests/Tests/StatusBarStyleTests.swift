@@ -1,12 +1,16 @@
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(macCatalyst)
 import SwiftUI
 @_spi(Advanced) import SwiftUIIntrospect
 import Testing
 
 /// Introspection keeps the status bar style of the view controller it introspects in, both before a push and after
 /// popping back to it.
+///
+/// The scene's status bar manager reports the style these tests check from iOS 16 on. On iOS 15 it reports
+/// `.darkContent` throughout, with either probe.
 @MainActor
 struct StatusBarStyleTests {
+	@available(iOS 16, *)
 	@Test func `view probe`() async throws {
 		try await expectStatusBarStyle { spy in
 			Text("Root")
@@ -14,6 +18,7 @@ struct StatusBarStyleTests {
 		}
 	}
 
+	@available(iOS 16, *)
 	@Test func `view controller probe`() async throws {
 		try await expectStatusBarStyle { spy in
 			Text("Root")

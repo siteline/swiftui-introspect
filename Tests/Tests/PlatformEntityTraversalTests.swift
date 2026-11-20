@@ -26,6 +26,21 @@ struct PlatformEntityTraversalTests {
 		#expect(tail.descendantsAccessCount == 0)
 	}
 
+	@Test func `bounded descendant lookup starts at the back entity`() {
+		let head = Entity(descendants: [Entity()])
+		let back = Entity()
+		let match = MatchingEntity()
+		let front = Entity()
+		let root = Entity(descendants: [head, Entity(descendants: [back]), match, front])
+
+		let result = root
+			.allDescendants(between: back, and: front)
+			.firstPlatformEntity(ofType: MatchingEntity.self)
+
+		#expect(result === match)
+		#expect(head.descendantsAccessCount == 0)
+	}
+
 	@Test func `descendant lookup stops after first match`() {
 		let match = MatchingEntity()
 		let tail = Entity()
@@ -48,7 +63,7 @@ struct PlatformEntityTraversalTests {
 	private class Entity: PlatformEntity {
 		typealias Base = Entity
 
-		private let storedAncestor: Entity?
+		private var storedAncestor: Entity? = nil
 		private let storedDescendants: [Entity]
 		private(set) var ancestorAccessCount = 0
 		private(set) var descendantsAccessCount = 0
@@ -56,6 +71,9 @@ struct PlatformEntityTraversalTests {
 		init(ancestor: Entity? = nil, descendants: [Entity] = []) {
 			self.storedAncestor = ancestor
 			self.storedDescendants = descendants
+			for descendant in descendants {
+				descendant.storedAncestor = self
+			}
 		}
 
 		var ancestor: Entity? {

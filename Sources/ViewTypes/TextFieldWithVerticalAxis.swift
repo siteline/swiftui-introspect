@@ -4,14 +4,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
-///                 print(type(of: $0)) // UITextView
-///             }
-///     }
+///   var body: some View {
+///     TextField("Text Field", text: $text, axis: .vertical)
+///       .introspect(.textField(axis: .vertical), on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
+///         print(type(of: $0)) // UITextView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -19,14 +19,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26, .v27)) {
-///                 print(type(of: $0)) // UITextField
-///             }
-///     }
+///   var body: some View {
+///     TextField("Text Field", text: $text, axis: .vertical)
+///       .introspect(.textField(axis: .vertical), on: .tvOS(.v16, .v17, .v18, .v26, .v27)) {
+///         print(type(of: $0)) // UITextField
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -34,14 +34,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26, .v27)) {
-///                 print(type(of: $0)) // NSTextField
-///             }
-///     }
+///   var body: some View {
+///     TextField("Text Field", text: $text, axis: .vertical)
+///       .introspect(.textField(axis: .vertical), on: .macOS(.v13, .v14, .v15, .v26, .v27)) {
+///         print(type(of: $0)) // NSTextField
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -49,14 +49,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextField("Text Field", text: $text, axis: .vertical)
-///             .introspect(.textField(axis: .vertical), on: .visionOS(.v1, .v2, .v26, .v27)) {
-///                 print(type(of: $0)) // UITextView
-///             }
-///     }
+///   var body: some View {
+///     TextField("Text Field", text: $text, axis: .vertical)
+///       .introspect(.textField(axis: .vertical), on: .visionOS(.v1, .v2, .v26, .v27)) {
+///         print(type(of: $0)) // UITextView
+///       }
+///   }
 /// }
 /// ```
 public struct TextFieldWithVerticalAxisType: IntrospectableViewType {

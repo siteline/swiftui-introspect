@@ -4,16 +4,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.tabView(style: .page), on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -21,16 +21,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.tabView(style: .page), on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.tabView(style: .page), on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -42,16 +42,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.tabView(style: .page), on: .visionOS(.v1, .v2, .v26, .v27)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.tabView(style: .page), on: .visionOS(.v1, .v2, .v26, .v27)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 public struct TabViewWithPageStyleType: IntrospectableViewType {

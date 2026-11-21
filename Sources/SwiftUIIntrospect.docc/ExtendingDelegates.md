@@ -18,23 +18,23 @@ import SwiftUI
 import SwiftUIIntrospect
 
 final class ListDelegate: DelegateProxy<any UICollectionViewDelegate>, UICollectionViewDelegate {
-	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		print(scrollView.contentOffset)
-		forwardee?.scrollViewDidScroll?(scrollView)
-	}
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    print(scrollView.contentOffset)
+    forwardee?.scrollViewDidScroll?(scrollView)
+  }
 }
 
 struct ContentView: View {
-	@State private var listDelegate = ListDelegate()
+  @State private var listDelegate = ListDelegate()
 
-	var body: some View {
-		List {
-			// ...
-		}
-		.introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27)) { collectionView in
-			listDelegate.install(on: collectionView, at: \.delegate)
-		}
-	}
+  var body: some View {
+    List {
+      // ...
+    }
+    .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27)) { collectionView in
+      listDelegate.install(on: collectionView, at: \.delegate)
+    }
+  }
 }
 ```
 
@@ -46,32 +46,32 @@ Without the dependency, a delegate forwards the methods it doesn't implement by 
 
 ```swift
 final class ListDelegate: NSObject, UICollectionViewDelegate {
-	weak var base: UICollectionViewDelegate?
+  weak var base: UICollectionViewDelegate?
 
-	override func responds(to selector: Selector!) -> Bool {
-		super.responds(to: selector) || base?.responds(to: selector) == true
-	}
+  override func responds(to selector: Selector!) -> Bool {
+    super.responds(to: selector) || base?.responds(to: selector) == true
+  }
 
-	override func forwardingTarget(for selector: Selector!) -> Any? {
-		base
-	}
+  override func forwardingTarget(for selector: Selector!) -> Any? {
+    base
+  }
 
-	// Implement the methods you need, calling the same method on `base` from each.
+  // Implement the methods you need, calling the same method on `base` from each.
 }
 
 struct ContentView: View {
-	@State private var listDelegate = ListDelegate()
+  @State private var listDelegate = ListDelegate()
 
-	var body: some View {
-		List {
-			// ...
-		}
-		.introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27)) { collectionView in
-			guard collectionView.delegate !== listDelegate else { return }
-			listDelegate.base = collectionView.delegate
-			collectionView.delegate = listDelegate
-		}
-	}
+  var body: some View {
+    List {
+      // ...
+    }
+    .introspect(.list, on: .iOS(.v16, .v17, .v18, .v26, .v27)) { collectionView in
+      guard collectionView.delegate !== listDelegate else { return }
+      listDelegate.base = collectionView.delegate
+      collectionView.delegate = listDelegate
+    }
+  }
 }
 ```
 

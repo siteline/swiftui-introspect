@@ -4,16 +4,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationSplitView {
-///             Text("Root")
-///         } detail: {
-///             Text("Detail")
-///         }
-///         .introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UISplitViewController
-///         }
+///   var body: some View {
+///     NavigationSplitView {
+///       Text("Root")
+///     } detail: {
+///       Text("Detail")
 ///     }
+///     .introspect(.navigationSplitView, on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UISplitViewController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -23,16 +23,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationSplitView {
-///             Text("Root")
-///         } detail: {
-///             Text("Detail")
-///         }
-///         .introspect(.navigationSplitView, on: .tvOS(.v16, .v17)) {
-///             print(type(of: $0)) // UINavigationController
-///         }
+///   var body: some View {
+///     NavigationSplitView {
+///       Text("Root")
+///     } detail: {
+///       Text("Detail")
 ///     }
+///     .introspect(.navigationSplitView, on: .tvOS(.v16, .v17)) {
+///       print(type(of: $0)) // UINavigationController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -40,16 +40,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationSplitView {
-///             Text("Root")
-///         } detail: {
-///             Text("Detail")
-///         }
-///         .introspect(.navigationSplitView, on: .macOS(.v13, .v14, .v15, .v26, .v27)) {
-///             print(type(of: $0)) // NSSplitView
-///         }
+///   var body: some View {
+///     NavigationSplitView {
+///       Text("Root")
+///     } detail: {
+///       Text("Detail")
 ///     }
+///     .introspect(.navigationSplitView, on: .macOS(.v13, .v14, .v15, .v26, .v27)) {
+///       print(type(of: $0)) // NSSplitView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -57,16 +57,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationSplitView {
-///             Text("Root")
-///         } detail: {
-///             Text("Detail")
-///         }
-///         .introspect(.navigationSplitView, on: .visionOS(.v1, .v2, .v26, .v27)) {
-///             print(type(of: $0)) // UISplitViewController
-///         }
+///   var body: some View {
+///     NavigationSplitView {
+///       Text("Root")
+///     } detail: {
+///       Text("Detail")
 ///     }
+///     .introspect(.navigationSplitView, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///       print(type(of: $0)) // UISplitViewController
+///     }
+///   }
 /// }
 /// ```
 public struct NavigationSplitViewType: IntrospectableViewType {}

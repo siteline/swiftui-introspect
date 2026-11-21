@@ -4,17 +4,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .sheet(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .sheet(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.sheet, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///             print(type(of: $0)) // UIPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -22,17 +22,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .sheet(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .sheet(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.sheet, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///             print(type(of: $0)) // UIPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -44,17 +44,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .sheet(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.sheet, on: .visionOS(.v1, .v2, .v26, .v27)) {
-///                         print(type(of: $0)) // UISheetPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .sheet(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.sheet, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///             print(type(of: $0)) // UISheetPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 public struct SheetType: IntrospectableViewType {

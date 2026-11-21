@@ -4,19 +4,19 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Form {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .introspect(.form, on: .iOS(.v13, .v14, .v15)) {
-///             print(type(of: $0)) // UITableView
-///         }
-///         .introspect(.form, on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     Form {
+///       Text("Item 1")
+///       Text("Item 2")
+///       Text("Item 3")
 ///     }
+///     .introspect(.form, on: .iOS(.v13, .v14, .v15)) {
+///       print(type(of: $0)) // UITableView
+///     }
+///     .introspect(.form, on: .iOS(.v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -24,16 +24,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Form {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UITableView
-///         }
+///   var body: some View {
+///     Form {
+///       Text("Item 1")
+///       Text("Item 2")
+///       Text("Item 3")
 ///     }
+///     .introspect(.form, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UITableView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -45,16 +45,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Form {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .introspect(.form, on: .visionOS(.v1, .v2, .v26, .v27)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     Form {
+///       Text("Item 1")
+///       Text("Item 2")
+///       Text("Item 3")
 ///     }
+///     .introspect(.form, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 public struct FormType: IntrospectableViewType {}

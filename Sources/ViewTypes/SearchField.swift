@@ -4,18 +4,18 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var searchTerm = ""
+///   @State var searchTerm = ""
 ///
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///                 .searchable(text: $searchTerm)
-///         }
-///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
-///             print(type(of: $0)) // UISearchBar
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
+///         .searchable(text: $searchTerm)
 ///     }
+///     .navigationViewStyle(.stack)
+///     .introspect(.searchField, on: .iOS(.v15, .v16, .v17, .v18)) {
+///       print(type(of: $0)) // UISearchBar
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -32,23 +32,23 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var searchTerm = ""
+///   @State var searchTerm = ""
 ///
-///     var body: some View {
-///         TabView {
-///             NavigationView {
-///                 Text("Root")
-///                     .searchable(text: $searchTerm)
-///             }
-///             .navigationViewStyle(.stack)
-///             .tabItem {
-///                 Label("Home", systemImage: "house")
-///             }
-///         }
-///         .introspect(.searchField, on: .iOS(.v26, .v27)) {
-///             print(type(of: $0)) // UISearchBar
-///         }
+///   var body: some View {
+///     TabView {
+///       NavigationView {
+///         Text("Root")
+///           .searchable(text: $searchTerm)
+///       }
+///       .navigationViewStyle(.stack)
+///       .tabItem {
+///         Label("Home", systemImage: "house")
+///       }
 ///     }
+///     .introspect(.searchField, on: .iOS(.v26, .v27)) {
+///       print(type(of: $0)) // UISearchBar
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -56,18 +56,18 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var searchTerm = ""
+///   @State var searchTerm = ""
 ///
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///                 .searchable(text: $searchTerm)
-///         }
-///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) {
-///             print(type(of: $0)) // UISearchBar
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
+///         .searchable(text: $searchTerm)
 ///     }
+///     .navigationViewStyle(.stack)
+///     .introspect(.searchField, on: .tvOS(.v15, .v16, .v17, .v18, .v26, .v27)) {
+///       print(type(of: $0)) // UISearchBar
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -79,18 +79,18 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var searchTerm = ""
+///   @State var searchTerm = ""
 ///
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///                 .searchable(text: $searchTerm)
-///         }
-///         .navigationViewStyle(.stack)
-///         .introspect(.searchField, on: .visionOS(.v1, .v2, .v26, .v27)) {
-///             print(type(of: $0)) // UISearchBar
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
+///         .searchable(text: $searchTerm)
 ///     }
+///     .navigationViewStyle(.stack)
+///     .introspect(.searchField, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///       print(type(of: $0)) // UISearchBar
+///     }
+///   }
 /// }
 /// ```
 public struct SearchFieldType: IntrospectableViewType {}

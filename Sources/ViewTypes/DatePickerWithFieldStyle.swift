@@ -12,15 +12,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var date = Date()
+///   @State var date = Date()
 ///
-///     var body: some View {
-///         DatePicker("Pick a date", selection: $date)
-///             .datePickerStyle(.field)
-///             .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
-///                 print(type(of: $0)) // NSDatePicker
-///             }
-///     }
+///   var body: some View {
+///     DatePicker("Pick a date", selection: $date)
+///       .datePickerStyle(.field)
+///       .introspect(.datePicker(style: .field), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///         print(type(of: $0)) // NSDatePicker
+///       }
+///   }
 /// }
 /// ```
 ///

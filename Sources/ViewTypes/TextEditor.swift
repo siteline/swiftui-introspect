@@ -4,14 +4,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextEditor(text: $text)
-///             .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
-///                 print(type(of: $0)) // UITextView
-///             }
-///     }
+///   var body: some View {
+///     TextEditor(text: $text)
+///       .introspect(.textEditor, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26, .v27)) {
+///         print(type(of: $0)) // UITextView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -23,14 +23,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextEditor(text: $text)
-///             .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
-///                 print(type(of: $0)) // NSTextView
-///             }
-///     }
+///   var body: some View {
+///     TextEditor(text: $text)
+///       .introspect(.textEditor, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26, .v27)) {
+///         print(type(of: $0)) // NSTextView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -38,14 +38,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var text = "Lorem ipsum"
+///   @State var text = "Lorem ipsum"
 ///
-///     var body: some View {
-///         TextEditor(text: $text)
-///             .introspect(.textEditor, on: .visionOS(.v1, .v2, .v26, .v27)) {
-///                 print(type(of: $0)) // UITextView
-///             }
-///     }
+///   var body: some View {
+///     TextEditor(text: $text)
+///       .introspect(.textEditor, on: .visionOS(.v1, .v2, .v26, .v27)) {
+///         print(type(of: $0)) // UITextView
+///       }
+///   }
 /// }
 /// ```
 public struct TextEditorType: IntrospectableViewType {}

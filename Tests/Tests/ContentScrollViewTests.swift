@@ -24,6 +24,8 @@ struct ContentScrollViewTests {
 				.visionOS(.v1, .v2, .v26, .v27),
 			) { introspected = $0 },
 		)
+		let previousRootViewController = window.rootViewController
+		defer { window.rootViewController = previousRootViewController }
 		window.rootViewController = UINavigationController(rootViewController: container)
 
 		await poll { introspected != nil }

@@ -14,15 +14,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isOn = false
+///   @State var isOn = false
 ///
-///     var body: some View {
-///         Toggle("Checkbox", isOn: $isOn)
-///             .toggleStyle(.checkbox)
-///             .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
-///                 print(type(of: $0)) // NSButton
-///             }
-///     }
+///   var body: some View {
+///     Toggle("Checkbox", isOn: $isOn)
+///       .toggleStyle(.checkbox)
+///       .introspect(.toggle(style: .checkbox), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26)) {
+///         print(type(of: $0)) // NSButton
+///       }
+///   }
 /// }
 /// ```
 ///

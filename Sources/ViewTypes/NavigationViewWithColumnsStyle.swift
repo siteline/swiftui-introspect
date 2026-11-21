@@ -4,15 +4,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///         }
-///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UISplitViewController
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
 ///     }
+///     .navigationViewStyle(DoubleColumnNavigationViewStyle())
+///     .introspect(.navigationView(style: .columns), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UISplitViewController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -20,15 +20,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///         }
-///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UINavigationController
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
 ///     }
+///     .navigationViewStyle(DoubleColumnNavigationViewStyle())
+///     .introspect(.navigationView(style: .columns), on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UINavigationController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -36,18 +36,18 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///         }
-///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(
-///             .navigationView(style: .columns),
-///             on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
-///         ) {
-///             print(type(of: $0)) // NSSplitView
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
 ///     }
+///     .navigationViewStyle(DoubleColumnNavigationViewStyle())
+///     .introspect(
+///       .navigationView(style: .columns),
+///       on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15, .v26),
+///     ) {
+///       print(type(of: $0)) // NSSplitView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -55,15 +55,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationView {
-///             Text("Root")
-///         }
-///         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-///         .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2, .v26)) {
-///             print(type(of: $0)) // UISplitViewController
-///         }
+///   var body: some View {
+///     NavigationView {
+///       Text("Root")
 ///     }
+///     .navigationViewStyle(DoubleColumnNavigationViewStyle())
+///     .introspect(.navigationView(style: .columns), on: .visionOS(.v1, .v2, .v26)) {
+///       print(type(of: $0)) // UISplitViewController
+///     }
+///   }
 /// }
 /// ```
 public struct NavigationViewWithColumnsStyleType: IntrospectableViewType {

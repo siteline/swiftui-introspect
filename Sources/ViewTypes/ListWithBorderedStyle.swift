@@ -12,17 +12,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         List {
-///             Text("Item 1")
-///             Text("Item 2")
-///             Text("Item 3")
-///         }
-///         .listStyle(.bordered)
-///         .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26)) {
-///             print(type(of: $0)) // NSTableView
-///         }
+///   var body: some View {
+///     List {
+///       Text("Item 1")
+///       Text("Item 2")
+///       Text("Item 3")
 ///     }
+///     .listStyle(.bordered)
+///     .introspect(.list(style: .bordered), on: .macOS(.v12, .v13, .v14, .v15, .v26)) {
+///       print(type(of: $0)) // NSTableView
+///     }
+///   }
 /// }
 /// ```
 ///

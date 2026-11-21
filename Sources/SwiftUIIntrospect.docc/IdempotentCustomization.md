@@ -14,11 +14,11 @@ Assigning a property leaves the target in the same state however many times it r
 
 ```swift
 ScrollView {
-	// ...
+  // ...
 }
 .introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
-	scrollView.bounces = false
-	scrollView.keyboardDismissMode = .interactive
+  scrollView.bounces = false
+  scrollView.keyboardDismissMode = .interactive
 }
 ```
 
@@ -28,18 +28,18 @@ Before adding something, check whether the target already has it. Without the ch
 
 ```swift
 struct SearchView: View {
-	@State private var query = ""
+  @State private var query = ""
 
-	var body: some View {
-		TextField("Search", text: $query)
-			.introspect(.textField, on: .iOS(.v17, .v18, .v26)) { textField in
-				guard textField.rightView == nil else { return }
-				textField.rightView = UIButton(primaryAction: UIAction(image: UIImage(systemName: "doc.on.clipboard")) { _ in
-					query = UIPasteboard.general.string ?? ""
-				})
-				textField.rightViewMode = .always
-			}
-	}
+  var body: some View {
+    TextField("Search", text: $query)
+      .introspect(.textField, on: .iOS(.v17, .v18, .v26)) { textField in
+        guard textField.rightView == nil else { return }
+        textField.rightView = UIButton(primaryAction: UIAction(image: UIImage(systemName: "doc.on.clipboard")) { _ in
+          query = UIPasteboard.general.string ?? ""
+        })
+        textField.rightViewMode = .always
+      }
+  }
 }
 ```
 
@@ -49,24 +49,24 @@ SwiftUI sets some properties of the views it manages, and can overwrite what the
 
 ```swift
 struct FeedView: View {
-	let model: FeedModel
+  let model: FeedModel
 
-	var body: some View {
-		ScrollView {
-			// ...
-		}
-		.introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
-			guard scrollView.refreshControl == nil else { return }
-			let refreshControl = UIRefreshControl()
-			refreshControl.addAction(UIAction { [weak refreshControl] _ in
-				Task {
-					await model.reload()
-					refreshControl?.endRefreshing()
-				}
-			}, for: .valueChanged)
-			scrollView.refreshControl = refreshControl
-		}
-	}
+  var body: some View {
+    ScrollView {
+      // ...
+    }
+    .introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { scrollView in
+      guard scrollView.refreshControl == nil else { return }
+      let refreshControl = UIRefreshControl()
+      refreshControl.addAction(UIAction { [weak refreshControl] _ in
+        Task {
+          await model.reload()
+          refreshControl?.endRefreshing()
+        }
+      }, for: .valueChanged)
+      scrollView.refreshControl = refreshControl
+    }
+  }
 }
 ```
 
@@ -80,28 +80,28 @@ When a subview you add depends on SwiftUI state, add it on the first call and up
 final class NavigationBarProgressView: UIProgressView {}
 
 struct BrowserView: View {
-	let progress: Double
+  let progress: Double
 
-	var body: some View {
-		NavigationStack {
-			// ...
-		}
-		.introspect(.navigationStack, on: .iOS(.v17, .v18, .v26)) { navigationController in
-			let navigationBar = navigationController.navigationBar
-			let progressView = navigationBar.subviews.lazy.compactMap { $0 as? NavigationBarProgressView }.first ?? {
-				let progressView = NavigationBarProgressView(progressViewStyle: .bar)
-				progressView.translatesAutoresizingMaskIntoConstraints = false
-				navigationBar.addSubview(progressView)
-				NSLayoutConstraint.activate([
-					progressView.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor),
-					progressView.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor),
-					progressView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-				])
-				return progressView
-			}()
-			progressView.progress = Float(progress)
-		}
-	}
+  var body: some View {
+    NavigationStack {
+      // ...
+    }
+    .introspect(.navigationStack, on: .iOS(.v17, .v18, .v26)) { navigationController in
+      let navigationBar = navigationController.navigationBar
+      let progressView = navigationBar.subviews.lazy.compactMap { $0 as? NavigationBarProgressView }.first ?? {
+        let progressView = NavigationBarProgressView(progressViewStyle: .bar)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.addSubview(progressView)
+        NSLayoutConstraint.activate([
+          progressView.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor),
+          progressView.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor),
+          progressView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        ])
+        return progressView
+      }()
+      progressView.progress = Float(progress)
+    }
+  }
 }
 ```
 
@@ -111,14 +111,14 @@ Some APIs replace what they're given instead of adding to it. `UIControl` keeps 
 
 ```swift
 TextField("Amount", text: $amount)
-	.introspect(.textField, on: .iOS(.v17, .v18, .v26)) { textField in
-		textField.addAction(
-			UIAction(identifier: UIAction.Identifier("SelectAllOnBeginEditing")) { action in
-				(action.sender as? UITextField)?.selectAll(nil)
-			},
-			for: .editingDidBegin,
-		)
-	}
+  .introspect(.textField, on: .iOS(.v17, .v18, .v26)) { textField in
+    textField.addAction(
+      UIAction(identifier: UIAction.Identifier("SelectAllOnBeginEditing")) { action in
+        (action.sender as? UITextField)?.selectAll(nil)
+      },
+      for: .editingDidBegin,
+    )
+  }
 ```
 
 ## Keep track in a state object
@@ -129,52 +129,52 @@ Pass SwiftUI's latest values to the object as the view updates, and capture the 
 
 ```swift
 extension View {
-	func onTwoFingerTap(perform action: @escaping () -> Void) -> some View {
-		modifier(TwoFingerTapModifier(action: action))
-	}
+  func onTwoFingerTap(perform action: @escaping () -> Void) -> some View {
+    modifier(TwoFingerTapModifier(action: action))
+  }
 }
 
 private struct TwoFingerTapModifier: ViewModifier {
-	let action: () -> Void
-	@State private var recognizer = TwoFingerTapRecognizer()
+  let action: () -> Void
+  @State private var recognizer = TwoFingerTapRecognizer()
 
-	func body(content: Content) -> some View {
-		let _ = recognizer.action = action
-		content
-			.introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { [recognizer] scrollView in
-				recognizer.attach(to: scrollView)
-			}
-	}
+  func body(content: Content) -> some View {
+    let _ = recognizer.action = action
+    content
+      .introspect(.scrollView, on: .iOS(.v17, .v18, .v26)) { [recognizer] scrollView in
+        recognizer.attach(to: scrollView)
+      }
+  }
 }
 
 @MainActor
 final class TwoFingerTapRecognizer: NSObject {
-	var action: () -> Void = {}
-	private weak var scrollView: UIScrollView?
-	private var recognizer: UITapGestureRecognizer?
+  var action: () -> Void = {}
+  private weak var scrollView: UIScrollView?
+  private var recognizer: UITapGestureRecognizer?
 
-	func attach(to scrollView: UIScrollView) {
-		guard scrollView !== self.scrollView else { return }
-		detach()
-		let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-		recognizer.numberOfTouchesRequired = 2
-		scrollView.addGestureRecognizer(recognizer)
-		self.scrollView = scrollView
-		self.recognizer = recognizer
-	}
+  func attach(to scrollView: UIScrollView) {
+    guard scrollView !== self.scrollView else { return }
+    detach()
+    let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+    recognizer.numberOfTouchesRequired = 2
+    scrollView.addGestureRecognizer(recognizer)
+    self.scrollView = scrollView
+    self.recognizer = recognizer
+  }
 
-	private func detach() {
-		guard let recognizer else { return }
-		scrollView?.removeGestureRecognizer(recognizer)
-	}
+  private func detach() {
+    guard let recognizer else { return }
+    scrollView?.removeGestureRecognizer(recognizer)
+  }
 
-	@objc private func tapped() {
-		action()
-	}
+  @objc private func tapped() {
+    action()
+  }
 
-	isolated deinit {
-		detach()
-	}
+  isolated deinit {
+    detach()
+  }
 }
 ```
 
@@ -186,25 +186,25 @@ A state object can also tell a target's first call from later ones, for somethin
 
 ```swift
 private struct FocusOnAppearModifier: ViewModifier {
-	@State private var focuser = TextFieldFocuser()
+  @State private var focuser = TextFieldFocuser()
 
-	func body(content: Content) -> some View {
-		content
-			.introspect(.textField, on: .iOS(.v17, .v18, .v26)) { [focuser] textField in
-				focuser.focus(textField)
-			}
-	}
+  func body(content: Content) -> some View {
+    content
+      .introspect(.textField, on: .iOS(.v17, .v18, .v26)) { [focuser] textField in
+        focuser.focus(textField)
+      }
+  }
 }
 
 @MainActor
 final class TextFieldFocuser {
-	private weak var textField: UITextField?
+  private weak var textField: UITextField?
 
-	func focus(_ textField: UITextField) {
-		// A field that can't become first responder yet is tried again on the next call.
-		guard textField !== self.textField, textField.becomeFirstResponder() else { return }
-		self.textField = textField
-	}
+  func focus(_ textField: UITextField) {
+    // A field that can't become first responder yet is tried again on the next call.
+    guard textField !== self.textField, textField.becomeFirstResponder() else { return }
+    self.textField = textField
+  }
 }
 ```
 

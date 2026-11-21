@@ -4,15 +4,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
-///         }
-///         .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UITabBarController
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Tab 1").tabItem { Text("Tab 1") }
+///       Text("Tab 2").tabItem { Text("Tab 2") }
 ///     }
+///     .introspect(.tabView, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UITabBarController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -20,15 +20,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
-///         }
-///         .introspect(.tabView, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UITabBarController
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Tab 1").tabItem { Text("Tab 1") }
+///       Text("Tab 2").tabItem { Text("Tab 2") }
 ///     }
+///     .introspect(.tabView, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UITabBarController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -36,15 +36,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Tab 1").tabItem { Text("Tab 1") }
-///             Text("Tab 2").tabItem { Text("Tab 2") }
-///         }
-///         .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
-///             print(type(of: $0)) // NSTabView
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Tab 1").tabItem { Text("Tab 1") }
+///       Text("Tab 2").tabItem { Text("Tab 2") }
 ///     }
+///     .introspect(.tabView, on: .macOS(.v10_15, .v11, .v12, .v13, .v14)) {
+///       print(type(of: $0)) // NSTabView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -52,17 +52,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         GroupBox {
-///             TabView {
-///                 Text("Tab 1").tabItem { Text("Tab 1") }
-///                 Text("Tab 2").tabItem { Text("Tab 2") }
-///             }
-///             .introspect(.tabView, on: .macOS(.v15, .v26)) {
-///                 print(type(of: $0)) // NSTabView
-///             }
-///         }
+///   var body: some View {
+///     GroupBox {
+///       TabView {
+///         Text("Tab 1").tabItem { Text("Tab 1") }
+///         Text("Tab 2").tabItem { Text("Tab 2") }
+///       }
+///       .introspect(.tabView, on: .macOS(.v15, .v26)) {
+///         print(type(of: $0)) // NSTabView
+///       }
 ///     }
+///   }
 /// }
 /// ```
 ///

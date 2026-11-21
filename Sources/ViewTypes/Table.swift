@@ -4,31 +4,31 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     struct Purchase: Identifiable {
-///         let id = UUID()
-///         let price: Decimal
-///     }
+///   struct Purchase: Identifiable {
+///     let id = UUID()
+///     let price: Decimal
+///   }
 ///
-///     var body: some View {
-///         Table(of: Purchase.self) {
-///             TableColumn("Base price") { purchase in
-///                 Text(purchase.price, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 15% tip") { purchase in
-///                 Text(purchase.price * 1.15, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 20% tip") { purchase in
-///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
-///             }
-///         } rows: {
-///             TableRow(Purchase(price: 20))
-///             TableRow(Purchase(price: 50))
-///             TableRow(Purchase(price: 75))
-///         }
-///         .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     Table(of: Purchase.self) {
+///       TableColumn("Base price") { purchase in
+///         Text(purchase.price, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 15% tip") { purchase in
+///         Text(purchase.price * 1.15, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 20% tip") { purchase in
+///         Text(purchase.price * 1.2, format: .currency(code: "USD"))
+///       }
+///     } rows: {
+///       TableRow(Purchase(price: 20))
+///       TableRow(Purchase(price: 50))
+///       TableRow(Purchase(price: 75))
 ///     }
+///     .introspect(.table, on: .iOS(.v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -40,31 +40,31 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     struct Purchase: Identifiable {
-///         let id = UUID()
-///         let price: Decimal
-///     }
+///   struct Purchase: Identifiable {
+///     let id = UUID()
+///     let price: Decimal
+///   }
 ///
-///     var body: some View {
-///         Table(of: Purchase.self) {
-///             TableColumn("Base price") { purchase in
-///                 Text(purchase.price, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 15% tip") { purchase in
-///                 Text(purchase.price * 1.15, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 20% tip") { purchase in
-///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
-///             }
-///         } rows: {
-///             TableRow(Purchase(price: 20))
-///             TableRow(Purchase(price: 50))
-///             TableRow(Purchase(price: 75))
-///         }
-///         .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26)) {
-///             print(type(of: $0)) // NSTableView
-///         }
+///   var body: some View {
+///     Table(of: Purchase.self) {
+///       TableColumn("Base price") { purchase in
+///         Text(purchase.price, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 15% tip") { purchase in
+///         Text(purchase.price * 1.15, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 20% tip") { purchase in
+///         Text(purchase.price * 1.2, format: .currency(code: "USD"))
+///       }
+///     } rows: {
+///       TableRow(Purchase(price: 20))
+///       TableRow(Purchase(price: 50))
+///       TableRow(Purchase(price: 75))
 ///     }
+///     .introspect(.table, on: .macOS(.v12, .v13, .v14, .v15, .v26)) {
+///       print(type(of: $0)) // NSTableView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -72,31 +72,31 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     struct Purchase: Identifiable {
-///         let id = UUID()
-///         let price: Decimal
-///     }
+///   struct Purchase: Identifiable {
+///     let id = UUID()
+///     let price: Decimal
+///   }
 ///
-///     var body: some View {
-///         Table(of: Purchase.self) {
-///             TableColumn("Base price") { purchase in
-///                 Text(purchase.price, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 15% tip") { purchase in
-///                 Text(purchase.price * 1.15, format: .currency(code: "USD"))
-///             }
-///             TableColumn("With 20% tip") { purchase in
-///                 Text(purchase.price * 1.2, format: .currency(code: "USD"))
-///             }
-///         } rows: {
-///             TableRow(Purchase(price: 20))
-///             TableRow(Purchase(price: 50))
-///             TableRow(Purchase(price: 75))
-///         }
-///         .introspect(.table, on: .visionOS(.v1, .v2, .v26)) {
-///             print(type(of: $0)) // UICollectionView
-///         }
+///   var body: some View {
+///     Table(of: Purchase.self) {
+///       TableColumn("Base price") { purchase in
+///         Text(purchase.price, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 15% tip") { purchase in
+///         Text(purchase.price * 1.15, format: .currency(code: "USD"))
+///       }
+///       TableColumn("With 20% tip") { purchase in
+///         Text(purchase.price * 1.2, format: .currency(code: "USD"))
+///       }
+///     } rows: {
+///       TableRow(Purchase(price: 20))
+///       TableRow(Purchase(price: 50))
+///       TableRow(Purchase(price: 75))
 ///     }
+///     .introspect(.table, on: .visionOS(.v1, .v2, .v26)) {
+///       print(type(of: $0)) // UICollectionView
+///     }
+///   }
 /// }
 /// ```
 public struct TableType: IntrospectableViewType {}

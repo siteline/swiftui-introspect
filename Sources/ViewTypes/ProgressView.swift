@@ -8,12 +8,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView()
-///             .introspect(.progressView, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
-///                 print(type(of: $0)) // UIActivityIndicatorView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView()
+///       .introspect(.progressView, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
+///         print(type(of: $0)) // UIActivityIndicatorView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -21,12 +21,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView()
-///             .introspect(.progressView, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
-///                 print(type(of: $0)) // UIActivityIndicatorView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView()
+///       .introspect(.progressView, on: .tvOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
+///         print(type(of: $0)) // UIActivityIndicatorView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -34,12 +34,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView()
-///             .introspect(.progressView, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
-///                 print(type(of: $0)) // NSProgressIndicator
-///             }
-///     }
+///   var body: some View {
+///     ProgressView()
+///       .introspect(.progressView, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
+///         print(type(of: $0)) // NSProgressIndicator
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -47,12 +47,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView()
-///             .introspect(.progressView, on: .visionOS(.v1, .v2, .v26)) {
-///                 print(type(of: $0)) // UIActivityIndicatorView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView()
+///       .introspect(.progressView, on: .visionOS(.v1, .v2, .v26)) {
+///         print(type(of: $0)) // UIActivityIndicatorView
+///       }
+///   }
 /// }
 /// ```
 public struct ProgressViewType: IntrospectableViewType {}

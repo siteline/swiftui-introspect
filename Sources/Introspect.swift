@@ -40,14 +40,14 @@ extension View {
 	///
 	/// ```swift
 	/// struct ContentView: View {
-	///     @State var text = ""
+	///   @State var text = ""
 	///
-	///     var body: some View {
-	///         TextField("Placeholder", text: $text)
-	///             .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-	///                 print(type(of: $0)) // UITextField
-	///             }
-	///     }
+	///   var body: some View {
+	///     TextField("Placeholder", text: $text)
+	///       .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+	///         print(type(of: $0)) // UITextField
+	///       }
+	///   }
 	/// }
 	/// ```
 	@MainActor

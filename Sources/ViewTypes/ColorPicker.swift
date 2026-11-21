@@ -4,14 +4,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var color = Color.red
+///   @State var color = Color.red
 ///
-///     var body: some View {
-///         ColorPicker("Pick a color", selection: $color)
-///             .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
-///                 print(type(of: $0)) // UIColorWell
-///             }
-///     }
+///   var body: some View {
+///     ColorPicker("Pick a color", selection: $color)
+///       .introspect(.colorPicker, on: .iOS(.v14, .v15, .v16, .v17, .v18, .v26)) {
+///         print(type(of: $0)) // UIColorWell
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -23,14 +23,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var color = Color.red
+///   @State var color = Color.red
 ///
-///     var body: some View {
-///         ColorPicker("Pick a color", selection: $color)
-///             .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
-///                 print(type(of: $0)) // NSColorWell
-///             }
-///     }
+///   var body: some View {
+///     ColorPicker("Pick a color", selection: $color)
+///       .introspect(.colorPicker, on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
+///         print(type(of: $0)) // NSColorWell
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -38,14 +38,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var color = Color.red
+///   @State var color = Color.red
 ///
-///     var body: some View {
-///         ColorPicker("Pick a color", selection: $color)
-///             .introspect(.colorPicker, on: .visionOS(.v1, .v2, .v26)) {
-///                 print(type(of: $0)) // UIColorWell
-///             }
-///     }
+///   var body: some View {
+///     ColorPicker("Pick a color", selection: $color)
+///       .introspect(.colorPicker, on: .visionOS(.v1, .v2, .v26)) {
+///         print(type(of: $0)) // UIColorWell
+///       }
+///   }
 /// }
 /// ```
 public struct ColorPickerType: IntrospectableViewType {}

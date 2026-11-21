@@ -14,19 +14,19 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var selection = "1"
+///   @State var selection = "1"
 ///
-///     var body: some View {
-///         Picker("Pick a number", selection: $selection) {
-///             Text("1").tag("1")
-///             Text("2").tag("2")
-///             Text("3").tag("3")
-///         }
-///         .pickerStyle(.menu)
-///         .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
-///             print(type(of: $0)) // NSPopUpButton
-///         }
+///   var body: some View {
+///     Picker("Pick a number", selection: $selection) {
+///       Text("1").tag("1")
+///       Text("2").tag("2")
+///       Text("3").tag("3")
 ///     }
+///     .pickerStyle(.menu)
+///     .introspect(.picker(style: .menu), on: .macOS(.v11, .v12, .v13, .v14, .v15, .v26)) {
+///       print(type(of: $0)) // NSPopUpButton
+///     }
+///   }
 /// }
 /// ```
 ///

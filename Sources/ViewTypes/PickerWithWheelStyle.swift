@@ -4,19 +4,19 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var selection = "1"
+///   @State var selection = "1"
 ///
-///     var body: some View {
-///         Picker("Pick a number", selection: $selection) {
-///             Text("1").tag("1")
-///             Text("2").tag("2")
-///             Text("3").tag("3")
-///         }
-///         .pickerStyle(.wheel)
-///         .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
-///             print(type(of: $0)) // UIPickerView
-///         }
+///   var body: some View {
+///     Picker("Pick a number", selection: $selection) {
+///       Text("1").tag("1")
+///       Text("2").tag("2")
+///       Text("3").tag("3")
 ///     }
+///     .pickerStyle(.wheel)
+///     .introspect(.picker(style: .wheel), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18, .v26)) {
+///       print(type(of: $0)) // UIPickerView
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -32,19 +32,19 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var selection = "1"
+///   @State var selection = "1"
 ///
-///     var body: some View {
-///         Picker("Pick a number", selection: $selection) {
-///             Text("1").tag("1")
-///             Text("2").tag("2")
-///             Text("3").tag("3")
-///         }
-///         .pickerStyle(.wheel)
-///         .introspect(.picker(style: .wheel), on: .visionOS(.v1, .v2, .v26)) {
-///             print(type(of: $0)) // UIPickerView
-///         }
+///   var body: some View {
+///     Picker("Pick a number", selection: $selection) {
+///       Text("1").tag("1")
+///       Text("2").tag("2")
+///       Text("3").tag("3")
 ///     }
+///     .pickerStyle(.wheel)
+///     .introspect(.picker(style: .wheel), on: .visionOS(.v1, .v2, .v26)) {
+///       print(type(of: $0)) // UIPickerView
+///     }
+///   }
 /// }
 /// ```
 public struct PickerWithWheelStyleType: IntrospectableViewType {

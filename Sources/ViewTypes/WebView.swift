@@ -4,14 +4,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var url = URL(string: "https://example.com")!
+///   @State var url = URL(string: "https://example.com")!
 ///
-///     var body: some View {
-///         WebView(url: url)
-///             .introspect(.webView, on: .iOS(.v26)) {
-///                 print(type(of: $0)) // WKWebView
-///             }
-///     }
+///   var body: some View {
+///     WebView(url: url)
+///       .introspect(.webView, on: .iOS(.v26)) {
+///         print(type(of: $0)) // WKWebView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -19,14 +19,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var url = URL(string: "https://example.com")!
+///   @State var url = URL(string: "https://example.com")!
 ///
-///     var body: some View {
-///         WebView(url: url)
-///             .introspect(.webView, on: .tvOS(.v26)) {
-///                 print(type(of: $0)) // WKWebView
-///             }
-///     }
+///   var body: some View {
+///     WebView(url: url)
+///       .introspect(.webView, on: .tvOS(.v26)) {
+///         print(type(of: $0)) // WKWebView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -34,14 +34,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var url = URL(string: "https://example.com")!
+///   @State var url = URL(string: "https://example.com")!
 ///
-///     var body: some View {
-///         WebView(url: url)
-///             .introspect(.webView, on: .macOS(.v26)) {
-///                 print(type(of: $0)) // WKWebView
-///             }
-///     }
+///   var body: some View {
+///     WebView(url: url)
+///       .introspect(.webView, on: .macOS(.v26)) {
+///         print(type(of: $0)) // WKWebView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -49,14 +49,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var url = URL(string: "https://example.com")!
+///   @State var url = URL(string: "https://example.com")!
 ///
-///     var body: some View {
-///         WebView(url: url)
-///             .introspect(.webView, on: .visionOS(.v26)) {
-///                 print(type(of: $0)) // WKWebView
-///             }
-///     }
+///   var body: some View {
+///     WebView(url: url)
+///       .introspect(.webView, on: .visionOS(.v26)) {
+///         print(type(of: $0)) // WKWebView
+///       }
+///   }
 /// }
 /// ```
 public struct WebViewType: IntrospectableViewType {}

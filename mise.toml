@@ -7,6 +7,8 @@ not_found_system_fallback = false
 locked = true
 
 [tools]
+editorconfig-checker = "4"
 hk = "1"
 jq = "1"
+rumdl = "0"
 swiftformat = "0"

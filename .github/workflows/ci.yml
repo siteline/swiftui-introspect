@@ -30,7 +30,7 @@ jobs:
       - name: Install Mise tools
         uses: jdx/mise-action@v3
 
-      - name: SwiftFormat Lint
+      - name: Lint
         run: hk check --all
 
   ci:

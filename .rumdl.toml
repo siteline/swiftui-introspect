@@ -1,0 +1,7 @@
+[global]
+disable = ["MD013"]
+editorconfig = true
+
+[per-file-ignores]
+# DocC resolves images by name without their file extension.
+"Sources/SwiftUIIntrospect.docc/**" = ["MD057"]

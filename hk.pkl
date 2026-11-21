@@ -1,6 +1,25 @@
 amends "package://github.com/jdx/hk/releases/download/v1.57.0/hk@1.57.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.57.0/hk@1.57.0#/Builtins.pkl"
 
 local linters = new Mapping<String, Step> {
+  ["editorconfig-checker"] = (Builtins.editorconfig_checker) {
+    check = new CommandSpec {
+      command = new Command {
+        argv = List("editorconfig-checker", "-disable-max-line-length", "{{files}}")
+      }
+      effect = "read"
+    }
+
+    fix = new CommandSpec {
+      command = new Command {
+        argv = List("editorconfig-checker", "-disable-max-line-length", "-fix", "{{files}}")
+      }
+      effect = "write"
+    }
+  }
+
+  ["rumdl"] = Builtins.rumdl
+
   ["swiftformat"] {
     glob = "**/*.swift"
 

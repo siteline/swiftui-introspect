@@ -1,7 +1,10 @@
 [global]
-disable = ["MD013"]
+disable = [
+  "MD013", # line-length: paragraphs are written on one line
+]
 editorconfig = true
 
 [per-file-ignores]
-# DocC resolves images by name without their file extension.
-"Sources/SwiftUIIntrospect.docc/**" = ["MD057"]
+"Sources/SwiftUIIntrospect.docc/**" = [
+  "MD057", # existing-relative-links: DocC resolves images by name without their file extension
+]

@@ -66,10 +66,7 @@ struct WeakTests {
 		let recorder = Recorder()
 		TestUtils.present(view: Parent(recorder: recorder))
 
-		let start = Date()
-		while recorder.renderedScrollView?.wrappedValue == nil, Date().timeIntervalSince(start) < 3 {
-			await Task.yield()
-		}
+		await poll { recorder.renderedScrollView?.wrappedValue != nil }
 		#expect(recorder.renderedScrollView?.wrappedValue != nil)
 	}
 

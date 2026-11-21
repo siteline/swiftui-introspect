@@ -74,6 +74,22 @@ extension Trait where Self == ConditionTrait {
 	}
 }
 
+/// Yields to the main actor until the condition holds, or until the main actor has had `timeout` seconds to run.
+///
+/// Each poll counts at most 0.1 seconds toward the timeout, so a stall of the main thread, which CI simulators show for
+/// seconds at a time, doesn't use up the time introspection has to find its target.
+@MainActor
+func poll(timeout: TimeInterval = 3, until condition: () -> Bool) async {
+	var elapsed: TimeInterval = 0
+	var lastPoll = Date()
+	while !condition(), elapsed < timeout {
+		await Task.yield()
+		let now = Date()
+		elapsed += min(now.timeIntervalSince(lastPoll), 0.1)
+		lastPoll = now
+	}
+}
+
 @MainActor
 @discardableResult
 func introspection<Entity: AnyObject & Sendable>(
@@ -95,13 +111,7 @@ func introspection<Entity: AnyObject & Sendable>(
 
 		TestUtils.present(view: view)
 
-		let startInstant = Date()
-		while
-			Date().timeIntervalSince(startInstant) < timeout,
-			entity1 == nil
-		{
-			await Task.yield()
-		}
+		await poll(timeout: timeout) { entity1 != nil }
 
 		return try #require(entity1, sourceLocation: sourceLocation)
 	}
@@ -135,13 +145,9 @@ func introspection<Entity: AnyObject & Sendable>(
 
 			TestUtils.present(view: view)
 
-			let startInstant = Date()
-			while
-				Date().timeIntervalSince(startInstant) < timeout,
-				entity1 == nil ||
-				entity2 == nil
-			{
-				await Task.yield()
+			await poll(timeout: timeout) {
+				entity1 != nil &&
+					entity2 != nil
 			}
 
 			return try (
@@ -187,14 +193,10 @@ func introspection<Entity: AnyObject & Sendable>(
 
 				TestUtils.present(view: view)
 
-				let startInstant = Date()
-				while
-					Date().timeIntervalSince(startInstant) < timeout,
-					entity1 == nil ||
-					entity2 == nil ||
-					entity3 == nil
-				{
-					await Task.yield()
+				await poll(timeout: timeout) {
+					entity1 != nil &&
+						entity2 != nil &&
+						entity3 != nil
 				}
 
 				return try (
@@ -249,15 +251,11 @@ func introspection<Entity: AnyObject & Sendable>(
 
 					TestUtils.present(view: view)
 
-					let startInstant = Date()
-					while
-						Date().timeIntervalSince(startInstant) < timeout,
-						entity1 == nil ||
-						entity2 == nil ||
-						entity3 == nil ||
-						entity4 == nil
-					{
-						await Task.yield()
+					await poll(timeout: timeout) {
+						entity1 != nil &&
+							entity2 != nil &&
+							entity3 != nil &&
+							entity4 != nil
 					}
 
 					return try (

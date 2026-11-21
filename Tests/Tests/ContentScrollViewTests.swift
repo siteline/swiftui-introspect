@@ -26,14 +26,9 @@ struct ContentScrollViewTests {
 		)
 		window.rootViewController = UINavigationController(rootViewController: container)
 
-		let start = Date()
-		while introspected == nil, Date().timeIntervalSince(start) < 3 {
-			try await Task.sleep(nanoseconds: 10_000_000)
-		}
+		await poll { introspected != nil }
 		let scrollView = try #require(introspected)
-		while !container.firstSubviewPath.contains(scrollView), Date().timeIntervalSince(start) < 4 {
-			try await Task.sleep(nanoseconds: 10_000_000)
-		}
+		await poll(timeout: 1) { container.firstSubviewPath.contains(scrollView) }
 
 		#expect(container.firstSubviewPath.contains(scrollView))
 	}

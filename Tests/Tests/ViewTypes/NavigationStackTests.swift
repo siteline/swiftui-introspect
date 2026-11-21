@@ -274,14 +274,12 @@ struct NavigationStackTests {
 		sourceLocation: SourceLocation = #_sourceLocation,
 		_ value: () -> Value?,
 	) async throws -> Value {
-		let deadline = Date().addingTimeInterval(3)
-		while Date() < deadline {
-			if let value = value() {
-				return value
-			}
-			await Task.yield()
+		var result: Value? = nil
+		await poll {
+			result = value()
+			return result != nil
 		}
-		return try #require(value(), sourceLocation: sourceLocation)
+		return try #require(result, sourceLocation: sourceLocation)
 	}
 
 	private func controllers(in controller: UIViewController) -> [UIViewController] {

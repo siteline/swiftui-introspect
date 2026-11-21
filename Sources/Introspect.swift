@@ -66,8 +66,8 @@ struct IntrospectModifier<
 	PlatformSpecificEntity: PlatformEntity,
 >: ViewModifier {
 	@State private var anchorReference = IntrospectionAnchorReference()
-	/// Whether a view probe found its target, so its anchor leaves the hierarchy. UIKit looks for a view controller's
-	/// content scroll view along first subviews, and an anchor behind the receiver is its container's first subview.
+	/// Whether a view probe found its target, so its anchor leaves the hierarchy, where it would hide the receiver from
+	/// UIKit's search for a view controller's content scroll view.
 	@State private var isAnchorRetired = false
 	let scope: IntrospectionScope
 	let selector: IntrospectionSelector<PlatformSpecificEntity>?

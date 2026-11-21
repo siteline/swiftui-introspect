@@ -39,20 +39,22 @@ struct AccessibilityTests {
 	}
 
 	/// The identifiers in the window's accessibility tree once it contains the given one and not the excluded one, or
-	/// after two seconds.
+	/// after 20 polls a tenth of a second apart.
+	///
+	/// Counting polls rather than measuring wall-clock time keeps a main thread stall, which CI simulators show for
+	/// seconds at a time, from using up the wait.
 	private func identifiers(containing identifier: String, excluding excluded: String? = nil) async throws -> [String] {
 		let window = try #require(
 			UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first?.windows.first,
 		)
-		let start = Date()
 		var identifiers: [String] = []
-		repeat {
+		for _ in 0..<20 {
 			try await Task.sleep(nanoseconds: 100_000_000)
 			identifiers = accessibilityIdentifiers(in: window)
 			if identifiers.contains(identifier), excluded.map({ !identifiers.contains($0) }) ?? true {
 				break
 			}
-		} while Date().timeIntervalSince(start) < 2
+		}
 		return identifiers
 	}
 

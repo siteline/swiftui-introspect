@@ -4,13 +4,13 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView(value: 0.5)
-///             .progressViewStyle(.linear)
-///             .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // UIProgressView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView(value: 0.5)
+///       .progressViewStyle(.linear)
+///       .introspect(.progressView(style: .linear), on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // UIProgressView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -18,13 +18,13 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView(value: 0.5)
-///             .progressViewStyle(.linear)
-///             .introspect(.progressView(style: .linear), on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // UIProgressView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView(value: 0.5)
+///       .progressViewStyle(.linear)
+///       .introspect(.progressView(style: .linear), on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // UIProgressView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -32,13 +32,13 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView(value: 0.5)
-///             .progressViewStyle(.linear)
-///             .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // NSProgressIndicator
-///             }
-///     }
+///   var body: some View {
+///     ProgressView(value: 0.5)
+///       .progressViewStyle(.linear)
+///       .introspect(.progressView(style: .linear), on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // NSProgressIndicator
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -46,13 +46,13 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ProgressView(value: 0.5)
-///             .progressViewStyle(.linear)
-///             .introspect(.progressView(style: .linear), on: .visionOS(.v1, .v2)) {
-///                 print(type(of: $0)) // UIProgressView
-///             }
-///     }
+///   var body: some View {
+///     ProgressView(value: 0.5)
+///       .progressViewStyle(.linear)
+///       .introspect(.progressView(style: .linear), on: .visionOS(.v1, .v2)) {
+///         print(type(of: $0)) // UIProgressView
+///       }
+///   }
 /// }
 /// ```
 public struct ProgressViewWithLinearStyleType: IntrospectableViewType {

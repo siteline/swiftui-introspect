@@ -4,14 +4,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationStack {
-///             Text("Root")
-///         }
-///         .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18)) {
-///             print(type(of: $0)) // UINavigationController
-///         }
+///   var body: some View {
+///     NavigationStack {
+///       Text("Root")
 ///     }
+///     .introspect(.navigationStack, on: .iOS(.v16, .v17, .v18)) {
+///       print(type(of: $0)) // UINavigationController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -19,14 +19,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationStack {
-///             Text("Root")
-///         }
-///         .introspect(.navigationStack, on: .tvOS(.v16, .v17, .v18)) {
-///             print(type(of: $0)) // UINavigationController
-///         }
+///   var body: some View {
+///     NavigationStack {
+///       Text("Root")
 ///     }
+///     .introspect(.navigationStack, on: .tvOS(.v16, .v17, .v18)) {
+///       print(type(of: $0)) // UINavigationController
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -38,14 +38,14 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         NavigationStack {
-///             Text("Root")
-///         }
-///         .introspect(.navigationStack, on: .visionOS(.v1, .v2)) {
-///             print(type(of: $0)) // UINavigationController
-///         }
+///   var body: some View {
+///     NavigationStack {
+///       Text("Root")
 ///     }
+///     .introspect(.navigationStack, on: .visionOS(.v1, .v2)) {
+///       print(type(of: $0)) // UINavigationController
+///     }
+///   }
 /// }
 /// ```
 public struct NavigationStackType: IntrospectableViewType {}

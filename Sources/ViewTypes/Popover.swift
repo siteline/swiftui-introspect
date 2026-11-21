@@ -4,17 +4,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .popover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.popover, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                         print(type(of: $0)) // UIPopoverPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .popover(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.popover, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UIPopoverPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -30,17 +30,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .popover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.popover, on: .visionOS(.v1, .v2)) {
-///                         print(type(of: $0)) // UIPopoverPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .popover(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.popover, on: .visionOS(.v1, .v2)) {
+///             print(type(of: $0)) // UIPopoverPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 public struct PopoverType: IntrospectableViewType {

@@ -14,14 +14,14 @@ For a Swift package target that supports multiple Apple platforms, apply a platf
 
 ```swift
 .target(
-	name: "AppFeature",
-	dependencies: [
-		.product(
-			name: "SwiftUIIntrospect",
-			package: "swiftui-introspect",
-			condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS])
-		),
-	]
+  name: "AppFeature",
+  dependencies: [
+    .product(
+      name: "SwiftUIIntrospect",
+      package: "swiftui-introspect",
+      condition: .when(platforms: [.iOS, .macCatalyst, .macOS, .tvOS, .visionOS])
+    ),
+  ]
 )
 ```
 
@@ -33,16 +33,16 @@ import SwiftUIIntrospect
 #endif
 
 struct ContentView: View {
-	var body: some View {
-		ScrollView {
-			Text("Item")
-		}
-		#if canImport(SwiftUIIntrospect)
-		.introspect(.scrollView, on: .iOS(.v17, .v18)) { scrollView in
-			scrollView.bounces = false
-		}
-		#endif
-	}
+  var body: some View {
+    ScrollView {
+      Text("Item")
+    }
+    #if canImport(SwiftUIIntrospect)
+    .introspect(.scrollView, on: .iOS(.v17, .v18)) { scrollView in
+      scrollView.bounces = false
+    }
+    #endif
+  }
 }
 ```
 

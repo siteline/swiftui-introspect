@@ -10,12 +10,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ExampleUIViewRepresentable()
-///             .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // some subclass of UIView
-///             }
-///     }
+///   var body: some View {
+///     ExampleUIViewRepresentable()
+///       .introspect(.view, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // some subclass of UIView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -23,12 +23,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ExampleUIViewRepresentable()
-///             .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // some subclass of UIView
-///             }
-///     }
+///   var body: some View {
+///     ExampleUIViewRepresentable()
+///       .introspect(.view, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // some subclass of UIView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -36,12 +36,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ExampleUIViewRepresentable()
-///             .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // some subclass of NSView
-///             }
-///     }
+///   var body: some View {
+///     ExampleUIViewRepresentable()
+///       .introspect(.view, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // some subclass of NSView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -49,12 +49,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         ExampleUIViewRepresentable()
-///             .introspect(.view, on: .visionOS(.v1, .v2)) {
-///                 print(type(of: $0)) // some subclass of UIView
-///             }
-///     }
+///   var body: some View {
+///     ExampleUIViewRepresentable()
+///       .introspect(.view, on: .visionOS(.v1, .v2)) {
+///         print(type(of: $0)) // some subclass of UIView
+///       }
+///   }
 /// }
 /// ```
 public struct ViewType: IntrospectableViewType {}

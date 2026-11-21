@@ -15,15 +15,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isOn = false
+///   @State var isOn = false
 ///
-///     var body: some View {
-///         Toggle("Toggle", isOn: $isOn)
-///             .toggleStyle(.button)
-///             .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // NSButton
-///             }
-///     }
+///   var body: some View {
+///     Toggle("Toggle", isOn: $isOn)
+///       .toggleStyle(.button)
+///       .introspect(.toggle(style: .button), on: .macOS(.v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // NSButton
+///       }
+///   }
 /// }
 /// ```
 ///

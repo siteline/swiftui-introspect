@@ -4,15 +4,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isOn = false
+///   @State var isOn = false
 ///
-///     var body: some View {
-///         Toggle("Switch", isOn: $isOn)
-///             .toggleStyle(.switch)
-///             .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // UISwitch
-///             }
-///     }
+///   var body: some View {
+///     Toggle("Switch", isOn: $isOn)
+///       .toggleStyle(.switch)
+///       .introspect(.toggle(style: .switch), on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // UISwitch
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -24,15 +24,15 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isOn = false
+///   @State var isOn = false
 ///
-///     var body: some View {
-///         Toggle("Switch", isOn: $isOn)
-///             .toggleStyle(.switch)
-///             .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // NSSwitch
-///             }
-///     }
+///   var body: some View {
+///     Toggle("Switch", isOn: $isOn)
+///       .toggleStyle(.switch)
+///       .introspect(.toggle(style: .switch), on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // NSSwitch
+///       }
+///   }
 /// }
 /// ```
 ///

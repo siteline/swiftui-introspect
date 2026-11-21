@@ -4,12 +4,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Text("Content")
-///             .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // UIWindow
-///             }
-///     }
+///   var body: some View {
+///     Text("Content")
+///       .introspect(.window, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // UIWindow
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -17,12 +17,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Text("Content")
-///             .introspect(.window, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // UIWindow
-///             }
-///     }
+///   var body: some View {
+///     Text("Content")
+///       .introspect(.window, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // UIWindow
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -30,12 +30,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Text("Content")
-///             .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // NSWindow
-///             }
-///     }
+///   var body: some View {
+///     Text("Content")
+///       .introspect(.window, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // NSWindow
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -43,12 +43,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         Text("Content")
-///             .introspect(.window, on: .visionOS(.v1, .v2)) {
-///                 print(type(of: $0)) // UIWindow
-///             }
-///     }
+///   var body: some View {
+///     Text("Content")
+///       .introspect(.window, on: .visionOS(.v1, .v2)) {
+///         print(type(of: $0)) // UIWindow
+///       }
+///   }
 /// }
 /// ```
 public struct WindowType: IntrospectableViewType {}

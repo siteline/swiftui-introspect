@@ -4,19 +4,19 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         List {
-///             ForEach(1...3, id: \.self) { int in
-///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .iOS(.v13, .v14, .v15)) {
-///                         print(type(of: $0)) // UITableViewCell
-///                     }
-///                     .introspect(.listCell, on: .iOS(.v16, .v17, .v18)) {
-///                         print(type(of: $0)) // UICollectionViewCell
-///                     }
-///             }
-///         }
+///   var body: some View {
+///     List {
+///       ForEach(1...3, id: \.self) { int in
+///         Text("Item \(int)")
+///           .introspect(.listCell, on: .iOS(.v13, .v14, .v15)) {
+///             print(type(of: $0)) // UITableViewCell
+///           }
+///           .introspect(.listCell, on: .iOS(.v16, .v17, .v18)) {
+///             print(type(of: $0)) // UICollectionViewCell
+///           }
+///       }
 ///     }
+///   }
 /// }
 /// ```
 ///
@@ -24,16 +24,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         List {
-///             ForEach(1...3, id: \.self) { int in
-///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
-///                         print(type(of: $0)) // UITableViewCell
-///                     }
-///             }
-///         }
+///   var body: some View {
+///     List {
+///       ForEach(1...3, id: \.self) { int in
+///         Text("Item \(int)")
+///           .introspect(.listCell, on: .tvOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UITableViewCell
+///           }
+///       }
 ///     }
+///   }
 /// }
 /// ```
 ///
@@ -41,16 +41,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         List {
-///             ForEach(1...3, id: \.self) { int in
-///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
-///                         print(type(of: $0)) // NSTableCellView
-///                     }
-///             }
-///         }
+///   var body: some View {
+///     List {
+///       ForEach(1...3, id: \.self) { int in
+///         Text("Item \(int)")
+///           .introspect(.listCell, on: .macOS(.v10_15, .v11, .v12, .v13, .v14, .v15)) {
+///             print(type(of: $0)) // NSTableCellView
+///           }
+///       }
 ///     }
+///   }
 /// }
 /// ```
 ///
@@ -58,16 +58,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         List {
-///             ForEach(1...3, id: \.self) { int in
-///                 Text("Item \(int)")
-///                     .introspect(.listCell, on: .visionOS(.v1, .v2)) {
-///                         print(type(of: $0)) // UICollectionViewCell
-///                     }
-///             }
-///         }
+///   var body: some View {
+///     List {
+///       ForEach(1...3, id: \.self) { int in
+///         Text("Item \(int)")
+///           .introspect(.listCell, on: .visionOS(.v1, .v2)) {
+///             print(type(of: $0)) // UICollectionViewCell
+///           }
+///       }
 ///     }
+///   }
 /// }
 /// ```
 public struct ListCellType: IntrospectableViewType {

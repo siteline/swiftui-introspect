@@ -4,17 +4,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .fullScreenCover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .fullScreenCover(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.fullScreenCover, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UIPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -22,17 +22,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .fullScreenCover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .fullScreenCover(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.fullScreenCover, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///             print(type(of: $0)) // UIPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -44,17 +44,17 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     @State var isPresented = false
+///   @State var isPresented = false
 ///
-///     var body: some View {
-///         Button("Present", action: { isPresented = true })
-///             .fullScreenCover(isPresented: $isPresented) {
-///                 Button("Dismiss", action: { isPresented = false })
-///                     .introspect(.fullScreenCover, on: .visionOS(.v1, .v2)) {
-///                         print(type(of: $0)) // UIPresentationController
-///                     }
-///             }
-///     }
+///   var body: some View {
+///     Button("Present", action: { isPresented = true })
+///       .fullScreenCover(isPresented: $isPresented) {
+///         Button("Dismiss", action: { isPresented = false })
+///           .introspect(.fullScreenCover, on: .visionOS(.v1, .v2)) {
+///             print(type(of: $0)) // UIPresentationController
+///           }
+///       }
+///   }
 /// }
 /// ```
 public struct FullScreenCoverType: IntrospectableViewType {

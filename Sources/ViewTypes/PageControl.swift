@@ -4,16 +4,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
-///             print(type(of: $0)) // UIPageControl
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.pageControl, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///       print(type(of: $0)) // UIPageControl
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -21,16 +21,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.pageControl, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
-///             print(type(of: $0)) // UIPageControl
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.pageControl, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///       print(type(of: $0)) // UIPageControl
+///     }
+///   }
 /// }
 /// ```
 ///
@@ -42,16 +42,16 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         TabView {
-///             Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
-///             Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
-///         }
-///         .tabViewStyle(.page(indexDisplayMode: .always))
-///         .introspect(.pageControl, on: .visionOS(.v1, .v2)) {
-///             print(type(of: $0)) // UIPageControl
-///         }
+///   var body: some View {
+///     TabView {
+///       Text("Page 1").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.red)
+///       Text("Page 2").frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.blue)
 ///     }
+///     .tabViewStyle(.page(indexDisplayMode: .always))
+///     .introspect(.pageControl, on: .visionOS(.v1, .v2)) {
+///       print(type(of: $0)) // UIPageControl
+///     }
+///   }
 /// }
 /// ```
 public struct PageControlType: IntrospectableViewType {}

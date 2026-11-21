@@ -4,12 +4,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // AVPlayerViewController
-///             }
-///     }
+///   var body: some View {
+///     VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
+///       .introspect(.videoPlayer, on: .iOS(.v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // AVPlayerViewController
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -17,12 +17,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
-///                 print(type(of: $0)) // AVPlayerViewController
-///             }
-///     }
+///   var body: some View {
+///     VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
+///       .introspect(.videoPlayer, on: .tvOS(.v14, .v15, .v16, .v17, .v18)) {
+///         print(type(of: $0)) // AVPlayerViewController
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -30,12 +30,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
-///                 print(type(of: $0)) // AVPlayerView
-///             }
-///     }
+///   var body: some View {
+///     VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
+///       .introspect(.videoPlayer, on: .macOS(.v11, .v12, .v13, .v14, .v15)) {
+///         print(type(of: $0)) // AVPlayerView
+///       }
+///   }
 /// }
 /// ```
 ///
@@ -43,12 +43,12 @@
 ///
 /// ```swift
 /// struct ContentView: View {
-///     var body: some View {
-///         VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
-///             .introspect(.videoPlayer, on: .visionOS(.v1, .v2)) {
-///                 print(type(of: $0)) // AVPlayerViewController
-///             }
-///     }
+///   var body: some View {
+///     VideoPlayer(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!))
+///       .introspect(.videoPlayer, on: .visionOS(.v1, .v2)) {
+///         print(type(of: $0)) // AVPlayerViewController
+///       }
+///   }
 /// }
 /// ```
 public struct VideoPlayerType: IntrospectableViewType {}

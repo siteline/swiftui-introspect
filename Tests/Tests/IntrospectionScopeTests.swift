@@ -19,10 +19,7 @@ struct IntrospectionScopeTests {
 		#expect(entity == nil)
 
 		model.scope = .receiver
-		let start = Date()
-		while entity == nil, Date().timeIntervalSince(start) < 3 {
-			await Task.yield()
-		}
+		await poll { entity != nil }
 		#expect(entity != nil)
 	}
 

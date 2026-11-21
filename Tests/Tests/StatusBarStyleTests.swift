@@ -39,10 +39,7 @@ struct StatusBarStyleTests {
 		// A navigation controller only defers its status bar style to its top view controller while its bar is hidden.
 		navigationController.isNavigationBarHidden = true
 		window.rootViewController = navigationController
-		let start = Date()
-		while !introspected, Date().timeIntervalSince(start) < 3 {
-			await Task.yield()
-		}
+		await poll { introspected }
 		try #require(introspected)
 		try await Task.sleep(nanoseconds: 300_000_000)
 		#expect(window.windowScene?.statusBarManager?.statusBarStyle == .lightContent)

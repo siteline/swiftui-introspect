@@ -14,10 +14,7 @@ struct CustomizeTests {
 		let recorder = Recorder()
 		TestUtils.present(view: Parent(recorder: recorder))
 
-		let start = Date()
-		while !recorder.customizedGenerations.contains(1), Date().timeIntervalSince(start) < 3 {
-			await Task.yield()
-		}
+		await poll { recorder.customizedGenerations.contains(1) }
 		#expect(recorder.customizedGenerations.last == 1)
 	}
 
